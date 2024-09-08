@@ -1,42 +1,27 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --font-size-h1: 3rem;
+  --font-size-h2: 2.25rem;
+  --font-size-h3: 1.875rem;
+  --font-size-h4: 1.5rem;
+  --font-size-h5: 1.25rem;
+  --font-size-h6: 1.125rem;
+  --font-size-body-large: 1rem;
+  --font-size-body-small: 0.875rem;
+  --font-size-navbar: 1rem;
+  --font-size-button-primary: 1rem;
+  --font-size-button-secondary: 0.875rem;
+  --font-size-caption: 0.75rem;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+  --font-weight-h1: 700; /* Bold */
+  --font-weight-h2: 600; /* Semi-bold */
+  --font-weight-h3: 600; /* Semi-bold */
+  --font-weight-h4: 500; /* Medium */
+  --font-weight-h5: 500; /* Medium */
+  --font-weight-h6: 500; /* Medium */
+  --font-weight-body-large: 400; /* Regular */
+  --font-weight-body-small: 400; /* Regular */
+  --font-weight-navbar: 500; /* Medium for emphasis */
+  --font-weight-button-primary: 600; /* Semi-bold for prominence */
+  --font-weight-button-secondary: 500; /* Medium */
+  --font-weight-caption: 400; /* Regular */
 }
