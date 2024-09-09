@@ -2,23 +2,32 @@
 import { Theme } from '@/interfaces/theme'
 import React, { useEffect, createContext, useState, useContext } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
+import themes from '@/theme'
+
+const darkThemeSelector = '(prefers-color-scheme: dark)'
 
 const ThemeContext = createContext<
   [Theme, React.Dispatch<React.SetStateAction<Theme>>] | undefined
 >(undefined)
 
-export function ThemeProvider({
-  children,
-  activeTheme,
-}: {
-  children: React.ReactNode
-  activeTheme: Theme
-}) {
-  const [theme, setTheme] = useState(activeTheme)
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>(themes.light)
 
   useEffect(() => {
-    setTheme(activeTheme)
-  }, [activeTheme])
+    const prefersDarkScheme = window.matchMedia(darkThemeSelector).matches
+    setTheme(prefersDarkScheme ? themes.dark : themes.light)
+
+    const mediaQuery = window.matchMedia(darkThemeSelector)
+    const handleThemeChange = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? themes.dark : themes.light)
+    }
+
+    mediaQuery.addEventListener('change', handleThemeChange)
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleThemeChange)
+    }
+  }, [])
 
   return (
     <ThemeContext.Provider value={[theme, setTheme]}>

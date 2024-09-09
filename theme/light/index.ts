@@ -14,6 +14,7 @@ const lightTheme = {
     primary: '',
     secondary: '',
     tertiary: '',
+    black: '#000000',
   },
 }
 
