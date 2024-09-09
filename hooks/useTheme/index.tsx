@@ -4,6 +4,8 @@ import React, { useEffect, createContext, useState, useContext } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import themes from '@/theme'
 
+const darkThemeSelector = '(prefers-color-scheme: dark)'
+
 const ThemeContext = createContext<
   [Theme, React.Dispatch<React.SetStateAction<Theme>>] | undefined
 >(undefined)
@@ -12,12 +14,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(themes.light)
 
   useEffect(() => {
-    const prefersDarkScheme = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    ).matches
+    const prefersDarkScheme = window.matchMedia(darkThemeSelector).matches
     setTheme(prefersDarkScheme ? themes.dark : themes.light)
 
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const mediaQuery = window.matchMedia(darkThemeSelector)
     const handleThemeChange = (e: MediaQueryListEvent) => {
       setTheme(e.matches ? themes.dark : themes.light)
     }
