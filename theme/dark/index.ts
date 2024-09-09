@@ -14,6 +14,7 @@ const darkTheme = {
     primary: '',
     secondary: '',
     tertiary: '',
+    black: '#000000',
   },
 }
 

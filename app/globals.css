@@ -25,3 +25,8 @@
   --font-weight-button-secondary: 500; /* Medium */
   --font-weight-caption: 400; /* Regular */
 }
+
+body {
+  margin: 0;
+  font-family: var(--font-inter), sans-serif;
+}
