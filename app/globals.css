@@ -21,6 +21,7 @@
   --font-weight-body-large: 400; /* Regular */
   --font-weight-body-small: 400; /* Regular */
   --font-weight-navbar: 500; /* Medium for emphasis */
+  --font-weight-navbar-hightlight: 600; /* Semi-bold for emphasis */
   --font-weight-button-primary: 600; /* Semi-bold for prominence */
   --font-weight-button-secondary: 500; /* Medium */
   --font-weight-caption: 400; /* Regular */

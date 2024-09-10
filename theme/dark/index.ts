@@ -6,15 +6,16 @@ const darkTheme = {
     tertiary: '',
   },
   background: {
-    primary: '',
+    primary: '#211C1C',
     secondary: '',
     tertiary: '',
   },
   text: {
-    primary: '',
+    primary: '#ebe4e4',
     secondary: '',
     tertiary: '',
     black: '#000000',
+    white: '#ebe4e4',
   },
 }
 

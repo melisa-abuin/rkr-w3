@@ -6,15 +6,16 @@ const lightTheme = {
     tertiary: '',
   },
   background: {
-    primary: '',
+    primary: '#FFFFFF',
     secondary: '',
     tertiary: '',
   },
   text: {
-    primary: '',
+    primary: '#050505',
     secondary: '',
     tertiary: '',
     black: '#000000',
+    white: '#FFFFFF',
   },
 }
 

@@ -15,7 +15,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const prefersDarkScheme = window.matchMedia(darkThemeSelector).matches
-    setTheme(prefersDarkScheme ? themes.dark : themes.light)
+    setTheme(prefersDarkScheme ? themes.light : themes.light)
 
     const mediaQuery = window.matchMedia(darkThemeSelector)
     const handleThemeChange = (e: MediaQueryListEvent) => {
