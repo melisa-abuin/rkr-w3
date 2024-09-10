@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-hooks'
-import { usePreferredTheme } from '@/hooks/usePreferredTheme'
+import { renderHook } from '@testing-library/react'
+import { usePreferredTheme } from '..'
 import themes from '@/theme'
 
 function mockMatchMedia(matches: boolean) {
