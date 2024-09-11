@@ -1,26 +1,13 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Container, NavLinks, NavLink, StyledNav } from './styled'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 
 export default function Navbar() {
   const pathname = usePathname()
-  const [isAtTopPage, setIsAtTopPage] = useState(true)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      setIsAtTopPage(scrollY < 100)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  const [isAtTopPage] = useIsScrollAtTop()
 
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
 
