@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react'
 import Navbar from '..'
 import '@testing-library/jest-dom'
-import userEvent from '@testing-library/user-event'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 jest.mock('next/navigation', () => ({
