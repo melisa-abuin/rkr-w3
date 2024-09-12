@@ -4,9 +4,10 @@ const darkTheme = {
     primary: '#B24141',
     secondary: '#41B2B2',
     tertiary: '',
+    black: '#000000',
   },
   background: {
-    primary: '#211C1C',
+    primary: '#292626',
     secondary: '',
     tertiary: '',
   },
