@@ -17,12 +17,9 @@ export const BannerContainer = styled.section`
 `
 
 export const BannerContent = styled.div`
+  display: flex;
+  flex-direction: column;
   max-width: 600px;
-`
-
-export const Caption = styled.small`
-  font-size: var(--font-size-caption);
-  font-weight: var(--font-weight-caption);
 `
 
 export const Container = styled.div`
@@ -33,13 +30,18 @@ export const Container = styled.div`
   width: 100%;
 `
 
+export const DiscordDetail = styled.small`
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-size-weight-small);
+`
+
 export const Title = styled.h1`
-  font-size: 3rem;
+  font-size: var(--font-size-h1);
   margin-bottom: 1rem;
 `
 
 export const Info = styled.p`
-  font-size: 1.25rem;
+  font-size: var(--font-size-body-large);
   margin-bottom: 2rem;
 `
 // TODO: make this a button component

@@ -2,25 +2,34 @@ import Image from 'next/image'
 import {
   BannerContainer,
   BannerContent,
-  Caption,
   Colored,
   Container,
+  DiscordDetail,
   Info,
   Title,
 } from './styled'
+import { useFetch } from '@/hooks/useFetch'
+import { discordData, discordJoinLink } from '@/constants'
 
 export default function Banner() {
+  const { data, error, loading } = useFetch<{
+    approximate_member_count: string
+    approximate_presence_count: string
+  }>(discordData)
+
   return (
     <BannerContainer>
       <Container>
         <BannerContent>
           <Title>Run Kitty Run</Title>
           <Info>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            A Warcraft 3 custom map where teamwork and agility guide your
+            kitties through deadly obstacles. Can you reach the end?
+            <br />
+            <br />
+            Join us!
           </Info>
-          <Info>Join us!</Info>
-          <a href="https://discord.com/invite/cQVygqA3">
+          <a href={discordJoinLink}>
             <Image
               alt="discord invitation"
               height={53}
@@ -28,16 +37,16 @@ export default function Banner() {
               width={198}
             />
           </a>
-          <Caption>
-            <Colored>100</Colored> kitties - <Colored>30</Colored> running
-          </Caption>
+          {loading && <div>loading...</div>}
+          {data && !error && (
+            <DiscordDetail>
+              <Colored>{data?.approximate_member_count}</Colored>
+              {` kitties - `}
+              <Colored>{data?.approximate_presence_count}</Colored> running
+            </DiscordDetail>
+          )}
         </BannerContent>
-        <Image
-          src="/example-image.png"
-          alt="Example Image"
-          width={400}
-          height={300}
-        />
+        <Image src="/map.png" alt="Map Image" width={400} height={400} />
       </Container>
     </BannerContainer>
   )
