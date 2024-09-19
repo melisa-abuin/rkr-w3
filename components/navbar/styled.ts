@@ -36,6 +36,7 @@ export const StyledNav = styled.nav<NavProps>`
   box-shadow: ${({ hasTransparentStyle }) =>
     hasTransparentStyle ? 'none' : '0 4px 6px rgba(0, 0, 0, 0.1)'};
 
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   margin: 0 auto;
