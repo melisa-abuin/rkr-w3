@@ -13,7 +13,7 @@ const darkTheme = {
   },
   text: {
     primary: '#ebe4e4',
-    secondary: '',
+    secondary: '#8c8a8a',
     tertiary: '',
     black: '#000000',
     white: '#ebe4e4',

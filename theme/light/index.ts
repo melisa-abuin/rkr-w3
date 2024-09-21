@@ -13,7 +13,7 @@ const lightTheme = {
   },
   text: {
     primary: '#050505',
-    secondary: '',
+    secondary: '#6b6565',
     tertiary: '',
     black: '#000000',
     white: '#FFFFFF',
