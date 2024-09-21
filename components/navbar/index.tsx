@@ -29,13 +29,13 @@ export default function Navbar() {
             <Link href="/">Home</Link>
           </NavLink>
           <NavLink selected={pathname === '/how-to-play'}>
-            <Link href="/how-to-play">How To Play</Link>
+            <Link href="#">How To Play</Link>
           </NavLink>
           <NavLink selected={pathname === '/challenges'}>
-            <Link href="/challenges">Challenges</Link>
+            <Link href="#">Challenges</Link>
           </NavLink>
           <NavLink selected={pathname === '/leaderboard'}>
-            <Link href="/leaderboard">Leaderboard</Link>
+            <Link href="#">Leaderboard</Link>
           </NavLink>
         </NavLinks>
       </Container>
