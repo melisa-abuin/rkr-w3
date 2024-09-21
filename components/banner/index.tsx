@@ -46,7 +46,7 @@ export default function Banner() {
             </DiscordDetail>
           )}
         </BannerContent>
-        <Image src="/map.png" alt="Map Image" width={400} height={400} />
+        <Image src="/map.png" alt="Map Image" width={250} height={250} />
       </Container>
     </BannerContainer>
   )
