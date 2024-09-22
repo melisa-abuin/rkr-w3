@@ -11,7 +11,7 @@ export default function Navbar() {
   const [isAtTopPage] = useIsScrollAtTop()
   const [theme] = useTheme()
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
-  console.log(theme.name)
+
   return (
     <StyledNav hasTransparentStyle={shouldShowTransparentNav}>
       <Container>
