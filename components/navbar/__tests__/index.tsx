@@ -11,6 +11,15 @@ jest.mock('@/hooks/useIsScrollAtTop', () => ({
   useIsScrollAtTop: jest.fn(),
 }))
 
+function mockMatchMedia(matches: boolean) {
+  return jest.fn().mockImplementation((query) => ({
+    matches,
+    media: query,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  }))
+}
+
 const mockUsePathname = jest.requireMock('next/navigation').usePathname
 const mockUseIsScrollAtTop = jest.requireMock(
   '@/hooks/useIsScrollAtTop',
@@ -18,6 +27,7 @@ const mockUseIsScrollAtTop = jest.requireMock(
 
 describe('Navbar', () => {
   beforeEach(() => {
+    window.matchMedia = mockMatchMedia(false)
     mockUsePathname.mockReturnValue('/')
     mockUseIsScrollAtTop.mockReturnValue([true])
   })

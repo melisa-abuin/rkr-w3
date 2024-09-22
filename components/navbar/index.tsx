@@ -4,11 +4,12 @@ import { Container, NavLinks, NavLink, StyledNav } from './styled'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
+import { useTheme } from '@/hooks/useTheme'
 
 export default function Navbar() {
   const pathname = usePathname()
   const [isAtTopPage] = useIsScrollAtTop()
-
+  const [theme] = useTheme()
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
 
   return (
@@ -20,9 +21,9 @@ export default function Navbar() {
           src={
             shouldShowTransparentNav
               ? '/brand-icon-white.png'
-              : '/brand-icon-primary.png'
+              : `/brand-icon-${theme.name}.png`
           }
-          width={54}
+          width={64}
         />
         <NavLinks>
           <NavLink selected={pathname === '/'}>
