@@ -23,7 +23,6 @@ export const useFetch = <T>(url: string, options?: RequestInit) => {
         const data: T = await response.json()
         setState({ data, error: null, loading: false })
       } catch (error) {
-        console.log(error)
         setState({
           data: null,
           error: (error as Error).message,
