@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components'
+import { NavLink } from './desktop/styled'
 
-interface NavLinkProps {
-  selected?: boolean
-}
 interface NavProps {
   hasTransparentStyle?: boolean
 }
@@ -13,20 +11,6 @@ export const Container = styled.div`
   justify-content: space-between;
   max-width: 1000px;
   width: 100%;
-`
-
-export const NavLink = styled.li<NavLinkProps>`
-  a {
-    font-size: var(--font-size-navbar);
-    font-weight: var(
-      ${({ selected }) =>
-        selected ? '--font-weight-navbar-hightlight' : '--font-weight-navbar'}
-    );
-    text-decoration: none;
-  }
-  padding: 16px 18px;
-  border-bottom: ${({ selected, theme }) =>
-    selected ? `2px solid ${theme.text.primary}` : 'none'};
 `
 
 export const StyledNav = styled.nav<NavProps>`
@@ -57,10 +41,4 @@ export const StyledNav = styled.nav<NavProps>`
         border-bottom-color: ${theme.text.white};
       `}
   }
-`
-
-export const NavLinks = styled.ul`
-  display: flex;
-  list-style: none;
-  margin: 0;
 `
