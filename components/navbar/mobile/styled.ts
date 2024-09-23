@@ -51,6 +51,6 @@ export const CloseButton = styled.button`
   padding: 20px;
 
   & span {
-    font-size: var(--font-size-h4);
+    font-size: var(--font-size-h1);
   }
 `

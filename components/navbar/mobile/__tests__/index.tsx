@@ -35,20 +35,19 @@ describe('MobileNavbar', () => {
   })
 
   it('renders the hamburger menu icon and opens the menu', async () => {
-    const user = userEvent.setup()
     renderWithTheme(<MobileNavbar />)
 
     const menuIcon = screen.getByAltText('hamburger menu')
     expect(menuIcon).toBeInTheDocument()
 
-    await user.click(menuIcon)
+    await userEvent.click(menuIcon)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('How To Play')).toBeInTheDocument()
     expect(screen.getByText('Challenges')).toBeInTheDocument()
     expect(screen.getByText('Leaderboard')).toBeInTheDocument()
 
-    await user.click(screen.getByLabelText('Close modal'))
+    await userEvent.click(screen.getByLabelText('Close modal'))
     expect(screen.queryByText('Home')).not.toBeInTheDocument()
   })
 })

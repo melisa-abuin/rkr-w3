@@ -14,12 +14,22 @@ export const BannerContainer = styled.section`
       )
   `};
   color: ${({ theme }) => theme.text.white};
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+  }
 `
 
 export const BannerContent = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 600px;
+
+  @media (max-width: 480px) {
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
 `
 
 export const Container = styled.div`
@@ -28,11 +38,20 @@ export const Container = styled.div`
   justify-content: space-between;
   max-width: 1000px;
   width: 100%;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
 export const DiscordDetail = styled.small`
+  display: inline;
   font-size: var(--font-size-body-small);
   font-weight: var(--font-size-weight-small);
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `
 
 export const Title = styled.h1`
@@ -43,18 +62,9 @@ export const Title = styled.h1`
 export const Info = styled.p`
   font-size: var(--font-size-body-large);
   margin-bottom: 2rem;
-`
-// TODO: make this a button component
-export const Button = styled.button`
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #005bb5;
+
+  @media (max-width: 480px) {
+    display: none;
   }
 `
 
