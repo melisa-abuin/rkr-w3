@@ -1,10 +1,11 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { Container, NavLinks, NavLink, StyledNav } from './styled'
+import { Container, StyledNav } from './styled'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
+import DesktopNavbar from './desktop'
+import MobileNavbar from './mobile'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -25,20 +26,8 @@ export default function Navbar() {
           }
           width={64}
         />
-        <NavLinks>
-          <NavLink selected={pathname === '/'}>
-            <Link href="/">Home</Link>
-          </NavLink>
-          <NavLink selected={pathname === '/how-to-play'}>
-            <Link href="#">How To Play</Link>
-          </NavLink>
-          <NavLink selected={pathname === '/challenges'}>
-            <Link href="#">Challenges</Link>
-          </NavLink>
-          <NavLink selected={pathname === '/leaderboard'}>
-            <Link href="#">Leaderboard</Link>
-          </NavLink>
-        </NavLinks>
+        <DesktopNavbar />
+        <MobileNavbar />
       </Container>
     </StyledNav>
   )
