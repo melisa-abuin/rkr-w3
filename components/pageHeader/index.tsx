@@ -1,0 +1,15 @@
+import { Info, Title } from './styled'
+
+export default function PageHeader() {
+  return (
+    <header>
+      <Title>How to play</Title>
+      <Info>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </Info>
+    </header>
+  )
+}

@@ -6,3 +6,22 @@ export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
+
+export const routes = {
+  home: {
+    label: 'Home',
+    url: '/',
+  },
+  howToPlay: {
+    label: 'How To Play',
+    url: '/how-to-play',
+  },
+  challenges: {
+    label: 'Challenges',
+    url: '#',
+  },
+  leaderboard: {
+    label: 'Leaderboard',
+    url: '#',
+  },
+}

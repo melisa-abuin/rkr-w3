@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
 import { useState } from 'react'
+import { routes } from '@/constants'
 
 export default function MobileNavbar() {
   const pathname = usePathname()
@@ -43,26 +44,13 @@ export default function MobileNavbar() {
           <span aria-hidden="true">&times;</span>
         </CloseButton>
         <NavLinks>
-          <NavLink selected={pathname === '/'}>
-            <Link href="/" onClick={() => setIsMenuOpen(false)}>
-              Home
-            </Link>
-          </NavLink>
-          <NavLink selected={pathname === '/how-to-play'}>
-            <Link href="#" onClick={() => setIsMenuOpen(false)}>
-              How To Play
-            </Link>
-          </NavLink>
-          <NavLink selected={pathname === '/challenges'}>
-            <Link href="#" onClick={() => setIsMenuOpen(false)}>
-              Challenges
-            </Link>
-          </NavLink>
-          <NavLink selected={pathname === '/leaderboard'}>
-            <Link href="#" onClick={() => setIsMenuOpen(false)}>
-              Leaderboard
-            </Link>
-          </NavLink>
+          {Object.values(routes).map((route) => (
+            <NavLink key={route.label} selected={pathname === route.url}>
+              <Link href={route.url} onClick={() => setIsMenuOpen(false)}>
+                {route.label}
+              </Link>
+            </NavLink>
+          ))}
         </NavLinks>
       </MobileMenu>
     </Container>

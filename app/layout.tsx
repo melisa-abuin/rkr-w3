@@ -43,13 +43,13 @@ export default function RootLayout({
         />
         <meta property="og:type" content="website" />
       </head>
-      <body className={inter.variable}>
-        <ThemeProvider>
+      <ThemeProvider>
+        <body className={inter.variable}>
           <Navbar />
           {children}
           <Footer />
-        </ThemeProvider>
-      </body>
+        </body>
+      </ThemeProvider>
     </html>
   )
 }

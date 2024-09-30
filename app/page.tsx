@@ -5,11 +5,9 @@ import Columns from '@/components/columns'
 
 export default function Home() {
   return (
-    <>
-      <main>
-        <Banner />
-        <Columns />
-      </main>
-    </>
+    <main>
+      <Banner />
+      <Columns />
+    </main>
   )
 }
