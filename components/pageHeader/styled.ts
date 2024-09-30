@@ -1,15 +1,26 @@
 import styled from 'styled-components'
 
-export const Title = styled.h1`
-  font-size: var(--font-size-h1);
-  margin-bottom: 1rem;
+export const Header = styled.header`
+  align-items: center;
+  background-color: ${({ theme }) => theme.background.primary};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 6rem;
 `
 
 export const Info = styled.p`
+  color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-body-large);
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 
-  @media (max-width: 480px) {
-    display: none;
-  }
+  max-width: 1000px;
+  text-align: center;
+  width: 100%;
+`
+
+export const Title = styled.h1`
+  color: ${({ theme }) => theme.text.primary};
+  font-size: var(--font-size-h1);
+  margin-bottom: 1rem;
 `

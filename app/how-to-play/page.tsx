@@ -1,5 +1,11 @@
 'use client'
 
+import PageHeader from '@/components/pageHeader'
+
 export default function HowToPlay() {
-  return <main>how to play</main>
+  return (
+    <main>
+      <PageHeader />
+    </main>
+  )
 }

@@ -1,8 +1,8 @@
-import { Info, Title } from './styled'
+import { Header, Info, Title } from './styled'
 
 export default function PageHeader() {
   return (
-    <header>
+    <Header>
       <Title>How to play</Title>
       <Info>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -10,6 +10,6 @@ export default function PageHeader() {
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
         commodo consequat.
       </Info>
-    </header>
+    </Header>
   )
 }
