@@ -27,11 +27,11 @@ describe('DesktopNavbar', () => {
   })
 
   it('applies the selected style to the current page link', () => {
-    mockUsePathname.mockReturnValue('/challenges')
+    mockUsePathname.mockReturnValue('/')
 
     renderWithTheme(<DesktopNavbar />)
 
-    const challengesLink = screen.getByText('Challenges')
+    const challengesLink = screen.getByText('Home')
     const styles = getComputedStyle(challengesLink.parentElement!)
 
     expect(styles.borderBottom).toBe('2px solid #050505')
