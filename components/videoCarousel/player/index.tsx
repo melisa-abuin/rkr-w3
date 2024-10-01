@@ -1,9 +1,17 @@
 import { Video } from './styled'
 
-export default function Player() {
+interface Props {
+  videoUrl?: string
+}
+
+export default function Player({ videoUrl }: Props) {
+  if (!videoUrl) {
+    return null
+  }
+
   return (
     <Video autoPlay loop muted>
-      <source src="/camera-angle.mp4" type="video/mp4" />
+      <source src={videoUrl} type="video/mp4" />
     </Video>
   )
 }
