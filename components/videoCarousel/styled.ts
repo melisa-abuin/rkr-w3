@@ -1,42 +1,8 @@
-import { Theme } from '@/interfaces/theme'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 interface ButtonProps {
   active?: boolean
 }
-
-const borderAnimation = (theme: Theme) => keyframes`
-  0% {
-    border-top-color: ${theme.text.primary};
-    border-right-color: ${theme.color.secondary};
-    border-bottom-color: ${theme.color.secondary};
-    border-left-color: ${theme.color.secondary};
-  }
-  25% {
-    border-top-color: ${theme.color.secondary};
-    border-right-color: ${theme.text.primary};
-    border-bottom-color: ${theme.color.secondary};
-    border-left-color: ${theme.color.secondary};
-  }
-  50% {
-    border-top-color: ${theme.color.secondary};
-    border-right-color: ${theme.color.secondary};
-    border-bottom-color: ${theme.text.primary};
-    border-left-color: ${theme.color.secondary};
-  }
-  75% {
-    border-top-color: ${theme.color.secondary};
-    border-right-color: ${theme.color.secondary};
-    border-bottom-color: ${theme.color.secondary};
-    border-left-color: ${theme.text.primary};
-  }
-  100% {
-    border-top-color: ${theme.color.secondary};
-    border-right-color: ${theme.color.secondary};
-    border-bottom-color: ${theme.color.secondary};
-    border-left-color: ${theme.color.secondary};
-  }
-`
 
 export const Button = styled.button<ButtonProps>`
   background: none;
@@ -45,11 +11,6 @@ export const Button = styled.button<ButtonProps>`
       active ? theme.color.secondary : theme.text.primary};
   cursor: pointer;
   padding: 20px;
-
-  &:focus {
-    outline: none;
-    animation: ${({ theme }) => borderAnimation(theme)} 1s linear infinite;
-  }
 `
 
 export const Container = styled.section`

@@ -5,10 +5,8 @@ export default function PageHeader() {
     <Header>
       <Title>How to play</Title>
       <Info>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
+        Race to the finish, dodge the relentless wolves, and rescue your fellow
+        kitties from their clutches along the way!
       </Info>
     </Header>
   )

@@ -46,7 +46,7 @@ export const tricks = [
   {
     alt: 'Center camera trick button',
     icon: 'camera-center',
-    text: 'Press F1 to center the camera in your Kitty.',
+    text: 'Press F1 or spacebar to center the camera in your Kitty.',
     videoUrl: '/camera-angle.mp4',
   },
 ] as const
