@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Player from './player'
 import { Button, Container, IconsContainer, Info, Title } from './styled'
 import { tricks } from '@/constants'
@@ -7,7 +7,10 @@ import Icon from './icon'
 export default function VideoCarousel() {
   const [selectedVideo, setSelectedVideo] = useState(0)
 
-  const selectedTrick = tricks.find((_trick, index) => selectedVideo === index)
+  const selectedTrick = useMemo(
+    () => tricks.find((_trick, index) => selectedVideo === index),
+    [selectedVideo],
+  )
 
   return (
     <Container aria-labelledby="videos-title">

@@ -6,6 +6,7 @@ export const Header = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 1rem;
   padding-top: 6rem;
 `
 

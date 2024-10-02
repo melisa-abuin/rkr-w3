@@ -25,6 +25,7 @@ export const Container = styled.section`
 export const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   padding-top: 1rem;
@@ -41,7 +42,7 @@ export const Info = styled.p`
 `
 
 export const Title = styled.h2`
-  font-size: 2rem;
+  font-size: var(--font-size-h2);
   font-weight: bold;
   color: ${({ theme }) => theme.text.primary};
   margin-bottom: 3rem;
