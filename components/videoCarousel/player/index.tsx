@@ -19,7 +19,7 @@ export default function Player({ videoUrl }: Props) {
   }
 
   return (
-    <Video autoPlay loop muted ref={videoRef}>
+    <Video autoPlay loop muted ref={videoRef} role="video">
       <source src={videoUrl} type="video/mp4" />
     </Video>
   )
