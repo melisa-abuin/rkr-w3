@@ -8,12 +8,12 @@ const darkTheme = {
   },
   background: {
     primary: '#292626',
-    secondary: '',
+    secondary: '#1a4747',
     tertiary: '',
   },
   text: {
     primary: '#ebe4e4',
-    secondary: '#8c8a8a',
+    secondary: '#9c9a9a',
     tertiary: '',
     black: '#000000',
     white: '#ebe4e4',

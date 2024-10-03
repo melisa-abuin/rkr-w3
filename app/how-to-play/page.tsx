@@ -1,13 +1,13 @@
 'use client'
 
+import PageHeader from '@/components/pageHeader'
+import VideoCarousel from '@/components/videoCarousel'
+
 export default function HowToPlay() {
   return (
-    <div>
-      <main>
-        how to play page
-        <p>here the tricks, commands etc will be listed</p>
-      </main>
-      <footer>footer</footer>
-    </div>
+    <main>
+      <PageHeader />
+      <VideoCarousel />
+    </main>
   )
 }
