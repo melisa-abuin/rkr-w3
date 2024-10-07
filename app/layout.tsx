@@ -31,8 +31,7 @@ export default function RootLayout({
           name="keywords"
           content="Warcraft 3, custom map, Run Kitty Run, strategy, co-op game, multiplayer"
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-
+        <meta name="robots" content="index, follow" />
         <meta
           property="og:title"
           content="Run Kitty Run - Warcraft 3 Custom Map"
@@ -42,6 +41,17 @@ export default function RootLayout({
           content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
         />
         <meta property="og:type" content="website" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charSet="UTF-8" />
+        <meta property="og:image" content="/map.png" />
+
+        <link
+          rel="sitemap"
+          type="application/xml"
+          href="https://rkr-w3.vercel.app/sitemap.xml"
+        />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="canonical" href="https://rkr-w3.vercel.app" />
       </head>
       <ThemeProvider>
         <body className={inter.variable}>
