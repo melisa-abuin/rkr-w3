@@ -44,7 +44,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charSet="UTF-8" />
         <meta property="og:image" content="/map.png" />
-
+        <meta
+          name="google-site-verification"
+          content="4BStbCZAJGxWyjIjzPF8D807sohjzI8OtB7UwrDIz-o"
+        />
         <link
           rel="sitemap"
           type="application/xml"
