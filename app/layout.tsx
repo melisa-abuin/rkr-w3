@@ -25,8 +25,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           name="keywords"
           content="Warcraft 3, custom map, Run Kitty Run, strategy, co-op game, multiplayer"
@@ -41,7 +39,6 @@ export default function RootLayout({
           content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
         />
         <meta property="og:type" content="website" />
-        <meta charSet="UTF-8" />
         <meta property="og:image" content="/map.png" />
         <meta
           name="google-site-verification"
