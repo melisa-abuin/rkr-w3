@@ -41,13 +41,28 @@ export default function RootLayout({
           content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
         />
         <meta property="og:type" content="website" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charSet="UTF-8" />
         <meta property="og:image" content="/map.png" />
         <meta
           name="google-site-verification"
           content="4BStbCZAJGxWyjIjzPF8D807sohjzI8OtB7UwrDIz-o"
         />
+        <meta
+          name="twitter:card"
+          content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
+        />
+        <meta name="author" content="Warcraft 3 Custom Maps Community" />
+        <meta
+          name="keywords"
+          content="runkittyrun, rkr, warcraft3, reforged, map, coop, strategy, multiplayer"
+        />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="page-topic" content="Game" />
+        <meta name="page-type" content="Software Download" />
+        <meta http-equiv="content-language" content="en" />
+        <meta name="audience" content="Alle" />
+
+        <link rel="shortcut icon" href="/map.png" />
         <link
           rel="sitemap"
           type="application/xml"
