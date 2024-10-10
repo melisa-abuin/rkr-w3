@@ -39,7 +39,7 @@ export default function RootLayout({
           content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="/map.png" />
+        <meta property="og:image" content="https://rkr-w3.vercel.app/map.png" />
         <meta
           name="google-site-verification"
           content="4BStbCZAJGxWyjIjzPF8D807sohjzI8OtB7UwrDIz-o"
@@ -59,7 +59,7 @@ export default function RootLayout({
         <meta http-equiv="content-language" content="en" />
         <meta name="audience" content="Alle" />
 
-        <link rel="shortcut icon" href="/map.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link
           rel="sitemap"
           type="application/xml"
