@@ -48,6 +48,10 @@ export default function RootLayout({
           name="twitter:card"
           content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
         />
+        <meta
+          name="twitter:image"
+          content="https://rkr-w3.vercel.app/map.png"
+        />
         <meta name="author" content="Warcraft 3 Custom Maps Community" />
         <meta
           name="keywords"
