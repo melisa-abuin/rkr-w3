@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import {
   BannerContainer,
@@ -8,15 +10,15 @@ import {
   Info,
   Title,
 } from './styled'
-import { useFetch } from '@/hooks/useFetch'
-import { discordData, discordJoinLink } from '@/constants'
+import { discordJoinLink } from '@/constants'
+import { DiscordData } from '@/interfaces/discord'
 
-export default function Banner() {
-  const { data, error, loading } = useFetch<{
-    approximate_member_count: string
-    approximate_presence_count: string
-  }>(discordData)
+interface Props {
+  discordData: DiscordData
+}
 
+export default function Banner({ discordData }: Props) {
+  const { data, error } = discordData
   return (
     <BannerContainer>
       <Container>
@@ -33,20 +35,34 @@ export default function Banner() {
             <Image
               alt="discord invitation"
               height={53}
+              loading="eager"
+              priority={true}
               src="/discord.png"
               width={198}
             />
           </a>
-          {loading && <div>loading...</div>}
+
           {data && !error && (
             <DiscordDetail>
-              <Colored>{data?.approximate_member_count}</Colored>
-              {` kitties - `}
-              <Colored>{data?.approximate_presence_count}</Colored> running
+              {data && (
+                <>
+                  <Colored>{data?.approximateMemberCount}</Colored>
+                  {` kitties - `}
+                  <Colored>{data?.approximatePresenceCount}</Colored> running
+                </>
+              )}
+              {error && <>There was an issue while fetching discord data</>}
             </DiscordDetail>
           )}
         </BannerContent>
-        <Image src="/map.png" alt="Map Image" width={250} height={250} />
+        <Image
+          alt="Map Image"
+          height={250}
+          loading="eager"
+          priority={true}
+          src="/map.png"
+          width={250}
+        />
       </Container>
     </BannerContainer>
   )

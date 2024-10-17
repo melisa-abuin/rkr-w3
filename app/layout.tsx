@@ -60,10 +60,10 @@ export default function RootLayout({
           name="keywords"
           content="runkittyrun, rkr, warcraft3, reforged, map, coop, strategy, multiplayer"
         />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="page-topic" content="Game" />
         <meta name="page-type" content="Software Download" />
-        <meta http-equiv="content-language" content="en" />
+        <meta httpEquiv="content-language" content="en" />
         <meta name="audience" content="Alle" />
 
         <link rel="shortcut icon" href="/favicon.ico" />
