@@ -33,6 +33,8 @@ export default function Banner() {
             <Image
               alt="discord invitation"
               height={53}
+              loading="eager"
+              priority={true}
               src="/discord.png"
               width={198}
             />
@@ -46,7 +48,14 @@ export default function Banner() {
             </DiscordDetail>
           )}
         </BannerContent>
-        <Image src="/map.png" alt="Map Image" width={250} height={250} />
+        <Image
+          alt="Map Image"
+          height={250}
+          loading="eager"
+          priority={true}
+          src="/map.png"
+          width={250}
+        />
       </Container>
     </BannerContainer>
   )
