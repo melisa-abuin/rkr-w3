@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import {
   BannerContainer,
@@ -8,15 +10,15 @@ import {
   Info,
   Title,
 } from './styled'
-import { useFetch } from '@/hooks/useFetch'
-import { discordData, discordJoinLink } from '@/constants'
+import { discordJoinLink } from '@/constants'
+import { DiscordData } from '@/interfaces/discord'
 
-export default function Banner() {
-  const { data, error, loading } = useFetch<{
-    approximate_member_count: string
-    approximate_presence_count: string
-  }>(discordData)
+interface Props {
+  discordData: DiscordData
+}
 
+export default function Banner({ discordData }: Props) {
+  const { data, error } = discordData
   return (
     <BannerContainer>
       <Container>
@@ -39,12 +41,17 @@ export default function Banner() {
               width={198}
             />
           </a>
-          {loading && <div>loading...</div>}
+
           {data && !error && (
             <DiscordDetail>
-              <Colored>{data?.approximate_member_count}</Colored>
-              {` kitties - `}
-              <Colored>{data?.approximate_presence_count}</Colored> running
+              {data && (
+                <>
+                  <Colored>{data?.approximateMemberCount}</Colored>
+                  {` kitties - `}
+                  <Colored>{data?.approximatePresenceCount}</Colored> running
+                </>
+              )}
+              {error && <>There was an issue while fetching discord data</>}
             </DiscordDetail>
           )}
         </BannerContent>
