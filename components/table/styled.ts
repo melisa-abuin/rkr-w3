@@ -11,6 +11,7 @@ export const Container = styled.section`
 `
 
 export const StyledTable = styled.table`
+  max-width: 1000px;
   width: 100%;
   border-collapse: collapse;
 

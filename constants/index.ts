@@ -90,8 +90,8 @@ export const mockApiData = [
   },
   {
     BattleTag: 'Alex#76923',
-    Saves: 1400,
-    Deaths: 850,
+    Saves: 0,
+    Deaths: 0,
     'Normal Games': 28,
     'Hard Games': 21,
     'Impossible Games': 11,

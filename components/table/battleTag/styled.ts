@@ -6,14 +6,13 @@ export const Container = styled.div`
 `
 
 export const Title = styled.p`
-  font-size: var(--font-size-md);
-  font-weight: bold;
-  color: ${({ theme }) => theme.text.primary};
-  margin-bottom: 3rem;
+  color: ${({ theme }) => theme.color.secondary};
+  font-size: var(--font-size-sm-md);
+  font-weight: var(--font-weight-bold);
+  margin-bottom 2px;
 `
 export const SubTitle = styled.p`
+  color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs);
-  font-weight: bold;
-  color: ${({ theme }) => theme.text.primary};
-  margin-bottom: 3rem;
+  font-weight: var(--font-weight-semi-bold);
 `
