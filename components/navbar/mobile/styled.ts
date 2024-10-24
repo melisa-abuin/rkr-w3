@@ -14,10 +14,12 @@ export const Container = styled.div`
 
 export const NavLink = styled.li<NavLinkProps>`
   a {
-    font-size: var(--font-size-navbar);
+    font-size: var(--font-size-xs-sm);
     font-weight: var(
       ${({ selected }) =>
-        selected ? '--font-weight-navbar-hightlight' : '--font-weight-navbar'}
+        selected
+          ? '--font-weight-semi-bold-hightlight'
+          : '--font-weight-semi-bold'}
     );
     text-decoration: none;
   }
@@ -51,6 +53,6 @@ export const CloseButton = styled.button`
   padding: 20px;
 
   & span {
-    font-size: var(--font-size-h1);
+    font-size: var(--font-size-xl);
   }
 `

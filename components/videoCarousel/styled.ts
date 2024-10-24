@@ -33,7 +33,7 @@ export const IconsContainer = styled.div`
 
 export const Info = styled.p`
   color: ${({ theme }) => theme.text.primary};
-  font-size: var(--font-size-body-large);
+  font-size: var(--font-size-xs-sm);
   margin-bottom: 4rem;
 
   max-width: 600px;
@@ -42,7 +42,7 @@ export const Info = styled.p`
 `
 
 export const Title = styled.h2`
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-lg);
   font-weight: bold;
   color: ${({ theme }) => theme.text.primary};
   margin-bottom: 3rem;

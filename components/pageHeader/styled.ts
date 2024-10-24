@@ -12,7 +12,7 @@ export const Header = styled.header`
 
 export const Info = styled.p`
   color: ${({ theme }) => theme.text.secondary};
-  font-size: var(--font-size-body-large);
+  font-size: var(--font-size-xs-sm);
   margin-bottom: 4rem;
 
   max-width: 1000px;
@@ -22,6 +22,6 @@ export const Info = styled.p`
 
 export const Title = styled.h1`
   color: ${({ theme }) => theme.text.primary};
-  font-size: var(--font-size-h1);
+  font-size: var(--font-size-xl);
   margin-bottom: 1rem;
 `
