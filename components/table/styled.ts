@@ -42,7 +42,7 @@ export const StyledTd = styled.td`
 `
 
 export const Title = styled.caption`
-  font-size: var(--font-size-h3);
+  font-size: var(--font-size-md-lg);
   font-weight: bold;
   color: ${({ theme }) => theme.text.primary};
   margin-bottom: 3rem;

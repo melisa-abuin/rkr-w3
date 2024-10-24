@@ -8,6 +8,7 @@ import {
   Title,
 } from './styled'
 import { PlayersStats } from '@/interfaces/player'
+import BattleTag from './battleTag'
 
 interface TableProps {
   data: PlayersStats | null
@@ -28,7 +29,9 @@ export default function Table(data: TableProps) {
         <tbody>
           {data?.data?.map((player, index) => (
             <tr key={index}>
-              <StyledTd data-label="Player">{player.name}</StyledTd>
+              <StyledTd data-label="Player">
+                <BattleTag battletag={player.battletag} />
+              </StyledTd>
               <StyledTd data-label="Saves">{player.saves}</StyledTd>
               <StyledTd data-label="Deaths">{player.deaths}</StyledTd>
             </tr>
