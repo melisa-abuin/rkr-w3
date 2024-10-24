@@ -10,7 +10,7 @@ export const BannerContainer = styled.section`
     linear-gradient(
       180deg,
       ${theme.color.primary} 0%,
-      ${theme.color.black} 100%
+      #441111 100%
       )
   `};
   color: ${({ theme }) => theme.text.white};

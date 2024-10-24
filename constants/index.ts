@@ -16,6 +16,10 @@ export const routes = {
     label: 'How To Play',
     url: '/how-to-play',
   },
+  leaderboard: {
+    label: 'Leaderboard',
+    url: '/leaderboard',
+  },
   download: {
     label: 'Download v4.3.4',
     url: 'https://www.epicwar.com/maps/339864/',

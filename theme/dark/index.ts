@@ -9,7 +9,7 @@ const darkTheme = {
   background: {
     primary: '#292626',
     secondary: '#1a4747',
-    tertiary: '',
+    tertiary: '#392a2a',
   },
   text: {
     primary: '#ebe4e4',
