@@ -13,7 +13,7 @@ export default async function handler(
     if (!apiKey) {
       throw new Error()
     }
-    // replace with api call
+
     const response = await fetch(apiKey, {
       method: 'GET',
       headers: {
@@ -27,7 +27,6 @@ export default async function handler(
       const newObject: ObjectKey = {}
 
       Object.entries(elem).map(([key, value]) => {
-        console.log(key, value)
         const newKey = key.toLowerCase().replace(/ : /g, ' ').replace(/ /g, '_')
         newObject[newKey] = value
       })
