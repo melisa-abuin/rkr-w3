@@ -1,4 +1,3 @@
-import { mockApiData } from '@/constants'
 import { PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -22,8 +21,6 @@ export default async function handler(
       },
     })
     const data = await response.json()
-
-    //const data = mockApiData
 
     // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data.map((elem: PlayerStats) => {
