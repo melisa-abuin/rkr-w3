@@ -15,8 +15,21 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   font-family: var(--font-inter), sans-serif;
+  min-height: 100vh;
+}
+
+html {
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 * {

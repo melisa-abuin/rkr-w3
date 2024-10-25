@@ -17,7 +17,6 @@ interface TableProps {
 }
 
 export default function Table(data: TableProps) {
-  console.log(data)
   return (
     <Container aria-labelledby="scoreboard-title">
       <StyledTable role="table" aria-label="Player Stats">
