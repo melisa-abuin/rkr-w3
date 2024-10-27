@@ -6,6 +6,7 @@ import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
 import DesktopNavbar from './desktop'
 import MobileNavbar from './mobile'
+import Link from 'next/link'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -16,16 +17,18 @@ export default function Navbar() {
   return (
     <StyledNav hasTransparentStyle={shouldShowTransparentNav}>
       <Container>
-        <Image
-          alt="brand logo"
-          height={54}
-          src={
-            shouldShowTransparentNav
-              ? '/brand-icon-white.png'
-              : `/brand-icon-${theme.name}.png`
-          }
-          width={64}
-        />
+        <Link href="/">
+          <Image
+            alt="brand logo"
+            height={54}
+            src={
+              shouldShowTransparentNav
+                ? '/brand-icon-white.png'
+                : `/brand-icon-${theme.name}.png`
+            }
+            width={64}
+          />
+        </Link>
         <DesktopNavbar />
         <MobileNavbar />
       </Container>

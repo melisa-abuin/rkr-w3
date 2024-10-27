@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const apiKey = process.env.NEXT_PUBLIC_API_KEY
+  const apiKey = process.env.API_KEY
 
   try {
     if (!apiKey) {
