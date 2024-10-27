@@ -11,7 +11,7 @@ import {
 } from './styled'
 import Image from 'next/image'
 
-const Columns = () => {
+export default function Columns() {
   return (
     <ColumnsContainer aria-labelledby="columns-title">
       <ColumnsTitle id="columns-title">Discover the map</ColumnsTitle>
@@ -61,5 +61,3 @@ const Columns = () => {
     </ColumnsContainer>
   )
 }
-
-export default Columns

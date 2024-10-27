@@ -10,6 +10,7 @@ const darkTheme = {
     primary: '#292626',
     secondary: '#1a4747',
     tertiary: '#392a2a',
+    quaternary: '#373131',
   },
   text: {
     primary: '#ebe4e4',
