@@ -1,36 +1,35 @@
 :root {
-  --font-size-h1: 3rem;
-  --font-size-h2: 2.25rem;
-  --font-size-h3: 1.875rem;
-  --font-size-h4: 1.5rem;
-  --font-size-h5: 1.25rem;
-  --font-size-h6: 1.125rem;
-  --font-size-body-large: 1rem;
-  --font-size-body-small: 0.875rem;
-  --font-size-navbar: 1rem;
-  --font-size-button-primary: 1rem;
-  --font-size-button-secondary: 0.875rem;
-  --font-size-caption: 0.75rem;
+  --font-size-xl: 3rem; /* Extra Large */
+  --font-size-lg: 2.25rem; /* Large */
+  --font-size-md-lg: 1.875rem; /* Medium-Large */
+  --font-size-md: 1.5rem; /* Medium */
+  --font-size-sm-md: 1.25rem; /* Small-Medium */
+  --font-size-sm: 1.125rem; /* Small */
+  --font-size-xs-sm: 1rem; /* Small-Extra Small */
+  --font-size-xs: 0.875rem; /* Extra Small */
 
-  --font-weight-h1: 700; /* Bold */
-  --font-weight-h2: 600; /* Semi-bold */
-  --font-weight-h3: 600; /* Semi-bold */
-  --font-weight-h4: 500; /* Medium */
-  --font-weight-h5: 500; /* Medium */
-  --font-weight-h6: 500; /* Medium */
-  --font-weight-semi-bold: 600; /* Regular */
-  --font-weight-body-large: 400; /* Regular */
-  --font-weight-body-small: 400; /* Regular */
-  --font-weight-navbar: 500; /* Medium for emphasis */
-  --font-weight-navbar-hightlight: 600; /* Semi-bold for emphasis */
-  --font-weight-button-primary: 600; /* Semi-bold for prominence */
-  --font-weight-button-secondary: 500; /* Medium */
-  --font-weight-caption: 400; /* Regular */
+  --font-weight-bold: 700; /* Bold */
+  --font-weight-semi-bold: 600; /* Semi-bold */
+  --font-weight-medium: 500; /* Medium */
+  --font-weight-regular: 400; /* Regular */
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   margin: 0;
   font-family: var(--font-inter), sans-serif;
+  min-height: 100vh;
+}
+
+html {
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 * {

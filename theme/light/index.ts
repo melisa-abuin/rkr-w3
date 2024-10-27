@@ -3,13 +3,13 @@ const lightTheme = {
   color: {
     primary: '#B24141',
     secondary: '#41B2B2',
-    tertiary: '',
+    tertiary: '#441111',
     black: '#000000',
   },
   background: {
     primary: '#FFFFFF',
     secondary: '#b1e2e2',
-    tertiary: '',
+    tertiary: '#ffe0e0',
   },
   text: {
     primary: '#050505',

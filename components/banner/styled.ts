@@ -10,7 +10,7 @@ export const BannerContainer = styled.section`
     linear-gradient(
       180deg,
       ${theme.color.primary} 0%,
-      ${theme.color.black} 100%
+      ${theme.color.tertiary} 100%
       )
   `};
   color: ${({ theme }) => theme.text.white};
@@ -46,7 +46,7 @@ export const Container = styled.div`
 
 export const DiscordDetail = styled.small`
   display: inline;
-  font-size: var(--font-size-body-small);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-size-weight-small);
 
   @media (max-width: 480px) {
@@ -55,12 +55,12 @@ export const DiscordDetail = styled.small`
 `
 
 export const Title = styled.h1`
-  font-size: var(--font-size-h1);
+  font-size: var(--font-size-xl);
   margin-bottom: 1rem;
 `
 
 export const Info = styled.p`
-  font-size: var(--font-size-body-large);
+  font-size: var(--font-size-xs-sm);
   margin-bottom: 2rem;
 
   @media (max-width: 480px) {
