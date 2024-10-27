@@ -19,14 +19,14 @@ export const StyledTable = styled.table`
   caption {
     text-align: left;
     padding: 10px;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
   }
 `
 
 export const StyledTh = styled.th`
   padding: 10px;
   text-align: left;
-  font-weight: bold;
+  font-weight: var(--font-weight-bold);
 `
 
 export const StyledTr = styled.tr`

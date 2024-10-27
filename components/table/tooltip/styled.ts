@@ -28,7 +28,7 @@ export const StyledTooltip = styled.div`
     }
 
     td:first-child {
-      font-weight: bold;
+      font-weight: var(--font-weight-bold);
     }
   }
 `

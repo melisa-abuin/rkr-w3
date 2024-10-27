@@ -11,6 +11,7 @@ export const Title = styled.p`
   font-weight: var(--font-weight-bold);
   margin-bottom 2px;
 `
+
 export const SubTitle = styled.p`
   color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs);
