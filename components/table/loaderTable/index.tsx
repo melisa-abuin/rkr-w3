@@ -8,6 +8,7 @@ export default function LoaderTable() {
         <tr key={rowIndex}>
           {[...Array(10)].map((_, cellIndex) => (
             <StyledTd key={cellIndex}>
+              <br />
               <Loader height={20} />
             </StyledTd>
           ))}

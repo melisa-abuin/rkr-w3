@@ -3,7 +3,7 @@ const darkTheme = {
   color: {
     primary: '#B24141',
     secondary: '#41B2B2',
-    tertiary: '',
+    tertiary: '#441111',
     black: '#000000',
   },
   background: {
