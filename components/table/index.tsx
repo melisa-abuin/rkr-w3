@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import {
   StyledTable,
@@ -15,10 +17,10 @@ import LoaderTable from './loaderTable'
 
 interface TableProps {
   data: PlayersStats | null
-  loading: boolean
+  loading?: boolean
 }
 
-export default function Table(data: TableProps) {
+export default function Table({ data, loading = false }: TableProps) {
   //TODO: make this table agnostic to tr data and split data in time and s/d
   return (
     <Container aria-labelledby="scoreboard-title">
@@ -38,11 +40,11 @@ export default function Table(data: TableProps) {
             <StyledTh scope="col">Best R5 Times</StyledTh>
           </StyledTr>
         </thead>
-        {data.loading ? (
+        {loading ? (
           <LoaderTable />
         ) : (
           <tbody>
-            {data?.data?.map((player, index) => (
+            {data?.map((player, index) => (
               <tr key={index}>
                 <StyledTd data-label="Player">
                   <BattleTag battletag={player.battletag} />

@@ -2,6 +2,9 @@ import Banner from '@/components/banner'
 import Columns from '@/components/columns'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
+import { ThemeProvider } from '@/hooks/useTheme'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {
@@ -31,9 +34,13 @@ export default async function Home() {
   const data = await getDiscordData()
 
   return (
-    <main>
-      <Banner discordData={data} />
-      <Columns />
-    </main>
+    <ThemeProvider>
+      <Navbar />
+      <main>
+        <Banner discordData={data} />
+        <Columns />
+      </main>
+      <Footer />
+    </ThemeProvider>
   )
 }

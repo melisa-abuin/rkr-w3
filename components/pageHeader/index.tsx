@@ -1,3 +1,5 @@
+'use client'
+
 import { Header, Info, Title } from './styled'
 
 export default function PageHeader() {

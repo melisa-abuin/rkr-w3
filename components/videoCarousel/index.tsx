@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useMemo } from 'react'
 import Player from './player'
 import { Button, Container, IconsContainer, Info, Title } from './styled'

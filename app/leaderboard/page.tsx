@@ -1,14 +1,39 @@
-'use client'
-
 import Error from '@/components/error'
 import Table from '@/components/table'
-import { useFetch } from '@/hooks/useFetch'
 import { PlayersStats } from '@/interfaces/player'
+import { ThemeProvider } from '@/hooks/useTheme'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
 
-export default function Leaderboard() {
-  const { data, loading, error } = useFetch<PlayersStats>('/api/scoreboard')
+interface PlayerStatsData {
+  error: string | null
+  data: PlayersStats | []
+}
+
+async function fetchData(): Promise<PlayerStatsData> {
+  const response = await fetch('http://localhost:3000/api/scoreboard', {
+    next: { revalidate: 86400 },
+  })
+  if (response.status === 200) {
+    return {
+      data: await response.json(),
+      error: null,
+    }
+  }
+  return {
+    data: [],
+    error: 'Something went wrong',
+  }
+}
+
+export default async function Leaderboard() {
+  const { data, error } = await fetchData()
 
   return (
-    <main>{error ? <Error /> : <Table data={data} loading={loading} />}</main>
+    <ThemeProvider>
+      <Navbar />
+      <main>{error ? <Error /> : <Table data={data} />}</main>
+      <Footer />
+    </ThemeProvider>
   )
 }
