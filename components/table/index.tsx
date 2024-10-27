@@ -19,6 +19,7 @@ interface TableProps {
 }
 
 export default function Table(data: TableProps) {
+  //TODO: make this table agnostic to tr data and split data in time and s/d
   return (
     <Container aria-labelledby="scoreboard-title">
       <StyledTable role="table" aria-label="Player Stats">

@@ -27,7 +27,9 @@ export default async function handler(
       const newObject: ObjectKey = {}
 
       Object.entries(elem).map(([key, value]) => {
-        const newKey = key.toLowerCase().replace(/ : /g, ' ').replace(/ /g, '_')
+        const newKey = key
+          .toLowerCase()
+          .replace(/ : | /g, (match) => (match === ': ' ? ' ' : '_'))
         newObject[newKey] = value
       })
       return newObject

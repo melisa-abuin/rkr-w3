@@ -28,6 +28,7 @@ export const StyledNav = styled.nav<NavProps>`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 
   a {
     color: ${({ hasTransparentStyle, theme }) =>

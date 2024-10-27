@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const StyledTooltip = styled.div`
   visibility: hidden;
+  display: none;
   width: 150px;
   background-color: ${({ theme }) => theme.background.primary};
   border: 1px solid ${({ theme }) => theme.background.secondary};
@@ -40,5 +41,6 @@ export const TooltipContainer = styled.div`
   &:hover ${StyledTooltip} {
     visibility: visible;
     opacity: 1;
+    display: inline;
   }
 `
