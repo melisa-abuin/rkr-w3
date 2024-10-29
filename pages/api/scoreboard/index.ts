@@ -38,9 +38,7 @@ export default async function handler(
               match === ': ' ? ' ' : '_',
             ) as keyof PlayerStats
 
-          if (newKey in elem) {
-            newObject[newKey] = value
-          }
+          newObject[newKey] = value
         })
 
         // TODO: fix me
@@ -119,6 +117,7 @@ export default async function handler(
         return newObject
       })
       .slice(0, 5)
+    console.log(formattedData)
 
     res
       .status(200)
