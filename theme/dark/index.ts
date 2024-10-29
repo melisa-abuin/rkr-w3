@@ -5,6 +5,7 @@ const darkTheme = {
     secondary: '#41B2B2',
     tertiary: '#441111',
     black: '#000000',
+    green: '#2abf59',
   },
   background: {
     primary: '#292626',
