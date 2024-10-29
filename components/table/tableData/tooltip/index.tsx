@@ -1,37 +1,17 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { StyledTooltip, TooltipContainer } from './styled'
-import { calculateBestTimeByDifficulty } from '@/utils/calculateBestTimeByDifficulty'
 
 interface Props {
   hard: number
   impossible: number
   normal: number
-  shouldCalculate?: boolean
+  children?: ReactNode
 }
 
-export default function Tooltip({
-  hard,
-  impossible,
-  normal,
-  shouldCalculate = false,
-}: Props) {
-  const bestTime = shouldCalculate
-    ? calculateBestTimeByDifficulty({
-        normal,
-        hard,
-        impossible,
-      })
-    : null
+export default function Tooltip({ hard, impossible, normal, children }: Props) {
   return (
     <TooltipContainer>
-      {bestTime ? (
-        <div>
-          {bestTime.time}
-          <br />({bestTime.difficulty})
-        </div>
-      ) : (
-        <>{hard + impossible + normal}</>
-      )}
+      {children}
 
       <StyledTooltip>
         <table>

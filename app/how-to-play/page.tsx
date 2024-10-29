@@ -10,7 +10,11 @@ export default function HowToPlay() {
     <ThemeProvider>
       <Navbar />
       <main>
-        <PageHeader />
+        <PageHeader
+          description="Race to the finish, dodge the relentless wolves, and rescue your fellow
+        kitties from their clutches along the way!"
+          title="How to play"
+        />
         <VideoCarousel />
       </main>
       <Footer />

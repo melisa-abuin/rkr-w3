@@ -4,6 +4,8 @@ import { PlayersStats } from '@/interfaces/player'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import PageHeader from '@/components/pageHeader'
+import { statsColumns, timeAllDiffColumns } from '@/constants'
 
 interface PlayerStatsData {
   error: string | null
@@ -32,7 +34,24 @@ export default async function Leaderboard() {
   return (
     <ThemeProvider>
       <Navbar />
-      <main>{error ? <Error /> : <Table data={data} />}</main>
+      <main>
+        {error ? (
+          <Error />
+        ) : (
+          <>
+            <PageHeader
+              description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
+              title="Stats"
+            />
+            <Table columns={statsColumns} data={data} title="Overall Stats" />
+            <Table
+              columns={timeAllDiffColumns}
+              data={data}
+              title="Time Stats"
+            />
+          </>
+        )}
+      </main>
       <Footer />
     </ThemeProvider>
   )
