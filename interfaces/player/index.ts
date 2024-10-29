@@ -31,6 +31,31 @@ export interface PlayerStats {
   round_4_time_solo: number
   round_5_time_solo: number
   completed_challenges: string
+  save_death_ratio: number
+  games_played: DifficultyStats
+  wins: DifficultyStats
+  r1: RoundStats
+  r2: RoundStats
+  r3: RoundStats
+  r4: RoundStats
+  r5: RoundStats
+}
+
+export interface RoundStats {
+  hard: number
+  normal: number
+  impossible: number
+  best: {
+    time: number
+    difficulty: 'normal' | 'hard' | 'impossible'
+  }
+}
+
+export interface DifficultyStats {
+  hard: number
+  normal: number
+  impossible: number
+  total: number
 }
 
 export type PlayersStats = PlayerStats[]
