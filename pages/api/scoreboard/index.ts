@@ -1,10 +1,10 @@
-import { mockApiData } from '@/constants'
+//import { mockApiData } from '@/constants'
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateBestTimeByDifficulty } from '@/utils/calculateBestTimeByDifficulty'
 
-type ObjectKey = Record<keyof PlayerStats, string | number | object>
+//type ObjectKey = Record<keyof PlayerStats, string | number | object>
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,104 +17,109 @@ export default async function handler(
       throw new Error()
     }
 
-    /*const response = await fetch(apiKey, {
+    const response = await fetch(apiKey, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    const data = await response.json()*/
-    const data = mockApiData
+    const data = await response.json()
+    //const data = mockApiData
 
     // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data
-      .map((elem) => {
-        const newObject: PlayerStats = {}
+      .map((elem: PlayerStats) => {
+        const newObject: Partial<PlayerStats> = {}
 
         Object.entries(elem).map(([key, value]) => {
           const newKey = key
             .toLowerCase()
-            .replace(/ : | /g, (match) => (match === ': ' ? ' ' : '_'))
-          newObject[newKey] = value
+            .replace(/ : | /g, (match) =>
+              match === ': ' ? ' ' : '_',
+            ) as keyof PlayerStats
+
+          if (newKey in elem) {
+            newObject[newKey] = value
+          }
         })
 
+        // TODO: fix me
         newObject['save_death_ratio'] = calculateSaveDeathRatio(
-          newObject.saves,
-          newObject.deaths,
+          newObject.saves || 0,
+          newObject.deaths || 0,
         )
         newObject['games_played'] = {
-          normal: newObject.normal_games,
-          hard: newObject.hard_games,
-          impossible: newObject.impossible_games,
+          normal: newObject.normal_games || 0,
+          hard: newObject.hard_games || 0,
+          impossible: newObject.impossible_games || 0,
           total:
-            newObject.normal_games +
-            newObject.hard_games +
-            newObject.impossible_games,
+            (newObject.normal_games || 0) +
+            (newObject.hard_games || 0) +
+            (newObject.impossible_games || 0),
         }
         newObject['wins'] = {
-          normal: newObject.normal_wins,
-          hard: newObject.hard_wins,
-          impossible: newObject.impossible_wins,
+          normal: newObject.normal_wins || 0,
+          hard: newObject.hard_wins || 0,
+          impossible: newObject.impossible_wins || 0,
           total:
-            newObject.normal_wins +
-            newObject.hard_wins +
-            newObject.impossible_wins,
+            (newObject.normal_wins || 0) +
+            (newObject.hard_wins || 0) +
+            (newObject.impossible_wins || 0),
         }
         newObject['r1'] = {
-          hard: newObject.round_1_time_hard,
-          normal: newObject.round_1_time_normal,
-          impossible: newObject.round_1_time_impossible,
+          hard: newObject.round_1_time_hard || 0,
+          normal: newObject.round_1_time_normal || 0,
+          impossible: newObject.round_1_time_impossible || 0,
           best: calculateBestTimeByDifficulty({
-            normal: newObject.round_1_time_normal,
-            hard: newObject.round_1_time_hard,
-            impossible: newObject.round_1_time_impossible,
+            normal: newObject.round_1_time_normal || 0,
+            hard: newObject.round_1_time_hard || 0,
+            impossible: newObject.round_1_time_impossible || 0,
           }),
         }
         newObject['r2'] = {
-          hard: newObject.round_2_time_hard,
-          normal: newObject.round_2_time_normal,
-          impossible: newObject.round_2_time_impossible,
+          hard: newObject.round_2_time_hard || 0,
+          normal: newObject.round_2_time_normal || 0,
+          impossible: newObject.round_2_time_impossible || 0,
           best: calculateBestTimeByDifficulty({
-            normal: newObject.round_2_time_normal,
-            hard: newObject.round_2_time_hard,
-            impossible: newObject.round_2_time_impossible,
+            normal: newObject.round_2_time_normal || 0,
+            hard: newObject.round_2_time_hard || 0,
+            impossible: newObject.round_2_time_impossible || 0,
           }),
         }
         newObject['r3'] = {
-          hard: newObject.round_3_time_hard,
-          normal: newObject.round_3_time_normal,
-          impossible: newObject.round_3_time_impossible,
+          hard: newObject.round_3_time_hard || 0,
+          normal: newObject.round_3_time_normal || 0,
+          impossible: newObject.round_3_time_impossible || 0,
           best: calculateBestTimeByDifficulty({
-            normal: newObject.round_3_time_normal,
-            hard: newObject.round_3_time_hard,
-            impossible: newObject.round_3_time_impossible,
+            normal: newObject.round_3_time_normal || 0,
+            hard: newObject.round_3_time_hard || 0,
+            impossible: newObject.round_3_time_impossible || 0,
           }),
         }
         newObject['r4'] = {
-          hard: newObject.round_4_time_hard,
-          normal: newObject.round_4_time_normal,
-          impossible: newObject.round_4_time_impossible,
+          hard: newObject.round_4_time_hard || 0,
+          normal: newObject.round_4_time_normal || 0,
+          impossible: newObject.round_4_time_impossible || 0,
           best: calculateBestTimeByDifficulty({
-            normal: newObject.round_4_time_normal,
-            hard: newObject.round_4_time_hard,
-            impossible: newObject.round_4_time_impossible,
+            normal: newObject.round_4_time_normal || 0,
+            hard: newObject.round_4_time_hard || 0,
+            impossible: newObject.round_4_time_impossible || 0,
           }),
         }
         newObject['r5'] = {
-          hard: newObject.round_5_time_hard,
-          normal: newObject.round_5_time_normal,
-          impossible: newObject.round_5_time_impossible,
+          hard: newObject.round_5_time_hard || 0,
+          normal: newObject.round_5_time_normal || 0,
+          impossible: newObject.round_5_time_impossible || 0,
           best: calculateBestTimeByDifficulty({
-            normal: newObject.round_5_time_normal,
-            hard: newObject.round_5_time_hard,
-            impossible: newObject.round_5_time_impossible,
+            normal: newObject.round_5_time_normal || 0,
+            hard: newObject.round_5_time_hard || 0,
+            impossible: newObject.round_5_time_impossible || 0,
           }),
         }
         return newObject
       })
       .slice(0, 5)
 
-    // check this header on production mode with use effect call
     res
       .status(200)
       .setHeader(
