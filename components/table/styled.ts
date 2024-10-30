@@ -8,13 +8,16 @@ export const Container = styled.section`
   flex: 1;
   justify-content: center;
   padding: 2rem;
-  padding-top: 100px;
 `
 
 export const StyledTable = styled.table`
   max-width: 1000px;
   width: 100%;
   border-collapse: collapse;
+
+  & tr:nth-child(even) {
+    background-color: ${({ theme }) => theme.background.quaternary};
+  }
 
   caption {
     text-align: left;
@@ -27,6 +30,7 @@ export const StyledTh = styled.th`
   padding: 10px;
   text-align: left;
   font-weight: var(--font-weight-bold);
+  text-align: center;
 `
 
 export const StyledTr = styled.tr`
@@ -40,11 +44,11 @@ export const StyledTd = styled.td`
   border: none;
   color: ${({ theme }) => theme.text.primary};
   padding: 10px;
-  text-align: left;
+  text-align: center;
 `
 
 export const Title = styled.caption`
-  font-size: var(--font-size-md-lg);
+  font-size: var(--font-size-md);
   font-weight: bold;
   color: ${({ theme }) => theme.text.primary};
   margin-bottom: 3rem;

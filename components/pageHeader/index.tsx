@@ -1,13 +1,17 @@
+'use client'
+
 import { Header, Info, Title } from './styled'
 
-export default function PageHeader() {
+interface Props {
+  description: string
+  title: string
+}
+
+export default function PageHeader({ title, description }: Props) {
   return (
     <Header>
-      <Title>How to play</Title>
-      <Info>
-        Race to the finish, dodge the relentless wolves, and rescue your fellow
-        kitties from their clutches along the way!
-      </Info>
+      <Title>{title}</Title>
+      <Info>{description}</Info>
     </Header>
   )
 }

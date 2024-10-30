@@ -26,6 +26,7 @@ export const StyledTooltip = styled.div`
 
     td {
       padding: 4px;
+      background-color: ${({ theme }) => theme.background.primary};
     }
 
     td:first-child {

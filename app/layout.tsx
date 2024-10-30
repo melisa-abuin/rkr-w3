@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/hooks/useTheme'
-import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,13 +72,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="canonical" href="https://rkr-w3.vercel.app" />
       </head>
-      <ThemeProvider>
-        <body className={inter.variable}>
-          <Navbar />
-          {children}
-          <Footer />
-        </body>
-      </ThemeProvider>
+      <body className={inter.variable}>{children}</body>
     </html>
   )
 }
