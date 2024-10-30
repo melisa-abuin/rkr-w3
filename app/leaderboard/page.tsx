@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-// @ts-nocheck
 import Error from '@/components/error'
 import Table from '@/components/table'
 import { PlayersStats } from '@/interfaces/player'
@@ -31,23 +29,18 @@ async function fetchData(): Promise<PlayerStatsData> {
     }
   }
   return {
-    url: `${url}/api/scoreboard`,
-    response,
     data: [],
     error: 'Something went wrong',
   }
 }
 
 export default async function Leaderboard() {
-  const { data, error, response, url } = await fetchData()
+  const { data, error } = await fetchData()
 
   return (
     <ThemeProvider>
       <Navbar />
       <main>
-        <pre>{JSON.stringify(response)}</pre>
-        <pre>{JSON.stringify(data)}</pre>
-        <pre>{url}</pre>
         {error ? (
           <Error />
         ) : (
