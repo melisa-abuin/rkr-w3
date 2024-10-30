@@ -6,6 +6,7 @@ import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
+import { headers } from 'next/headers'
 
 interface PlayerStatsData {
   error: string | null
@@ -13,7 +14,12 @@ interface PlayerStatsData {
 }
 
 async function fetchData(): Promise<PlayerStatsData> {
-  const response = await fetch('http://localhost:3000/api/scoreboard', {
+  const headersList = headers()
+  const protocol = headersList.get('x-forwarded-proto') || 'http' // For Vercel and proxies
+  const host = headersList.get('host')
+  const url = `${protocol}://${host}`
+
+  const response = await fetch(`${url}/api/scoreboard`, {
     next: { revalidate: 86400 },
   })
   if (response.status === 200) {
