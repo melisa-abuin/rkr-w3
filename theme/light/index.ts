@@ -5,12 +5,13 @@ const lightTheme = {
     secondary: '#41B2B2',
     tertiary: '#441111',
     black: '#000000',
-    green: '#2abf59',
+    green: '#00c33e',
   },
   background: {
     primary: '#FFFFFF',
     secondary: '#b1e2e2',
     tertiary: '#ffe0e0',
+    quaternary: '#efefef',
   },
   text: {
     primary: '#050505',
