@@ -29,18 +29,22 @@ async function fetchData(): Promise<PlayerStatsData> {
     }
   }
   return {
+    response,
     data: [],
     error: 'Something went wrong',
   }
 }
 
 export default async function Leaderboard() {
-  const { data, error } = await fetchData()
+  const { data, error, response } = await fetchData()
 
   return (
     <ThemeProvider>
       <Navbar />
       <main>
+        <pre>{JSON.stringify(response)}</pre>
+        <pre>{JSON.stringify(data)}</pre>
+        <pre>{error}</pre>
         {error ? (
           <Error />
         ) : (
