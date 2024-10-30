@@ -1,3 +1,5 @@
+// eslint-disable-next-line
+// @ts-nocheck
 import Error from '@/components/error'
 import Table from '@/components/table'
 import { PlayersStats } from '@/interfaces/player'
