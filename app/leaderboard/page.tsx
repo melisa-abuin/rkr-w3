@@ -31,6 +31,7 @@ async function fetchData(): Promise<PlayerStatsData> {
     }
   }
   return {
+    url: `${url}/api/scoreboard`,
     response,
     data: [],
     error: 'Something went wrong',
@@ -38,7 +39,7 @@ async function fetchData(): Promise<PlayerStatsData> {
 }
 
 export default async function Leaderboard() {
-  const { data, error, response } = await fetchData()
+  const { data, error, response, url } = await fetchData()
 
   return (
     <ThemeProvider>
@@ -46,7 +47,7 @@ export default async function Leaderboard() {
       <main>
         <pre>{JSON.stringify(response)}</pre>
         <pre>{JSON.stringify(data)}</pre>
-        <pre>{error}</pre>
+        <pre>{url}</pre>
         {error ? (
           <Error />
         ) : (
