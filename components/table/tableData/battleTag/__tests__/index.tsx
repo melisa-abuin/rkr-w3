@@ -4,7 +4,7 @@ import BattleTag from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('BattleTag', () => {
-  test('renders battletag and displays correct title and subtitle', () => {
+  it('renders battletag and displays correct title and subtitle', () => {
     const battletag = 'Alex#76923'
 
     renderWithTheme(<BattleTag battletag={battletag} />)
