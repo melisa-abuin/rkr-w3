@@ -30,7 +30,7 @@ describe('useIsScrollAtTop', () => {
     expect(result.current[0]).toBe(false)
   })
 
-  test('should return true when scrollY is less than 100', () => {
+  it('should return true when scrollY is less than 100', () => {
     const { result } = renderHook(() => useIsScrollAtTop())
 
     act(() => {
