@@ -6,6 +6,8 @@ const lightTheme = {
     tertiary: '#441111',
     black: '#000000',
     green: '#00c33e',
+    yellow: '#d99a05',
+    teal: '#01c5db',
   },
   background: {
     primary: '#FFFFFF',

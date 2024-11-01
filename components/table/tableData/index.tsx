@@ -2,6 +2,7 @@ import { DifficultyStats, PlayerStats, RoundStats } from '@/interfaces/player'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'
 import Ratio from './ratio'
+import Challenges from './challenges'
 
 interface Props {
   data: string | number | RoundStats | DifficultyStats
@@ -21,7 +22,8 @@ export const TableData = ({ data, keyName }: Props) => {
       break
 
     case 'completed_challenges':
-      return <>{data}</>
+      if (typeof data === 'string') return <Challenges challenges={data} />
+      break
 
     case 'battletag':
       if (typeof data === 'string') return <BattleTag battletag={data} />
