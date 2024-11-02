@@ -47,9 +47,23 @@ export const StyledTd = styled.td`
   text-align: center;
 `
 
-export const Title = styled.caption`
+export const Title = styled.div`
+  align-items: center;
+  color: ${({ theme }) => theme.text.primary};
+  display: flex;
   font-size: var(--font-size-md);
   font-weight: bold;
-  color: ${({ theme }) => theme.text.primary};
+  justify-content: space-between;
   margin-bottom: 3rem;
+  width: 100%;
+
+  a {
+    color: ${({ theme }) => theme.text.secondary};
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `
