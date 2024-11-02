@@ -1,10 +1,41 @@
-//import { mockApiData } from '@/constants'
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateBestTimeByDifficulty } from '@/utils/calculateBestTimeByDifficulty'
 
-//type ObjectKey = Record<keyof PlayerStats, string | number | object>
+// TODO: create utils for these functions
+const mapKeysToSnakeCase = (key: string): string =>
+  key.toLowerCase().replace(/ : | /g, (match) => (match === ': ' ? ' ' : '_'))
+
+const calculateTotals = (
+  normal: number = 0,
+  hard: number = 0,
+  impossible: number = 0,
+) => ({
+  normal,
+  hard,
+  impossible,
+  total: normal + hard + impossible,
+})
+
+const formatRounds = (
+  newObject: Partial<PlayerStats>,
+  round: 1 | 2 | 3 | 4 | 5,
+) => {
+  const normal = newObject[`round_${round}_time_normal`] || 0
+  const hard = newObject[`round_${round}_time_hard`] || 0
+  const impossible = newObject[`round_${round}_time_impossible`] || 0
+
+  return {
+    normal,
+    hard,
+    impossible,
+    best: calculateBestTimeByDifficulty({ normal, hard, impossible }),
+  }
+}
+
+const getCompletedChallenges = (challengesString?: string) =>
+  challengesString ? Number(challengesString.split('/')[0]) : 0
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,97 +55,46 @@ export default async function handler(
       },
     })
     const data = await response.json()
-    //const data = mockApiData
 
     // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data
       .map((elem: PlayerStats) => {
         const newObject: Partial<PlayerStats> = {}
 
-        Object.entries(elem).map(([key, value]) => {
-          const newKey = key
-            .toLowerCase()
-            .replace(/ : | /g, (match) =>
-              match === ': ' ? ' ' : '_',
-            ) as keyof PlayerStats
-
-          newObject[newKey] = value
+        Object.entries(elem).forEach(([key, value]) => {
+          newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
         })
 
-        // TODO: fix me
         newObject['save_death_ratio'] = calculateSaveDeathRatio(
           newObject.saves || 0,
           newObject.deaths || 0,
         )
-        newObject['games_played'] = {
-          normal: newObject.normal_games || 0,
-          hard: newObject.hard_games || 0,
-          impossible: newObject.impossible_games || 0,
-          total:
-            (newObject.normal_games || 0) +
-            (newObject.hard_games || 0) +
-            (newObject.impossible_games || 0),
-        }
-        newObject['wins'] = {
-          normal: newObject.normal_wins || 0,
-          hard: newObject.hard_wins || 0,
-          impossible: newObject.impossible_wins || 0,
-          total:
-            (newObject.normal_wins || 0) +
-            (newObject.hard_wins || 0) +
-            (newObject.impossible_wins || 0),
-        }
-        newObject['r1'] = {
-          hard: newObject.round_1_time_hard || 0,
-          normal: newObject.round_1_time_normal || 0,
-          impossible: newObject.round_1_time_impossible || 0,
-          best: calculateBestTimeByDifficulty({
-            normal: newObject.round_1_time_normal || 0,
-            hard: newObject.round_1_time_hard || 0,
-            impossible: newObject.round_1_time_impossible || 0,
-          }),
-        }
-        newObject['r2'] = {
-          hard: newObject.round_2_time_hard || 0,
-          normal: newObject.round_2_time_normal || 0,
-          impossible: newObject.round_2_time_impossible || 0,
-          best: calculateBestTimeByDifficulty({
-            normal: newObject.round_2_time_normal || 0,
-            hard: newObject.round_2_time_hard || 0,
-            impossible: newObject.round_2_time_impossible || 0,
-          }),
-        }
-        newObject['r3'] = {
-          hard: newObject.round_3_time_hard || 0,
-          normal: newObject.round_3_time_normal || 0,
-          impossible: newObject.round_3_time_impossible || 0,
-          best: calculateBestTimeByDifficulty({
-            normal: newObject.round_3_time_normal || 0,
-            hard: newObject.round_3_time_hard || 0,
-            impossible: newObject.round_3_time_impossible || 0,
-          }),
-        }
-        newObject['r4'] = {
-          hard: newObject.round_4_time_hard || 0,
-          normal: newObject.round_4_time_normal || 0,
-          impossible: newObject.round_4_time_impossible || 0,
-          best: calculateBestTimeByDifficulty({
-            normal: newObject.round_4_time_normal || 0,
-            hard: newObject.round_4_time_hard || 0,
-            impossible: newObject.round_4_time_impossible || 0,
-          }),
-        }
-        newObject['r5'] = {
-          hard: newObject.round_5_time_hard || 0,
-          normal: newObject.round_5_time_normal || 0,
-          impossible: newObject.round_5_time_impossible || 0,
-          best: calculateBestTimeByDifficulty({
-            normal: newObject.round_5_time_normal || 0,
-            hard: newObject.round_5_time_hard || 0,
-            impossible: newObject.round_5_time_impossible || 0,
-          }),
-        }
+
+        newObject['games_played'] = calculateTotals(
+          newObject.normal_games,
+          newObject.hard_games,
+          newObject.impossible_games,
+        )
+
+        newObject['wins'] = calculateTotals(
+          newObject.normal_wins,
+          newObject.hard_wins,
+          newObject.impossible_wins,
+        )
+
+        const rounds = [1, 2, 3, 4, 5] as const
+
+        rounds.forEach((round) => {
+          newObject[`r${round}`] = formatRounds(newObject, round)
+        })
+
         return newObject
+      })
+      .sort((a: PlayerStats, b: PlayerStats) => {
+        return (
+          getCompletedChallenges(b.completed_challenges) -
+          getCompletedChallenges(a.completed_challenges)
+        )
       })
       .slice(0, 5)
 
