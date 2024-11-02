@@ -77,7 +77,7 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
 
 export const mockApiData = [
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Pablo#12345',
     Saves: 1423,
     Deaths: 871,
     'Normal Games': 39,
@@ -108,10 +108,10 @@ export const mockApiData = [
     'Round 3 Time : Solo': 319.8,
     'Round 4 Time : Solo': 450.4,
     'Round 5 Time : Solo': 526.5,
-    'Completed Challenges': '49/56',
+    'Completed Challenges': '56/56',
   },
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Pedro#12345',
     Saves: 20,
     Deaths: 100,
     'Normal Games': 37,
@@ -142,7 +142,7 @@ export const mockApiData = [
     'Round 3 Time : Solo': 319.9,
     'Round 4 Time : Solo': 443.7,
     'Round 5 Time : Solo': 522.7,
-    'Completed Challenges': '3/56',
+    'Completed Challenges': '46/56',
   },
   {
     BattleTag: 'Jamie#11223',
@@ -176,10 +176,10 @@ export const mockApiData = [
     'Round 3 Time : Solo': 311.3,
     'Round 4 Time : Solo': 446.8,
     'Round 5 Time : Solo': 517.4,
-    'Completed Challenges': '2/56',
+    'Completed Challenges': '36/56',
   },
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Juan#12345',
     Saves: 1041,
     Deaths: 876,
     'Normal Games': 29,
@@ -210,7 +210,7 @@ export const mockApiData = [
     'Round 3 Time : Solo': 317.6,
     'Round 4 Time : Solo': 447.7,
     'Round 5 Time : Solo': 518.4,
-    'Completed Challenges': '5/56',
+    'Completed Challenges': '26/56',
   },
   {
     BattleTag: 'Chris#98765',
@@ -244,7 +244,7 @@ export const mockApiData = [
     'Round 3 Time : Solo': 307.5,
     'Round 4 Time : Solo': 444,
     'Round 5 Time : Solo': 511.9,
-    'Completed Challenges': '51/56',
+    'Completed Challenges': '16/56',
   },
   {
     BattleTag: 'Drew#88990',
@@ -689,7 +689,7 @@ export const mockApiData = [
     'Completed Challenges': '31/56',
   },
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Jorge#12345',
     Saves: 987,
     Deaths: 724,
     'Normal Games': 39,

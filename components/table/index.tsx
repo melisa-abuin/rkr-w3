@@ -34,7 +34,7 @@ export default function Table({
     <Container aria-labelledby="table-title">
       <StyledTable role="table" aria-label="Player Stats">
         <caption id="table-title">
-          <Title id="table-title">
+          <Title>
             <span>{title}</span>
             <Link href="#" aria-label="View all stats for players">
               View all stats

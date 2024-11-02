@@ -7,6 +7,7 @@ import Footer from '@/components/footer'
 import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { headers } from 'next/headers'
+import ColumnCards from '@/components/columnCards'
 
 interface PlayerStatsData {
   error: string | null
@@ -36,7 +37,6 @@ async function fetchData(): Promise<PlayerStatsData> {
 
 export default async function Leaderboard() {
   const { data, error } = await fetchData()
-
   return (
     <ThemeProvider>
       <Navbar />
@@ -49,10 +49,16 @@ export default async function Leaderboard() {
               description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
               title="Stats"
             />
-            <Table columns={statsColumns} data={data} title="Overall Stats" />
+            <ColumnCards data={data.leaderboard} />
+            <Table
+              columns={statsColumns}
+              data={data.scoreboard}
+              title="Overall Stats"
+            />
+            <ColumnCards data={data.leaderboard} />
             <Table
               columns={timeAllDiffColumns}
-              data={data}
+              data={data.scoreboard}
               title="Time Stats"
             />
           </>
