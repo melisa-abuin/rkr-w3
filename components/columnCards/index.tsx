@@ -1,18 +1,17 @@
 'use client'
+import { BestTime } from '@/interfaces/player'
 import { Card, Container, Header, Section, Table, Td } from './styled'
 
 interface Data {
   player: string
-  data: number
+  data: number | BestTime
 }
 
 interface Props {
-  data: { category: string; data: { player: string; data: number } }[]
+  data?: { category: string; data: Data[] }[]
 }
 
 export default function ColumnCards({ data }: Props) {
-  console.dir(data)
-
   return (
     <Section aria-labelledby="table-title">
       <Container>
@@ -24,7 +23,13 @@ export default function ColumnCards({ data }: Props) {
                 {data?.map(({ player, data }) => (
                   <tr key={player}>
                     <Td>{player.split('#')[0]}</Td>
-                    <Td>{data}</Td>
+                    {typeof data === 'number' ? (
+                      <Td>{data}</Td>
+                    ) : (
+                      <>
+                        <Td>{`${data.time} (${data.difficulty})`}</Td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>

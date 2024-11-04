@@ -45,10 +45,12 @@ export interface RoundStats {
   hard: number
   normal: number
   impossible: number
-  best: {
-    time: number
-    difficulty: 'normal' | 'hard' | 'impossible'
-  }
+  best: BestTime
+}
+
+export interface BestTime {
+  time: number
+  difficulty: 'normal' | 'hard' | 'impossible'
 }
 
 export interface DifficultyStats {

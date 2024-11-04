@@ -75,6 +75,101 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Best R5 Times', key: 'r5' },
 ]
 
+export const formattedMockData = [
+  {
+    battletag: 'Pablo#12345',
+    saves: 1423,
+    deaths: 871,
+    normal_games: 39,
+    hard_games: 16,
+    impossible_games: 15,
+    highest_save_streak: 10,
+    highest_win_streak: 100,
+    normal_wins: 25,
+    hard_wins: 11,
+    impossible_wins: 1,
+    round_1_time_normal: 134.6,
+    round_2_time_normal: 197.7,
+    round_3_time_normal: 342.7,
+    round_4_time_normal: 475.1,
+    round_5_time_normal: 550.5,
+    round_1_time_hard: 142.5,
+    round_2_time_hard: 230.3,
+    round_3_time_hard: 362.7,
+    round_4_time_hard: 494.7,
+    round_5_time_hard: 582.4,
+    round_1_time_impossible: 159.3,
+    round_2_time_impossible: 231.7,
+    round_3_time_impossible: 387.4,
+    round_4_time_impossible: 505.6,
+    round_5_time_impossible: 602.8,
+    round_1_time_solo: 125.4,
+    round_2_time_solo: 187.2,
+    round_3_time_solo: 319.8,
+    round_4_time_solo: 450.4,
+    round_5_time_solo: 526.5,
+    completed_challenges: '56/56',
+    save_death_ratio: 1.63,
+    games_played: {
+      normal: 39,
+      hard: 16,
+      impossible: 15,
+      total: 70,
+    },
+    wins: {
+      normal: 25,
+      hard: 11,
+      impossible: 1,
+      total: 37,
+    },
+    r1: {
+      normal: 134.6,
+      hard: 142.5,
+      impossible: 159.3,
+      best: {
+        difficulty: 'normal',
+        time: 134.6,
+      },
+    },
+    r2: {
+      normal: 197.7,
+      hard: 230.3,
+      impossible: 231.7,
+      best: {
+        difficulty: 'normal',
+        time: 197.7,
+      },
+    },
+    r3: {
+      normal: 342.7,
+      hard: 362.7,
+      impossible: 387.4,
+      best: {
+        difficulty: 'normal',
+        time: 342.7,
+      },
+    },
+    r4: {
+      normal: 475.1,
+      hard: 494.7,
+      impossible: 505.6,
+      best: {
+        difficulty: 'normal',
+        time: 475.1,
+      },
+    },
+    r5: {
+      normal: 550.5,
+      hard: 582.4,
+      impossible: 602.8,
+      best: {
+        difficulty: 'normal',
+        time: 550.5,
+      },
+    },
+  },
+] as const
+
 export const mockApiData = [
   {
     BattleTag: 'Pablo#12345',

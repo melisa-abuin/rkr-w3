@@ -15,7 +15,7 @@ import { TableData } from './tableData'
 import Link from 'next/link'
 
 interface TableProps {
-  data: PlayersStats | null
+  data?: PlayersStats
   loading?: boolean
   title: string
   columns: Array<{
