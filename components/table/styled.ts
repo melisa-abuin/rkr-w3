@@ -8,6 +8,11 @@ export const Container = styled.section`
   flex: 1;
   justify-content: center;
   padding: 2rem;
+  overflow-x: auto;
+
+  @media (max-width: 480px) {
+    align-items: flex-start;
+  }
 `
 
 export const StyledTable = styled.table`
