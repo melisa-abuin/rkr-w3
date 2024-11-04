@@ -2,6 +2,17 @@ import { render, screen } from '@testing-library/react'
 import Player from '..'
 
 describe('Player component', () => {
+  beforeEach(() => {
+    Object.defineProperty(global.window.HTMLMediaElement.prototype, 'load', {
+      configurable: true,
+      value: jest.fn(),
+    })
+  })
+
+  afterAll(() => {
+    jest.clearAllMocks()
+  })
+
   it('should not render when no videoUrl is provided', () => {
     const { container } = render(<Player />)
     expect(container).toBeEmptyDOMElement()

@@ -12,9 +12,10 @@ import {
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import LoaderTable from './loaderTable'
 import { TableData } from './tableData'
+import Link from 'next/link'
 
 interface TableProps {
-  data: PlayersStats | null
+  data?: PlayersStats
   loading?: boolean
   title: string
   columns: Array<{
@@ -30,9 +31,16 @@ export default function Table({
   title,
 }: TableProps) {
   return (
-    <Container aria-labelledby="scoreboard-title">
+    <Container aria-labelledby="table-title">
       <StyledTable role="table" aria-label="Player Stats">
-        <Title id="scoreboard-title">{title}</Title>
+        <caption id="table-title">
+          <Title>
+            <span>{title}</span>
+            <Link href="#" aria-label="View all stats for players">
+              View all stats
+            </Link>
+          </Title>
+        </caption>
         <thead>
           <StyledTr>
             {columns.map((column) => (

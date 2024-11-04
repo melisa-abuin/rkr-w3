@@ -1,16 +1,28 @@
 import Error from '@/components/error'
 import Table from '@/components/table'
-import { PlayersStats } from '@/interfaces/player'
+import { BestTime, PlayersStats } from '@/interfaces/player'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { headers } from 'next/headers'
+import ColumnCards from '@/components/columnCards'
+
+interface Data {
+  player: string
+  data: number | BestTime
+}
 
 interface PlayerStatsData {
   error: string | null
-  data: PlayersStats | []
+  data: {
+    scoreboard?: PlayersStats
+    leaderboard?: {
+      stats: Array<{ category: string; data: Data[] }>
+      times: Array<{ category: string; data: Data[] }>
+    }
+  }
 }
 
 async function fetchData(): Promise<PlayerStatsData> {
@@ -29,7 +41,7 @@ async function fetchData(): Promise<PlayerStatsData> {
     }
   }
   return {
-    data: [],
+    data: {},
     error: 'Something went wrong',
   }
 }
@@ -49,10 +61,16 @@ export default async function Leaderboard() {
               description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
               title="Stats"
             />
-            <Table columns={statsColumns} data={data} title="Overall Stats" />
+            <ColumnCards data={data.leaderboard?.stats} />
+            <Table
+              columns={statsColumns}
+              data={data.scoreboard}
+              title="Overall Stats"
+            />
+            <ColumnCards data={data.leaderboard?.times} />
             <Table
               columns={timeAllDiffColumns}
-              data={data}
+              data={data.scoreboard}
               title="Time Stats"
             />
           </>

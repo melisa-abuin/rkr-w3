@@ -3,6 +3,7 @@ import { Container } from './styled'
 import { Flame } from '@/components/icons/flame'
 import { Winner } from '@/components/icons/winner'
 import { useTheme } from '@/hooks/useTheme'
+import { getNumericCompleteChallenges } from '@/utils/getNumericCompleteChallenges'
 
 interface Props {
   challenges: string
@@ -11,9 +12,8 @@ interface Props {
 export default function Challenges({ challenges }: Props) {
   const [theme] = useTheme()
   const iconSize = 20
-  const [completedChallenges, totalChallenges] = challenges
-    .split('/')
-    .map(Number)
+  const [completedChallenges, totalChallenges] =
+    getNumericCompleteChallenges(challenges)
 
   if (completedChallenges === totalChallenges) {
     return (

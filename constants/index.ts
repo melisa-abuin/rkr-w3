@@ -75,9 +75,104 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Best R5 Times', key: 'r5' },
 ]
 
+export const formattedMockData = [
+  {
+    battletag: 'Pablo#12345',
+    saves: 1423,
+    deaths: 871,
+    normal_games: 39,
+    hard_games: 16,
+    impossible_games: 15,
+    highest_save_streak: 10,
+    highest_win_streak: 100,
+    normal_wins: 25,
+    hard_wins: 11,
+    impossible_wins: 1,
+    round_1_time_normal: 134.6,
+    round_2_time_normal: 197.7,
+    round_3_time_normal: 342.7,
+    round_4_time_normal: 475.1,
+    round_5_time_normal: 550.5,
+    round_1_time_hard: 142.5,
+    round_2_time_hard: 230.3,
+    round_3_time_hard: 362.7,
+    round_4_time_hard: 494.7,
+    round_5_time_hard: 582.4,
+    round_1_time_impossible: 159.3,
+    round_2_time_impossible: 231.7,
+    round_3_time_impossible: 387.4,
+    round_4_time_impossible: 505.6,
+    round_5_time_impossible: 602.8,
+    round_1_time_solo: 125.4,
+    round_2_time_solo: 187.2,
+    round_3_time_solo: 319.8,
+    round_4_time_solo: 450.4,
+    round_5_time_solo: 526.5,
+    completed_challenges: '56/56',
+    save_death_ratio: 1.63,
+    games_played: {
+      normal: 39,
+      hard: 16,
+      impossible: 15,
+      total: 70,
+    },
+    wins: {
+      normal: 25,
+      hard: 11,
+      impossible: 1,
+      total: 37,
+    },
+    r1: {
+      normal: 134.6,
+      hard: 142.5,
+      impossible: 159.3,
+      best: {
+        difficulty: 'normal',
+        time: 134.6,
+      },
+    },
+    r2: {
+      normal: 197.7,
+      hard: 230.3,
+      impossible: 231.7,
+      best: {
+        difficulty: 'normal',
+        time: 197.7,
+      },
+    },
+    r3: {
+      normal: 342.7,
+      hard: 362.7,
+      impossible: 387.4,
+      best: {
+        difficulty: 'normal',
+        time: 342.7,
+      },
+    },
+    r4: {
+      normal: 475.1,
+      hard: 494.7,
+      impossible: 505.6,
+      best: {
+        difficulty: 'normal',
+        time: 475.1,
+      },
+    },
+    r5: {
+      normal: 550.5,
+      hard: 582.4,
+      impossible: 602.8,
+      best: {
+        difficulty: 'normal',
+        time: 550.5,
+      },
+    },
+  },
+] as const
+
 export const mockApiData = [
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Pablo#12345',
     Saves: 1423,
     Deaths: 871,
     'Normal Games': 39,
@@ -108,10 +203,10 @@ export const mockApiData = [
     'Round 3 Time : Solo': 319.8,
     'Round 4 Time : Solo': 450.4,
     'Round 5 Time : Solo': 526.5,
-    'Completed Challenges': '49/56',
+    'Completed Challenges': '56/56',
   },
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Pedro#12345',
     Saves: 20,
     Deaths: 100,
     'Normal Games': 37,
@@ -142,7 +237,7 @@ export const mockApiData = [
     'Round 3 Time : Solo': 319.9,
     'Round 4 Time : Solo': 443.7,
     'Round 5 Time : Solo': 522.7,
-    'Completed Challenges': '3/56',
+    'Completed Challenges': '46/56',
   },
   {
     BattleTag: 'Jamie#11223',
@@ -176,10 +271,10 @@ export const mockApiData = [
     'Round 3 Time : Solo': 311.3,
     'Round 4 Time : Solo': 446.8,
     'Round 5 Time : Solo': 517.4,
-    'Completed Challenges': '2/56',
+    'Completed Challenges': '36/56',
   },
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Juan#12345',
     Saves: 1041,
     Deaths: 876,
     'Normal Games': 29,
@@ -210,7 +305,7 @@ export const mockApiData = [
     'Round 3 Time : Solo': 317.6,
     'Round 4 Time : Solo': 447.7,
     'Round 5 Time : Solo': 518.4,
-    'Completed Challenges': '5/56',
+    'Completed Challenges': '26/56',
   },
   {
     BattleTag: 'Chris#98765',
@@ -244,7 +339,7 @@ export const mockApiData = [
     'Round 3 Time : Solo': 307.5,
     'Round 4 Time : Solo': 444,
     'Round 5 Time : Solo': 511.9,
-    'Completed Challenges': '51/56',
+    'Completed Challenges': '16/56',
   },
   {
     BattleTag: 'Drew#88990',
@@ -689,7 +784,7 @@ export const mockApiData = [
     'Completed Challenges': '31/56',
   },
   {
-    BattleTag: 'Jesse#12345',
+    BattleTag: 'Jorge#12345',
     Saves: 987,
     Deaths: 724,
     'Normal Games': 39,
