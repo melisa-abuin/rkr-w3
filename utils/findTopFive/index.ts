@@ -49,13 +49,14 @@ export const findTopFive = (array: PlayerStats[], key: keyof PlayerStats) => {
     for (let i = 0; i < topFive.length; i++) {
       const elementData = getKeyToEvaluate(key, elem)
       const topFiveData = getKeyToEvaluate(key, topFive[i])
+      const condition = isRoundKey(key)
+        ? elementData < topFiveData
+        : elementData > topFiveData
 
-      if (typeof elementData === 'number' && typeof topFiveData === 'number') {
-        if (elementData > topFiveData) {
-          topFive.splice(i, 0, elem) // Insert at the found position
-          inserted = true
-          break
-        }
+      if (condition) {
+        topFive.splice(i, 0, elem) // Insert at the found position
+        inserted = true
+        break
       }
     }
 
