@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react'
 import { StyledTooltip, TooltipContainer } from './styled'
 
 interface Props {
-  hard: number
-  impossible: number
-  normal: number
+  hard: number | string
+  impossible: number | string
+  normal: number | string
   children?: ReactNode
 }
 
