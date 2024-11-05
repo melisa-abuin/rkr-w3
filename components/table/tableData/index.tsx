@@ -3,6 +3,7 @@ import BattleTag from './battleTag'
 import Tooltip from './tooltip'
 import Ratio from './ratio'
 import Challenges from './challenges'
+import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 
 interface Props {
   data: string | number | RoundStats | DifficultyStats
@@ -48,11 +49,11 @@ export const TableData = ({ data, keyName }: Props) => {
       if (isRoundStats(data)) {
         return (
           <Tooltip
-            normal={data.normal}
-            hard={data.hard}
-            impossible={data.impossible}
+            normal={secondsToSexagesimal(data.normal)}
+            hard={secondsToSexagesimal(data.hard)}
+            impossible={secondsToSexagesimal(data.impossible)}
           >
-            {data.best.time}
+            {secondsToSexagesimal(data.best.time)}
             <br />({data.best.difficulty})
           </Tooltip>
         )

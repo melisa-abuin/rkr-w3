@@ -23,8 +23,8 @@ export const routes = {
     url: '/leaderboard',
   },
   download: {
-    label: 'Download v4.3.4',
-    url: 'https://www.epicwar.com/maps/339864/',
+    label: 'Download v4.3.5',
+    url: 'https://www.epicwar.com/maps/340396/',
   },
 }
 

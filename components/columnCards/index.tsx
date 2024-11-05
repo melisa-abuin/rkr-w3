@@ -1,6 +1,7 @@
 'use client'
 import { BestTime } from '@/interfaces/player'
 import { Card, Container, Header, Section, Table, Td } from './styled'
+import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 
 interface Data {
   player: string
@@ -27,7 +28,7 @@ export default function ColumnCards({ data }: Props) {
                       <Td>{data}</Td>
                     ) : (
                       <>
-                        <Td>{`${data.time} (${data.difficulty})`}</Td>
+                        <Td>{`${secondsToSexagesimal(data.time)} (${data.difficulty})`}</Td>
                       </>
                     )}
                   </tr>
