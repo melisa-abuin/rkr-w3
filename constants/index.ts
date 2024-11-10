@@ -9,6 +9,7 @@ export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
 
+export const pageSize = 10
 export const routes = {
   home: {
     label: 'Home',
@@ -27,6 +28,26 @@ export const routes = {
     url: 'https://www.epicwar.com/maps/340396/',
   },
 }
+
+export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
+  { title: 'Player', key: 'battletag' },
+  { title: 'Completed Challenges', key: 'completed_challenges' },
+  { title: 'Saves', key: 'saves' },
+  { title: 'S/D Ratio', key: 'save_death_ratio' },
+  { title: 'Games Played', key: 'games_played' },
+  { title: 'Wins', key: 'wins' },
+  { title: 'Highest Save Streak', key: 'highest_save_streak' },
+  { title: 'Highest Win Streak', key: 'highest_win_streak' },
+]
+
+export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
+  { title: 'Player', key: 'battletag' },
+  { title: 'Best R1 Times', key: 'r1' },
+  { title: 'Best R2 Times', key: 'r2' },
+  { title: 'Best R3 Times', key: 'r3' },
+  { title: 'Best R4 Times', key: 'r4' },
+  { title: 'Best R5 Times', key: 'r5' },
+]
 
 export const tricks = [
   {
@@ -54,26 +75,6 @@ export const tricks = [
     videoUrl: '/center-camera.mp4',
   },
 ] as const
-
-export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
-  { title: 'Player', key: 'battletag' },
-  { title: 'Completed Challenges', key: 'completed_challenges' },
-  { title: 'Saves', key: 'saves' },
-  { title: 'S/D Ratio', key: 'save_death_ratio' },
-  { title: 'Games Played', key: 'games_played' },
-  { title: 'Wins', key: 'wins' },
-  { title: 'Highest Save Streak', key: 'highest_save_streak' },
-  { title: 'Highest Win Streak', key: 'highest_win_streak' },
-]
-
-export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
-  { title: 'Player', key: 'battletag' },
-  { title: 'Best R1 Times', key: 'r1' },
-  { title: 'Best R2 Times', key: 'r2' },
-  { title: 'Best R3 Times', key: 'r3' },
-  { title: 'Best R4 Times', key: 'r4' },
-  { title: 'Best R5 Times', key: 'r5' },
-]
 
 export const formattedMockData = [
   {
