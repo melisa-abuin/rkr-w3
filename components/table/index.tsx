@@ -22,12 +22,14 @@ interface TableProps {
     title: string
     key: keyof PlayerStats
   }>
+  statsLink?: string
 }
 
 export default function Table({
   data,
   loading = false,
   columns,
+  statsLink,
   title,
 }: TableProps) {
   return (
@@ -36,9 +38,11 @@ export default function Table({
         <caption id="table-title">
           <Title>
             <span>{title}</span>
-            <Link href="#" aria-label="View all stats for players">
-              View all stats
-            </Link>
+            {statsLink && (
+              <Link href={statsLink} aria-label="View all stats for players">
+                View all stats
+              </Link>
+            )}
           </Title>
         </caption>
         <thead>
