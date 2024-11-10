@@ -25,15 +25,18 @@ const overallStrings = {
   columns: statsColumns,
 }
 
-async function fetchData(): Promise<PlayerStatsData> {
+async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
   const headersList = headers()
   const protocol = headersList.get('x-forwarded-proto') || 'http'
   const host = headersList.get('host')
   const url = `${protocol}://${host}`
 
-  const response = await fetch(`${url}/api/stats`, {
-    next: { revalidate: 86400 },
-  })
+  const response = await fetch(
+    `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`,
+    {
+      next: { revalidate: 86400 },
+    },
+  )
   if (response.status === 200) {
     return {
       data: await response.json(),
@@ -51,9 +54,8 @@ export default async function StatsPage({
 }: {
   params: { slug: string }
 }) {
-  const { data, error } = await fetchData()
-
   const { slug } = params
+  const { data, error } = await fetchData(slug === 'time')
 
   const strings = slug === 'time' ? timeStrings : overallStrings
 
