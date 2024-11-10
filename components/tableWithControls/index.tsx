@@ -25,7 +25,7 @@ export default function TableWithControls({
   statsLink,
   title,
 }: TableProps) {
-  const totalPages = data ? data?.length / pageSize : 0
+  const totalPages = data ? Math.round(data?.length / pageSize) : 0
   const router = useRouter()
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
@@ -45,7 +45,7 @@ export default function TableWithControls({
 
     return data?.slice(initialIndex, initialIndex + pageSize)
   }, [data, currentPage])
-
+  console.log(totalPages)
   return (
     <>
       <Table

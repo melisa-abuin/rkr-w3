@@ -13,7 +13,7 @@ export const Header = styled.header`
 export const Info = styled.p`
   color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs-sm);
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   max-width: 1000px;
   text-align: center;
