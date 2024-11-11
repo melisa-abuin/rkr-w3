@@ -9,9 +9,64 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Run Kitty Run',
+  title: 'Run Kitty Run - Warcraft 3 Custom Map',
   description:
     'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
+  keywords: [
+    'Warcraft 3',
+    'custom map',
+    'Run Kitty Run',
+    'strategy',
+    'co-op game',
+    'multiplayer',
+    'runkittyrun',
+    'rkr',
+    'warcraft3',
+    'reforged',
+    'map',
+    'coop',
+  ],
+  authors: { name: 'Warcraft 3 Custom Maps Community' },
+  openGraph: {
+    title: 'Run Kitty Run - Warcraft 3 Custom Map',
+    description:
+      'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
+    type: 'website',
+    images: [
+      {
+        url: 'https://rkr-w3.vercel.app/favicon.ico',
+      },
+    ],
+    url: 'https://rkr-w3.vercel.app',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  twitter: {
+    card: 'summary',
+    description:
+      'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
+    images: ['https://rkr-w3.vercel.app/favicon.ico'],
+  },
+  verification: {
+    google: '4BStbCZAJGxWyjIjzPF8D807sohjzI8OtB7UwrDIz-o',
+  },
+  other: {
+    'page-topic': 'Game',
+    'page-type': 'Software Download',
+    audience: 'All',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.ico', rel: 'shortcut icon' },
+    ],
+  },
+  alternates: {
+    canonical: 'https://rkr-w3.vercel.app',
+  },
+  manifest: 'https://rkr-w3.vercel.app/sitemap.xml',
 }
 
 export default function RootLayout({
@@ -21,57 +76,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="keywords"
-          content="Warcraft 3, custom map, Run Kitty Run, strategy, co-op game, multiplayer"
-        />
-        <meta name="robots" content="index, follow" />
-        <meta
-          property="og:title"
-          content="Run Kitty Run - Warcraft 3 Custom Map"
-        />
-        <meta
-          property="og:description"
-          content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
-        />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://rkr-w3.vercel.app/favicon.ico"
-        />
-        <meta
-          name="google-site-verification"
-          content="4BStbCZAJGxWyjIjzPF8D807sohjzI8OtB7UwrDIz-o"
-        />
-        <meta
-          name="twitter:card"
-          content="Guide your kitties through obstacles in this popular Warcraft 3 custom map. Play with friends and join tournaments!"
-        />
-        <meta
-          name="twitter:image"
-          content="https://rkr-w3.vercel.app/favicon.ico"
-        />
-        <meta name="author" content="Warcraft 3 Custom Maps Community" />
-        <meta
-          name="keywords"
-          content="runkittyrun, rkr, warcraft3, reforged, map, coop, strategy, multiplayer"
-        />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="page-topic" content="Game" />
-        <meta name="page-type" content="Software Download" />
-        <meta httpEquiv="content-language" content="en" />
-        <meta name="audience" content="Alle" />
-
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link
-          rel="sitemap"
-          type="application/xml"
-          href="https://rkr-w3.vercel.app/sitemap.xml"
-        />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="canonical" href="https://rkr-w3.vercel.app" />
-      </head>
       <body className={inter.variable}>{children}</body>
     </html>
   )

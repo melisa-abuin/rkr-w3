@@ -65,12 +65,14 @@ export default async function Leaderboard() {
             <Table
               columns={statsColumns}
               data={data.scoreboard}
+              statsLink="/stats/overview"
               title="Overall Stats"
             />
             <ColumnCards data={data.leaderboard?.times} />
             <Table
               columns={timeAllDiffColumns}
               data={data.scoreboard}
+              statsLink="/stats/time"
               title="Time Stats"
             />
           </>
