@@ -45,7 +45,7 @@ export default function TableWithControls({
 
     return data?.slice(initialIndex, initialIndex + pageSize)
   }, [data, currentPage])
-  console.log(totalPages)
+
   return (
     <>
       <Table
