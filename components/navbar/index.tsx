@@ -27,7 +27,7 @@ export default function Navbar() {
                 ? '/brand-icon-white.png'
                 : `/brand-icon-${theme.name}.png`
             }
-            width={64}
+            width={54}
           />
         </Link>
         <DesktopNavbar />
