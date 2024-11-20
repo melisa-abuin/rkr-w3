@@ -6,11 +6,15 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { usePreferredTheme } from '../usePreferredTheme'
 
 const ThemeContext = createContext<
-  [Theme, React.Dispatch<React.SetStateAction<Theme>>] | undefined
+  [Theme | null, React.Dispatch<React.SetStateAction<Theme | null>>] | undefined
 >(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = usePreferredTheme()
+
+  if (!theme) {
+    return null
+  }
 
   return (
     <ThemeContext.Provider value={[theme, setTheme]}>

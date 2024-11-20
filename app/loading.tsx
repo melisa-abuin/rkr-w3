@@ -3,6 +3,8 @@
 import Image from 'next/image'
 
 export default function Loading() {
+  if (typeof window == 'undefined') return null
+
   const darkThemeSelector = '(prefers-color-scheme: dark)'
 
   const isDarkTheme = window.matchMedia(darkThemeSelector).matches
