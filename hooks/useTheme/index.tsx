@@ -1,4 +1,5 @@
 'use client'
+
 import { Theme } from '@/interfaces/theme'
 import React, { createContext, useContext } from 'react'
 import { ThemeProvider as StyledThemeProvider } from 'styled-components'

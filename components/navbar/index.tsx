@@ -21,6 +21,7 @@ export default function Navbar() {
           <Image
             alt="brand logo"
             height={54}
+            priority
             src={
               shouldShowTransparentNav
                 ? '/brand-icon-white.png'
