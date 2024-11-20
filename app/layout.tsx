@@ -56,6 +56,7 @@ export const metadata: Metadata = {
     'page-topic': 'Game',
     'page-type': 'Software Download',
     audience: 'All',
+    sitemap: '/sitemap.xml',
   },
   icons: {
     icon: [
@@ -66,7 +67,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://rkr-w3.vercel.app',
   },
-  manifest: 'https://rkr-w3.vercel.app/sitemap.xml',
 }
 
 export default function RootLayout({
