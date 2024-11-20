@@ -6,7 +6,7 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components'
 import { usePreferredTheme } from '../usePreferredTheme'
 
 const ThemeContext = createContext<
-  [Theme | null, React.Dispatch<React.SetStateAction<Theme | null>>] | undefined
+  [Theme, React.Dispatch<React.SetStateAction<Theme | null>>] | undefined
 >(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
