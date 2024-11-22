@@ -15,10 +15,12 @@ export const routes = {
     label: 'Home',
     url: '/',
   },
+  /* 
+  disabled until I can meassure videos impact on vercel limits
   howToPlay: {
     label: 'How To Play',
     url: '/how-to-play',
-  },
+  },*/
   leaderboard: {
     label: 'Leaderboard',
     url: '/leaderboard',
@@ -189,7 +191,7 @@ export const mockApiData = [
     'Round 3 Time : Normal': 342.7,
     'Round 4 Time : Normal': 475.1,
     'Round 5 Time : Normal': 550.5,
-    'Round 1 Time : Hard': 142.5,
+    'Round 1 Time : Hard': 124.5,
     'Round 2 Time : Hard': 230.3,
     'Round 3 Time : Hard': 362.7,
     'Round 4 Time : Hard': 494.7,
