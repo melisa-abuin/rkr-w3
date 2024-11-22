@@ -1,4 +1,5 @@
 import { PlayerStats } from '@/interfaces/player'
+import { getNumericCompleteChallenges } from '../getNumericCompleteChallenges'
 
 const roundKeys = ['r1', 'r2', 'r3', 'r4', 'r5'] as const
 type RoundKey = (typeof roundKeys)[number]
@@ -10,6 +11,10 @@ const isRoundKey = (key: keyof PlayerStats): key is RoundKey => {
 const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
   if (key === 'wins' || key === 'games_played') {
     return elem[key].total
+  }
+
+  if (key === 'completed_challenges') {
+    return getNumericCompleteChallenges(elem[key])[0]
   }
 
   if (isRoundKey(key)) {
@@ -30,6 +35,16 @@ const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
   return elem[key]
 }
 
+export const getSortConditionByKey = (
+  key: keyof PlayerStats,
+  elem: PlayerStats,
+  elem2: PlayerStats,
+) => {
+  const elementData = getKeyToEvaluate(key, elem)
+  const topFiveData = getKeyToEvaluate(key, elem2)
+  return isRoundKey(key) ? elementData < topFiveData : elementData > topFiveData
+}
+
 /**
  * This function Has a time complexity of approximately 𝑂(𝑛 × 𝑘), where 𝑛
  * is the number of items in the array, and 𝑘 (in this case, 5) is
@@ -47,11 +62,7 @@ export const findTopFive = (array: PlayerStats[], key: keyof PlayerStats) => {
 
     // Insert the element in the correct sorted position in topFive
     for (let i = 0; i < topFive.length; i++) {
-      const elementData = getKeyToEvaluate(key, elem)
-      const topFiveData = getKeyToEvaluate(key, topFive[i])
-      const condition = isRoundKey(key)
-        ? elementData < topFiveData
-        : elementData > topFiveData
+      const condition = getSortConditionByKey(key, elem, topFive[i])
 
       if (condition) {
         topFive.splice(i, 0, elem) // Insert at the found position

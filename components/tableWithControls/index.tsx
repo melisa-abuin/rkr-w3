@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import Pagination from './pagination'
 import { pageSize } from '@/constants'
+import { getSortConditionByKey } from '@/utils/findTopFive'
 
 interface TableProps {
   data?: PlayersStats
@@ -16,6 +17,11 @@ interface TableProps {
     key: keyof PlayerStats
   }>
   statsLink?: string
+}
+
+interface SortingKey {
+  key: keyof PlayerStats
+  asc: boolean
 }
 
 export default function TableWithControls({
@@ -30,6 +36,10 @@ export default function TableWithControls({
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const [sortKey, setSortKey] = useState<SortingKey>({
+    key: 'completed_challenges',
+    asc: false,
+  })
 
   useEffect(() => {
     window.history.pushState(null, '', `?page=${currentPage}`)
@@ -43,8 +53,20 @@ export default function TableWithControls({
   const dataToShow = useMemo(() => {
     const initialIndex = (Number(currentPage) - 1) * pageSize
 
-    return data?.slice(initialIndex, initialIndex + pageSize)
-  }, [data, currentPage])
+    return data
+      ?.sort((a, b) => {
+        if (!getSortConditionByKey(sortKey.key, a, b)) {
+          return sortKey.asc ? -1 : 1
+        }
+
+        if (getSortConditionByKey(sortKey.key, a, b)) {
+          return sortKey.asc ? 1 : -1
+        }
+
+        return 0
+      })
+      .slice(initialIndex, initialIndex + pageSize)
+  }, [data, currentPage, sortKey])
 
   return (
     <>
@@ -52,6 +74,8 @@ export default function TableWithControls({
         columns={columns}
         loading={loading}
         data={dataToShow}
+        highlightedColumn={sortKey.key}
+        onTableSort={setSortKey}
         statsLink={statsLink}
         title={title}
       />

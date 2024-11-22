@@ -14,6 +14,11 @@ import LoaderTable from './loaderTable'
 import { TableData } from './tableData'
 import Link from 'next/link'
 
+interface SortingKey {
+  key: keyof PlayerStats
+  asc: boolean
+}
+
 interface TableProps {
   data?: PlayersStats
   loading?: boolean
@@ -22,6 +27,8 @@ interface TableProps {
     title: string
     key: keyof PlayerStats
   }>
+  highlightedColumn?: keyof PlayerStats
+  onTableSort?: (callback: (prev: SortingKey) => SortingKey) => void
   statsLink?: string
 }
 
@@ -29,9 +36,21 @@ export default function Table({
   data,
   loading = false,
   columns,
+  highlightedColumn,
+  onTableSort,
   statsLink,
   title,
 }: TableProps) {
+  const onTableHeadClick = (columnKey: keyof PlayerStats) => {
+    if (!onTableSort) {
+      return
+    }
+    onTableSort((prev) => ({
+      key: columnKey,
+      asc: prev.key === columnKey ? !prev.asc : true,
+    }))
+  }
+
   return (
     <Container aria-labelledby="table-title">
       <StyledTable role="table" aria-label="Player Stats">
@@ -48,7 +67,13 @@ export default function Table({
         <thead>
           <StyledTr>
             {columns.map((column) => (
-              <StyledTh key={column.key} scope="col">
+              <StyledTh
+                hasActions={!!onTableSort}
+                key={column.key}
+                onClick={() => onTableHeadClick(column.key)}
+                scope="col"
+                highlighted={highlightedColumn === column.key}
+              >
                 {column.title}
               </StyledTh>
             ))}
@@ -64,7 +89,9 @@ export default function Table({
                   <StyledTd
                     key={`${column.key} ${index}`}
                     data-label={column.title}
+                    index={index}
                     scope="col"
+                    highlighted={highlightedColumn === column.key}
                   >
                     <TableData keyName={column.key} data={player[column.key]} />
                   </StyledTd>
