@@ -36,6 +36,8 @@ export default async function handler(
         newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
       })
 
+      newObject['battletag'] = newObject.battletag?.split('#')[0]
+
       newObject['save_death_ratio'] = calculateSaveDeathRatio(
         newObject.saves || 0,
         newObject.deaths || 0,

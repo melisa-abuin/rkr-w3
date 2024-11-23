@@ -35,6 +35,8 @@ export default async function handler(
         newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
       })
 
+      newObject['battletag'] = newObject.battletag?.split('#')[0]
+
       const rounds = [1, 2, 3, 4, 5] as const
 
       rounds.forEach((round) => {

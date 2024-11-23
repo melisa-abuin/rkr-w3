@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const Title = styled.p`
   color: ${({ theme }) => theme.color.secondary};
-  font-size: var(--font-size-sm-md);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   margin-top: 10px;
   margin-bottom 2px;
