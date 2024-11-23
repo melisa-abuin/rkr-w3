@@ -51,21 +51,18 @@ export default function TableWithControls({
   }, [currentPage, router])
 
   const dataToShow = useMemo(() => {
+    if (!data) return []
+
     const initialIndex = (Number(currentPage) - 1) * pageSize
 
-    return data
-      ?.sort((a, b) => {
-        if (!getSortConditionByKey(sortKey.key, a, b)) {
-          return sortKey.asc ? -1 : 1
-        }
+    const sortedData = [...data].sort((a, b) => {
+      const condition = getSortConditionByKey(sortKey.key, a, b)
+      if (condition === undefined) return 0
 
-        if (getSortConditionByKey(sortKey.key, a, b)) {
-          return sortKey.asc ? 1 : -1
-        }
+      return sortKey.asc ? (condition ? 1 : -1) : condition ? -1 : 1
+    })
 
-        return 0
-      })
-      .slice(initialIndex, initialIndex + pageSize)
+    return sortedData.slice(initialIndex, initialIndex + pageSize)
   }, [data, currentPage, sortKey])
 
   return (
