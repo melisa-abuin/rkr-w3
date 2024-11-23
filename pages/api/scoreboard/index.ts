@@ -39,23 +39,23 @@ export default async function handler(
         newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
       })
 
-      newObject['battletag'] = newObject.battletag?.split('#')[0]
+      newObject['battleTag'] = newObject.battleTag?.split('#')[0]
 
-      newObject['save_death_ratio'] = calculateSaveDeathRatio(
+      newObject['saveDeathRatio'] = calculateSaveDeathRatio(
         newObject.saves || 0,
         newObject.deaths || 0,
       )
 
-      newObject['games_played'] = calculateTotals(
-        newObject.normal_games,
-        newObject.hard_games,
-        newObject.impossible_games,
+      newObject['gamesPlayed'] = calculateTotals(
+        newObject.normalGames,
+        newObject.hardGames,
+        newObject.impossibleGames,
       )
 
       newObject['wins'] = calculateTotals(
-        newObject.normal_wins,
-        newObject.hard_wins,
-        newObject.impossible_wins,
+        newObject.normalWins,
+        newObject.hardWins,
+        newObject.impossibleWins,
       )
 
       const rounds = [1, 2, 3, 4, 5] as const
@@ -72,8 +72,8 @@ export default async function handler(
         ...formattedData
           .sort((a: PlayerStats, b: PlayerStats) => {
             return (
-              getNumericCompleteChallenges(b.completed_challenges)[0] -
-              getNumericCompleteChallenges(a.completed_challenges)[0]
+              getNumericCompleteChallenges(b.completedChallenges)[0] -
+              getNumericCompleteChallenges(a.completedChallenges)[0]
             )
           })
           .slice(0, 5),
@@ -82,7 +82,7 @@ export default async function handler(
         stats: [
           {
             category: 'Highest Win Streak',
-            data: findTopFive(formattedData, 'highest_win_streak'),
+            data: findTopFive(formattedData, 'highestWinStreak'),
           },
           {
             category: 'Most Saves',
@@ -90,7 +90,7 @@ export default async function handler(
           },
           {
             category: 'Most Games Played',
-            data: findTopFive(formattedData, 'games_played'),
+            data: findTopFive(formattedData, 'gamesPlayed'),
           },
           {
             category: 'Most Wins',
@@ -98,7 +98,7 @@ export default async function handler(
           },
           {
             category: 'Save/Death Ratio',
-            data: findTopFive(formattedData, 'save_death_ratio'),
+            data: findTopFive(formattedData, 'saveDeathRatio'),
           },
         ],
         times: [

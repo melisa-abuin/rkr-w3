@@ -21,14 +21,14 @@ describe('getSortConditionByKey', () => {
   it('Returns true if player 1 has more total games played than player 2', () => {
     expect(
       getSortConditionByKey(
-        'games_played',
+        'gamesPlayed',
         {
           ...formattedMockData[0],
-          games_played: { ...formattedMockData[0].games_played, total: 10 },
+          gamesPlayed: { ...formattedMockData[0].gamesPlayed, total: 10 },
         },
         {
           ...formattedMockData[1],
-          games_played: { ...formattedMockData[1].games_played, total: 5 },
+          gamesPlayed: { ...formattedMockData[1].gamesPlayed, total: 5 },
         },
       ),
     ).toBe(true)
@@ -37,14 +37,14 @@ describe('getSortConditionByKey', () => {
   it('Returns true if player 1 has more completed challenges than player 2', () => {
     expect(
       getSortConditionByKey(
-        'completed_challenges',
+        'completedChallenges',
         {
           ...formattedMockData[0],
-          completed_challenges: '50/56',
+          completedChallenges: '50/56',
         },
         {
           ...formattedMockData[1],
-          completed_challenges: '20/56',
+          completedChallenges: '20/56',
         },
       ),
     ).toBe(true)

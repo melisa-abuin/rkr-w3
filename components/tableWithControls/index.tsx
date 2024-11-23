@@ -37,7 +37,7 @@ export default function TableWithControls({
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [sortKey, setSortKey] = useState<SortingKey>({
-    key: 'completed_challenges',
+    key: 'completedChallenges',
     asc: false,
   })
 

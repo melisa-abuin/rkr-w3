@@ -2,19 +2,19 @@ import React from 'react'
 import { Container, Title } from './styled'
 
 interface Props {
-  battletag: string
+  battleTag: string
 }
 
-export default function BattleTag({ battletag }: Props) {
+export default function BattleTag({ battleTag }: Props) {
   /**
    * Showing the players battle tag is something we will need to agree on
    * let's remove it for now. If we would like to show the battle tag again we should replace the following html tags with
-   * <Title>{battletag.split('#')[0]}</Title>
-   * <SubTitle>{battletag}</SubTitle>
+   * <Title>{battleTag.split('#')[0]}</Title>
+   * <SubTitle>{battleTag}</SubTitle>
    */
   return (
     <Container>
-      <Title>{battletag}</Title>
+      <Title>{battleTag}</Title>
     </Container>
   )
 }

@@ -18,20 +18,20 @@ const isRoundStats = (data: unknown): data is RoundStats =>
 
 export const TableData = ({ data, keyName }: Props) => {
   switch (keyName) {
-    case 'save_death_ratio':
+    case 'saveDeathRatio':
       if (typeof data === 'number') return <Ratio ratio={data} />
       break
 
-    case 'completed_challenges':
+    case 'completedChallenges':
       if (typeof data === 'string') return <Challenges challenges={data} />
       break
 
-    case 'battletag':
-      if (typeof data === 'string') return <BattleTag battletag={data} />
+    case 'battleTag':
+      if (typeof data === 'string') return <BattleTag battleTag={data} />
       break
 
     case 'wins':
-    case 'games_played':
+    case 'gamesPlayed':
       if (isDifficultyStats(data)) {
         return (
           <Tooltip

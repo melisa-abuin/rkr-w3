@@ -1,3 +1,4 @@
 //TODO: replace this with camel case insead
 export const mapKeysToSnakeCase = (key: string): string =>
-  key.toLowerCase().replace(/ : | /g, (match) => (match === ': ' ? ' ' : '_'))
+  key[0].toLowerCase() +
+  key.slice(1).replace(/ : | /g, (match) => (match === ': ' ? ' ' : ''))

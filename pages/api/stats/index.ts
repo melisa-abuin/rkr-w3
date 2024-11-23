@@ -36,23 +36,23 @@ export default async function handler(
         newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
       })
 
-      newObject['battletag'] = newObject.battletag?.split('#')[0]
+      newObject['battleTag'] = newObject.battleTag?.split('#')[0]
 
-      newObject['save_death_ratio'] = calculateSaveDeathRatio(
+      newObject['saveDeathRatio'] = calculateSaveDeathRatio(
         newObject.saves || 0,
         newObject.deaths || 0,
       )
 
-      newObject['games_played'] = calculateTotals(
-        newObject.normal_games,
-        newObject.hard_games,
-        newObject.impossible_games,
+      newObject['gamesPlayed'] = calculateTotals(
+        newObject.normalGames,
+        newObject.hardGames,
+        newObject.impossibleGames,
       )
 
       newObject['wins'] = calculateTotals(
-        newObject.normal_wins,
-        newObject.hard_wins,
-        newObject.impossible_wins,
+        newObject.normalWins,
+        newObject.hardWins,
+        newObject.impossibleWins,
       )
 
       return newObject

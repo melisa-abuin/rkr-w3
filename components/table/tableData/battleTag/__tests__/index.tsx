@@ -7,7 +7,7 @@ describe('BattleTag', () => {
   it('renders battletag and displays correct title and subtitle', () => {
     const battletag = 'Alex'
 
-    renderWithTheme(<BattleTag battletag={battletag} />)
+    renderWithTheme(<BattleTag battleTag={battletag} />)
 
     const titleElement = screen.getByText(battletag)
 

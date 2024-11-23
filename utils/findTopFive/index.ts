@@ -3,7 +3,7 @@ import { getSortConditionByKey } from '../getSortConditionByKey'
 import { isRoundKey } from '../isRoundKey'
 
 const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
-  if (key === 'wins' || key === 'games_played') {
+  if (key === 'wins' || key === 'gamesPlayed') {
     return elem[key].total
   }
   if (isRoundKey(key)) {
@@ -51,7 +51,7 @@ export const findTopFive = (array: PlayerStats[], key: keyof PlayerStats) => {
   })
 
   return topFive.map((elem: PlayerStats) => ({
-    player: elem.battletag,
+    player: elem.battleTag,
     data: getDataToMap(key, elem),
   }))
 }
@@ -70,7 +70,7 @@ export const findTopFiveOld = (
   array: PlayerStats[],
   key: keyof PlayerStats,
 ) => {
-  const hasTotal = key === 'wins' || key === 'games_played'
+  const hasTotal = key === 'wins' || key === 'gamesPlayed'
 
   if (hasTotal) {
     return [...array].sort((a, b) => b[key].total - a[key].total).slice(0, 5)
