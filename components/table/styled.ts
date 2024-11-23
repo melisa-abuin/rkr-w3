@@ -54,10 +54,10 @@ export const StyledTr = styled.tr`
 `
 
 export const StyledTd = styled.td<{
-  highlighted: boolean
-  index: number
+  highlighted?: boolean
+  index?: number
 }>`
-  background-color: ${({ highlighted, theme, index }) =>
+  background-color: ${({ highlighted, theme, index = 0 }) =>
     highlighted
       ? index % 2 === 0
         ? theme.background.highlightSecondary

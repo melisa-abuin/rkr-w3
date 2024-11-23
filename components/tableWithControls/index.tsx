@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 import Pagination from './pagination'
 import { pageSize } from '@/constants'
-import { getSortConditionByKey } from '@/utils/findTopFive'
+import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 
 interface TableProps {
   data?: PlayersStats
