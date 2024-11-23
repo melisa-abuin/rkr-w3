@@ -24,10 +24,10 @@ export default function Loading() {
     >
       <Image
         alt="brand logo"
-        height={54}
+        height={80}
         priority
         src={isDarkTheme ? '/brand-icon-dark.png' : `/brand-icon-white.png`}
-        width={64}
+        width={80}
       />
       Loading...
     </div>
