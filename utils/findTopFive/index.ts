@@ -1,28 +1,6 @@
 import { PlayerStats } from '@/interfaces/player'
-import { getNumericCompleteChallenges } from '../getNumericCompleteChallenges'
-
-const roundKeys = ['r1', 'r2', 'r3', 'r4', 'r5'] as const
-type RoundKey = (typeof roundKeys)[number]
-
-const isRoundKey = (key: keyof PlayerStats): key is RoundKey => {
-  return roundKeys.includes(key as RoundKey)
-}
-
-const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
-  if (key === 'wins' || key === 'games_played') {
-    return elem[key].total
-  }
-
-  if (key === 'completed_challenges') {
-    return getNumericCompleteChallenges(elem[key])[0]
-  }
-
-  if (isRoundKey(key)) {
-    return elem[key].best.time
-  }
-
-  return elem[key]
-}
+import { getSortConditionByKey } from '../getSortConditionByKey'
+import { isRoundKey } from '../isRoundKey'
 
 const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
   if (key === 'wins' || key === 'games_played') {
@@ -33,18 +11,6 @@ const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
   }
 
   return elem[key]
-}
-
-export const getSortConditionByKey = (
-  key: keyof PlayerStats,
-  elem: PlayerStats,
-  elem2: PlayerStats,
-) => {
-  const elementData = getKeyToEvaluate(key, elem)
-  const topFiveData = getKeyToEvaluate(key, elem2)
-  return isRoundKey(key) || key === 'battletag'
-    ? elementData < topFiveData
-    : elementData > topFiveData
 }
 
 /**
