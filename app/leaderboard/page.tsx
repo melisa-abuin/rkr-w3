@@ -48,7 +48,7 @@ async function fetchData(): Promise<PlayerStatsData> {
 
 export default async function Leaderboard() {
   const { data, error } = await fetchData()
-  console.log(data)
+
   return (
     <ThemeProvider>
       <Navbar />

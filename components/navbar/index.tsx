@@ -24,8 +24,8 @@ export default function Navbar() {
             priority
             src={
               shouldShowTransparentNav
-                ? '/brand-icon-white.png'
-                : `/brand-icon-${theme.name}.png`
+                ? '/rkr-icon-white.png'
+                : `/rkr-icon-${theme.name}.png`
             }
             width={54}
           />

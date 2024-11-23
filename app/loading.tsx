@@ -26,7 +26,7 @@ export default function Loading() {
         alt="brand logo"
         height={80}
         priority
-        src={isDarkTheme ? '/brand-icon-dark.png' : `/brand-icon-white.png`}
+        src={isDarkTheme ? '/rkr-icon-dark.png' : `/rkr-icon-white.png`}
         width={80}
       />
       Loading...
