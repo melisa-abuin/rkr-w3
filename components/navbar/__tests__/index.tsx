@@ -24,6 +24,6 @@ describe('Navbar', () => {
     renderWithTheme(<Navbar />)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('How To Play')).toBeInTheDocument()
+    expect(screen.getByText('Leaderboard')).toBeInTheDocument()
   })
 })

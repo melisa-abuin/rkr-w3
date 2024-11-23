@@ -10,10 +10,10 @@ describe('calculateTotals', () => {
         formattedMockData[0].impossible_games,
       ),
     ).toStrictEqual({
-      normal: 39,
-      hard: 16,
-      impossible: 15,
-      total: 70,
+      normal: 10,
+      hard: 10,
+      impossible: 10,
+      total: 30,
     })
   })
 })

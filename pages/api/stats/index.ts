@@ -3,6 +3,7 @@ import { PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { mapKeysToSnakeCase } from '@/utils/mapKeysToSnakeCase'
 import { calculateTotals } from '@/utils/calculateTotals'
+import { mockApiData } from '@/constants'
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +22,11 @@ export default async function handler(
         'Content-Type': 'application/json',
       },
     })
-    const data = await response.json()
+
+    const data =
+      process.env.NODE_ENV === 'development'
+        ? mockApiData
+        : await response.json()
 
     // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data.map((elem: PlayerStats) => {
@@ -30,6 +35,8 @@ export default async function handler(
       Object.entries(elem).forEach(([key, value]) => {
         newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
       })
+
+      newObject['battletag'] = newObject.battletag?.split('#')[0]
 
       newObject['save_death_ratio'] = calculateSaveDeathRatio(
         newObject.saves || 0,

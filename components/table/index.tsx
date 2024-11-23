@@ -14,6 +14,11 @@ import LoaderTable from './loaderTable'
 import { TableData } from './tableData'
 import Link from 'next/link'
 
+interface SortingKey {
+  key: keyof PlayerStats
+  asc: boolean
+}
+
 interface TableProps {
   data?: PlayersStats
   loading?: boolean
@@ -22,6 +27,8 @@ interface TableProps {
     title: string
     key: keyof PlayerStats
   }>
+  highlightedColumn?: keyof PlayerStats
+  onTableSort?: (callback: (prev: SortingKey) => SortingKey) => void
   statsLink?: string
 }
 
@@ -29,9 +36,21 @@ export default function Table({
   data,
   loading = false,
   columns,
+  highlightedColumn,
+  onTableSort,
   statsLink,
   title,
 }: TableProps) {
+  const onTableHeadClick = (columnKey: keyof PlayerStats) => {
+    if (!onTableSort) {
+      return
+    }
+    onTableSort((prev) => ({
+      key: columnKey,
+      asc: prev.key === columnKey ? !prev.asc : false,
+    }))
+  }
+
   return (
     <Container aria-labelledby="table-title">
       <StyledTable role="table" aria-label="Player Stats">
@@ -47,9 +66,15 @@ export default function Table({
         </caption>
         <thead>
           <StyledTr>
-            {columns.map((column) => (
-              <StyledTh key={column.key} scope="col">
-                {column.title}
+            {columns.map(({ key, title }) => (
+              <StyledTh
+                hasActions={!!onTableSort}
+                key={key}
+                onClick={() => onTableHeadClick(key)}
+                scope="col"
+                highlighted={highlightedColumn === key}
+              >
+                {title}
               </StyledTh>
             ))}
           </StyledTr>
@@ -60,13 +85,15 @@ export default function Table({
           <tbody>
             {data?.map((player, index) => (
               <tr key={index}>
-                {columns.map((column) => (
+                {columns.map(({ key, title }) => (
                   <StyledTd
-                    key={`${column.key} ${index}`}
-                    data-label={column.title}
+                    key={`${key} ${index}`}
+                    data-label={title}
+                    index={index}
                     scope="col"
+                    highlighted={highlightedColumn === key}
                   >
-                    <TableData keyName={column.key} data={player[column.key]} />
+                    <TableData keyName={key} data={player[key]} />
                   </StyledTd>
                 ))}
               </tr>

@@ -21,7 +21,7 @@ describe('DesktopNavbar', () => {
     renderWithTheme(<DesktopNavbar />)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('How To Play')).toBeInTheDocument()
+    expect(screen.getByText('Leaderboard')).toBeInTheDocument()
   })
 
   it('applies the selected style to the current page link', () => {

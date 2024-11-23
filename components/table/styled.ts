@@ -31,11 +31,19 @@ export const StyledTable = styled.table`
   }
 `
 
-export const StyledTh = styled.th`
+export const StyledTh = styled.th<{
+  hasActions: boolean
+  highlighted: boolean
+}>`
+  background-color: ${({ highlighted, theme }) =>
+    highlighted ? theme.background.highlightPrimary : 'inherit'};
   padding: 10px;
   text-align: left;
   font-weight: var(--font-weight-bold);
   text-align: center;
+
+  cursor: ${({ hasActions }) => (hasActions ? 'pointer' : 'auto')};
+  transition: background-color 1s;
 `
 
 export const StyledTr = styled.tr`
@@ -45,11 +53,22 @@ export const StyledTr = styled.tr`
   border-radius: 10px;
 `
 
-export const StyledTd = styled.td`
+export const StyledTd = styled.td<{
+  highlighted?: boolean
+  index?: number
+}>`
+  background-color: ${({ highlighted, theme, index = 0 }) =>
+    highlighted
+      ? index % 2 === 0
+        ? theme.background.highlightSecondary
+        : theme.background.highlightTertiary
+      : 'inherit'};
+
   border: none;
   color: ${({ theme }) => theme.text.primary};
   padding: 10px;
   text-align: center;
+  transition: background-color 1s;
 `
 
 export const Title = styled.div`

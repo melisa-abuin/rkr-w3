@@ -43,7 +43,7 @@ describe('MobileNavbar', () => {
     await userEvent.click(menuIcon)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
-    expect(screen.getByText('How To Play')).toBeInTheDocument()
+    expect(screen.getByText('Leaderboard')).toBeInTheDocument()
 
     await userEvent.click(screen.getByLabelText('Close modal'))
     expect(screen.queryByText('Home')).not.toBeInTheDocument()

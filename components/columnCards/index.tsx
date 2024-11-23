@@ -23,7 +23,7 @@ export default function ColumnCards({ data }: Props) {
               <tbody>
                 {data?.map(({ player, data }) => (
                   <tr key={player}>
-                    <Td>{player.split('#')[0]}</Td>
+                    <Td>{player}</Td>
                     {typeof data === 'number' ? (
                       <Td>{data}</Td>
                     ) : (

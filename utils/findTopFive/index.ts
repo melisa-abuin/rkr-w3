@@ -1,23 +1,6 @@
 import { PlayerStats } from '@/interfaces/player'
-
-const roundKeys = ['r1', 'r2', 'r3', 'r4', 'r5'] as const
-type RoundKey = (typeof roundKeys)[number]
-
-const isRoundKey = (key: keyof PlayerStats): key is RoundKey => {
-  return roundKeys.includes(key as RoundKey)
-}
-
-const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
-  if (key === 'wins' || key === 'games_played') {
-    return elem[key].total
-  }
-
-  if (isRoundKey(key)) {
-    return elem[key].best.time
-  }
-
-  return elem[key]
-}
+import { getSortConditionByKey } from '../getSortConditionByKey'
+import { isRoundKey } from '../isRoundKey'
 
 const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
   if (key === 'wins' || key === 'games_played') {
@@ -47,11 +30,7 @@ export const findTopFive = (array: PlayerStats[], key: keyof PlayerStats) => {
 
     // Insert the element in the correct sorted position in topFive
     for (let i = 0; i < topFive.length; i++) {
-      const elementData = getKeyToEvaluate(key, elem)
-      const topFiveData = getKeyToEvaluate(key, topFive[i])
-      const condition = isRoundKey(key)
-        ? elementData < topFiveData
-        : elementData > topFiveData
+      const condition = getSortConditionByKey(key, elem, topFive[i])
 
       if (condition) {
         topFive.splice(i, 0, elem) // Insert at the found position
