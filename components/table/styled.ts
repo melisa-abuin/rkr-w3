@@ -36,14 +36,14 @@ export const StyledTh = styled.th<{
   highlighted: boolean
 }>`
   background-color: ${({ highlighted, theme }) =>
-    highlighted ? '#3d1414' : 'inherit'};
+    highlighted ? theme.background.highlightPrimary : 'inherit'};
   padding: 10px;
   text-align: left;
   font-weight: var(--font-weight-bold);
   text-align: center;
 
   cursor: ${({ hasActions }) => (hasActions ? 'pointer' : 'auto')};
-  transition: background-color 2s;
+  transition: background-color 1s;
 `
 
 export const StyledTr = styled.tr`
@@ -60,8 +60,8 @@ export const StyledTd = styled.td<{
   background-color: ${({ highlighted, theme, index }) =>
     highlighted
       ? index % 2 === 0
-        ? 'rgb(33 26 26)'
-        : 'rgb(49 43 43)'
+        ? theme.background.highlightSecondary
+        : theme.background.highlightTertiary
       : 'inherit'};
 
   border: none;

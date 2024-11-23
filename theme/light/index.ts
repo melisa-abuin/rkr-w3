@@ -14,6 +14,9 @@ const lightTheme = {
     secondary: '#b1e2e2',
     tertiary: '#ffe0e0',
     quaternary: '#efefef',
+    highlightPrimary: '#f5a4a4',
+    highlightSecondary: '#e6e2e2',
+    highlightTertiary: '#d4d4d4',
   },
   text: {
     primary: '#050505',
