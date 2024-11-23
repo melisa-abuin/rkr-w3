@@ -42,7 +42,9 @@ export const getSortConditionByKey = (
 ) => {
   const elementData = getKeyToEvaluate(key, elem)
   const topFiveData = getKeyToEvaluate(key, elem2)
-  return isRoundKey(key) ? elementData < topFiveData : elementData > topFiveData
+  return isRoundKey(key) || key === 'battletag'
+    ? elementData < topFiveData
+    : elementData > topFiveData
 }
 
 /**

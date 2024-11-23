@@ -47,7 +47,7 @@ export default function Table({
     }
     onTableSort((prev) => ({
       key: columnKey,
-      asc: prev.key === columnKey ? !prev.asc : true,
+      asc: prev.key === columnKey ? !prev.asc : false,
     }))
   }
 
@@ -66,15 +66,15 @@ export default function Table({
         </caption>
         <thead>
           <StyledTr>
-            {columns.map((column) => (
+            {columns.map(({ key, title }) => (
               <StyledTh
                 hasActions={!!onTableSort}
-                key={column.key}
-                onClick={() => onTableHeadClick(column.key)}
+                key={key}
+                onClick={() => onTableHeadClick(key)}
                 scope="col"
-                highlighted={highlightedColumn === column.key}
+                highlighted={highlightedColumn === key}
               >
-                {column.title}
+                {title}
               </StyledTh>
             ))}
           </StyledTr>
@@ -85,15 +85,15 @@ export default function Table({
           <tbody>
             {data?.map((player, index) => (
               <tr key={index}>
-                {columns.map((column) => (
+                {columns.map(({ key, title }) => (
                   <StyledTd
-                    key={`${column.key} ${index}`}
-                    data-label={column.title}
+                    key={`${key} ${index}`}
+                    data-label={title}
                     index={index}
                     scope="col"
-                    highlighted={highlightedColumn === column.key}
+                    highlighted={highlightedColumn === key}
                   >
-                    <TableData keyName={column.key} data={player[column.key]} />
+                    <TableData keyName={key} data={player[key]} />
                   </StyledTd>
                 ))}
               </tr>
