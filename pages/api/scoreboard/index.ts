@@ -12,6 +12,14 @@ import { getNumericCompleteChallenges } from '@/utils/getNumericCompleteChalleng
 import { findTopFive } from '@/utils/findTopFive'
 import { mockApiData } from '@/constants'
 
+const keysToMap: (keyof PlayerStats)[] = [
+  'saves',
+  'deaths',
+  'completedChallenges',
+  'highestSaveStreak',
+  'highestWinStreak',
+]
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -44,13 +52,7 @@ export default async function handler(
         const camelCaseKey = mapKeysToSnakeCase(key)
         newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
 
-        if (
-          camelCaseKey === 'saves' ||
-          camelCaseKey === 'deaths' ||
-          camelCaseKey === 'completedChallenges' ||
-          camelCaseKey === 'highestSaveStreak' ||
-          camelCaseKey === 'highestWinStreak'
-        ) {
+        if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
           playerStats[camelCaseKey as keyof PlayerStats] = value
         }
       })
