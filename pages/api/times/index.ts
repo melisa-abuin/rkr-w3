@@ -41,6 +41,11 @@ export default async function handler(
         newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
       })
 
+      playerStats['battleTag'] = {
+        name: newObject.battleTag?.split('#')[0] || '',
+        tag: newObject.battleTag || '',
+      }
+
       const rounds = [1, 2, 3, 4, 5] as const
 
       rounds.forEach((round) => {
