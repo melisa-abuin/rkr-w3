@@ -5,7 +5,7 @@ import {
   PlayerStats,
 } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { mapKeysToSnakeCase } from '@/utils/mapKeysToSnakeCase'
+import { mapKeysToCamelCase } from '@/utils/mapKeysToCamelCase'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { getNumericCompleteChallenges } from '@/utils/getNumericCompleteChallenges'
@@ -49,7 +49,7 @@ export default async function handler(
       const playerStats: Partial<PlayerStats> = {}
 
       Object.entries(elem).forEach(([key, value]) => {
-        const camelCaseKey = mapKeysToSnakeCase(key)
+        const camelCaseKey = mapKeysToCamelCase(key)
         newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
 
         if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
