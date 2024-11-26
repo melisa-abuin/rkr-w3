@@ -1,9 +1,21 @@
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
-import { PlayerStats } from '@/interfaces/player'
+import {
+  ApiPlayerStats,
+  FromattedApiPlayerStats,
+  PlayerStats,
+} from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { mapKeysToSnakeCase } from '@/utils/mapKeysToSnakeCase'
+import { mapKeysToCamelCase } from '@/utils/mapKeysToCamelCase'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { mockApiData } from '@/constants'
+
+const keysToMap: (keyof PlayerStats)[] = [
+  'saves',
+  'deaths',
+  'completedChallenges',
+  'highestSaveStreak',
+  'highestWinStreak',
+]
 
 export default async function handler(
   req: NextApiRequest,
@@ -29,33 +41,42 @@ export default async function handler(
         : await response.json()
 
     // if the data volume increases here we will need to implement a cache/invalidation method
-    const formattedData = data.map((elem: PlayerStats) => {
-      const newObject: Partial<PlayerStats> = {}
+    const formattedData = data.map((elem: ApiPlayerStats) => {
+      const newObject: Partial<FromattedApiPlayerStats> = {}
+      const playerStats: Partial<PlayerStats> = {}
 
       Object.entries(elem).forEach(([key, value]) => {
-        newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
+        const camelCaseKey = mapKeysToCamelCase(key)
+        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
+
+        if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
+          playerStats[camelCaseKey as keyof PlayerStats] = value
+        }
       })
 
-      newObject['battletag'] = newObject.battletag?.split('#')[0]
+      playerStats['battleTag'] = {
+        name: newObject.battleTag?.split('#')[0] || '',
+        tag: newObject.battleTag || '',
+      }
 
-      newObject['save_death_ratio'] = calculateSaveDeathRatio(
+      playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
         newObject.saves || 0,
         newObject.deaths || 0,
       )
 
-      newObject['games_played'] = calculateTotals(
-        newObject.normal_games,
-        newObject.hard_games,
-        newObject.impossible_games,
+      playerStats['gamesPlayed'] = calculateTotals(
+        newObject.normalGames,
+        newObject.hardGames,
+        newObject.impossibleGames,
       )
 
-      newObject['wins'] = calculateTotals(
-        newObject.normal_wins,
-        newObject.hard_wins,
-        newObject.impossible_wins,
+      playerStats['wins'] = calculateTotals(
+        newObject.normalWins,
+        newObject.hardWins,
+        newObject.impossibleWins,
       )
 
-      return newObject
+      return playerStats
     })
 
     res

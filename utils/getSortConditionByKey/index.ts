@@ -3,12 +3,12 @@ import { getNumericCompleteChallenges } from '../getNumericCompleteChallenges'
 import { isRoundKey } from '../isRoundKey'
 
 const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
-  if (key === 'wins' || key === 'games_played') {
+  if (key === 'wins' || key === 'gamesPlayed') {
     // TODO: handle hard/normal/impossible values when required
     return elem[key].total
   }
 
-  if (key === 'completed_challenges') {
+  if (key === 'completedChallenges') {
     return getNumericCompleteChallenges(elem[key])[0]
   }
 
@@ -40,7 +40,7 @@ export const getSortConditionByKey = (
 ) => {
   const elementData = getKeyToEvaluate(key, elem)
   const topFiveData = getKeyToEvaluate(key, elem2)
-  return isRoundKey(key) || key === 'battletag'
+  return isRoundKey(key) || key === 'battleTag'
     ? elementData < topFiveData
     : elementData > topFiveData
 }

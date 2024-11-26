@@ -1,15 +1,19 @@
-import { formattedMockData } from '@/constants'
 import { formatRoundsData } from '..'
 
 describe('formatRoundsData', () => {
   it('Returns a new object with normal, hard, impossible and a total time calculated', () => {
-    expect(formatRoundsData(formattedMockData[0], 1)).toStrictEqual({
-      normal: formattedMockData[0].round_1_time_normal,
-      hard: formattedMockData[0].round_1_time_hard,
-      impossible: formattedMockData[0].round_1_time_impossible,
+    const mockedData = {
+      round1TimeNormal: 90.2,
+      round1TimeHard: 105.2,
+      round1TimeImpossible: 150.5,
+    }
+    expect(formatRoundsData(mockedData, 1)).toStrictEqual({
+      normal: mockedData.round1TimeNormal,
+      hard: mockedData.round1TimeHard,
+      impossible: mockedData.round1TimeImpossible,
       best: {
         difficulty: 'normal',
-        time: formattedMockData[0].round_1_time_normal,
+        time: mockedData.round1TimeNormal,
       },
     })
   })
