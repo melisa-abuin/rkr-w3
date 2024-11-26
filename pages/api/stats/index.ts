@@ -1,5 +1,9 @@
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
-import { PlayerStats } from '@/interfaces/player'
+import {
+  ApiPlayerStats,
+  FromattedApiPlayerStats,
+  PlayerStats,
+} from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { mapKeysToSnakeCase } from '@/utils/mapKeysToSnakeCase'
 import { calculateTotals } from '@/utils/calculateTotals'
@@ -29,33 +33,48 @@ export default async function handler(
         : await response.json()
 
     // if the data volume increases here we will need to implement a cache/invalidation method
-    const formattedData = data.map((elem: PlayerStats) => {
-      const newObject: Partial<PlayerStats> = {}
+    const formattedData = data.map((elem: ApiPlayerStats) => {
+      const newObject: Partial<FromattedApiPlayerStats> = {}
+      const playerStats: Partial<PlayerStats> = {}
 
       Object.entries(elem).forEach(([key, value]) => {
-        newObject[mapKeysToSnakeCase(key) as keyof PlayerStats] = value
+        const camelCaseKey = mapKeysToSnakeCase(key)
+        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
+
+        if (
+          camelCaseKey === 'saves' ||
+          camelCaseKey === 'deaths' ||
+          camelCaseKey === 'completedChallenges' ||
+          camelCaseKey === 'highestSaveStreak' ||
+          camelCaseKey === 'highestWinStreak'
+        ) {
+          playerStats[camelCaseKey as keyof PlayerStats] = value
+        }
       })
 
-      newObject['battleTag'] = newObject.battleTag?.split('#')[0]
+      playerStats['battleTag'] = {
+        name: newObject.battleTag?.split('#')[0] || '',
+        tag: newObject.battleTag || '',
+      }
 
-      newObject['saveDeathRatio'] = calculateSaveDeathRatio(
+      playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
         newObject.saves || 0,
         newObject.deaths || 0,
       )
 
-      newObject['gamesPlayed'] = calculateTotals(
+      playerStats['gamesPlayed'] = calculateTotals(
         newObject.normalGames,
         newObject.hardGames,
         newObject.impossibleGames,
       )
 
-      newObject['wins'] = calculateTotals(
+      playerStats['wins'] = calculateTotals(
         newObject.normalWins,
         newObject.hardWins,
         newObject.impossibleWins,
       )
 
-      return newObject
+      return playerStats
     })
 
     res

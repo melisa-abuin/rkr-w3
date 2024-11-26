@@ -51,7 +51,7 @@ export const findTopFive = (array: PlayerStats[], key: keyof PlayerStats) => {
   })
 
   return topFive.map((elem: PlayerStats) => ({
-    player: elem.battleTag,
+    player: elem.battleTag.name,
     data: getDataToMap(key, elem),
   }))
 }

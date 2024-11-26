@@ -1,4 +1,9 @@
-import { DifficultyStats, PlayerStats, RoundStats } from '@/interfaces/player'
+import {
+  DifficultyStats,
+  PlayerStats,
+  RoundStats,
+  BattleTag as BattleTagI,
+} from '@/interfaces/player'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'
 import Ratio from './ratio'
@@ -6,7 +11,7 @@ import Challenges from './challenges'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 
 interface Props {
-  data: string | number | RoundStats | DifficultyStats
+  data: string | number | RoundStats | DifficultyStats | BattleTagI
   keyName: keyof PlayerStats
 }
 
@@ -15,6 +20,9 @@ const isDifficultyStats = (data: unknown): data is DifficultyStats =>
 
 const isRoundStats = (data: unknown): data is RoundStats =>
   typeof data === 'object' && data !== null && 'best' in data
+
+const isBattleTag = (data: unknown): data is BattleTagI =>
+  typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
 
 export const TableData = ({ data, keyName }: Props) => {
   switch (keyName) {
@@ -27,7 +35,7 @@ export const TableData = ({ data, keyName }: Props) => {
       break
 
     case 'battleTag':
-      if (typeof data === 'string') return <BattleTag battleTag={data} />
+      if (isBattleTag(data)) return <BattleTag battleTag={data} />
       break
 
     case 'wins':
