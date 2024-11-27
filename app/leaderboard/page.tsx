@@ -8,6 +8,7 @@ import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
+import Info from '@/components/info'
 
 interface Data {
   player: string
@@ -77,6 +78,11 @@ export default async function Leaderboard() {
             />
           </>
         )}
+        <Info>
+          we understand that some players might not want to see their battle tag
+          on this page, we are currently working on an automated solution, in
+          the meantime please contact the page administrator to a manual removal
+        </Info>
       </main>
       <Footer />
     </ThemeProvider>
