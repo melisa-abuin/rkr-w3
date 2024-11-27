@@ -4,8 +4,7 @@ import { isRoundKey } from '../isRoundKey'
 
 const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
   if (key === 'wins' || key === 'gamesPlayed') {
-    // TODO: handle hard/normal/impossible values when required
-    return elem[key].total
+    return typeof elem[key] === 'number' ? elem[key] : elem[key].total
   }
 
   if (key === 'completedChallenges') {
@@ -13,8 +12,7 @@ const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
   }
 
   if (isRoundKey(key)) {
-    // TODO: handle hard/normal/impossible values when required
-    return elem[key].best.time
+    return typeof elem[key] === 'number' ? elem[key] : elem[key].best.time
   }
 
   return elem[key]
