@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { ReactNode } from 'react'
 import {
   StyledTable,
   StyledTh,
@@ -22,6 +22,7 @@ interface SortingKey {
 interface TableProps {
   data?: PlayersStats
   loading?: boolean
+  filters?: ReactNode
   title: string
   columns: Array<{
     title: string
@@ -36,6 +37,7 @@ export default function Table({
   data,
   loading = false,
   columns,
+  filters,
   highlightedColumn,
   onTableSort,
   statsLink,
@@ -63,6 +65,7 @@ export default function Table({
               </Link>
             )}
           </Title>
+          {filters}
         </caption>
         <thead>
           <StyledTr>

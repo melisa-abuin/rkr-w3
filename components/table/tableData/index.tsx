@@ -51,7 +51,7 @@ export const TableData = ({ data, keyName }: Props) => {
           </Tooltip>
         )
       }
-      break
+      return typeof data === 'number' ? <>{data}</> : null
 
     default:
       if (isRoundStats(data)) {
@@ -66,7 +66,7 @@ export const TableData = ({ data, keyName }: Props) => {
           </Tooltip>
         )
       }
-      return typeof data === 'number' ? <>{data}</> : null
+      return typeof data === 'number' ? <>{secondsToSexagesimal(data)}</> : null
   }
 
   return null
