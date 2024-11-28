@@ -31,29 +31,48 @@ export default function TableWithControls({
   columns,
   title,
 }: TableProps) {
+  // TODO: create custom hooks
   const totalPages = data ? Math.round(data?.length / pageSize) : 0
   const router = useRouter()
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
+  const initialFilter = searchParams?.get('difficulty') as Difficulty
+  const initialSortData = {
+    key:
+      (searchParams?.get('sortKey') as keyof PlayerStats) ||
+      'completedChallenges',
+    asc: !!searchParams?.get('sortOrder') || false,
+  }
 
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
-  >()
+  >(initialFilter)
 
-  const [sortKey, setSortKey] = useState<SortingKey>({
-    key: 'completedChallenges',
-    asc: false,
-  })
+  const [sortKey, setSortKey] = useState<SortingKey>(initialSortData)
 
   useEffect(() => {
-    window.history.pushState(null, '', `?page=${currentPage}`)
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('page', currentPage.toString())
+
+    if (difficultyFilter) {
+      queryParams.set('difficulty', difficultyFilter)
+    }
+
+    if (sortKey) {
+      queryParams.set('sortKey', sortKey.key)
+      queryParams.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
+    }
+
+    window.history.pushState(null, '', `?${queryParams.toString()}`)
+
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'smooth',
     })
-  }, [currentPage, router])
+  }, [currentPage, router, difficultyFilter, sortKey])
 
   const dataToShow = useMemo(() => {
     if (!data) return []
