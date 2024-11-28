@@ -19,7 +19,7 @@ export default function Challenges({ challenges }: Props) {
     return <Container color={theme.text.primary}>none</Container>
   }
 
-  if (completedChallenges === totalChallenges && totalChallenges !== 0) {
+  if (completedChallenges === totalChallenges) {
     return (
       <Container color={theme.color.teal}>
         {challenges}
