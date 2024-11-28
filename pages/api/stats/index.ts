@@ -46,11 +46,13 @@ export default async function handler(
       const playerStats: Partial<PlayerStats> = {}
 
       Object.entries(elem).forEach(([key, value]) => {
+        const elementValue = value || 0
+
         const camelCaseKey = mapKeysToCamelCase(key)
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
+        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
 
         if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
-          playerStats[camelCaseKey as keyof PlayerStats] = value
+          playerStats[camelCaseKey as keyof PlayerStats] = elementValue
         }
       })
 
@@ -60,8 +62,8 @@ export default async function handler(
       }
 
       playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
-        newObject.saves || 0,
-        newObject.deaths || 0,
+        newObject.saves,
+        newObject.deaths,
       )
 
       playerStats['gamesPlayed'] = calculateTotals(

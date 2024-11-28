@@ -15,7 +15,11 @@ export default function Challenges({ challenges }: Props) {
   const [completedChallenges, totalChallenges] =
     getNumericCompleteChallenges(challenges)
 
-  if (completedChallenges === totalChallenges) {
+  if (totalChallenges === 0) {
+    return <Container color={theme.text.primary}>none</Container>
+  }
+
+  if (completedChallenges === totalChallenges && totalChallenges !== 0) {
     return (
       <Container color={theme.color.teal}>
         {challenges}
@@ -23,6 +27,7 @@ export default function Challenges({ challenges }: Props) {
       </Container>
     )
   }
+
   if (completedChallenges >= totalChallenges * 0.75) {
     return (
       <Container color={theme.color.green}>
@@ -31,8 +36,10 @@ export default function Challenges({ challenges }: Props) {
       </Container>
     )
   }
+
   if (completedChallenges >= totalChallenges * 0.5) {
     return <Container color={theme.color.yellow}>{challenges}</Container>
   }
+
   return <Container color={theme.text.primary}>{challenges}</Container>
 }

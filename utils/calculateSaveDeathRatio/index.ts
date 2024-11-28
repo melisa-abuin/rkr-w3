@@ -6,7 +6,10 @@
  * @param deaths amount of deaths
  * @returns save/death ratio
  */
-export const calculateSaveDeathRatio = (saves: number, deaths: number) => {
+export const calculateSaveDeathRatio = (
+  saves: number = 0,
+  deaths: number = 0,
+) => {
   if (!saves) {
     return 0
   }
