@@ -82,7 +82,6 @@ export default async function handler(
 
       return playerStats
     })
-    console.log(formattedData)
 
     res.status(200).json(formattedData)
   } catch (error) {
