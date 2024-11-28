@@ -18,13 +18,15 @@ const timeStrings = {
   title: 'All time stats',
   description: 'Check all the time-based stats',
   columns: timeAllDiffColumns,
-}
+  defaultSortKey: 'r1',
+} as const
 
 const overallStrings = {
   title: 'Overall stats',
   description: 'Check all the general stats for all players',
   columns: statsColumns,
-}
+  defaultSortKey: 'completedChallenges',
+} as const
 
 async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
   const headersList = headers()
@@ -72,6 +74,7 @@ export default async function StatsPage({
             <TableWithControls
               columns={strings.columns}
               data={data}
+              defaultSortKey={strings.defaultSortKey}
               title="Overall Stats"
             />
             <Info>

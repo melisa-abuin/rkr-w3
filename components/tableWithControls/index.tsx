@@ -12,6 +12,7 @@ import { Difficulty } from '@/interfaces/difficulty'
 
 interface TableProps {
   data?: PlayersStats
+  defaultSortKey: keyof PlayerStats
   loading?: boolean
   title: string
   columns: Array<{
@@ -27,6 +28,7 @@ interface SortingKey {
 
 export default function TableWithControls({
   data,
+  defaultSortKey,
   loading = false,
   columns,
   title,
@@ -38,9 +40,7 @@ export default function TableWithControls({
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
   const initialFilter = searchParams?.get('difficulty') as Difficulty
   const initialSortData = {
-    key:
-      (searchParams?.get('sortKey') as keyof PlayerStats) ||
-      'completedChallenges',
+    key: (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey,
     asc: !!searchParams?.get('sortOrder') || false,
   }
 

@@ -21,8 +21,8 @@ export default function ColumnCards({ data }: Props) {
             <Header>{category}</Header>
             <Table>
               <tbody>
-                {data?.map(({ player, data }) => (
-                  <tr key={player}>
+                {data?.map(({ player, data }, index) => (
+                  <tr key={`${player}${index}`}>
                     <Td>{player}</Td>
                     {typeof data === 'number' ? (
                       <Td>{data}</Td>
