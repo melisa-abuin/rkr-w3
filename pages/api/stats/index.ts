@@ -46,9 +46,11 @@ export default async function handler(
       const playerStats: Partial<PlayerStats> = {}
 
       Object.entries(elem).forEach(([key, value]) => {
-        const elementValue = value || 0
-
         const camelCaseKey = mapKeysToCamelCase(key)
+
+        const elementValue =
+          camelCaseKey !== 'completedChallenges' && !value ? 0 : value
+
         newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
 
         if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
@@ -80,6 +82,7 @@ export default async function handler(
 
       return playerStats
     })
+    console.log(formattedData)
 
     res.status(200).json(formattedData)
   } catch (error) {

@@ -6,7 +6,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { getNumericCompleteChallenges } from '@/utils/getNumericCompleteChallenges'
 
 interface Props {
-  challenges: string
+  challenges?: string
 }
 
 export default function Challenges({ challenges }: Props) {

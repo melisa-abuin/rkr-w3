@@ -33,7 +33,8 @@ export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
       break
 
     case 'completedChallenges':
-      if (typeof data === 'string') return <Challenges challenges={data} />
+      if (typeof data === 'string' || data === null)
+        return <Challenges challenges={data} />
       break
 
     case 'battleTag':
