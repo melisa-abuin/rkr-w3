@@ -51,4 +51,12 @@ describe('Challenges', () => {
     expect(element).toBeInTheDocument()
     expect(element).toHaveStyle('color: rgb(5, 5, 5)')
   })
+
+  it('renders a "none" message when no challeges are done', () => {
+    renderWithTheme(<Challenges />)
+    const element = screen.getByText('none')
+
+    expect(element).toBeInTheDocument()
+    expect(element).toHaveStyle('color: rgb(5, 5, 5)')
+  })
 })

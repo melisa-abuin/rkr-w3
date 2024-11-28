@@ -1,5 +1,5 @@
 import { PlayerStats } from '@/interfaces/player'
-import { getSortConditionByKey } from '../getSortConditionByKey'
+import { getValueForKey, getSortConditionByKey } from '../getSortConditionByKey'
 import { isRoundKey } from '../isRoundKey'
 
 const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
@@ -27,6 +27,10 @@ export const findTopFive = (array: PlayerStats[], key: keyof PlayerStats) => {
 
   array.forEach((elem) => {
     let inserted = false
+
+    if (getValueForKey(key, elem) === 0) {
+      return true
+    }
 
     // Insert the element in the correct sorted position in topFive
     for (let i = 0; i < topFive.length; i++) {

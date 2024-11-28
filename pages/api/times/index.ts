@@ -37,8 +37,10 @@ export default async function handler(
       const playerStats: Partial<PlayerStats> = {}
 
       Object.entries(elem).forEach(([key, value]) => {
+        const elementValue = value || 0
+
         const camelCaseKey = mapKeysToCamelCase(key)
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
+        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
       })
 
       playerStats['battleTag'] = {

@@ -5,6 +5,10 @@
  * @returns formatted time
  */
 export const secondsToSexagesimal = (seconds: number) => {
+  if (seconds == 0) {
+    return 'DNF'
+  }
+
   const hrs = Math.floor(seconds / 3600)
   const mins = Math.floor((seconds % 3600) / 60)
   const secs = Math.floor(seconds % 60)

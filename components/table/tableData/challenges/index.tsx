@@ -6,7 +6,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { getNumericCompleteChallenges } from '@/utils/getNumericCompleteChallenges'
 
 interface Props {
-  challenges: string
+  challenges?: string
 }
 
 export default function Challenges({ challenges }: Props) {
@@ -14,6 +14,10 @@ export default function Challenges({ challenges }: Props) {
   const iconSize = 20
   const [completedChallenges, totalChallenges] =
     getNumericCompleteChallenges(challenges)
+
+  if (totalChallenges === 0) {
+    return <Container color={theme.text.primary}>none</Container>
+  }
 
   if (completedChallenges === totalChallenges) {
     return (
@@ -23,6 +27,7 @@ export default function Challenges({ challenges }: Props) {
       </Container>
     )
   }
+
   if (completedChallenges >= totalChallenges * 0.75) {
     return (
       <Container color={theme.color.green}>
@@ -31,8 +36,10 @@ export default function Challenges({ challenges }: Props) {
       </Container>
     )
   }
+
   if (completedChallenges >= totalChallenges * 0.5) {
     return <Container color={theme.color.yellow}>{challenges}</Container>
   }
+
   return <Container color={theme.text.primary}>{challenges}</Container>
 }

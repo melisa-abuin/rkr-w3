@@ -5,10 +5,10 @@ import { Difficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = Difficulty | undefined
 
-const getKeyToEvaluate = (
+export const getValueForKey = (
   key: keyof PlayerStats,
   elem: PlayerStats,
-  filter: DifficultyFilter,
+  filter?: DifficultyFilter,
 ) => {
   if (key === 'wins' || key === 'gamesPlayed') {
     return filter ? elem[key][filter] : elem[key].total
@@ -44,9 +44,19 @@ export const getSortConditionByKey = (
   elem2: PlayerStats,
   filter?: DifficultyFilter,
 ) => {
-  const elementData = getKeyToEvaluate(key, elem, filter)
-  const topFiveData = getKeyToEvaluate(key, elem2, filter)
-  return isRoundKey(key) || key === 'battleTag'
-    ? elementData < topFiveData
-    : elementData > topFiveData
+  const firstElement = getValueForKey(key, elem, filter)
+  const secondElement = getValueForKey(key, elem2, filter)
+
+  // For round (time) keys the sort is done in the opposite direction since lower times are faster
+  // But we send the 0:00 times to the end because it means that they didn't finish the round
+  if (isRoundKey(key)) {
+    if (firstElement === 0 || secondElement === 0) {
+      return !(firstElement < secondElement)
+    }
+    return firstElement < secondElement
+  }
+
+  return key === 'battleTag'
+    ? firstElement < secondElement
+    : firstElement > secondElement
 }

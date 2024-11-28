@@ -47,10 +47,14 @@ export default async function handler(
 
       Object.entries(elem).forEach(([key, value]) => {
         const camelCaseKey = mapKeysToCamelCase(key)
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = value
+
+        const elementValue =
+          camelCaseKey !== 'completedChallenges' && !value ? 0 : value
+
+        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
 
         if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
-          playerStats[camelCaseKey as keyof PlayerStats] = value
+          playerStats[camelCaseKey as keyof PlayerStats] = elementValue
         }
       })
 
@@ -60,8 +64,8 @@ export default async function handler(
       }
 
       playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
-        newObject.saves || 0,
-        newObject.deaths || 0,
+        newObject.saves,
+        newObject.deaths,
       )
 
       playerStats['gamesPlayed'] = calculateTotals(
