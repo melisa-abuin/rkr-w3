@@ -14,6 +14,7 @@ export const routes = {
   home: {
     label: 'Home',
     url: '/',
+    target: '_self',
   },
   /* 
   disabled until I can meassure videos impact on vercel limits
@@ -24,10 +25,12 @@ export const routes = {
   leaderboard: {
     label: 'Leaderboard',
     url: '/leaderboard',
+    target: '_self',
   },
   download: {
     label: 'Download v4.3.6',
     url: 'https://maps.w3reforged.com/maps/categories/maze-escape/rkr-436',
+    target: '_blank',
   },
 }
 
