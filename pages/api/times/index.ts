@@ -55,13 +55,7 @@ export default async function handler(
       return playerStats
     })
 
-    res
-      .status(200)
-      .setHeader(
-        'Cache-Control',
-        'public, s-maxage=86400, stale-while-revalidate=86400',
-      )
-      .json(formattedData)
+    res.status(200).json(formattedData)
   } catch (error) {
     console.error('Error fetching scoreboard data:', error)
     res.status(500).json({ message: 'Internal Server Error' })

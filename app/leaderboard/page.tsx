@@ -33,9 +33,7 @@ async function fetchData(): Promise<PlayerStatsData> {
   const host = headersList.get('host')
   const url = `${protocol}://${host}`
 
-  const response = await fetch(`${url}/api/scoreboard`, {
-    next: { revalidate: 86400 },
-  })
+  const response = await fetch(`${url}/api/scoreboard`)
   if (response.status === 200) {
     return {
       data: await response.json(),
