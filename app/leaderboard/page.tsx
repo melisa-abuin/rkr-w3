@@ -76,13 +76,14 @@ export default async function Leaderboard() {
               statsLink="/stats/time"
               title="Time Stats"
             />
+            <Info>
+              we understand that some players might not want to see their battle
+              tag on this page, we are currently working on an automated
+              solution, in the meantime please contact the page administrator to
+              a manual removal
+            </Info>
           </>
         )}
-        <Info>
-          we understand that some players might not want to see their battle tag
-          on this page, we are currently working on an automated solution, in
-          the meantime please contact the page administrator to a manual removal
-        </Info>
       </main>
       <Footer />
     </ThemeProvider>
