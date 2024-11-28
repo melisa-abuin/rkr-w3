@@ -9,10 +9,12 @@ import Tooltip from './tooltip'
 import Ratio from './ratio'
 import Challenges from './challenges'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface Props {
   data: string | number | RoundStats | DifficultyStats | BattleTagI
   keyName: keyof PlayerStats
+  difficultyFilter?: Difficulty | undefined
 }
 
 const isDifficultyStats = (data: unknown): data is DifficultyStats =>
@@ -24,7 +26,7 @@ const isRoundStats = (data: unknown): data is RoundStats =>
 const isBattleTag = (data: unknown): data is BattleTagI =>
   typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
 
-export const TableData = ({ data, keyName }: Props) => {
+export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
   switch (keyName) {
     case 'saveDeathRatio':
       if (typeof data === 'number') return <Ratio ratio={data} />
@@ -47,7 +49,7 @@ export const TableData = ({ data, keyName }: Props) => {
             hard={data.hard}
             impossible={data.impossible}
           >
-            {data.total}
+            {difficultyFilter ? data[difficultyFilter] : data.total}
           </Tooltip>
         )
       }
@@ -61,12 +63,18 @@ export const TableData = ({ data, keyName }: Props) => {
             hard={secondsToSexagesimal(data.hard)}
             impossible={secondsToSexagesimal(data.impossible)}
           >
-            {secondsToSexagesimal(data.best.time)}
-            <br />({data.best.difficulty})
+            {difficultyFilter ? (
+              secondsToSexagesimal(data[difficultyFilter])
+            ) : (
+              <>
+                {secondsToSexagesimal(data.best.time)}
+                <br />({data.best.difficulty})
+              </>
+            )}
           </Tooltip>
         )
       }
-      return typeof data === 'number' ? <>{secondsToSexagesimal(data)}</> : null
+      return typeof data === 'number' ? <>{data}</> : null
   }
 
   return null

@@ -8,6 +8,7 @@ import Pagination from './pagination'
 import { pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 import { Badges } from './badges'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface TableProps {
   data?: PlayersStats
@@ -17,7 +18,6 @@ interface TableProps {
     title: string
     key: keyof PlayerStats
   }>
-  statsLink?: string
 }
 
 interface SortingKey {
@@ -29,7 +29,6 @@ export default function TableWithControls({
   data,
   loading = false,
   columns,
-  statsLink,
   title,
 }: TableProps) {
   const totalPages = data ? Math.round(data?.length / pageSize) : 0
@@ -38,7 +37,9 @@ export default function TableWithControls({
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
 
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
-  const [difficultyFilter, setDifficultyFilter] = useState<string>('all')
+  const [difficultyFilter, setDifficultyFilter] = useState<
+    Difficulty | undefined
+  >()
 
   const [sortKey, setSortKey] = useState<SortingKey>({
     key: 'completedChallenges',
@@ -57,26 +58,15 @@ export default function TableWithControls({
   const dataToShow = useMemo(() => {
     if (!data) return []
 
-    let filteredData = data
-    if (difficultyFilter !== 'all') {
-      filteredData = data.map((elem) => ({
-        ...elem,
-        wins: elem.wins ? elem.wins[difficultyFilter] : undefined,
-        gamesPlayed: elem.gamesPlayed
-          ? elem.gamesPlayed[difficultyFilter]
-          : undefined,
-        r1: elem.r1 ? elem.r1[difficultyFilter] : undefined,
-        r2: elem.r2 ? elem.r2[difficultyFilter] : undefined,
-        r3: elem.r3 ? elem.r3[difficultyFilter] : undefined,
-        r4: elem.r4 ? elem.r4[difficultyFilter] : undefined,
-        r5: elem.r5 ? elem.r5[difficultyFilter] : undefined,
-      }))
-    }
-    console.log(filteredData)
     const initialIndex = (Number(currentPage) - 1) * pageSize
 
-    const sortedData = [...filteredData].sort((a, b) => {
-      const condition = getSortConditionByKey(sortKey.key, a, b)
+    const sortedData = [...data].sort((a, b) => {
+      const condition = getSortConditionByKey(
+        sortKey.key,
+        a,
+        b,
+        difficultyFilter,
+      )
       if (condition === undefined) return 0
 
       return sortKey.asc ? (condition ? 1 : -1) : condition ? -1 : 1
@@ -99,8 +89,8 @@ export default function TableWithControls({
         }
         highlightedColumn={sortKey.key}
         loading={loading}
+        difficultyFilter={difficultyFilter}
         onTableSort={setSortKey}
-        statsLink={statsLink}
         title={title}
       />
       <Pagination

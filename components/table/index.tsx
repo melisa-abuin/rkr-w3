@@ -12,6 +12,7 @@ import {
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import LoaderTable from './loaderTable'
 import { TableData } from './tableData'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface SortingKey {
   key: keyof PlayerStats
@@ -21,6 +22,7 @@ interface SortingKey {
 interface TableProps {
   data?: PlayersStats
   loading?: boolean
+  difficultyFilter?: Difficulty | undefined
   filters?: ReactNode
   headerLink?: ReactNode
   title: string
@@ -36,6 +38,7 @@ export default function Table({
   data,
   loading = false,
   columns,
+  difficultyFilter,
   filters,
   headerLink,
   highlightedColumn,
@@ -91,7 +94,11 @@ export default function Table({
                     scope="col"
                     highlighted={highlightedColumn === key}
                   >
-                    <TableData keyName={key} data={player[key]} />
+                    <TableData
+                      keyName={key}
+                      data={player[key]}
+                      difficultyFilter={difficultyFilter}
+                    />
                   </StyledTd>
                 ))}
               </tr>

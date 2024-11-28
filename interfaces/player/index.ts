@@ -1,3 +1,5 @@
+import { Difficulty } from '../difficulty'
+
 export interface PlayerStats {
   battleTag: BattleTag
   saves: number
@@ -103,7 +105,7 @@ export interface RoundStats {
 
 export interface BestTime {
   time: number
-  difficulty: 'normal' | 'hard' | 'impossible'
+  difficulty: Difficulty
 }
 
 export interface DifficultyStats {
