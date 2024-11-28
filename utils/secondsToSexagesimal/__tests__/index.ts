@@ -14,7 +14,7 @@ describe('secondsToSexagesimal', () => {
   })
 
   it('should handle edge cases such as zero seconds', () => {
-    expect(secondsToSexagesimal(0)).toBe('00:00')
+    expect(secondsToSexagesimal(0)).toBe('DNF')
   })
 
   it('should properly handle seconds that are exactly on the hour or minute mark', () => {
