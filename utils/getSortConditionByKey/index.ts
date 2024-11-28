@@ -5,10 +5,10 @@ import { Difficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = Difficulty | undefined
 
-const getKeyToEvaluate = (
+export const getValueForKey = (
   key: keyof PlayerStats,
   elem: PlayerStats,
-  filter: DifficultyFilter,
+  filter?: DifficultyFilter,
 ) => {
   if (key === 'wins' || key === 'gamesPlayed') {
     return filter ? elem[key][filter] : elem[key].total
@@ -44,8 +44,8 @@ export const getSortConditionByKey = (
   elem2: PlayerStats,
   filter?: DifficultyFilter,
 ) => {
-  const elementData = getKeyToEvaluate(key, elem, filter)
-  const topFiveData = getKeyToEvaluate(key, elem2, filter)
+  const elementData = getValueForKey(key, elem, filter)
+  const topFiveData = getValueForKey(key, elem2, filter)
   return isRoundKey(key) || key === 'battleTag'
     ? elementData < topFiveData
     : elementData > topFiveData
