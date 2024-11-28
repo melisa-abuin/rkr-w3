@@ -9,6 +9,7 @@ import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
 import Info from '@/components/info'
+import Link from 'next/link'
 
 interface Data {
   player: string
@@ -66,14 +67,28 @@ export default async function Leaderboard() {
             <Table
               columns={statsColumns}
               data={data.scoreboard}
-              statsLink="/stats/overview"
+              headerLink={
+                <Link
+                  href={'/stats/overview'}
+                  aria-label="View all stats for players"
+                >
+                  View all stats
+                </Link>
+              }
               title="Overall Stats"
             />
             <ColumnCards data={data.leaderboard?.times} />
             <Table
               columns={timeAllDiffColumns}
               data={data.scoreboard}
-              statsLink="/stats/time"
+              headerLink={
+                <Link
+                  href={'/stats/time'}
+                  aria-label="View all times for players"
+                >
+                  View all times
+                </Link>
+              }
               title="Time Stats"
             />
             <Info>

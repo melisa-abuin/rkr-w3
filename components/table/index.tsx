@@ -12,7 +12,6 @@ import {
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import LoaderTable from './loaderTable'
 import { TableData } from './tableData'
-import Link from 'next/link'
 
 interface SortingKey {
   key: keyof PlayerStats
@@ -23,6 +22,7 @@ interface TableProps {
   data?: PlayersStats
   loading?: boolean
   filters?: ReactNode
+  headerLink?: ReactNode
   title: string
   columns: Array<{
     title: string
@@ -30,7 +30,6 @@ interface TableProps {
   }>
   highlightedColumn?: keyof PlayerStats
   onTableSort?: (callback: (prev: SortingKey) => SortingKey) => void
-  statsLink?: string
 }
 
 export default function Table({
@@ -38,9 +37,9 @@ export default function Table({
   loading = false,
   columns,
   filters,
+  headerLink,
   highlightedColumn,
   onTableSort,
-  statsLink,
   title,
 }: TableProps) {
   const onTableHeadClick = (columnKey: keyof PlayerStats) => {
@@ -59,11 +58,7 @@ export default function Table({
         <caption id="table-title">
           <Title>
             <span>{title}</span>
-            {statsLink && (
-              <Link href={statsLink} aria-label="View all stats for players">
-                View all stats
-              </Link>
-            )}
+            {headerLink}
           </Title>
           {filters}
         </caption>
