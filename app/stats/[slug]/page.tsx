@@ -7,6 +7,7 @@ import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
+import Info from '@/components/info'
 
 interface PlayerStatsData {
   error: string | null
@@ -17,13 +18,15 @@ const timeStrings = {
   title: 'All time stats',
   description: 'Check all the time-based stats',
   columns: timeAllDiffColumns,
-}
+  defaultSortKey: 'r1',
+} as const
 
 const overallStrings = {
   title: 'Overall stats',
   description: 'Check all the general stats for all players',
   columns: statsColumns,
-}
+  defaultSortKey: 'completedChallenges',
+} as const
 
 async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
   const headersList = headers()
@@ -33,9 +36,6 @@ async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
 
   const response = await fetch(
     `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`,
-    {
-      next: { revalidate: 86400 },
-    },
   )
   if (response.status === 200) {
     return {
@@ -74,8 +74,15 @@ export default async function StatsPage({
             <TableWithControls
               columns={strings.columns}
               data={data}
+              defaultSortKey={strings.defaultSortKey}
               title="Overall Stats"
             />
+            <Info>
+              we understand that some players might not want to see their battle
+              tag on this page, we are currently working on an automated
+              solution, in the meantime please contact the page administrator to
+              a manual removal
+            </Info>
           </>
         )}
       </main>

@@ -8,6 +8,8 @@ import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
+import Info from '@/components/info'
+import Link from 'next/link'
 
 interface Data {
   player: string
@@ -31,9 +33,7 @@ async function fetchData(): Promise<PlayerStatsData> {
   const host = headersList.get('host')
   const url = `${protocol}://${host}`
 
-  const response = await fetch(`${url}/api/scoreboard`, {
-    next: { revalidate: 86400 },
-  })
+  const response = await fetch(`${url}/api/scoreboard`)
   if (response.status === 200) {
     return {
       data: await response.json(),
@@ -65,16 +65,36 @@ export default async function Leaderboard() {
             <Table
               columns={statsColumns}
               data={data.scoreboard}
-              statsLink="/stats/overview"
+              headerLink={
+                <Link
+                  href={'/stats/overview'}
+                  aria-label="View all stats for players"
+                >
+                  View all stats
+                </Link>
+              }
               title="Overall Stats"
             />
             <ColumnCards data={data.leaderboard?.times} />
             <Table
               columns={timeAllDiffColumns}
               data={data.scoreboard}
-              statsLink="/stats/time"
+              headerLink={
+                <Link
+                  href={'/stats/time'}
+                  aria-label="View all times for players"
+                >
+                  View all times
+                </Link>
+              }
               title="Time Stats"
             />
+            <Info>
+              we understand that some players might not want to see their battle
+              tag on this page, we are currently working on an automated
+              solution, in the meantime please contact the page administrator to
+              a manual removal
+            </Info>
           </>
         )}
       </main>

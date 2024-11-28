@@ -1,11 +1,17 @@
 import { PlayerStats } from '@/interfaces/player'
 import { getNumericCompleteChallenges } from '../getNumericCompleteChallenges'
 import { isRoundKey } from '../isRoundKey'
+import { Difficulty } from '@/interfaces/difficulty'
 
-const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
+type DifficultyFilter = Difficulty | undefined
+
+const getKeyToEvaluate = (
+  key: keyof PlayerStats,
+  elem: PlayerStats,
+  filter: DifficultyFilter,
+) => {
   if (key === 'wins' || key === 'gamesPlayed') {
-    // TODO: handle hard/normal/impossible values when required
-    return elem[key].total
+    return filter ? elem[key][filter] : elem[key].total
   }
 
   if (key === 'completedChallenges') {
@@ -13,8 +19,7 @@ const getKeyToEvaluate = (key: keyof PlayerStats, elem: PlayerStats) => {
   }
 
   if (isRoundKey(key)) {
-    // TODO: handle hard/normal/impossible values when required
-    return elem[key].best.time
+    return filter ? elem[key][filter] : elem[key].best.time
   }
 
   return elem[key]
@@ -37,9 +42,10 @@ export const getSortConditionByKey = (
   key: keyof PlayerStats,
   elem: PlayerStats,
   elem2: PlayerStats,
+  filter?: DifficultyFilter,
 ) => {
-  const elementData = getKeyToEvaluate(key, elem)
-  const topFiveData = getKeyToEvaluate(key, elem2)
+  const elementData = getKeyToEvaluate(key, elem, filter)
+  const topFiveData = getKeyToEvaluate(key, elem2, filter)
   return isRoundKey(key) || key === 'battleTag'
     ? elementData < topFiveData
     : elementData > topFiveData

@@ -26,8 +26,8 @@ export const routes = {
     url: '/leaderboard',
   },
   download: {
-    label: 'Download v4.3.5',
-    url: 'https://www.epicwar.com/maps/340396/',
+    label: 'Download v4.3.6',
+    url: 'https://maps.w3reforged.com/maps/categories/maze-escape/rkr-436',
   },
 }
 

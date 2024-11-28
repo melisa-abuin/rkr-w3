@@ -77,4 +77,26 @@ describe('getSortConditionByKey', () => {
       ),
     ).toBe(true)
   })
+  it('Returns true if player 1 has a better time in r1 than player 2 and difficulty time is a number', () => {
+    expect(
+      getSortConditionByKey(
+        'r1',
+        {
+          ...formattedMockData[0],
+          r1: {
+            ...formattedMockData[0].r1,
+            normal: 100.9,
+          },
+        },
+        {
+          ...formattedMockData[1],
+          r1: {
+            ...formattedMockData[1].r1,
+            normal: 150.0,
+          },
+        },
+        'normal',
+      ),
+    ).toBe(true)
+  })
 })

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { ReactNode } from 'react'
 import {
   StyledTable,
   StyledTh,
@@ -12,7 +12,7 @@ import {
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import LoaderTable from './loaderTable'
 import { TableData } from './tableData'
-import Link from 'next/link'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface SortingKey {
   key: keyof PlayerStats
@@ -22,6 +22,9 @@ interface SortingKey {
 interface TableProps {
   data?: PlayersStats
   loading?: boolean
+  difficultyFilter?: Difficulty | undefined
+  filters?: ReactNode
+  headerLink?: ReactNode
   title: string
   columns: Array<{
     title: string
@@ -29,16 +32,17 @@ interface TableProps {
   }>
   highlightedColumn?: keyof PlayerStats
   onTableSort?: (callback: (prev: SortingKey) => SortingKey) => void
-  statsLink?: string
 }
 
 export default function Table({
   data,
   loading = false,
   columns,
+  difficultyFilter,
+  filters,
+  headerLink,
   highlightedColumn,
   onTableSort,
-  statsLink,
   title,
 }: TableProps) {
   const onTableHeadClick = (columnKey: keyof PlayerStats) => {
@@ -57,12 +61,9 @@ export default function Table({
         <caption id="table-title">
           <Title>
             <span>{title}</span>
-            {statsLink && (
-              <Link href={statsLink} aria-label="View all stats for players">
-                View all stats
-              </Link>
-            )}
+            {headerLink}
           </Title>
+          {filters}
         </caption>
         <thead>
           <StyledTr>
@@ -93,7 +94,11 @@ export default function Table({
                     scope="col"
                     highlighted={highlightedColumn === key}
                   >
-                    <TableData keyName={key} data={player[key]} />
+                    <TableData
+                      keyName={key}
+                      data={player[key]}
+                      difficultyFilter={difficultyFilter}
+                    />
                   </StyledTd>
                 ))}
               </tr>
