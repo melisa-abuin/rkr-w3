@@ -2,7 +2,11 @@
 
 import Image from 'next/image'
 
-export default function Loading() {
+export const metadata = {
+  title: '404 - Page Not Found',
+}
+
+export default function NotFound() {
   if (typeof window == 'undefined') return null
 
   const darkThemeSelector = '(prefers-color-scheme: dark)'
@@ -29,7 +33,9 @@ export default function Loading() {
         src={isDarkTheme ? '/rkr-icon-dark.png' : `/rkr-icon-white.png`}
         width={80}
       />
-      Loading...
+      <h1>404 - Page Not Found</h1>
+      <p>The page you&apos;re looking for does not exist.</p>
+      <a href="/">Go Back Home</a>
     </div>
   )
 }

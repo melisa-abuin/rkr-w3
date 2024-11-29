@@ -9,11 +9,15 @@ export default function Footer() {
       <p>This is a non-profit project developed and maintained by Aches</p>
       <p>
         Warcraft is ©2024 by{' '}
-        <Link href={blizzardLink}>Blizzard Entertainment</Link>
+        <Link href={blizzardLink} target="_blank" rel="noopener noreferrer">
+          Blizzard Entertainment
+        </Link>
       </p>
       <p>
         This website is an open-source project created by Melisa, learn{' '}
-        <Link href={githubReadMeLink}> how to contribute</Link>
+        <Link href={githubReadMeLink} target="_blank" rel="noopener noreferrer">
+          how to contribute
+        </Link>
       </p>
     </FooterContainer>
   )

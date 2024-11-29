@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   border-radius: 3px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
   width: 100%;
   overflow: hidden;
 `

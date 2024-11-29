@@ -28,7 +28,11 @@ export default function ColumnCards({ data }: Props) {
                       <Td>{data}</Td>
                     ) : (
                       <>
-                        <Td>{`${secondsToSexagesimal(data.time)} (${data.difficulty})`}</Td>
+                        <Td>
+                          <span>{secondsToSexagesimal(data.time)}</span>
+                          <br />
+                          <small>({data.difficulty})</small>
+                        </Td>
                       </>
                     )}
                   </tr>

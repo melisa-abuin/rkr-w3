@@ -10,20 +10,23 @@ const darkTheme = {
     teal: '#16b7c9',
   },
   background: {
-    primary: '#292626',
+    primary: '#170d0d',
     secondary: '#1a4747',
-    tertiary: '#392a2a',
-    quaternary: '#373131',
-    highlightPrimary: '#3d1414',
-    highlightSecondary: '#241A1A',
-    highlightTertiary: '#312B2B',
+    tertiary: '#391313',
+    quaternary: '#2b2222',
+    highlightPrimary: '#471212',
+    highlightSecondary: '#2d1c1c',
+    highlightTertiary: '#3f3030',
   },
   text: {
     primary: '#ebe4e4',
     secondary: '#9c9a9a',
-    tertiary: '',
+    tertiary: '#d36e6e',
     black: '#000000',
     white: '#ebe4e4',
+  },
+  shadow: {
+    primary: 'rgba(255, 255, 255, 0.2);',
   },
 }
 

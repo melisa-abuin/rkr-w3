@@ -49,7 +49,7 @@ export const StyledTh = styled.th<{
 export const StyledTr = styled.tr`
   border: none;
   background-color: ${({ theme }) => theme.background.tertiary};
-  color: ${({ theme }) => theme.color.primary};
+  color: ${({ theme }) => theme.text.tertiary};
   border-radius: 10px;
 `
 
