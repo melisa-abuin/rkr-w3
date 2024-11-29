@@ -15,8 +15,8 @@ const darkTheme = {
     tertiary: '#391313',
     quaternary: '#2b2222',
     highlightPrimary: '#471212',
-    highlightSecondary: '#271a1a',
-    highlightTertiary: '#312222',
+    highlightSecondary: '#3a2929',
+    highlightTertiary: '#4c3d3d',
   },
   text: {
     primary: '#ebe4e4',

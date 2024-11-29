@@ -36,6 +36,9 @@ async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
 
   const response = await fetch(
     `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`,
+    {
+      next: { revalidate: 43200 },
+    },
   )
   if (response.status === 200) {
     return {
