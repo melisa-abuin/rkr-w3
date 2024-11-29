@@ -17,7 +17,7 @@ export default function NotFound() {
     <div
       style={{
         alignItems: 'center',
-        backgroundColor: isDarkTheme ? '#211717' : '#FFFFFF',
+        backgroundColor: isDarkTheme ? '#170d0d' : '#FFFFFF',
         color: isDarkTheme ? '#ebe4e4' : '#050505',
         display: 'flex',
         gap: '10px',
