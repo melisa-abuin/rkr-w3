@@ -17,8 +17,8 @@ export const StyledNav = styled.nav<NavProps>`
   align-items: center;
   background: ${({ hasTransparentStyle, theme }) =>
     hasTransparentStyle ? 'transparent' : theme.background.primary};
-  box-shadow: ${({ hasTransparentStyle }) =>
-    hasTransparentStyle ? 'none' : '0 4px 6px rgba(0, 0, 0, 0.1)'};
+  box-shadow: ${({ hasTransparentStyle, theme }) =>
+    hasTransparentStyle ? 'none' : `0 4px 6px ${theme.shadow.primary}`};
 
   box-sizing: border-box;
   display: flex;

@@ -17,7 +17,7 @@ export const StyledTooltip = styled.div`
   left: 150%;
   opacity: 0;
   transition: opacity 0.3s ease;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
 
   table {
     width: 100%;

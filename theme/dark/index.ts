@@ -10,7 +10,7 @@ const darkTheme = {
     teal: '#16b7c9',
   },
   background: {
-    primary: '#211717',
+    primary: '#170d0d',
     secondary: '#1a4747',
     tertiary: '#391313',
     quaternary: '#2b2222',
@@ -24,6 +24,9 @@ const darkTheme = {
     tertiary: '',
     black: '#000000',
     white: '#ebe4e4',
+  },
+  shadow: {
+    primary: 'rgba(255, 255, 255, 0.2);',
   },
 }
 

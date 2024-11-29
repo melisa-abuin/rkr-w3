@@ -25,6 +25,9 @@ const lightTheme = {
     black: '#000000',
     white: '#FFFFFF',
   },
+  shadow: {
+    primary: 'rgba(0, 0, 0, 0.1)',
+  },
 }
 
 export default lightTheme
