@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import Player from '..'
+import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Player component', () => {
   beforeEach(() => {
@@ -14,13 +15,13 @@ describe('Player component', () => {
   })
 
   it('should not render when no videoUrl is provided', () => {
-    const { container } = render(<Player />)
+    const { container } = renderWithTheme(<Player />)
     expect(container).toBeEmptyDOMElement()
   })
 
   it('should render a video element when videoUrl is provided', () => {
     const videoUrl = '/path/to/video.mp4'
-    render(<Player videoUrl={videoUrl} />)
+    renderWithTheme(<Player videoUrl={videoUrl} />)
 
     const videoElement = screen.getByRole('video')
     expect(videoElement).toBeInTheDocument()
@@ -31,7 +32,7 @@ describe('Player component', () => {
 
   it('should auto-play, loop, and be muted', () => {
     const videoUrl = '/path/to/video.mp4'
-    render(<Player videoUrl={videoUrl} />)
+    renderWithTheme(<Player videoUrl={videoUrl} />)
 
     const videoElement = screen.getByRole('video')
     expect(videoElement).toHaveAttribute('autoPlay')

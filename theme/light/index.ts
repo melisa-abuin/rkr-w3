@@ -21,7 +21,7 @@ const lightTheme = {
   text: {
     primary: '#050505',
     secondary: '#6b6565',
-    tertiary: '',
+    tertiary: '#b10f0f',
     black: '#000000',
     white: '#FFFFFF',
   },
