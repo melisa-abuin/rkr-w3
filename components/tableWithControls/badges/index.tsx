@@ -13,8 +13,10 @@ export const Badges = ({ onClick, options, selected }: Props) => {
       {options.map((option) => (
         <Badge
           key={option}
+          as="button"
           onClick={() => onClick(option === 'all' ? undefined : option)}
           selected={option === selected || (option === 'all' && !selected)}
+          aria-pressed={option === selected || (option === 'all' && !selected)}
         >
           {option}
         </Badge>

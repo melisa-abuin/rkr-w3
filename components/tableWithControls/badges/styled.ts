@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Badge = styled.span<{ selected: boolean }>`
+  background: transparent;
   border: 1px solid
     ${({ theme, selected }) =>
       selected ? theme.text.tertiary : theme.text.secondary};
