@@ -67,7 +67,7 @@ export default async function Leaderboard() {
               data={data.scoreboard}
               headerLink={
                 <Link
-                  href={'/stats/overview'}
+                  href="/stats/overview"
                   aria-label="View all stats for players"
                 >
                   View all stats
@@ -81,7 +81,7 @@ export default async function Leaderboard() {
               data={data.scoreboard}
               headerLink={
                 <Link
-                  href={'/stats/time'}
+                  href="/stats/time"
                   aria-label="View all times for players"
                 >
                   View all times

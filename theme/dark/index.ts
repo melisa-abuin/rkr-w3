@@ -19,11 +19,11 @@ const darkTheme = {
     highlightTertiary: '#3f3030',
   },
   text: {
-    primary: '#ebe4e4',
+    primary: '#e6edf3',
     secondary: '#9c9a9a',
     tertiary: '#d36e6e',
     black: '#000000',
-    white: '#ebe4e4',
+    white: '#e6edf3',
   },
   shadow: {
     primary: 'rgba(255, 255, 255, 0.2);',

@@ -56,9 +56,9 @@ export default function Table({
   }
 
   return (
-    <Container aria-labelledby="table-title">
-      <StyledTable role="table" aria-label="Player Stats">
-        <caption id="table-title">
+    <Container aria-labelledby={title}>
+      <StyledTable aria-label="Player Stats">
+        <caption id={title}>
           <Title>
             <span>{title}</span>
             {headerLink}
@@ -70,10 +70,10 @@ export default function Table({
             {columns.map(({ key, title }) => (
               <StyledTh
                 hasActions={!!onTableSort}
+                highlighted={highlightedColumn === key}
                 key={key}
                 onClick={() => onTableHeadClick(key)}
                 scope="col"
-                highlighted={highlightedColumn === key}
               >
                 {title}
               </StyledTh>
@@ -88,11 +88,10 @@ export default function Table({
               <tr key={index}>
                 {columns.map(({ key, title }) => (
                   <StyledTd
-                    key={`${key} ${index}`}
                     data-label={title}
-                    index={index}
-                    scope="col"
                     highlighted={highlightedColumn === key}
+                    index={index}
+                    key={`${key} ${index}`}
                   >
                     <TableData
                       keyName={key}
