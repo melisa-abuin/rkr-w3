@@ -49,7 +49,7 @@ We welcome contributions from the community! To contribute to the development of
 2. Create a new **issue** in the main repository describing the feature or bug fix you'd like to work on.
 3. After the issue is approved or discussed, create a **branch** on your forked repository.
 4. Make your changes, ensuring that each **commit** is atomic and follows this structure:  
-   `"<type> #<issue-number>: <subject>"`  
+   `"<type> #<issue-number>: <subject>"`
    For example:  
    `"feature #5: add new feature"`
 5. Open a **pull request** (PR) from your branch to the main repository, linking it to the related issue.

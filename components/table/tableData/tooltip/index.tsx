@@ -10,10 +10,10 @@ interface Props {
 
 export default function Tooltip({ hard, impossible, normal, children }: Props) {
   return (
-    <TooltipContainer>
+    <TooltipContainer aria-label="Player stats extended details">
       {children}
 
-      <StyledTooltip>
+      <StyledTooltip role="tooltip">
         <table>
           <tbody>
             <tr>
