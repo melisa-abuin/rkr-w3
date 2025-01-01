@@ -3,9 +3,10 @@ import { Container } from './styled'
 import { Flame } from '@/components/icons/flame'
 import { Winner } from '@/components/icons/winner'
 import { useTheme } from '@/hooks/useTheme'
+import { Challenges as ChallengesT } from '@/interfaces/player'
 
 interface Props {
-  challenges: [number, number]
+  challenges: ChallengesT
 }
 
 export default function Challenges({ challenges }: Props) {

@@ -8,10 +8,12 @@ describe('getSortConditionByKey', () => {
         'wins',
         {
           ...formattedMockData[0],
+          completedChallenges: [56, 56],
           wins: { ...formattedMockData[0].wins, total: 10 },
         },
         {
           ...formattedMockData[1],
+          completedChallenges: [56, 56],
           wins: { ...formattedMockData[1].wins, total: 5 },
         },
       ),
@@ -24,10 +26,12 @@ describe('getSortConditionByKey', () => {
         'gamesPlayed',
         {
           ...formattedMockData[0],
+          completedChallenges: [56, 56],
           gamesPlayed: { ...formattedMockData[0].gamesPlayed, total: 10 },
         },
         {
           ...formattedMockData[1],
+          completedChallenges: [56, 56],
           gamesPlayed: { ...formattedMockData[1].gamesPlayed, total: 5 },
         },
       ),
@@ -40,11 +44,11 @@ describe('getSortConditionByKey', () => {
         'completedChallenges',
         {
           ...formattedMockData[0],
-          completedChallenges: '50/56',
+          completedChallenges: [56, 56],
         },
         {
           ...formattedMockData[1],
-          completedChallenges: '20/56',
+          completedChallenges: [20, 56],
         },
       ),
     ).toBe(true)
@@ -56,6 +60,7 @@ describe('getSortConditionByKey', () => {
         'roundOne',
         {
           ...formattedMockData[0],
+          completedChallenges: [56, 56],
           roundOne: {
             ...formattedMockData[0].roundOne,
             best: {
@@ -66,6 +71,7 @@ describe('getSortConditionByKey', () => {
         },
         {
           ...formattedMockData[1],
+          completedChallenges: [56, 56],
           roundOne: {
             ...formattedMockData[1].roundOne,
             best: {
@@ -83,6 +89,7 @@ describe('getSortConditionByKey', () => {
         'roundOne',
         {
           ...formattedMockData[0],
+          completedChallenges: [56, 56],
           roundOne: {
             ...formattedMockData[0].roundOne,
             normal: 100.9,
@@ -90,6 +97,7 @@ describe('getSortConditionByKey', () => {
         },
         {
           ...formattedMockData[1],
+          completedChallenges: [56, 56],
           roundOne: {
             ...formattedMockData[1].roundOne,
             normal: 150.0,

@@ -94,7 +94,7 @@ export const formattedMockData = [
     impossibleGames: 10,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    completedChallenges: '56/56',
+    completedChallenges: [56, 56],
     saveDeathRatio: 1.63,
     gamesPlayed: {
       normal: 10,
@@ -166,7 +166,7 @@ export const formattedMockData = [
     impossibleGames: 15,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    completedChallenges: '56/56',
+    completedChallenges: [56, 56],
     saveDeathRatio: 1.63,
     gamesPlayed: {
       normal: 39,

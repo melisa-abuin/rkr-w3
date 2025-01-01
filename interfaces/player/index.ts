@@ -1,12 +1,14 @@
 import { Difficulty } from '../difficulty'
 
+export type Challenges = [number, number]
+
 export interface PlayerStats {
   battleTag: BattleTag
   saves: number
   deaths: number
   highestSaveStreak: number
   highestWinStreak: number
-  completedChallenges: [number, number]
+  completedChallenges: Challenges
   saveDeathRatio: number
   gamesPlayed: DifficultyStats
   wins: DifficultyStats

@@ -3,6 +3,7 @@ import {
   PlayerStats,
   RoundStats,
   BattleTag as BattleTagI,
+  Challenges as ChallengesT,
 } from '@/interfaces/player'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'
@@ -12,7 +13,13 @@ import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { Difficulty } from '@/interfaces/difficulty'
 
 interface Props {
-  data: string | number | RoundStats | DifficultyStats | BattleTagI
+  data:
+    | string
+    | number
+    | RoundStats
+    | DifficultyStats
+    | BattleTagI
+    | ChallengesT
   keyName: keyof PlayerStats
   difficultyFilter?: Difficulty | undefined
 }
@@ -26,7 +33,7 @@ const isRoundStats = (data: unknown): data is RoundStats =>
 const isBattleTag = (data: unknown): data is BattleTagI =>
   typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
 
-const isChallenges = (data: unknown): data is [number, number] =>
+const isChallenges = (data: unknown): data is ChallengesT =>
   Array.isArray(data) &&
   data.length === 2 &&
   typeof data[0] === 'number' &&
