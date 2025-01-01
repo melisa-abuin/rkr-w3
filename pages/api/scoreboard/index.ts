@@ -3,14 +3,10 @@ import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { getNumericCompleteChallenges } from '@/utils/getNumericCompleteChallenges'
 import { findTopFive } from '@/utils/findTopFive'
 import { mockApiData } from '@/constants'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const apiKey = process.env.API_KEY
 
   try {
@@ -38,8 +34,10 @@ export default async function handler(
 
       const awardValues = Object.values(GameAwards)
 
-      // TODO: remove redundant convertion to string of completed challenges data
-      playerStats.completedChallenges = `${awardValues.filter((award) => award).length}/${awardValues.length}`
+      playerStats.completedChallenges = [
+        awardValues.filter((award) => award).length,
+        awardValues.length,
+      ]
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
@@ -80,10 +78,7 @@ export default async function handler(
       scoreboard: [
         ...formattedData
           .sort((a: PlayerStats, b: PlayerStats) => {
-            return (
-              getNumericCompleteChallenges(b.completedChallenges)[0] -
-              getNumericCompleteChallenges(a.completedChallenges)[0]
-            )
+            return b.completedChallenges[0] - a.completedChallenges[0]
           })
           .slice(0, 5),
       ],

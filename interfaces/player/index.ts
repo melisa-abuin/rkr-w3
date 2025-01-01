@@ -6,7 +6,7 @@ export interface PlayerStats {
   deaths: number
   highestSaveStreak: number
   highestWinStreak: number
-  completedChallenges: string
+  completedChallenges: [number, number]
   saveDeathRatio: number
   gamesPlayed: DifficultyStats
   wins: DifficultyStats

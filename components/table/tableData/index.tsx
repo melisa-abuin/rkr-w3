@@ -26,6 +26,12 @@ const isRoundStats = (data: unknown): data is RoundStats =>
 const isBattleTag = (data: unknown): data is BattleTagI =>
   typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
 
+const isChallenges = (data: unknown): data is [number, number] =>
+  Array.isArray(data) &&
+  data.length === 2 &&
+  typeof data[0] === 'number' &&
+  typeof data[1] === 'number'
+
 export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
   switch (keyName) {
     case 'saveDeathRatio':
@@ -33,8 +39,7 @@ export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
       break
 
     case 'completedChallenges':
-      if (typeof data === 'string' || data === null)
-        return <Challenges challenges={data} />
+      if (isChallenges(data)) return <Challenges challenges={data} />
       break
 
     case 'battleTag':
