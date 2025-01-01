@@ -31,9 +31,9 @@ describe('calculateBestTimeByDifficulty', () => {
     expect(result).toEqual({ difficulty: 'normal', time: 150.01 })
   })
 
-  it('should handle negative times correctly', () => {
-    const times = { normal: -100, hard: 0, impossible: 100 }
+  it('should handle zero times correctly', () => {
+    const times = { normal: 0, hard: 0, impossible: 100 }
     const result = calculateBestTimeByDifficulty(times)
-    expect(result).toEqual({ difficulty: 'normal', time: -100 })
+    expect(result).toEqual({ difficulty: 'impossible', time: 100 })
   })
 })

@@ -12,8 +12,17 @@ interface Props {
  */
 export const calculateBestTimeByDifficulty = (times: Props) => {
   const bestDifficulty = (Object.keys(times) as Array<keyof Props>).reduce(
-    (minDiff, currentDiff) =>
-      times[currentDiff] < times[minDiff] ? currentDiff : minDiff,
+    (minDiff, currentDiff) => {
+      const currentTime = times[currentDiff]
+      const minTime = times[minDiff]
+
+      // If one of the times is 0, prefer the non-zero time
+      if (currentTime === 0) return minDiff
+      if (minTime === 0) return currentDiff
+
+      // Otherwise, compare the times
+      return currentTime < minTime ? currentDiff : minDiff
+    },
   )
 
   return {
