@@ -35,51 +35,44 @@ export default async function handler(
       },
     })
 
-    const data =
-      process.env.NODE_ENV === 'development'
-        ? mockApiData
-        : await response.json()
+    const data = await response.json()
 
-    // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data.map((elem: ApiPlayerStats) => {
-      const newObject: Partial<FromattedApiPlayerStats> = {}
+      const saveData = JSON.parse(elem['Save Data'])
+
+      const { GameStats, RoundTimes, PlayerName, GameAwards } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      Object.entries(elem).forEach(([key, value]) => {
-        const camelCaseKey = mapKeysToCamelCase(key)
+      const awardValues = Object.values(GameAwards)
 
-        const elementValue =
-          camelCaseKey !== 'completedChallenges' && !value ? 0 : value
+      // TODO: remove redundant convertion to string of completed challenges data
+      playerStats.completedChallenges = `${awardValues.filter((award) => award).length}/${awardValues.length}`
 
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
-
-        if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
-          playerStats[camelCaseKey as keyof PlayerStats] = elementValue
-        }
-      })
+      playerStats.saves = GameStats.Saves
+      playerStats.highestWinStreak = GameStats.HighestWinStreak
+      playerStats.highestSaveStreak = GameStats.HighestSaveStreak
 
       playerStats['battleTag'] = {
-        name: newObject.battleTag?.split('#')[0] || '',
-        tag: newObject.battleTag || '',
+        name: PlayerName?.split('#')[0] || '',
+        tag: PlayerName || '',
       }
 
       playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
-        newObject.saves,
-        newObject.deaths,
+        GameStats.Saves,
+        GameStats.Deaths,
       )
 
       playerStats['gamesPlayed'] = calculateTotals(
-        newObject.normalGames,
-        newObject.hardGames,
-        newObject.impossibleGames,
+        GameStats.NormalGames,
+        GameStats.HardGames,
+        GameStats.ImpossibleGames,
       )
 
       playerStats['wins'] = calculateTotals(
-        newObject.normalWins,
-        newObject.hardWins,
-        newObject.impossibleWins,
+        GameStats.NormalWins,
+        GameStats.HardWins,
+        GameStats.ImpossibleWins,
       )
-
       return playerStats
     })
 

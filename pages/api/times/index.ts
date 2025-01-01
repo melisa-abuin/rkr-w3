@@ -26,32 +26,23 @@ export default async function handler(
       },
     })
 
-    const data =
-      process.env.NODE_ENV === 'development'
-        ? mockApiData
-        : await response.json()
+    const data = await response.json()
 
-    // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data.map((elem: ApiPlayerStats) => {
-      const newObject: Partial<FromattedApiPlayerStats> = {}
+      const saveData = JSON.parse(elem['Save Data'])
+
+      const { RoundTimes, PlayerName } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      Object.entries(elem).forEach(([key, value]) => {
-        const elementValue = value || 0
-
-        const camelCaseKey = mapKeysToCamelCase(key)
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
-      })
-
       playerStats['battleTag'] = {
-        name: newObject.battleTag?.split('#')[0] || '',
-        tag: newObject.battleTag || '',
+        name: PlayerName?.split('#')[0] || '',
+        tag: PlayerName || '',
       }
 
-      const rounds = [1, 2, 3, 4, 5] as const
+      const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-      rounds.forEach((round) => {
-        playerStats[`r${round}`] = formatRoundsData(newObject, round)
+      roundNames.forEach((round) => {
+        playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
       })
 
       return playerStats
