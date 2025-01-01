@@ -38,55 +38,49 @@ export default async function handler(
       },
     })
 
-    const data =
-      process.env.NODE_ENV === 'development'
-        ? mockApiData
-        : await response.json()
+    const data = await response.json()
 
-    // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data.map((elem: ApiPlayerStats) => {
-      const newObject: Partial<FromattedApiPlayerStats> = {}
+      const saveData = JSON.parse(elem['Save Data'])
+
+      const { GameStats, RoundTimes, PlayerName, GameAwards } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      Object.entries(elem).forEach(([key, value]) => {
-        const camelCaseKey = mapKeysToCamelCase(key)
+      const awardValues = Object.values(GameAwards)
 
-        const elementValue =
-          camelCaseKey !== 'completedChallenges' && !value ? 0 : value
+      // TODO: remove redundant convertion to string of completed challenges data
+      playerStats.completedChallenges = `${awardValues.filter((award) => award).length}/${awardValues.length}`
 
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
-
-        if (keysToMap.includes(camelCaseKey as keyof PlayerStats)) {
-          playerStats[camelCaseKey as keyof PlayerStats] = elementValue
-        }
-      })
+      playerStats.saves = GameStats.Saves
+      playerStats.highestWinStreak = GameStats.HighestWinStreak
+      playerStats.highestSaveStreak = GameStats.HighestSaveStreak
 
       playerStats['battleTag'] = {
-        name: newObject.battleTag?.split('#')[0] || '',
-        tag: newObject.battleTag || '',
+        name: PlayerName?.split('#')[0] || '',
+        tag: PlayerName || '',
       }
 
       playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
-        newObject.saves,
-        newObject.deaths,
+        GameStats.Saves,
+        GameStats.Deaths,
       )
 
       playerStats['gamesPlayed'] = calculateTotals(
-        newObject.normalGames,
-        newObject.hardGames,
-        newObject.impossibleGames,
+        GameStats.NormalGames,
+        GameStats.HardGames,
+        GameStats.ImpossibleGames,
       )
 
       playerStats['wins'] = calculateTotals(
-        newObject.normalWins,
-        newObject.hardWins,
-        newObject.impossibleWins,
+        GameStats.NormalWins,
+        GameStats.HardWins,
+        GameStats.ImpossibleWins,
       )
 
-      const rounds = [1, 2, 3, 4, 5] as const
+      const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-      rounds.forEach((round) => {
-        playerStats[`r${round}`] = formatRoundsData(newObject, round)
+      roundNames.forEach((round) => {
+        playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
       })
 
       return playerStats
@@ -129,23 +123,23 @@ export default async function handler(
         times: [
           {
             category: 'Best R1 Times',
-            data: findTopFive(formattedData, 'r1'),
+            data: findTopFive(formattedData, 'roundOne'),
           },
           {
             category: 'Best R2 Times',
-            data: findTopFive(formattedData, 'r2'),
+            data: findTopFive(formattedData, 'roundTwo'),
           },
           {
             category: 'Best R3 Times',
-            data: findTopFive(formattedData, 'r3'),
+            data: findTopFive(formattedData, 'roundThree'),
           },
           {
             category: 'Best R4 Times',
-            data: findTopFive(formattedData, 'r4'),
+            data: findTopFive(formattedData, 'roundFour'),
           },
           {
             category: 'Best R5 Times',
-            data: findTopFive(formattedData, 'r5'),
+            data: findTopFive(formattedData, 'roundFive'),
           },
         ],
       },

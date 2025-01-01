@@ -47,11 +47,11 @@ export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
 
 export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Player', key: 'battleTag' },
-  { title: 'Best R1 Times', key: 'r1' },
-  { title: 'Best R2 Times', key: 'r2' },
-  { title: 'Best R3 Times', key: 'r3' },
-  { title: 'Best R4 Times', key: 'r4' },
-  { title: 'Best R5 Times', key: 'r5' },
+  { title: 'Best R1 Times', key: 'roundOne' },
+  { title: 'Best R2 Times', key: 'roundTwo' },
+  { title: 'Best R3 Times', key: 'roundThree' },
+  { title: 'Best R4 Times', key: 'roundFour' },
+  { title: 'Best R5 Times', key: 'roundFive' },
 ]
 
 export const tricks = [

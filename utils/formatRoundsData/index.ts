@@ -12,9 +12,9 @@ export const formatRoundsData = (
   newObject: Partial<FromattedApiPlayerStats>,
   round: 1 | 2 | 3 | 4 | 5,
 ) => {
-  const normal = newObject[`round${round}TimeNormal`] || 0
-  const hard = newObject[`round${round}TimeHard`] || 0
-  const impossible = newObject[`round${round}TimeImpossible`] || 0
+  const normal = newObject[`Round${round}Normal`] || 0
+  const hard = newObject[`Round${round}Hard`] || 0
+  const impossible = newObject[`Round${round}Impossible`] || 0
 
   return {
     normal,
