@@ -1,10 +1,5 @@
-import {
-  ApiPlayerStats,
-  FromattedApiPlayerStats,
-  PlayerStats,
-} from '@/interfaces/player'
+import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { mapKeysToCamelCase } from '@/utils/mapKeysToCamelCase'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { mockApiData } from '@/constants'
 
@@ -26,7 +21,10 @@ export default async function handler(
       },
     })
 
-    const data = await response.json()
+    const data =
+      process.env.NODE_ENV === 'development'
+        ? mockApiData
+        : await response.json()
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])

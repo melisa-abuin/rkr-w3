@@ -10,7 +10,7 @@ import { calculateBestTimeByDifficulty } from '../calculateBestTimeByDifficulty'
  */
 export const formatRoundsData = (
   newObject: Partial<FromattedApiPlayerStats>,
-  round: 1 | 2 | 3 | 4 | 5,
+  round: 'One' | 'Two' | 'Three' | 'Four' | 'Five',
 ) => {
   const normal = newObject[`Round${round}Normal`] || 0
   const hard = newObject[`Round${round}Hard`] || 0

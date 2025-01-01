@@ -1,21 +1,8 @@
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
-import {
-  ApiPlayerStats,
-  FromattedApiPlayerStats,
-  PlayerStats,
-} from '@/interfaces/player'
+import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { mapKeysToCamelCase } from '@/utils/mapKeysToCamelCase'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { mockApiData } from '@/constants'
-
-const keysToMap: (keyof PlayerStats)[] = [
-  'saves',
-  'deaths',
-  'completedChallenges',
-  'highestSaveStreak',
-  'highestWinStreak',
-]
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,12 +22,15 @@ export default async function handler(
       },
     })
 
-    const data = await response.json()
+    const data =
+      process.env.NODE_ENV === 'development'
+        ? mockApiData
+        : await response.json()
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
-      const { GameStats, RoundTimes, PlayerName, GameAwards } = saveData
+      const { GameStats, PlayerName, GameAwards } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
       const awardValues = Object.values(GameAwards)
