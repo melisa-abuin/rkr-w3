@@ -35,8 +35,10 @@ export default async function handler(
 
       const awardValues = Object.values(GameAwards)
 
-      // TODO: remove redundant convertion to string of completed challenges data
-      playerStats.completedChallenges = `${awardValues.filter((award) => award).length}/${awardValues.length}`
+      playerStats.completedChallenges = [
+        awardValues.filter((award) => award).length,
+        awardValues.length,
+      ]
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak

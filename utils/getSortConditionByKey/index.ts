@@ -1,5 +1,4 @@
 import { PlayerStats } from '@/interfaces/player'
-import { getNumericCompleteChallenges } from '../getNumericCompleteChallenges'
 import { isRoundKey } from '../isRoundKey'
 import { Difficulty } from '@/interfaces/difficulty'
 
@@ -15,7 +14,7 @@ export const getValueForKey = (
   }
 
   if (key === 'completedChallenges') {
-    return getNumericCompleteChallenges(elem[key])[0]
+    return elem[key][0]
   }
 
   if (isRoundKey(key)) {
