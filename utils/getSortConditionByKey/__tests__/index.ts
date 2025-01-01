@@ -53,11 +53,11 @@ describe('getSortConditionByKey', () => {
   it('Returns true if player 1 has a better time in r1 than player 2', () => {
     expect(
       getSortConditionByKey(
-        'r1',
+        'roundOne',
         {
           ...formattedMockData[0],
-          r1: {
-            ...formattedMockData[0].r1,
+          roundOne: {
+            ...formattedMockData[0].roundOne,
             best: {
               time: 100.0,
               difficulty: 'hard',
@@ -66,8 +66,8 @@ describe('getSortConditionByKey', () => {
         },
         {
           ...formattedMockData[1],
-          r1: {
-            ...formattedMockData[1].r1,
+          roundOne: {
+            ...formattedMockData[1].roundOne,
             best: {
               time: 105.0,
               difficulty: 'hard',
@@ -80,18 +80,18 @@ describe('getSortConditionByKey', () => {
   it('Returns true if player 1 has a better time in r1 than player 2 and difficulty time is a number', () => {
     expect(
       getSortConditionByKey(
-        'r1',
+        'roundOne',
         {
           ...formattedMockData[0],
-          r1: {
-            ...formattedMockData[0].r1,
+          roundOne: {
+            ...formattedMockData[0].roundOne,
             normal: 100.9,
           },
         },
         {
           ...formattedMockData[1],
-          r1: {
-            ...formattedMockData[1].r1,
+          roundOne: {
+            ...formattedMockData[1].roundOne,
             normal: 150.0,
           },
         },

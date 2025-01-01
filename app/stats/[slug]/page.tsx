@@ -18,7 +18,7 @@ const timeStrings = {
   title: 'All time stats',
   description: 'Check all the time-based stats',
   columns: timeAllDiffColumns,
-  defaultSortKey: 'r1',
+  defaultSortKey: 'roundOne',
 } as const
 
 const overallStrings = {

@@ -94,11 +94,6 @@ export const formattedMockData = [
     impossibleGames: 10,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    round1TimeSolo: 95.0,
-    round2TimeSolo: 145.0,
-    round3TimeSolo: 245.0,
-    round4TimeSolo: 345.0,
-    round5TimeSolo: 445.0,
     completedChallenges: '56/56',
     saveDeathRatio: 1.63,
     gamesPlayed: {
@@ -113,7 +108,7 @@ export const formattedMockData = [
       impossible: 1,
       total: 37,
     },
-    r1: {
+    roundOne: {
       normal: 100.0,
       hard: 110.0,
       impossible: 120.0,
@@ -122,7 +117,7 @@ export const formattedMockData = [
         time: 100.0,
       },
     },
-    r2: {
+    roundTwo: {
       normal: 150.0,
       hard: 160.0,
       impossible: 170.0,
@@ -131,7 +126,7 @@ export const formattedMockData = [
         time: 150.0,
       },
     },
-    r3: {
+    roundThree: {
       normal: 250.0,
       hard: 270.0,
       impossible: 280.0,
@@ -140,7 +135,7 @@ export const formattedMockData = [
         time: 250.0,
       },
     },
-    r4: {
+    roundFour: {
       normal: 350.0,
       hard: 370.0,
       impossible: 380.0,
@@ -149,7 +144,7 @@ export const formattedMockData = [
         time: 350.0,
       },
     },
-    r5: {
+    roundFive: {
       normal: 450.0,
       hard: 470.0,
       impossible: 480.0,
@@ -171,11 +166,6 @@ export const formattedMockData = [
     impossibleGames: 15,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    round1TimeSolo: 115.0,
-    round2TimeSolo: 175.0,
-    round3TimeSolo: 275.0,
-    round4TimeSolo: 375.0,
-    round5TimeSolo: 475.0,
     completedChallenges: '56/56',
     saveDeathRatio: 1.63,
     gamesPlayed: {
@@ -190,7 +180,7 @@ export const formattedMockData = [
       impossible: 1,
       total: 37,
     },
-    r1: {
+    roundOne: {
       normal: 120.0,
       hard: 130.0,
       impossible: 140.0,
@@ -199,7 +189,7 @@ export const formattedMockData = [
         time: 120.0,
       },
     },
-    r2: {
+    roundTwo: {
       normal: 180.0,
       hard: 200.0,
       impossible: 210.0,
@@ -208,7 +198,7 @@ export const formattedMockData = [
         time: 180.0,
       },
     },
-    r3: {
+    roundThree: {
       normal: 280.0,
       hard: 300.0,
       impossible: 320.0,
@@ -217,7 +207,7 @@ export const formattedMockData = [
         time: 280.0,
       },
     },
-    r4: {
+    roundFour: {
       normal: 380.0,
       hard: 400.0,
       impossible: 420.0,
@@ -226,7 +216,7 @@ export const formattedMockData = [
         time: 380.0,
       },
     },
-    r5: {
+    roundFive: {
       normal: 480.0,
       hard: 500.0,
       impossible: 520.0,
