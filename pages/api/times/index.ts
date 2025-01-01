@@ -1,10 +1,5 @@
-import {
-  ApiPlayerStats,
-  FromattedApiPlayerStats,
-  PlayerStats,
-} from '@/interfaces/player'
+import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { mapKeysToCamelCase } from '@/utils/mapKeysToCamelCase'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { mockApiData } from '@/constants'
 
@@ -31,27 +26,21 @@ export default async function handler(
         ? mockApiData
         : await response.json()
 
-    // if the data volume increases here we will need to implement a cache/invalidation method
     const formattedData = data.map((elem: ApiPlayerStats) => {
-      const newObject: Partial<FromattedApiPlayerStats> = {}
+      const saveData = JSON.parse(elem['Save Data'])
+
+      const { RoundTimes, PlayerName } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      Object.entries(elem).forEach(([key, value]) => {
-        const elementValue = value || 0
-
-        const camelCaseKey = mapKeysToCamelCase(key)
-        newObject[camelCaseKey as keyof FromattedApiPlayerStats] = elementValue
-      })
-
       playerStats['battleTag'] = {
-        name: newObject.battleTag?.split('#')[0] || '',
-        tag: newObject.battleTag || '',
+        name: PlayerName?.split('#')[0] || '',
+        tag: PlayerName || '',
       }
 
-      const rounds = [1, 2, 3, 4, 5] as const
+      const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-      rounds.forEach((round) => {
-        playerStats[`r${round}`] = formatRoundsData(newObject, round)
+      roundNames.forEach((round) => {
+        playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
       })
 
       return playerStats
