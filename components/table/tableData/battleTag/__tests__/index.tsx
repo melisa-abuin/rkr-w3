@@ -20,4 +20,17 @@ describe('BattleTag', () => {
     expect(titleElement).toHaveTextContent('Alex')
     expect(subTitleElement).toHaveTextContent(battletag)
   })
+
+  it('displays the correct link', () => {
+    const completeBattleTag = 'Alex#76923'
+    const battletag = 'Alex'
+
+    renderWithTheme(
+      <BattleTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
+    )
+
+    const link = screen.getByText('Alex')
+    expect(link).toBeInTheDocument()
+    expect(link).toHaveAttribute('href', '/player/Alex%2376923')
+  })
 })

@@ -5,12 +5,17 @@ export const Container = styled.div`
   flex-direction: column;
 `
 
-export const Title = styled.p`
+export const Title = styled.a`
   color: ${({ theme }) => theme.color.secondary};
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   margin-top: 10px;
   margin-bottom 2px;
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.text.highlight};
+  }
 `
 
 export const SubTitle = styled.p`
