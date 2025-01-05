@@ -84,10 +84,11 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       ],
       leaderboard: {
         stats: [
-          {
-            category: 'Highest Win Streak',
-            data: findTopFive(formattedData, 'highestWinStreak'),
-          },
+          // Wait for a fix
+          // {
+          //   category: 'Highest Win Streak',
+          //   data: findTopFive(formattedData, 'highestWinStreak'),
+          // },
           {
             category: 'Most Saves',
             data: findTopFive(formattedData, 'saves'),
