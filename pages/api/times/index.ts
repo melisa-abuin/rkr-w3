@@ -14,17 +14,20 @@ export default async function handler(
       throw new Error()
     }
 
-    const response = await fetch(apiKey, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    let data = []
 
-    const data =
-      process.env.NODE_ENV === 'development'
-        ? mockApiData
-        : await response.json()
+    if (process.env.NODE_ENV === 'development') {
+      data = mockApiData
+    } else {
+      const response = await fetch(apiKey, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      data = await response.json()
+    }
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])

@@ -2,6 +2,13 @@ import { Difficulty } from '../difficulty'
 
 export type Challenges = [number, number]
 
+interface Award {
+  id: string
+  completed: boolean
+  description: string
+  imagePath: string
+}
+
 export interface PlayerStats {
   battleTag: BattleTag
   saves: number
@@ -18,6 +25,7 @@ export interface PlayerStats {
   roundThree: RoundStats
   roundFour: RoundStats
   roundFive: RoundStats
+  awards?: Award[]
 }
 
 export interface FromattedApiPlayerStats {
