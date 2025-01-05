@@ -3,15 +3,20 @@
 import { Header, Info, Title } from './styled'
 
 interface Props {
+  align?: 'center' | 'flex-start'
   description: string
   title: string
 }
 
-export default function PageHeader({ title, description }: Props) {
+export default function PageHeader({
+  align = 'center',
+  description,
+  title,
+}: Props) {
   return (
-    <Header>
+    <Header align={align}>
       <Title>{title}</Title>
-      <Info>{description}</Info>
+      <Info align={align}>{description}</Info>
     </Header>
   )
 }
