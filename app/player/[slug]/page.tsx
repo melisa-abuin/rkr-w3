@@ -6,6 +6,7 @@ import { headers } from 'next/headers'
 import Error from '@/components/error'
 import PageHeader from '@/components/pageHeader'
 import { PageContainer } from '@/components/pageContainer'
+import Awards from '@/components/awards'
 
 interface PlayerStatsData {
   error: string | null
@@ -20,9 +21,10 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
 
   const response = await fetch(`${url}/api/player`, {
     method: 'POST',
-    body: {
-      battleTag: battleTag,
+    headers: {
+      'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ battleTag }),
   })
   if (response.status === 200) {
     return {
@@ -43,7 +45,7 @@ export default async function PlayerPage({
 }) {
   const { slug } = params
   const { data, error } = await fetchData(slug)
-  console.log(data)
+
   return (
     <ThemeProvider>
       <Navbar />
@@ -55,24 +57,14 @@ export default async function PlayerPage({
             <PageContainer>
               <PageHeader
                 align="flex-start"
-                description="TBD"
+                description={
+                  data.skins?.selectedSkin
+                    ? data.skins?.selectedSkin.split(/(?=[A-Z])/).join(' ')
+                    : ''
+                }
                 title={data.battleTag.name}
               />
-              <Awards />
-              <img
-                alt="ewe"
-                height={48}
-                src="/image2.png"
-                width={48}
-                style={{ border: '2px solid red', borderRadius: '50%' }}
-              />
-              <img
-                alt="ewe"
-                height={48}
-                src="/image3.png"
-                width={48}
-                style={{ border: '2px solid red', borderRadius: '50%' }}
-              />
+              <Awards awards={data.awards!} />
             </PageContainer>
           </>
         )}
