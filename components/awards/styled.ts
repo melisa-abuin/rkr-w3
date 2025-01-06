@@ -19,3 +19,15 @@ export const Body = styled.div`
   background-color: ${({ theme }) => theme.background.quaternary};
   padding: 20px;
 `
+
+export const Section = styled.div`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+`
+
+export const Title = styled.p`
+  color: ${({ theme }) => theme.text.secondary};
+`
