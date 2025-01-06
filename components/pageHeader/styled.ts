@@ -1,22 +1,26 @@
 import styled from 'styled-components'
 
-export const Header = styled.header`
-  align-items: center;
+export const Header = styled.header<{ align: 'center' | 'flex-start' }>`
+  align-items: ${({ align }) => align};
   background-color: ${({ theme }) => theme.background.primary};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 1rem;
   padding-top: 6rem;
+
+  @media (max-width: 480px) {
+    padding: 1rem;
+    padding-top: 6rem;
+  }
 `
 
-export const Info = styled.p`
+export const Info = styled.p<{ align: 'center' | 'flex-start' }>`
   color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs-sm);
   margin-bottom: 2rem;
 
   max-width: 1000px;
-  text-align: center;
+  text-align: ${({ align }) => (align === 'flex-start' ? 'left' : 'center')};
   width: 100%;
 `
 
