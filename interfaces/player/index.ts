@@ -2,11 +2,20 @@ import { Difficulty } from '../difficulty'
 
 export type Challenges = [number, number]
 
-interface Award {
+export interface Award {
   id: string
   completed: boolean
   description: string
   imagePath: string
+}
+
+export interface Skins {
+  selectedAura: string
+  selectedHat: string
+  selectedSkin: string
+  selectedTrail: string
+  selectedWindwalk: string
+  selectedWings: string
 }
 
 export interface PlayerStats {
@@ -26,6 +35,7 @@ export interface PlayerStats {
   roundFour: RoundStats
   roundFive: RoundStats
   awards?: Award[]
+  skins?: Skins
 }
 
 export interface FromattedApiPlayerStats {

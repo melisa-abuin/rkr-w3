@@ -5,6 +5,7 @@ import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { mockApiData } from '@/constants'
 import { formatGameAwards } from '@/utils/formatGameAwards'
+import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,7 +24,7 @@ export default async function handler(
       data = mockApiData
     } else {
       const response = await fetch(
-        `${apiKey}/players?battletag=${req.body.battleTag}`,
+        `${apiKey}players?battletag=${req.body.battleTag}`,
         {
           method: 'GET',
           headers: {
@@ -36,15 +37,17 @@ export default async function handler(
     }
 
     const playerData = data[0]
-    const saveData = JSON.parse(playerData['Save Data'])
 
+    const saveData = JSON.parse(playerData['Save Data'])
     const playerStats: Partial<PlayerStats> = {}
-    const { GameStats, RoundTimes, PlayerName, GameAwards } = saveData
+    const { GameStats, RoundTimes, PlayerName, GameAwards, SelectedData } =
+      saveData
 
     playerStats.saves = GameStats.Saves
     playerStats.highestWinStreak = GameStats.HighestWinStreak
     playerStats.highestSaveStreak = GameStats.HighestSaveStreak
     playerStats.awards = formatGameAwards(GameAwards)
+    playerStats.skins = transformKeysToCamelCase(SelectedData)
 
     playerStats['battleTag'] = {
       name: PlayerName?.split('#')[0] || '',

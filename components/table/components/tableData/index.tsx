@@ -4,6 +4,7 @@ import {
   RoundStats,
   BattleTag as BattleTagI,
   Challenges as ChallengesT,
+  Award,
 } from '@/interfaces/player'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'
@@ -20,6 +21,7 @@ interface Props {
     | DifficultyStats
     | BattleTagI
     | ChallengesT
+    | Award[]
   keyName: keyof PlayerStats
   difficultyFilter?: Difficulty | undefined
 }
