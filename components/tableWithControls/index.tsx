@@ -3,7 +3,7 @@
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Table from '../table'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, ReactNode } from 'react'
 import Pagination from './pagination'
 import { pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
@@ -12,6 +12,7 @@ import { Difficulty } from '@/interfaces/difficulty'
 
 interface TableProps {
   data?: PlayersStats
+  headerLink?: ReactNode
   defaultSortKey: keyof PlayerStats
   loading?: boolean
   title: string
@@ -32,6 +33,7 @@ export default function TableWithControls({
   loading = false,
   columns,
   title,
+  headerLink,
 }: TableProps) {
   // TODO: create custom hooks
   const totalPages = data ? Math.round(data?.length / pageSize) : 0
@@ -106,6 +108,7 @@ export default function TableWithControls({
             selected={difficultyFilter}
           />
         }
+        headerLink={headerLink}
         highlightedColumn={sortKey.key}
         loading={loading}
         difficultyFilter={difficultyFilter}

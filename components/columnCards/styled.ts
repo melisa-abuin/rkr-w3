@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.div`
   align-items: center;
@@ -15,17 +15,18 @@ export const Container = styled.div`
 `
 
 export const Card = styled.div`
-  border-radius: 3px;
-  box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
   width: 100%;
   overflow: hidden;
+  border-radius: 5px;
+  background-color: ${({ theme }) => theme.background.quaternary};
+  padding: 4px 8px;
 `
 
 export const Header = styled.div`
   align-items: center;
-  background-color: ${({ theme }) => theme.color.primary};
-  color: ${({ theme }) => theme.text.white};
+  color: ${({ theme }) => theme.text.tertiary};
   display: flex;
+  font-weight: var(--font-weight-bold);
   justify-content: center;
   min-height: 90px;
   padding: 20px;
@@ -36,7 +37,8 @@ export const Header = styled.div`
 export const Table = styled.table`
   width: 100%;
   font-size: var(--font-size-xs);
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 4px;
 
   td:first-child {
     font-weight: var(--font-weight-bold);
@@ -46,16 +48,53 @@ export const Table = styled.table`
 export const Td = styled.td`
   text-align: center;
   padding: 10px;
-  background-color: ${({ theme }) => theme.background.quaternary};
+  position: relative;
+  background-color: ${({ theme }) => theme.background.highlightTertiary};
   color: ${({ theme }) => theme.text.primary};
+
+  transition: opacity 0.1s ease;
 `
 
-export const Section = styled.section`
-  align-items: center;
-  background-color: ${({ theme }) => theme.background.primary};
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  justify-content: center;
-  padding: 2rem;
+export const DefaultCell = styled(Td)`
+  opacity: 1;
+`
+
+export const HoverCell = styled(Td)`
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+`
+
+export const Tr = styled.tr<{ hoverable: boolean }>`
+  & td:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  & td:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  position: relative;
+
+  ${({ hoverable }) =>
+    hoverable &&
+    css`
+      cursor: pointer;
+      &:hover ${DefaultCell} {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      &:hover ${HoverCell} {
+        opacity: 1;
+      }
+    `};
+`
+
+export const Title = styled.h2`
+  color: ${({ theme }) => theme.text.primary};
+  width: 100%;
 `

@@ -1,7 +1,18 @@
 'use client'
 import { BestTime } from '@/interfaces/player'
-import { Card, Container, Header, Section, Table, Td } from './styled'
+import {
+  Card,
+  Container,
+  Header,
+  Table,
+  Td,
+  Tr,
+  Title,
+  DefaultCell,
+  HoverCell,
+} from './styled'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { PageContainer } from '../pageContainer'
 
 interface Data {
   player: string
@@ -10,11 +21,13 @@ interface Data {
 
 interface Props {
   data?: { category: string; data: Data[] }[]
+  title: string
 }
 
-export default function ColumnCards({ data }: Props) {
+export default function ColumnCards({ data, title }: Props) {
   return (
-    <Section aria-labelledby="table-title">
+    <PageContainer ariaLabelledby="columns-card-title" marginTop={32}>
+      <Title id="columns-card-title">{title}</Title>
       <Container>
         {data?.map(({ category, data }) => (
           <Card key={category}>
@@ -22,26 +35,28 @@ export default function ColumnCards({ data }: Props) {
             <Table>
               <tbody>
                 {data?.map(({ player, data }, index) => (
-                  <tr key={`${player}${index}`}>
-                    <Td>{player}</Td>
+                  <Tr
+                    key={`${player}${index}`}
+                    hoverable={data instanceof Object}
+                  >
+                    <DefaultCell>{player}</DefaultCell>
                     {typeof data === 'number' ? (
                       <Td>{data}</Td>
                     ) : (
                       <>
-                        <Td>
-                          <span>{secondsToSexagesimal(data.time)}</span>
-                          <br />
-                          <small>({data.difficulty})</small>
-                        </Td>
+                        <DefaultCell>
+                          {secondsToSexagesimal(data.time)}
+                        </DefaultCell>
+                        <HoverCell>{data.difficulty}</HoverCell>
                       </>
                     )}
-                  </tr>
+                  </Tr>
                 ))}
               </tbody>
             </Table>
           </Card>
         ))}
       </Container>
-    </Section>
+    </PageContainer>
   )
 }
