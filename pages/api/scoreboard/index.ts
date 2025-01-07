@@ -84,21 +84,21 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       ],
       leaderboard: {
         stats: [
-          // Wait for a fix
+          // wait for a fix
           // {
-          //   category: 'Highest Win Streak',
+          //   category: 'Win Streak',
           //   data: findTopFive(formattedData, 'highestWinStreak'),
           // },
           {
-            category: 'Most Saves',
+            category: 'Saves',
             data: findTopFive(formattedData, 'saves'),
           },
           {
-            category: 'Most Games Played',
+            category: 'Games Played',
             data: findTopFive(formattedData, 'gamesPlayed'),
           },
           {
-            category: 'Most Wins',
+            category: 'Wins',
             data: findTopFive(formattedData, 'wins'),
           },
           {
@@ -108,23 +108,23 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         ],
         times: [
           {
-            category: 'Best R1 Times',
+            category: 'Round One',
             data: findTopFive(formattedData, 'roundOne'),
           },
           {
-            category: 'Best R2 Times',
+            category: 'Round Two',
             data: findTopFive(formattedData, 'roundTwo'),
           },
           {
-            category: 'Best R3 Times',
+            category: 'Round Three',
             data: findTopFive(formattedData, 'roundThree'),
           },
           {
-            category: 'Best R4 Times',
+            category: 'Round Four',
             data: findTopFive(formattedData, 'roundFour'),
           },
           {
-            category: 'Best R5 Times',
+            category: 'Round Five',
             data: findTopFive(formattedData, 'roundFive'),
           },
         ],
