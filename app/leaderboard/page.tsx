@@ -5,11 +5,12 @@ import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import PageHeader from '@/components/pageHeader'
-import { statsColumns, timeAllDiffColumns } from '@/constants'
+import { statsColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
 import Info from '@/components/info'
-import Link from 'next/link'
+import { PageContainer } from '@/components/pageContainer'
+import { Link } from '@/components/link'
 
 interface Data {
   player: string
@@ -61,34 +62,21 @@ export default async function Leaderboard() {
               description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
               title="Stats"
             />
-            <ColumnCards data={data.leaderboard?.stats} />
+            <ColumnCards data={data.leaderboard?.stats} title="Best scores" />
+            <ColumnCards data={data.leaderboard?.times} title="Best times" />
             <Table
               columns={statsColumns}
               data={data.scoreboard}
-              headerLink={
-                <Link
-                  href="/stats/overview"
-                  aria-label="View all stats for players"
-                >
-                  View all stats
-                </Link>
-              }
-              title="Overall Stats"
+              title="Leaderboard Highlights: Top 5 Stats"
             />
-            <ColumnCards data={data.leaderboard?.times} />
-            <Table
-              columns={timeAllDiffColumns}
-              data={data.scoreboard}
-              headerLink={
-                <Link
-                  href="/stats/time"
-                  aria-label="View all times for players"
-                >
-                  View all times
-                </Link>
-              }
-              title="Time Stats"
-            />
+            <PageContainer as="div">
+              <Link
+                href="/stats/overview"
+                aria-label="View all stats for players"
+              >
+                View all stats
+              </Link>
+            </PageContainer>
             <Info>
               we understand that some players might not want to see their battle
               tag on this page, we are currently working on an automated

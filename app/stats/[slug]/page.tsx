@@ -8,6 +8,7 @@ import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
 import Info from '@/components/info'
+import Link from 'next/link'
 
 interface PlayerStatsData {
   error: string | null
@@ -19,6 +20,11 @@ const timeStrings = {
   description: 'Check all the time-based stats',
   columns: timeAllDiffColumns,
   defaultSortKey: 'roundOne',
+  link: {
+    ariaLabel: 'View all stats for players',
+    href: '/stats/overview',
+    text: 'View all stats',
+  },
 } as const
 
 const overallStrings = {
@@ -26,6 +32,11 @@ const overallStrings = {
   description: 'Check all the general stats for all players',
   columns: statsColumns,
   defaultSortKey: 'completedChallenges',
+  link: {
+    ariaLabel: 'View all times for players',
+    href: '/stats/time',
+    text: 'View time related stats',
+  },
 } as const
 
 async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
@@ -76,6 +87,14 @@ export default async function StatsPage({
               data={data}
               defaultSortKey={strings.defaultSortKey}
               title="Overall Stats"
+              headerLink={
+                <Link
+                  href={strings.link.href}
+                  aria-label={strings.link.ariaLabel}
+                >
+                  {strings.link.text}
+                </Link>
+              }
             />
             <Info>
               we understand that some players might not want to see their battle
