@@ -21,7 +21,7 @@ const timeStrings = {
   columns: timeAllDiffColumns,
   defaultSortKey: 'roundOne',
   link: {
-    ariaLabel: 'View all stats for players',
+    ariaLabel: 'View all stats for all players',
     href: '/stats/overview',
     text: 'View all stats',
   },
@@ -33,7 +33,7 @@ const overallStrings = {
   columns: statsColumns,
   defaultSortKey: 'completedChallenges',
   link: {
-    ariaLabel: 'View all times for players',
+    ariaLabel: 'View all times for all players',
     href: '/stats/time',
     text: 'View time related stats',
   },
@@ -97,7 +97,7 @@ export default async function StatsPage({
               }
             />
             <Info>
-              we understand that some players might not want to see their battle
+              We understand that some players might not want to see their battle
               tag on this page, we are currently working on an automated
               solution, in the meantime please contact the page administrator to
               a manual removal

@@ -67,18 +67,18 @@ export default async function Leaderboard() {
             <Table
               columns={statsColumns}
               data={data.scoreboard}
-              title="Leaderboard Highlights: Top 5 Stats"
+              title="Leaderboard Highlights: Top Five Stats"
             />
             <PageContainer as="div">
               <Link
                 href="/stats/overview"
-                aria-label="View all stats for players"
+                aria-label="View all stats for all players"
               >
                 View all stats
               </Link>
             </PageContainer>
             <Info>
-              we understand that some players might not want to see their battle
+              We understand that some players might not want to see their battle
               tag on this page, we are currently working on an automated
               solution, in the meantime please contact the page administrator to
               a manual removal

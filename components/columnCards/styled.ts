@@ -52,19 +52,15 @@ export const Td = styled.td`
   background-color: ${({ theme }) => theme.background.highlightTertiary};
   color: ${({ theme }) => theme.text.primary};
 
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+  transition: opacity 0.1s ease;
 `
 
 export const DefaultCell = styled(Td)`
   opacity: 1;
-  transform: scale(1);
 `
 
 export const HoverCell = styled(Td)`
   opacity: 0;
-  transform: scale(0.9);
   position: absolute;
   top: 0;
   left: 0;
@@ -89,13 +85,11 @@ export const Tr = styled.tr<{ hoverable: boolean }>`
       cursor: pointer;
       &:hover ${DefaultCell} {
         opacity: 0;
-        transform: scale(0.9);
-        pointer-events: none; /* Prevent interaction with hidden cells */
+        pointer-events: none;
       }
 
       &:hover ${HoverCell} {
         opacity: 1;
-        transform: scale(1);
       }
     `};
 `
