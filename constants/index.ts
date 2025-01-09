@@ -27,12 +27,14 @@ export const routes = {
     url: '/leaderboard',
     target: '_self',
   },
-  download: {
-    label: 'Download v4.3.6',
-    url: 'https://maps.w3reforged.com/maps/categories/maze-escape/rkr-436',
-    target: '_blank',
+  scoreboard: {
+    label: 'Scoreboard',
+    url: '/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc',
+    target: '_self',
   },
 }
+
+export const downloadFileName = 'RKR_Remastered_1.0.2'
 
 export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Player', key: 'battleTag' },
