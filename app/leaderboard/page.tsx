@@ -22,8 +22,8 @@ interface PlayerStatsData {
   data: {
     scoreboard?: PlayersStats
     leaderboard?: {
-      stats: Array<{ category: string; data: Data[] }>
-      times: Array<{ category: string; data: Data[] }>
+      stats: Array<{ category: string; key: string; data: Data[] }>
+      times: Array<{ category: string; key: string; data: Data[] }>
     }
   }
 }
@@ -62,8 +62,16 @@ export default async function Leaderboard() {
               description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
               title="Stats"
             />
-            <ColumnCards data={data.leaderboard?.stats} title="Best scores" />
-            <ColumnCards data={data.leaderboard?.times} title="Best times" />
+            <ColumnCards
+              data={data.leaderboard?.stats}
+              viewAllKey="overview"
+              title="Best scores"
+            />
+            <ColumnCards
+              data={data.leaderboard?.times}
+              viewAllKey="time"
+              title="Best times"
+            />
             <Table
               columns={statsColumns}
               data={data.scoreboard}

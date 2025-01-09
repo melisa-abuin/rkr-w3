@@ -8,7 +8,7 @@ export default function Footer() {
     <FooterContainer>
       <p>This is a non-profit project developed and maintained by Aches</p>
       <p>
-        Warcraft is ©2024 by{' '}
+        Warcraft is ©2025 by{' '}
         <Link href={blizzardLink} target="_blank" rel="noopener noreferrer">
           Blizzard Entertainment
         </Link>

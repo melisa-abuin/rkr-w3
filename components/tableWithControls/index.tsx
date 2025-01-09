@@ -43,7 +43,7 @@ export default function TableWithControls({
   const initialFilter = searchParams?.get('difficulty') as Difficulty
   const initialSortData = {
     key: (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey,
-    asc: !!searchParams?.get('sortOrder') || false,
+    asc: searchParams?.get('sortOrder') === 'asc',
   }
 
   const [currentPage, setCurrentPage] = useState<number>(initialPage)

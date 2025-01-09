@@ -92,40 +92,49 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
           {
             category: 'Saves',
             data: findTopFive(formattedData, 'saves'),
+            key: 'saves',
           },
           {
             category: 'Games Played',
             data: findTopFive(formattedData, 'gamesPlayed'),
+            key: 'gamesPlayed',
           },
           {
             category: 'Wins',
             data: findTopFive(formattedData, 'wins'),
+            key: 'wins',
           },
           {
             category: 'Save/Death Ratio',
             data: findTopFive(formattedData, 'saveDeathRatio'),
+            key: 'saveDeathRatio',
           },
         ],
         times: [
           {
             category: 'Round One',
             data: findTopFive(formattedData, 'roundOne'),
+            key: 'roundOne',
           },
           {
             category: 'Round Two',
             data: findTopFive(formattedData, 'roundTwo'),
+            key: 'roundTwo',
           },
           {
             category: 'Round Three',
             data: findTopFive(formattedData, 'roundThree'),
+            key: 'roundThree',
           },
           {
             category: 'Round Four',
             data: findTopFive(formattedData, 'roundFour'),
+            key: 'roundFour',
           },
           {
             category: 'Round Five',
             data: findTopFive(formattedData, 'roundFive'),
+            key: 'roundFive',
           },
         ],
       },
