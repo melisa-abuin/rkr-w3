@@ -16,12 +16,6 @@ export const routes = {
     url: '/',
     target: '_self',
   },
-  /* 
-  disabled until I can meassure videos impact on vercel limits
-  howToPlay: {
-    label: 'How To Play',
-    url: '/how-to-play',
-  },*/
   leaderboard: {
     label: 'Leaderboard',
     url: '/leaderboard',
