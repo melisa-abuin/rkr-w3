@@ -4,6 +4,7 @@ import {
   Card,
   Container,
   Header,
+  Footer,
   Table,
   Td,
   Tr,
@@ -20,16 +21,17 @@ interface Data {
 }
 
 interface Props {
-  data?: { category: string; data: Data[] }[]
+  data?: { category: string; data: Data[]; key: string }[]
   title: string
+  viewAllKey: 'overview' | 'time'
 }
 
-export default function ColumnCards({ data, title }: Props) {
+export default function ColumnCards({ data, viewAllKey, title }: Props) {
   return (
     <PageContainer ariaLabelledby="columns-card-title" marginTop={32}>
       <Title id="columns-card-title">{title}</Title>
       <Container>
-        {data?.map(({ category, data }) => (
+        {data?.map(({ category, data, key }) => (
           <Card key={category}>
             <Header>{category}</Header>
             <Table>
@@ -54,6 +56,11 @@ export default function ColumnCards({ data, title }: Props) {
                 ))}
               </tbody>
             </Table>
+            <Footer
+              href={`/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc`}
+            >
+              View all
+            </Footer>
           </Card>
         ))}
       </Container>

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import Link from 'next/link'
 
 export const Container = styled.div`
   align-items: center;
@@ -15,11 +16,14 @@ export const Container = styled.div`
 `
 
 export const Card = styled.div`
-  width: 100%;
-  overflow: hidden;
-  border-radius: 5px;
   background-color: ${({ theme }) => theme.background.quaternary};
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 4px 8px;
+  text-align: center;
+  width: 100%;
 `
 
 export const Header = styled.div`
@@ -35,10 +39,10 @@ export const Header = styled.div`
 `
 
 export const Table = styled.table`
-  width: 100%;
-  font-size: var(--font-size-xs);
   border-collapse: separate;
   border-spacing: 0 4px;
+  font-size: var(--font-size-xs);
+  width: 100%;
 
   td:first-child {
     font-weight: var(--font-weight-bold);
@@ -46,11 +50,11 @@ export const Table = styled.table`
 `
 
 export const Td = styled.td`
-  text-align: center;
-  padding: 10px;
-  position: relative;
   background-color: ${({ theme }) => theme.background.highlightTertiary};
   color: ${({ theme }) => theme.text.primary};
+  padding: 10px;
+  position: relative;
+  text-align: center;
 
   transition: opacity 0.1s ease;
 `
@@ -60,10 +64,10 @@ export const DefaultCell = styled(Td)`
 `
 
 export const HoverCell = styled(Td)`
+  left: 0;
   opacity: 0;
   position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
 `
 
@@ -97,4 +101,11 @@ export const Tr = styled.tr<{ hoverable: boolean }>`
 export const Title = styled.h2`
   color: ${({ theme }) => theme.text.primary};
   width: 100%;
+`
+export const Footer = styled(Link)`
+  color: ${({ theme }) => theme.text.secondary};
+  font-size: var(--font-size-xs);
+  margin: 8px 0;
+  text-align: center;
+  text-decoration: none;
 `
