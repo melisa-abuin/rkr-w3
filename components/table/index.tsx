@@ -10,8 +10,8 @@ import {
   Title,
 } from './styled'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
-import LoaderTable from './loaderTable'
-import { TableData } from './tableData'
+import LoaderTable from './components/loaderTable'
+import { TableData } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 
 interface SortingKey {

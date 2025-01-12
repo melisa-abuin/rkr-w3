@@ -5,8 +5,7 @@ import ColumnCards from '../columnCards'
 import { PageContainer } from '../pageContainer'
 import { Badges } from '../badges'
 import { BadgesContainer } from './styled'
-import { useFetch } from '@/hooks/useFetch'
-import { useCallback, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 
 interface Data {
@@ -14,8 +13,10 @@ interface Data {
   data: number | BestTime
 }
 
+type LeaderBoardData = { category: string; data: Data[]; key: string }[]
+
 interface Props {
-  data?: { category: string; data: Data[]; key: string }[]
+  data?: LeaderBoardData
   title: string
   viewAllKey: 'overview' | 'time'
 }
@@ -28,28 +29,51 @@ export default function ColumnCardsWithControls({
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >()
+  const [filteredData, setFilteredData] = useState<
+    LeaderBoardData | undefined
+  >()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const {
-    data: fiteredData,
-    error,
-    loading,
-  } = useFetch<Array<{ category: string; key: string; data: Data[] }>>(
-    '/api/timeLeaderboard',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ difficulty: difficultyFilter }),
-    },
-    [difficultyFilter],
-  )
+  useEffect(() => {
+    const fetchFilteredData = async () => {
+      if (difficultyFilter === undefined) {
+        setFilteredData(data)
+        return
+      }
+
+      setLoading(true)
+      setError(null)
+
+      try {
+        const response = await fetch('/api/timeLeaderboard', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ difficulty: difficultyFilter }),
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        setFilteredData(result)
+      } catch (error) {
+        setError((error as Error).message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchFilteredData()
+  }, [difficultyFilter, data])
 
   const onFilterClick = (difficulty: Difficulty | undefined) => {
     setDifficultyFilter(difficulty)
   }
 
-  console.log(fiteredData)
   return (
     <PageContainer
       ariaLabelledby="columns-time-title"
@@ -63,8 +87,16 @@ export default function ColumnCardsWithControls({
           selected={difficultyFilter}
         />
       </BadgesContainer>
-
-      <ColumnCards data={data} viewAllKey={viewAllKey} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <ColumnCards
+          data={difficultyFilter === undefined ? data : filteredData}
+          viewAllKey={viewAllKey}
+        />
+      )}
     </PageContainer>
   )
 }

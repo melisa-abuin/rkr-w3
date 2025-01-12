@@ -1,5 +1,5 @@
 import Loader from '@/components/loader'
-import { StyledTd } from '../styled'
+import { StyledTd } from '../../styled'
 
 export default function LoaderTable() {
   return (
