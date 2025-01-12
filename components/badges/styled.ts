@@ -4,10 +4,10 @@ export const Badge = styled.span<{ selected: boolean }>`
   background: transparent;
   border: 1px solid
     ${({ theme, selected }) =>
-      selected ? theme.text.tertiary : theme.text.secondary};
+      selected ? theme.color.secondary : theme.text.secondary};
   border-radius: 3px;
   color: ${({ theme, selected }) =>
-    selected ? theme.text.tertiary : theme.text.secondary};
+    selected ? theme.color.secondary : theme.text.secondary};
   cursor: pointer;
   font-weight: var(--font-weight-semi-bold);
   font-size: var(--font-size-xs);
