@@ -15,4 +15,8 @@ export const OuterContainer = styled.section<{ marginTop: number }>`
   justify-content: center;
   margin-top: ${({ marginTop }) => `${marginTop}px`};
   width: 100%;
+
+  @media (max-width: 480px) {
+    padding: 0 1rem;
+  }
 `
