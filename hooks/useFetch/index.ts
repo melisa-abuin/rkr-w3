@@ -6,7 +6,11 @@ interface FetchState<T> {
   loading: boolean
 }
 
-export const useFetch = <T>(url: string, options?: RequestInit) => {
+export const useFetch = <T>(
+  url: string,
+  options?: RequestInit,
+  dependencies: string[] = [],
+) => {
   const [state, setState] = useState<FetchState<T>>({
     data: null,
     error: null,
@@ -32,7 +36,7 @@ export const useFetch = <T>(url: string, options?: RequestInit) => {
     }
 
     fetchData()
-  }, [url, options])
+  }, [url, options, ...dependencies])
 
   return state
 }

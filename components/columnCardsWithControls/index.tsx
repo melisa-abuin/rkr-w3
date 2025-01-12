@@ -5,6 +5,9 @@ import ColumnCards from '../columnCards'
 import { PageContainer } from '../pageContainer'
 import { Badges } from '../badges'
 import { BadgesContainer } from './styled'
+import { useFetch } from '@/hooks/useFetch'
+import { useCallback, useState } from 'react'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface Data {
   player: string
@@ -22,6 +25,31 @@ export default function ColumnCardsWithControls({
   viewAllKey,
   title,
 }: Props) {
+  const [difficultyFilter, setDifficultyFilter] = useState<
+    Difficulty | undefined
+  >()
+
+  const {
+    data: fiteredData,
+    error,
+    loading,
+  } = useFetch<Array<{ category: string; key: string; data: Data[] }>>(
+    '/api/timeLeaderboard',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ difficulty: difficultyFilter }),
+    },
+    [difficultyFilter],
+  )
+
+  const onFilterClick = (difficulty: Difficulty | undefined) => {
+    setDifficultyFilter(difficulty)
+  }
+
+  console.log(fiteredData)
   return (
     <PageContainer
       ariaLabelledby="columns-time-title"
@@ -30,9 +58,9 @@ export default function ColumnCardsWithControls({
     >
       <BadgesContainer>
         <Badges
-          onClick={() => console.log('hey')}
+          onClick={onFilterClick}
           options={['normal', 'hard', 'impossible', 'all']}
-          selected={undefined}
+          selected={difficultyFilter}
         />
       </BadgesContainer>
 
