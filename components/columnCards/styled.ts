@@ -87,12 +87,12 @@ export const Tr = styled.tr<{ hoverable: boolean }>`
     hoverable &&
     css`
       cursor: pointer;
-      &:hover ${DefaultCell} {
+      &:hover ${DefaultCell}, &:active ${DefaultCell} {
         opacity: 0;
         pointer-events: none;
       }
 
-      &:hover ${HoverCell} {
+      &:hover ${HoverCell}, &:active ${HoverCell} {
         opacity: 1;
       }
     `};
