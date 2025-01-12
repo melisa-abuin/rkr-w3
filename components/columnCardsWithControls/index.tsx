@@ -87,13 +87,12 @@ export default function ColumnCardsWithControls({
           selected={difficultyFilter}
         />
       </BadgesContainer>
-      {loading ? (
-        <div>Loading...</div>
-      ) : error ? (
+      {error ? (
         <div>Error: {error}</div>
       ) : (
         <ColumnCards
           data={difficultyFilter === undefined ? data : filteredData}
+          loading={loading}
           viewAllKey={viewAllKey}
         />
       )}
