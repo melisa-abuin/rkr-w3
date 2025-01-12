@@ -97,11 +97,6 @@ export const Tr = styled.tr<{ hoverable: boolean }>`
       }
     `};
 `
-
-export const Title = styled.h2`
-  color: ${({ theme }) => theme.text.primary};
-  width: 100%;
-`
 export const Footer = styled(Link)`
   color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs);

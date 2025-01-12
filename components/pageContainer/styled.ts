@@ -20,3 +20,8 @@ export const OuterContainer = styled.section<{ marginTop: number }>`
     padding: 0 1rem;
   }
 `
+
+export const Title = styled.h2`
+  color: ${({ theme }) => theme.text.primary};
+  width: 100%;
+`

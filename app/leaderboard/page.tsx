@@ -11,6 +11,7 @@ import ColumnCards from '@/components/columnCards'
 import Info from '@/components/info'
 import { PageContainer } from '@/components/pageContainer'
 import { Link } from '@/components/link'
+import ColumnCardsWithControls from '@/components/columnCardsWithControls'
 
 interface Data {
   player: string
@@ -62,12 +63,17 @@ export default async function Leaderboard() {
               description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
               title="Stats"
             />
-            <ColumnCards
-              data={data.leaderboard?.stats}
-              viewAllKey="overview"
+            <PageContainer
+              ariaLabelledby="columns-score-title"
               title="Best scores"
-            />
-            <ColumnCards
+            >
+              <ColumnCards
+                data={data.leaderboard?.stats}
+                viewAllKey="overview"
+              />
+            </PageContainer>
+
+            <ColumnCardsWithControls
               data={data.leaderboard?.times}
               viewAllKey="time"
               title="Best times"
