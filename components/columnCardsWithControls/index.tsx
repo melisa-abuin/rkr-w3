@@ -45,6 +45,7 @@ export default function ColumnCardsWithControls({
       setLoading(true)
       setError(null)
 
+      // TODO: create helper or what about react query?
       try {
         const response = await fetch('/api/timeLeaderboard', {
           method: 'POST',

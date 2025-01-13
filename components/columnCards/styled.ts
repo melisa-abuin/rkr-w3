@@ -71,7 +71,7 @@ export const HoverCell = styled(Td)`
   width: 100%;
 `
 
-export const Tr = styled.tr<{ hoverable: boolean }>`
+export const Tr = styled.tr<{ hoverable?: boolean }>`
   & td:first-child {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;

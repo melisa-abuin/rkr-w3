@@ -1,6 +1,6 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
-import Challenges from '@/components/table/tableData/challenges'
+import Challenges from '@/components/table/components/tableData/challenges'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 function mockMatchMedia(matches: boolean) {

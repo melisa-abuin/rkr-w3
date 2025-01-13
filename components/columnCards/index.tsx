@@ -25,18 +25,18 @@ interface Props {
   viewAllKey: 'overview' | 'time'
 }
 
-export default function ColumnCards({ data, loading, viewAllKey }: Props) {
+export default function ColumnCards({ data = [], loading, viewAllKey }: Props) {
   return (
     <Container>
       {data?.map(({ category, data, key }) => (
         <Card key={category}>
           <Header>{category}</Header>
           <Table>
-            {loading ? (
-              <LoaderCard />
-            ) : (
-              <tbody>
-                {data?.map(({ player, data }, index) => (
+            <tbody>
+              {loading ? (
+                <LoaderCard />
+              ) : (
+                data?.map(({ player, data }, index) => (
                   <Tr
                     key={`${player}${index}`}
                     hoverable={data instanceof Object}
@@ -53,9 +53,9 @@ export default function ColumnCards({ data, loading, viewAllKey }: Props) {
                       </>
                     )}
                   </Tr>
-                ))}
-              </tbody>
-            )}
+                ))
+              )}
+            </tbody>
           </Table>
           <Footer
             href={`/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc`}
