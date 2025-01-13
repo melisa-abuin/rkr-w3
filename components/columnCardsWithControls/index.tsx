@@ -93,6 +93,7 @@ export default function ColumnCardsWithControls({
       ) : (
         <ColumnCards
           data={difficultyFilter === undefined ? data : filteredData}
+          hoverable={difficultyFilter === undefined}
           loading={loading}
           viewAllKey={viewAllKey}
         />

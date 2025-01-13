@@ -21,11 +21,17 @@ interface Data {
 
 interface Props {
   data?: { category: string; data: Data[]; key: string }[]
+  hoverable?: boolean
   loading?: boolean
   viewAllKey: 'overview' | 'time'
 }
 
-export default function ColumnCards({ data = [], loading, viewAllKey }: Props) {
+export default function ColumnCards({
+  data = [],
+  hoverable = false,
+  loading,
+  viewAllKey,
+}: Props) {
   return (
     <Container>
       {data?.map(({ category, data, key }) => (
@@ -36,24 +42,33 @@ export default function ColumnCards({ data = [], loading, viewAllKey }: Props) {
               {loading ? (
                 <LoaderCard />
               ) : (
-                data?.map(({ player, data }, index) => (
-                  <Tr
-                    key={`${player}${index}`}
-                    hoverable={data instanceof Object}
-                  >
-                    <DefaultCell>{player}</DefaultCell>
-                    {typeof data === 'number' ? (
-                      <Td>{data}</Td>
-                    ) : (
-                      <>
-                        <DefaultCell>
-                          {secondsToSexagesimal(data.time)}
-                        </DefaultCell>
-                        <HoverCell>{data.difficulty}</HoverCell>
-                      </>
-                    )}
-                  </Tr>
-                ))
+                <>
+                  {data?.map(({ player, data }, index) => (
+                    <Tr
+                      key={`${player}${index}`}
+                      hoverable={data instanceof Object && hoverable}
+                    >
+                      <DefaultCell>{player}</DefaultCell>
+                      {typeof data === 'number' ? (
+                        <Td>{data}</Td>
+                      ) : (
+                        <>
+                          <DefaultCell>
+                            {secondsToSexagesimal(data.time)}
+                          </DefaultCell>
+                          <HoverCell>{data.difficulty}</HoverCell>
+                        </>
+                      )}
+                    </Tr>
+                  ))}
+                  {data.length < 5 &&
+                    [...Array(5 - data.length)].map((_, rowIndex) => (
+                      <Tr key={rowIndex}>
+                        <Td>--</Td>
+                        <Td>--</Td>
+                      </Tr>
+                    ))}
+                </>
               )}
             </tbody>
           </Table>
