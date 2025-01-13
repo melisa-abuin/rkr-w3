@@ -71,7 +71,7 @@ export const HoverCell = styled(Td)`
   width: 100%;
 `
 
-export const Tr = styled.tr<{ hoverable: boolean }>`
+export const Tr = styled.tr<{ hoverable?: boolean }>`
   & td:first-child {
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -87,20 +87,15 @@ export const Tr = styled.tr<{ hoverable: boolean }>`
     hoverable &&
     css`
       cursor: pointer;
-      &:hover ${DefaultCell} {
+      &:hover ${DefaultCell}, &:active ${DefaultCell} {
         opacity: 0;
         pointer-events: none;
       }
 
-      &:hover ${HoverCell} {
+      &:hover ${HoverCell}, &:active ${HoverCell} {
         opacity: 1;
       }
     `};
-`
-
-export const Title = styled.h2`
-  color: ${({ theme }) => theme.text.primary};
-  width: 100%;
 `
 export const Footer = styled(Link)`
   color: ${({ theme }) => theme.text.secondary};

@@ -4,8 +4,8 @@ import { Container, StyledNav } from './styled'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
-import DesktopNavbar from './desktop'
-import MobileNavbar from './mobile'
+import DesktopNavbar from './components/desktop'
+import MobileNavbar from './components/mobile'
 import Link from 'next/link'
 
 export default function Navbar() {

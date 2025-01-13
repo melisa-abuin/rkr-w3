@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { NavLink } from './desktop/styled'
+import { NavLink } from './components/desktop/styled'
 
 interface NavProps {
   hasTransparentStyle?: boolean

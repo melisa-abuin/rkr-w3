@@ -1,4 +1,4 @@
-import { PlayerStats } from '@/interfaces/player'
+import { Challenges, PlayerStats } from '@/interfaces/player'
 
 export const blizzardLink = 'https://www.blizzard.com/'
 export const discordData =
@@ -16,12 +16,6 @@ export const routes = {
     url: '/',
     target: '_self',
   },
-  /* 
-  disabled until I can meassure videos impact on vercel limits
-  howToPlay: {
-    label: 'How To Play',
-    url: '/how-to-play',
-  },*/
   leaderboard: {
     label: 'Leaderboard',
     url: '/leaderboard',
@@ -56,33 +50,6 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Best R5 Times', key: 'roundFive' },
 ]
 
-export const tricks = [
-  {
-    alt: 'Dog trick button',
-    icon: 'paw-heart',
-    text: 'If someone saves you and you are inside a dog, you can move through him without dying. This way you can overcome dog walls or take a path blocked for the one who saved you.',
-    videoUrl: '/save.mp4',
-  },
-  {
-    alt: 'Group trick button',
-    icon: 'two-users',
-    text: 'In order to control two different kitties at the same time you must set up 3 control groups. Select your Kitty and press crtl+1, select the other Kitty and press ctrl+2 and now select your Kitty and press shift while you select the other kitty to select both kitties at the same time and finally press ctrl+3 with both kitties selected.',
-    videoUrl: '/control-two-kitties.mp4',
-  },
-  {
-    alt: 'Camera angle trick button',
-    icon: 'camera-angle',
-    text: 'Find out what keys change the camera angle, this is useful for hard saves with almost no visibility.',
-    videoUrl: '/camera-angle.mp4',
-  },
-  {
-    alt: 'Center camera trick button',
-    icon: 'camera-center',
-    text: 'Press F1 or spacebar to center the camera in your Kitty.',
-    videoUrl: '/center-camera.mp4',
-  },
-] as const
-
 export const formattedMockData = [
   {
     battleTag: {
@@ -96,7 +63,7 @@ export const formattedMockData = [
     impossibleGames: 10,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    completedChallenges: [56, 56],
+    completedChallenges: [56, 56] as Challenges,
     saveDeathRatio: 1.63,
     gamesPlayed: {
       normal: 10,
@@ -168,7 +135,7 @@ export const formattedMockData = [
     impossibleGames: 15,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    completedChallenges: [56, 56],
+    completedChallenges: [56, 56] as Challenges,
     saveDeathRatio: 1.63,
     gamesPlayed: {
       normal: 39,
@@ -224,6 +191,222 @@ export const formattedMockData = [
       impossible: 520.0,
       best: {
         difficulty: 'normal',
+        time: 480.0,
+      },
+    },
+  },
+  {
+    battleTag: {
+      name: 'Alice',
+      tag: 'Alice#5678',
+    },
+    saves: 200,
+    deaths: 20,
+    normalGames: 50,
+    hardGames: 40,
+    impossibleGames: 10,
+    highestSaveStreak: 50,
+    highestWinStreak: 200,
+    completedChallenges: [101, 102] as Challenges,
+    saveDeathRatio: 10.0,
+    gamesPlayed: {
+      normal: 50,
+      hard: 40,
+      impossible: 10,
+      total: 100,
+    },
+    wins: {
+      normal: 40,
+      hard: 30,
+      impossible: 5,
+      total: 75,
+    },
+    roundOne: {
+      normal: 90.0,
+      hard: 85.0,
+      impossible: 100.0,
+      best: {
+        difficulty: 'hard',
+        time: 85.0,
+      },
+    },
+    roundTwo: {
+      normal: 140.0,
+      hard: 120.0,
+      impossible: 150.0,
+      best: {
+        difficulty: 'hard',
+        time: 120.0,
+      },
+    },
+    roundThree: {
+      normal: 240.0,
+      hard: 230.0,
+      impossible: 250.0,
+      best: {
+        difficulty: 'hard',
+        time: 230.0,
+      },
+    },
+    roundFour: {
+      normal: 340.0,
+      hard: 330.0,
+      impossible: 350.0,
+      best: {
+        difficulty: 'hard',
+        time: 330.0,
+      },
+    },
+    roundFive: {
+      normal: 440.0,
+      hard: 430.0,
+      impossible: 450.0,
+      best: {
+        difficulty: 'hard',
+        time: 430.0,
+      },
+    },
+  },
+  {
+    battleTag: {
+      name: 'Charlie',
+      tag: 'Charlie#9876',
+    },
+    saves: 120,
+    deaths: 120,
+    normalGames: 30,
+    hardGames: 20,
+    impossibleGames: 10,
+    highestSaveStreak: 15,
+    highestWinStreak: 20,
+    completedChallenges: [201, 202] as Challenges,
+    saveDeathRatio: 1.0,
+    gamesPlayed: {
+      normal: 30,
+      hard: 20,
+      impossible: 10,
+      total: 60,
+    },
+    wins: {
+      normal: 15,
+      hard: 10,
+      impossible: 5,
+      total: 30,
+    },
+    roundOne: {
+      normal: 95.0,
+      hard: 105.0,
+      impossible: 115.0,
+      best: {
+        difficulty: 'normal',
+        time: 95.0,
+      },
+    },
+    roundTwo: {
+      normal: 145.0,
+      hard: 155.0,
+      impossible: 165.0,
+      best: {
+        difficulty: 'normal',
+        time: 145.0,
+      },
+    },
+    roundThree: {
+      normal: 245.0,
+      hard: 255.0,
+      impossible: 265.0,
+      best: {
+        difficulty: 'normal',
+        time: 245.0,
+      },
+    },
+    roundFour: {
+      normal: 345.0,
+      hard: 355.0,
+      impossible: 365.0,
+      best: {
+        difficulty: 'normal',
+        time: 345.0,
+      },
+    },
+    roundFive: {
+      normal: 445.0,
+      hard: 455.0,
+      impossible: 465.0,
+      best: {
+        difficulty: 'normal',
+        time: 445.0,
+      },
+    },
+  },
+  {
+    battleTag: {
+      name: 'Eve',
+      tag: 'Eve#1239',
+    },
+    saves: 50,
+    deaths: 300,
+    normalGames: 5,
+    hardGames: 3,
+    impossibleGames: 2,
+    highestSaveStreak: 3,
+    highestWinStreak: 2,
+    completedChallenges: [0, 0] as Challenges,
+    saveDeathRatio: 0.16,
+    gamesPlayed: {
+      normal: 5,
+      hard: 3,
+      impossible: 2,
+      total: 10,
+    },
+    wins: {
+      normal: 2,
+      hard: 1,
+      impossible: 0,
+      total: 3,
+    },
+    roundOne: {
+      normal: 110.0,
+      hard: 120.0,
+      impossible: 130.0,
+      best: {
+        difficulty: 'impossible',
+        time: 130.0,
+      },
+    },
+    roundTwo: {
+      normal: 160.0,
+      hard: 170.0,
+      impossible: 180.0,
+      best: {
+        difficulty: 'impossible',
+        time: 180.0,
+      },
+    },
+    roundThree: {
+      normal: 260.0,
+      hard: 270.0,
+      impossible: 280.0,
+      best: {
+        difficulty: 'impossible',
+        time: 280.0,
+      },
+    },
+    roundFour: {
+      normal: 360.0,
+      hard: 370.0,
+      impossible: 380.0,
+      best: {
+        difficulty: 'impossible',
+        time: 380.0,
+      },
+    },
+    roundFive: {
+      normal: 460.0,
+      hard: 470.0,
+      impossible: 480.0,
+      best: {
+        difficulty: 'impossible',
         time: 480.0,
       },
     },

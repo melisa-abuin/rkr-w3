@@ -15,7 +15,7 @@ export const Background = styled.div<Props>`
   background: linear-gradient(
     110deg,
     ${({ theme }) => theme.background.quaternary} 8%,
-    ${({ theme }) => theme.background.tertiary} 18%,
+    ${({ theme }) => theme.background.highlightTertiary} 18%,
     ${({ theme }) => theme.background.quaternary} 33%
   );
   border-radius: 5px;

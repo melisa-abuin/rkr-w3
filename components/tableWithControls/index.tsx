@@ -4,10 +4,10 @@ import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Table from '../table'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState, ReactNode } from 'react'
-import Pagination from './pagination'
+import Pagination from './components/pagination'
 import { pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import { Badges } from './badges'
+import { Badges } from '../badges'
 import { Difficulty } from '@/interfaces/difficulty'
 
 interface TableProps {

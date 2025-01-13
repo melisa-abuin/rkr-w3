@@ -1,11 +1,12 @@
 'use client'
 
-import { InnerContainer, OuterContainer } from './styled'
+import { InnerContainer, OuterContainer, Title } from './styled'
 
 interface Props {
   as?: 'section' | 'div'
   children: React.ReactNode
   ariaLabelledby?: string
+  title?: string
   marginTop?: number
 }
 
@@ -13,6 +14,7 @@ export const PageContainer = ({
   as = 'section',
   children,
   ariaLabelledby,
+  title,
   marginTop = 0,
 }: Props) => (
   <OuterContainer
@@ -20,6 +22,10 @@ export const PageContainer = ({
     aria-labelledby={ariaLabelledby}
     marginTop={marginTop}
   >
-    <InnerContainer>{children}</InnerContainer>
+    <InnerContainer>
+      {title && <Title id={ariaLabelledby}>{title}</Title>}
+
+      {children}
+    </InnerContainer>
   </OuterContainer>
 )
