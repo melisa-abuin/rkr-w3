@@ -5,11 +5,18 @@ import { Difficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = Difficulty | undefined
 
-const getDataToMap = (key: keyof PlayerStats, elem: PlayerStats) => {
+const getDataToMap = (
+  key: keyof PlayerStats,
+  elem: PlayerStats,
+  filter: DifficultyFilter,
+) => {
   if (key === 'wins' || key === 'gamesPlayed') {
     return elem[key].total
   }
   if (isRoundKey(key)) {
+    if (filter) {
+      return { time: elem[key][filter], difficulty: filter }
+    }
     return { ...elem[key].best }
   }
 
@@ -63,7 +70,7 @@ export const findTopFive = (
 
   return topFive.map((elem: PlayerStats) => ({
     player: elem.battleTag.name,
-    data: getDataToMap(key, elem),
+    data: getDataToMap(key, elem, filter),
   }))
 }
 
