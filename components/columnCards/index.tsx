@@ -49,7 +49,7 @@ export default function ColumnCards({
                       hoverable={data instanceof Object && hoverable}
                     >
                       <DefaultCell>{player}</DefaultCell>
-                      {typeof data === 'number' ? (
+                      {typeof data === 'number' || typeof data === 'string' ? (
                         <Td>{data}</Td>
                       ) : (
                         <>
