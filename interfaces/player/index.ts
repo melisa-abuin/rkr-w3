@@ -11,6 +11,7 @@ export interface PlayerStats {
   completedChallenges: Challenges
   saveDeathRatio: number
   gamesPlayed: DifficultyStats
+  winRate: string
   wins: DifficultyStats
   roundOne: RoundStats
   roundTwo: RoundStats

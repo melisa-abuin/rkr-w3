@@ -5,6 +5,7 @@ import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { findTopFive } from '@/utils/findTopFive'
 import { mockApiData } from '@/constants'
+import { calculateWinRate } from '@/utils/calculateWinRate'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const apiKey = process.env.API_KEY
@@ -65,6 +66,11 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         GameStats.ImpossibleWins,
       )
 
+      playerStats['winRate'] = calculateWinRate(
+        playerStats.wins.total,
+        playerStats.gamesPlayed.total,
+      )
+
       const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
       roundNames.forEach((round) => {
@@ -84,11 +90,10 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       ],
       leaderboard: {
         stats: [
-          // wait for a fix
-          // {
-          //   category: 'Win Streak',
-          //   data: findTopFive(formattedData, 'highestWinStreak'),
-          // },
+          {
+            category: 'Win Rate',
+            data: findTopFive(formattedData, 'winRate'),
+          },
           {
             category: 'Saves',
             data: findTopFive(formattedData, 'saves'),
