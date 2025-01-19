@@ -7,6 +7,7 @@ export const Header = styled.header<{ align: 'center' | 'flex-start' }>`
   flex-direction: column;
   justify-content: center;
   padding-top: 6rem;
+  width: 100%;
 
   @media (max-width: 480px) {
     padding: 1rem;

@@ -1,23 +1,29 @@
-import Image from 'next/image'
 import styled from 'styled-components'
 
-export const CircleImage = styled(Image)<{ completed: boolean }>`
-  border: 2px solid ${({ theme }) => theme.color.primary};
-  border-radius: 50%;
-  cursor: pointer;
-  filter: ${({ completed }) => (completed ? 'none' : 'grayscale(1)')};
-  opacity: ${({ completed }) => (completed ? '1' : '0.5')};
-`
 export const Header = styled.div`
   background-color: ${({ theme }) => theme.background.quaternary};
   color: ${({ theme }) => theme.text.tertiary};
-  padding: 10px;
+  padding-top: 16px;
   font-weight: var(--font-weight-bold);
   text-align: center;
 `
 export const Body = styled.div`
   background-color: ${({ theme }) => theme.background.quaternary};
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   padding: 20px;
+`
+export const Line = styled.div`
+  border: none;
+  border-top: 1px solid #ccc;
+  height: 0;
+  width: 100%;
+`
+
+export const SectionContainer = styled.div`
+  width: 30%;
 `
 
 export const Section = styled.div`
@@ -25,9 +31,13 @@ export const Section = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
 `
 
 export const Title = styled.p`
+  align-items: center;
   color: ${({ theme }) => theme.text.secondary};
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
 `
