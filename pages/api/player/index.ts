@@ -1,5 +1,5 @@
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
-import { PlayerStats } from '@/interfaces/player'
+import { DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
@@ -39,7 +39,7 @@ export default async function handler(
     const playerData = data[0]
 
     const saveData = JSON.parse(playerData['Save Data'])
-    const playerStats: Partial<PlayerStats> = {}
+    const playerStats: Partial<DetailedPlayerStats> = {}
     const { GameStats, RoundTimes, PlayerName, GameAwards, SelectedData } =
       saveData
 

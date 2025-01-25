@@ -1,7 +1,7 @@
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 import { ThemeProvider } from '@/hooks/useTheme'
-import { PlayerStats } from '@/interfaces/player'
+import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import PageHeader from '@/components/pageHeader'
@@ -11,7 +11,7 @@ import { formatKeyToWord } from '@/utils/formatCamelOrPascalCase'
 
 interface PlayerStatsData {
   error: string | null
-  data: PlayerStats | null
+  data: DetailedPlayerStats | null
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {

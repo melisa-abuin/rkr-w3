@@ -39,8 +39,11 @@ export interface PlayerStats {
   roundThree: RoundStats
   roundFour: RoundStats
   roundFive: RoundStats
-  awards?: Awards[]
-  skins?: Skins
+}
+
+export type DetailedPlayerStats = PlayerStats & {
+  awards: Awards[]
+  skins: Skins
 }
 
 export interface FromattedApiPlayerStats {
