@@ -40,13 +40,18 @@ export default async function handler(
 
     const saveData = JSON.parse(playerData['Save Data'])
     const playerStats: Partial<DetailedPlayerStats> = {}
-    const { GameStats, RoundTimes, PlayerName, GameAwards, SelectedData } =
-      saveData
+    const {
+      GameStats,
+      RoundTimes,
+      PlayerName,
+      GameAwardsSorted,
+      SelectedData,
+    } = saveData
 
     playerStats.saves = GameStats.Saves
     playerStats.highestWinStreak = GameStats.HighestWinStreak
     playerStats.highestSaveStreak = GameStats.HighestSaveStreak
-    playerStats.awards = formatGameAwards(GameAwards)
+    playerStats.awards = formatGameAwards(GameAwardsSorted)
     playerStats.skins = transformKeysToCamelCase(SelectedData)
 
     playerStats['battleTag'] = {
