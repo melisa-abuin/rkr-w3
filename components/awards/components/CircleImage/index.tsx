@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { ImageProps } from 'next/image'
 import { StyledImage } from './styled'
 
-interface ImageWithFallbackProps extends ImageProps {
+interface CircleImageProps extends ImageProps {
   completed: boolean
   fallbackSrc: string
 }
 
-const ImageWithFallback = ({
+export default function CircleImage({
   alt,
   completed,
   fallbackSrc,
   src,
   ...rest
-}: ImageWithFallbackProps) => {
+}: CircleImageProps) {
   const [imgSrc, setImgSrc] = useState(src)
 
   return (
@@ -30,5 +30,3 @@ const ImageWithFallback = ({
     />
   )
 }
-
-export default ImageWithFallback
