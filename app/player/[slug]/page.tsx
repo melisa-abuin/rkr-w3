@@ -7,10 +7,11 @@ import Error from '@/components/error'
 import PageHeader from '@/components/pageHeader'
 import { PageContainer } from '@/components/pageContainer'
 import Awards from '@/components/awards'
+import { formatKeyToWord } from '@/utils/formatCamelOrPascalCase'
 
 interface PlayerStatsData {
   error: string | null
-  data: PlayerStats
+  data: PlayerStats | null
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
@@ -33,7 +34,7 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
     }
   }
   return {
-    data: {},
+    data: null,
     error: 'Something went wrong',
   }
 }
@@ -45,6 +46,7 @@ export default async function PlayerPage({
 }) {
   const { slug } = params
   const { data, error } = await fetchData(slug)
+  const { awards, battleTag, skins } = data ?? {}
 
   return (
     <ThemeProvider>
@@ -57,14 +59,10 @@ export default async function PlayerPage({
             <PageContainer>
               <PageHeader
                 align="flex-start"
-                description={
-                  data.skins?.selectedSkin
-                    ? data.skins?.selectedSkin.split(/(?=[A-Z])/).join(' ')
-                    : ''
-                }
-                title={data.battleTag.name}
+                description={formatKeyToWord(skins?.selectedSkin)}
+                title={battleTag!.name}
               />
-              <Awards awards={data.awards!} />
+              <Awards awards={awards!} />
             </PageContainer>
           </>
         )}
