@@ -48,9 +48,9 @@ export default function Awards({ awards }: Props) {
           ))
         ) : (
           <ErrorText>
-            Game awards for this player are not available <br /> Try updating
-            your save file to the discord server again or contact the page
-            administrator
+            This player doesn&apos;t have any game awards available. <br />
+            Please try updating your save file to the Discord server again or
+            reach out to the page administrator for assistance.
           </ErrorText>
         )}
       </Body>
