@@ -38,7 +38,6 @@ export const StyledTh = styled.th<{
   background-color: ${({ highlighted, theme }) =>
     highlighted ? theme.background.highlightPrimary : 'inherit'};
   padding: 10px;
-  text-align: left;
   font-weight: var(--font-weight-bold);
   text-align: center;
 

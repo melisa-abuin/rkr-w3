@@ -6,6 +6,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Run Kitty Run - Leaderboard',
     description: 'View the run kitty run statistics for all players.',
+    type: 'website',
+    images: [
+      {
+        url: 'https://rkr-w3.vercel.app/favicon.ico',
+      },
+    ],
+    url: 'https://rkr-w3.vercel.app/leaderboard',
   },
   twitter: {
     card: 'summary',

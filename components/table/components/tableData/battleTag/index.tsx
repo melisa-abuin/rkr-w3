@@ -11,7 +11,7 @@ export default function BattleTag({ battleTag }: Props) {
 
   return (
     <Container>
-      <Title>{name}</Title>
+      <Title href={`/player/${encodeURIComponent(tag)}`}>{name}</Title>
       <SubTitle>{tag}</SubTitle>
     </Container>
   )

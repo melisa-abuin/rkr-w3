@@ -21,6 +21,7 @@ const darkTheme = {
   text: {
     primary: '#e6edf3',
     secondary: '#9c9a9a',
+    highlight: '#7cd9d9',
     tertiary: '#d36e6e',
     black: '#000000',
     white: '#e6edf3',

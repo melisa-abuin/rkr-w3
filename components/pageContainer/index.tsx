@@ -24,7 +24,6 @@ export const PageContainer = ({
   >
     <InnerContainer>
       {title && <Title id={ariaLabelledby}>{title}</Title>}
-
       {children}
     </InnerContainer>
   </OuterContainer>
