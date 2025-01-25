@@ -35,7 +35,7 @@ export default async function handler(
 
       data = await response.json()
     }
-
+    console.log(data)
     const playerData = data[0]
 
     const saveData = JSON.parse(playerData['Save Data'])
