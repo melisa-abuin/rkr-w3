@@ -7,7 +7,7 @@ import Error from '@/components/error'
 import PageHeader from '@/components/pageHeader'
 import { PageContainer } from '@/components/pageContainer'
 import Awards from '@/components/awards'
-import { formatKeyToWord } from '@/utils/formatCamelOrPascalCase'
+import { formatKeyToWord } from '@/utils/formatKeyToWord'
 
 interface PlayerStatsData {
   error: string | null

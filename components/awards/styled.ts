@@ -5,7 +5,7 @@ export const Conatiner = styled.div`
   width: 100%;
 `
 
-export const Header = styled.div`
+export const Header = styled.h2`
   color: ${({ theme }) => theme.text.tertiary};
   padding-top: 16px;
   font-size: var(--font-size-md);

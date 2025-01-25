@@ -31,16 +31,18 @@ export default function Awards({ awards }: Props) {
               </Title>
 
               <Section>
-                {awards.map(({ id, completed, imagePath }) => (
-                  <Tooltip key={id}>
-                    <CircleImage
-                      alt={id}
-                      completed={completed}
-                      fallbackSrc="/awards/fallback.png"
-                      src={imagePath}
-                    />
-                  </Tooltip>
-                ))}
+                {awards.map(
+                  ({ id, completed, description, imagePath, title }) => (
+                    <Tooltip key={id} description={description} title={title}>
+                      <CircleImage
+                        alt={id}
+                        completed={completed}
+                        fallbackSrc="/awards/fallback.png"
+                        src={imagePath}
+                      />
+                    </Tooltip>
+                  ),
+                )}
               </Section>
             </SectionContainer>
           ))

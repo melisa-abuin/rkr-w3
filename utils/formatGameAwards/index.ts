@@ -1,12 +1,15 @@
+import { formatKeyToWord } from '../formatKeyToWord'
+
 export const formatGameAwards = (awards: Record<string, number>) =>
   awards
     ? Object.entries(awards).map(([key, value]) => ({
         id: key,
-        awards: Object.entries(value).map(([auraKey, auraValue]) => ({
-          id: `${auraKey[0].toLowerCase()}${auraKey.slice(1)}`,
-          completed: auraValue === 1,
+        awards: Object.entries(value).map(([awardKey, awardValue]) => ({
+          id: `${awardKey[0].toLowerCase()}${awardKey.slice(1)}`,
+          completed: awardValue === 1,
           description: 'Description not available',
-          imagePath: `/awards/${auraKey[0].toLowerCase()}${auraKey.slice(1)}.png`,
+          imagePath: `/awards/${awardKey[0].toLowerCase()}${awardKey.slice(1)}.png`,
+          title: formatKeyToWord(awardKey),
         })),
       }))
     : []

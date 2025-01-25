@@ -12,6 +12,7 @@ export interface Award {
   completed: boolean
   description: string
   imagePath: string
+  title: string
 }
 
 export interface Skins {
