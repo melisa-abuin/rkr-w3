@@ -4,14 +4,26 @@ import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('LoaderCard', () => {
   it('renders  5 rows', () => {
-    renderWithTheme(<LoaderCard />)
+    renderWithTheme(
+      <table>
+        <tbody>
+          <LoaderCard />
+        </tbody>
+      </table>,
+    )
 
     const rows = screen.getAllByRole('row')
     expect(rows).toHaveLength(5)
   })
 
   it('each row contains 2 cells', () => {
-    renderWithTheme(<LoaderCard />)
+    renderWithTheme(
+      <table>
+        <tbody>
+          <LoaderCard />
+        </tbody>
+      </table>,
+    )
 
     const rows = screen.getAllByRole('row')
     rows.forEach((row) => {
