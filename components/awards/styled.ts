@@ -46,10 +46,12 @@ export const Section = styled.div`
   justify-content: flex-start;
 `
 
-export const Title = styled.p`
+export const Title = styled.h3`
   align-items: center;
   color: ${({ theme }) => theme.text.secondary};
   display: flex;
   flex-direction: row;
+  font-size: var(--font-size-xs-sm);
+  font-weight: var(--font-weight-semi-bold);
   gap: 15px;
 `

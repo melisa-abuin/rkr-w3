@@ -18,6 +18,7 @@ interface Props {
   awards: AwardsI[]
 }
 export default function Awards({ awards }: Props) {
+  console.log(awards)
   return (
     <Conatiner>
       <Header>Game Awards</Header>
