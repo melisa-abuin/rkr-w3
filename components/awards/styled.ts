@@ -6,6 +6,10 @@ export const Body = styled.div`
   gap: 20px;
   justify-content: center;
   padding: 20px;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
 export const Conatiner = styled.div`
@@ -36,6 +40,10 @@ export const Line = styled.div`
 
 export const SectionContainer = styled.div`
   width: 30%;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `
 
 export const Section = styled.div`

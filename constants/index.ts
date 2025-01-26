@@ -1,10 +1,90 @@
 import { Challenges, PlayerStats } from '@/interfaces/player'
 
+export const awardsDescriptions = {
+  AncientKitty: 'Obtained by getting 40 Normal+ wins',
+  ArchangelWings: 'Obtained by reaching 425 saves',
+  AstralKitty: 'Obtained by playing at least 55 Normal+ games',
+  AzureLight: 'Obtained by beating the nitro timer on Round 2 Impossible+.',
+  Bandana: 'Obtained by reaching 200 saves',
+  BlueFire: '',
+  BlueLightning: '',
+  ButterflyAura:
+    'Obtained by beating the Round 4 nitro on Impossible with 5 or less deaths',
+  ChaosWings: 'Obtained by reaching 450 saves',
+  ChefHat: 'Obtained by reaching 300 saves',
+  CosmicWings: 'Obtained by reaching 550 saves',
+  CrimsonLight: 'Obtained by beating the nitro timer on Round 3 Impossible+.',
+  DivineLight:
+    'Obtained by beating the nitro timer for ALL rounds in a single game OR Round 1 Impossible+.',
+  DivinityTendrils: '',
+  EmeraldLight: 'Obtained by beating the nitro timer on Round 4 Impossible+.',
+  FairyWings: 'Obtained by reaching 275 saves',
+  FreezeAura:
+    'Using the Frostbite Ring, collectively freeze a total of 50 wolves in a single game and win the game on Normal+ difficulty.',
+  GreenLightning: '',
+  GreenTendrils: '',
+  HighelfKitty: 'Obtained by playing at least 40 Normal+ games',
+  ManaAura: 'Obtained by getting 20 Normal+ wins',
+  NatureWings: 'Obtained by reaching 750 saves',
+  NightmareWings: 'Obtained by reaching 325 saves',
+  Nitro: 'Obtained by beating the Round 1 nitro timer',
+  NitroBlue: 'Obtained by beating the Round 2 nitro timer',
+  NitroGreen: 'Obtained by beating the Round 4 nitro timer',
+  NitroPurple: 'Obtained by beating the Round 5 nitro timer',
+  NitroRed: 'Obtained by beating the Round 3 nitro timer',
+  NormalDeathless1: '',
+  NormalDeathless2: '',
+  NormalDeathless3: '',
+  NormalDeathless4: '',
+  NormalDeathless5: '',
+  PatrioticTendrils: 'Obtained by reaching a save streak of 50 without dying',
+  PhoenixWings: 'Obtained by reaching 375 saves',
+  PinkFire: '',
+  PinkWings: 'Obtained by reaching 600 saves',
+  PirateHat: 'Obtained by reaching 250 saves',
+  PurpleFire: '',
+  PurpleLightning: '',
+  RedLightning: '',
+  RedTendrils: '',
+  SamuraiHelm: 'Obtained by reaching 400 saves',
+  SantaHat: 'Obtained by reaching 800 saves',
+  SatyrKitty: 'Obtained by getting 25 Normal+ wins',
+  SnowTrail2023:
+    'Obtained by playing this map during the Christmas holidays :)',
+  SnowWings2023:
+    'Obtained by playing this map during the Christmas holidays :)',
+  SpecialAura: 'Obtained by getting 5 Hard+ wins',
+  SpectacularAura: 'Obtained by getting 30 Normal+ wins',
+  StarlightAura: 'Obtained by playing at least 65 Normal+ games',
+  TikiMask: 'Obtained by reaching 350 saves',
+  TurquoiseFire: '',
+  TurquoiseNitro: '',
+  TurquoiseWings: '',
+  UndeadKitty: 'Obtained by getting 30 Normal+ wins',
+  VioletAura: '',
+  VioletLight: 'Obtained by beating the nitro timer on Round 5 Impossible+.',
+  VioletWings: '',
+  VoidWings: 'Obtained by reaching 500 saves',
+  WWBlood: 'Obtained by completing the Blood Vial easter egg',
+  WWBlue: 'Obtained by completing the Urn of a Broken Soul easter egg',
+  WWFire: 'Obtained by completing the Crystal of Fire easter egg',
+  WWNecro: 'Obtained by winning the game in under 25 mins',
+  WWSwift: 'Obtained by completing the Cat Figurine easter egg',
+  WhiteFire: '',
+  WhiteTendrils: '',
+  YellowLightning: '',
+  ZandalariKitty:
+    'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
+} as Record<string, string>
+
 export const blizzardLink = 'https://www.blizzard.com/'
+
 export const discordData =
   'https://discord.com/api/v9/invites/GSu6zkNvx5?with_counts=true&with_expiration=false'
 
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
+
+export const downloadFileName = 'RKR_Remastered_1.0.2'
 
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
@@ -27,8 +107,6 @@ export const routes = {
     target: '_self',
   },
 }
-
-export const downloadFileName = 'RKR_Remastered_1.0.2'
 
 export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Player', key: 'battleTag' },
