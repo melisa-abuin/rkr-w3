@@ -52,7 +52,6 @@ export default async function handler(
     playerStats.highestSaveStreak = GameStats.HighestSaveStreak
     playerStats.awards = formatGameAwards(GameAwardsSorted)
     playerStats.skins = transformKeysToCamelCase(SelectedData)
-
     playerStats['battleTag'] = {
       name: PlayerName?.split('#')[0] || '',
       tag: PlayerName || '',
