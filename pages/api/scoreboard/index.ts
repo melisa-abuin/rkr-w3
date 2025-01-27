@@ -45,7 +45,11 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
-      playerStats.highestSaveStreak = GameStats.HighestSaveStreak
+      playerStats.saveStreak = {
+        highestSaveStreak: GameStats.HighestSaveStreak,
+        redTendrils: !!GameAwards.RedTendrils,
+        patrioticTendrils: !!GameAwards.PatrioticTendrils,
+      }
 
       playerStats['battleTag'] = {
         name: PlayerName?.split('#')[0] || '',
@@ -94,8 +98,9 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       leaderboard: {
         stats: [
           {
-            category: 'Win Rate',
-            data: findTopFive(formattedData, 'winRate'),
+            category: 'Win Streak',
+            data: findTopFive(formattedData, 'highestWinStreak'),
+            key: 'highestWinStreak',
           },
           {
             category: 'Saves',

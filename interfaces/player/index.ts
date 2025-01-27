@@ -24,12 +24,18 @@ export interface Skins {
   selectedWings: string
 }
 
+export interface SaveStreak {
+  highestSaveStreak: number
+  redTendrils: boolean
+  patrioticTendrils: boolean
+}
+
 export interface PlayerStats {
   battleTag: BattleTag
   saves: number
   deaths: number
-  highestSaveStreak: number
   highestWinStreak: number
+  saveStreak: SaveStreak
   completedChallenges: Challenges
   saveDeathRatio: number
   gamesPlayed: DifficultyStats
