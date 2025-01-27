@@ -19,6 +19,16 @@ export default function Footer() {
           how to contribute
         </Link>
       </p>
+      <p>
+        Uicons by{' '}
+        <Link
+          href="https://www.flaticon.com/uicons"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Flaticon
+        </Link>
+      </p>
     </FooterContainer>
   )
 }
