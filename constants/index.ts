@@ -115,7 +115,7 @@ export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'S/D Ratio', key: 'saveDeathRatio' },
   { title: 'Games Played', key: 'gamesPlayed' },
   { title: 'Wins', key: 'wins' },
-  { title: 'Highest Save Streak', key: 'highestSaveStreak' },
+  { title: 'Highest Save Streak', key: 'saveStreak' },
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ]
 

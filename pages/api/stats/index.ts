@@ -45,7 +45,11 @@ export default async function handler(
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
-      playerStats.highestSaveStreak = GameStats.HighestSaveStreak
+      playerStats.saveStreak = {
+        highestSaveStreak: GameStats.HighestSaveStreak,
+        redTendrils: !!GameAwards.RedTendrils,
+        patrioticTendrils: !!GameAwards.PatrioticTendrils,
+      }
 
       playerStats['battleTag'] = {
         name: PlayerName?.split('#')[0] || '',
