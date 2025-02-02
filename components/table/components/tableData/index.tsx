@@ -34,10 +34,10 @@ const isBattleTag = (data: unknown): data is BattleTagI =>
   typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
 
 const isChallenges = (data: unknown): data is ChallengesT =>
-  Array.isArray(data) &&
-  data.length === 2 &&
-  typeof data[0] === 'number' &&
-  typeof data[1] === 'number'
+  typeof data === 'object' &&
+  data !== null &&
+  'general' in data &&
+  'tournament' in data
 
 export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
   switch (keyName) {
