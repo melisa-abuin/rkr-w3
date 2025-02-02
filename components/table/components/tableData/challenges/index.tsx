@@ -55,27 +55,16 @@ const GeneralChallenges = ({ challenges }: ChallengesProps) => {
   )
 }
 
-const TournamentChallenges = ({ challenges }: ChallengesProps) => {
-  const [completedChallenges, totalChallenges] = challenges
-
-  if (totalChallenges === 0) {
-    return <Container isSmall>(Old format)</Container>
-  }
-
-  return (
-    <Container isSmall>
-      Tournament: {completedChallenges}/{totalChallenges}
-    </Container>
-  )
-}
-
 export default function Challenges({ challenges }: Props) {
   const { general, tournament } = challenges
+  const [completedChallenges, totalChallenges] = tournament
 
   return (
     <div>
       <GeneralChallenges challenges={general} />
-      <TournamentChallenges challenges={tournament} />
+      <Container isSmall>
+        Tournament: {completedChallenges}/{totalChallenges}
+      </Container>
     </div>
   )
 }
