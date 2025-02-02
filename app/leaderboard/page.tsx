@@ -8,10 +8,10 @@ import PageHeader from '@/components/pageHeader'
 import { statsColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
-import Info from '@/components/info'
 import { PageContainer } from '@/components/pageContainer'
 import { Link } from '@/components/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
+import Guide from '@/components/guide'
 
 interface Data {
   player: string
@@ -83,7 +83,7 @@ export default async function Leaderboard() {
               data={data.scoreboard}
               title="Leaderboard Highlights: Top Five Stats"
             />
-            <PageContainer as="div">
+            <PageContainer as="div" marginBottom={48}>
               <Link
                 href="/stats/overview"
                 aria-label="View all stats for all players"
@@ -91,12 +91,7 @@ export default async function Leaderboard() {
                 View all stats
               </Link>
             </PageContainer>
-            <Info>
-              We understand that some players might not want to see their battle
-              tag on this page, we are currently working on an automated
-              solution, in the meantime please contact the page administrator to
-              a manual removal
-            </Info>
+            <Guide />
           </>
         )}
       </main>

@@ -1,10 +1,11 @@
 'use client'
 
+import React, { ReactNode } from 'react'
 import { StyledLink } from './styled'
 
 interface Props {
   href: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const Link = ({ href, children }: Props) => (
