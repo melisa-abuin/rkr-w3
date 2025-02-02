@@ -4,8 +4,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { findTopFive } from '@/utils/findTopFive'
-import { mockApiData } from '@/constants'
+import { mockApiData, tournamentAwards } from '@/constants'
 import { calculateWinRate } from '@/utils/calculateWinRate'
+import { calculateCompletedChallenges } from '@/utils/calculateCompletedChallenges'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const apiKey = process.env.API_KEY
@@ -33,15 +34,39 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
-      const { GameStats, RoundTimes, PlayerName, GameAwards } = saveData
+      const {
+        GameStats,
+        RoundTimes,
+        PlayerName,
+        GameAwards,
+        GameAwardsSorted,
+      } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      const awardValues = Object.values(GameAwards)
+      if (GameAwardsSorted) {
+        playerStats.completedChallenges =
+          calculateCompletedChallenges(GameAwardsSorted)
+      } else {
+        // For retrocompatibility with data shape prev to 1.0.3 version
+        const awardValues = Object.entries(GameAwards)
+        const generalValues = awardValues.filter(
+          ([key]) => !tournamentAwards.includes(key),
+        )
+        const tournamentValues = awardValues.filter(([key]) =>
+          tournamentAwards.includes(key),
+        )
 
-      playerStats.completedChallenges = [
-        awardValues.filter((award) => award).length,
-        awardValues.length,
-      ]
+        playerStats.completedChallenges = {
+          general: [
+            generalValues.filter(([, value]) => value).length,
+            generalValues.length,
+          ],
+          tournament: [
+            tournamentValues.filter(([, value]) => value).length,
+            tournamentValues.length,
+          ],
+        }
+      }
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
@@ -87,7 +112,10 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       scoreboard: [
         ...formattedData
           .sort((a: PlayerStats, b: PlayerStats) => {
-            return b.completedChallenges[0] - a.completedChallenges[0]
+            return (
+              b.completedChallenges.general[0] -
+              a.completedChallenges.general[0]
+            )
           })
           .slice(0, 5),
       ],

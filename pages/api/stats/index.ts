@@ -2,7 +2,8 @@ import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { mockApiData } from '@/constants'
+import { mockApiData, tournamentAwards } from '@/constants'
+import { calculateCompletedChallenges } from '@/utils/calculateCompletedChallenges'
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,16 +34,33 @@ export default async function handler(
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
-      const { GameStats, PlayerName, GameAwards } = saveData
+      const { GameStats, PlayerName, GameAwards, GameAwardsSorted } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      const awardValues = Object.values(GameAwards)
+      if (GameAwardsSorted) {
+        playerStats.completedChallenges =
+          calculateCompletedChallenges(GameAwardsSorted)
+      } else {
+        // For retrocompatibility with data shape prev to 1.0.3 version
+        const awardValues = Object.entries(GameAwards)
+        const generalValues = awardValues.filter(
+          ([key]) => !tournamentAwards.includes(key),
+        )
+        const tournamentValues = awardValues.filter(([key]) =>
+          tournamentAwards.includes(key),
+        )
 
-      playerStats.completedChallenges = [
-        awardValues.filter((award) => award).length,
-        awardValues.length,
-      ]
-
+        playerStats.completedChallenges = {
+          general: [
+            generalValues.filter(([, value]) => value).length,
+            generalValues.length,
+          ],
+          tournament: [
+            tournamentValues.filter(([, value]) => value).length,
+            tournamentValues.length,
+          ],
+        }
+      }
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
       playerStats.highestSaveStreak = GameStats.HighestSaveStreak
