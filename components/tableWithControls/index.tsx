@@ -36,7 +36,7 @@ export default function TableWithControls({
   headerLink,
 }: TableProps) {
   // TODO: create custom hooks
-  const totalPages = data ? Math.round(data?.length / pageSize) : 0
+  const totalPages = data ? Math.ceil(data?.length / pageSize) : 0
   const router = useRouter()
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
