@@ -103,16 +103,19 @@ export const pageSize = 10
 export const routes = {
   home: {
     label: 'Home',
+    pathname: '/',
     url: '/',
     target: '_self',
   },
   leaderboard: {
     label: 'Leaderboard',
+    pathname: '/leaderboard',
     url: '/leaderboard',
     target: '_self',
   },
   scoreboard: {
     label: 'Scoreboard',
+    pathname: '/stats/overview',
     url: '/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc',
     target: '_self',
   },

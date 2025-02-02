@@ -10,7 +10,7 @@ export default function DesktopNavbar() {
   return (
     <NavLinks>
       {Object.values(routes).map((route) => (
-        <NavLink key={route.label} selected={pathname === route.url}>
+        <NavLink key={route.label} selected={pathname === route.pathname}>
           <Link
             href={route.url}
             target={route.target}
