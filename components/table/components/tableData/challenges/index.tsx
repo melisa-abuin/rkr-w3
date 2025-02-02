@@ -9,7 +9,11 @@ interface Props {
   challenges: ChallengesT
 }
 
-export default function Challenges({ challenges }: Props) {
+interface ChallengesProps {
+  challenges: [number, number]
+}
+
+const GeneralChallenges = ({ challenges }: ChallengesProps) => {
   const [theme] = useTheme()
   const iconSize = 20
   const [completedChallenges, totalChallenges] = challenges
@@ -48,5 +52,30 @@ export default function Challenges({ challenges }: Props) {
     <Container color={theme.text.primary}>
       {completedChallenges}/{totalChallenges}
     </Container>
+  )
+}
+
+const TournamentChallenges = ({ challenges }: ChallengesProps) => {
+  const [completedChallenges, totalChallenges] = challenges
+
+  if (totalChallenges === 0) {
+    return <Container isSmall>(Old format)</Container>
+  }
+
+  return (
+    <Container isSmall>
+      Tournament: {completedChallenges}/{totalChallenges}
+    </Container>
+  )
+}
+
+export default function Challenges({ challenges }: Props) {
+  const { general, tournament } = challenges
+
+  return (
+    <div>
+      <GeneralChallenges challenges={general} />
+      <TournamentChallenges challenges={tournament} />
+    </div>
   )
 }
