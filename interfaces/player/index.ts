@@ -1,6 +1,9 @@
 import { Difficulty } from '../difficulty'
 
-export type Challenges = [number, number]
+export type Challenges = {
+  general: [number, number]
+  tournament: [number, number]
+}
 
 export interface Awards {
   id: string

@@ -141,6 +141,13 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Best R5 Times', key: 'roundFive' },
 ]
 
+export const tournamentAwards = [
+  'TurquoiseNitro',
+  'TurquoiseWings',
+  'VioletAura',
+  'VioletWings',
+]
+
 export const formattedMockData = [
   {
     battleTag: {
@@ -154,7 +161,10 @@ export const formattedMockData = [
     impossibleGames: 10,
     highestSaveStreak: 10,
     highestWinStreak: 100,
-    completedChallenges: [56, 56] as Challenges,
+    completedChallenges: {
+      general: [56, 56],
+      tournament: [4, 4],
+    } as Challenges,
     winRate: '25.2%',
     saveDeathRatio: 1.63,
     gamesPlayed: {
@@ -228,7 +238,10 @@ export const formattedMockData = [
     highestSaveStreak: 10,
     highestWinStreak: 100,
     winRate: '25.2%',
-    completedChallenges: [56, 56] as Challenges,
+    completedChallenges: {
+      general: [56, 56],
+      tournament: [4, 4],
+    } as Challenges,
     saveDeathRatio: 1.63,
     gamesPlayed: {
       normal: 39,
@@ -301,7 +314,10 @@ export const formattedMockData = [
     highestSaveStreak: 50,
     highestWinStreak: 200,
     winRate: '25.2%',
-    completedChallenges: [101, 102] as Challenges,
+    completedChallenges: {
+      general: [101, 102],
+      tournament: [4, 4],
+    } as Challenges,
     saveDeathRatio: 10.0,
     gamesPlayed: {
       normal: 50,
@@ -374,7 +390,10 @@ export const formattedMockData = [
     highestSaveStreak: 15,
     highestWinStreak: 20,
     winRate: '25.2%',
-    completedChallenges: [201, 202] as Challenges,
+    completedChallenges: {
+      general: [201, 202],
+      tournament: [4, 4],
+    } as Challenges,
     saveDeathRatio: 1.0,
     gamesPlayed: {
       normal: 30,
@@ -447,7 +466,10 @@ export const formattedMockData = [
     highestSaveStreak: 3,
     highestWinStreak: 2,
     winRate: '25.2%',
-    completedChallenges: [0, 0] as Challenges,
+    completedChallenges: {
+      general: [0, 0],
+      tournament: [0, 0],
+    } as Challenges,
     saveDeathRatio: 0.16,
     gamesPlayed: {
       normal: 5,

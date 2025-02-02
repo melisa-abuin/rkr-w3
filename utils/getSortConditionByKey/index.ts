@@ -14,7 +14,7 @@ export const getValueForKey = (
   }
 
   if (key === 'completedChallenges') {
-    return elem[key][0]
+    return elem[key]['general'][0]
   }
 
   if (isRoundKey(key)) {

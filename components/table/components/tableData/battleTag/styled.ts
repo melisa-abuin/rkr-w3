@@ -10,7 +10,7 @@ export const Title = styled.a`
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   margin-top: 10px;
-  margin-bottom 2px;
+  margin-bottom 4px;
   text-decoration: none;
 
   &:hover {
@@ -22,5 +22,6 @@ export const SubTitle = styled.p`
   color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semi-bold);
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 4px;
 `

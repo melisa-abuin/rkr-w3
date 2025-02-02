@@ -40,11 +40,11 @@ describe('getSortConditionByKey', () => {
         'completedChallenges',
         {
           ...formattedMockData[0],
-          completedChallenges: [56, 56],
+          completedChallenges: { general: [56, 56], tournament: [4, 4] },
         },
         {
           ...formattedMockData[1],
-          completedChallenges: [20, 56],
+          completedChallenges: { general: [20, 56], tournament: [2, 4] },
         },
       ),
     ).toBe(true)
