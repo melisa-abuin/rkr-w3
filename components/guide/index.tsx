@@ -69,19 +69,18 @@ export default function Guide() {
             />,
             <Step
               topText="Once you are in the directory specified above, you will see a text file named after your battletag"
-              imageSrc="/discord-example3.png"
+              imageSrc="/discord-example4.png"
               bottomText="Select that file and press 'open'"
               key={4}
             />,
             <Step
               topText="You will see that in the discord chat window your file is attached to the message. Now all you have to do is write the '!upload' command"
-              imageSrc="/discord-example3.png"
+              imageSrc="/discord-example5.png"
               bottomText="Send the message, and you will automatically receive a response from the Discord bot informing you if the action was successful or not."
               key={5}
             />,
             <Step
               topText="That would be all, if you still have problems loading your stats, consult with a member of the community"
-              imageSrc="/discord-example3.png"
               bottomText=""
               key={6}
             />,
