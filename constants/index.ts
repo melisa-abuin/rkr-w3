@@ -52,7 +52,7 @@ export const awardsDescriptions = {
   PirateHat: 'Obtained by reaching 250 saves',
   PurpleFire: 'Obtained by beating round 2 on impossible with 0 deaths',
   PurpleLightning: 'Obtained by getting 175 saves within one game.',
-  RedLightning: 'Obtained by reaching a save streak of 50 without dying.',
+  RedLightning: 'Obtained by reaching a save streak of 15 without dying.',
   RedTendrils: 'Obtained by returning Fieryfox his missing shoe.',
   SamuraiHelm: 'Obtained by reaching 400 saves',
   SantaHat: 'Obtained by reaching 800 saves',
