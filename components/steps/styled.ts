@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+export const ChevronContainer = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,4 +24,9 @@ export const Dot = styled.button<{ selected: boolean }>`
   cursor: pointer;
   height: 16px;
   width: 16px;
+`
+export const StepContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 `
