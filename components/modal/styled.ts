@@ -7,7 +7,10 @@ export const Body = styled.div`
 export const Button = styled.button`
   background-color: transparent;
   border: none;
+  color: ${({ theme }) => theme.text.primary};
   cursor: pointer;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   padding: 8px;
 `
 
@@ -40,5 +43,7 @@ export const Header = styled.div`
 
 export const Title = styled.h2`
   color: ${({ theme }) => theme.text.primary};
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   width: 100%;
 `
