@@ -33,7 +33,13 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
-      const { GameStats, RoundTimes, PlayerName, GameAwards } = saveData
+      const {
+        GameStats,
+        RoundTimes,
+        PlayerName,
+        GameAwards,
+        GameAwardsSorted,
+      } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
       const awardValues = Object.values(GameAwards)
@@ -45,10 +51,19 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
-      playerStats.saveStreak = {
-        highestSaveStreak: GameStats.HighestSaveStreak,
-        redTendrils: !!GameAwards.RedTendrils,
-        patrioticTendrils: !!GameAwards.PatrioticTendrils,
+
+      if (GameAwardsSorted) {
+        playerStats.saveStreak = {
+          highestSaveStreak: GameStats.HighestSaveStreak,
+          redLightning: !!GameAwardsSorted.Trails.RedLightning,
+          patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
+        }
+      } else {
+        playerStats.saveStreak = {
+          highestSaveStreak: GameStats.HighestSaveStreak,
+          redLightning: !!GameAwards.RedLightning,
+          patrioticTendrils: !!GameAwards.PatrioticTendrils,
+        }
       }
 
       playerStats['battleTag'] = {

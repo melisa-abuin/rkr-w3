@@ -26,7 +26,7 @@ export interface Skins {
 
 export interface SaveStreak {
   highestSaveStreak: number
-  redTendrils: boolean
+  redLightning: boolean
   patrioticTendrils: boolean
 }
 

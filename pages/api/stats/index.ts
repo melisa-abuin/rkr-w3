@@ -17,23 +17,23 @@ export default async function handler(
 
     let data = []
 
-    // if (process.env.NODE_ENV === 'development') {
-    //   data = mockApiData
-    // } else {
-    const response = await fetch(apiKey, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    if (process.env.NODE_ENV === 'development') {
+      data = mockApiData
+    } else {
+      const response = await fetch(apiKey, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-    data = await response.json()
-    // }
+      data = await response.json()
+    }
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
-      const { GameStats, PlayerName, GameAwards } = saveData
+      const { GameStats, PlayerName, GameAwards, GameAwardsSorted } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
       const awardValues = Object.values(GameAwards)
@@ -45,10 +45,19 @@ export default async function handler(
 
       playerStats.saves = GameStats.Saves
       playerStats.highestWinStreak = GameStats.HighestWinStreak
-      playerStats.saveStreak = {
-        highestSaveStreak: GameStats.HighestSaveStreak,
-        redTendrils: !!GameAwards.RedTendrils,
-        patrioticTendrils: !!GameAwards.PatrioticTendrils,
+
+      if (GameAwardsSorted) {
+        playerStats.saveStreak = {
+          highestSaveStreak: GameStats.HighestSaveStreak,
+          redLightning: !!GameAwardsSorted.Trails.RedLightning,
+          patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
+        }
+      } else {
+        playerStats.saveStreak = {
+          highestSaveStreak: GameStats.HighestSaveStreak,
+          redLightning: !!GameAwards.RedLightning,
+          patrioticTendrils: !!GameAwards.PatrioticTendrils,
+        }
       }
 
       playerStats['battleTag'] = {

@@ -43,13 +43,28 @@ export default async function handler(
       GameStats,
       RoundTimes,
       PlayerName,
+      GameAwards,
       GameAwardsSorted,
       SelectedData,
     } = saveData
 
     playerStats.saves = GameStats.Saves
     playerStats.highestWinStreak = GameStats.HighestWinStreak
-    playerStats.highestSaveStreak = GameStats.HighestSaveStreak
+
+    if (GameAwardsSorted) {
+      playerStats.saveStreak = {
+        highestSaveStreak: GameStats.HighestSaveStreak,
+        redLightning: !!GameAwardsSorted.Trails.RedLightning,
+        patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
+      }
+    } else {
+      playerStats.saveStreak = {
+        highestSaveStreak: GameStats.HighestSaveStreak,
+        redLightning: !!GameAwards.RedLightning,
+        patrioticTendrils: !!GameAwards.PatrioticTendrils,
+      }
+    }
+
     playerStats.awards = formatGameAwards(GameAwardsSorted)
     playerStats.skins = transformKeysToCamelCase(SelectedData)
     playerStats['battleTag'] = {
