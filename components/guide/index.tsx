@@ -7,30 +7,6 @@ import { Button } from './styled'
 import Steps from '../steps'
 import Step from './components/Step'
 
-const Step1 = () => {
-  return (
-    <>
-      <p className="text-gray-700">Follow these steps to upload your stats:</p>
-      <ol className="list-decimal ml-6 mt-2 text-gray-700">
-        <li>Save your game progress locally.</li>
-        <li>Visit the official Discord server.</li>
-        <li>Use the uploader bot to submit your stats file.</li>
-      </ol>
-    </>
-  )
-}
-
-const Step2 = () => {
-  return (
-    <>
-      <p className="text-gray-700">Follow these steps to upload your stats:</p>
-      <ol className="list-decimal ml-6 mt-2 text-gray-700">
-        <li>HEEEEEY</li>
-      </ol>
-    </>
-  )
-}
-
 export default function Guide() {
   const [isModalOpen, setModalOpen] = useState(false)
 

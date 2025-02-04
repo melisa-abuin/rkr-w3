@@ -7,7 +7,6 @@ import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
-import Info from '@/components/info'
 import Link from 'next/link'
 import Guide from '@/components/guide'
 
