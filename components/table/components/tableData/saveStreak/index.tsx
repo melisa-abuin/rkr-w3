@@ -3,6 +3,7 @@ import { Wing } from '@/components/icons/wing'
 import { Container } from './styled'
 import { useTheme } from '@/hooks/useTheme'
 import { SaveStreak as SaveStreakI } from '@/interfaces/player'
+import { Bolt } from '@/components/icons/bolt'
 
 interface Props {
   saveStreak: SaveStreakI
@@ -18,44 +19,38 @@ const SaveStreak: React.FC<Props> = ({ saveStreak }) => {
     return String(highestSaveStreak)
   }
 
-  const getWingColors = () => {
+  const Icon = ({ flipped }: { flipped?: boolean }) => {
     if (patrioticTendrils) {
-      return {
-        internal: theme.color.patrioticTendrilsInternal,
-        external: theme.color.patrioticTendrilsExternal,
-      }
+      return (
+        <Wing
+          internalColor={theme.color.patrioticTendrilsInternal}
+          externalColor={theme.color.patrioticTendrilsExternal}
+          height={24}
+          flipped={flipped}
+          width={24}
+        />
+      )
     }
+
     if (redLightning) {
-      return {
-        internal: theme.color.redLightningInternal,
-        external: theme.color.redLightningExternal,
-      }
+      return (
+        <Bolt
+          internalColor={theme.color.redLightningInternal}
+          externalColor={theme.color.redLightningExternal}
+          height={24}
+          flipped={flipped}
+          width={24}
+        />
+      )
     }
     return null
   }
 
-  const wingColors = getWingColors()
-
   return (
     <Container>
-      {wingColors && (
-        <Wing
-          internalColor={wingColors.internal}
-          externalColor={wingColors.external}
-          height={24}
-          flipped
-          width={24}
-        />
-      )}
+      <Icon flipped />
       {saveStreakToShow()}
-      {wingColors && (
-        <Wing
-          internalColor={wingColors.internal}
-          externalColor={wingColors.external}
-          height={24}
-          width={24}
-        />
-      )}
+      <Icon />
     </Container>
   )
 }
