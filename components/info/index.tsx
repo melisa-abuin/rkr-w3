@@ -1,9 +1,10 @@
 'use client'
 
+import React, { ReactNode } from 'react'
 import { Container, Text } from './styled'
 
 interface Props {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export default function Info({ children }: Props) {

@@ -8,12 +8,16 @@ export const InnerContainer = styled.div`
   max-width: 1000px;
   width: 100%;
 `
-export const OuterContainer = styled.section<{ marginTop: number }>`
+export const OuterContainer = styled.section<{
+  marginTop: number
+  marginBottom: number
+}>`
   align-items: center;
   background-color: ${({ theme }) => theme.background.primary};
   display: flex;
   justify-content: center;
   margin-top: ${({ marginTop }) => `${marginTop}px`};
+  margin-bottom: ${({ marginBottom }) => `${marginBottom}px`};
   width: 100%;
 
   @media (max-width: 480px) {

@@ -6,13 +6,13 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   padding: 1rem;
-  padding-top: 6rem;
+  padding-top: 2rem;
 `
 
 export const Text = styled.p`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.primary};
   font-size: var(--font-size-xs-sm);
   max-width: 1000px;
-  text-align: center;
+  text-align: left;
   width: 100%;
 `

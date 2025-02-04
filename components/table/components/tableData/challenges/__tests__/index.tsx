@@ -38,7 +38,7 @@ describe('Challenges', () => {
     const element = screen.getByText('42/56')
 
     expect(element).toBeInTheDocument()
-    expect(element).toHaveStyle('color: rgb(0, 195, 62)')
+    expect(element).toHaveStyle('color: rgb(0, 64, 255)')
   })
 
   it('renders without icon but with yellow color when 50% or more general challenges are completed', () => {
@@ -48,7 +48,7 @@ describe('Challenges', () => {
     const element = screen.getByText('30/56')
 
     expect(element).toBeInTheDocument()
-    expect(element).toHaveStyle('color: rgb(217, 154, 5)')
+    expect(element).toHaveStyle('color: rgb(255, 108, 0)')
   })
 
   it('renders without icon and with primary text color when less than 50% general challenges are completed', () => {

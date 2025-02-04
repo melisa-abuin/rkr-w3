@@ -8,6 +8,10 @@ const darkTheme = {
     green: '#2abf59',
     yellow: '#cfd324',
     teal: '#16b7c9',
+    redLightningInternal: '#c22513',
+    redLightningExternal: '#f77b6d',
+    patrioticTendrilsInternal: '#3f4fe0',
+    patrioticTendrilsExternal: '#c22513',
   },
   background: {
     primary: '#170d0d',

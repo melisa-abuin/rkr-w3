@@ -7,8 +7,8 @@ import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
-import Info from '@/components/info'
 import Link from 'next/link'
+import Guide from '@/components/guide'
 
 interface PlayerStatsData {
   error: string | null
@@ -96,12 +96,7 @@ export default async function StatsPage({
                 </Link>
               }
             />
-            <Info>
-              We understand that some players might not want to see their battle
-              tag on this page, we are currently working on an automated
-              solution, in the meantime please contact the page administrator to
-              a manual removal
-            </Info>
+            <Guide />
           </>
         )}
       </main>

@@ -1,4 +1,4 @@
-import { Challenges, PlayerStats } from '@/interfaces/player'
+import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
 
 export const awardsDescriptions = {
   AncientKitty: 'Obtained by getting 40 Normal+ wins',
@@ -92,6 +92,48 @@ export const blizzardLink = 'https://www.blizzard.com/'
 export const discordData =
   'https://discord.com/api/v9/invites/GSu6zkNvx5?with_counts=true&with_expiration=false'
 
+export const discordGuideSteps = [
+  {
+    topText:
+      'Join the discord server if you haven&apos;t already, once there go to the #uploadstats channel',
+    imageSrc: '/discord-example.png',
+    bottomText:
+      'You will be able to find it on the left side of the main messaging window',
+  },
+  {
+    topText:
+      'Once there, click on the + symbol that appears right next to the entry to send a message to attach a file',
+    imageSrc: '/discord-example2.png',
+    bottomText:
+      '(Additionally, at the top of the window you will see that there is a button to view pinned messages, where you can find detailed instructions on how to upload your stats)',
+  },
+  {
+    topText:
+      'When you click on the option to upload a file, a window like this should appear on your screen (if you are using Windows as the operating system)',
+    imageSrc: '/discord-example3.png',
+    bottomText:
+      "Open your 'documents' folder and there you will see a folder called 'Warcraft III', double click on it. Inside you will see more folders, repeat the same steps until you reach Documents > Warcraft III > CustomMapData > Run-Kitty-Run",
+  },
+  {
+    topText:
+      'Once you are in the directory specified above, you will see a text file named after your battletag',
+    imageSrc: '/discord-example4.png',
+    bottomText: "Select that file and press 'open'",
+  },
+  {
+    topText:
+      "You will see that in the discord chat window your file is attached to the message. Now all you have to do is write the '!upload' command",
+    imageSrc: '/discord-example5.png',
+    bottomText:
+      'Send the message, and you will automatically receive a response from the Discord bot informing you if the action was successful or not.',
+  },
+  {
+    topText:
+      'That would be all, if you still have problems loading your stats, consult with a member of the community',
+    imageSrc: '',
+    bottomText: '',
+  },
+]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
 export const downloadFileName = 'RKR_Remastered_1.0.2'
@@ -128,7 +170,7 @@ export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'S/D Ratio', key: 'saveDeathRatio' },
   { title: 'Games Played', key: 'gamesPlayed' },
   { title: 'Wins', key: 'wins' },
-  { title: 'Highest Save Streak', key: 'highestSaveStreak' },
+  { title: 'Highest Save Streak', key: 'saveStreak' },
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ]
 
@@ -159,7 +201,10 @@ export const formattedMockData = [
     normalGames: 10,
     hardGames: 10,
     impossibleGames: 10,
-    highestSaveStreak: 10,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 100,
     completedChallenges: {
       general: [56, 56],
@@ -235,7 +280,10 @@ export const formattedMockData = [
     normalGames: 39,
     hardGames: 16,
     impossibleGames: 15,
-    highestSaveStreak: 10,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 100,
     winRate: '25.2%',
     completedChallenges: {
@@ -311,7 +359,10 @@ export const formattedMockData = [
     normalGames: 50,
     hardGames: 40,
     impossibleGames: 10,
-    highestSaveStreak: 50,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 200,
     winRate: '25.2%',
     completedChallenges: {
@@ -387,7 +438,10 @@ export const formattedMockData = [
     normalGames: 30,
     hardGames: 20,
     impossibleGames: 10,
-    highestSaveStreak: 15,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 20,
     winRate: '25.2%',
     completedChallenges: {
@@ -463,7 +517,10 @@ export const formattedMockData = [
     normalGames: 5,
     hardGames: 3,
     impossibleGames: 2,
-    highestSaveStreak: 3,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 2,
     winRate: '25.2%',
     completedChallenges: {
@@ -540,6 +597,6 @@ export const mockApiData = [
   {
     battletag: 'Local Player',
     'Save Data':
-      '{"GameAwards":{"AncientKitty":1,"ArchangelWings":1,"AstralKitty":1,"AzureLight":1,"Bandana":1,"BlueFire":1,"BlueLightning":1,"ButterflyAura":1,"ChaosWings":1,"ChefHat":1,"CosmicWings":1,"CrimsonLight":1,"DivineLight":1,"DivinityTendrils":1,"EmeraldLight":1,"FairyWings":1,"GreenLightning":1,"GreenTendrils":1,"HighelfKitty":1,"ManaAura":1,"NatureWings":1,"NightmareWings":1,"Nitro":1,"NitroBlue":1,"NitroGreen":1,"NitroPurple":1,"NitroRed":1,"NormalDeathless1":1,"NormalDeathless2":1,"NormalDeathless3":1,"NormalDeathless4":1,"NormalDeathless5":1,"PatrioticTendrils":1,"PhoenixWings":1,"PinkFire":1,"PinkWings":1,"PirateHat":1,"PurpleFire":1,"PurpleLightning":1,"RedLightning":1,"RedTendrils":1,"SamuraiHelm":1,"SantaHat":1,"SatyrKitty":1,"SnowTrail2023":1,"SnowWings2023":1,"SpecialAura":1,"SpectacularAura":1,"StarlightAura":1,"TikiMask":1,"TurquoiseFire":1,"TurquoiseNitro":1,"TurquoiseWings":1,"UndeadKitty":1,"VioletAura":1,"VioletLight":1,"VioletWings":1,"VoidWings":1,"WWBlood":1,"WWBlue":1,"WWFire":1,"WWNecro":1,"WWSwift":1,"WhiteFire":1,"WhiteTendrils":1,"YellowLightning":1,"ZandalariKitty":1},"GameStats":{"Deaths":4,"HardGames":25,"HardWins":4,"HighestSaveStreak":42,"HighestWinStreak":4,"ImpossibleGames":55,"ImpossibleWins":2,"NormalGames":24,"NormalWins":5,"SaveStreak":19,"Saves":192,"WinStreak":12},"PlayerName":"Local Player","RoundTimes":{"RoundFiveHard":625.45,"RoundFiveImpossible":315.2,"RoundFiveNormal":199.98,"RoundFiveSolo":165.42,"RoundFourHard":192.78,"RoundFourImpossible":300,"RoundFourNormal":159.55,"RoundFourSolo":156.99,"RoundOneHard":120.92,"RoundOneImpossible":98.10001,"RoundOneNormal":122.47,"RoundOneSolo":116.47,"RoundThreeHard":188.74,"RoundThreeImpossible":215,"RoundThreeNormal":135.5,"RoundThreeSolo":145.62,"RoundTwoHard":135.2,"RoundTwoImpossible":192,"RoundTwoNormal":124.91,"RoundTwoSolo":124.62},"SelectedData":{"SelectedAura":"","SelectedHat":"","SelectedSkin":"","SelectedTrail":"DivineLight","SelectedWindwalk":"","SelectedWings":""}}',
+      '{"GameAwards":{"AncientKitty":1,"ArchangelWings":1,"AstralKitty":1,"AzureLight":1,"Bandana":1,"BlueFire":1,"BlueLightning":1,"ButterflyAura":1,"ChaosWings":1,"ChefHat":1,"CosmicWings":1,"CrimsonLight":1,"DivineLight":1,"DivinityTendrils":1,"EmeraldLight":1,"FairyWings":1,"GreenLightning":1,"GreenTendrils":1,"HighelfKitty":1,"ManaAura":1,"NatureWings":1,"NightmareWings":1,"Nitro":1,"NitroBlue":1,"NitroGreen":1,"NitroPurple":1,"NitroRed":1,"NormalDeathless1":1,"NormalDeathless2":1,"NormalDeathless3":1,"NormalDeathless4":1,"NormalDeathless5":1,"PatrioticTendrils":0,"PhoenixWings":1,"PinkFire":1,"PinkWings":1,"PirateHat":1,"PurpleFire":1,"PurpleLightning":1,"RedLightning":1,"RedTendrils":1,"SamuraiHelm":1,"SantaHat":1,"SatyrKitty":1,"SnowTrail2023":1,"SnowWings2023":1,"SpecialAura":1,"SpectacularAura":1,"StarlightAura":1,"TikiMask":1,"TurquoiseFire":1,"TurquoiseNitro":1,"TurquoiseWings":1,"UndeadKitty":1,"VioletAura":1,"VioletLight":1,"VioletWings":1,"VoidWings":1,"WWBlood":1,"WWBlue":1,"WWFire":1,"WWNecro":1,"WWSwift":1,"WhiteFire":1,"WhiteTendrils":1,"YellowLightning":1,"ZandalariKitty":1},"GameStats":{"Deaths":4,"HardGames":25,"HardWins":4,"HighestSaveStreak":42,"HighestWinStreak":4,"ImpossibleGames":55,"ImpossibleWins":2,"NormalGames":24,"NormalWins":5,"SaveStreak":19,"Saves":192,"WinStreak":12},"PlayerName":"Local Player","RoundTimes":{"RoundFiveHard":625.45,"RoundFiveImpossible":315.2,"RoundFiveNormal":199.98,"RoundFiveSolo":165.42,"RoundFourHard":192.78,"RoundFourImpossible":300,"RoundFourNormal":159.55,"RoundFourSolo":156.99,"RoundOneHard":120.92,"RoundOneImpossible":98.10001,"RoundOneNormal":122.47,"RoundOneSolo":116.47,"RoundThreeHard":188.74,"RoundThreeImpossible":215,"RoundThreeNormal":135.5,"RoundThreeSolo":145.62,"RoundTwoHard":135.2,"RoundTwoImpossible":192,"RoundTwoNormal":124.91,"RoundTwoSolo":124.62},"SelectedData":{"SelectedAura":"","SelectedHat":"","SelectedSkin":"","SelectedTrail":"DivineLight","SelectedWindwalk":"","SelectedWings":""}}',
   },
 ]

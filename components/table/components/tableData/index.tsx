@@ -4,13 +4,15 @@ import {
   RoundStats,
   BattleTag as BattleTagI,
   Challenges as ChallengesT,
+  SaveStreak as SaveStreakI,
 } from '@/interfaces/player'
+import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { Difficulty } from '@/interfaces/difficulty'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'
 import Ratio from './ratio'
 import Challenges from './challenges'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
-import { Difficulty } from '@/interfaces/difficulty'
+import SaveStreak from './saveStreak'
 
 interface Props {
   data:
@@ -20,6 +22,7 @@ interface Props {
     | DifficultyStats
     | BattleTagI
     | ChallengesT
+    | SaveStreakI
   keyName: keyof PlayerStats
   difficultyFilter?: Difficulty | undefined
 }
@@ -32,6 +35,13 @@ const isRoundStats = (data: unknown): data is RoundStats =>
 
 const isBattleTag = (data: unknown): data is BattleTagI =>
   typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
+
+const isSaveStreak = (data: unknown): data is SaveStreakI =>
+  typeof data === 'object' &&
+  data !== null &&
+  'highestSaveStreak' in data &&
+  'redLightning' in data &&
+  'patrioticTendrils' in data
 
 const isChallenges = (data: unknown): data is ChallengesT =>
   typeof data === 'object' &&
@@ -51,6 +61,10 @@ export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
 
     case 'battleTag':
       if (isBattleTag(data)) return <BattleTag battleTag={data} />
+      break
+
+    case 'saveStreak':
+      if (isSaveStreak(data)) return <SaveStreak saveStreak={data} />
       break
 
     case 'wins':
