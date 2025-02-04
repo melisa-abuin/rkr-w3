@@ -1,4 +1,4 @@
-import { Challenges, PlayerStats } from '@/interfaces/player'
+import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
 
 export const awardsDescriptions = {
   AncientKitty: 'Obtained by getting 40 Normal+ wins',
@@ -139,7 +139,10 @@ export const formattedMockData = [
     normalGames: 10,
     hardGames: 10,
     impossibleGames: 10,
-    highestSaveStreak: 10,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 100,
     completedChallenges: [56, 56] as Challenges,
     winRate: '25.2%',
@@ -212,7 +215,10 @@ export const formattedMockData = [
     normalGames: 39,
     hardGames: 16,
     impossibleGames: 15,
-    highestSaveStreak: 10,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 100,
     winRate: '25.2%',
     completedChallenges: [56, 56] as Challenges,
@@ -285,7 +291,10 @@ export const formattedMockData = [
     normalGames: 50,
     hardGames: 40,
     impossibleGames: 10,
-    highestSaveStreak: 50,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 200,
     winRate: '25.2%',
     completedChallenges: [101, 102] as Challenges,
@@ -358,7 +367,10 @@ export const formattedMockData = [
     normalGames: 30,
     hardGames: 20,
     impossibleGames: 10,
-    highestSaveStreak: 15,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 20,
     winRate: '25.2%',
     completedChallenges: [201, 202] as Challenges,
@@ -431,7 +443,10 @@ export const formattedMockData = [
     normalGames: 5,
     hardGames: 3,
     impossibleGames: 2,
-    highestSaveStreak: 3,
+    saveStreak: {
+      redLightning: true,
+      patrioticTendrils: true,
+    } as SaveStreak,
     highestWinStreak: 2,
     winRate: '25.2%',
     completedChallenges: [0, 0] as Challenges,

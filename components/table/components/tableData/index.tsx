@@ -40,7 +40,7 @@ const isSaveStreak = (data: unknown): data is SaveStreakI =>
   typeof data === 'object' &&
   data !== null &&
   'highestSaveStreak' in data &&
-  'redTendrils' in data &&
+  'redLightning' in data &&
   'patrioticTendrils' in data
 
 const isChallenges = (data: unknown): data is ChallengesT =>

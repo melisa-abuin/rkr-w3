@@ -10,11 +10,11 @@ interface Props {
 
 const SaveStreak: React.FC<Props> = ({ saveStreak }) => {
   const [theme] = useTheme()
-  const { highestSaveStreak, redTendrils, patrioticTendrils } = saveStreak
+  const { highestSaveStreak, redLightning, patrioticTendrils } = saveStreak
 
   const saveStreakToShow = () => {
     if (highestSaveStreak < 50 && patrioticTendrils) return '+50'
-    if (highestSaveStreak < 15 && redTendrils) return '+15'
+    if (highestSaveStreak < 15 && redLightning) return '+15'
     return String(highestSaveStreak)
   }
 
@@ -25,10 +25,10 @@ const SaveStreak: React.FC<Props> = ({ saveStreak }) => {
         external: theme.color.patrioticTendrilsExternal,
       }
     }
-    if (redTendrils) {
+    if (redLightning) {
       return {
-        internal: theme.color.redTendrilsInternal,
-        external: theme.color.redTendrilsExternal,
+        internal: theme.color.redLightningInternal,
+        external: theme.color.redLightningExternal,
       }
     }
     return null
