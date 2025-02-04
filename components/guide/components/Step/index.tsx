@@ -6,13 +6,14 @@ interface Props {
   imageSrc?: string
   topText: string
 }
+
 export default function Step({ bottomText, imageSrc, topText }: Props) {
   return (
     <Container>
       <p>{topText}</p>
       {imageSrc && (
         <Image
-          alt="discord screenshot example"
+          alt="Discord screenshot example"
           height={354}
           src={imageSrc}
           width={640}
