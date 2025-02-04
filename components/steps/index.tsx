@@ -13,7 +13,10 @@ interface Props {
 export default function Steps({ steps }: Props) {
   const [currentStep, setCurrentStep] = useState(0)
   const [theme] = useTheme()
-  const maxSteps = steps.length
+  const maxSteps = steps.length - 1
+  const {
+    text: { primary, secondary },
+  } = theme
 
   return (
     <Container>
@@ -22,7 +25,7 @@ export default function Steps({ steps }: Props) {
           onClick={() => setCurrentStep((step) => (step > 0 ? step - 1 : step))}
         >
           <Chevron
-            fill={currentStep > 0 ? theme.text.primary : theme.text.secondary}
+            fill={currentStep > 0 ? primary : secondary}
             height={30}
             width={30}
           />
@@ -30,15 +33,11 @@ export default function Steps({ steps }: Props) {
         <div>{steps[currentStep]}</div>
         <ChevronContainer
           onClick={() =>
-            setCurrentStep((step) => (step < maxSteps - 1 ? step + 1 : step))
+            setCurrentStep((step) => (step < maxSteps ? step + 1 : step))
           }
         >
           <Chevron
-            fill={
-              currentStep < maxSteps - 1
-                ? theme.text.primary
-                : theme.text.secondary
-            }
+            fill={currentStep < maxSteps ? primary : secondary}
             flipped
             height={30}
             width={30}

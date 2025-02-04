@@ -50,7 +50,6 @@ const isChallenges = (data: unknown): data is ChallengesT =>
   typeof data[1] === 'number'
 
 export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
-  console.log(keyName)
   switch (keyName) {
     case 'saveDeathRatio':
       if (typeof data === 'number') return <Ratio ratio={data} />
