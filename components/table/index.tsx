@@ -14,24 +14,19 @@ import LoaderTable from './components/loaderTable'
 import { TableData } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 
-interface SortingKey {
-  key: keyof PlayerStats
-  asc: boolean
-}
-
 interface TableProps {
   data?: PlayersStats
   loading?: boolean
   difficultyFilter?: Difficulty | undefined
   filters?: ReactNode
   headerLink?: ReactNode
-  title: string
+  title?: string
   columns: Array<{
     title: string
     key: keyof PlayerStats
   }>
   highlightedColumn?: keyof PlayerStats
-  onTableSort?: (callback: (prev: SortingKey) => SortingKey) => void
+  onTableSort?: (columnKey: keyof PlayerStats) => void
 }
 
 export default function Table({
@@ -49,18 +44,15 @@ export default function Table({
     if (!onTableSort) {
       return
     }
-    onTableSort((prev) => ({
-      key: columnKey,
-      asc: prev.key === columnKey ? !prev.asc : false,
-    }))
+    onTableSort(columnKey)
   }
 
   return (
-    <Container aria-labelledby={title}>
+    <Container aria-labelledby={title || 'Player stats'}>
       <StyledTable aria-label="Player Stats">
-        <caption id={title}>
+        <caption id={title || 'Player stats'}>
           <Title>
-            <span>{title}</span>
+            {title && <span>{title}</span>}
             {headerLink}
           </Title>
           {filters}

@@ -60,8 +60,8 @@ export default async function Leaderboard() {
         ) : (
           <>
             <PageHeader
-              description="On this page you can find the statistics of each Run Kitty Run player. See who the best players are and compare your times and scores with those of others"
-              title="Stats"
+              description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
+              title="Leaderboard"
             />
             <PageContainer
               ariaLabelledby="columns-score-title"
@@ -85,7 +85,7 @@ export default async function Leaderboard() {
             />
             <PageContainer as="div" marginBottom={48}>
               <Link
-                href="/stats/overview"
+                href="/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc"
                 aria-label="View all stats for all players"
               >
                 View all stats

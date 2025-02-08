@@ -2,8 +2,8 @@
 
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Table from '../table'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useMemo, useState, ReactNode } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useMemo, useState, useCallback, ReactNode } from 'react'
 import Pagination from './components/pagination'
 import { pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
@@ -15,7 +15,7 @@ interface TableProps {
   headerLink?: ReactNode
   defaultSortKey: keyof PlayerStats
   loading?: boolean
-  title: string
+  title?: string
   columns: Array<{
     title: string
     key: keyof PlayerStats
@@ -35,9 +35,7 @@ export default function TableWithControls({
   title,
   headerLink,
 }: TableProps) {
-  // TODO: create custom hooks
   const totalPages = data ? Math.ceil(data?.length / pageSize) : 0
-  const router = useRouter()
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
   const initialFilter = searchParams?.get('difficulty') as Difficulty
@@ -50,35 +48,53 @@ export default function TableWithControls({
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >(initialFilter)
-
   const [sortKey, setSortKey] = useState<SortingKey>(initialSortData)
 
-  useEffect(() => {
-    const queryParams = new URLSearchParams()
+  const updateURL = useCallback(
+    (page: number, difficulty?: Difficulty, sort?: SortingKey) => {
+      const queryParams = new URLSearchParams()
+      queryParams.set('page', page.toString())
+      if (difficulty) queryParams.set('difficulty', difficulty)
+      if (sort) {
+        queryParams.set('sortKey', sort.key)
+        queryParams.set('sortOrder', sort.asc ? 'asc' : 'desc')
+      }
+      window.history.pushState(null, '', `?${queryParams.toString()}`)
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+    },
+    [],
+  )
 
-    queryParams.set('page', currentPage.toString())
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page)
+      updateURL(page, difficultyFilter, sortKey)
+    },
+    [difficultyFilter, sortKey, updateURL],
+  )
 
-    if (difficultyFilter) {
-      queryParams.set('difficulty', difficultyFilter)
-    }
+  const handleSortChange = useCallback(
+    (sort: keyof PlayerStats) => {
+      const newSortKey = {
+        key: sort,
+        asc: sortKey.key === sort ? !sortKey.asc : false,
+      }
+      setSortKey(newSortKey)
+      updateURL(currentPage, difficultyFilter, newSortKey)
+    },
+    [currentPage, difficultyFilter, updateURL, sortKey],
+  )
 
-    if (sortKey) {
-      queryParams.set('sortKey', sortKey.key)
-      queryParams.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
-    }
-
-    window.history.pushState(null, '', `?${queryParams.toString()}`)
-
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    })
-  }, [currentPage, router, difficultyFilter, sortKey])
+  const handleFilterChange = useCallback(
+    (difficulty?: Difficulty) => {
+      setDifficultyFilter(difficulty)
+      updateURL(currentPage, difficulty, sortKey)
+    },
+    [currentPage, sortKey, updateURL],
+  )
 
   const dataToShow = useMemo(() => {
     if (!data) return []
-
     const initialIndex = (Number(currentPage) - 1) * pageSize
 
     const sortedData = [...data].sort((a, b) => {
@@ -89,7 +105,6 @@ export default function TableWithControls({
         difficultyFilter,
       )
       if (condition === undefined) return 0
-
       return sortKey.asc ? (condition ? 1 : -1) : condition ? -1 : 1
     })
 
@@ -103,7 +118,7 @@ export default function TableWithControls({
         data={dataToShow}
         filters={
           <Badges
-            onClick={setDifficultyFilter}
+            onClick={handleFilterChange}
             options={['normal', 'hard', 'impossible', 'all']}
             selected={difficultyFilter}
           />
@@ -112,13 +127,13 @@ export default function TableWithControls({
         highlightedColumn={sortKey.key}
         loading={loading}
         difficultyFilter={difficultyFilter}
-        onTableSort={setSortKey}
         title={title}
+        onTableSort={handleSortChange}
       />
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
-        onPageChange={setCurrentPage}
+        onPageChange={handlePageChange}
       />
     </>
   )
