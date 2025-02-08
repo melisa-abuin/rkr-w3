@@ -12,7 +12,6 @@ export const Container = styled.button<{ isToggled: boolean }>`
   cursor: pointer;
   display: flex;
   flex-direction: ${({ isToggled }) => (isToggled ? 'row-reverse' : 'row')};
-  gap: 8px;
   height: 48px;
   outline: none;
   padding: 4px;
@@ -21,9 +20,10 @@ export const Container = styled.button<{ isToggled: boolean }>`
 `
 
 export const Text = styled.span<{ isToggled: boolean }>`
-  left: 52px;
-  font-size: 14px;
+  font-size: var(--font-size-xs-sm);
+  font-weight: var(--font-weight-semi-bold);
   color: ${({ theme }) => theme.color.white};
+  flex: 1;
 `
 
 export const Slider = styled.div<{ isToggled: boolean }>`

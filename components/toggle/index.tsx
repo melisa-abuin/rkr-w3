@@ -4,7 +4,8 @@ import React, { ReactNode, useState } from 'react'
 import { Container, Slider, Text } from './styled'
 
 interface Props {
-  onToggle: () => void
+  initialValue?: boolean
+  onToggle: (isToggled: boolean) => void
   iconOn: ReactNode
   iconOff: ReactNode
   textOn: string
@@ -12,17 +13,18 @@ interface Props {
 }
 
 export default function Toggle({
+  initialValue = false,
   onToggle,
   iconOn,
   iconOff,
   textOn,
   textOff,
 }: Props) {
-  const [isToggled, setIsToggled] = useState(false)
+  const [isToggled, setIsToggled] = useState(initialValue)
 
   const handleToggle = () => {
     setIsToggled((prev) => !prev)
-    onToggle && onToggle()
+    onToggle && onToggle(isToggled)
   }
 
   return (

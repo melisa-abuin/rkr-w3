@@ -7,8 +7,8 @@ import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
-import Link from 'next/link'
 import Guide from '@/components/guide'
+import ScoreboardSelector from '@/components/scoreboardSelector'
 
 interface PlayerStatsData {
   error: string | null
@@ -16,7 +16,7 @@ interface PlayerStatsData {
 }
 
 const timeStrings = {
-  title: 'All time stats',
+  title: 'Time stats',
   description: 'Check all the time-based stats',
   columns: timeAllDiffColumns,
   defaultSortKey: 'roundOne',
@@ -79,22 +79,15 @@ export default async function StatsPage({
         ) : (
           <>
             <PageHeader
-              description={strings.description}
-              title={strings.title}
+              description="Overall times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
+              title="Scoreboard"
             />
+            <ScoreboardSelector toggleInitialValue={slug === 'overview'} />
             <TableWithControls
               columns={strings.columns}
               data={data}
               defaultSortKey={strings.defaultSortKey}
-              title="Overall Stats"
-              headerLink={
-                <Link
-                  href={strings.link.href}
-                  aria-label={strings.link.ariaLabel}
-                >
-                  {strings.link.text}
-                </Link>
-              }
+              title={strings.title}
             />
             <Guide />
           </>
