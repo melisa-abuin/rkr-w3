@@ -157,7 +157,7 @@ export const routes = {
   },
   scoreboard: {
     label: 'Scoreboard',
-    pathname: '/stats/overview',
+    pathname: '/stats',
     url: '/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc',
     target: '_self',
   },
