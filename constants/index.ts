@@ -136,7 +136,7 @@ export const discordGuideSteps = [
 ]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
-export const downloadFileName = 'RKR_Remastered_1.0.2'
+export const downloadFileName = 'RKR_Remastered_1.0.4'
 
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
