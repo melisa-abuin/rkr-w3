@@ -17,7 +17,7 @@ export default function ScoreboardSelector({
 
   const onToggle = (newToggleValue: boolean) => {
     if (newToggleValue) {
-      router.push('/stats/time?page=1&sortKey=roundOne&sortOrder=asc')
+      router.push('/stats/time?page=1&sortKey=roundOne&sortOrder=desc')
     } else {
       router.push(
         '/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc',

@@ -22,7 +22,7 @@ export const Container = styled.button<{ isToggled: boolean }>`
 export const Text = styled.span<{ isToggled: boolean }>`
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-semi-bold);
-  color: ${({ theme }) => theme.color.white};
+  color: ${({ theme }) => theme.text.white};
   flex: 1;
 `
 
