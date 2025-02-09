@@ -1,8 +1,29 @@
-import { PlayerStats } from '@/interfaces/player'
+import { PlayerStats, SaveStreak } from '@/interfaces/player'
 import { isRoundKey } from '../isRoundKey'
 import { Difficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = Difficulty | undefined
+
+/**
+ * Aproximate the save streak values for those players
+ * who have the patrioticTendrils or redLightning rewards
+ * This is a patch for players who got those rewards before RKR remastered version
+ *
+ * @param saveStreak
+ * @returns number with the value of the save streak
+ */
+const getValueForSaveStreak = (saveStreak: SaveStreak) => {
+  const { highestSaveStreak, patrioticTendrils, redLightning } = saveStreak
+
+  if (highestSaveStreak < 50 && patrioticTendrils) {
+    return 50
+  }
+  if (highestSaveStreak < 15 && redLightning) {
+    return 15
+  }
+
+  return highestSaveStreak
+}
 
 export const getValueForKey = (
   key: keyof PlayerStats,
@@ -11,6 +32,10 @@ export const getValueForKey = (
 ) => {
   if (key === 'wins' || key === 'gamesPlayed') {
     return filter ? elem[key][filter] : elem[key].total
+  }
+
+  if (key === 'saveStreak') {
+    return getValueForSaveStreak(elem[key])
   }
 
   if (key === 'completedChallenges') {
