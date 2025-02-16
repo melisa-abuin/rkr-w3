@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function Step({ imageSrc, stepTitle, text }: Props) {
+  //TODO: use srcSet images for mobile devices
   return (
     <Container>
       {stepTitle && <StepCounter>{stepTitle}</StepCounter>}
