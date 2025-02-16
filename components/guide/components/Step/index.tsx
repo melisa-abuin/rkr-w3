@@ -1,16 +1,17 @@
+'use client'
+
 import Image from 'next/image'
 import { Container } from './styled'
 
 interface Props {
-  bottomText: string
   imageSrc?: string
-  topText: string
+  text: string
 }
 
-export default function Step({ bottomText, imageSrc, topText }: Props) {
+export default function Step({ imageSrc, text }: Props) {
   return (
     <Container>
-      <p>{topText}</p>
+      <p>{text}</p>
       {imageSrc && (
         <Image
           alt="Discord screenshot example"
@@ -19,7 +20,6 @@ export default function Step({ bottomText, imageSrc, topText }: Props) {
           width={640}
         />
       )}
-      <p>{bottomText}</p>
     </Container>
   )
 }

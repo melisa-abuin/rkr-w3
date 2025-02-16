@@ -25,16 +25,9 @@ export default function Guide() {
         title="How to Upload Your Stats"
       >
         <Steps
-          steps={discordGuideSteps.map(
-            ({ topText, imageSrc, bottomText }, index) => (
-              <Step
-                bottomText={bottomText}
-                imageSrc={imageSrc}
-                key={index}
-                topText={topText}
-              />
-            ),
-          )}
+          steps={discordGuideSteps.map(({ text, imageSrc }, index) => (
+            <Step imageSrc={imageSrc} key={index} text={text} />
+          ))}
         />
       </Modal>
     </Info>
