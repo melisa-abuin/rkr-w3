@@ -11,7 +11,7 @@ import ColumnCards from '@/components/columnCards'
 import { PageContainer } from '@/components/pageContainer'
 import { Link } from '@/components/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
-import Guide from '@/components/guide'
+import Info from '@/components/info'
 
 interface Data {
   player: string
@@ -86,12 +86,19 @@ export default async function Leaderboard() {
             <PageContainer as="div" marginBottom={48}>
               <Link
                 href="/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc"
-                aria-label="View all stats for all players"
+                withButtonStyle
               >
                 View all stats
               </Link>
             </PageContainer>
-            <Guide />
+            <Info>
+              <strong>Can&apos;t find your stats?</strong>{' '}
+              <Link href="/guide" aria-label="View all stats for all players">
+                Click here
+              </Link>{' '}
+              to learn how to upload your game progress and get featured on the
+              leaderboard!
+            </Info>
           </>
         )}
       </main>

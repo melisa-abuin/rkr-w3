@@ -7,8 +7,9 @@ import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
-import Guide from '@/components/guide'
 import ScoreboardSelector from '@/components/scoreboardSelector'
+import Info from '@/components/info'
+import { Link } from '@/components/link'
 
 interface PlayerStatsData {
   error: string | null
@@ -89,7 +90,14 @@ export default async function StatsPage({
               defaultSortKey={strings.defaultSortKey}
               title={strings.title}
             />
-            <Guide />
+            <Info>
+              <strong>Can&apos;t find your stats?</strong>{' '}
+              <Link href="/guide" aria-label="View all stats for all players">
+                Click here
+              </Link>{' '}
+              to learn how to upload your game progress and get featured on the
+              leaderboard!
+            </Info>
           </>
         )}
       </main>
