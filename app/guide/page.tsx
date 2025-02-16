@@ -1,5 +1,5 @@
 import Footer from '@/components/footer'
-import Step from '@/components/guide/components/Step'
+import Step from '@/components/Step'
 import Navbar from '@/components/navbar'
 import { PageContainer } from '@/components/pageContainer'
 import PageHeader from '@/components/pageHeader'
