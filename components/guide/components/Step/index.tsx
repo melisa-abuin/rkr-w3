@@ -1,16 +1,18 @@
 'use client'
 
 import Image from 'next/image'
-import { Container } from './styled'
+import { Container, StepCounter } from './styled'
 
 interface Props {
   imageSrc?: string
+  stepTitle?: string
   text: string
 }
 
-export default function Step({ imageSrc, text }: Props) {
+export default function Step({ imageSrc, stepTitle, text }: Props) {
   return (
     <Container>
+      {stepTitle && <StepCounter>{stepTitle}</StepCounter>}
       <p>{text}</p>
       {imageSrc && (
         <Image

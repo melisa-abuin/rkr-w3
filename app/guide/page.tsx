@@ -11,16 +11,15 @@ export default async function GuidePage() {
     <ThemeProvider>
       <Navbar />
       <main>
-        <PageHeader
-          description="Step by step tutorial on how to upload your stats to the site using the discord server"
-          title="Tutorials and frequently asked questions"
-        />
-        <PageContainer
-          ariaLabelledby="columns-score-title"
-          title="How to upload my stats?"
-        >
-          {discordGuideSteps.map(({ imageSrc, text }, index) => (
-            <Step imageSrc={imageSrc} key={index} text={text} />
+        <PageHeader description="" title="How to upload my stats?" />
+        <PageContainer>
+          {discordGuideSteps.map(({ imageSrc, stepTitle, text }, index) => (
+            <Step
+              imageSrc={imageSrc}
+              key={index}
+              text={text}
+              stepTitle={stepTitle}
+            />
           ))}
         </PageContainer>
       </main>
