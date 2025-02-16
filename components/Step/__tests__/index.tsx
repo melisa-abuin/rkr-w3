@@ -18,16 +18,14 @@ jest.mock('next/image', () => ({
 
 describe('Step', () => {
   it('renders step text correctly', () => {
-    renderWithTheme(<Step topText="top text" bottomText="bottom text" />)
+    renderWithTheme(<Step text="top text" stepTitle="step 1" />)
 
     expect(screen.getByText('top text')).toBeInTheDocument()
-    expect(screen.getByText('bottom text')).toBeInTheDocument()
+    expect(screen.getByText('step 1')).toBeInTheDocument()
   })
 
   it('uses the correct src passed by props', () => {
-    renderWithTheme(
-      <Step topText="top text" imageSrc="/test.jpg" bottomText="bottom text" />,
-    )
+    renderWithTheme(<Step text="top text" imageSrc="/test.jpg" />)
 
     const image = screen.getByAltText('Discord screenshot example')
     expect(image).toHaveAttribute('src', '/test.jpg')
