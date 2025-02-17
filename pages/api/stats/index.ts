@@ -42,7 +42,9 @@ export default async function handler(
           calculateCompletedChallenges(GameAwardsSorted)
       } else {
         // For retrocompatibility with data shape prev to 1.0.3 version
-        const awardValues = Object.entries(GameAwards)
+        const awardValues = Object.entries(GameAwards).filter(
+          ([, value]) => value !== -1,
+        )
         const generalValues = awardValues.filter(
           ([key]) => !tournamentAwards.includes(key),
         )

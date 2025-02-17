@@ -9,7 +9,9 @@ export const calculateCompletedChallenges = (data: RewardsData): Challenges => {
 
   for (const category in data) {
     if (category === 'Tournament') {
-      const tournamentData = Object.values(data[category])
+      const tournamentData = Object.values(data[category]).filter(
+        (award) => award !== -1,
+      )
       tournamentRewards = [
         tournamentData.filter((award) => award).length,
         tournamentData.length,
@@ -18,7 +20,9 @@ export const calculateCompletedChallenges = (data: RewardsData): Challenges => {
     }
 
     for (const reward in data[category]) {
-      totalRewards++
+      if (data[category][reward] !== -1) {
+        totalRewards++
+      }
       if (data[category][reward] === 1) {
         trueRewards++
       }
