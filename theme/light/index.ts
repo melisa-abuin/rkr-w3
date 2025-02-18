@@ -1,5 +1,5 @@
 const lightTheme = {
-  name: 'light',
+  name: 'light' as const,
   color: {
     primary: '#B24141',
     secondary: '#41B2B2',

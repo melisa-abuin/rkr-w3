@@ -3,7 +3,7 @@ export interface Theme {
   color: Record<string, string>
   background: Record<string, string>
   text: Record<string, string>
-  name: string
+  name: 'dark' | 'light'
 }
 
 export interface Themes {

@@ -1,5 +1,5 @@
 const darkTheme = {
-  name: 'dark',
+  name: 'dark' as const,
   color: {
     primary: '#B24141',
     secondary: '#41B2B2',
