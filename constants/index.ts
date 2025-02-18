@@ -94,44 +94,56 @@ export const discordData =
 
 export const discordGuideSteps = [
   {
-    topText:
-      'Join the discord server if you haven&apos;t already, once there go to the #uploadstats channel',
-    imageSrc: '/discord-example.png',
-    bottomText:
-      'You will be able to find it on the left side of the main messaging window',
-  },
-  {
-    topText:
-      'Once there, click on the + symbol that appears right next to the entry to send a message to attach a file',
-    imageSrc: '/discord-example2.png',
-    bottomText:
-      '(Additionally, at the top of the window you will see that there is a button to view pinned messages, where you can find detailed instructions on how to upload your stats)',
-  },
-  {
-    topText:
-      'When you click on the option to upload a file, a window like this should appear on your screen (if you are using Windows as the operating system)',
-    imageSrc: '/discord-example3.png',
-    bottomText:
-      "Open your 'documents' folder and there you will see a folder called 'Warcraft III', double click on it. Inside you will see more folders, repeat the same steps until you reach Documents > Warcraft III > CustomMapData > Run-Kitty-Run",
-  },
-  {
-    topText:
-      'Once you are in the directory specified above, you will see a text file named after your battletag',
-    imageSrc: '/discord-example4.png',
-    bottomText: "Select that file and press 'open'",
-  },
-  {
-    topText:
-      "You will see that in the discord chat window your file is attached to the message. Now all you have to do is write the '!upload' command",
-    imageSrc: '/discord-example5.png',
-    bottomText:
-      'Send the message, and you will automatically receive a response from the Discord bot informing you if the action was successful or not.',
-  },
-  {
-    topText:
-      'That would be all, if you still have problems loading your stats, consult with a member of the community',
+    stepTitle: '',
+    text: "This tutorial is applicable to players who have played on the map version 'RKR_Remastered_1.0.3' or higher, if you have played on previous versions the location of the files may vary",
     imageSrc: '',
-    bottomText: '',
+  },
+  {
+    stepTitle: 'Step 1:',
+    text: "Join the discord server if you haven't already, once there go to the #uploadstats channel. You will be able to find it on the left side of the main messaging window",
+    imageSrcSet: {
+      dark: '/discord-example1-dark.png',
+      light: '/discord-example1-light.png',
+    },
+  },
+  {
+    stepTitle: 'Step 2:',
+    text: 'Click on the + symbol that appears right next to the input message to attach a file. (Additionally, at the top of the window you will see that there is a button to view pinned messages, where you can find detailed instructions on how to upload your stats)',
+    imageSrcSet: {
+      dark: '/discord-example2-dark.png',
+      light: '/discord-example2-light.png',
+    },
+  },
+  {
+    stepTitle: 'Step 3:',
+
+    text: "When you click on the option to upload a file, a window like this should appear on your screen (if you are using Windows as the operating system) Open your 'documents' folder and there you will see a folder called 'Warcraft III', double click on it. Inside you will see more folders, repeat the same step until you reach Documents > Warcraft III > CustomMapData > Run-Kitty-Run",
+    imageSrcSet: {
+      dark: '/discord-example3.png',
+      light: '/discord-example3.png',
+    },
+  },
+  {
+    stepTitle: 'Step 4:',
+    text: "Make sure the folder name is 'Run-Kitty-Run' and not 'RunKittyRun' or some other variable. Once you are in that directory, you will see a text file named after your battletag. Select that file and press 'open'",
+    imageSrcSet: {
+      dark: '/discord-example4.png',
+      light: '/discord-example4.png',
+    },
+  },
+  {
+    stepTitle: 'Step 5:',
+
+    text: "You will see that in the discord chat window your file is attached to the message. Now all you have to do is write the '!upload' command. Send the message, and you will automatically receive a response from the Discord bot informing you if the action was successful or not.",
+    imageSrcSet: {
+      dark: '/discord-example5-dark.png',
+      light: '/discord-example5-light.png',
+    },
+  },
+  {
+    stepTitle: '',
+    text: 'That would be all, if you still have problems loading your stats, consult with a member of the community',
+    imageSrc: '',
   },
 ]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
@@ -159,6 +171,12 @@ export const routes = {
     label: 'Scoreboard',
     pathname: '/stats',
     url: '/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc',
+    target: '_self',
+  },
+  guide: {
+    label: 'Guide',
+    pathname: '/guide',
+    url: '/guide',
     target: '_self',
   },
 }
