@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   align-items: center;
+  color: ${({ theme }) => theme.text.primary};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +12,11 @@ export const Container = styled.div`
   text-align: justify;
   max-width: 640px;
   width: 100%;
+
+  & img {
+    box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
+    border-radius: 5px;
+  }
 
   @media (max-width: 640px) {
     & img {
