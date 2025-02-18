@@ -1,5 +1,5 @@
 import Footer from '@/components/footer'
-import Step from '@/components/Step'
+import Step from '@/components/step'
 import Navbar from '@/components/navbar'
 import { PageContainer } from '@/components/pageContainer'
 import PageHeader from '@/components/pageHeader'
@@ -13,9 +13,9 @@ export default async function GuidePage() {
       <main>
         <PageHeader description="" title="How to upload my stats?" />
         <PageContainer>
-          {discordGuideSteps.map(({ imageSrc, stepTitle, text }, index) => (
+          {discordGuideSteps.map(({ imageSrcSet, stepTitle, text }, index) => (
             <Step
-              imageSrc={imageSrc}
+              imageSrcSet={imageSrcSet}
               key={index}
               text={text}
               stepTitle={stepTitle}
