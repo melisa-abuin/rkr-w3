@@ -7,7 +7,7 @@ interface Props {
   selected: Difficulty | undefined
 }
 
-export const Badges = ({ onClick, options, selected }: Props) => {
+export default function Badges({ onClick, options, selected }: Props) {
   return (
     <Container>
       {options.map((option) => (

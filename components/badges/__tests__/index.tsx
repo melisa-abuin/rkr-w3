@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react'
 
-import { Badges } from '..'
+import Badges from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Badges', () => {
