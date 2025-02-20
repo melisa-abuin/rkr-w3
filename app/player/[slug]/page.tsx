@@ -87,9 +87,9 @@ export default async function PlayerPage({
                   },
                 ]}
               />
-              <PageContainer marginTop={24} marginBottom={24}>
-                <Awards awards={awards!} />
-              </PageContainer>
+            </PageContainer>
+            <PageContainer marginTop={24} marginBottom={24}>
+              <Awards awards={awards!} />
             </PageContainer>
           </>
         )}

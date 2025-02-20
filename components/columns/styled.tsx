@@ -9,11 +9,14 @@ export const Col = styled.div`
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.background.quaternary};
+  color: ${({ theme }) => theme.text.primary};
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 24px 16px;
   width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
 `
 
 export const ValueText = styled.span`
