@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const Body = styled.div`
+  background-color: ${({ theme }) => theme.background.quaternary};
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -13,7 +14,6 @@ export const Body = styled.div`
 `
 
 export const Conatiner = styled.div`
-  background-color: ${({ theme }) => theme.background.quaternary};
   width: 100%;
 `
 

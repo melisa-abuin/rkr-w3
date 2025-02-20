@@ -1,5 +1,5 @@
 import Banner from '@/components/banner'
-import Columns from '@/components/columns'
+import InfoColumns from '@/components/infoColumns'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
 import { ThemeProvider } from '@/hooks/useTheme'
@@ -38,7 +38,7 @@ export default async function Home() {
       <Navbar />
       <main>
         <Banner discordData={data} />
-        <Columns />
+        <InfoColumns />
       </main>
       <Footer />
     </ThemeProvider>
