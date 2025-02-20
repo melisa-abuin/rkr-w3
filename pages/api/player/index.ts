@@ -49,6 +49,7 @@ export default async function handler(
     } = saveData
 
     playerStats.saves = GameStats.Saves
+    playerStats.deaths = GameStats.Deaths
     playerStats.highestWinStreak = GameStats.HighestWinStreak
 
     if (GameAwardsSorted) {

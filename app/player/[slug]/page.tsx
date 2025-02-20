@@ -8,6 +8,7 @@ import PageHeader from '@/components/pageHeader'
 import { PageContainer } from '@/components/pageContainer'
 import Awards from '@/components/awards'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
+import Columns from '@/components/columns'
 
 interface PlayerStatsData {
   error: string | null
@@ -62,7 +63,33 @@ export default async function PlayerPage({
                 description={formatKeyToWord(skins?.selectedSkin)}
                 title={battleTag!.name}
               />
-              <Awards awards={awards!} />
+              <Columns
+                columns={[
+                  {
+                    title: 'Saves',
+                    value: data?.saves,
+                  },
+                  {
+                    title: 'Deaths',
+                    value: data?.deaths,
+                  },
+                  {
+                    title: 'S/D Ratio',
+                    value: data?.saveDeathRatio,
+                  },
+                  {
+                    title: 'Highest Save Streak',
+                    value: data?.saveStreak?.highestSaveStreak,
+                  },
+                  {
+                    title: 'Highest Win Streak',
+                    value: data?.highestWinStreak,
+                  },
+                ]}
+              />
+              <PageContainer marginTop={24} marginBottom={24}>
+                <Awards awards={awards!} />
+              </PageContainer>
             </PageContainer>
           </>
         )}
