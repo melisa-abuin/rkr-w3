@@ -9,8 +9,14 @@ interface Props {
   children: ReactNode
 }
 
-export const Link = ({ withButtonStyle = false, children, href }: Props) => (
-  <StyledLink withButtonStyle={withButtonStyle} href={href}>
-    {children}
-  </StyledLink>
-)
+export default function Link({
+  withButtonStyle = false,
+  children,
+  href,
+}: Props) {
+  return (
+    <StyledLink withButtonStyle={withButtonStyle} href={href}>
+      {children}
+    </StyledLink>
+  )
+}

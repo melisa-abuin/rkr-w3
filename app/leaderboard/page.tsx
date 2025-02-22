@@ -9,9 +9,10 @@ import { statsColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
 import { PageContainer } from '@/components/pageContainer'
-import { Link } from '@/components/link'
+import Link from '@/components/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
 import Info from '@/components/info'
+import PlayerFinder from '@/components/playerFinder'
 
 interface Data {
   player: string
@@ -63,6 +64,9 @@ export default async function Leaderboard() {
               description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
               title="Leaderboard"
             />
+            <PageContainer>
+              <PlayerFinder />
+            </PageContainer>
             <PageContainer
               ariaLabelledby="columns-score-title"
               title="Best scores"
