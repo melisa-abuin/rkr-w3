@@ -16,36 +16,41 @@ export default function PlayerFinder() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchData = useCallback(async (searchTerm: string) => {
-    if (searchTerm.length > 3) {
-      console.log('Fetching data for:', searchTerm)
+  const fetchData = useCallback(
+    async (searchTerm: string) => {
+      if (
+        searchTerm.length > 3 &&
+        searchTerm !== selectedPlayer?.battleTag.tag
+      ) {
+        console.log(searchTerm, selectedPlayer)
+        setLoading(true)
+        setError(null)
 
-      setLoading(true)
-      setError(null)
+        // TODO: create helper or what about react query?
+        try {
+          const response = await fetch('/api/stats', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ battleTag: searchTerm }),
+          })
 
-      // TODO: create helper or what about react query?
-      try {
-        const response = await fetch('/api/stats', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ battleTag: searchTerm }),
-        })
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`)
+          }
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
+          const result = await response.json()
+          setFilteredData(result)
+        } catch (error) {
+          setError((error as Error).message)
+        } finally {
+          setLoading(false)
         }
-
-        const result = await response.json()
-        setFilteredData(result)
-      } catch (error) {
-        setError((error as Error).message)
-      } finally {
-        setLoading(false)
       }
-    }
-  }, [])
+    },
+    [selectedPlayer],
+  )
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -65,7 +70,6 @@ export default function PlayerFinder() {
     setQuery(player.battleTag.tag)
   }
 
-  console.log(selectedPlayer)
   return (
     <>
       <Container>
@@ -80,14 +84,19 @@ export default function PlayerFinder() {
           />
           {filteredData && (
             <Options>
-              {filteredData.map((player) => (
-                <Option
-                  key={player.battleTag.tag}
-                  onClick={() => onPlayerSelect(player)}
-                >
-                  {player.battleTag.tag}
-                </Option>
-              ))}
+              {filteredData.length > 0 ? (
+                filteredData.map((player) => (
+                  <Option
+                    key={player.battleTag.tag}
+                    isClickable
+                    onClick={() => onPlayerSelect(player)}
+                  >
+                    {player.battleTag.tag}
+                  </Option>
+                ))
+              ) : (
+                <Option>No results</Option>
+              )}
             </Options>
           )}
         </Wrapper>
