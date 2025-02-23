@@ -1,10 +1,13 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Container, Input, Options, Option, Wrapper } from './styled'
+import { Container, Options, Option, Wrapper } from './styled'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Columns from '../columns'
 import Link from '../link'
+import Input from '../input'
+import { Search } from '../icons/search'
+import { useTheme } from '@/hooks/useTheme'
 
 export default function PlayerFinder() {
   const [query, setQuery] = useState('')
@@ -15,6 +18,7 @@ export default function PlayerFinder() {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [theme] = useTheme()
 
   const fetchData = useCallback(
     async (searchTerm: string) => {
@@ -70,19 +74,34 @@ export default function PlayerFinder() {
     setQuery(player.battleTag.tag)
   }
 
+  const onSearchClear = () => {
+    setQuery('')
+    setFilteredData(undefined)
+  }
+
   return (
     <>
       <Container>
         <label htmlFor="player">Find Player</label>
         <Wrapper>
           <Input
-            name="player"
             id="player"
-            placeholder="Type player battle tag"
+            leftIcon={
+              <Search height={16} fill={theme.text.primary} width={16} />
+            }
+            name="player"
             onChange={onChange}
+            onCrossClick={onSearchClear}
+            placeholder="Type player battle tag"
             value={query}
           />
-          {filteredData && (
+          {loading && (
+            <Options>
+              <Option>Loading...</Option>
+            </Options>
+          )}
+
+          {filteredData && !loading && !error && (
             <Options>
               {filteredData.length > 0 ? (
                 filteredData.map((player) => (
@@ -97,6 +116,12 @@ export default function PlayerFinder() {
               ) : (
                 <Option>No results</Option>
               )}
+            </Options>
+          )}
+
+          {error && !loading && (
+            <Options>
+              <Option>Something went wrong</Option>
             </Options>
           )}
         </Wrapper>
