@@ -24,7 +24,7 @@ export const Options = styled.div`
   border: 1px solid ${({ theme }) => theme.background.highlightTertiary};
   border-radius: 5px;
   box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
-  bottom: -40px;
+  top: 40px;
   width: 100%;
   position: absolute;
 `
