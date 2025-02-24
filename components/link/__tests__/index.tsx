@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react'
-import { Link } from '..'
+import Link from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Link', () => {

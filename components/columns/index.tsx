@@ -1,11 +1,14 @@
 'use client'
+
+import React, { ReactNode } from 'react'
 import { Col, Container, LabelText, ValueText } from './styled'
 
 interface Props {
+  actionColumn?: ReactNode
   columns: Array<{ title: string; value?: number }>
 }
 
-export default function Columns({ columns }: Props) {
+export default function Columns({ columns, actionColumn }: Props) {
   return (
     <Container>
       {columns.map((column) => (
@@ -14,6 +17,7 @@ export default function Columns({ columns }: Props) {
           <LabelText>{column.title}</LabelText>
         </Col>
       ))}
+      {actionColumn && <Col>{actionColumn}</Col>}
     </Container>
   )
 }

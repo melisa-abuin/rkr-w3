@@ -1,5 +1,5 @@
 import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, PlayersStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { mockApiData, tournamentAwards } from '@/constants'
@@ -31,7 +31,7 @@ export default async function handler(
       data = await response.json()
     }
 
-    const formattedData = data.map((elem: ApiPlayerStats) => {
+    const formattedData: PlayersStats = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { GameStats, PlayerName, GameAwards, GameAwardsSorted } = saveData
@@ -64,6 +64,7 @@ export default async function handler(
         }
       }
       playerStats.saves = GameStats.Saves
+      playerStats.deaths = GameStats.Deaths
       playerStats.highestWinStreak = GameStats.HighestWinStreak
 
       if (GameAwardsSorted) {
@@ -104,7 +105,19 @@ export default async function handler(
       return playerStats
     })
 
-    res.status(200).json(formattedData)
+    if (req.body.battleTag) {
+      res
+        .status(200)
+        .json(
+          formattedData.filter(({ battleTag }) =>
+            battleTag.name
+              .toLowerCase()
+              .includes(req.body.battleTag.toLowerCase()),
+          ),
+        )
+    } else {
+      res.status(200).json(formattedData)
+    }
   } catch (error) {
     console.error('Error fetching scoreboard data:', error)
     res.status(500).json({ message: 'Internal Server Error' })

@@ -1,7 +1,12 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 
-export const StyledLink = styled(Link)<{ withButtonStyle: boolean }>`
+export const StyledLink = styled(Link).attrs<{ withButtonStyle?: boolean }>(
+  ({ withButtonStyle }) => ({
+    as: 'a',
+    withButtonStyle,
+  }),
+)<{ withButtonStyle?: boolean }>`
   color: ${({ theme }) => theme.text.tertiary};
   background-color: inherit;
   border: ${({ theme, withButtonStyle }) =>
