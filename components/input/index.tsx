@@ -35,6 +35,7 @@ export default function Input({
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        autoComplete="off"
       />
       {value.length > 0 && onCrossClick && (
         <ClearIconContainer onClick={onCrossClick}>

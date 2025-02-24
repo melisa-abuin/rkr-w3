@@ -8,6 +8,7 @@ import Link from '../link'
 import Input from '../input'
 import { Search } from '../icons/search'
 import { useTheme } from '@/hooks/useTheme'
+import Image from 'next/image'
 
 export default function PlayerFinder() {
   const [query, setQuery] = useState('')
@@ -87,7 +88,16 @@ export default function PlayerFinder() {
           <Input
             id="player"
             leftIcon={
-              <Search height={16} fill={theme.text.primary} width={16} />
+              loading ? (
+                <Image
+                  alt="loading"
+                  height={16}
+                  src={`/loading-${theme.name}.gif`}
+                  width={16}
+                />
+              ) : (
+                <Search height={16} fill={theme.text.primary} width={16} />
+              )
             }
             name="player"
             onChange={onChange}
@@ -95,11 +105,6 @@ export default function PlayerFinder() {
             placeholder="Type player battle tag"
             value={query}
           />
-          {loading && (
-            <Options>
-              <Option>Loading...</Option>
-            </Options>
-          )}
 
           {filteredData && !loading && !error && (
             <Options>

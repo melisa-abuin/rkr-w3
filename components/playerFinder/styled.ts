@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   align-items: center;
+  color: ${({ theme }) => theme.text.primary};
   display: flex;
   flex-direction: row;
   gap: 8px;
