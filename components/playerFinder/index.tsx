@@ -24,7 +24,7 @@ export default function PlayerFinder() {
   const fetchData = useCallback(
     async (searchTerm: string) => {
       if (
-        searchTerm.length > 3 &&
+        searchTerm.length >= 3 &&
         searchTerm !== selectedPlayer?.battleTag.tag
       ) {
         console.log(searchTerm, selectedPlayer)
