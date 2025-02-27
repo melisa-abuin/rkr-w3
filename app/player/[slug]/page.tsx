@@ -49,6 +49,9 @@ export default async function PlayerPage({
   const { data, error } = await fetchData(slug)
   const { awards, battleTag, skins } = data ?? {}
 
+  const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
+  const difficultyNames = ['normal', 'hard', 'impossible'] as const
+
   return (
     <ThemeProvider>
       <Navbar />
@@ -63,6 +66,8 @@ export default async function PlayerPage({
                 description={formatKeyToWord(skins?.selectedSkin)}
                 title={battleTag!.name}
               />
+            </PageContainer>
+            <PageContainer title="Overall Stats">
               <Columns
                 columns={[
                   {
@@ -88,9 +93,24 @@ export default async function PlayerPage({
                 ]}
               />
             </PageContainer>
-            <PageContainer marginTop={24} marginBottom={24}>
+            <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
               <Awards awards={awards!} />
             </PageContainer>
+
+            {difficultyNames.map((difficulty) => (
+              <PageContainer
+                key={difficulty}
+                title={`Best ${difficulty} Times`}
+                marginBottom={24}
+              >
+                <Columns
+                  columns={roundNames.map((round) => ({
+                    title: `Round ${round}`,
+                    value: data?.[`round${round}`][difficulty],
+                  }))}
+                />
+              </PageContainer>
+            ))}
           </>
         )}
       </main>

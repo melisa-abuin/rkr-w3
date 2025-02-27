@@ -5,7 +5,6 @@ import {
   Body,
   Conatiner,
   ErrorText,
-  Header,
   Line,
   Section,
   SectionContainer,
@@ -20,7 +19,6 @@ interface Props {
 export default function Awards({ awards }: Props) {
   return (
     <Conatiner>
-      <Header>Game Awards</Header>
       <Body>
         {awards.length > 0 ? (
           awards.map(({ id, awards }) => (

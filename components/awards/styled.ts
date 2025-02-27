@@ -23,14 +23,6 @@ export const ErrorText = styled.p`
   text-align: center;
 `
 
-export const Header = styled.h2`
-  color: ${({ theme }) => theme.text.tertiary};
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
-  padding-top: 16px;
-  text-align: center;
-`
-
 export const Line = styled.div`
   border: none;
   border-top: 1px solid #ccc;
