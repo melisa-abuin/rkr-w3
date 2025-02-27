@@ -9,6 +9,7 @@ import { PageContainer } from '@/components/pageContainer'
 import Awards from '@/components/awards'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import Columns from '@/components/columns'
+import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 
 interface PlayerStatsData {
   error: string | null
@@ -106,7 +107,9 @@ export default async function PlayerPage({
                 <Columns
                   columns={roundNames.map((round) => ({
                     title: `Round ${round}`,
-                    value: data?.[`round${round}`][difficulty],
+                    value: secondsToSexagesimal(
+                      data?.[`round${round}`][difficulty] || 0,
+                    ),
                   }))}
                 />
               </PageContainer>

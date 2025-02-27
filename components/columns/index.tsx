@@ -5,7 +5,7 @@ import { Col, Container, LabelText, ValueText } from './styled'
 
 interface Props {
   actionColumn?: ReactNode
-  columns: Array<{ title: string; value?: number }>
+  columns: Array<{ title: string; value?: number | string }>
 }
 
 export default function Columns({ columns, actionColumn }: Props) {
