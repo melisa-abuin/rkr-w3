@@ -7,6 +7,7 @@ import { findTopFive } from '@/utils/findTopFive'
 import { mockApiData, tournamentAwards } from '@/constants'
 import { calculateWinRate } from '@/utils/calculateWinRate'
 import { calculateCompletedChallenges } from '@/utils/calculateCompletedChallenges'
+import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   const apiKey = process.env.API_KEY
@@ -29,6 +30,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       })
 
       data = await response.json()
+      data = removeBlacklistedPlayers(data)
     }
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
@@ -120,7 +122,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
       })
 
-      return playerStats
+      return playerStats as PlayerStats
     })
 
     const stats = {

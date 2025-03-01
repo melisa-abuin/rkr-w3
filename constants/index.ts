@@ -208,6 +208,8 @@ export const tournamentAwards = [
   'VioletWings',
 ]
 
+export const blacklistedPlayers = ['Local Player']
+
 export const formattedMockData = [
   {
     battleTag: {
