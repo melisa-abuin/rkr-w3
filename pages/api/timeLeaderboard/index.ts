@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { findTopFive } from '@/utils/findTopFive'
 import { mockApiData } from '@/constants'
+import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,17 +16,21 @@ export default async function handler(
       throw new Error()
     }
 
-    const response = await fetch(apiKey, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    let data = []
 
-    const data =
-      process.env.NODE_ENV === 'development'
-        ? mockApiData
-        : await response.json()
+    if (process.env.NODE_ENV === 'development') {
+      data = mockApiData
+    } else {
+      const response = await fetch(apiKey, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      data = await response.json()
+      data = removeBlacklistedPlayers(data)
+    }
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
@@ -44,7 +49,7 @@ export default async function handler(
         playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
       })
 
-      return playerStats
+      return playerStats as PlayerStats
     })
 
     const difficultyFilter = req.body.difficulty
