@@ -7,6 +7,10 @@ export const Container = styled.div`
   justify-content: center;
   padding: 1rem;
   padding-top: 2rem;
+
+  & li {
+    padding: 8px 0;
+  }
 `
 
 export const Text = styled.p`
