@@ -87,7 +87,7 @@ export interface FromattedApiPlayerStats {
 }
 
 export interface ApiPlayerStats {
-  BattleTag: string
+  battletag: string
   'Save Data': string
 }
 

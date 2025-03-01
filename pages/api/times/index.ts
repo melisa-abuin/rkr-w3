@@ -2,6 +2,7 @@ import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { mockApiData } from '@/constants'
+import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 
 export default async function handler(
   req: NextApiRequest,
@@ -27,6 +28,7 @@ export default async function handler(
       })
 
       data = await response.json()
+      data = removeBlacklistedPlayers(data)
     }
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
