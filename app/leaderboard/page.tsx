@@ -11,7 +11,7 @@ import ColumnCards from '@/components/columnCards'
 import { PageContainer } from '@/components/pageContainer'
 import Link from '@/components/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
-import Info from '@/components/info'
+import Info from '@/components/atoms/info'
 import PlayerFinder from '@/components/playerFinder'
 
 interface Data {

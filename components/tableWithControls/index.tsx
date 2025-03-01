@@ -7,7 +7,7 @@ import { useMemo, useState, useCallback, ReactNode } from 'react'
 import Pagination from './components/pagination'
 import { pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import Badges from '../badges'
+import Badges from '../atoms/badges'
 import { Difficulty } from '@/interfaces/difficulty'
 
 interface TableProps {

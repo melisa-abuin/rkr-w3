@@ -8,7 +8,7 @@ import { headers } from 'next/headers'
 import Error from '@/components/error'
 import TableWithControls from '@/components/tableWithControls'
 import ScoreboardSelector from '@/components/scoreboardSelector'
-import Info from '@/components/info'
+import Info from '@/components/atoms/info'
 import Link from '@/components/link'
 
 interface PlayerStatsData {
