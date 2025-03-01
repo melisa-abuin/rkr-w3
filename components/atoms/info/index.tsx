@@ -5,12 +5,13 @@ import { Container, Text } from './styled'
 
 interface Props {
   children: ReactNode
+  as?: 'p' | 'ul'
 }
 
-export default function Info({ children }: Props) {
+export default function Info({ children, as = 'p' }: Props) {
   return (
     <Container>
-      <Text>{children}</Text>
+      <Text as={as}>{children}</Text>
     </Container>
   )
 }

@@ -3,7 +3,7 @@
 import { BestTime } from '@/interfaces/player'
 import ColumnCards from '../columnCards'
 import { PageContainer } from '../pageContainer'
-import Badges from '../badges'
+import Badges from '../atoms/badges'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -84,7 +84,7 @@ export default function ColumnCardsWithControls({
       <BadgesContainer>
         <Badges
           onClick={onFilterClick}
-          options={['normal', 'hard', 'impossible', 'all']}
+          options={['normal', 'hard', 'impossible']}
           selected={difficultyFilter}
         />
       </BadgesContainer>
