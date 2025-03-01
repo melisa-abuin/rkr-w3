@@ -2,8 +2,11 @@ import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { mockApiData, tournamentAwards } from '@/constants'
-import { calculateCompletedChallenges } from '@/utils/calculateCompletedChallenges'
+import { mockApiData } from '@/constants'
+import {
+  calculateCompletedChallenges,
+  calculateCompletedChallengesLegacy,
+} from '@/utils/calculateCompletedChallenges'
 import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 
 export default async function handler(
@@ -43,28 +46,10 @@ export default async function handler(
         playerStats.completedChallenges =
           calculateCompletedChallenges(GameAwardsSorted)
       } else {
-        // For retrocompatibility with data shape prev to 1.0.3 version
-        const awardValues = Object.entries(GameAwards).filter(
-          ([, value]) => value !== -1,
-        )
-        const generalValues = awardValues.filter(
-          ([key]) => !tournamentAwards.includes(key),
-        )
-        const tournamentValues = awardValues.filter(([key]) =>
-          tournamentAwards.includes(key),
-        )
-
-        playerStats.completedChallenges = {
-          general: [
-            generalValues.filter(([, value]) => value).length,
-            generalValues.length,
-          ],
-          tournament: [
-            tournamentValues.filter(([, value]) => value).length,
-            tournamentValues.length,
-          ],
-        }
+        playerStats.completedChallenges =
+          calculateCompletedChallengesLegacy(GameAwards)
       }
+
       playerStats.saves = GameStats.Saves
       playerStats.deaths = GameStats.Deaths
       playerStats.highestWinStreak = GameStats.HighestWinStreak
