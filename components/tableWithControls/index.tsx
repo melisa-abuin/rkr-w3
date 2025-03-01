@@ -119,7 +119,7 @@ export default function TableWithControls({
         filters={
           <Badges
             onClick={handleFilterChange}
-            options={['normal', 'hard', 'impossible', 'all']}
+            options={['normal', 'hard', 'impossible']}
             selected={difficultyFilter}
           />
         }

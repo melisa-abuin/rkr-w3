@@ -84,7 +84,7 @@ export default function ColumnCardsWithControls({
       <BadgesContainer>
         <Badges
           onClick={onFilterClick}
-          options={['normal', 'hard', 'impossible', 'all']}
+          options={['normal', 'hard', 'impossible']}
           selected={difficultyFilter}
         />
       </BadgesContainer>

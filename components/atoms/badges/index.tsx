@@ -3,7 +3,7 @@ import { Badge, Container } from './styled'
 
 interface Props {
   onClick: (option: Difficulty | undefined) => void
-  options: Array<Difficulty | 'all'>
+  options: Array<Difficulty>
   selected: Difficulty | undefined
 }
 
@@ -12,15 +12,23 @@ export default function Badges({ onClick, options, selected }: Props) {
     <Container>
       {options.map((option) => (
         <Badge
-          key={option}
+          aria-pressed={option === selected}
           as="button"
-          onClick={() => onClick(option === 'all' ? undefined : option)}
-          selected={option === selected || (option === 'all' && !selected)}
-          aria-pressed={option === selected || (option === 'all' && !selected)}
+          key={option}
+          onClick={() => onClick(option)}
+          selected={option === selected}
         >
           {option}
         </Badge>
       ))}
+      <Badge
+        aria-pressed={!selected}
+        as="button"
+        onClick={() => onClick(undefined)}
+        selected={!selected}
+      >
+        all
+      </Badge>
     </Container>
   )
 }
