@@ -2,22 +2,22 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Badges from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
+import { difficultyNames } from '@/constants'
 
 describe('Badges', () => {
   const mockOnClick = jest.fn()
-  const options = ['normal', 'hard', 'impossible']
   const selected = 'normal'
 
   it('renders all options as badges', () => {
     renderWithTheme(
       <Badges
         onClick={mockOnClick}
-        options={['normal', 'hard', 'impossible']}
+        options={difficultyNames}
         selected={selected}
       />,
     )
 
-    options.forEach((option) => {
+    difficultyNames.forEach((option) => {
       expect(screen.getByText(option)).toBeInTheDocument()
     })
   })
@@ -26,7 +26,7 @@ describe('Badges', () => {
     renderWithTheme(
       <Badges
         onClick={mockOnClick}
-        options={['normal', 'hard', 'impossible']}
+        options={difficultyNames}
         selected={selected}
       />,
     )
@@ -42,7 +42,7 @@ describe('Badges', () => {
     renderWithTheme(
       <Badges
         onClick={mockOnClick}
-        options={['normal', 'hard', 'impossible']}
+        options={difficultyNames}
         selected={undefined}
       />,
     )
@@ -55,7 +55,7 @@ describe('Badges', () => {
     renderWithTheme(
       <Badges
         onClick={mockOnClick}
-        options={['normal', 'hard', 'impossible']}
+        options={difficultyNames}
         selected={selected}
       />,
     )

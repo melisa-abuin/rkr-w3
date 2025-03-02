@@ -1,3 +1,4 @@
+import { Difficulty } from '@/interfaces/difficulty'
 import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
 
 export const awardsDescriptions = {
@@ -90,6 +91,8 @@ export const awardsDescriptions = {
 export const blacklistedPlayers = ['Local Player']
 
 export const blizzardLink = 'https://www.blizzard.com/'
+
+export const difficultyNames: Difficulty[] = ['normal', 'hard', 'impossible']
 
 export const discordData =
   'https://discord.com/api/v9/invites/GSu6zkNvx5?with_counts=true&with_expiration=false'

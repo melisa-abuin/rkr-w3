@@ -2,7 +2,7 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import Awards from '@/components/awards'
 import Columns from '@/components/columns'
 import PageHeader from '@/components/pageHeader'
-import { roundNames } from '@/constants'
+import { difficultyNames, roundNames } from '@/constants'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
@@ -13,8 +13,6 @@ export default function PlayerDashboard({
   playerData: DetailedPlayerStats
 }) {
   const { awards, battleTag, skins } = playerData
-
-  const difficultyNames = ['normal', 'hard', 'impossible'] as const
 
   return (
     <>
