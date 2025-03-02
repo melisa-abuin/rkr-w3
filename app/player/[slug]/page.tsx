@@ -5,11 +5,12 @@ import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/error'
 import PageHeader from '@/components/pageHeader'
-import { PageContainer } from '@/components/pageContainer'
+import { PageContainer } from '@/components/atoms/pageContainer'
 import Awards from '@/components/awards'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import Columns from '@/components/columns'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import PlayerDashboard from '@/components/templates/playerDashboard'
 
 interface PlayerStatsData {
   error: string | null
@@ -48,7 +49,7 @@ export default async function PlayerPage({
 }) {
   const { slug } = params
   const { data, error } = await fetchData(slug)
-  const { awards, battleTag, skins } = data ?? {}
+  const { awards } = data ?? {}
 
   const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
   const difficultyNames = ['normal', 'hard', 'impossible'] as const
@@ -61,13 +62,8 @@ export default async function PlayerPage({
           <Error />
         ) : (
           <>
-            <PageContainer>
-              <PageHeader
-                align="flex-start"
-                description={formatKeyToWord(skins?.selectedSkin)}
-                title={battleTag!.name}
-              />
-            </PageContainer>
+            {data && <PlayerDashboard playerData={data} />}
+
             <PageContainer title="Overall Stats">
               <Columns
                 columns={[
