@@ -1,15 +1,9 @@
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
+import Footer from '@/components/footer'
+import Navbar from '@/components/navbar'
 import Error from '@/components/error'
-import PageHeader from '@/components/pageHeader'
-import { PageContainer } from '@/components/atoms/pageContainer'
-import Awards from '@/components/awards'
-import { formatKeyToWord } from '@/utils/formatKeyToWord'
-import Columns from '@/components/columns'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import PlayerDashboard from '@/components/templates/playerDashboard'
 
 interface PlayerStatsData {
@@ -49,69 +43,12 @@ export default async function PlayerPage({
 }) {
   const { slug } = params
   const { data, error } = await fetchData(slug)
-  const { awards } = data ?? {}
-
-  const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
-  const difficultyNames = ['normal', 'hard', 'impossible'] as const
 
   return (
     <ThemeProvider>
       <Navbar />
       <main>
-        {error ? (
-          <Error />
-        ) : (
-          <>
-            {data && <PlayerDashboard playerData={data} />}
-
-            <PageContainer title="Overall Stats">
-              <Columns
-                columns={[
-                  {
-                    title: 'Saves',
-                    value: data?.saves,
-                  },
-                  {
-                    title: 'Deaths',
-                    value: data?.deaths,
-                  },
-                  {
-                    title: 'S/D Ratio',
-                    value: data?.saveDeathRatio,
-                  },
-                  {
-                    title: 'Highest Save Streak',
-                    value: data?.saveStreak?.highestSaveStreak,
-                  },
-                  {
-                    title: 'Highest Win Streak',
-                    value: data?.highestWinStreak,
-                  },
-                ]}
-              />
-            </PageContainer>
-            <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
-              <Awards awards={awards!} />
-            </PageContainer>
-
-            {difficultyNames.map((difficulty) => (
-              <PageContainer
-                key={difficulty}
-                title={`Best ${difficulty} Times`}
-                marginBottom={24}
-              >
-                <Columns
-                  columns={roundNames.map((round) => ({
-                    title: `Round ${round}`,
-                    value: secondsToSexagesimal(
-                      data?.[`round${round}`][difficulty] || 0,
-                    ),
-                  }))}
-                />
-              </PageContainer>
-            ))}
-          </>
-        )}
+        {error ? <Error /> : data && <PlayerDashboard playerData={data} />}
       </main>
       <Footer />
     </ThemeProvider>

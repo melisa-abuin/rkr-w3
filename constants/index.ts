@@ -87,6 +87,8 @@ export const awardsDescriptions = {
     'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
 } as Record<string, string>
 
+export const blacklistedPlayers = ['Local Player']
+
 export const blizzardLink = 'https://www.blizzard.com/'
 
 export const discordData =
@@ -181,6 +183,8 @@ export const routes = {
   },
 }
 
+export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
+
 export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Completed Challenges', key: 'completedChallenges' },
@@ -207,8 +211,6 @@ export const tournamentAwards = [
   'VioletAura',
   'VioletWings',
 ]
-
-export const blacklistedPlayers = ['Local Player']
 
 export const formattedMockData = [
   {

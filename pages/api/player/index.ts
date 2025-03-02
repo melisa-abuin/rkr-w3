@@ -3,7 +3,7 @@ import { DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { mockApiData } from '@/constants'
+import { mockApiData, roundNames } from '@/constants'
 import { formatGameAwards } from '@/utils/formatGameAwards'
 import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 
@@ -89,8 +89,6 @@ export default async function handler(
       GameStats.HardWins,
       GameStats.ImpossibleWins,
     )
-
-    const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
     roundNames.forEach((round) => {
       playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)

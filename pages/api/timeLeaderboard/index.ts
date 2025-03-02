@@ -2,7 +2,7 @@ import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { findTopFive } from '@/utils/findTopFive'
-import { mockApiData } from '@/constants'
+import { mockApiData, roundNames } from '@/constants'
 import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 
 export default async function handler(
@@ -42,8 +42,6 @@ export default async function handler(
         name: PlayerName?.split('#')[0] || '',
         tag: PlayerName || '',
       }
-
-      const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
       roundNames.forEach((round) => {
         playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
