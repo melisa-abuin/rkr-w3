@@ -5,7 +5,7 @@ import Table from '../table'
 import { useSearchParams } from 'next/navigation'
 import { useMemo, useState, useCallback, ReactNode } from 'react'
 import Pagination from './components/pagination'
-import { pageSize } from '@/constants'
+import { difficultyNames, pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 import Badges from '../atoms/badges'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -119,7 +119,7 @@ export default function TableWithControls({
         filters={
           <Badges
             onClick={handleFilterChange}
-            options={['normal', 'hard', 'impossible']}
+            options={difficultyNames}
             selected={difficultyFilter}
           />
         }

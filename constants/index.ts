@@ -1,3 +1,4 @@
+import { Difficulty } from '@/interfaces/difficulty'
 import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
 
 export const awardsDescriptions = {
@@ -87,7 +88,11 @@ export const awardsDescriptions = {
     'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
 } as Record<string, string>
 
+export const blacklistedPlayers = ['Local Player']
+
 export const blizzardLink = 'https://www.blizzard.com/'
+
+export const difficultyNames: Difficulty[] = ['normal', 'hard', 'impossible']
 
 export const discordData =
   'https://discord.com/api/v9/invites/GSu6zkNvx5?with_counts=true&with_expiration=false'
@@ -181,6 +186,8 @@ export const routes = {
   },
 }
 
+export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
+
 export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Completed Challenges', key: 'completedChallenges' },
@@ -207,8 +214,6 @@ export const tournamentAwards = [
   'VioletAura',
   'VioletWings',
 ]
-
-export const blacklistedPlayers = ['Local Player']
 
 export const formattedMockData = [
   {

@@ -4,9 +4,6 @@ export const Container = styled.button<{ isToggled: boolean }>`
   align-items: center;
   background-color: ${({ theme, isToggled }) =>
     isToggled ? theme.color.primary : theme.color.secondary};
-  box-shadow:
-    inset 2px 2px 5px rgba(0, 0, 0, 0.2),
-    inset -2px -2px 5px rgba(0, 0, 0, 0.5);
   border-radius: 24px;
   border: none;
   cursor: pointer;

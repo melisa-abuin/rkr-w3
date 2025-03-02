@@ -1,7 +1,7 @@
 import Footer from '@/components/footer'
 import Step from '@/components/step'
 import Navbar from '@/components/navbar'
-import { PageContainer } from '@/components/pageContainer'
+import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/pageHeader'
 import { discordGuideSteps } from '@/constants'
 import { ThemeProvider } from '@/hooks/useTheme'

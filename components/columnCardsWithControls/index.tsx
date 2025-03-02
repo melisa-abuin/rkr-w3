@@ -2,11 +2,12 @@
 
 import { BestTime } from '@/interfaces/player'
 import ColumnCards from '../columnCards'
-import { PageContainer } from '../pageContainer'
+import { PageContainer } from '../atoms/pageContainer'
 import Badges from '../atoms/badges'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
+import { difficultyNames } from '@/constants'
 
 interface Data {
   player: string
@@ -84,7 +85,7 @@ export default function ColumnCardsWithControls({
       <BadgesContainer>
         <Badges
           onClick={onFilterClick}
-          options={['normal', 'hard', 'impossible']}
+          options={difficultyNames}
           selected={difficultyFilter}
         />
       </BadgesContainer>
