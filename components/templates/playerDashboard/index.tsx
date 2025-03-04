@@ -5,7 +5,7 @@ import Awards from '@/components/awards'
 import Columns from '@/components/columns'
 import PageHeader from '@/components/pageHeader'
 import PlayerFinder from '@/components/playerFinder'
-import { difficultyNames, roundNames } from '@/constants'
+import { difficultyNames, playerColumns, roundNames } from '@/constants'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
@@ -50,6 +50,10 @@ export default function PlayerDashboard({
     }
   }, [])
 
+  //TODO: handle these cases
+  console.log(loading)
+  console.log(error)
+
   return (
     <>
       <PageContainer>
@@ -66,56 +70,14 @@ export default function PlayerDashboard({
       </PageContainer>
       <PageContainer title="Overall Stats">
         <Columns
-          columns={[
-            {
-              description: 'Saves',
-              value: playerData?.saves,
-              compareValue: selectedPlayer?.saves || undefined,
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey('saves', playerData, selectedPlayer),
-            },
-            {
-              description: 'Deaths',
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey('deaths', playerData, selectedPlayer),
-              value: playerData?.deaths,
-              compareValue: selectedPlayer?.deaths || undefined,
-            },
-            {
-              description: 'S/D Ratio',
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey(
-                  'saveDeathRatio',
-                  playerData,
-                  selectedPlayer,
-                ),
-              value: playerData?.saveDeathRatio,
-              compareValue: selectedPlayer?.saveDeathRatio || undefined,
-            },
-            {
-              description: 'Win Rate',
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey('winRate', playerData, selectedPlayer),
-              value: playerData?.winRate,
-              compareValue: selectedPlayer?.winRate || undefined,
-            },
-            {
-              description: 'Highest Win Streak',
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey(
-                  'highestWinStreak',
-                  playerData,
-                  selectedPlayer,
-                ),
-              value: playerData?.highestWinStreak,
-              compareValue: selectedPlayer?.highestWinStreak || undefined,
-            },
-          ]}
+          columns={playerColumns.map((col) => ({
+            description: col.title,
+            value: playerData[col.key],
+            compareValue: selectedPlayer?.[col.key] || undefined,
+            isBetter:
+              selectedPlayer &&
+              getSortConditionByKey(col.key, playerData, selectedPlayer),
+          }))}
         />
       </PageContainer>
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
