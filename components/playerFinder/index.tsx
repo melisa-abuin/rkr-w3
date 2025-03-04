@@ -3,14 +3,16 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Container, Options, Option, Wrapper } from './styled'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
-import Columns from '../columns'
-import Link from '../link'
 import Input from '../input'
 import { Search } from '../icons/search'
 import { useTheme } from '@/hooks/useTheme'
 import Image from 'next/image'
 
-export default function PlayerFinder() {
+interface Props {
+  onPlayerSelect: (player: PlayerStats) => void
+}
+
+export default function PlayerFinder({ onPlayerSelect }: Props) {
   const [query, setQuery] = useState('')
   const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
   const [selectedPlayer, setSelectedPlayer] = useState<
@@ -27,7 +29,6 @@ export default function PlayerFinder() {
         searchTerm.length >= 3 &&
         searchTerm !== selectedPlayer?.battleTag.tag
       ) {
-        console.log(searchTerm, selectedPlayer)
         setLoading(true)
         setError(null)
 
@@ -48,6 +49,7 @@ export default function PlayerFinder() {
           const result = await response.json()
           setFilteredData(result)
         } catch (error) {
+          setFilteredData(undefined)
           setError((error as Error).message)
         } finally {
           setLoading(false)
@@ -69,10 +71,11 @@ export default function PlayerFinder() {
     setQuery(event.target.value)
   }
 
-  const onPlayerSelect = (player: PlayerStats) => {
+  const onSelect = (player: PlayerStats) => {
     setSelectedPlayer(player)
     setFilteredData(undefined)
     setQuery(player.battleTag.tag)
+    onPlayerSelect(player)
   }
 
   const onSearchClear = () => {
@@ -81,90 +84,54 @@ export default function PlayerFinder() {
   }
 
   return (
-    <>
-      <Container>
-        <label htmlFor="player">Find Player</label>
-        <Wrapper>
-          <Input
-            id="player"
-            leftIcon={
-              loading ? (
-                <Image
-                  alt="loading"
-                  height={16}
-                  src={`/loading-${theme.name}.gif`}
-                  width={16}
-                />
-              ) : (
-                <Search height={16} fill={theme.text.primary} width={16} />
-              )
-            }
-            name="player"
-            onChange={onChange}
-            onCrossClick={onSearchClear}
-            placeholder="Type player battle tag"
-            value={query}
-          />
-
-          {filteredData && !loading && !error && (
-            <Options>
-              {filteredData.length > 0 ? (
-                filteredData.map((player) => (
-                  <Option
-                    key={player.battleTag.tag}
-                    isClickable
-                    onClick={() => onPlayerSelect(player)}
-                  >
-                    {player.battleTag.tag}
-                  </Option>
-                ))
-              ) : (
-                <Option>No results</Option>
-              )}
-            </Options>
-          )}
-
-          {error && !loading && (
-            <Options>
-              <Option>Something went wrong</Option>
-            </Options>
-          )}
-        </Wrapper>
-      </Container>
-      {selectedPlayer && (
-        <Columns
-          actionColumn={
-            <Link
-              href={`/player/${encodeURIComponent(selectedPlayer.battleTag.tag)}`}
-              withButtonStyle
-            >
-              See player stats
-            </Link>
+    <Container>
+      <label htmlFor="player">Find Player</label>
+      <Wrapper>
+        <Input
+          id="player"
+          leftIcon={
+            loading ? (
+              <Image
+                alt="loading"
+                height={16}
+                src={`/loading-${theme.name}.gif`}
+                width={16}
+              />
+            ) : (
+              <Search height={16} fill={theme.text.primary} width={16} />
+            )
           }
-          columns={[
-            {
-              title: 'Saves',
-              value: selectedPlayer?.saves,
-            },
-            {
-              title: 'Deaths',
-              value: selectedPlayer?.deaths,
-            },
-            {
-              title: 'S/D Ratio',
-              value: selectedPlayer?.saveDeathRatio,
-            },
-            {
-              title: 'Highest Save Streak',
-              value: selectedPlayer?.saveStreak?.highestSaveStreak,
-            },
-            {
-              title: 'Highest Win Streak',
-              value: selectedPlayer?.highestWinStreak,
-            },
-          ]}
+          name="player"
+          onChange={onChange}
+          onCrossClick={onSearchClear}
+          placeholder="Type player battle tag"
+          value={query}
         />
-      )}
-    </>
+
+        {filteredData && !loading && (
+          <Options>
+            {filteredData.length > 0 ? (
+              filteredData.map((player) => (
+                <Option
+                  key={player.battleTag.tag}
+                  isClickable
+                  onClick={() => onSelect(player)}
+                >
+                  {player.battleTag.tag}
+                </Option>
+              ))
+            ) : (
+              <Option>No results</Option>
+            )}
+          </Options>
+        )}
+
+        {error && !loading && (
+          <Options>
+            <Option>Something went wrong</Option>
+          </Options>
+        )}
+      </Wrapper>
+    </Container>
   )
 }
