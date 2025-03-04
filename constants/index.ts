@@ -199,6 +199,14 @@ export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ]
 
+export const playerColumns = [
+  { title: 'Saves', key: 'saves' },
+  { title: 'Deaths', key: 'deaths' },
+  { title: 'S/D Ratio', key: 'saveDeathRatio' },
+  { title: 'Win Rate', key: 'winRate' },
+  { title: 'Highest Win Streak', key: 'highestWinStreak' },
+] as const
+
 export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Best R1 Times', key: 'roundOne' },

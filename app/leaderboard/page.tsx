@@ -12,7 +12,7 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import Link from '@/components/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
 import Info from '@/components/atoms/info'
-import PlayerFinder from '@/components/playerFinder'
+import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 
 interface Data {
   player: string
@@ -65,7 +65,7 @@ export default async function Leaderboard() {
               title="Leaderboard"
             />
             <PageContainer>
-              <PlayerFinder />
+              <PlayerFinderWithResult />
             </PageContainer>
             <PageContainer
               ariaLabelledby="columns-score-title"
