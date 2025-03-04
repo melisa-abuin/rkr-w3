@@ -1,63 +1,61 @@
 import { screen } from '@testing-library/react'
 import TextWithIcon from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
+import themes from '@/theme'
 
-jest.mock('@/hooks/useTheme', () => ({
-  useTheme: jest.fn(),
+jest.mock('@/hooks/usePreferredTheme', () => ({
+  usePreferredTheme: jest.fn(),
 }))
 
-const mockUseTheme = jest.requireMock('@/hooks/useTheme').useTheme
-
-const mockTheme = {
-  text: { primary: '#000' },
-  color: { primary: '#ff0000', customColor: '#00ff00' },
-}
+const mockUsePreferredTheme = jest.requireMock(
+  '@/hooks/usePreferredTheme',
+).usePreferredTheme
 
 describe('TextWithIcon', () => {
   beforeEach(() => {
-    mockUseTheme.mockReturnValue([mockTheme])
+    mockUsePreferredTheme.mockReturnValue([themes.light, jest.fn()])
   })
 
-  test('renders children correctly', () => {
+  it('renders children correctly', () => {
     renderWithTheme(<TextWithIcon>Test Text</TextWithIcon>)
     expect(screen.getByText('Test Text')).toBeInTheDocument()
   })
 
-  test('applies default color when no colorName is provided', () => {
+  it('applies default color when no colorName is provided', () => {
     renderWithTheme(<TextWithIcon>Test</TextWithIcon>)
     expect(screen.getByText('Test')).toHaveStyle(
-      `color: ${mockTheme.text.primary}`,
+      `color: ${themes.light.text.primary}`,
     )
   })
 
-  test('applies the correct color when colorName is provided', () => {
-    renderWithTheme(<TextWithIcon colorName="customColor">Test</TextWithIcon>)
+  it('applies the correct color when colorName is provided', () => {
+    renderWithTheme(<TextWithIcon colorName="yellow">Test</TextWithIcon>)
     expect(screen.getByText('Test')).toHaveStyle(
-      `color: ${mockTheme.color.customColor}`,
+      `color: ${themes.light.color.yellow}`,
     )
   })
 
-  test('renders the correct icon when iconName is "crown"', () => {
+  it('renders the correct icon when iconName is "crown"', () => {
     renderWithTheme(<TextWithIcon iconName="crown">Test</TextWithIcon>)
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
 
-  test('renders the correct icon when iconName is "winner"', () => {
+  it('renders the correct icon when iconName is "winner"', () => {
     renderWithTheme(<TextWithIcon iconName="winner">Test</TextWithIcon>)
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
 
-  test('renders the correct icon when iconName is "flame"', () => {
+  it('renders the correct icon when iconName is "flame"', () => {
     renderWithTheme(<TextWithIcon iconName="flame">Test</TextWithIcon>)
     expect(screen.getByRole('img')).toBeInTheDocument()
   })
 
-  test('does not render an icon when iconName is undefined', () => {
+  it('does not render an icon when iconName is undefined', () => {
     renderWithTheme(<TextWithIcon>Test</TextWithIcon>)
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
   })
 
-  test('applies the correct icon size when iconSize is provided', () => {
+  it('applies the correct icon size when iconSize is provided', () => {
     renderWithTheme(
       <TextWithIcon iconName="crown" iconSize={30}>
         Test

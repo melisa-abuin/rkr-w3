@@ -2,8 +2,8 @@ import { screen, fireEvent } from '@testing-library/react'
 import Toggle from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
-describe('Toggle Component', () => {
-  test('renders correctly with initial state', () => {
+describe('Toggle', () => {
+  it('renders correctly with initial state', () => {
     renderWithTheme(
       <Toggle
         onToggle={jest.fn()}
@@ -18,7 +18,7 @@ describe('Toggle Component', () => {
     expect(screen.getByTestId('icon-off')).toBeInTheDocument()
   })
 
-  test('calls onToggle when clicked', () => {
+  it('calls onToggle when clicked', () => {
     const mockOnToggle = jest.fn()
     renderWithTheme(
       <Toggle
@@ -35,7 +35,7 @@ describe('Toggle Component', () => {
     expect(mockOnToggle).toHaveBeenCalledTimes(1)
   })
 
-  test('toggles text and icon on click', () => {
+  it('toggles text and icon on click', () => {
     renderWithTheme(
       <Toggle
         onToggle={jest.fn()}
