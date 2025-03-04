@@ -80,7 +80,7 @@ export const getSortConditionByKey = (
     return firstElement < secondElement
   }
 
-  return key === 'battleTag'
+  return key === 'battleTag' || key === 'deaths'
     ? firstElement < secondElement
     : firstElement > secondElement
 }
