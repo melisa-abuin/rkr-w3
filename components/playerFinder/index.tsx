@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react'
-import { Container, Options, Option, Wrapper } from './styled'
+import { Options, Option, Wrapper } from './styled'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Input from '../input'
 import { Search } from '../icons/search'
@@ -84,54 +84,51 @@ export default function PlayerFinder({ onPlayerSelect }: Props) {
   }
 
   return (
-    <Container>
-      <label htmlFor="player">Find Player</label>
-      <Wrapper>
-        <Input
-          id="player"
-          leftIcon={
-            loading ? (
-              <Image
-                alt="loading"
-                height={16}
-                src={`/loading-${theme.name}.gif`}
-                width={16}
-              />
-            ) : (
-              <Search height={16} fill={theme.text.primary} width={16} />
-            )
-          }
-          name="player"
-          onChange={onChange}
-          onCrossClick={onSearchClear}
-          placeholder="Type player battle tag"
-          value={query}
-        />
+    <Wrapper>
+      <Input
+        id="player"
+        leftIcon={
+          loading ? (
+            <Image
+              alt="loading"
+              height={16}
+              src={`/loading-${theme.name}.gif`}
+              width={16}
+            />
+          ) : (
+            <Search height={16} fill={theme.text.primary} width={16} />
+          )
+        }
+        name="player"
+        onChange={onChange}
+        onCrossClick={onSearchClear}
+        placeholder="Search a player"
+        value={query}
+      />
 
-        {filteredData && !loading && (
-          <Options>
-            {filteredData.length > 0 ? (
-              filteredData.map((player) => (
-                <Option
-                  key={player.battleTag.tag}
-                  isClickable
-                  onClick={() => onSelect(player)}
-                >
-                  {player.battleTag.tag}
-                </Option>
-              ))
-            ) : (
-              <Option>No results</Option>
-            )}
-          </Options>
-        )}
+      {filteredData && !loading && (
+        <Options>
+          {filteredData.length > 0 ? (
+            filteredData.map((player) => (
+              <Option
+                key={player.battleTag.tag}
+                isClickable
+                onClick={() => onSelect(player)}
+              >
+                {player.battleTag.tag}
+              </Option>
+            ))
+          ) : (
+            <Option>No results</Option>
+          )}
+        </Options>
+      )}
 
-        {error && !loading && (
-          <Options>
-            <Option>Something went wrong</Option>
-          </Options>
-        )}
-      </Wrapper>
-    </Container>
+      {error && !loading && (
+        <Options>
+          <Option>Something went wrong</Option>
+        </Options>
+      )}
+    </Wrapper>
   )
 }

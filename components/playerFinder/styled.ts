@@ -32,5 +32,13 @@ export const Options = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  & input {
+    font-size: var(--font-size-xs-sm);
+    font-weight: var(--font-weight-regular);
+  }
+
+  max-width: 400px;
+  padding-bottom: 16px;
   position: relative;
+  width: 100%;
 `

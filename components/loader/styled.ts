@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components'
 
 interface Props {
   height?: number | string
+  variant?: 'primary' | 'secondary'
   width?: number | string
 }
 
@@ -14,9 +15,17 @@ const shine = keyframes`
 export const Background = styled.div<Props>`
   background: linear-gradient(
     110deg,
-    ${({ theme }) => theme.background.quaternary} 8%,
+    ${({ theme, variant }) =>
+        variant === 'primary'
+          ? theme.background.quaternary
+          : theme.background.highlightSecondary}
+      8%,
     ${({ theme }) => theme.background.highlightTertiary} 18%,
-    ${({ theme }) => theme.background.quaternary} 33%
+    ${({ theme, variant }) =>
+        variant === 'primary'
+          ? theme.background.quaternary
+          : theme.background.highlightSecondary}
+      33%
   );
   border-radius: 5px;
   background-size: 200% 100%;

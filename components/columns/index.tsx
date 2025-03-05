@@ -3,6 +3,7 @@
 import React, { ReactNode } from 'react'
 import { Col, Container, Description } from './styled'
 import TextWithIcon from '../atoms/textWithIcon'
+import LoaderColumns from './components/loader'
 
 interface Props {
   actionColumn?: ReactNode
@@ -12,10 +13,17 @@ interface Props {
     compareValue?: number | string
     isBetter?: boolean
   }>
+  loading?: boolean
 }
 
-export default function Columns({ actionColumn, columns }: Props) {
-  return (
+export default function Columns({
+  actionColumn,
+  columns,
+  loading = false,
+}: Props) {
+  return loading ? (
+    <LoaderColumns />
+  ) : (
     <Container>
       {columns.map(({ description, value, compareValue, isBetter }) => (
         <Col key={description}>

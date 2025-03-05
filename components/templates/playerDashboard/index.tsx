@@ -43,16 +43,13 @@ export default function PlayerDashboard({
 
       const result = await response.json()
       setSelectedPlayer(result)
+      setError(null)
     } catch (error) {
       setError((error as Error).message)
     } finally {
       setLoading(false)
     }
   }, [])
-
-  //TODO: handle these cases
-  console.log(loading)
-  console.log(error)
 
   return (
     <>
@@ -67,9 +64,13 @@ export default function PlayerDashboard({
           }
         />
         <PlayerFinder onPlayerSelect={fetchData} />
+        {error && (
+          <p>There was an error handling the request. Try again later</p>
+        )}
       </PageContainer>
       <PageContainer title="Overall Stats">
         <Columns
+          loading={loading}
           columns={playerColumns.map((col) => ({
             description: col.title,
             value: playerData[col.key],
@@ -90,6 +91,7 @@ export default function PlayerDashboard({
           marginBottom={24}
         >
           <Columns
+            loading={loading}
             columns={roundNames.map((round) => ({
               description: `Round ${round}`,
               value: secondsToSexagesimal(

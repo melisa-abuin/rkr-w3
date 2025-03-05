@@ -4,6 +4,7 @@ export const Col = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 8px;
   justify-content: center;
 `
