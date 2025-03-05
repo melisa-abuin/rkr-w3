@@ -4,6 +4,7 @@ export const Col = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 8px;
   justify-content: center;
 `
@@ -20,12 +21,8 @@ export const Container = styled.div`
   flex-wrap: wrap;
 `
 
-export const ValueText = styled.span`
-  font-size: var(--font-size-md);
-  font-weight: var(--font-weight-bold);
-`
-
-export const LabelText = styled.span`
+export const Description = styled.span`
+  color: ${({ theme }) => theme.text.primary};
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-regular);
 `

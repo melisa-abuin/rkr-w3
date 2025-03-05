@@ -8,8 +8,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 4px;
-  justify-content: center;
+  justify-content: space-between;
   padding: 8px;
+  width: 100%;
 
   &:focus {
     outline: 1px solid ${({ theme }) => theme.color.primary};
@@ -20,7 +21,7 @@ export const StyledInput = styled.input`
   background-color: ${({ theme }) => theme.background.quaternary};
   color: ${({ theme }) => theme.text.primary};
   border: none;
-
+  flex: 1;
   &:focus {
     outline: none;
   }

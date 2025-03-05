@@ -3,8 +3,8 @@
 import { useTheme } from '@/hooks/useTheme'
 import { Clock } from '../icons/clock'
 import { Stats } from '../icons/stats'
-import { PageContainer } from '../pageContainer'
-import Toggle from '../toggle'
+import { PageContainer } from '../atoms/pageContainer'
+import Toggle from '../atoms/toggle'
 import { useRouter } from 'next/navigation'
 
 export default function ScoreboardSelector({

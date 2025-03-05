@@ -1,9 +1,7 @@
 import React from 'react'
-import { Container } from './styled'
-import { Flame } from '@/components/icons/flame'
-import { Winner } from '@/components/icons/winner'
-import { useTheme } from '@/hooks/useTheme'
+import { Container, Text } from './styled'
 import { Challenges as ChallengesT } from '@/interfaces/player'
+import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
   challenges: ChallengesT
@@ -14,44 +12,40 @@ interface ChallengesProps {
 }
 
 const GeneralChallenges = ({ challenges }: ChallengesProps) => {
-  const [theme] = useTheme()
-  const iconSize = 20
   const [completedChallenges, totalChallenges] = challenges
 
   if (totalChallenges === 0) {
-    return <Container color={theme.text.primary}>none</Container>
+    return <TextWithIcon>none</TextWithIcon>
   }
 
   if (completedChallenges === totalChallenges) {
     return (
-      <Container color={theme.color.teal}>
+      <TextWithIcon colorName="teal" iconName="winner">
         {completedChallenges}/{totalChallenges}
-        <Winner height={iconSize} width={iconSize} fill={theme.color.teal} />
-      </Container>
+      </TextWithIcon>
     )
   }
 
   if (completedChallenges >= totalChallenges * 0.75) {
     return (
-      <Container color={theme.color.green}>
+      <TextWithIcon colorName="green" iconName="flame">
         {completedChallenges}/{totalChallenges}
-        <Flame height={iconSize} width={iconSize} fill={theme.color.green} />
-      </Container>
+      </TextWithIcon>
     )
   }
 
   if (completedChallenges >= totalChallenges * 0.5) {
     return (
-      <Container color={theme.color.yellow}>
+      <TextWithIcon colorName="yellow">
         {completedChallenges}/{totalChallenges}
-      </Container>
+      </TextWithIcon>
     )
   }
 
   return (
-    <Container color={theme.text.primary}>
+    <TextWithIcon>
       {completedChallenges}/{totalChallenges}
-    </Container>
+    </TextWithIcon>
   )
 }
 
@@ -61,10 +55,13 @@ export default function Challenges({ challenges }: Props) {
 
   return (
     <div>
-      <GeneralChallenges challenges={general} />
-      <Container isSmall>
-        Tournament: {completedChallenges}/{totalChallenges}
+      <Container>
+        <GeneralChallenges challenges={general} />
       </Container>
+
+      <Text>
+        Tournament: {completedChallenges}/{totalChallenges}
+      </Text>
     </div>
   )
 }

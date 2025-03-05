@@ -8,6 +8,7 @@ import {
   calculateCompletedChallengesLegacy,
 } from '@/utils/calculateCompletedChallenges'
 import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
+import { calculateWinRate } from '@/utils/calculateWinRate'
 
 export default async function handler(
   req: NextApiRequest,
@@ -88,6 +89,11 @@ export default async function handler(
         GameStats.NormalWins,
         GameStats.HardWins,
         GameStats.ImpossibleWins,
+      )
+
+      playerStats['winRate'] = calculateWinRate(
+        playerStats.wins.total,
+        playerStats.gamesPlayed.total,
       )
 
       return playerStats as PlayerStats

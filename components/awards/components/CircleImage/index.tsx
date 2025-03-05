@@ -20,7 +20,7 @@ export default function CircleImage({
     <StyledImage
       {...rest}
       alt={alt}
-      completed={completed}
+      complete={completed}
       height={48}
       onError={() => {
         setImgSrc(fallbackSrc)

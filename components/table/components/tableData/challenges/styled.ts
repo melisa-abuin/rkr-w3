@@ -1,16 +1,14 @@
 import styled from 'styled-components'
 
-export const Container = styled.p<{ color?: string; isSmall?: boolean }>`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  font-size: ${({ isSmall }) =>
-    isSmall ? 'var(--font-size-xs)' : 'var(--font-size-sm)'};
-  font-weight: ${({ isSmall }) =>
-    isSmall ? 'var(--font-weight-regular)' : 'var(--font-weight-semi-bold)'};
-  gap: 4px;
-  justify-content: center;
-  color: ${({ color, theme }) => (color ? color : theme.text.secondary)};
-  margin-top: 10px;
+export const Container = styled.div`
   margin-bottom: 4px;
+  margin-top: 10px;
+`
+
+export const Text = styled.p`
+  color: ${({ theme }) => theme.text.secondary};
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  margin-bottom: 4px;
+  margin-top: 10px;
 `

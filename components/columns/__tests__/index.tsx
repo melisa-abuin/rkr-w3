@@ -2,11 +2,28 @@ import { screen } from '@testing-library/react'
 import Columns from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
+function mockMatchMedia(matches: boolean) {
+  return jest.fn().mockImplementation((query) => ({
+    matches,
+    media: query,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  }))
+}
+
 describe('Columns Component', () => {
+  beforeEach(() => {
+    window.matchMedia = mockMatchMedia(false)
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('renders columns correctly', () => {
     const columns = [
-      { title: 'Wins', value: 10 },
-      { title: 'Losses', value: 5 },
+      { description: 'Wins', value: 10 },
+      { description: 'Losses', value: 5 },
     ]
 
     renderWithTheme(<Columns columns={columns} />)
@@ -18,7 +35,7 @@ describe('Columns Component', () => {
   })
 
   it('handles missing values (undefined) gracefully', () => {
-    const columns = [{ title: 'Points' }]
+    const columns = [{ description: 'Points' }]
 
     renderWithTheme(<Columns columns={columns} />)
 
