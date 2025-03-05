@@ -25,6 +25,8 @@ export default function PlayerDashboard({
   const [error, setError] = useState<string | null>(null)
 
   const fetchData = useCallback(async (player: PlayerStats) => {
+    setLoading(true)
+
     // TODO: create helper or what about react query?
     try {
       const response = await fetch('/api/player', {
