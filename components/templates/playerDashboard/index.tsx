@@ -63,7 +63,10 @@ export default function PlayerDashboard({
               : battleTag.name
           }
         />
-        <PlayerFinder onPlayerSelect={fetchData} />
+        <PlayerFinder
+          onPlayerSelect={fetchData}
+          placeholder="Compare with another player"
+        />
         {error && (
           <p>There was an error handling the request. Try again later</p>
         )}

@@ -10,9 +10,13 @@ import Image from 'next/image'
 
 interface Props {
   onPlayerSelect: (player: PlayerStats) => void
+  placeholder?: string
 }
 
-export default function PlayerFinder({ onPlayerSelect }: Props) {
+export default function PlayerFinder({
+  onPlayerSelect,
+  placeholder = 'Search a player',
+}: Props) {
   const [query, setQuery] = useState('')
   const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
   const [selectedPlayer, setSelectedPlayer] = useState<
@@ -102,7 +106,7 @@ export default function PlayerFinder({ onPlayerSelect }: Props) {
         name="player"
         onChange={onChange}
         onCrossClick={onSearchClear}
-        placeholder="Search a player"
+        placeholder={placeholder}
         value={query}
       />
 
