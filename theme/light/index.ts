@@ -20,7 +20,7 @@ const lightTheme = {
     quaternary: '#efefef',
     highlightPrimary: '#f5a4a4',
     highlightSecondary: '#f7f7f7',
-    highlightTertiary: '#e7e7e7',
+    highlightTertiary: '#e6dada',
   },
   text: {
     primary: '#050505',
