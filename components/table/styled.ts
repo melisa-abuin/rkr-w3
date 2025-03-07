@@ -17,10 +17,13 @@ export const Container = styled.section`
 export const StyledTable = styled.table`
   max-width: 1000px;
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  background-color: ${({ theme }) => theme.background.quaternary};
+  border-spacing: 0;
 
-  & tr:nth-child(even) {
-    background-color: ${({ theme }) => theme.background.quaternary};
+  padding: 16px;
+  & tr:nth-child(odd) {
+    background-color: ${({ theme }) => theme.background.highlightPrimary};
   }
 
   caption {
@@ -34,19 +37,18 @@ export const StyledTh = styled.th<{
   hasActions: boolean
   highlighted: boolean
 }>`
-  background-color: ${({ highlighted, theme }) =>
-    highlighted ? theme.background.highlightPrimary : 'inherit'};
-  padding: 10px;
-  font-weight: var(--font-weight-bold);
-  text-align: center;
-
+  border-bottom: ${({ highlighted, theme }) =>
+    highlighted ? `1px solid ${theme.text.tertiary}` : 'none'};
+  background-color: ${({ theme }) => theme.background.quaternary};
   cursor: ${({ hasActions }) => (hasActions ? 'pointer' : 'auto')};
+  font-weight: var(--font-weight-bold);
+  padding: 10px;
+  text-align: center;
   transition: background-color 1s;
 `
 
 export const StyledTr = styled.tr`
   border: none;
-  background-color: ${({ theme }) => theme.background.tertiary};
   color: ${({ theme }) => theme.text.tertiary};
   border-radius: 10px;
 `
@@ -57,7 +59,7 @@ export const StyledTd = styled.td<{
 }>`
   background-color: ${({ highlighted, theme, index = 0 }) =>
     highlighted
-      ? index % 2 === 0
+      ? index % 2 !== 0
         ? theme.background.highlightSecondary
         : theme.background.highlightTertiary
       : 'inherit'};
