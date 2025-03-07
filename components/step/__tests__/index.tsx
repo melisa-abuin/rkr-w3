@@ -8,15 +8,6 @@ interface ImageProps {
   onError: () => void
 }
 
-function mockMatchMedia(matches: boolean) {
-  return jest.fn().mockImplementation((query) => ({
-    matches,
-    media: query,
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-  }))
-}
-
 jest.mock('next/image', () => ({
   __esModule: true,
   default: jest.fn(({ src, alt, onError }: ImageProps) => (
@@ -26,10 +17,6 @@ jest.mock('next/image', () => ({
 }))
 
 describe('Step', () => {
-  beforeEach(() => {
-    window.matchMedia = mockMatchMedia(false)
-  })
-
   afterEach(() => {
     jest.clearAllMocks()
   })
