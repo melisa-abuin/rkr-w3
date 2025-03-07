@@ -13,7 +13,7 @@ export default function Loading() {
     <div
       style={{
         alignItems: 'center',
-        backgroundColor: isDarkTheme ? '#170d0d' : '#FFFFFF',
+        backgroundColor: isDarkTheme ? '#130f0f' : '#FFFFFF',
         color: isDarkTheme ? '#ebe4e4' : '#050505',
         display: 'flex',
         gap: '10px',
