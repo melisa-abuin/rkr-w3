@@ -9,7 +9,7 @@ import { statsColumns } from '@/constants'
 import { headers } from 'next/headers'
 import ColumnCards from '@/components/columnCards'
 import { PageContainer } from '@/components/atoms/pageContainer'
-import Link from '@/components/link'
+import Link from '@/components/atoms/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
 import Info from '@/components/atoms/info'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
@@ -89,6 +89,7 @@ export default async function Leaderboard() {
             />
             <PageContainer as="div" marginBottom={48}>
               <Link
+                colorName="tertiary"
                 href="/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc"
                 withButtonStyle
               >
@@ -98,7 +99,11 @@ export default async function Leaderboard() {
             <Info as="ul">
               <li>
                 <strong>Can&apos;t find your stats?</strong>{' '}
-                <Link href="/guide" aria-label="Go to guide">
+                <Link
+                  colorName="tertiary"
+                  href="/guide"
+                  aria-label="Go to guide"
+                >
                   Click here
                 </Link>{' '}
                 to learn how to upload your game progress and get featured on
@@ -107,6 +112,7 @@ export default async function Leaderboard() {
               <li>
                 Don&apos;t want your BattleTag displayed on this page? Join our{' '}
                 <Link
+                  colorName="tertiary"
                   href="https://discord.com/channels/873715731873804298/1344673409468207186"
                   aria-label="Discord server"
                   target="_blank"

@@ -6,7 +6,7 @@ import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
 import DesktopNavbar from './components/desktop'
 import MobileNavbar from './components/mobile'
-import Link from 'next/link'
+import Link from '../atoms/link'
 
 export default function Navbar() {
   const pathname = usePathname()

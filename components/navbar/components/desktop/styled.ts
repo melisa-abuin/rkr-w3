@@ -9,9 +9,7 @@ export const NavLink = styled.li<NavLinkProps>`
     font-size: var(--font-size-xs-sm);
     font-weight: var(
       ${({ selected }) =>
-        selected
-          ? '--font-weight-semi-bold-hightlight'
-          : '--font-weight-semi-bold'}
+        selected ? '--font-weight-bold' : '--font-weight-semi-bold'}
     );
     text-decoration: none;
   }
