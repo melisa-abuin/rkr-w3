@@ -2,22 +2,9 @@ import { screen, fireEvent } from '@testing-library/react'
 import Input from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
-function mockMatchMedia(matches: boolean) {
-  return jest.fn().mockImplementation((query) => ({
-    matches,
-    media: query,
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-  }))
-}
-
 describe('Input Component', () => {
   const mockOnChange = jest.fn()
   const mockOnCrossClick = jest.fn()
-
-  beforeEach(() => {
-    window.matchMedia = mockMatchMedia(false)
-  })
 
   it('renders correctly with required props', () => {
     renderWithTheme(

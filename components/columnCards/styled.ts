@@ -50,7 +50,7 @@ export const Table = styled.table`
 `
 
 export const Td = styled.td`
-  background-color: ${({ theme }) => theme.background.highlightTertiary};
+  background-color: ${({ theme }) => theme.background.highlightPrimary};
   color: ${({ theme }) => theme.text.primary};
   padding: 10px;
   position: relative;

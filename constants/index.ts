@@ -184,7 +184,7 @@ export const routes = {
     url: '/guide',
     target: '_self',
   },
-}
+} as const
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 

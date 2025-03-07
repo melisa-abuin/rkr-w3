@@ -8,8 +8,3 @@ export const FooterContainer = styled.footer`
   font-size: var(--font-size-xs);
   line-height: 1.5;
 `
-
-export const Link = styled.a`
-  color: ${({ theme }) => theme.color.secondary};
-  text-decoration: none;
-`

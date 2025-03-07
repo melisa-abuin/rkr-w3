@@ -2,24 +2,7 @@ import { screen } from '@testing-library/react'
 import Columns from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
-function mockMatchMedia(matches: boolean) {
-  return jest.fn().mockImplementation((query) => ({
-    matches,
-    media: query,
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-  }))
-}
-
 describe('Columns Component', () => {
-  beforeEach(() => {
-    window.matchMedia = mockMatchMedia(false)
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('renders columns correctly', () => {
     const columns = [
       { description: 'Wins', value: 10 },

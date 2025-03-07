@@ -3,24 +3,7 @@ import { screen } from '@testing-library/react'
 import Challenges from '@/components/table/components/tableData/challenges'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
-function mockMatchMedia(matches: boolean) {
-  return jest.fn().mockImplementation((query) => ({
-    matches,
-    media: query,
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-  }))
-}
-
 describe('Challenges', () => {
-  beforeEach(() => {
-    window.matchMedia = mockMatchMedia(false)
-  })
-
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
-
   it('renders with Winner icon when general challenges are fully completed', () => {
     renderWithTheme(
       <Challenges challenges={{ general: [56, 56], tournament: [10, 10] }} />,

@@ -2,11 +2,11 @@
 import { usePathname } from 'next/navigation'
 import { CloseButton, Container, MobileMenu, NavLinks, NavLink } from './styled'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
 import { useState } from 'react'
 import { downloadFileName, routes } from '@/constants'
+import Link from '@/components/atoms/link'
 
 export default function MobileNavbar() {
   const pathname = usePathname()
@@ -49,9 +49,6 @@ export default function MobileNavbar() {
               <Link
                 href={route.url}
                 target={route.target}
-                rel={
-                  route.target === '_blank' ? 'noopener noreferrer' : undefined
-                }
                 onClick={() => setIsMenuOpen(false)}
               >
                 {route.label}

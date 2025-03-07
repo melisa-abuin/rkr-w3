@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { PlayerStats } from '@/interfaces/player'
 import PlayerFinder from '@/components/playerFinder'
 import Columns from '@/components/columns'
-import Link from '@/components/link'
+import Link from '@/components/atoms/link'
 import { playerColumns } from '@/constants'
 
 export default function PlayerFinderWithResult() {
