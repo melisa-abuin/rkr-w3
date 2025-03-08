@@ -4,7 +4,7 @@ import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
+import Footer from '@/components/molecules/footer'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {

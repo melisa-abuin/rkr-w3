@@ -1,4 +1,4 @@
-import Footer from '@/components/footer'
+import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/navbar'
 import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'

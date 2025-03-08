@@ -3,7 +3,7 @@ import Table from '@/components/table'
 import { BestTime, PlayersStats } from '@/interfaces/player'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
+import Footer from '@/components/molecules/footer'
 import PageHeader from '@/components/pageHeader'
 import { statsColumns } from '@/constants'
 import { headers } from 'next/headers'
@@ -13,6 +13,7 @@ import Link from '@/components/atoms/link'
 import ColumnCardsWithControls from '@/components/columnCardsWithControls'
 import Info from '@/components/atoms/info'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
+import BestGames from '@/components/bestGames'
 
 interface Data {
   player: string
@@ -82,6 +83,13 @@ export default async function Leaderboard() {
               viewAllKey="time"
               title="Best times"
             />
+            <PageContainer
+              ariaLabelledby="columns-best-games-title"
+              title="Best game times"
+              marginTop={16}
+            >
+              <BestGames />
+            </PageContainer>
             <Table
               columns={statsColumns}
               data={data.scoreboard}

@@ -2,7 +2,7 @@
 
 import { blizzardLink, githubReadMeLink } from '@/constants'
 import { FooterContainer } from './styled'
-import Link from '../atoms/link'
+import Link from '../../atoms/link'
 
 export default function Footer() {
   return (
