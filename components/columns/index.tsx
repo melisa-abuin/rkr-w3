@@ -31,6 +31,7 @@ export default function Columns({
             large
             colorName={!!compareValue && isBetter ? 'yellow' : undefined}
             iconName={isBetter ? 'crown' : undefined}
+            palette="color"
           >
             {value || 0}
           </TextWithIcon>
@@ -39,6 +40,7 @@ export default function Columns({
               large
               colorName={!isBetter ? 'yellow' : undefined}
               iconName={!isBetter ? 'crown' : undefined}
+              palette="color"
             >
               {compareValue || 0}
             </TextWithIcon>
