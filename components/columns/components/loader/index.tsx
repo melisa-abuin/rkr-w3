@@ -1,4 +1,4 @@
-import Loader from '@/components/loader'
+import Loader from '@/components/atoms/loader'
 import { Col, Container } from '../../styled'
 
 export default function LoaderColumns() {
