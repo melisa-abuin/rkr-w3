@@ -86,7 +86,7 @@ export default async function Leaderboard() {
             <PageContainer
               ariaLabelledby="columns-best-games-title"
               title="Best game times"
-              marginTop={16}
+              marginTop={32}
             >
               <BestGames />
             </PageContainer>

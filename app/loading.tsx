@@ -13,7 +13,7 @@ export default function Loading() {
     <div
       style={{
         alignItems: 'center',
-        backgroundColor: isDarkTheme ? '#130f0f' : '#FFFFFF',
+        backgroundColor: isDarkTheme ? '#130F0F' : '#FFFFFF',
         color: isDarkTheme ? '#ebe4e4' : '#050505',
         display: 'flex',
         gap: '10px',
@@ -24,10 +24,10 @@ export default function Loading() {
     >
       <Image
         alt="brand logo"
-        height={80}
+        height={96}
         priority
-        src={isDarkTheme ? '/rkr-icon-dark.png' : `/rkr-icon-white.png`}
-        width={80}
+        src={isDarkTheme ? '/rkr-icon-dark.png' : '/rkr-icon-white.png'}
+        width={96}
       />
       Loading...
     </div>
