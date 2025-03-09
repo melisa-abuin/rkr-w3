@@ -4,38 +4,44 @@ import { Crown } from '@/components/icons/crown'
 import { useTheme } from '@/hooks/useTheme'
 import { Winner } from '@/components/icons/winner'
 import { Flame } from '@/components/icons/flame'
+import { Clock } from '@/components/icons/clock'
+import { Paw } from '@/components/icons/paw'
 
 interface Props {
   children: ReactNode
   colorName?: string
-  iconName?: 'crown' | 'flame' | 'winner' | undefined
+  iconName?: 'clock' | 'crown' | 'flame' | 'paw' | 'winner' | undefined
   iconSize?: number
   large?: boolean
+  palette?: 'color' | 'text'
 }
 
 const icons = {
+  clock: Clock,
   crown: Crown,
+  paw: Paw,
   winner: Winner,
   flame: Flame,
 }
 
 export default function TextWithIcon({
   children,
-  colorName,
+  colorName = 'primary',
   iconName,
   iconSize = 20,
   large = false,
+  palette = 'text',
 }: Props) {
   const [theme] = useTheme()
   const Icon = iconName && icons[iconName]
-  const color = colorName ? theme.color[colorName] : theme.text.primary
+  const color = theme[palette][colorName]
 
   return (
     <Text color={color || theme.text.primary} large={large}>
       {children}
       {iconName && !!Icon && (
         <Icon
-          fill={color || theme.color.primary}
+          fill={color || theme.text.primary}
           height={iconSize}
           width={iconSize}
         />

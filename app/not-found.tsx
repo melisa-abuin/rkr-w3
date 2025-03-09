@@ -28,10 +28,10 @@ export default function NotFound() {
     >
       <Image
         alt="brand logo"
-        height={80}
+        height={96}
         priority
         src={isDarkTheme ? '/rkr-icon-dark.png' : `/rkr-icon-white.png`}
-        width={80}
+        width={96}
       />
       <h1>404 - Page Not Found</h1>
       <p>The page you&apos;re looking for does not exist.</p>
