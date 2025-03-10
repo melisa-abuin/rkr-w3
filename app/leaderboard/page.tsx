@@ -14,6 +14,7 @@ import ColumnCardsWithControls from '@/components/columnCardsWithControls'
 import Info from '@/components/atoms/info'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import BestGames from '@/components/bestGames'
+import { GamesStats } from '@/interfaces/game'
 
 interface Data {
   player: string
@@ -29,6 +30,11 @@ interface PlayerStatsData {
       times: Array<{ category: string; key: string; data: Data[] }>
     }
   }
+}
+
+interface GameStatsData {
+  error: string | null
+  data: GamesStats
 }
 
 async function fetchData(): Promise<PlayerStatsData> {
@@ -50,14 +56,34 @@ async function fetchData(): Promise<PlayerStatsData> {
   }
 }
 
+async function fetchGameTimes(): Promise<GameStatsData> {
+  const headersList = headers()
+  const protocol = headersList.get('x-forwarded-proto') || 'http'
+  const host = headersList.get('host')
+  const url = `${protocol}://${host}`
+
+  const response = await fetch(`${url}/api/gameTimes`)
+  if (response.status === 200) {
+    return {
+      data: await response.json(),
+      error: null,
+    }
+  }
+  return {
+    data: [],
+    error: 'Something went wrong',
+  }
+}
+
 export default async function Leaderboard() {
   const { data, error } = await fetchData()
+  const { data: gameData, error: gameError } = await fetchGameTimes()
 
   return (
     <ThemeProvider>
       <Navbar />
       <main>
-        {error ? (
+        {error || gameError ? (
           <Error />
         ) : (
           <>
@@ -88,7 +114,7 @@ export default async function Leaderboard() {
               title="Best game times"
               marginTop={32}
             >
-              <BestGames />
+              <BestGames games={gameData} />
             </PageContainer>
             <Table
               columns={statsColumns}
