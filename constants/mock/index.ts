@@ -366,7 +366,7 @@ export const mockGameApiData = [
     Data: JSON.stringify({
       Date: '2025-03-08 21:49:56',
       TeamMembers:
-        'Matt#2345, Laura#1234, Alexander#12345, Emmanuel#99999, Mike#6789',
+        'Matt#2345, Laura#1234, Alexander#12345, Emmanuel#99999, Mike#6789, Jessie#3333',
       Time: 3162.418,
     }),
   },
@@ -375,7 +375,7 @@ export const mockGameApiData = [
     Difficulty: 'Normal',
     Data: JSON.stringify({
       Date: '2025-03-07 23:26:58',
-      TeamMembers: ' Mike#6789',
+      TeamMembers: 'Matt#2345, Mike#6789, Jessie#3333',
       Time: 2194.204,
     }),
   },
@@ -384,7 +384,7 @@ export const mockGameApiData = [
     Difficulty: 'Impossible',
     Data: JSON.stringify({
       Date: '2025-03-07 22:43:38',
-      TeamMembers: 'Matt#2345, Mike#6789, Alexander#12345',
+      TeamMembers: 'Matt#2345, Mike#6789, Alexander#12345, Jessie#3333',
       Time: 4859.82,
     }),
   },
@@ -393,7 +393,7 @@ export const mockGameApiData = [
     Difficulty: 'Hard',
     Data: JSON.stringify({
       Date: '2025-03-06 22:43:12',
-      TeamMembers: 'Alexander#12345, Emmanuel#99999',
+      TeamMembers: 'Alexander#12345, Emmanuel#99999, Charlie#4567',
       Time: 2528.889,
     }),
   },
@@ -402,7 +402,7 @@ export const mockGameApiData = [
     Difficulty: 'Normal',
     Data: JSON.stringify({
       Date: '2025-03-06 22:41:42',
-      TeamMembers: 'Emmanuel#99999, Matt#2345, Alexander#12345',
+      TeamMembers: 'Emmanuel#99999, Matt#2345, Alexander#12345, Noah#11111',
       Time: 1779.17,
     }),
   },
@@ -411,7 +411,8 @@ export const mockGameApiData = [
     Difficulty: 'Hard',
     Data: JSON.stringify({
       Date: '2025-03-06 17:55:01',
-      TeamMembers: 'Matt#2345, Laura#1234, Alexander#12345, Mike#6789',
+      TeamMembers:
+        'Matt#2345, Laura#1234, Alexander#12345, Mike#6789, Noah#11111, Charlie#4567',
       Time: 3245.011,
     }),
   },
