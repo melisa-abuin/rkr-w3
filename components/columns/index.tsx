@@ -31,7 +31,7 @@ export default function Columns({
             large
             colorName={!!compareValue && isBetter ? 'yellow' : undefined}
             iconName={isBetter ? 'crown' : undefined}
-            palette="color"
+            palette={compareValue && isBetter ? 'color' : 'text'}
           >
             {value || 0}
           </TextWithIcon>
