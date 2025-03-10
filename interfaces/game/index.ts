@@ -9,7 +9,7 @@ export interface GameStats {
 
 export interface ApiGameStats {
   GameDate: string
-  Difficulty: string
+  Difficulty: Difficulty
   Data: string
 }
 export type GamesStats = GameStats[]
