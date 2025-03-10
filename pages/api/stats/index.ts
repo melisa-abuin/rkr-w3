@@ -2,7 +2,7 @@ import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { mockApiData } from '@/constants'
+import { mockApiData } from '@/constants/mock'
 import {
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,

@@ -1,4 +1,4 @@
-import Loader from '@/components/loader'
+import Loader from '@/components/atoms/loader'
 import { Td, Tr } from '../../styled'
 import { LoaderContainer } from './styled'
 

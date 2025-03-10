@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@/hooks/useTheme'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
-import Footer from '@/components/footer'
+import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/navbar'
 import Error from '@/components/error'
 import PlayerDashboard from '@/components/templates/playerDashboard'

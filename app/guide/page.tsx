@@ -1,4 +1,4 @@
-import Footer from '@/components/footer'
+import Footer from '@/components/molecules/footer'
 import Step from '@/components/step'
 import Navbar from '@/components/navbar'
 import { PageContainer } from '@/components/atoms/pageContainer'
