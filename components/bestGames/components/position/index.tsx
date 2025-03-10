@@ -2,14 +2,14 @@ import { useTheme } from '@/hooks/useTheme'
 import { Number } from './styled'
 
 interface Props {
-  pos: 1 | 2 | 3 | 4 | 5
+  pos: number
 }
 
 export default function Position({ pos }: Props) {
   const [theme] = useTheme()
   const { color, text } = theme
 
-  const colorByNumber = {
+  const colorByNumber: Record<number, string> = {
     1: color.teal,
     2: color.green,
     3: color.yellow,
@@ -18,7 +18,7 @@ export default function Position({ pos }: Props) {
   }
 
   return (
-    <Number color={colorByNumber[pos]} small={pos !== 1}>
+    <Number color={colorByNumber[pos] ?? colorByNumber[1]} small={pos !== 1}>
       {pos}
     </Number>
   )

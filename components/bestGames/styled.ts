@@ -29,7 +29,6 @@ export const MobileCardContainer = styled.div`
 `
 
 export const Wrapper = styled.div`
-  align-items: center;
   display: flex;
   flex: 1;
   flex-direction: row;

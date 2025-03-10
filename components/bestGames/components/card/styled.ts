@@ -24,7 +24,9 @@ export const Header = styled.div`
 export const NameList = styled.div`
   background-color: ${({ theme }) => theme.background.highlightPrimary};
   color: ${({ theme }) => theme.text.primary};
+  flex: 1;
   padding: 10px;
+  align-content: center;
   font-size: var(--font-size-xs);
 `
 
