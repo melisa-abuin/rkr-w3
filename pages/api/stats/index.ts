@@ -26,7 +26,7 @@ export default async function handler(
     if (process.env.NODE_ENV === 'development') {
       data = mockApiData
     } else {
-      const response = await fetch(apiKey, {
+      const response = await fetch(`${apiKey}players`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
