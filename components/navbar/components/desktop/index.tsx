@@ -20,7 +20,7 @@ export default function DesktopNavbar() {
       ))}
       <NavLink>
         <Link href={`/${downloadFileName}.w3x`} download={downloadFileName}>
-          Download v1.0.8
+          Download v1.1.4
         </Link>
       </NavLink>
     </NavLinks>

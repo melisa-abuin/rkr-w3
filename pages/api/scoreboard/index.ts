@@ -4,7 +4,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
 import { findTopFive } from '@/utils/findTopFive'
-import { mockApiData, roundNames } from '@/constants'
+import { roundNames } from '@/constants'
+import { mockApiData } from '@/constants/mock'
 import { calculateWinRate } from '@/utils/calculateWinRate'
 import {
   calculateCompletedChallenges,
@@ -25,7 +26,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
     if (process.env.NODE_ENV === 'development') {
       data = mockApiData
     } else {
-      const response = await fetch(apiKey, {
+      const response = await fetch(`${apiKey}players`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +111,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
     const stats = {
       scoreboard: [
         ...formattedData
-          .sort((a: PlayerStats, b: PlayerStats) => {
+          .sort((a, b) => {
             return (
               b.completedChallenges.general[0] -
               a.completedChallenges.general[0]

@@ -1,4 +1,4 @@
-import Footer from '@/components/footer'
+import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/navbar'
 import PageHeader from '@/components/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
@@ -93,7 +93,11 @@ export default async function StatsPage({
             <Info as="ul">
               <li>
                 <strong>Can&apos;t find your stats?</strong>{' '}
-                <Link href="/guide" aria-label="Go to guide">
+                <Link
+                  colorName="tertiary"
+                  href="/guide"
+                  aria-label="Go to guide"
+                >
                   Click here
                 </Link>{' '}
                 to learn how to upload your game progress and get featured on
@@ -102,6 +106,7 @@ export default async function StatsPage({
               <li>
                 Don&apos;t want your BattleTag displayed on this page? Join our{' '}
                 <Link
+                  colorName="tertiary"
                   href="https://discord.com/channels/873715731873804298/1344673409468207186"
                   aria-label="Discord server"
                   target="_blank"

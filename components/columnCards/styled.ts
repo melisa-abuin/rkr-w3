@@ -30,6 +30,7 @@ export const Header = styled.div`
   align-items: center;
   color: ${({ theme }) => theme.text.tertiary};
   display: flex;
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   justify-content: center;
   min-height: 90px;

@@ -27,6 +27,7 @@ export const awardsDescriptions = {
   GreenLightning:
     'Obtained by finishing a round with a save streak of 10 and 0 deaths.',
   GreenTendrils: 'Obtained by purchasing from the shop.',
+  HuntressKitty: 'Obtained by winning the kibble collection event.',
   HighelfKitty: 'Obtained by playing at least 40 Normal+ games',
   ManaAura: 'Obtained by getting 20 Normal+ wins',
   NatureWings: 'Obtained by reaching 750 saves',
@@ -47,6 +48,7 @@ export const awardsDescriptions = {
   NormalDeathless5:
     'Obtained by reaching 6 safezones on Normal+ for round 5 without dying',
   PatrioticTendrils: 'Obtained by reaching a save streak of 50 without dying',
+  PenguinSkin: 'Solo tournament',
   PhoenixWings: 'Obtained by reaching 375 saves',
   PinkFire: 'Obtained by winning a Normal+ game with a 3:1 ratio or better',
   PinkWings: 'Obtained by reaching 600 saves',
@@ -77,9 +79,11 @@ export const awardsDescriptions = {
   VoidWings: 'Obtained by reaching 500 saves',
   WWBlood: 'Obtained by completing the Blood Vial easter egg',
   WWBlue: 'Obtained by completing the Urn of a Broken Soul easter egg',
+  WWDivine: 'Obtained by reaching the limit... only to retrace your journey.',
   WWFire: 'Obtained by completing the Crystal of Fire easter egg',
   WWNecro: 'Obtained by winning the game in under 25 mins',
   WWSwift: 'Obtained by completing the Cat Figurine easter egg',
+  WWViolet: 'Obtainer by... ???',
   WhiteFire:
     'Obtained by beating round 3 nitro on Normal+ with 3 or less deaths.',
   WhiteTendrils: 'Obtained by simply winning a game on Impossible difficulty.',
@@ -153,7 +157,7 @@ export const discordGuideSteps = [
 ]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
-export const downloadFileName = 'RKR_Remastered_1.0.8'
+export const downloadFileName = 'RKR_Remastered_1.1.4'
 
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
@@ -620,16 +624,3 @@ export const formattedMockData = [
     },
   },
 ] as const
-
-export const mockApiData = [
-  {
-    battletag: 'Aches#1817',
-    'Save Data':
-      '{"GameAwards":{"AncientKitty":1,"ArchangelWings":1,"AstralKitty":1,"AzureLight":1,"Bandana":1,"BlueFire":1,"BlueLightning":1,"ButterflyAura":1,"ChaosWings":1,"ChefHat":1,"CosmicWings":1,"CrimsonLight":1,"DivineLight":1,"DivinityTendrils":1,"EmeraldLight":1,"FairyWings":1,"FreezeAura":0,"GreenLightning":1,"GreenTendrils":1,"HighelfKitty":1,"ManaAura":1,"NatureWings":1,"NightmareWings":1,"Nitro":1,"NitroBlue":1,"NitroGreen":1,"NitroPurple":1,"NitroRed":1,"NormalDeathless1":1,"NormalDeathless2":1,"NormalDeathless3":1,"NormalDeathless4":1,"NormalDeathless5":1,"PatrioticTendrils":1,"PhoenixWings":1,"PinkFire":1,"PinkWings":1,"PirateHat":1,"PurpleFire":1,"PurpleLightning":1,"RedLightning":1,"RedTendrils":1,"SamuraiHelm":1,"SantaHat":1,"SatyrKitty":1,"SnowTrail2023":1,"SnowWings2023":1,"SpecialAura":1,"SpectacularAura":1,"StarlightAura":1,"TikiMask":1,"TurquoiseFire":1,"TurquoiseNitro":1,"TurquoiseWings":1,"UndeadKitty":1,"VioletAura":1,"VioletLight":1,"VioletWings":1,"VoidWings":1,"WWBlood":1,"WWBlue":1,"WWFire":1,"WWNecro":1,"WWSwift":1,"WhiteFire":1,"WhiteTendrils":1,"YellowLightning":1,"ZandalariKitty":1},"GameAwardsSorted":{"Auras":{"ButterflyAura":1,"FreezeAura":0,"ManaAura":1,"SpecialAura":1,"SpectacularAura":1,"StarlightAura":1},"Deathless":{"NormalDeathless1":1,"NormalDeathless2":1,"NormalDeathless3":1,"NormalDeathless4":1,"NormalDeathless5":1},"Hats":{"Bandana":1,"ChefHat":1,"PirateHat":1,"SamuraiHelm":1,"SantaHat":1,"TikiMask":1},"Nitros":{"AzureLight":1,"CrimsonLight":1,"DivineLight":1,"EmeraldLight":1,"Nitro":1,"NitroBlue":1,"NitroGreen":1,"NitroPurple":1,"NitroRed":1,"VioletLight":1},"Skins":{"AncientKitty":1,"AstralKitty":1,"HighelfKitty":1,"SatyrKitty":1,"UndeadKitty":1,"ZandalariKitty":1},"Tournament":{"TurquoiseNitro":1,"TurquoiseWings":1,"VioletAura":1,"VioletWings":1},"Trails":{"BlueFire":1,"BlueLightning":1,"GreenLightning":1,"PinkFire":1,"PurpleFire":1,"PurpleLightning":1,"RedLightning":1,"SnowTrail2023":1,"TurquoiseFire":1,"WhiteFire":1,"YellowLightning":1},"Windwalks":{"WWBlood":1,"WWBlue":1,"WWFire":1,"WWNecro":1,"WWSwift":1},"Wings":{"ArchangelWings":1,"ChaosWings":1,"CosmicWings":1,"DivinityTendrils":1,"FairyWings":1,"GreenTendrils":1,"NatureWings":1,"NightmareWings":1,"PatrioticTendrils":1,"PhoenixWings":1,"PinkWings":1,"RedTendrils":1,"SnowWings2023":1,"VoidWings":1,"WhiteTendrils":1}},"GameStats":{"Deaths":1424,"HardGames":0,"HardWins":0,"HighestSaveStreak":13,"HighestWinStreak":1,"ImpossibleGames":5,"ImpossibleWins":3,"NormalGames":59,"NormalWins":13,"SaveStreak":2,"Saves":2266,"WinStreak":1},"PlayerName":"Aches#1817","RoundTimes":{"RoundFiveHard":0,"RoundFiveImpossible":421,"RoundFiveNormal":500,"RoundFiveSolo":130.0,"RoundFourHard":0,"RoundFourImpossible":168.09,"RoundFourNormal":500,"RoundFourSolo":506.23,"RoundOneHard":0,"RoundOneImpossible":424.55,"RoundOneNormal":500,"RoundOneSolo":174.49,"RoundThreeHard":0,"RoundThreeImpossible":153.0,"RoundThreeNormal":500,"RoundThreeSolo":182.89,"RoundTwoHard":0,"RoundTwoImpossible":411.35,"RoundTwoNormal":500,"RoundTwoSolo":0},"SelectedData":{"SelectedAura":"ButterflyAura","SelectedHat":"SantaHat","SelectedSkin":"","SelectedTrail":"VioletLight","SelectedWindwalk":"WWBlood","SelectedWings":"GreenTendrils"}}',
-  },
-  {
-    battletag: 'Local Player',
-    'Save Data':
-      '{"Date":"2025-02-17 04:04:57","GameAwards":{"AncientKitty":0,"ArchangelWings":1,"AstralKitty":0,"AzureLight":0,"Bandana":1,"BlueFire":0,"BlueLightning":1,"ButterflyAura":0,"ChaosWings":1,"ChefHat":1,"CosmicWings":1,"CrimsonLight":0,"DivineLight":1,"DivinityTendrils":0,"EmeraldLight":0,"FairyWings":1,"FreezeAura":0,"GreenLightning":0,"GreenTendrils":0,"HighelfKitty":0,"ManaAura":0,"NatureWings":1,"NightmareWings":1,"Nitro":0,"NitroBlue":0,"NitroGreen":0,"NitroPurple":0,"NitroRed":0,"NormalDeathless1":0,"NormalDeathless2":0,"NormalDeathless3":0,"NormalDeathless4":0,"NormalDeathless5":0,"PatrioticTendrils":0,"PhoenixWings":1,"PinkFire":1,"PinkWings":1,"PirateHat":1,"PurpleFire":0,"PurpleLightning":0,"RedLightning":0,"RedTendrils":0,"SamuraiHelm":1,"SantaHat":1,"SatyrKitty":0,"SnowTrail2023":0,"SnowWings2023":0,"SpecialAura":0,"SpectacularAura":0,"StarlightAura":0,"TikiMask":1,"TurquoiseFire":0,"TurquoiseNitro":1,"TurquoiseWings":1,"UndeadKitty":0,"VioletAura":1,"VioletLight":1,"VioletWings":1,"VoidWings":1,"WWBlood":0,"WWBlue":0,"WWFire":1,"WWNecro":0,"WWSwift":0,"WhiteFire":1,"WhiteTendrils":0,"YellowLightning":0,"ZandalariKitty":0},"GameAwardsSorted":{"Auras":{"ButterflyAura":0,"FreezeAura":0,"ManaAura":0,"SpecialAura":0,"SpectacularAura":0,"StarlightAura":0},"Deathless":{"HardDeathless1":-1,"HardDeathless2":-1,"HardDeathless3":-1,"HardDeathless4":-1,"HardDeathless5":-1,"ImpossibleDeathless1":-1,"ImpossibleDeathless2":-1,"ImpossibleDeathless3":-1,"ImpossibleDeathless4":-1,"ImpossibleDeathless5":-1,"NormalDeathless1":0,"NormalDeathless2":0,"NormalDeathless3":0,"NormalDeathless4":0,"NormalDeathless5":0},"Hats":{"Bandana":1,"ChefHat":1,"PirateHat":1,"SamuraiHelm":1,"SantaHat":1,"TikiMask":1},"Nitros":{"AzureLight":0,"CrimsonLight":0,"DivineLight":1,"EmeraldLight":0,"Nitro":0,"NitroBlue":0,"NitroGreen":0,"NitroPurple":0,"NitroRed":0,"PatrioticLight":-1,"VioletLight":1},"Skins":{"AncientKitty":0,"AstralKitty":0,"HighelfKitty":0,"HuntressKitty":-1,"SatyrKitty":0,"UndeadKitty":0,"ZandalariKitty":0},"Tournament":{"LightningSpeed":-1,"TurquoiseNitro":1,"TurquoiseWings":1,"VioletAura":1,"VioletWings":1},"Trails":{"BlueFire":0,"BlueLightning":1,"GreenLightning":0,"PinkFire":1,"PurpleFire":0,"PurpleLightning":0,"RedLightning":0,"SnowTrail2023":0,"TurquoiseFire":0,"WhiteFire":1,"YellowLightning":0},"Windwalks":{"WWBlood":0,"WWBlue":0,"WWDivine":-1,"WWFire":1,"WWNecro":0,"WWSwift":0,"WWViolet":-1},"Wings":{"ArchangelWings":1,"ChaosWings":1,"CosmicWings":1,"DivinityTendrils":0,"FairyWings":1,"GreenTendrils":0,"NatureWings":1,"NightmareWings":1,"PatrioticTendrils":0,"PhoenixWings":1,"PinkWings":1,"RedTendrils":0,"SnowWings2023":0,"VoidWings":1,"WhiteTendrils":0}},"GameStats":{"Deaths":0,"HardGames":0,"HardWins":0,"HighestSaveStreak":0,"HighestWinStreak":0,"ImpossibleGames":0,"ImpossibleWins":0,"NormalGames":0,"NormalWins":0,"SaveStreak":0,"Saves":2000,"WinStreak":0},"PlayerName":"Local Player","RoundTimes":{"RoundFiveHard":0,"RoundFiveImpossible":0,"RoundFiveNormal":0,"RoundFiveSolo":0,"RoundFourHard":0,"RoundFourImpossible":0,"RoundFourNormal":0,"RoundFourSolo":0,"RoundOneHard":0,"RoundOneImpossible":0,"RoundOneNormal":0,"RoundOneSolo":0,"RoundThreeHard":0,"RoundThreeImpossible":0,"RoundThreeNormal":0,"RoundThreeSolo":0,"RoundTwoHard":0,"RoundTwoImpossible":0,"RoundTwoNormal":0,"RoundTwoSolo":0},"SelectedData":{"SelectedAura":"","SelectedHat":"","SelectedSkin":"","SelectedTrail":"","SelectedWindwalk":"","SelectedWings":""}}',
-  },
-]

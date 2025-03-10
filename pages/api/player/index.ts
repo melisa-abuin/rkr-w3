@@ -3,10 +3,11 @@ import { DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { mockApiData, roundNames } from '@/constants'
+import { roundNames } from '@/constants'
 import { formatGameAwards } from '@/utils/formatGameAwards'
 import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 import { calculateWinRate } from '@/utils/calculateWinRate'
+import { mockApiData } from '@/constants/mock'
 
 export default async function handler(
   req: NextApiRequest,
