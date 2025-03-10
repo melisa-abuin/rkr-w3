@@ -1,7 +1,8 @@
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
-import { mockApiData, roundNames } from '@/constants'
+import { roundNames } from '@/constants'
+import { mockApiData } from '@/constants/mock'
 import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 
 export default async function handler(
