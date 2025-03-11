@@ -50,6 +50,7 @@ export default async function handler(
       SelectedData,
     } = saveData
 
+    playerStats.lastUploaded = playerData.UploadDate
     playerStats.saves = GameStats.Saves
     playerStats.deaths = GameStats.Deaths
     playerStats.highestWinStreak = GameStats.HighestWinStreak

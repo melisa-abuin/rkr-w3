@@ -54,6 +54,7 @@ export interface PlayerStats {
 export type DetailedPlayerStats = PlayerStats & {
   awards: Awards[]
   skins: Skins
+  lastUploaded: string
 }
 
 export interface FromattedApiPlayerStats {

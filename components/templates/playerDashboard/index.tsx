@@ -11,6 +11,7 @@ import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { useCallback, useState } from 'react'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
+import Info from '@/components/atoms/info'
 
 export default function PlayerDashboard({
   playerData,
@@ -23,6 +24,8 @@ export default function PlayerDashboard({
   >()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const lastDateUploaded = new Date(playerData.lastUploaded)
 
   const fetchData = useCallback(async (player: PlayerStats) => {
     setLoading(true)
@@ -119,6 +122,11 @@ export default function PlayerDashboard({
           />
         </PageContainer>
       ))}
+      {playerData.lastUploaded && (
+        <Info>
+          Stats last uploaded on: {lastDateUploaded.toLocaleDateString()}
+        </Info>
+      )}
     </>
   )
 }
