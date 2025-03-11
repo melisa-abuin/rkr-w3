@@ -5,24 +5,10 @@ export const Colored = styled.span`
   color: ${({ theme }) => theme.color.secondary};
 `
 
-export const ColumnsContainer = styled.section`
-  padding: 2rem;
-  background-color: ${({ theme }) => theme.background.primary};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-export const ColumnsTitle = styled.h2`
-  font-size: 2rem;
-  font-weight: bold;
-  color: ${({ theme }) => theme.text.primary};
-  margin-bottom: 3rem;
-`
-
 export const ColumnsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 24px;
   gap: 1.8rem;
   width: 100%;
   max-width: 1000px;
@@ -39,13 +25,13 @@ export const Column = styled.div`
 `
 
 export const ColumnTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: var(--font-size-sm-md);
   color: ${({ theme }) => theme.text.primary};
   margin-bottom: 1rem;
 `
 
 export const ColumnText = styled.p`
-  font-size: 1rem;
+  font-size: var(--font-size-xs-sm);
   color: ${({ theme }) => theme.text.secondary};
   line-height: 1.5;
 `

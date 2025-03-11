@@ -3,8 +3,9 @@ import InfoColumns from '@/components/infoColumns'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
 import { ThemeProvider } from '@/hooks/useTheme'
-import Navbar from '@/components/navbar'
+import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
+import { PageContainer } from '@/components/atoms/pageContainer'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {
@@ -38,7 +39,14 @@ export default async function Home() {
       <Navbar />
       <main>
         <Banner discordData={data} />
-        <InfoColumns />
+        <PageContainer
+          align="center"
+          ariaLabelledby="info-columns"
+          marginTop={24}
+          title="Discover the map"
+        >
+          <InfoColumns />
+        </PageContainer>
       </main>
       <Footer />
     </ThemeProvider>

@@ -25,7 +25,8 @@ export const OuterContainer = styled.section<{
   }
 `
 
-export const Title = styled.h2`
+export const Title = styled.h2<{ align: 'center' | 'left' }>`
   color: ${({ theme }) => theme.text.primary};
+  text-align: ${({ align }) => align};
   width: 100%;
 `

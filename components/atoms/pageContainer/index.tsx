@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react'
 import { InnerContainer, OuterContainer, Title } from './styled'
 
 interface Props {
+  align?: 'center' | 'left'
   as?: 'section' | 'div'
   children: ReactNode
   ariaLabelledby?: string
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export const PageContainer = ({
+  align = 'left',
   as = 'section',
   children,
   ariaLabelledby,
@@ -27,7 +29,11 @@ export const PageContainer = ({
     marginBottom={marginBottom}
   >
     <InnerContainer>
-      {title && <Title id={ariaLabelledby}>{title}</Title>}
+      {title && (
+        <Title align={align} id={ariaLabelledby}>
+          {title}
+        </Title>
+      )}
       {children}
     </InnerContainer>
   </OuterContainer>
