@@ -2,8 +2,8 @@ import { ThemeProvider } from '@/hooks/useTheme'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Footer from '@/components/molecules/footer'
-import Navbar from '@/components/navbar'
-import Error from '@/components/error'
+import Navbar from '@/components/molecules/navbar'
+import Error from '@/components/molecules/error'
 import PlayerDashboard from '@/components/templates/playerDashboard'
 
 interface PlayerStatsData {

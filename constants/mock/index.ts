@@ -84,6 +84,7 @@ export const mockApiData = [
         SelectedTrail: 'BlueFire',
       },
     }),
+    UploadDate: '2025-03-10T22:19:01.000Z',
   },
   {
     battletag: 'Matt#2345',
@@ -356,6 +357,7 @@ export const mockApiData = [
         SelectedTrail: 'CrimsonLight',
       },
     }),
+    UploadDate: '2025-03-10T22:19:01.000Z',
   },
 ]
 

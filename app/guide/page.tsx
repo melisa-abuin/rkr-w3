@@ -1,6 +1,6 @@
 import Footer from '@/components/molecules/footer'
 import Step from '@/components/step'
-import Navbar from '@/components/navbar'
+import Navbar from '@/components/molecules/navbar'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/pageHeader'
 import { discordGuideSteps } from '@/constants'
