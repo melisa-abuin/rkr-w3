@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react'
 import { PlayerStats } from '@/interfaces/player'
-import PlayerFinder from '@/components/playerFinder'
-import Columns from '@/components/columns'
+import PlayerFinder from '@/components/molecules/playerFinder'
+import Columns from '@/components/molecules/columns'
 import Link from '@/components/atoms/link'
 import { playerColumns } from '@/constants'
 

@@ -2,7 +2,7 @@
 
 import React, { ReactNode } from 'react'
 import { Col, Container, Description } from './styled'
-import TextWithIcon from '../atoms/textWithIcon'
+import TextWithIcon from '../../atoms/textWithIcon'
 import LoaderColumns from './components/loader'
 
 interface Props {

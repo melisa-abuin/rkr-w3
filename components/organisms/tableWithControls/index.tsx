@@ -1,7 +1,7 @@
 'use client'
 
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
-import Table from '../table'
+import Table from '../molecules/table'
 import { useSearchParams } from 'next/navigation'
 import { useMemo, useState, useCallback, ReactNode } from 'react'
 import Pagination from './components/pagination'

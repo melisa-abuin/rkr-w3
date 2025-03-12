@@ -34,5 +34,6 @@ export const Wrapper = styled.div`
   flex: 1;
   flex-direction: row;
   gap: 15px;
-  justify-content: center;
+  justify-content: flex-start;
+  width: 100%;
 `

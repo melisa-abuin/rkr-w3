@@ -2,7 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { ApiGameStats, GameStats } from '@/interfaces/game'
 import { mockGameApiData } from '@/constants/mock'
 
-export default async function handler(_: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const apiKey = process.env.API_KEY
 
   try {
@@ -12,18 +15,24 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
     let data = []
 
-    if (process.env.NODE_ENV === 'development') {
-      data = mockGameApiData
-    } else {
-      const response = await fetch(`${apiKey}gametimes`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+    const difficultyFilter = req.body.difficulty
 
-      data = await response.json()
-    }
+    const apiLink = difficultyFilter
+      ? `${apiKey}gametimes?Difficulty=${difficultyFilter}`
+      : `${apiKey}gametimes`
+
+    // if (process.env.NODE_ENV === 'development') {
+    //   data = mockGameApiData
+    // } else {
+    const response = await fetch(apiLink, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    data = await response.json()
+    // }
 
     const formattedData = data
       .map((elem: ApiGameStats) => {

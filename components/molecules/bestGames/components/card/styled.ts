@@ -14,7 +14,6 @@ export const Container = styled.div`
 export const Header = styled.div`
   align-items: center;
   display: flex;
-  flex: 1;
   flex-direction: row;
   gap: 24px;
   justify-content: flex-start;
@@ -28,6 +27,10 @@ export const NameList = styled.div`
   padding: 10px;
   align-content: center;
   font-size: var(--font-size-xs);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const Title = styled.h4`
@@ -43,5 +46,8 @@ export const Description = styled.span`
 `
 
 export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   text-align: left;
 `

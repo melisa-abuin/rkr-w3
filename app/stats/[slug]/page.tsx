@@ -1,6 +1,6 @@
 import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
-import PageHeader from '@/components/pageHeader'
+import PageHeader from '@/components/atoms/pageHeader'
 import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { PlayersStats } from '@/interfaces/player'

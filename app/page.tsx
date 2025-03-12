@@ -1,5 +1,5 @@
-import Banner from '@/components/banner'
-import InfoColumns from '@/components/infoColumns'
+import Banner from '@/components/atoms/banner'
+import InfoColumns from '@/components/atoms/infoColumns'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
 import { ThemeProvider } from '@/hooks/useTheme'
