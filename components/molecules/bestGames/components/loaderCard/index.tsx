@@ -11,9 +11,10 @@ import Loader from '@/components/atoms/loader'
 
 interface Props {
   position: number
+  showDifficulty: boolean
 }
 
-export default function LoaderCard({ position }: Props) {
+export default function LoaderCard({ position, showDifficulty }: Props) {
   return (
     <Container>
       <Header>
@@ -22,9 +23,11 @@ export default function LoaderCard({ position }: Props) {
           <Title>
             <Loader height={21} width={70} variant="secondary" />
           </Title>
-          <Description>
-            <Loader height={17} width={70} variant="secondary" />
-          </Description>
+          {showDifficulty && (
+            <Description>
+              <Loader height={17} width={70} variant="secondary" />
+            </Description>
+          )}
         </Wrapper>
       </Header>
       <NameList>

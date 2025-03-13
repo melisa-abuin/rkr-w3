@@ -74,6 +74,7 @@ export default function BestGamesWithControls({ data }: Props) {
         <BestGames
           games={difficultyFilter && filteredData ? filteredData : data}
           loading={loading}
+          showDifficulty={!difficultyFilter}
         />
       )}
     </>

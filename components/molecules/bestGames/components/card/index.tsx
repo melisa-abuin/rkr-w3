@@ -15,6 +15,7 @@ interface Props {
   position: number
   time: number
   teamMembers: string
+  showDifficulty: boolean
 }
 
 export default function Card({
@@ -22,6 +23,7 @@ export default function Card({
   position,
   time,
   teamMembers,
+  showDifficulty,
 }: Props) {
   const members = teamMembers.replace(/#\d+/g, '')
 
@@ -31,7 +33,7 @@ export default function Card({
         <Position pos={position} />
         <Wrapper>
           <Title>{secondsToSexagesimal(time)}</Title>
-          <Description>{difficulty}</Description>
+          {showDifficulty && <Description>{difficulty}</Description>}
         </Wrapper>
       </Header>
       <NameList>{members}</NameList>

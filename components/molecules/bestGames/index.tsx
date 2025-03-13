@@ -15,52 +15,64 @@ import LoaderHighlightCard from './components/loaderHighlightCard'
 interface Props {
   games: GamesStats
   loading: boolean
+  showDifficulty: boolean
 }
 
-export default function BestGames({ games, loading }: Props) {
+export default function BestGames({ games, loading, showDifficulty }: Props) {
   const bestGame = games[0]
+
+  if (loading) {
+    return (
+      <Container>
+        <DesktopCardContainer>
+          <LoaderHighlightCard showDifficulty={showDifficulty} />
+        </DesktopCardContainer>
+        <MobileCardContainer>
+          <LoaderCard position={1} showDifficulty={showDifficulty} />
+        </MobileCardContainer>
+        <Wrapper>
+          {[...Array(4)].map((_, rowIndex) => (
+            <LoaderCard
+              key={rowIndex}
+              position={rowIndex + 2}
+              showDifficulty={showDifficulty}
+            />
+          ))}
+        </Wrapper>
+      </Container>
+    )
+  }
+
   return (
     <Container>
       <DesktopCardContainer>
-        {loading ? (
-          <LoaderHighlightCard />
-        ) : (
-          <HighlightCard
-            difficulty={bestGame.difficulty}
-            time={bestGame.time}
-            teamMembers={bestGame.teamMembers}
-          />
-        )}
+        <HighlightCard
+          difficulty={bestGame.difficulty}
+          time={bestGame.time}
+          teamMembers={bestGame.teamMembers}
+          showDifficulty={showDifficulty}
+        />
       </DesktopCardContainer>
-
       <MobileCardContainer>
-        {loading ? (
-          <LoaderCard position={1} />
-        ) : (
-          <Card
-            difficulty={bestGame.difficulty}
-            time={bestGame.time}
-            teamMembers={bestGame.teamMembers}
-            position={1}
-          />
-        )}
+        <Card
+          difficulty={bestGame.difficulty}
+          time={bestGame.time}
+          teamMembers={bestGame.teamMembers}
+          showDifficulty={showDifficulty}
+          position={1}
+        />
       </MobileCardContainer>
       <Wrapper>
-        {loading
-          ? [...Array(4)].map((_, rowIndex) => (
-              <LoaderCard key={rowIndex} position={rowIndex + 2} />
-            ))
-          : games
-              .slice(1, 5)
-              .map((game, index) => (
-                <Card
-                  key={index}
-                  position={index + 2}
-                  difficulty={game.difficulty}
-                  time={game.time}
-                  teamMembers={game.teamMembers}
-                />
-              ))}
+        {games.slice(1, 5).map((game, index) => (
+          <Card
+            key={index}
+            position={index + 2}
+            difficulty={game.difficulty}
+            showDifficulty={showDifficulty}
+            time={game.time}
+            teamMembers={game.teamMembers}
+          />
+        ))}
       </Wrapper>
     </Container>
   )

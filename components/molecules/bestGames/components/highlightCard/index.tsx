@@ -8,12 +8,14 @@ interface Props {
   difficulty: Difficulty
   time: number
   teamMembers: string
+  showDifficulty: boolean
 }
 
 export default function HighlightCard({
   difficulty,
   time,
   teamMembers,
+  showDifficulty,
 }: Props) {
   const members = teamMembers.split(',')
   return (
@@ -24,9 +26,11 @@ export default function HighlightCard({
           <TextWithIcon colorName="tertiary" iconName="clock" palette="text">
             {secondsToSexagesimal(time)}
           </TextWithIcon>
-          <TextWithIcon colorName="secondary" iconName="paw" palette="text">
-            {difficulty}
-          </TextWithIcon>
+          {showDifficulty && (
+            <TextWithIcon colorName="secondary" iconName="paw" palette="text">
+              {difficulty}
+            </TextWithIcon>
+          )}
         </Wrapper>
         <Wrapper>
           {members.map((memeber) => (
