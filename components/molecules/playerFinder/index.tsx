@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Options, Option, Wrapper } from './styled'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
-import Input from '../atoms/input'
-import { Search } from '../icons/search'
 import { useTheme } from '@/hooks/useTheme'
 import Image from 'next/image'
+import Input from '@/components/atoms/input'
+import { Search } from '@/components/icons/search'
 
 interface Props {
   onPlayerSelect: (player: PlayerStats) => void

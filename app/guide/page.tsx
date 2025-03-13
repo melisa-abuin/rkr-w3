@@ -1,8 +1,8 @@
 import Footer from '@/components/molecules/footer'
-import Step from '@/components/step'
+import Step from '@/components/atoms/step'
 import Navbar from '@/components/molecules/navbar'
 import { PageContainer } from '@/components/atoms/pageContainer'
-import PageHeader from '@/components/pageHeader'
+import PageHeader from '@/components/atoms/pageHeader'
 import { discordGuideSteps } from '@/constants'
 import { ThemeProvider } from '@/hooks/useTheme'
 

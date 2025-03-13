@@ -1,20 +1,20 @@
 import Error from '@/components/molecules/error'
-import Table from '@/components/table'
+import Table from '@/components/molecules/table'
 import { BestTime, PlayersStats } from '@/interfaces/player'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
-import PageHeader from '@/components/pageHeader'
+import PageHeader from '@/components/atoms/pageHeader'
 import { statsColumns } from '@/constants'
 import { headers } from 'next/headers'
-import ColumnCards from '@/components/columnCards'
+import ColumnCards from '@/components/molecules/columnCards'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Link from '@/components/atoms/link'
-import ColumnCardsWithControls from '@/components/columnCardsWithControls'
+import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import Info from '@/components/atoms/info'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
-import BestGames from '@/components/bestGames'
 import { GamesStats } from '@/interfaces/game'
+import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 
 interface Data {
   player: string
@@ -114,7 +114,7 @@ export default async function Leaderboard() {
               title="Best game times"
               marginTop={32}
             >
-              <BestGames games={gameData} />
+              <BestGamesWithControls data={gameData} />
             </PageContainer>
             <Table
               columns={statsColumns}

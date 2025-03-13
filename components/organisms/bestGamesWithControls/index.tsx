@@ -1,38 +1,21 @@
 'use client'
 
-import { BestTime } from '@/interfaces/player'
-import ColumnCards from '../columnCards'
-import { PageContainer } from '../atoms/pageContainer'
-import Badges from '../atoms/badges'
+import Badges from '../../atoms/badges'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { difficultyNames } from '@/constants'
-
-interface Data {
-  player: string
-  data: number | BestTime
-}
-
-type LeaderBoardData = { category: string; data: Data[]; key: string }[]
+import BestGames from '@/components/molecules/bestGames'
+import { GamesStats } from '@/interfaces/game'
 
 interface Props {
-  data?: LeaderBoardData
-  title: string
-  viewAllKey: 'overview' | 'time'
+  data: GamesStats
 }
-
-export default function ColumnCardsWithControls({
-  data,
-  viewAllKey,
-  title,
-}: Props) {
+export default function BestGamesWithControls({ data }: Props) {
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >()
-  const [filteredData, setFilteredData] = useState<
-    LeaderBoardData | undefined
-  >()
+  const [filteredData, setFilteredData] = useState<GamesStats | undefined>()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -48,7 +31,7 @@ export default function ColumnCardsWithControls({
 
       // TODO: create helper or what about react query?
       try {
-        const response = await fetch('/api/timeLeaderboard', {
+        const response = await fetch('/api/gameTimes', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -77,11 +60,7 @@ export default function ColumnCardsWithControls({
   }
 
   return (
-    <PageContainer
-      ariaLabelledby="columns-time-title"
-      marginTop={32}
-      title={title}
-    >
+    <>
       <BadgesContainer>
         <Badges
           onClick={onFilterClick}
@@ -92,13 +71,12 @@ export default function ColumnCardsWithControls({
       {error ? (
         <div>Error: {error}</div>
       ) : (
-        <ColumnCards
-          data={difficultyFilter === undefined ? data : filteredData}
-          hoverable={difficultyFilter === undefined}
+        <BestGames
+          games={difficultyFilter && filteredData ? filteredData : data}
           loading={loading}
-          viewAllKey={viewAllKey}
+          showDifficulty={!difficultyFilter}
         />
       )}
-    </PageContainer>
+    </>
   )
 }
