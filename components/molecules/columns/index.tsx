@@ -2,8 +2,8 @@
 
 import React, { ReactNode } from 'react'
 import { Col, Container, Description } from './styled'
-import TextWithIcon from '../../atoms/textWithIcon'
 import LoaderColumns from './components/loader'
+import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
   actionColumn?: ReactNode

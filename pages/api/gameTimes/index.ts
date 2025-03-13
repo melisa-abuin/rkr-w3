@@ -21,18 +21,18 @@ export default async function handler(
       ? `${apiKey}gametimes?Difficulty=${difficultyFilter}`
       : `${apiKey}gametimes`
 
-    // if (process.env.NODE_ENV === 'development') {
-    //   data = mockGameApiData
-    // } else {
-    const response = await fetch(apiLink, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    if (process.env.NODE_ENV === 'development') {
+      data = mockGameApiData
+    } else {
+      const response = await fetch(apiLink, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
 
-    data = await response.json()
-    // }
+      data = await response.json()
+    }
 
     const formattedData = data
       .map((elem: ApiGameStats) => {

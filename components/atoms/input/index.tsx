@@ -2,8 +2,8 @@
 
 import React, { ReactNode } from 'react'
 import { ClearIconContainer, StyledInput, Wrapper } from './styled'
-import { Cross } from '../../icons/cross'
 import { useTheme } from '@/hooks/useTheme'
+import { Cross } from '@/components/icons/cross'
 
 interface Props {
   id: string

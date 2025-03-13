@@ -1,6 +1,6 @@
 'use client'
 
-import Link from '../../atoms/link'
+import Link from '@/components/atoms/link'
 import { Container } from './styled'
 
 export default function Error() {

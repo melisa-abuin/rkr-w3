@@ -1,14 +1,14 @@
 'use client'
 
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
-import Table from '../molecules/table'
 import { useSearchParams } from 'next/navigation'
 import { useMemo, useState, useCallback, ReactNode } from 'react'
 import Pagination from './components/pagination'
 import { difficultyNames, pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import Badges from '../atoms/badges'
 import { Difficulty } from '@/interfaces/difficulty'
+import Table from '@/components/molecules/table'
+import Badges from '@/components/atoms/badges'
 
 interface TableProps {
   data?: PlayersStats

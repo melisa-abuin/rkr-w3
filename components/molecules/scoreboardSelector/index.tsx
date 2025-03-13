@@ -1,10 +1,10 @@
 'use client'
 
+import { PageContainer } from '@/components/atoms/pageContainer'
+import Toggle from '@/components/atoms/toggle'
+import { Clock } from '@/components/icons/clock'
+import { Stats } from '@/components/icons/stats'
 import { useTheme } from '@/hooks/useTheme'
-import { Clock } from '../../icons/clock'
-import { Stats } from '../../icons/stats'
-import { PageContainer } from '../../atoms/pageContainer'
-import Toggle from '../../atoms/toggle'
 import { useRouter } from 'next/navigation'
 
 export default function ScoreboardSelector({

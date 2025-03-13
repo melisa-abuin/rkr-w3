@@ -13,7 +13,6 @@ import Link from '@/components/atoms/link'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import Info from '@/components/atoms/info'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
-import BestGames from '@/components/molecules/bestGames'
 import { GamesStats } from '@/interfaces/game'
 import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 
