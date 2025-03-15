@@ -1,22 +1,28 @@
 import styled from 'styled-components'
 
-export const StyledButton = styled.button<{ variant: 'primary' | 'secondary' }>`
-  padding: 8px 12px;
+export const StyledButton = styled.button<{
+  color: string
+  highlightColor: string
+  small: boolean
+  variant: 'primary' | 'secondary'
+}>`
+  padding: ${({ small }) => (small ? '4px 8px' : '8px 12px')};
   margin: 0 4px;
   border: none;
   border-radius: 4px;
-  background-color: ${({ variant, theme }) =>
-    variant === 'primary' ? theme.color.primary : 'transparent'};
-  color: ${({ variant, theme }) =>
-    variant === 'primary' ? theme.text.white : theme.color.primary};
+  background-color: ${({ variant, color }) =>
+    variant === 'primary' ? color : 'transparent'};
+  color: ${({ variant, theme, color }) =>
+    variant === 'primary' ? theme.text.white : color};
   cursor: pointer;
-
-  font-weight: var(--font-weight-semi-bold);
-  font-size: var(--font-size-xs-md);
+  font-weight: ${({ small }) =>
+    small ? 'var(--font-weight-regular)' : 'var(--font-weight-semi-bold)'};
+  font-size: ${({ small }) =>
+    small ? 'var(--font-size-xs)' : 'var(--font-size-xs-md)'};
 
   &:hover {
-    background-color: ${({ variant, theme }) =>
-      variant === 'primary' ? theme.text.tertiary : theme.color.primary};
+    background-color: ${({ variant, color, highlightColor }) =>
+      variant === 'primary' ? highlightColor : color};
     color: ${({ variant, theme }) =>
       variant === 'primary' ? theme.text.white : theme.text.white};
   }

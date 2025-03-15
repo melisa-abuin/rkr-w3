@@ -1,12 +1,12 @@
 'use client'
 
-import Badges from '../../atoms/badges'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { difficultyNames } from '@/constants'
 import BestGames from '@/components/molecules/bestGames'
 import { GamesStats } from '@/interfaces/game'
+import Badges from '@/components/molecules/badges'
 
 interface Props {
   data: GamesStats
