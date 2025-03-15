@@ -27,6 +27,12 @@ export default function PlayerDashboard({
 
   const lastDateUploaded = new Date(playerData.lastUploaded)
 
+  const dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  } as const
+
   const fetchData = useCallback(async (player: PlayerStats) => {
     setLoading(true)
 
@@ -124,7 +130,8 @@ export default function PlayerDashboard({
       ))}
       {playerData.lastUploaded && (
         <Info>
-          Stats last uploaded on: {lastDateUploaded.toLocaleDateString()}
+          Stats last uploaded on:{' '}
+          {lastDateUploaded.toLocaleDateString(undefined, dateOptions)}
         </Info>
       )}
     </>
