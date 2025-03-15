@@ -1,26 +1,18 @@
 import styled from 'styled-components'
 
-export const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
+export const OuterContainer = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.background.primary};
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `
-
-export const PageButton = styled.button<{ active?: boolean }>`
-  padding: 8px 12px;
-  margin: 0 4px;
-  border: ${({ active, theme }) =>
-    active ? 'none' : `1px solid ${theme.color.primary}`};
-  border-radius: 4px;
-  background-color: ${({ active, theme }) =>
-    active ? theme.color.primary : theme.background.primary};
-  color: ${({ active, theme }) =>
-    active ? theme.text.white : theme.color.primary};
-  cursor: pointer;
-
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+export const InnerContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.background.quaternary};
+  padding: 8px;
+  border-radius: 3px;
 `
