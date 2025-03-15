@@ -1,13 +1,13 @@
 'use client'
 
 import { BestTime } from '@/interfaces/player'
-import ColumnCards from '../../molecules/columnCards'
-import { PageContainer } from '../../atoms/pageContainer'
-import Badges from '../../atoms/badges'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { difficultyNames } from '@/constants'
+import { PageContainer } from '@/components/atoms/pageContainer'
+import Badges from '@/components/molecules/badges'
+import ColumnCards from '@/components/molecules/columnCards'
 
 interface Data {
   player: string

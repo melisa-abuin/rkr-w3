@@ -8,7 +8,7 @@ import { difficultyNames, pageSize } from '@/constants'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
-import Badges from '@/components/atoms/badges'
+import Badges from '@/components/molecules/badges'
 
 interface TableProps {
   data?: PlayersStats

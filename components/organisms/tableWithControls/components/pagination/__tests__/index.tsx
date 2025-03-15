@@ -19,7 +19,7 @@ describe('Pagination Component', () => {
       />,
     )
 
-    expect(screen.getAllByRole('button')).toHaveLength(7)
+    expect(screen.getAllByRole('button')).toHaveLength(6)
   })
 
   it('should disable the Previous button on the first page', () => {
@@ -31,8 +31,8 @@ describe('Pagination Component', () => {
       />,
     )
 
-    const previousButton = screen.getByText('Previous')
-    expect(previousButton).toBeDisabled()
+    const previousButton = screen.queryByAltText('Previous')
+    expect(previousButton).not.toBeInTheDocument()
   })
 
   it('should disable the Next button on the last page', () => {
@@ -44,8 +44,8 @@ describe('Pagination Component', () => {
       />,
     )
 
-    const nextButton = screen.getByText('Next')
-    expect(nextButton).toBeDisabled()
+    const nextButton = screen.queryByAltText('Next')
+    expect(nextButton).not.toBeInTheDocument()
   })
 
   it('should call onPageChange with the correct page number when a page button is clicked', () => {
@@ -92,6 +92,34 @@ describe('Pagination Component', () => {
 
     expect(onPageChangeMock).toHaveBeenCalledWith(4)
   })
+  it('should call onPageChange with the first page when First is clicked', () => {
+    renderWithTheme(
+      <Pagination
+        currentPage={3}
+        totalPages={5}
+        onPageChange={onPageChangeMock}
+      />,
+    )
+
+    const nextButton = screen.getByText('First')
+    fireEvent.click(nextButton)
+
+    expect(onPageChangeMock).toHaveBeenCalledWith(1)
+  })
+  it('should call onPageChange with the last page when Last is clicked', () => {
+    renderWithTheme(
+      <Pagination
+        currentPage={3}
+        totalPages={5}
+        onPageChange={onPageChangeMock}
+      />,
+    )
+
+    const nextButton = screen.getByText('Last')
+    fireEvent.click(nextButton)
+
+    expect(onPageChangeMock).toHaveBeenCalledWith(5)
+  })
 
   it('should highlight the current page button', () => {
     renderWithTheme(
@@ -103,6 +131,6 @@ describe('Pagination Component', () => {
     )
 
     const activeButton = screen.getByText('2')
-    expect(activeButton).toHaveStyle('background-color: rgb(178, 65, 65)')
+    expect(activeButton).toHaveStyle('background-color: rgb(177, 15, 15)')
   })
 })

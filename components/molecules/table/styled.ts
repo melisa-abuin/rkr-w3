@@ -6,7 +6,7 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
   overflow-x: auto;
 
   @media (max-width: 480px) {
@@ -28,7 +28,7 @@ export const StyledTable = styled.table`
 
   caption {
     text-align: left;
-    padding: 10px;
+    padding: 16px 0;
     font-weight: var(--font-weight-bold);
   }
 `
