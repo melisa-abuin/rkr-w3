@@ -162,7 +162,7 @@ export const downloadFileName = 'RKR_Remastered_1.1.4'
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
 
-export const pageSize = 10
+export const pageSize = 15
 export const routes = {
   home: {
     label: 'Home',
