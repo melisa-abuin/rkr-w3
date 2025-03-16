@@ -14,10 +14,6 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Install dependencies
-        run: |
-          pip install requests numpy
-
       - name: Execute Python script
         run: |
-          python3 ./atomicStructureCheck.py
+          python3 ./scripts/atomicStructureCheck.py
