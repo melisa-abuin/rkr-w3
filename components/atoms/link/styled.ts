@@ -18,4 +18,11 @@ export const StyledLink = styled(Link).attrs<{
   text-decoration: none;
   text-align: center;
   width: fit-content;
+
+  &:hover {
+    background-color: ${({ withButtonStyle, color }) =>
+      withButtonStyle ? color : 'inherit'};
+    color: ${({ withButtonStyle, theme }) =>
+      withButtonStyle ? theme.text.white : theme.text.highlight};
+  }
 `

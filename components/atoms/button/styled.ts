@@ -23,8 +23,7 @@ export const StyledButton = styled.button<{
   &:hover {
     background-color: ${({ variant, color, highlightColor }) =>
       variant === 'primary' ? highlightColor : color};
-    color: ${({ variant, theme }) =>
-      variant === 'primary' ? theme.text.white : theme.text.white};
+    color: ${({ theme }) => theme.text.white};
   }
 
   &:disabled {
