@@ -19,6 +19,7 @@ export default function PlayerFinderWithResult() {
         <Columns
           actionColumn={
             <Link
+              colorName="brandSecondary"
               href={`/player/${encodeURIComponent(selectedPlayer.battleTag.tag)}`}
               withButtonStyle
             >
