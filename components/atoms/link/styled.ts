@@ -16,5 +16,6 @@ export const StyledLink = styled(Link).attrs<{
   color: ${({ color }) => color};
   padding: ${({ withButtonStyle }) => (withButtonStyle ? '8px 16px' : '0')};
   text-decoration: none;
+  text-align: center;
   width: fit-content;
 `
