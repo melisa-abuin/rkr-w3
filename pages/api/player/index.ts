@@ -3,7 +3,7 @@ import { DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { roundNames } from '@/constants'
+import { blacklistedPlayers, roundNames } from '@/constants'
 import { formatGameAwards } from '@/utils/formatGameAwards'
 import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 import { calculateWinRate } from '@/utils/calculateWinRate'
@@ -37,7 +37,12 @@ export default async function handler(
 
       data = await response.json()
     }
+
     const playerData = data[0]
+
+    if (blacklistedPlayers.find((player) => player === playerData.battletag)) {
+      throw new Error()
+    }
 
     const saveData = JSON.parse(playerData['Save Data'])
     const playerStats: Partial<DetailedPlayerStats> = {}
