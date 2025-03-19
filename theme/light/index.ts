@@ -34,6 +34,7 @@ const lightTheme = {
   },
   shadow: {
     primary: 'rgba(0, 0, 0, 0.1)',
+    secondary: 'rgba(0, 0, 0, 0.7);',
   },
 }
 
