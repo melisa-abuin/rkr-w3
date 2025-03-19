@@ -17,8 +17,8 @@ export default function Modal({
   if (!isOpen) return null
 
   return (
-    <Container>
-      <Content>
+    <Container onClick={onClose}>
+      <Content onClick={(e) => e.stopPropagation()}>
         <Header>
           {title && <Title>{title}</Title>}
           <Button onClick={onClose} aria-label="Close modal">
