@@ -16,3 +16,17 @@ export const InnerContainer = styled.div`
   padding: 8px;
   border-radius: 3px;
 `
+
+export const DesktopButtonContainer = styled.div`
+  display: block;
+  @media (max-width: 480px) {
+    display: none;
+  }
+`
+
+export const MobileButtonContainer = styled.div`
+  display: none;
+  @media (max-width: 480px) {
+    display: block;
+  }
+`

@@ -47,6 +47,8 @@ export const awardsDescriptions = {
     'Obtained by reaching 10 safezones on Normal+ for round 4 without dying',
   NormalDeathless5:
     'Obtained by reaching 6 safezones on Normal+ for round 5 without dying',
+  PatrioticLight:
+    'Obtained by reaching the end for Round 5 on Impossible difficulty in under 16 minutes and 35 seconds of total game time.',
   PatrioticTendrils: 'Obtained by reaching a save streak of 50 without dying',
   PenguinSkin: 'Solo tournament',
   PhoenixWings: 'Obtained by reaching 375 saves',

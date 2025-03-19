@@ -12,6 +12,20 @@ import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { useCallback, useState } from 'react'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 import Info from '@/components/atoms/info'
+import DownloadModal from '@/components/molecules/downloadModal'
+
+const getDateToShow = (lastUploaded: string) => {
+  const dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  } as const
+
+  if (!lastUploaded) return ''
+
+  const lastDateUploaded = new Date(lastUploaded)
+  return lastDateUploaded.toLocaleDateString(undefined, dateOptions)
+}
 
 export default function PlayerDashboard({
   playerData,
@@ -25,13 +39,7 @@ export default function PlayerDashboard({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const lastDateUploaded = new Date(playerData.lastUploaded)
-
-  const dateOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  } as const
+  const lastDateUploaded = getDateToShow(playerData.lastUploaded)
 
   const fetchData = useCallback(async (player: PlayerStats) => {
     setLoading(true)
@@ -128,12 +136,15 @@ export default function PlayerDashboard({
           />
         </PageContainer>
       ))}
-      {playerData.lastUploaded && (
-        <Info>
-          Stats last uploaded on:{' '}
-          {lastDateUploaded.toLocaleDateString(undefined, dateOptions)}
-        </Info>
+      {lastDateUploaded && (
+        <Info>Stats last uploaded on: {lastDateUploaded}</Info>
       )}
+      <PageContainer marginBottom={24}>
+        <DownloadModal
+          date={lastDateUploaded}
+          battletag={playerData.battleTag.tag}
+        />
+      </PageContainer>
     </>
   )
 }
