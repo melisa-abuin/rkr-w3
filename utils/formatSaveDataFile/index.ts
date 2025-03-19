@@ -16,11 +16,12 @@ export const formatSaveDataFile = (
   chunks.forEach((chunk: string, i: number) => {
     const index = `000000${numChunksHex}000000${(i + 1).toString(16).padStart(2, '0').toUpperCase()}`
     functionScript.push('\tcall Preload( "")')
-    functionScript.push(`\tcall BlzSendSyncData("S_TIO","${index}${chunk}")`)
-    functionScript.push('\tcall S2I("" )')
+    functionScript.push(`call BlzSendSyncData("S_TIO","${index}${chunk}")`)
+    functionScript.push('call S2I("" )')
   })
 
   functionScript.push('\tcall PreloadEnd( 0.0 )')
+  functionScript.push('')
   functionScript.push('endfunction')
 
   return functionScript.join('\n')
