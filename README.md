@@ -10,7 +10,19 @@ A web application built to help _Run Kitty Run_ players join the community Disco
 - [Jest](https://jestjs.io/) as the unit tests framework
 - [Next](https://nextjs.org/) as the web development framework
 
-## Available commands
+## Setting up and running the app in local environments
+
+First of all install the packages using:
+
+```bash
+yarn
+```
+
+Then check that you have correctly set the environmental variables:
+
+1. Create a .env.local file
+2. Add the variables **API_URL** and **ENVIRONMENT**
+3. Set ENVIRONMENT to `production` to call the production API's or to `development` to use the mocked data
 
 For running the server:
 
