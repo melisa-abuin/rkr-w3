@@ -2,10 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { formatSaveDataFile } from '@/utils/formatSaveDataFile'
 import { fetchData } from '@/utils/fetchData'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+interface QueryParams {
+  battleTag: string
+}
+type StatsRequest = NextApiRequest & { query: QueryParams }
+
+export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const { battleTag } = req.query
 
@@ -13,7 +15,10 @@ export default async function handler(
       throw new Error('Please provide a valid battleTag')
     }
 
-    const data = await fetchData('players', `battletag=${battleTag}`)
+    const data = await fetchData(
+      'players',
+      `battletag=${encodeURIComponent(battleTag)}`,
+    )
 
     const playerData = data[0]
 
