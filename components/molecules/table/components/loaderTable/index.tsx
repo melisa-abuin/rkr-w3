@@ -1,12 +1,17 @@
 import Loader from '@/components/atoms/loader'
 import { StyledTd } from '../../styled'
 
-export default function LoaderTable() {
+interface Props {
+  columns: number
+  rows: number
+}
+
+export default function LoaderTable({ columns, rows }: Props) {
   return (
     <tbody>
-      {[...Array(5)].map((_, rowIndex) => (
+      {[...Array(rows)].map((_, rowIndex) => (
         <tr key={rowIndex}>
-          {[...Array(10)].map((_, cellIndex) => (
+          {[...Array(columns)].map((_, cellIndex) => (
             <StyledTd key={cellIndex}>
               <br />
               <Loader height={20} />

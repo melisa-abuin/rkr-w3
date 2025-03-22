@@ -3,35 +3,17 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 import { findTopFive } from '@/utils/findTopFive'
 import { roundNames } from '@/constants'
-import { mockApiData } from '@/constants/mock'
-import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
+import { fetchData } from '@/utils/fetchData'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const apiKey = process.env.API_KEY
+interface QueryParams {
+  difficulty?: 'normal' | 'hard' | 'impossible' | undefined
+}
 
+type StatsRequest = NextApiRequest & { query: QueryParams }
+
+export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
-    if (!apiKey) {
-      throw new Error()
-    }
-
-    let data = []
-
-    if (process.env.NODE_ENV === 'development') {
-      data = mockApiData
-    } else {
-      const response = await fetch(`${apiKey}players`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      data = await response.json()
-      data = removeBlacklistedPlayers(data)
-    }
+    const data = await fetchData('players')
 
     const formattedData = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
@@ -51,7 +33,7 @@ export default async function handler(
       return playerStats as PlayerStats
     })
 
-    const difficultyFilter = req.body.difficulty
+    const difficultyFilter = req.query.difficulty
 
     const stats = [
       {

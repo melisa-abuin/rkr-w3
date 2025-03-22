@@ -38,12 +38,11 @@ export default function PlayerFinder({
 
         // TODO: create helper or what about react query?
         try {
-          const response = await fetch('/api/stats', {
-            method: 'POST',
+          const response = await fetch(`/api/stats?battleTag=${searchTerm}`, {
+            method: 'GET',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ battleTag: searchTerm }),
           })
 
           if (!response.ok) {

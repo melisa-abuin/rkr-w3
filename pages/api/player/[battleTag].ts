@@ -7,41 +7,30 @@ import { blacklistedPlayers, roundNames } from '@/constants'
 import { formatGameAwards } from '@/utils/formatGameAwards'
 import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 import { calculateWinRate } from '@/utils/calculateWinRate'
-import { mockApiData } from '@/constants/mock'
+import { fetchData } from '@/utils/fetchData'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const apiKey = process.env.API_KEY
+interface QueryParams {
+  battleTag: string
+}
+type StatsRequest = NextApiRequest & { query: QueryParams }
 
+export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
-    if (!apiKey) {
-      throw new Error()
+    const { battleTag } = req.query
+
+    if (!battleTag) {
+      throw new Error('Please provide a valid battleTag')
     }
 
-    let data = []
-
-    if (process.env.NODE_ENV === 'development') {
-      data = mockApiData
-    } else {
-      const response = await fetch(
-        `${apiKey}players?battletag=${req.body.battleTag}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-
-      data = await response.json()
-    }
+    const data = await fetchData(
+      'players',
+      `battletag=${battleTag.includes('#') ? encodeURIComponent(battleTag) : battleTag}`,
+    )
 
     const playerData = data[0]
 
     if (blacklistedPlayers.find((player) => player === playerData.battletag)) {
-      throw new Error()
+      res.redirect(307, '/')
     }
 
     const saveData = JSON.parse(playerData['Save Data'])

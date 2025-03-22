@@ -16,6 +16,7 @@ export const Container = styled.section`
 
 export const StyledTable = styled.table`
   max-width: 1000px;
+
   width: 100%;
   border-collapse: separate;
   background-color: ${({ theme }) => theme.background.quaternary};
@@ -24,6 +25,10 @@ export const StyledTable = styled.table`
   padding: 16px;
   & tr:nth-child(odd) {
     background-color: ${({ theme }) => theme.background.highlightPrimary};
+  }
+
+  & th:first-child {
+    min-width: 140px;
   }
 
   caption {

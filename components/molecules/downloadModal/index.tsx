@@ -22,15 +22,15 @@ export default function DownloadModal({ battletag, date }: Props) {
 
     // TODO: create helper or what about react query?
     try {
-      const response = await fetch('/api/downloadPlayerStats', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/downloadPlayerStats/${encodeURIComponent(battletag)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-        body: JSON.stringify({
-          battleTag: encodeURIComponent(battletag),
-        }),
-      })
+      )
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`)
@@ -55,7 +55,7 @@ export default function DownloadModal({ battletag, date }: Props) {
 
     setIsModalOpen(false)
   }, [battletag])
-  console.log(loading)
+
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)}>Download my stats</Button>

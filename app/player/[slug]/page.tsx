@@ -17,13 +17,15 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
   const host = headersList.get('host')
   const url = `${protocol}://${host}`
 
-  const response = await fetch(`${url}/api/player`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${url}/api/player/${encodeURIComponent(battleTag)}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-    body: JSON.stringify({ battleTag }),
-  })
+  )
   if (response.status === 200) {
     return {
       data: await response.json(),
