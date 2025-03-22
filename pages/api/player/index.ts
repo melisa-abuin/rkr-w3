@@ -7,36 +7,14 @@ import { blacklistedPlayers, roundNames } from '@/constants'
 import { formatGameAwards } from '@/utils/formatGameAwards'
 import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 import { calculateWinRate } from '@/utils/calculateWinRate'
-import { mockApiData } from '@/constants/mock'
+import { fetchData } from '@/utils/fetchData'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const apiKey = process.env.API_KEY
-
   try {
-    if (!apiKey) {
-      throw new Error()
-    }
-
-    let data = []
-
-    if (process.env.NODE_ENV === 'development') {
-      data = mockApiData
-    } else {
-      const response = await fetch(
-        `${apiKey}players?battletag=${req.body.battleTag}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-
-      data = await response.json()
-    }
+    const data = await fetchData('players', `battletag=${req.body.battleTag}`)
 
     const playerData = data[0]
 

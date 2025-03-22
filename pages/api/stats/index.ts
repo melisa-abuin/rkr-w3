@@ -2,42 +2,29 @@ import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { calculateTotals } from '@/utils/calculateTotals'
-import { mockApiData } from '@/constants/mock'
 import {
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,
 } from '@/utils/calculateCompletedChallenges'
-import { removeBlacklistedPlayers } from '@/utils/removeBlacklistedPlayers'
 import { calculateWinRate } from '@/utils/calculateWinRate'
+import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
+import { fetchData } from '@/utils/fetchData'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const apiKey = process.env.API_KEY
+interface QueryParams {
+  battleTag: string
+  page: number
+  pageSize: number
+  sortKey: keyof PlayerStats
+  sortOrder: 'asc' | 'desc'
+}
 
+type StatsRequest = NextApiRequest & { query: QueryParams }
+
+export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
-    if (!apiKey) {
-      throw new Error()
-    }
+    const data = await fetchData('players')
 
-    let data = []
-
-    if (process.env.NODE_ENV === 'development') {
-      data = mockApiData
-    } else {
-      const response = await fetch(`${apiKey}players`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-
-      data = await response.json()
-      data = removeBlacklistedPlayers(data)
-    }
-
-    const formattedData = data.map((elem: ApiPlayerStats) => {
+    const formattedData: PlayerStats[] = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { GameStats, PlayerName, GameAwards, GameAwardsSorted } = saveData
@@ -96,21 +83,36 @@ export default async function handler(
         playerStats.gamesPlayed.total,
       )
 
-      return playerStats as PlayerStats
+      return playerStats
     })
 
-    if (req.body.battleTag) {
+    const {
+      page = 1,
+      sortKey = 'completedChallenges',
+      sortOrder = 'desc',
+      pageSize = 15,
+      battleTag: queryBattletag,
+    } = req.query
+
+    if (queryBattletag) {
       res
         .status(200)
         .json(
           formattedData.filter(({ battleTag }) =>
-            battleTag.name
-              .toLowerCase()
-              .includes(req.body.battleTag.toLowerCase()),
+            battleTag.name.toLowerCase().includes(queryBattletag.toLowerCase()),
           ),
         )
     } else {
-      res.status(200).json(formattedData)
+      const initialIndex = (Number(page) - 1) * pageSize
+
+      const sortedData = formattedData.sort((a, b) => {
+        const condition = getSortConditionByKey(sortKey, a, b)
+        if (condition === undefined) return 0
+        return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
+      })
+      res
+        .status(200)
+        .json(sortedData.slice(initialIndex, initialIndex + pageSize))
     }
   } catch (error) {
     console.error('Error fetching scoreboard data:', error)

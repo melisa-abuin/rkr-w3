@@ -1,35 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { mockApiData } from '@/constants/mock'
 import { formatSaveDataFile } from '@/utils/formatSaveDataFile'
+import { fetchData } from '@/utils/fetchData'
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const apiKey = process.env.API_KEY
-
   try {
-    if (!apiKey) {
-      throw new Error()
-    }
+    const data = await fetchData('players', `battletag=${req.body.battleTag}`)
 
-    let data = []
-
-    if (process.env.NODE_ENV === 'development') {
-      data = mockApiData
-    } else {
-      const response = await fetch(
-        `${apiKey}players?battletag=${req.body.battleTag}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      )
-
-      data = await response.json()
-    }
     const playerData = data[0]
 
     const fileFormattedSaveData = formatSaveDataFile(playerData['Save Data'])
