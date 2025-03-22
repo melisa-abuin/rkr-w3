@@ -103,6 +103,8 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
           ),
         )
     } else {
+      const totalPages = data ? Math.ceil(data?.length / pageSize) : 0
+
       const initialIndex = (Number(page) - 1) * pageSize
 
       const sortedData = formattedData.sort((a, b) => {
@@ -110,9 +112,10 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         if (condition === undefined) return 0
         return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
       })
-      res
-        .status(200)
-        .json(sortedData.slice(initialIndex, initialIndex + pageSize))
+      res.status(200).json({
+        stats: sortedData.slice(initialIndex, initialIndex + pageSize),
+        pages: totalPages,
+      })
     }
   } catch (error) {
     console.error('Error fetching scoreboard data:', error)

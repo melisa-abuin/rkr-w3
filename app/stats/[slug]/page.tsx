@@ -12,7 +12,7 @@ import HelpInfo from '@/components/molecules/helpInfo'
 
 interface PlayerStatsData {
   error: string | null
-  data: PlayersStats
+  data: { pages: number; stats?: PlayersStats }
 }
 
 const timeStrings = {
@@ -55,7 +55,7 @@ async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
     }
   }
   return {
-    data: [],
+    data: { pages: 1, stats: [] },
     error: 'Something went wrong',
   }
 }

@@ -27,6 +27,7 @@ interface TableProps {
   }>
   highlightedColumn?: keyof PlayerStats
   onTableSort?: (columnKey: keyof PlayerStats) => void
+  pageSize?: number
 }
 
 export default function Table({
@@ -38,6 +39,7 @@ export default function Table({
   headerLink,
   highlightedColumn,
   onTableSort,
+  pageSize = 5,
   title,
 }: TableProps) {
   const onTableHeadClick = (columnKey: keyof PlayerStats) => {
@@ -73,7 +75,7 @@ export default function Table({
           </StyledTr>
         </thead>
         {loading ? (
-          <LoaderTable />
+          <LoaderTable lines={pageSize} />
         ) : (
           <tbody>
             {data?.map((player, index) => (

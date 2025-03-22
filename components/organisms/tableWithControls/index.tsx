@@ -2,19 +2,17 @@
 
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import { useSearchParams } from 'next/navigation'
-import { useMemo, useState, useCallback, ReactNode } from 'react'
+import { useState, useCallback, ReactNode } from 'react'
 import Pagination from './components/pagination'
-import { difficultyNames, pageSize } from '@/constants'
-import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
+import { difficultyNames } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 
 interface TableProps {
-  data?: PlayersStats
+  data: { pages: number; stats?: PlayersStats }
   headerLink?: ReactNode
   defaultSortKey: keyof PlayerStats
-  loading?: boolean
   title?: string
   columns: Array<{
     title: string
@@ -30,12 +28,10 @@ interface SortingKey {
 export default function TableWithControls({
   data,
   defaultSortKey,
-  loading = false,
   columns,
   title,
   headerLink,
 }: TableProps) {
-  const totalPages = data ? Math.ceil(data?.length / pageSize) : 0
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
   const initialFilter = searchParams?.get('difficulty') as Difficulty
@@ -49,9 +45,14 @@ export default function TableWithControls({
     Difficulty | undefined
   >(initialFilter)
   const [sortKey, setSortKey] = useState<SortingKey>(initialSortData)
+  const [loading, setLoading] = useState(false)
+  const [filteredData, setFilteredData] = useState<{
+    pages: number
+    stats?: PlayersStats
+  }>(data)
 
   const updateURL = useCallback(
-    (page: number, difficulty?: Difficulty, sort?: SortingKey) => {
+    async (page: number, difficulty?: Difficulty, sort?: SortingKey) => {
       const queryParams = new URLSearchParams()
       queryParams.set('page', page.toString())
       if (difficulty) queryParams.set('difficulty', difficulty)
@@ -59,6 +60,29 @@ export default function TableWithControls({
         queryParams.set('sortKey', sort.key)
         queryParams.set('sortOrder', sort.asc ? 'asc' : 'desc')
       }
+      setLoading(true)
+
+      // TODO: create helper or what about react query?
+      try {
+        const response = await fetch(`/api/stats?${queryParams.toString()}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        setFilteredData(result)
+      } catch (error) {
+        console.log('something went wrong')
+      } finally {
+        setLoading(false)
+      }
+
       window.history.pushState(null, '', `?${queryParams.toString()}`)
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     },
@@ -93,29 +117,12 @@ export default function TableWithControls({
     [currentPage, sortKey, updateURL],
   )
 
-  const dataToShow = useMemo(() => {
-    if (!data) return []
-    const initialIndex = (Number(currentPage) - 1) * pageSize
-
-    const sortedData = [...data].sort((a, b) => {
-      const condition = getSortConditionByKey(
-        sortKey.key,
-        a,
-        b,
-        difficultyFilter,
-      )
-      if (condition === undefined) return 0
-      return sortKey.asc ? (condition ? 1 : -1) : condition ? -1 : 1
-    })
-
-    return sortedData.slice(initialIndex, initialIndex + pageSize)
-  }, [data, currentPage, sortKey, difficultyFilter])
-
   return (
     <>
       <Table
         columns={columns}
-        data={dataToShow}
+        data={filteredData.stats ?? []}
+        pageSize={15}
         filters={
           <Badges
             onClick={handleFilterChange}
@@ -132,7 +139,7 @@ export default function TableWithControls({
       />
       <Pagination
         currentPage={currentPage}
-        totalPages={totalPages}
+        totalPages={filteredData.pages}
         onPageChange={handlePageChange}
       />
     </>
