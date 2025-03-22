@@ -7,7 +7,13 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const data = await fetchData('players', `battletag=${req.body.battleTag}`)
+    const { battleTag } = req.query
+
+    if (!battleTag) {
+      throw new Error('Please provide a valid battleTag')
+    }
+
+    const data = await fetchData('players', `battletag=${battleTag}`)
 
     const playerData = data[0]
 
