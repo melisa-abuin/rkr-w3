@@ -5,10 +5,13 @@ import { findTopFive } from '@/utils/findTopFive'
 import { roundNames } from '@/constants'
 import { fetchData } from '@/utils/fetchData'
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+interface QueryParams {
+  difficulty?: 'normal' | 'hard' | 'impossible' | undefined
+}
+
+type StatsRequest = NextApiRequest & { query: QueryParams }
+
+export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
@@ -30,7 +33,7 @@ export default async function handler(
       return playerStats as PlayerStats
     })
 
-    const difficultyFilter = req.body.difficulty
+    const difficultyFilter = req.query.difficulty
 
     const stats = [
       {

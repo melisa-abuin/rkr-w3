@@ -6,12 +6,12 @@ import { roundNames } from '@/constants'
 import { formatRoundsData } from '@/utils/formatRoundsData'
 
 interface QueryParams {
-  battleTag: string
+  battleTag?: string
   difficulty?: 'normal' | 'hard' | 'impossible' | undefined
-  page: number
-  pageSize: number
-  sortKey: keyof PlayerStats
-  sortOrder: 'asc' | 'desc'
+  page?: number
+  pageSize?: number
+  sortKey?: keyof PlayerStats
+  sortOrder?: 'asc' | 'desc'
 }
 
 type StatsRequest = NextApiRequest & { query: QueryParams }
@@ -45,7 +45,6 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       battleTag: queryBattletag,
       difficulty,
     } = req.query
-    console.log(req.query)
 
     if (queryBattletag) {
       res

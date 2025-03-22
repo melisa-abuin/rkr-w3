@@ -11,12 +11,12 @@ import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 import { fetchData } from '@/utils/fetchData'
 
 interface QueryParams {
-  battleTag: string
+  battleTag?: string
   difficulty?: 'normal' | 'hard' | 'impossible' | undefined
-  page: number
-  pageSize: number
-  sortKey: keyof PlayerStats
-  sortOrder: 'asc' | 'desc'
+  page?: number
+  pageSize?: number
+  sortKey?: keyof PlayerStats
+  sortOrder?: 'asc' | 'desc'
 }
 
 type StatsRequest = NextApiRequest & { query: QueryParams }
