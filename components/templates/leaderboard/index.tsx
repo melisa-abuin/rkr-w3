@@ -24,7 +24,9 @@ interface PlayerStatsData {
 }
 
 export default function Leaderboard({ data }: { data: PlayerStatsData }) {
-  const [statsData, setStatsData] = useState<PlayersStats | undefined>()
+  const [statsData, setStatsData] = useState<
+    { stats: PlayersStats; page: number } | undefined
+  >()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
       <Table
         columns={statsColumns}
         loading={loading}
-        data={statsData}
+        data={statsData?.stats ?? []}
         title="Leaderboard Highlights: Top Five Stats"
       />
       <PageContainer as="div" marginBottom={48}>

@@ -48,13 +48,15 @@ export default function ColumnCardsWithControls({
 
       // TODO: create helper or what about react query?
       try {
-        const response = await fetch('/api/timeLeaderboard', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `/api/timeLeaderboard?difficulty=${difficultyFilter}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-          body: JSON.stringify({ difficulty: difficultyFilter }),
-        })
+        )
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)

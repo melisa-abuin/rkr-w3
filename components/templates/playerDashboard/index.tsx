@@ -46,15 +46,15 @@ export default function PlayerDashboard({
 
     // TODO: create helper or what about react query?
     try {
-      const response = await fetch('/api/player', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `/api/player/${encodeURIComponent(player.battleTag.tag)}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-        body: JSON.stringify({
-          battleTag: encodeURIComponent(player.battleTag.tag),
-        }),
-      })
+      )
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`)
