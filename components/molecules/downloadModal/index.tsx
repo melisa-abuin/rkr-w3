@@ -55,7 +55,7 @@ export default function DownloadModal({ battletag, date }: Props) {
 
     setIsModalOpen(false)
   }, [battletag])
-  console.log(loading)
+
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)}>Download my stats</Button>

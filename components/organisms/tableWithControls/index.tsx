@@ -14,6 +14,7 @@ interface TableProps {
   headerLink?: ReactNode
   defaultSortKey: keyof PlayerStats
   title?: string
+  isTimeStats: boolean
   columns: Array<{
     title: string
     key: keyof PlayerStats
@@ -29,6 +30,7 @@ export default function TableWithControls({
   data,
   defaultSortKey,
   columns,
+  isTimeStats,
   title,
   headerLink,
 }: TableProps) {
@@ -64,12 +66,15 @@ export default function TableWithControls({
 
       // TODO: create helper or what about react query?
       try {
-        const response = await fetch(`/api/stats?${queryParams.toString()}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          `/api/${isTimeStats ? 'times' : 'stats'}?${queryParams.toString()}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        })
+        )
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
@@ -86,7 +91,7 @@ export default function TableWithControls({
       window.history.pushState(null, '', `?${queryParams.toString()}`)
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     },
-    [],
+    [isTimeStats],
   )
 
   const handlePageChange = useCallback(

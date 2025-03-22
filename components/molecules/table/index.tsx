@@ -68,6 +68,7 @@ export default function Table({
                 key={key}
                 onClick={() => onTableHeadClick(key)}
                 scope="col"
+                colSpan={1}
               >
                 {title}
               </StyledTh>
@@ -75,7 +76,7 @@ export default function Table({
           </StyledTr>
         </thead>
         {loading ? (
-          <LoaderTable lines={pageSize} />
+          <LoaderTable columns={columns.length} rows={pageSize} />
         ) : (
           <tbody>
             {data?.map((player, index) => (

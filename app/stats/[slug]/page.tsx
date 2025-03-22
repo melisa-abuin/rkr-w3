@@ -67,7 +67,6 @@ export default async function StatsPage({
 }) {
   const { slug } = params
   const { data, error } = await fetchData(slug === 'time')
-
   const strings = slug === 'time' ? timeStrings : overallStrings
 
   return (
@@ -87,6 +86,7 @@ export default async function StatsPage({
               columns={strings.columns}
               data={data}
               defaultSortKey={strings.defaultSortKey}
+              isTimeStats={slug === 'time'}
               title={strings.title}
             />
             <HelpInfo />
