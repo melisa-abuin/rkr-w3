@@ -7,6 +7,7 @@ import { formatRoundsData } from '@/utils/formatRoundsData'
 
 interface QueryParams {
   battleTag: string
+  difficulty?: 'normal' | 'hard' | 'impossible' | undefined
   page: number
   pageSize: number
   sortKey: keyof PlayerStats
@@ -42,6 +43,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       sortOrder = 'desc',
       pageSize = 15,
       battleTag: queryBattletag,
+      difficulty,
     } = req.query
     console.log(req.query)
 
@@ -59,7 +61,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       const initialIndex = (Number(page) - 1) * pageSize
 
       const sortedData = formattedData.sort((a, b) => {
-        const condition = getSortConditionByKey(sortKey, a, b)
+        const condition = getSortConditionByKey(sortKey, a, b, difficulty)
         if (condition === undefined) return 0
         return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
       })
