@@ -7,7 +7,7 @@ export default function Error() {
   return (
     <Container>
       <p>There was an error handling the request</p>
-      <Link href="/" withButtonStyle>
+      <Link colorName="brandPrimary" href="/" withButtonStyle>
         Return to home
       </Link>
     </Container>
