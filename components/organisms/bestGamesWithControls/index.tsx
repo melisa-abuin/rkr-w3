@@ -8,36 +8,32 @@ import BestGames from '@/components/molecules/bestGames'
 import { GamesStats } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
 
-interface Props {
-  data: GamesStats
-}
-export default function BestGamesWithControls({ data }: Props) {
+export default function BestGamesWithControls() {
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >()
   const [filteredData, setFilteredData] = useState<GamesStats | undefined>()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchFilteredData = async () => {
-      if (difficultyFilter === undefined) {
-        setFilteredData(data)
-        return
-      }
-
       setLoading(true)
       setError(null)
 
       // TODO: create helper or what about react query?
       try {
-        const response = await fetch('/api/gameTimes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          difficultyFilter
+            ? `/api/gameTimes?difficulty=${difficultyFilter}`
+            : '/api/gameTimes',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-          body: JSON.stringify({ difficulty: difficultyFilter }),
-        })
+        )
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`)
@@ -53,7 +49,7 @@ export default function BestGamesWithControls({ data }: Props) {
     }
 
     fetchFilteredData()
-  }, [difficultyFilter, data])
+  }, [difficultyFilter])
 
   const onFilterClick = (difficulty: Difficulty | undefined) => {
     setDifficultyFilter(difficulty)
@@ -72,7 +68,7 @@ export default function BestGamesWithControls({ data }: Props) {
         <div>Error: {error}</div>
       ) : (
         <BestGames
-          games={difficultyFilter && filteredData ? filteredData : data}
+          games={filteredData || []}
           loading={loading}
           showDifficulty={!difficultyFilter}
         />
