@@ -17,7 +17,7 @@ export const NavLink = styled.li<NavLinkProps>`
   border-bottom: ${({ selected, theme }) =>
     selected ? `2px solid ${theme.text.primary}` : 'none'};
 
-  @media (max-width: 480px) {
+  @media (max-width: 700px) {
     display: none;
   }
 `

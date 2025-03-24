@@ -6,13 +6,8 @@ export const Header = styled.header<{ align: 'center' | 'flex-start' }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 8rem;
+  padding: 120px 24px 0 24px;
   width: 100%;
-
-  @media (max-width: 480px) {
-    padding: 1rem;
-    padding-top: 6rem;
-  }
 `
 
 export const Info = styled.p<{ align: 'center' | 'flex-start' }>`
