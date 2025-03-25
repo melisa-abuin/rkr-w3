@@ -40,7 +40,7 @@ export default function Columns({
               large
               colorName={!isBetter ? 'yellow' : undefined}
               iconName={!isBetter ? 'crown' : undefined}
-              palette="color"
+              palette={!isBetter ? 'color' : 'text'}
             >
               {compareValue || 0}
             </TextWithIcon>

@@ -72,16 +72,16 @@ export default function PlayerDashboard({
 
   return (
     <>
+      <PageHeader
+        align="flex-start"
+        description={formatKeyToWord(skins?.selectedSkin)}
+        title={
+          selectedPlayer
+            ? `${battleTag.name} vs ${selectedPlayer.battleTag.name}`
+            : battleTag.name
+        }
+      />
       <PageContainer>
-        <PageHeader
-          align="flex-start"
-          description={formatKeyToWord(skins?.selectedSkin)}
-          title={
-            selectedPlayer
-              ? `${battleTag.name} vs ${selectedPlayer.battleTag.name}`
-              : battleTag.name
-          }
-        />
         <PlayerFinder
           onPlayerSelect={fetchData}
           placeholder="Compare with another player"

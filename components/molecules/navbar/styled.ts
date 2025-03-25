@@ -24,7 +24,7 @@ export const StyledNav = styled.nav<NavProps>`
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 16px 24px;
   position: fixed;
   top: 0;
   width: 100%;

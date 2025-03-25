@@ -57,7 +57,7 @@ export default function MobileNavbar() {
           ))}
           <NavLink>
             <Link href={`/${downloadFileName}.w3x`} download={downloadFileName}>
-              Download v1.1.4
+              Download v1.2.1
             </Link>
           </NavLink>
         </NavLinks>
