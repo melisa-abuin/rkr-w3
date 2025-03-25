@@ -4,16 +4,13 @@ export const BannerContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
   height: 600px;
   background: ${({ theme }) => `
     linear-gradient(66deg, ${theme.color.tertiary} 0%, ${theme.color.primary} 35%, ${theme.color.secondary} 100%);
   `};
   color: ${({ theme }) => theme.text.white};
 
-  @media (max-width: 480px) {
-    padding: 1rem;
-  }
+  padding: 0 24px;
 `
 
 export const BannerContent = styled.div`

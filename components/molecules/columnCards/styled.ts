@@ -5,14 +5,11 @@ export const Container = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 15px;
   justify-content: space-between;
   max-width: 1000px;
   width: 100%;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-  }
 `
 
 export const Card = styled.div`
@@ -20,10 +17,15 @@ export const Card = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 180px;
   overflow: hidden;
   padding: 4px 8px;
   text-align: center;
-  width: 100%;
+
+  @media (max-width: 1000px) {
+    flex: 1 1 calc(100% / 3 - 10px);
+  }
 `
 
 export const Header = styled.div`

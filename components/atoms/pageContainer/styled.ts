@@ -19,10 +19,7 @@ export const OuterContainer = styled.section<{
   margin-top: ${({ marginTop }) => `${marginTop}px`};
   margin-bottom: ${({ marginBottom }) => `${marginBottom}px`};
   width: 100%;
-
-  @media (max-width: 480px) {
-    padding: 0 1rem;
-  }
+  padding: 0 24px;
 `
 
 export const Title = styled.h2<{ align: 'center' | 'left' }>`

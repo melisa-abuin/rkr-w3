@@ -5,7 +5,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.background.primary};
   display: flex;
   justify-content: center;
-  padding: 1rem;
+  padding: 24px;
   padding-top: 2rem;
 
   & li {

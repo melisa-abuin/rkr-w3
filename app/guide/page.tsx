@@ -11,8 +11,9 @@ export default async function GuidePage() {
     <ThemeProvider>
       <Navbar />
       <main>
-        <PageHeader description="" title="How to upload my stats?" />
         <PageContainer>
+          <PageHeader description="" title="How to upload my stats?" />
+
           {discordGuideSteps.map(({ imageSrcSet, stepTitle, text }, index) => (
             <Step
               imageSrcSet={imageSrcSet}

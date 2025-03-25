@@ -7,7 +7,7 @@ interface NavLinkProps {
 export const Container = styled.div`
   display: none;
 
-  @media (max-width: 480px) {
+  @media (max-width: 700px) {
     display: inline;
   }
 `

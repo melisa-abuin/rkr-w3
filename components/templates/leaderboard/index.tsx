@@ -63,11 +63,11 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
 
   return (
     <>
-      <PageHeader
-        description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
-        title="Leaderboard"
-      />
       <PageContainer>
+        <PageHeader
+          description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
+          title="Leaderboard"
+        />
         <PlayerFinderWithResult />
       </PageContainer>
       <PageContainer ariaLabelledby="columns-score-title" title="Best scores">

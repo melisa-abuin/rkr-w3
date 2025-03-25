@@ -6,15 +6,17 @@ export const fetchData = async (
   params?: string | undefined,
 ) => {
   const apiBaseUrl = process.env.API_URL
+  const isDev = process.env.ENVIRONMENT === 'development'
+
   let data = []
 
   try {
-    if (!apiBaseUrl) {
+    if (!apiBaseUrl && !isDev) {
       throw new Error('Please provide a valid api URL')
     }
     const apiUrl = `${apiBaseUrl}${url || ''}${params ? `?${params}` : ''}`
 
-    if (process.env.ENVIRONMENT === 'development') {
+    if (isDev) {
       console.warn(
         'Currently using mocked data, to call the production enpoint directly change it from .env',
       )
