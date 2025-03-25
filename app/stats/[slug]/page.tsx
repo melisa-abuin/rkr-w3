@@ -9,6 +9,7 @@ import Error from '@/components/molecules/error'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import ScoreboardSelector from '@/components/molecules/scoreboardSelector'
 import HelpInfo from '@/components/molecules/helpInfo'
+import { PageContainer } from '@/components/atoms/pageContainer'
 
 interface PlayerStatsData {
   error: string | null
@@ -77,10 +78,12 @@ export default async function StatsPage({
           <Error />
         ) : (
           <>
-            <PageHeader
-              description="Overall times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
-              title="Scoreboard"
-            />
+            <PageContainer>
+              <PageHeader
+                description="Overall times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
+                title="Scoreboard"
+              />
+            </PageContainer>
             <ScoreboardSelector toggleInitialValue={slug === 'overview'} />
             <TableWithControls
               columns={strings.columns}
