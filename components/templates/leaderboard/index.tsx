@@ -12,6 +12,7 @@ import Table from '@/components/molecules/table'
 import Link from '@/components/atoms/link'
 import HelpInfo from '@/components/molecules/helpInfo'
 import { useEffect, useState } from 'react'
+import { useToast } from '@/hooks/useToast'
 
 interface Data {
   player: string
@@ -28,6 +29,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     { stats: PlayersStats; page: number } | undefined
   >()
   const [loading, setLoading] = useState(true)
+  const { showToast } = useToast()
 
   useEffect(() => {
     const fetchFilteredData = async () => {
@@ -52,14 +54,14 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
         const result = await response.json()
         setStatsData(result)
       } catch (error) {
-        console.log('something went wrong')
+        showToast('Something went wrong, please try again later.')
       } finally {
         setLoading(false)
       }
     }
 
     fetchFilteredData()
-  }, [])
+  }, [showToast])
 
   return (
     <>
