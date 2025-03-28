@@ -51,7 +51,6 @@ export default function PlayerDashboard({
     async (playerTag: string) => {
       setLoading(true)
 
-      // TODO: create helper or what about react query?
       try {
         const response = await fetch(
           `/api/player/${encodeURIComponent(playerTag)}`,
@@ -79,6 +78,21 @@ export default function PlayerDashboard({
     },
     [showToast],
   )
+
+  useEffect(() => {
+    if (compareTo) {
+      fetchData(compareTo)
+    }
+  }, [compareTo, fetchData])
+
+  const handlePlayerSelect = (player: PlayerStats) => {
+    router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
+  }
+
+  const handleClear = () => {
+    router.push(`?`)
+    setSelectedPlayer(undefined)
+  }
 
   useEffect(() => {
     if (compareTo) {
