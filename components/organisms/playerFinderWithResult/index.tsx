@@ -1,20 +1,24 @@
 'use client'
 
-import React, { useState } from 'react'
-import { PlayerStats } from '@/interfaces/player'
-import PlayerFinder from '@/components/molecules/playerFinder'
-import Columns from '@/components/molecules/columns'
 import Link from '@/components/atoms/link'
+import Columns from '@/components/molecules/columns'
+import PlayerFinder from '@/components/molecules/playerFinder'
 import { playerColumns } from '@/constants'
+import { PlayerStats } from '@/interfaces/player'
+import { useState } from 'react'
 
 export default function PlayerFinderWithResult() {
   const [selectedPlayer, setSelectedPlayer] = useState<
     PlayerStats | undefined
   >()
 
+  const handleClear = () => {
+    setSelectedPlayer(undefined)
+  }
+
   return (
     <>
-      <PlayerFinder onPlayerSelect={setSelectedPlayer} />
+      <PlayerFinder onPlayerSelect={setSelectedPlayer} onClear={handleClear} />
       {selectedPlayer && (
         <Columns
           actionColumn={
