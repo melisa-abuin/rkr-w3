@@ -1,23 +1,27 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react'
-import { Options, Option, Wrapper } from './styled'
-import { PlayersStats, PlayerStats } from '@/interfaces/player'
-import { useTheme } from '@/hooks/useTheme'
-import Image from 'next/image'
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
+import { useTheme } from '@/hooks/useTheme'
+import { PlayersStats, PlayerStats } from '@/interfaces/player'
+import Image from 'next/image'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Option, Options, Wrapper } from './styled'
 
 interface Props {
   onPlayerSelect: (player: PlayerStats) => void
+  onClear: () => void
   placeholder?: string
+  defaultValue?: string
 }
 
 export default function PlayerFinder({
   onPlayerSelect,
+  onClear,
   placeholder = 'Search a player',
+  defaultValue = '',
 }: Props) {
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState(defaultValue)
   const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
   const [selectedPlayer, setSelectedPlayer] = useState<
     PlayerStats | undefined
@@ -63,12 +67,14 @@ export default function PlayerFinder({
   )
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      fetchData(query)
-    }, 300)
+    if (query !== defaultValue || !defaultValue) {
+      const handler = setTimeout(() => {
+        fetchData(query)
+      }, 300)
 
-    return () => clearTimeout(handler)
-  }, [query, fetchData])
+      return () => clearTimeout(handler)
+    }
+  }, [query, fetchData, defaultValue])
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value)
@@ -84,6 +90,8 @@ export default function PlayerFinder({
   const onSearchClear = () => {
     setQuery('')
     setFilteredData(undefined)
+    setSelectedPlayer(undefined)
+    onClear()
   }
 
   return (

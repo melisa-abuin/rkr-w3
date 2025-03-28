@@ -1,18 +1,19 @@
 'use client'
 
+import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
+import PageHeader from '@/components/atoms/pageHeader'
 import Awards from '@/components/molecules/awards'
 import Columns from '@/components/molecules/columns'
-import PageHeader from '@/components/atoms/pageHeader'
+import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import { difficultyNames, playerColumns, roundNames } from '@/constants'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
-import { useCallback, useState } from 'react'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import Info from '@/components/atoms/info'
-import DownloadModal from '@/components/molecules/downloadModal'
+import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 
 const getDateToShow = (lastUploaded: string) => {
   const dateOptions = {
@@ -39,15 +40,18 @@ export default function PlayerDashboard({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const compareTo = searchParams?.get('compareTo')
+
   const lastDateUploaded = getDateToShow(playerData.lastUploaded)
 
-  const fetchData = useCallback(async (player: PlayerStats) => {
+  const fetchData = useCallback(async (playerTag: string) => {
     setLoading(true)
 
-    // TODO: create helper or what about react query?
     try {
       const response = await fetch(
-        `/api/player/${encodeURIComponent(player.battleTag.tag)}`,
+        `/api/player/${encodeURIComponent(playerTag)}`,
         {
           method: 'GET',
           headers: {
@@ -70,6 +74,21 @@ export default function PlayerDashboard({
     }
   }, [])
 
+  useEffect(() => {
+    if (compareTo) {
+      fetchData(compareTo)
+    }
+  }, [compareTo, fetchData])
+
+  const handlePlayerSelect = (player: PlayerStats) => {
+    router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
+  }
+
+  const handleClear = () => {
+    router.push(`?`)
+    setSelectedPlayer(undefined)
+  }
+
   return (
     <>
       <PageContainer>
@@ -83,8 +102,10 @@ export default function PlayerDashboard({
           }
         />
         <PlayerFinder
-          onPlayerSelect={fetchData}
+          onPlayerSelect={handlePlayerSelect}
+          onClear={handleClear}
           placeholder="Compare with another player"
+          defaultValue={compareTo || ''}
         />
         {error && (
           <p>There was an error handling the request. Try again later</p>
