@@ -27,9 +27,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       {children}
       {!!toasts.length && (
         <div className="toast-container">
-          {toasts.map((toast) => (
+          {toasts.map((toast, index) => (
             <StyledToast
               key={toast.id}
+              index={index}
               message={toast.message}
               onClick={() =>
                 setToasts((prevToasts) =>

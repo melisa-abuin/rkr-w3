@@ -1,4 +1,15 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
 
 export const Container = styled.div`
   align-items: center;
@@ -10,15 +21,18 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 8px 16px;
+
+  opacity: 0;
+  animation: ${fadeIn} 0.3s forwards;
 `
 
 export const Message = styled.p`
   padding-right: 5px;
 `
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ index: number }>`
   align-items: center;
-  bottom: 0;
+  bottom: ${({ index }) => `calc(${index} * 74px)`};
   display: flex;
   justify-content: center;
   width: 100%;
