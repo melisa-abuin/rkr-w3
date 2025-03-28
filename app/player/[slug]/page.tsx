@@ -1,10 +1,11 @@
+import Error from '@/components/molecules/error'
+import Footer from '@/components/molecules/footer'
+import Navbar from '@/components/molecules/navbar'
+import PlayerDashboard from '@/components/templates/playerDashboard'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
-import Footer from '@/components/molecules/footer'
-import Navbar from '@/components/molecules/navbar'
-import Error from '@/components/molecules/error'
-import PlayerDashboard from '@/components/templates/playerDashboard'
+import { notFound } from 'next/navigation'
 
 interface PlayerStatsData {
   error: string | null
@@ -26,12 +27,16 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
       },
     },
   )
+
   if (response.status === 200) {
     return {
       data: await response.json(),
       error: null,
     }
+  } else if (response.status === 404) {
+    notFound()
   }
+
   return {
     data: null,
     error: 'Something went wrong',
