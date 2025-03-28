@@ -29,6 +29,10 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     const playerData = data[0]
 
+    if (!playerData) {
+      return res.status(404).json({ message: 'Player not found' })
+    }
+
     if (blacklistedPlayers.find((player) => player === playerData.battletag)) {
       res.redirect(307, '/')
     }
