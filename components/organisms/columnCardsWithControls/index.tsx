@@ -8,6 +8,7 @@ import { difficultyNames } from '@/constants'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
+import { useToast } from '@/hooks/useToast'
 
 interface Data {
   player: string
@@ -34,7 +35,7 @@ export default function ColumnCardsWithControls({
     LeaderBoardData | undefined
   >()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { showToast } = useToast()
 
   useEffect(() => {
     const fetchFilteredData = async () => {
@@ -44,7 +45,6 @@ export default function ColumnCardsWithControls({
       }
 
       setLoading(true)
-      setError(null)
 
       // TODO: create helper or what about react query?
       try {
@@ -65,14 +65,16 @@ export default function ColumnCardsWithControls({
         const result = await response.json()
         setFilteredData(result)
       } catch (error) {
-        setError((error as Error).message)
+        showToast(
+          `Couldn't fetch the times leaderboard for the ${difficultyFilter} difficulty, please try again later.`,
+        )
       } finally {
         setLoading(false)
       }
     }
 
     fetchFilteredData()
-  }, [difficultyFilter, data])
+  }, [difficultyFilter, data, showToast])
 
   const onFilterClick = (difficulty: Difficulty | undefined) => {
     setDifficultyFilter(difficulty)
@@ -91,16 +93,12 @@ export default function ColumnCardsWithControls({
           selected={difficultyFilter}
         />
       </BadgesContainer>
-      {error ? (
-        <div>Error: {error}</div>
-      ) : (
-        <ColumnCards
-          data={difficultyFilter === undefined ? data : filteredData}
-          hoverable={difficultyFilter === undefined}
-          loading={loading}
-          viewAllKey={viewAllKey}
-        />
-      )}
+      <ColumnCards
+        data={difficultyFilter === undefined ? data : filteredData}
+        hoverable={difficultyFilter === undefined}
+        loading={loading}
+        viewAllKey={viewAllKey}
+      />
     </PageContainer>
   )
 }

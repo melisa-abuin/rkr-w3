@@ -54,7 +54,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
         const result = await response.json()
         setStatsData(result)
       } catch (error) {
-        showToast('Something went wrong, please try again later.')
+        showToast(`Couldn't fetch the top five stats, please try again later.`)
       } finally {
         setLoading(false)
       }

@@ -7,6 +7,7 @@ import { difficultyNames } from '@/constants'
 import BestGames from '@/components/molecules/bestGames'
 import { GamesStats } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
+import { useToast } from '@/hooks/useToast'
 
 export default function BestGamesWithControls() {
   const [difficultyFilter, setDifficultyFilter] = useState<
@@ -14,12 +15,11 @@ export default function BestGamesWithControls() {
   >()
   const [filteredData, setFilteredData] = useState<GamesStats | undefined>()
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const { showToast } = useToast()
 
   useEffect(() => {
     const fetchFilteredData = async () => {
       setLoading(true)
-      setError(null)
 
       // TODO: create helper or what about react query?
       try {
@@ -42,14 +42,16 @@ export default function BestGamesWithControls() {
         const result = await response.json()
         setFilteredData(result)
       } catch (error) {
-        setError((error as Error).message)
+        showToast(
+          `Couldn't load best game times for "${difficultyFilter}" difficulty, please try again later.`,
+        )
       } finally {
         setLoading(false)
       }
     }
 
     fetchFilteredData()
-  }, [difficultyFilter])
+  }, [difficultyFilter, showToast])
 
   const onFilterClick = (difficulty: Difficulty | undefined) => {
     setDifficultyFilter(difficulty)
@@ -64,15 +66,11 @@ export default function BestGamesWithControls() {
           selected={difficultyFilter}
         />
       </BadgesContainer>
-      {error ? (
-        <div>Error: {error}</div>
-      ) : (
-        <BestGames
-          games={filteredData || []}
-          loading={loading}
-          showDifficulty={!difficultyFilter}
-        />
-      )}
+      <BestGames
+        games={filteredData || []}
+        loading={loading}
+        showDifficulty={!difficultyFilter}
+      />
     </>
   )
 }

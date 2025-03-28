@@ -8,6 +8,7 @@ import { difficultyNames } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
+import { useToast } from '@/hooks/useToast'
 
 interface TableProps {
   data: { pages: number; stats?: PlayersStats }
@@ -52,6 +53,7 @@ export default function TableWithControls({
     pages: number
     stats?: PlayersStats
   }>(data)
+  const { showToast } = useToast()
 
   const updateURL = useCallback(
     async (page: number, difficulty?: Difficulty, sort?: SortingKey) => {
@@ -83,7 +85,7 @@ export default function TableWithControls({
         const result = await response.json()
         setFilteredData(result)
       } catch (error) {
-        console.log('something went wrong')
+        showToast(`Couldn't fetch the stats, please try again later.`)
       } finally {
         setLoading(false)
       }
@@ -91,7 +93,7 @@ export default function TableWithControls({
       window.history.pushState(null, '', `?${queryParams.toString()}`)
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     },
-    [isTimeStats],
+    [isTimeStats, showToast],
   )
 
   const handlePageChange = useCallback(
