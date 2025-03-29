@@ -51,7 +51,6 @@ export default function PlayerDashboard({
     async (playerTag: string) => {
       setLoading(true)
 
-      // TODO: create helper or what about react query?
       try {
         const response = await fetch(
           `/api/player/${encodeURIComponent(playerTag)}`,
