@@ -13,6 +13,10 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: Fetch all commit history
+        run: |
+          git fetch --prune --unshallow
+
       - name: Get commit messages for all commits in PR
         id: get_all_commit_messages
         run: |
