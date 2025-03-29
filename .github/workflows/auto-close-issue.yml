@@ -22,7 +22,7 @@ jobs:
         run: |
           # Get all commit messages in the PR branch
           COMMIT_MESSAGES=$(git log --format=%s ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
-          echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
+          echo "$COMMIT_MESSAGES" >> $GITHUB_ENV
 
       - name: Output all commit messages
         run: |
