@@ -1,44 +1,25 @@
-name: Add "closes issue" automatically to PR
+name: PR Commit Messages
 
-on: [push]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened] # Trigger on PR opened, synchronized, or reopened
 
 jobs:
-  update-pr-description:
+  get-pr-commit-messages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Get commit messages from push event
+      - name: Get commit messages for all commits in PR
+        id: get_all_commit_messages
         run: |
-          ISSUE_NUMBERS=$(echo "${{ github.event.commits[*].message }}" | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
-          if [[ -n "$ISSUE_NUMBERS" ]]; then
-            echo "Found issue numbers: $ISSUE_NUMBERS"
-            echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
-          fi
+          # Get all commit messages in the PR branch
+          COMMIT_MESSAGES=$(git log --format=%s ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+          echo "COMMIT_MESSAGES=$COMMIT_MESSAGES" >> $GITHUB_ENV
 
-      - name: Find associated PR number
-        id: find-pr
+      - name: Output all commit messages
         run: |
-          PR_NUMBER=$(gh pr list --head ${{ github.ref }} --json number -q '.[0].number')
-          if [ -z "$PR_NUMBER" ]; then
-            echo "No PR associated with this push."
-            exit 0
-          else
-            echo "Associated PR number: $PR_NUMBER"
-            echo "::set-output name=PR_NUMBER::$PR_NUMBER"
-          fi
-
-      - name: Update PR description
-        if: env.ISSUE_NUMBERS != '' && steps.find-pr.outcome != 'failure'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ steps.find-pr.outputs.PR_NUMBER }}
-          REPO: ${{ github.repository }}
-        run: |
-          DESC=$(gh pr view $PR_NUMBER --repo "$REPO" --json body -q ".body")
-          NEW_DESC="$DESC
-
-          Automatically detected issues: Closes $ISSUE_NUMBERS"
-          gh pr edit $PR_NUMBER --repo "$REPO" --body "$NEW_DESC"
-        shell: bash
+          echo "All commit messages in the PR: ${{ env.COMMIT_MESSAGES }}"
