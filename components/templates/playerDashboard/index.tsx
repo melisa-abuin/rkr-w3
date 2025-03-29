@@ -94,21 +94,6 @@ export default function PlayerDashboard({
     setSelectedPlayer(undefined)
   }
 
-  useEffect(() => {
-    if (compareTo) {
-      fetchData(compareTo)
-    }
-  }, [compareTo, fetchData])
-
-  const handlePlayerSelect = (player: PlayerStats) => {
-    router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
-  }
-
-  const handleClear = () => {
-    router.push(`?`)
-    setSelectedPlayer(undefined)
-  }
-
   return (
     <>
       <PageContainer>
