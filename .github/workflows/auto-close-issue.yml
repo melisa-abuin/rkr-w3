@@ -9,17 +9,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Extract issue numbers from commit message
+      - name: Get commit messages
         run: |
-          COMMIT_MESSAGE="${{ github.event.commits[0].message }}"
-
-          ISSUE_NUMBERS=$(echo "$COMMIT_MESSAGE" | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
-          echo "Found issue numbers: $ISSUE_NUMBERS"
-
-          if [ -n "$ISSUE_NUMBERS" ]; then
+          ISSUE_NUMBERS=$(git log --format=%s -n 20 | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
+          if [[ -n "$ISSUE_NUMBERS" ]]; then
             echo "Found issue numbers: $ISSUE_NUMBERS"
-          else
-            echo "No issue numbers found in commit message"
+            echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
           fi
 
       - name: Update PR description
