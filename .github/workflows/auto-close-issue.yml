@@ -1,11 +1,6 @@
 name: Add "closes issue" automatically to PR
 
-on:
-  push:
-    branches:
-      - '*'
-  pull_request:
-    types: [opened, edited, synchronize]
+on: [push]
 
 jobs:
   update-pr-description:
@@ -14,28 +9,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Get commit messages
+      - name: Get commit messages from push event
         run: |
-          ISSUE_NUMBERS=$(git log --format=%s -n 20 | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
-          echo "Found issue numbers: $(git log --format=%s -n 20)"
+          ISSUE_NUMBERS=$(echo "${{ github.event.commits[*].message }}" | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
           if [[ -n "$ISSUE_NUMBERS" ]]; then
             echo "Found issue numbers: $ISSUE_NUMBERS"
             echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
           fi
 
-      - name: Check PR number
-        id: pr-check
+      - name: Find associated PR number
+        id: find-pr
         run: |
-          if [ -z "${{ github.event.pull_request.number }}" ]; then
-            echo "No pull request found. Skipping PR update."
+          PR_NUMBER=$(gh pr list --head ${{ github.ref }} --json number -q '.[0].number')
+          if [ -z "$PR_NUMBER" ]; then
+            echo "No PR associated with this push."
             exit 0
+          else
+            echo "Associated PR number: $PR_NUMBER"
+            echo "::set-output name=PR_NUMBER::$PR_NUMBER"
           fi
 
       - name: Update PR description
-        if: env.ISSUE_NUMBERS != '' && steps.pr-check.outcome != 'success'
+        if: env.ISSUE_NUMBERS != '' && steps.find-pr.outcome != 'failure'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ steps.find-pr.outputs.PR_NUMBER }}
           REPO: ${{ github.repository }}
         run: |
           DESC=$(gh pr view $PR_NUMBER --repo "$REPO" --json body -q ".body")
