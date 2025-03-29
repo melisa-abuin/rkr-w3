@@ -1,0 +1,35 @@
+name: add "closes issue" automatically to PR
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  update-pr-description:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Get commit messages
+        run: |
+          ISSUE_NUMBERS=$(git log --format=%s -n 20 | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
+          if [[ -n "$ISSUE_NUMBERS" ]]; then
+            echo "Found issue numbers: $ISSUE_NUMBERS"
+            echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
+          fi
+
+      - name: Update PR description
+        if: env.ISSUE_NUMBERS != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          DESC=$(gh pr view $PR_NUMBER --repo "$REPO" --json body -q ".body")
+          NEW_DESC="$DESC
+
+          Automatically detected issues: Closes $ISSUE_NUMBERS"
+          gh pr edit $PR_NUMBER --repo "$REPO" --body "$NEW_DESC"
+        shell: bash
