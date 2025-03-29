@@ -1,6 +1,11 @@
 name: Add "closes issue" automatically to PR
 
-on: [push]
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    types: [opened, edited, synchronize]
 
 jobs:
   update-pr-description:
@@ -17,8 +22,16 @@ jobs:
             echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
           fi
 
+      - name: Check PR number
+        id: pr-check
+        run: |
+          if [ -z "${{ github.event.pull_request.number }}" ]; then
+            echo "No pull request found. Skipping PR update."
+            exit 0
+          fi
+
       - name: Update PR description
-        if: env.ISSUE_NUMBERS != ''
+        if: env.ISSUE_NUMBERS != '' && steps.pr-check.outcome != 'success'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
