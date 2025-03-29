@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  pull-requests: write
+
 jobs:
   get-pr-commit-messages:
     runs-on: ubuntu-latest
