@@ -4,6 +4,7 @@ import Button from '@/components/atoms/button'
 import Image from 'next/image'
 import { ButtonGroup, Colored, Content } from './styled'
 import { useTheme } from '@/hooks/useTheme'
+import { useToast } from '@/hooks/useToast'
 
 interface Props {
   battletag: string
@@ -11,11 +12,10 @@ interface Props {
 }
 export default function DownloadModal({ battletag, date }: Props) {
   const [theme] = useTheme()
+  const { showToast } = useToast()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
-
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -45,21 +45,18 @@ export default function DownloadModal({ battletag, date }: Props) {
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(a.href)
-
-      setError(null)
     } catch (error) {
-      setError((error as Error).message)
+      showToast(`File download failed, please try again later.`)
     } finally {
       setLoading(false)
     }
 
     setIsModalOpen(false)
-  }, [battletag])
+  }, [battletag, showToast])
 
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)}>Download my stats</Button>
-      {error && <p>Something went wrong</p>}
       <Modal
         title="Download my file stats"
         isOpen={isModalOpen}

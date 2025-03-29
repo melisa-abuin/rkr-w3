@@ -1,0 +1,63 @@
+name: Autocomplete PR description
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  autocomplete-pr-description:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.body == '' # Skip the job if PR already has a description for now, refine it later
+    steps:
+      - name: Check if PR has a description
+        id: check_description
+        run: |
+          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
+          if [[ -n "$PR_BODY" ]]; then
+            echo "PR already has a description, skipping job."
+            echo "SKIP_JOB=true" >> $GITHUB_ENV
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip job if PR already has a description
+        if: env.SKIP_JOB == 'true'
+        run: exit 0
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Fetch all commit history
+        run: |
+          git fetch --prune --unshallow
+
+      - name: Get commit messages for all commits in PR
+        id: get_all_commit_messages
+        run: |
+          COMMIT_MESSAGES=$(git log --format=%s ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
+
+          COMMIT_MESSAGES_SINGLE_LINE=$(echo "$COMMIT_MESSAGES" | tr '\n' ' ')
+          echo "COMMIT_MESSAGES=$COMMIT_MESSAGES_SINGLE_LINE" >> $GITHUB_ENV
+
+      - name: Extract issue numbers from commit messages
+        id: extract_issues
+        run: |
+          ISSUE_NUMBERS=$(echo "${{ env.COMMIT_MESSAGES }}" | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
+          echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
+
+      - name: Update PR description with "Closes issue"
+        if: env.ISSUE_NUMBERS != ''
+        run: |
+          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
+          NEW_DESC="$PR_BODY
+
+          Automatically detected issues: Closes ${{ env.ISSUE_NUMBERS }}"
+
+          gh pr edit ${{ github.event.pull_request.number }} --body "$NEW_DESC"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

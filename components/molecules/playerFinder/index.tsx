@@ -7,6 +7,7 @@ import { useTheme } from '@/hooks/useTheme'
 import Image from 'next/image'
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
+import { useToast } from '@/hooks/useToast'
 
 interface Props {
   onPlayerSelect: (player: PlayerStats) => void
@@ -24,8 +25,8 @@ export default function PlayerFinder({
   >()
 
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [theme] = useTheme()
+  const { showToast } = useToast()
 
   const fetchData = useCallback(
     async (searchTerm: string) => {
@@ -34,7 +35,6 @@ export default function PlayerFinder({
         searchTerm !== selectedPlayer?.battleTag.tag
       ) {
         setLoading(true)
-        setError(null)
 
         // TODO: create helper or what about react query?
         try {
@@ -52,14 +52,17 @@ export default function PlayerFinder({
           const result = await response.json()
           setFilteredData(result)
         } catch (error) {
+          showToast(
+            `An error ocurred while searching for "${searchTerm}", please try again later.`,
+          )
+
           setFilteredData(undefined)
-          setError((error as Error).message)
         } finally {
           setLoading(false)
         }
       }
     },
-    [selectedPlayer],
+    [selectedPlayer, showToast],
   )
 
   useEffect(() => {
@@ -124,12 +127,6 @@ export default function PlayerFinder({
           ) : (
             <Option>No results</Option>
           )}
-        </Options>
-      )}
-
-      {error && !loading && (
-        <Options>
-          <Option>Something went wrong</Option>
         </Options>
       )}
     </Wrapper>

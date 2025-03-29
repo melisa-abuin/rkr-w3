@@ -13,6 +13,7 @@ import { useCallback, useState } from 'react'
 import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
 import Info from '@/components/atoms/info'
 import DownloadModal from '@/components/molecules/downloadModal'
+import { useToast } from '@/hooks/useToast'
 
 const getDateToShow = (lastUploaded: string) => {
   const dateOptions = {
@@ -37,38 +38,42 @@ export default function PlayerDashboard({
     DetailedPlayerStats | undefined
   >()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { showToast } = useToast()
 
   const lastDateUploaded = getDateToShow(playerData.lastUploaded)
 
-  const fetchData = useCallback(async (player: PlayerStats) => {
-    setLoading(true)
+  const fetchData = useCallback(
+    async (player: PlayerStats) => {
+      setLoading(true)
 
-    // TODO: create helper or what about react query?
-    try {
-      const response = await fetch(
-        `/api/player/${encodeURIComponent(player.battleTag.tag)}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
+      // TODO: create helper or what about react query?
+      try {
+        const response = await fetch(
+          `/api/player/${encodeURIComponent(player.battleTag.tag)}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        },
-      )
+        )
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`)
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        setSelectedPlayer(result)
+      } catch (error) {
+        showToast(
+          `Couldn't fetch the stats of ${player.battleTag.tag}, please try again later.`,
+        )
+      } finally {
+        setLoading(false)
       }
-
-      const result = await response.json()
-      setSelectedPlayer(result)
-      setError(null)
-    } catch (error) {
-      setError((error as Error).message)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+    },
+    [showToast],
+  )
 
   return (
     <>
@@ -86,9 +91,6 @@ export default function PlayerDashboard({
           onPlayerSelect={fetchData}
           placeholder="Compare with another player"
         />
-        {error && (
-          <p>There was an error handling the request. Try again later</p>
-        )}
       </PageContainer>
       <PageContainer title="Overall Stats">
         <Columns
