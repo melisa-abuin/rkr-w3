@@ -21,11 +21,12 @@ interface PlayerStatsData {
 
 async function fetchData(): Promise<PlayerStatsData> {
   const headersList = headers()
-  const protocol = headersList.get('x-forwarded-proto') || 'http' // For Vercel and proxies
+  const protocol = headersList.get('x-forwarded-proto') || 'http'
   const host = headersList.get('host')
 
-  const isProd = process.env.ENVIRONMENT === 'production'
-  const url = isProd ? `${protocol}://${host}` : ''
+  // workaround for feature instances
+  const isStage = process.env.ENVIRONMENT === 'stage'
+  const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
 
   const response = await fetch(`${url}/api/leaderboard`)
   if (response.status === 200) {

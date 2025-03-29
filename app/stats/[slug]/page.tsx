@@ -45,8 +45,9 @@ async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
   const protocol = headersList.get('x-forwarded-proto') || 'http'
   const host = headersList.get('host')
 
-  const isProd = process.env.ENVIRONMENT === 'production'
-  const url = isProd ? `${protocol}://${host}` : ''
+  // workaround for feature instances
+  const isStage = process.env.ENVIRONMENT === 'stage'
+  const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
 
   const response = await fetch(
     `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`,
