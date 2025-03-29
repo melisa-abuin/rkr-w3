@@ -1,4 +1,4 @@
-import { mockApiData } from '@/constants/mock'
+import { mockApiData, mockGameApiData } from '@/constants/mock'
 import { removeBlacklistedPlayers } from '../removeBlacklistedPlayers'
 
 export const fetchData = async (
@@ -20,7 +20,7 @@ export const fetchData = async (
       console.warn(
         'Currently using mocked data, to call the production enpoint directly change it from .env',
       )
-      data = mockApiData
+      data = url === 'gametimes' ? mockGameApiData : mockApiData
     } else {
       const response = await fetch(apiUrl, {
         method: 'GET',
