@@ -1,9 +1,6 @@
-name: add "closes issue" automatically to PR
+name: Add "closes issue" automatically to PR
 
-on:
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize]
+on: [push]
 
 jobs:
   update-pr-description:
