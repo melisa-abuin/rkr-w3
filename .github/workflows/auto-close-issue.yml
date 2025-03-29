@@ -2,7 +2,7 @@ name: PR Commit Messages
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened] # Trigger on PR opened, synchronized, or reopened
+    types: [opened, synchronize, reopened]
 
 jobs:
   get-pr-commit-messages:
@@ -20,12 +20,25 @@ jobs:
       - name: Get commit messages for all commits in PR
         id: get_all_commit_messages
         run: |
-          # Get all commit messages in the PR branch
           COMMIT_MESSAGES=$(git log --format=%s ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }})
 
           COMMIT_MESSAGES_SINGLE_LINE=$(echo "$COMMIT_MESSAGES" | tr '\n' ' ')
           echo "COMMIT_MESSAGES=$COMMIT_MESSAGES_SINGLE_LINE" >> $GITHUB_ENV
 
-      - name: Output all commit messages
+      - name: Extract issue numbers from commit messages
+        id: extract_issues
         run: |
-          echo "All commit messages in the PR: ${{ env.COMMIT_MESSAGES }}"
+          ISSUE_NUMBERS=$(echo "${{ env.COMMIT_MESSAGES }}" | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
+          echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
+
+      - name: Update PR description with "Closes issue"
+        if: env.ISSUE_NUMBERS != ''
+        run: |
+          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
+          NEW_DESC="$PR_BODY
+
+          Automatically detected issues: Closes ${{ env.ISSUE_NUMBERS }}"
+
+          gh pr edit ${{ github.event.pull_request.number }} --body "$NEW_DESC"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
