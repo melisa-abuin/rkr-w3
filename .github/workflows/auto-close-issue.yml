@@ -10,6 +10,7 @@ permissions:
 jobs:
   get-pr-commit-messages:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.body == '' # Skip the job if PR already has a description for now, refine it later
     steps:
       - name: Check if PR has a description
         id: check_description
