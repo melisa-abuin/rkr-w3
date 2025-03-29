@@ -1,16 +1,17 @@
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { screen, fireEvent, act } from '@testing-library/react'
 import { ToastProvider, useToast } from '..'
 import userEvent from '@testing-library/user-event'
+import { renderWithTheme } from '@/utils/renderWithTheme'
 
 const TestComponent = () => {
   const { showToast } = useToast()
 
   return (
     <div>
-      <button onClick={() => showToast('Test message', 'success', 2000)}>
+      <button onClick={() => showToast('Test message', 2000)}>
         Show Success Toast
       </button>
-      <button onClick={() => showToast('Test error', 'error', 2000)}>
+      <button onClick={() => showToast('Test error', 2000)}>
         Show Error Toast
       </button>
     </div>
@@ -27,7 +28,7 @@ describe('ToastProvider', () => {
   })
 
   it('renders children correctly', async () => {
-    render(
+    renderWithTheme(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
@@ -37,7 +38,7 @@ describe('ToastProvider', () => {
   })
 
   it('removes toast messages after duration', () => {
-    render(
+    renderWithTheme(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
@@ -56,7 +57,7 @@ describe('ToastProvider', () => {
   it('removes toast messages after duration', async () => {
     jest.useRealTimers()
 
-    render(
+    renderWithTheme(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
