@@ -6,7 +6,6 @@ import { ThemeProvider } from '@/hooks/useTheme'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { ToastProvider } from '@/hooks/useToast'
 
 interface PlayerStatsData {
   error: string | null
@@ -54,13 +53,11 @@ export default async function PlayerPage({
 
   return (
     <ThemeProvider>
-      <ToastProvider>
-        <Navbar />
-        <main>
-          {error ? <Error /> : data && <PlayerDashboard playerData={data} />}
-        </main>
-        <Footer />
-      </ToastProvider>
+      <Navbar />
+      <main>
+        {error ? <Error /> : data && <PlayerDashboard playerData={data} />}
+      </main>
+      <Footer />
     </ThemeProvider>
   )
 }

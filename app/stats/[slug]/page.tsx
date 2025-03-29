@@ -10,7 +10,6 @@ import TableWithControls from '@/components/organisms/tableWithControls'
 import ScoreboardSelector from '@/components/molecules/scoreboardSelector'
 import HelpInfo from '@/components/molecules/helpInfo'
 import { PageContainer } from '@/components/atoms/pageContainer'
-import { ToastProvider } from '@/hooks/useToast'
 
 interface PlayerStatsData {
   error: string | null
@@ -73,33 +72,31 @@ export default async function StatsPage({
 
   return (
     <ThemeProvider>
-      <ToastProvider>
-        <Navbar />
-        <main>
-          {error ? (
-            <Error />
-          ) : (
-            <>
-              <PageContainer>
-                <PageHeader
-                  description="Overall times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
-                  title="Scoreboard"
-                />
-              </PageContainer>
-              <ScoreboardSelector toggleInitialValue={slug === 'overview'} />
-              <TableWithControls
-                columns={strings.columns}
-                data={data}
-                defaultSortKey={strings.defaultSortKey}
-                isTimeStats={slug === 'time'}
-                title={strings.title}
+      <Navbar />
+      <main>
+        {error ? (
+          <Error />
+        ) : (
+          <>
+            <PageContainer>
+              <PageHeader
+                description="Overall times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
+                title="Scoreboard"
               />
-              <HelpInfo />
-            </>
-          )}
-        </main>
-        <Footer />
-      </ToastProvider>
+            </PageContainer>
+            <ScoreboardSelector toggleInitialValue={slug === 'overview'} />
+            <TableWithControls
+              columns={strings.columns}
+              data={data}
+              defaultSortKey={strings.defaultSortKey}
+              isTimeStats={slug === 'time'}
+              title={strings.title}
+            />
+            <HelpInfo />
+          </>
+        )}
+      </main>
+      <Footer />
     </ThemeProvider>
   )
 }
