@@ -17,6 +17,7 @@ jobs:
       - name: Get commit messages
         run: |
           ISSUE_NUMBERS=$(git log --format=%s -n 20 | grep -oE '#[0-9]+' | sort -u | tr '\n' ' ')
+          echo "Found issue numbers: $(git log --format=%s -n 20)"
           if [[ -n "$ISSUE_NUMBERS" ]]; then
             echo "Found issue numbers: $ISSUE_NUMBERS"
             echo "ISSUE_NUMBERS=$ISSUE_NUMBERS" >> $GITHUB_ENV
