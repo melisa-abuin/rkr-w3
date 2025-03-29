@@ -16,7 +16,9 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
   const headersList = headers()
   const protocol = headersList.get('x-forwarded-proto') || 'http'
   const host = headersList.get('host')
-  const url = `${protocol}://${host}`
+
+  const isProd = process.env.ENVIRONMENT === 'production'
+  const url = isProd ? `${protocol}://${host}` : ''
 
   const response = await fetch(
     `${url}/api/player/${encodeURIComponent(battleTag)}`,

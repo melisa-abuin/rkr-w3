@@ -23,7 +23,9 @@ async function fetchData(): Promise<PlayerStatsData> {
   const headersList = headers()
   const protocol = headersList.get('x-forwarded-proto') || 'http' // For Vercel and proxies
   const host = headersList.get('host')
-  const url = `${protocol}://${host}`
+
+  const isProd = process.env.ENVIRONMENT === 'production'
+  const url = isProd ? `${protocol}://${host}` : ''
 
   const response = await fetch(`${url}/api/leaderboard`)
   if (response.status === 200) {
