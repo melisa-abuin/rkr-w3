@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { ToastProvider } from '@/hooks/useToast'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -77,9 +76,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="ltr">
-      <body className={inter.variable}>
-        <ToastProvider>{children}</ToastProvider>
-      </body>
+      <body className={inter.variable}>{children}</body>
     </html>
   )
 }

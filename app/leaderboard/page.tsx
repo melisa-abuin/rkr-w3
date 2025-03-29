@@ -5,6 +5,7 @@ import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
 import { headers } from 'next/headers'
 import LeaderboardTemplate from '@/components/templates/leaderboard'
+import { ToastProvider } from '@/hooks/useToast'
 
 interface Data {
   player: string
@@ -46,11 +47,13 @@ export default async function Leaderboard() {
 
   return (
     <ThemeProvider>
-      <Navbar />
-      <main>
-        {error ? <Error /> : data && <LeaderboardTemplate data={data} />}
-      </main>
-      <Footer />
+      <ToastProvider>
+        <Navbar />
+        <main>
+          {error ? <Error /> : data && <LeaderboardTemplate data={data} />}
+        </main>
+        <Footer />
+      </ToastProvider>
     </ThemeProvider>
   )
 }
