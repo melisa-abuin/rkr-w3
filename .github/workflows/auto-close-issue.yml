@@ -1,4 +1,4 @@
-name: PR Commit Messages
+name: Autocomplete PR description
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  get-pr-commit-messages:
+  autocomplete-pr-description:
     runs-on: ubuntu-latest
     if: github.event.pull_request.body == '' # Skip the job if PR already has a description for now, refine it later
     steps:
