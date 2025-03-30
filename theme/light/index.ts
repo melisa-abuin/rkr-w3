@@ -21,6 +21,8 @@ const lightTheme = {
     quaternary: '#efefef',
     secondary: '#b1e2e2',
     tertiary: '#ffe0e0',
+    error: '#db0404',
+    warning: '#cf5b02',
   },
   text: {
     black: '#000000',

@@ -14,7 +14,7 @@ const fadeIn = keyframes`
 export const Container = styled.div`
   align-items: center;
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.color.primary};
+  background-color: ${({ theme }) => theme.background.error};
   box-shadow: ${({ theme }) => theme.shadow.primary};
   color: ${({ theme }) => theme.text.white};
   cursor: pointer;
@@ -27,6 +27,7 @@ export const Container = styled.div`
 `
 
 export const Message = styled.p`
+  marging: 0;
   padding-right: 5px;
 `
 
