@@ -7,47 +7,41 @@ import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
   actionColumn?: ReactNode
-  columns: Array<{
-    description: string
-    value?: number | string
-    compareValue?: number | string
-    isBetter?: boolean
+  data: Array<{
+    title?: string
+    columns: Array<{
+      description: string
+      value?: number | string
+      highlight?: boolean
+    }>
   }>
   loading?: boolean
 }
 
 export default function Columns({
   actionColumn,
-  columns,
+  data,
   loading = false,
 }: Props) {
   return loading ? (
     <LoaderColumns />
   ) : (
     <Container>
-      {columns.map(({ description, value, compareValue, isBetter }) => (
-        <Col key={description}>
-          <TextWithIcon
-            large
-            colorName={!!compareValue && isBetter ? 'yellow' : undefined}
-            iconName={isBetter ? 'crown' : undefined}
-            palette={compareValue && isBetter ? 'color' : 'text'}
-          >
-            {value || 0}
-          </TextWithIcon>
-          {compareValue && (
+      {data.map(({ title, columns }) =>
+        columns.map(({ description, value, highlight }) => (
+          <Col key={description}>
             <TextWithIcon
               large
-              colorName={!isBetter ? 'yellow' : undefined}
-              iconName={!isBetter ? 'crown' : undefined}
-              palette={!isBetter ? 'color' : 'text'}
+              colorName={highlight ? 'yellow' : undefined}
+              iconName={highlight ? 'crown' : undefined}
+              palette={highlight ? 'color' : 'text'}
             >
-              {compareValue || 0}
+              {value || 0}
             </TextWithIcon>
-          )}
-          <Description>{description}</Description>
-        </Col>
-      ))}
+            <Description>{description}</Description>
+          </Col>
+        )),
+      )}
       {actionColumn && <Col>{actionColumn}</Col>}
     </Container>
   )

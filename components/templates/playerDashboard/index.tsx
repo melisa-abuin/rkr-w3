@@ -7,7 +7,13 @@ import Awards from '@/components/molecules/awards'
 import Columns from '@/components/molecules/columns'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { difficultyNames, playerColumns, roundNames } from '@/constants'
+import ColumnsWithComparison from '@/components/organisms/compareColumns'
+import {
+  difficultyNames,
+  playerColumns,
+  playerTimeColumns,
+  roundNames,
+} from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
@@ -114,16 +120,10 @@ export default function PlayerDashboard({
         />
       </PageContainer>
       <PageContainer title="Overall Stats">
-        <Columns
+        <ColumnsWithComparison
           loading={loading}
-          columns={playerColumns.map((col) => ({
-            description: col.title,
-            value: playerData[col.key],
-            compareValue: selectedPlayer?.[col.key] || undefined,
-            isBetter:
-              selectedPlayer &&
-              getSortConditionByKey(col.key, playerData, selectedPlayer),
-          }))}
+          player={playerData}
+          comparePlayer={selectedPlayer}
         />
       </PageContainer>
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
@@ -135,27 +135,11 @@ export default function PlayerDashboard({
           title={`Best ${difficulty} Times`}
           marginBottom={24}
         >
-          <Columns
+          <ColumnsWithComparison
             loading={loading}
-            columns={roundNames.map((round) => ({
-              description: `Round ${round}`,
-              value: secondsToSexagesimal(
-                playerData?.[`round${round}`][difficulty] || 0,
-              ),
-              compareValue: selectedPlayer
-                ? secondsToSexagesimal(
-                    selectedPlayer?.[`round${round}`][difficulty] || 0,
-                  )
-                : undefined,
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey(
-                  `round${round}`,
-                  playerData,
-                  selectedPlayer,
-                  difficulty,
-                ),
-            }))}
+            player={playerData}
+            comparePlayer={selectedPlayer}
+            difficulty={difficulty}
           />
         </PageContainer>
       ))}

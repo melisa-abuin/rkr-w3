@@ -30,10 +30,14 @@ export default function PlayerFinderWithResult() {
               See player stats
             </Link>
           }
-          columns={playerColumns.map((col) => ({
-            description: col.title,
-            value: selectedPlayer[col.key],
-          }))}
+          data={[
+            {
+              columns: playerColumns.map((col) => ({
+                description: col.title,
+                value: selectedPlayer[col.key],
+              })),
+            },
+          ]}
         />
       )}
     </>
