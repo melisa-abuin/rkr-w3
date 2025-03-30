@@ -27,7 +27,6 @@ export const Container = styled.div`
 `
 
 export const Message = styled.p`
-  marging: 0;
   padding-right: 5px;
 `
 

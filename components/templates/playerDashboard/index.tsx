@@ -4,21 +4,13 @@ import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Awards from '@/components/molecules/awards'
-import Columns from '@/components/molecules/columns'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import ColumnsWithComparison from '@/components/organisms/compareColumns'
-import {
-  difficultyNames,
-  playerColumns,
-  playerTimeColumns,
-  roundNames,
-} from '@/constants'
+import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
+import { difficultyNames, playerColumns, playerTimeColumns } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
-import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -121,6 +113,7 @@ export default function PlayerDashboard({
       </PageContainer>
       <PageContainer title="Overall Stats">
         <ColumnsWithComparison
+          columns={playerColumns}
           loading={loading}
           player={playerData}
           comparePlayer={selectedPlayer}
@@ -136,6 +129,7 @@ export default function PlayerDashboard({
           marginBottom={24}
         >
           <ColumnsWithComparison
+            columns={playerTimeColumns}
             loading={loading}
             player={playerData}
             comparePlayer={selectedPlayer}
