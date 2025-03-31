@@ -46,7 +46,6 @@ export default function Columns({
           </Row>
         </Row>
       ))}
-
       {actionColumn && <Col>{actionColumn}</Col>}
     </Container>
   )

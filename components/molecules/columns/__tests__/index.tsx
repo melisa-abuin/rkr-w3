@@ -9,7 +9,7 @@ describe('Columns Component', () => {
       { description: 'Losses', value: 5 },
     ]
 
-    renderWithTheme(<Columns columns={columns} />)
+    renderWithTheme(<Columns data={[{ columns }]} />)
 
     expect(screen.getByText('Wins')).toBeInTheDocument()
     expect(screen.getByText('10')).toBeInTheDocument()
@@ -20,15 +20,24 @@ describe('Columns Component', () => {
   it('handles missing values (undefined) gracefully', () => {
     const columns = [{ description: 'Points' }]
 
-    renderWithTheme(<Columns columns={columns} />)
+    renderWithTheme(<Columns data={[{ columns }]} />)
 
     expect(screen.getByText('Points')).toBeInTheDocument()
     expect(screen.getByText('0')).toBeInTheDocument()
   })
 
   it('renders correctly when columns array is empty', () => {
-    renderWithTheme(<Columns columns={[]} />)
+    renderWithTheme(<Columns data={[]} />)
 
     expect(screen.queryByRole('column')).not.toBeInTheDocument()
+  })
+
+  it('renders correctly the actions column', () => {
+    const columns = [{ description: 'Points' }]
+    const actionCol = <div>hello</div>
+    renderWithTheme(<Columns data={[{ columns }]} actionColumn={actionCol} />)
+
+    expect(screen.getByText('Points')).toBeInTheDocument()
+    expect(screen.getByText('hello')).toBeInTheDocument()
   })
 })
