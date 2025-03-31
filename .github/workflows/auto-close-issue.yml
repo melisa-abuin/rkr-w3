@@ -12,21 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.body == '' # Skip the job if PR already has a description for now, refine it later
     steps:
-      - name: Check if PR has a description
-        id: check_description
-        run: |
-          PR_BODY=$(gh pr view ${{ github.event.pull_request.number }} --json body -q ".body")
-          if [[ -n "$PR_BODY" ]]; then
-            echo "PR already has a description, skipping job."
-            echo "SKIP_JOB=true" >> $GITHUB_ENV
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Skip job if PR already has a description
-        if: env.SKIP_JOB == 'true'
-        run: exit 0
-
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
