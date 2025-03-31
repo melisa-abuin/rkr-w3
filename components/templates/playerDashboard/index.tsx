@@ -66,6 +66,23 @@ export default function PlayerDashboard({
 
         const result = await response.json()
         setSelectedPlayer(result)
+
+        if (result) {
+          const currentPlayerDate = new Date(playerData.lastUploaded)
+          const comparedPlayerDate = new Date(result.lastUploaded)
+          const diffInMonths =
+            (currentPlayerDate.getFullYear() -
+              comparedPlayerDate.getFullYear()) *
+              12 +
+            (currentPlayerDate.getMonth() - comparedPlayerDate.getMonth())
+
+          if (Math.abs(diffInMonths) >= 1) {
+            showToast(
+              `It looks like ${result.battleTag.name} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
+              'warning',
+            )
+          }
+        }
       } catch (error) {
         showToast(
           `Couldn't fetch the stats of ${playerTag}, please try again later.`,

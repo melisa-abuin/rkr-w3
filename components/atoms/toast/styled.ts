@@ -1,3 +1,4 @@
+import { IToastVariant } from '@/interfaces/toast/index'
 import styled, { keyframes } from 'styled-components'
 
 const fadeIn = keyframes`
@@ -11,10 +12,11 @@ const fadeIn = keyframes`
   }
 `
 
-export const Container = styled.div`
+export const Container = styled.div<{ variant?: IToastVariant }>`
   align-items: center;
   border-radius: 3px;
-  background-color: ${({ theme }) => theme.background.error};
+  background-color: ${({ theme, variant }) =>
+    variant === 'warning' ? theme.background.warning : theme.background.error};
   box-shadow: ${({ theme }) => theme.shadow.primary};
   color: ${({ theme }) => theme.text.white};
   cursor: pointer;
@@ -36,7 +38,6 @@ export const Wrapper = styled.div<{ index: number }>`
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 16px;
   position: fixed;
   z-index: 2;
 `
