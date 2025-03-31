@@ -21,9 +21,28 @@ export const Container = styled.div`
   gap: 20px;
   flex-wrap: wrap;
 `
-
-export const Description = styled.span`
-  color: ${({ theme }) => theme.text.primary};
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+  width: 100%;
+`
+export const Description = styled.span<{ highlight?: boolean }>`
+  color: ${({ theme, highlight }) =>
+    highlight ? theme.color.yellow : theme.text.primary};
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-regular);
+`
+
+export const Title = styled.h3`
+  align-items: center;
+  color: ${({ theme }) => theme.text.secondary};
+  display: flex;
+  flex-direction: row;
+  font-size: var(--font-size-xs-sm);
+  font-weight: var(--font-weight-semi-bold);
+  margin: 0;
+  gap: 15px;
 `

@@ -1,52 +1,50 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { Col, Container, Description } from './styled'
+import { Col, Container, Description, Row, Title } from './styled'
 import LoaderColumns from './components/loader'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
   actionColumn?: ReactNode
-  columns: Array<{
-    description: string
-    value?: number | string
-    compareValue?: number | string
-    isBetter?: boolean
+  data: Array<{
+    title?: string
+    columns: Array<{
+      description: string
+      value?: number | string
+      highlight?: boolean
+    }>
   }>
   loading?: boolean
 }
 
 export default function Columns({
   actionColumn,
-  columns,
+  data,
   loading = false,
 }: Props) {
   return loading ? (
     <LoaderColumns />
   ) : (
     <Container>
-      {columns.map(({ description, value, compareValue, isBetter }) => (
-        <Col key={description}>
-          <TextWithIcon
-            large
-            colorName={!!compareValue && isBetter ? 'yellow' : undefined}
-            iconName={isBetter ? 'crown' : undefined}
-            palette={compareValue && isBetter ? 'color' : 'text'}
-          >
-            {value || 0}
-          </TextWithIcon>
-          {compareValue && (
-            <TextWithIcon
-              large
-              colorName={!isBetter ? 'yellow' : undefined}
-              iconName={!isBetter ? 'crown' : undefined}
-              palette={!isBetter ? 'color' : 'text'}
-            >
-              {compareValue || 0}
-            </TextWithIcon>
-          )}
-          <Description>{description}</Description>
-        </Col>
+      {data.map(({ title, columns }, index) => (
+        <Row key={index}>
+          {title && <Title>{title}</Title>}
+          <Row>
+            {columns.map(({ description, value, highlight }) => (
+              <Col key={description}>
+                <TextWithIcon
+                  large
+                  colorName={highlight ? 'yellow' : undefined}
+                  palette={highlight ? 'color' : 'text'}
+                >
+                  {value || 0}
+                </TextWithIcon>
+                <Description highlight={highlight}>{description}</Description>
+              </Col>
+            ))}
+          </Row>
+        </Row>
       ))}
       {actionColumn && <Col>{actionColumn}</Col>}
     </Container>

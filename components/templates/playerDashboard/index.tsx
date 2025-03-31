@@ -4,15 +4,13 @@ import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Awards from '@/components/molecules/awards'
-import Columns from '@/components/molecules/columns'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { difficultyNames, playerColumns, roundNames } from '@/constants'
+import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
+import { difficultyNames, playerColumns, playerTimeColumns } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
-import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -114,16 +112,11 @@ export default function PlayerDashboard({
         />
       </PageContainer>
       <PageContainer title="Overall Stats">
-        <Columns
+        <ColumnsWithComparison
+          columns={playerColumns}
           loading={loading}
-          columns={playerColumns.map((col) => ({
-            description: col.title,
-            value: playerData[col.key],
-            compareValue: selectedPlayer?.[col.key] || undefined,
-            isBetter:
-              selectedPlayer &&
-              getSortConditionByKey(col.key, playerData, selectedPlayer),
-          }))}
+          player={playerData}
+          comparePlayer={selectedPlayer}
         />
       </PageContainer>
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
@@ -135,27 +128,12 @@ export default function PlayerDashboard({
           title={`Best ${difficulty} Times`}
           marginBottom={24}
         >
-          <Columns
+          <ColumnsWithComparison
+            columns={playerTimeColumns}
             loading={loading}
-            columns={roundNames.map((round) => ({
-              description: `Round ${round}`,
-              value: secondsToSexagesimal(
-                playerData?.[`round${round}`][difficulty] || 0,
-              ),
-              compareValue: selectedPlayer
-                ? secondsToSexagesimal(
-                    selectedPlayer?.[`round${round}`][difficulty] || 0,
-                  )
-                : undefined,
-              isBetter:
-                selectedPlayer &&
-                getSortConditionByKey(
-                  `round${round}`,
-                  playerData,
-                  selectedPlayer,
-                  difficulty,
-                ),
-            }))}
+            player={playerData}
+            comparePlayer={selectedPlayer}
+            difficulty={difficulty}
           />
         </PageContainer>
       ))}

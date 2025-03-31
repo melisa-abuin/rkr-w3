@@ -21,6 +21,8 @@ const darkTheme = {
     quaternary: '#2b2222',
     secondary: '#1a4747',
     tertiary: '#391313',
+    error: '#ba3232',
+    warning: '#ba6d32',
   },
   text: {
     black: '#000000',
