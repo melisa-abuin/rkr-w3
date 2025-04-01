@@ -70,6 +70,7 @@ export default function PlayerDashboard({
         if (result) {
           const currentPlayerDate = new Date(lastUploaded)
           const comparedPlayerDate = new Date(result.lastUploaded)
+
           const diffInMonths =
             (currentPlayerDate.getFullYear() -
               comparedPlayerDate.getFullYear()) *
@@ -77,8 +78,13 @@ export default function PlayerDashboard({
             (currentPlayerDate.getMonth() - comparedPlayerDate.getMonth())
 
           if (Math.abs(diffInMonths) >= 1) {
+            const outdatedPlayerStats =
+              currentPlayerDate > comparedPlayerDate
+                ? result.battleTag.name
+                : battleTag.name
+
             showToast(
-              `It looks like ${result.battleTag.name} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
+              `It looks like ${outdatedPlayerStats} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
               'warning',
             )
           }
@@ -91,7 +97,7 @@ export default function PlayerDashboard({
         setLoading(false)
       }
     },
-    [showToast, lastUploaded],
+    [showToast, lastUploaded, battleTag.name],
   )
 
   useEffect(() => {
