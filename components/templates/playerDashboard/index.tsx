@@ -32,7 +32,7 @@ export default function PlayerDashboard({
 }: {
   playerData: DetailedPlayerStats
 }) {
-  const { awards, battleTag, skins } = playerData
+  const { awards, battleTag, skins, lastUploaded } = playerData
   const [selectedPlayer, setSelectedPlayer] = useState<
     DetailedPlayerStats | undefined
   >()
@@ -43,7 +43,7 @@ export default function PlayerDashboard({
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
 
-  const lastDateUploaded = getDateToShow(playerData.lastUploaded)
+  const lastDateUploaded = getDateToShow(lastUploaded)
 
   const fetchData = useCallback(
     async (playerTag: string) => {
@@ -66,6 +66,29 @@ export default function PlayerDashboard({
 
         const result = await response.json()
         setSelectedPlayer(result)
+
+        if (result) {
+          const currentPlayerDate = new Date(lastUploaded)
+          const comparedPlayerDate = new Date(result.lastUploaded)
+
+          const diffInMonths =
+            (currentPlayerDate.getFullYear() -
+              comparedPlayerDate.getFullYear()) *
+              12 +
+            (currentPlayerDate.getMonth() - comparedPlayerDate.getMonth())
+
+          if (Math.abs(diffInMonths) >= 1) {
+            const outdatedPlayerStats =
+              currentPlayerDate > comparedPlayerDate
+                ? result.battleTag.name
+                : battleTag.name
+
+            showToast(
+              `It looks like ${outdatedPlayerStats} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
+              'warning',
+            )
+          }
+        }
       } catch (error) {
         showToast(
           `Couldn't fetch the stats of ${playerTag}, please try again later.`,
@@ -74,7 +97,7 @@ export default function PlayerDashboard({
         setLoading(false)
       }
     },
-    [showToast],
+    [showToast, lastUploaded, battleTag.name],
   )
 
   useEffect(() => {

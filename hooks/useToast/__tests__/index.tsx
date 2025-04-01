@@ -8,10 +8,10 @@ const TestComponent = () => {
 
   return (
     <div>
-      <button onClick={() => showToast('Test message', 2000)}>
-        Show Success Toast
+      <button onClick={() => showToast('Test warning', 'warning', 2000)}>
+        Show Warning Toast
       </button>
-      <button onClick={() => showToast('Test error', 2000)}>
+      <button onClick={() => showToast('Test error', 'error', 2000)}>
         Show Error Toast
       </button>
     </div>
@@ -27,14 +27,14 @@ describe('ToastProvider', () => {
     jest.useRealTimers()
   })
 
-  it('renders children correctly', async () => {
+  it('renders children', async () => {
     renderWithTheme(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
     )
 
-    expect(screen.getByText('Show Success Toast')).toBeInTheDocument()
+    expect(screen.getByText('Show Error Toast')).toBeInTheDocument()
   })
 
   it('removes toast messages after duration', () => {
@@ -44,17 +44,17 @@ describe('ToastProvider', () => {
       </ToastProvider>,
     )
 
-    fireEvent.click(screen.getByText('Show Success Toast'))
-    expect(screen.getByText('Test message')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('Show Error Toast'))
+    expect(screen.getByText('Test error')).toBeInTheDocument()
 
     act(() => {
       jest.advanceTimersByTime(2000)
     })
 
-    expect(screen.queryByText('Test message')).not.toBeInTheDocument()
+    expect(screen.queryByText('Test error')).not.toBeInTheDocument()
   })
 
-  it('removes toast messages after duration', async () => {
+  it('removes toast messages after clicking on toast', async () => {
     jest.useRealTimers()
 
     renderWithTheme(
@@ -63,11 +63,25 @@ describe('ToastProvider', () => {
       </ToastProvider>,
     )
 
-    fireEvent.click(screen.getByText('Show Success Toast'))
-    expect(screen.getByText('Test message')).toBeInTheDocument()
+    fireEvent.click(screen.getByText('Show Error Toast'))
+    expect(screen.getByText('Test error')).toBeInTheDocument()
 
-    await userEvent.click(screen.getByText('Test message'))
+    await userEvent.click(screen.getByText('Test error'))
 
-    expect(screen.queryByText('Test message')).not.toBeInTheDocument()
+    expect(screen.queryByText('Test error')).not.toBeInTheDocument()
+  })
+
+  it('shows waning message when specified', async () => {
+    jest.useRealTimers()
+
+    renderWithTheme(
+      <ToastProvider>
+        <TestComponent />
+      </ToastProvider>,
+    )
+
+    fireEvent.click(screen.getByText('Show Warning Toast'))
+    expect(screen.getByText('Test warning')).toBeInTheDocument()
+    expect(screen.queryByText('Test error')).not.toBeInTheDocument()
   })
 })

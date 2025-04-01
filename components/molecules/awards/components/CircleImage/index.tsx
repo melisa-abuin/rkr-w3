@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
 import { ImageProps } from 'next/image'
+import { useState } from 'react'
 import { StyledImage } from './styled'
 
 interface CircleImageProps extends ImageProps {
@@ -20,7 +20,7 @@ export default function CircleImage({
     <StyledImage
       {...rest}
       alt={alt}
-      complete={completed}
+      $complete={completed}
       height={48}
       onError={() => {
         setImgSrc(fallbackSrc)

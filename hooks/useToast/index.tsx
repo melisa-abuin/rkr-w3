@@ -1,11 +1,15 @@
 'use client'
 
 import StyledToast from '@/components/atoms/toast'
-import { Toast } from '@/interfaces/toast'
+import { Toast, ToastVariant } from '@/interfaces/toast'
 import React, { createContext, useCallback, useContext, useState } from 'react'
 
 type ShowToast = {
-  showToast: (message: string, duration?: number) => void
+  showToast: (
+    message: string,
+    variant?: ToastVariant,
+    duration?: number,
+  ) => void
 }
 
 const ToastContext = createContext<ShowToast | undefined>(undefined)
@@ -13,14 +17,21 @@ const ToastContext = createContext<ShowToast | undefined>(undefined)
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
 
-  const showToast = useCallback((message: string, duration: number = 3000) => {
-    const id = Date.now()
-    setToasts((prevToasts) => [...prevToasts, { id, message }])
+  const showToast = useCallback(
+    (
+      message: string,
+      variant: ToastVariant = 'error',
+      duration: number = 3000,
+    ) => {
+      const id = Date.now()
+      setToasts((prevToasts) => [...prevToasts, { id, message, variant }])
 
-    setTimeout(() => {
-      setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id))
-    }, duration)
-  }, [])
+      setTimeout(() => {
+        setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id))
+      }, duration)
+    },
+    [],
+  )
 
   return (
     <ToastContext.Provider value={{ showToast }}>
@@ -32,6 +43,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               key={toast.id}
               index={index}
               message={toast.message}
+              variant={toast.variant}
               onClick={() =>
                 setToasts((prevToasts) =>
                   prevToasts.filter((prevToast) => prevToast.id !== toast.id),
