@@ -1,14 +1,13 @@
 'use client'
 
 import StyledToast from '@/components/atoms/toast'
-import { Toast } from '@/interfaces/toast'
-import { IToastVariant } from '@/interfaces/toast/index'
+import { Toast, ToastVariant } from '@/interfaces/toast'
 import React, { createContext, useCallback, useContext, useState } from 'react'
 
 type ShowToast = {
   showToast: (
     message: string,
-    variant?: IToastVariant,
+    variant?: ToastVariant,
     duration?: number,
   ) => void
 }
@@ -21,7 +20,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const showToast = useCallback(
     (
       message: string,
-      variant: IToastVariant = 'error',
+      variant: ToastVariant = 'error',
       duration: number = 3000,
     ) => {
       const id = Date.now()

@@ -1,4 +1,4 @@
-import { IToastVariant } from '@/interfaces/toast/index'
+import { ToastVariant } from '@/interfaces/toast'
 import styled, { keyframes } from 'styled-components'
 
 const fadeIn = keyframes`
@@ -12,7 +12,7 @@ const fadeIn = keyframes`
   }
 `
 
-export const Container = styled.div<{ variant?: IToastVariant }>`
+export const Container = styled.div<{ variant?: ToastVariant }>`
   align-items: center;
   border-radius: 3px;
   background-color: ${({ theme, variant }) =>

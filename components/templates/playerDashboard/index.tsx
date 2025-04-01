@@ -32,7 +32,7 @@ export default function PlayerDashboard({
 }: {
   playerData: DetailedPlayerStats
 }) {
-  const { awards, battleTag, skins } = playerData
+  const { awards, battleTag, skins, lastUploaded } = playerData
   const [selectedPlayer, setSelectedPlayer] = useState<
     DetailedPlayerStats | undefined
   >()
@@ -43,7 +43,7 @@ export default function PlayerDashboard({
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
 
-  const lastDateUploaded = getDateToShow(playerData.lastUploaded)
+  const lastDateUploaded = getDateToShow(lastUploaded)
 
   const fetchData = useCallback(
     async (playerTag: string) => {
@@ -68,7 +68,7 @@ export default function PlayerDashboard({
         setSelectedPlayer(result)
 
         if (result) {
-          const currentPlayerDate = new Date(playerData.lastUploaded)
+          const currentPlayerDate = new Date(lastUploaded)
           const comparedPlayerDate = new Date(result.lastUploaded)
           const diffInMonths =
             (currentPlayerDate.getFullYear() -
@@ -91,7 +91,7 @@ export default function PlayerDashboard({
         setLoading(false)
       }
     },
-    [showToast],
+    [showToast, lastUploaded],
   )
 
   useEffect(() => {

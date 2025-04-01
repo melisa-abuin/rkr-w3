@@ -1,7 +1,7 @@
-export type IToastVariant = 'error' | 'warning'
+export type ToastVariant = 'error' | 'warning'
 
 export interface Toast {
   id: number
-  variant: IToastVariant
+  variant: ToastVariant
   message: string
 }

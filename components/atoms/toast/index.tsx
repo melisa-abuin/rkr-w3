@@ -2,14 +2,14 @@
 
 import { Cross } from '@/components/icons/cross'
 import { useTheme } from '@/hooks/useTheme'
-import { IToastVariant } from '@/interfaces/toast/index'
+import { ToastVariant } from '@/interfaces/toast'
 import { Container, Message, Wrapper } from './styled'
 
 type Props = {
   index: number
   message: string
   onClick: () => void
-  variant?: IToastVariant
+  variant?: ToastVariant
 }
 
 export default function Toast({
