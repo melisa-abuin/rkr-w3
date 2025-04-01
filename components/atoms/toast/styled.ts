@@ -37,7 +37,8 @@ export const Wrapper = styled.div<{ index: number }>`
   bottom: ${({ index }) => `calc(${index} * 74px)`};
   display: flex;
   justify-content: center;
-  width: 100%;
+  padding: 16px;
   position: fixed;
+  width: 100%;
   z-index: 2;
 `
