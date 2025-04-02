@@ -41,7 +41,14 @@ const overallStrings = {
   },
 } as const
 
-async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
+async function fetchData(
+  shouldGetTimes: boolean,
+  searchParams?: Record<string, string | string[] | undefined>,
+): Promise<PlayerStatsData> {
+  const queryString = new URLSearchParams(
+    searchParams as Record<string, string>,
+  ).toString()
+
   const headersList = headers()
   const protocol = headersList.get('x-forwarded-proto') || 'http'
   const host = headersList.get('host')
@@ -50,8 +57,10 @@ async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
   const isStage = process.env.ENVIRONMENT === 'stage'
   const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
 
+  const slugUrl = `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`
+
   const response = await fetch(
-    `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`,
+    `${slugUrl}${queryString ? `?${queryString}` : ''}`,
   )
   if (response.status === 200) {
     return {
@@ -65,13 +74,16 @@ async function fetchData(shouldGetTimes: boolean): Promise<PlayerStatsData> {
   }
 }
 
-export default async function StatsPage({
-  params,
-}: {
-  params: { slug: string }
-}) {
+interface PageProps {
+  params: {
+    slug: string
+  }
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
+export default async function StatsPage({ params, searchParams }: PageProps) {
   const { slug } = params
-  const { data, error } = await fetchData(slug === 'time')
+  const { data, error } = await fetchData(slug === 'time', searchParams)
   const strings = slug === 'time' ? timeStrings : overallStrings
 
   return (
