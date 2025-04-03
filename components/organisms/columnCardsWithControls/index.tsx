@@ -95,6 +95,7 @@ export default function ColumnCardsWithControls({
       </BadgesContainer>
       <ColumnCards
         data={difficultyFilter === undefined ? data : filteredData}
+        difficulty={difficultyFilter}
         hoverable={difficultyFilter === undefined}
         loading={loading}
         viewAllKey={viewAllKey}

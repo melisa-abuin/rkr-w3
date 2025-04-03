@@ -13,6 +13,7 @@ import {
 } from './styled'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import LoaderCard from './components/loaderCard'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface Data {
   player: string
@@ -21,6 +22,7 @@ interface Data {
 
 interface Props {
   data?: { category: string; data: Data[]; key: string }[]
+  difficulty?: Difficulty
   hoverable?: boolean
   loading?: boolean
   viewAllKey: 'overview' | 'time'
@@ -28,10 +30,12 @@ interface Props {
 
 export default function ColumnCards({
   data = [],
+  difficulty = undefined,
   hoverable = false,
   loading,
   viewAllKey,
 }: Props) {
+  const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
   return (
     <Container>
       {data?.map(({ category, data, key }) => (
@@ -73,7 +77,7 @@ export default function ColumnCards({
             </tbody>
           </Table>
           <Footer
-            href={`/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc`}
+            href={`/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`}
           >
             View all
           </Footer>
