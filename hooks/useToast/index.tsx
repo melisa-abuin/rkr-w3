@@ -21,7 +21,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     (
       message: string,
       variant: ToastVariant = 'error',
-      duration: number = 3000,
+      duration: number = 5000,
     ) => {
       const id = Date.now()
       setToasts((prevToasts) => [...prevToasts, { id, message, variant }])
