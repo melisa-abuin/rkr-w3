@@ -18,10 +18,7 @@ export default function Loading() {
         height={96}
         priority
         width={96}
-        style={{
-          filter: 'grayscale(100%) brightness(50%)',
-        }}
-        src="/rkr-icon-white.png"
+        src="/rkr-icon-gray.png"
       />
       Run Kitty Run
       <br />
