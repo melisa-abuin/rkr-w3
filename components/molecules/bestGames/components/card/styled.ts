@@ -8,7 +8,8 @@ export const Container = styled.div`
   overflow: hidden;
   padding: 8px;
   text-align: center;
-  width: 100%;
+  flex: 1;
+  min-width: 180px;
 `
 
 export const Header = styled.div`
