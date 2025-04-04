@@ -32,6 +32,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
   width: 100%;
