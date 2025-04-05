@@ -84,6 +84,11 @@ export interface FromattedApiPlayerStats {
   RoundThreeImpossible: number
   RoundFourImpossible: number
   RoundFiveImpossible: number
+  RoundOneSolo: number
+  RoundTwoSolo: number
+  RoundThreeSolo: number
+  RoundFourSolo: number
+  RoundFiveSolo: number
   completedChallenges: string
 }
 
@@ -97,10 +102,11 @@ export interface BattleTag {
   tag: string
 }
 export interface RoundStats {
-  hard: number
-  normal: number
-  impossible: number
   best: BestTime
+  hard: number
+  impossible: number
+  normal: number
+  solo: number
 }
 
 export interface BestTime {

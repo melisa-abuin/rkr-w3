@@ -25,5 +25,6 @@ export const OuterContainer = styled.section<{
 export const Title = styled.h2<{ align: 'center' | 'left' }>`
   color: ${({ theme }) => theme.text.primary};
   text-align: ${({ align }) => align};
+  text-transform: capitalize;
   width: 100%;
 `

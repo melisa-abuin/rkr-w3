@@ -1,5 +1,5 @@
 import Columns from '@/components/molecules/columns'
-import { Difficulty } from '@/interfaces/difficulty'
+import { RoundDifficulty } from '@/interfaces/difficulty'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatComparePlayer } from '@/utils/formatComparePlayer'
 
@@ -8,7 +8,7 @@ interface Props {
   loading: boolean
   player: DetailedPlayerStats
   comparePlayer?: DetailedPlayerStats
-  difficulty?: Difficulty
+  difficulty?: RoundDifficulty
 }
 
 export default function ColumnsWithComparison({

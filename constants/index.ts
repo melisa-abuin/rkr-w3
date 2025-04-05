@@ -1,4 +1,4 @@
-import { Difficulty } from '@/interfaces/difficulty'
+import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
 import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
 
 export const awardsDescriptions = {
@@ -97,6 +97,13 @@ export const awardsDescriptions = {
 export const blacklistedPlayers = ['Local Player']
 
 export const blizzardLink = 'https://www.blizzard.com/'
+
+export const roundDifficultyNames: RoundDifficulty[] = [
+  'normal',
+  'hard',
+  'impossible',
+  'solo',
+]
 
 export const difficultyNames: Difficulty[] = ['normal', 'hard', 'impossible']
 
@@ -272,6 +279,7 @@ export const formattedMockData = [
       total: 37,
     },
     roundOne: {
+      solo: 0,
       normal: 100.0,
       hard: 110.0,
       impossible: 120.0,
@@ -281,6 +289,7 @@ export const formattedMockData = [
       },
     },
     roundTwo: {
+      solo: 0,
       normal: 150.0,
       hard: 160.0,
       impossible: 170.0,
@@ -290,6 +299,7 @@ export const formattedMockData = [
       },
     },
     roundThree: {
+      solo: 0,
       normal: 250.0,
       hard: 270.0,
       impossible: 280.0,
@@ -299,6 +309,7 @@ export const formattedMockData = [
       },
     },
     roundFour: {
+      solo: 0,
       normal: 350.0,
       hard: 370.0,
       impossible: 380.0,
@@ -308,6 +319,7 @@ export const formattedMockData = [
       },
     },
     roundFive: {
+      solo: 0,
       normal: 450.0,
       hard: 470.0,
       impossible: 480.0,
@@ -351,6 +363,7 @@ export const formattedMockData = [
       total: 37,
     },
     roundOne: {
+      solo: 0,
       normal: 120.0,
       hard: 130.0,
       impossible: 140.0,
@@ -360,6 +373,7 @@ export const formattedMockData = [
       },
     },
     roundTwo: {
+      solo: 0,
       normal: 180.0,
       hard: 200.0,
       impossible: 210.0,
@@ -369,6 +383,7 @@ export const formattedMockData = [
       },
     },
     roundThree: {
+      solo: 0,
       normal: 280.0,
       hard: 300.0,
       impossible: 320.0,
@@ -378,6 +393,7 @@ export const formattedMockData = [
       },
     },
     roundFour: {
+      solo: 0,
       normal: 380.0,
       hard: 400.0,
       impossible: 420.0,
@@ -387,8 +403,9 @@ export const formattedMockData = [
       },
     },
     roundFive: {
+      solo: 0,
       normal: 480.0,
-      hard: 500.0,
+      hard: 0,
       impossible: 520.0,
       best: {
         difficulty: 'normal',
@@ -430,6 +447,7 @@ export const formattedMockData = [
       total: 75,
     },
     roundOne: {
+      solo: 0,
       normal: 90.0,
       hard: 85.0,
       impossible: 100.0,
@@ -439,6 +457,7 @@ export const formattedMockData = [
       },
     },
     roundTwo: {
+      solo: 0,
       normal: 140.0,
       hard: 120.0,
       impossible: 150.0,
@@ -448,6 +467,7 @@ export const formattedMockData = [
       },
     },
     roundThree: {
+      solo: 0,
       normal: 240.0,
       hard: 230.0,
       impossible: 250.0,
@@ -457,6 +477,7 @@ export const formattedMockData = [
       },
     },
     roundFour: {
+      solo: 0,
       normal: 340.0,
       hard: 330.0,
       impossible: 350.0,
@@ -466,6 +487,7 @@ export const formattedMockData = [
       },
     },
     roundFive: {
+      solo: 0,
       normal: 440.0,
       hard: 430.0,
       impossible: 450.0,
@@ -509,6 +531,7 @@ export const formattedMockData = [
       total: 30,
     },
     roundOne: {
+      solo: 0,
       normal: 95.0,
       hard: 105.0,
       impossible: 115.0,
@@ -518,6 +541,7 @@ export const formattedMockData = [
       },
     },
     roundTwo: {
+      solo: 0,
       normal: 145.0,
       hard: 155.0,
       impossible: 165.0,
@@ -527,6 +551,7 @@ export const formattedMockData = [
       },
     },
     roundThree: {
+      solo: 0,
       normal: 245.0,
       hard: 255.0,
       impossible: 265.0,
@@ -536,6 +561,7 @@ export const formattedMockData = [
       },
     },
     roundFour: {
+      solo: 0,
       normal: 345.0,
       hard: 355.0,
       impossible: 365.0,
@@ -545,6 +571,7 @@ export const formattedMockData = [
       },
     },
     roundFive: {
+      solo: 0,
       normal: 445.0,
       hard: 455.0,
       impossible: 465.0,
@@ -588,6 +615,7 @@ export const formattedMockData = [
       total: 3,
     },
     roundOne: {
+      solo: 0,
       normal: 110.0,
       hard: 120.0,
       impossible: 130.0,
@@ -597,6 +625,7 @@ export const formattedMockData = [
       },
     },
     roundTwo: {
+      solo: 0,
       normal: 160.0,
       hard: 170.0,
       impossible: 180.0,
@@ -606,6 +635,7 @@ export const formattedMockData = [
       },
     },
     roundThree: {
+      solo: 0,
       normal: 260.0,
       hard: 270.0,
       impossible: 280.0,
@@ -615,6 +645,7 @@ export const formattedMockData = [
       },
     },
     roundFour: {
+      solo: 0,
       normal: 360.0,
       hard: 370.0,
       impossible: 380.0,
@@ -624,6 +655,7 @@ export const formattedMockData = [
       },
     },
     roundFive: {
+      solo: 0,
       normal: 460.0,
       hard: 470.0,
       impossible: 480.0,

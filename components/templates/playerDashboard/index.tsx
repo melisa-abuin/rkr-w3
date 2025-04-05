@@ -7,7 +7,11 @@ import Awards from '@/components/molecules/awards'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
-import { difficultyNames, playerColumns, playerTimeColumns } from '@/constants'
+import {
+  playerColumns,
+  playerTimeColumns,
+  roundDifficultyNames,
+} from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
@@ -146,7 +150,7 @@ export default function PlayerDashboard({
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
         <Awards awards={awards} />
       </PageContainer>
-      {difficultyNames.map((difficulty) => (
+      {roundDifficultyNames.map((difficulty) => (
         <PageContainer
           key={difficulty}
           title={`Best ${difficulty} Times`}
