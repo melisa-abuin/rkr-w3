@@ -1,8 +1,8 @@
 import { PlayerStats, SaveStreak } from '@/interfaces/player'
 import { isRoundKey } from '../isRoundKey'
-import { Difficulty } from '@/interfaces/difficulty'
+import { RoundDifficulty } from '@/interfaces/difficulty'
 
-type DifficultyFilter = Difficulty | undefined
+type DifficultyFilter = RoundDifficulty | undefined
 
 /**
  * Aproximate the save streak values for those players
@@ -30,7 +30,7 @@ export const getValueForKey = (
   elem: PlayerStats,
   filter?: DifficultyFilter,
 ) => {
-  if (key === 'wins' || key === 'gamesPlayed') {
+  if ((key === 'wins' || key === 'gamesPlayed') && filter !== 'solo') {
     return filter ? elem[key][filter] : elem[key].total
   }
 

@@ -16,7 +16,11 @@ export const formatRoundsData = (
   const hard = newObject[`Round${round}Hard`] || 0
   const impossible = newObject[`Round${round}Impossible`] || 0
 
+  // Solo time is not included in best time calculation since it is a different type of game
+  const solo = newObject[`Round${round}Solo`] || 0
+
   return {
+    solo,
     normal,
     hard,
     impossible,

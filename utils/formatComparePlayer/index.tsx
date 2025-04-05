@@ -1,11 +1,11 @@
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { secondsToSexagesimal } from '../secondsToSexagesimal'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
-import { Difficulty } from '@/interfaces/difficulty'
+import { RoundDifficulty } from '@/interfaces/difficulty'
 
 const formatColumns = (
   column: { title: string; key: keyof PlayerStats },
-  difficulty: Difficulty | undefined,
+  difficulty: RoundDifficulty | undefined,
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
 ) => {
@@ -35,7 +35,7 @@ export const formatComparePlayer = (
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
   columns: Readonly<Array<{ title: string; key: keyof PlayerStats }>>,
-  difficulty: Difficulty | undefined,
+  difficulty: RoundDifficulty | undefined,
 ) => {
   const result = []
 
