@@ -1,14 +1,17 @@
-import { Difficulty } from '@/interfaces/difficulty'
 import { InnerContainer, OuterContainer } from './styled'
 import Button from '@/components/atoms/button'
 
-interface Props {
-  onClick: (option: Difficulty | undefined) => void
-  options: Array<Difficulty>
-  selected: Difficulty | undefined
+interface Props<T extends string> {
+  onClick: (option: T | undefined) => void
+  options: T[]
+  selected: T | undefined
 }
 
-export default function Badges({ onClick, options, selected }: Props) {
+export default function Badges<T extends string>({
+  onClick,
+  options,
+  selected,
+}: Props<T>) {
   return (
     <OuterContainer>
       <InnerContainer>
