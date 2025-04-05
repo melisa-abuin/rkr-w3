@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const StyledButton = styled.button<{
   color: string
+  backgroundColor: string
   highlightColor: string
   small: boolean
   variant: 'primary' | 'secondary'
@@ -10,10 +11,12 @@ export const StyledButton = styled.button<{
   margin: 0 4px;
   border: none;
   border-radius: 4px;
-  background-color: ${({ variant, color }) =>
-    variant === 'primary' ? color : 'transparent'};
-  color: ${({ variant, theme, color }) =>
-    variant === 'primary' ? theme.text.white : color};
+  background-color: ${({ variant, backgroundColor }) =>
+    variant === 'primary' ? backgroundColor : 'transparent'};
+
+  color: ${({ variant, color, backgroundColor }) =>
+    variant === 'primary' ? color : backgroundColor};
+
   cursor: pointer;
   font-weight: ${({ small }) =>
     small ? 'var(--font-weight-regular)' : 'var(--font-weight-semi-bold)'};
@@ -21,9 +24,9 @@ export const StyledButton = styled.button<{
     small ? 'var(--font-size-xs)' : 'var(--font-size-xs-md)'};
 
   &:hover {
-    background-color: ${({ variant, color, highlightColor }) =>
-      variant === 'primary' ? highlightColor : color};
-    color: ${({ theme }) => theme.text.white};
+    background-color: ${({ variant, backgroundColor, highlightColor }) =>
+      variant === 'primary' ? highlightColor : backgroundColor};
+    color: ${({ color }) => color};
   }
 
   &:disabled {
