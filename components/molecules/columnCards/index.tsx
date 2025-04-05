@@ -1,26 +1,11 @@
 'use client'
-import { BestTime } from '@/interfaces/player'
-import {
-  Card,
-  Container,
-  Header,
-  Footer,
-  Table,
-  Td,
-  Tr,
-  DefaultCell,
-  HoverCell,
-} from './styled'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { Card, Container, Header, Footer, Table, Td, Tr } from './styled'
 import LoaderCard from './components/loaderCard'
-
-interface Data {
-  player: string
-  data: number | BestTime
-}
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import Row from './components/row'
 
 interface Props {
-  data?: { category: string; data: Data[]; key: string }[]
+  data?: LeaderboardCategories[]
   difficulty?: string
   hoverable?: boolean
   loading?: boolean
@@ -35,6 +20,7 @@ export default function ColumnCards({
   viewAllKey,
 }: Props) {
   const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
+
   return (
     <Container>
       {data?.map(({ category, data, key }) => (
@@ -46,23 +32,13 @@ export default function ColumnCards({
                 <LoaderCard />
               ) : (
                 <>
-                  {data?.map(({ player, data }, index) => (
-                    <Tr
-                      key={`${player}${index}`}
-                      hoverable={data instanceof Object && hoverable}
-                    >
-                      <DefaultCell>{player}</DefaultCell>
-                      {typeof data === 'number' || typeof data === 'string' ? (
-                        <Td>{data}</Td>
-                      ) : (
-                        <>
-                          <DefaultCell>
-                            {secondsToSexagesimal(data.time)}
-                          </DefaultCell>
-                          <HoverCell>{data.difficulty}</HoverCell>
-                        </>
-                      )}
-                    </Tr>
+                  {data?.map(({ data, player }, index) => (
+                    <Row
+                      data={data}
+                      player={player}
+                      key={index}
+                      hoverable={hoverable}
+                    />
                   ))}
                   {data.length < 5 &&
                     [...Array(5 - data.length)].map((_, rowIndex) => (

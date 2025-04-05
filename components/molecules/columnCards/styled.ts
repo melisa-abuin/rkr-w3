@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Link from 'next/link'
 
 export const Container = styled.div`
@@ -62,18 +62,6 @@ export const Td = styled.td`
   transition: opacity 0.1s ease;
 `
 
-export const DefaultCell = styled(Td)`
-  opacity: 1;
-`
-
-export const HoverCell = styled(Td)`
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-`
-
 export const Tr = styled.tr<{ hoverable?: boolean }>`
   & td:first-child {
     border-top-left-radius: 3px;
@@ -85,20 +73,6 @@ export const Tr = styled.tr<{ hoverable?: boolean }>`
   }
 
   position: relative;
-
-  ${({ hoverable }) =>
-    hoverable &&
-    css`
-      cursor: pointer;
-      &:hover ${DefaultCell}, &:active ${DefaultCell} {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      &:hover ${HoverCell}, &:active ${HoverCell} {
-        opacity: 1;
-      }
-    `};
 `
 export const Footer = styled(Link)`
   color: ${({ theme }) => theme.text.secondary};

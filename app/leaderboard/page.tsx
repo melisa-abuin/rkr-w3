@@ -1,22 +1,17 @@
 import Error from '@/components/molecules/error'
-import { BestTime } from '@/interfaces/player'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
 import { headers } from 'next/headers'
 import LeaderboardTemplate from '@/components/templates/leaderboard'
 import { ToastProvider } from '@/hooks/useToast'
-
-interface Data {
-  player: string
-  data: number | BestTime
-}
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
 
 interface PlayerStatsData {
   error: string | null
   data: {
-    stats: Array<{ category: string; key: string; data: Data[] }>
-    times: Array<{ category: string; key: string; data: Data[] }>
+    stats: Array<LeaderboardCategories>
+    times: Array<LeaderboardCategories>
   }
 }
 
