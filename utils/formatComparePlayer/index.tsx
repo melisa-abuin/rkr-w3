@@ -13,7 +13,7 @@ const formatColumns = (
   const value = difficulty ? secondsToSexagesimal(valueForKey) : valueForKey
 
   const highlight = comparePlayer
-    ? getSortConditionByKey(column.key, player, comparePlayer)
+    ? getSortConditionByKey(column.key, player, comparePlayer, difficulty)
     : false
 
   return {

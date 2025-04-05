@@ -388,7 +388,7 @@ export const formattedMockData = [
     },
     roundFive: {
       normal: 480.0,
-      hard: 500.0,
+      hard: 0,
       impossible: 520.0,
       best: {
         difficulty: 'normal',
