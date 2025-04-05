@@ -21,15 +21,18 @@ export default function Button({
   small = false,
   variant = 'primary',
 }: Props) {
+  // TODO: refactor to match text with color and link color styling
   const [theme] = useTheme()
-  const mainColor =
+  const backgroundColor =
     color === 'primary' ? theme.color.primary : theme.color.secondary
+  const textColor = color === 'primary' ? theme.text.white : theme.text.black
   const highlightColor =
     color === 'primary' ? theme.text.tertiary : theme.text.highlight
 
   return (
     <StyledButton
-      color={mainColor}
+      backgroundColor={backgroundColor}
+      color={textColor}
       highlightColor={highlightColor}
       disabled={disabled}
       onClick={onClick}

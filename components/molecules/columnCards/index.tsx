@@ -13,7 +13,6 @@ import {
 } from './styled'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import LoaderCard from './components/loaderCard'
-import { Difficulty } from '@/interfaces/difficulty'
 
 interface Data {
   player: string
@@ -22,7 +21,7 @@ interface Data {
 
 interface Props {
   data?: { category: string; data: Data[]; key: string }[]
-  difficulty?: Difficulty
+  difficulty?: string
   hoverable?: boolean
   loading?: boolean
   viewAllKey: 'overview' | 'time'

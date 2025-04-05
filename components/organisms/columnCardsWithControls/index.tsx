@@ -3,8 +3,8 @@
 import { BestTime } from '@/interfaces/player'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
-import { Difficulty } from '@/interfaces/difficulty'
-import { difficultyNames } from '@/constants'
+import { RoundDifficulty } from '@/interfaces/difficulty'
+import { roundDifficultyNames } from '@/constants'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -29,7 +29,7 @@ export default function ColumnCardsWithControls({
   title,
 }: Props) {
   const [difficultyFilter, setDifficultyFilter] = useState<
-    Difficulty | undefined
+    RoundDifficulty | undefined
   >()
   const [filteredData, setFilteredData] = useState<
     LeaderBoardData | undefined
@@ -76,7 +76,7 @@ export default function ColumnCardsWithControls({
     fetchFilteredData()
   }, [difficultyFilter, data, showToast])
 
-  const onFilterClick = (difficulty: Difficulty | undefined) => {
+  const onFilterClick = (difficulty: RoundDifficulty | undefined) => {
     setDifficultyFilter(difficulty)
   }
 
@@ -89,7 +89,7 @@ export default function ColumnCardsWithControls({
       <BadgesContainer>
         <Badges
           onClick={onFilterClick}
-          options={difficultyNames}
+          options={roundDifficultyNames}
           selected={difficultyFilter}
         />
       </BadgesContainer>

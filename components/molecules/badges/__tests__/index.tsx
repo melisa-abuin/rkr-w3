@@ -48,7 +48,7 @@ describe('Badges', () => {
     )
 
     const badge = screen.getByText('all')
-    expect(badge).toHaveStyle('color: rgb(255, 255, 255)')
+    expect(badge).toHaveStyle('color: rgb(0, 0, 0)')
   })
 
   it('clears selected value when all option is clicked', async () => {
