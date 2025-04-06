@@ -53,4 +53,8 @@ export const LinkWrapper = styled(Link)`
   color: ${({ theme }) => theme.text.primary};
   text-decoration: none;
   width: 100%;
+
+  &:hover {
+    color: ${({ theme }) => theme.text.highlight};
+  }
 `
