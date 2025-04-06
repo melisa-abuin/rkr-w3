@@ -52,6 +52,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     playerStats.saves = GameStats.Saves
     playerStats.deaths = GameStats.Deaths
     playerStats.highestWinStreak = GameStats.HighestWinStreak
+    playerStats.winStreak = GameStats.WinStreak
 
     if (GameAwardsSorted) {
       playerStats.saveStreak = {

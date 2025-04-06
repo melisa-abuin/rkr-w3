@@ -53,7 +53,7 @@ export const mockApiData = [
         NormalWins: 12,
         SaveStreak: 6,
         Saves: 2200,
-        WinStreak: 2,
+        WinStreak: 12,
       },
       PlayerName: 'Laura#1234',
       RoundTimes: {

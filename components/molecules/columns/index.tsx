@@ -43,10 +43,10 @@ export default function Columns({
                 <Description highlight={highlight}>{description}</Description>
               </Col>
             ))}
+            {actionColumn && <Col>{actionColumn}</Col>}
           </Row>
         </Row>
       ))}
-      {actionColumn && <Col>{actionColumn}</Col>}
     </Container>
   )
 }

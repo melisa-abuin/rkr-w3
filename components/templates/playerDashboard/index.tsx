@@ -6,6 +6,7 @@ import PageHeader from '@/components/atoms/pageHeader'
 import Awards from '@/components/molecules/awards'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
+import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
   playerColumns,
@@ -17,6 +18,7 @@ import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
+import { Row } from './styled'
 
 const getDateToShow = (lastUploaded: string) => {
   const dateOptions = {
@@ -140,12 +142,15 @@ export default function PlayerDashboard({
         />
       </PageContainer>
       <PageContainer title="Overall Stats">
-        <ColumnsWithComparison
-          columns={playerColumns}
-          loading={loading}
-          player={playerData}
-          comparePlayer={selectedPlayer}
-        />
+        <Row>
+          <ColumnsWithComparison
+            columns={playerColumns}
+            loading={loading}
+            player={playerData}
+            comparePlayer={selectedPlayer}
+          />
+          <WinStreak winStreak={playerData.winStreak} />
+        </Row>
       </PageContainer>
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
         <Awards awards={awards} />

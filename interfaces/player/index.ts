@@ -44,6 +44,7 @@ export interface PlayerStats {
   gamesPlayed: DifficultyStats
   winRate: string
   wins: DifficultyStats
+  winStreak: number
   roundOne: RoundStats
   roundTwo: RoundStats
   roundThree: RoundStats

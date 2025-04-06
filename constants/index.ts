@@ -265,6 +265,7 @@ export const formattedMockData = [
       tournament: [4, 4],
     } as Challenges,
     winRate: '25.2%',
+    winStreak: 2,
     saveDeathRatio: 1.63,
     gamesPlayed: {
       normal: 10,
@@ -339,6 +340,7 @@ export const formattedMockData = [
     normalGames: 39,
     hardGames: 16,
     impossibleGames: 15,
+    winStreak: 2,
     saveStreak: {
       redLightning: true,
       patrioticTendrils: true,
@@ -422,6 +424,7 @@ export const formattedMockData = [
     deaths: 20,
     normalGames: 50,
     hardGames: 40,
+    winStreak: 2,
     impossibleGames: 10,
     saveStreak: {
       redLightning: true,
@@ -506,6 +509,7 @@ export const formattedMockData = [
     deaths: 120,
     normalGames: 30,
     hardGames: 20,
+    winStreak: 2,
     impossibleGames: 10,
     saveStreak: {
       redLightning: true,
@@ -590,6 +594,7 @@ export const formattedMockData = [
     deaths: 300,
     normalGames: 5,
     hardGames: 3,
+    winStreak: 2,
     impossibleGames: 2,
     saveStreak: {
       redLightning: true,
