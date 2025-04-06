@@ -1,7 +1,7 @@
 'use client'
 
 import TextWithIcon from '@/components/atoms/textWithIcon'
-import { BorderContainer, Container, Wrapper } from './styled'
+import { Container } from './styled'
 
 export const scoreMessagesMap: Record<number, string> = {
   3: 'Keep it up!',
@@ -31,15 +31,12 @@ const getEncouragingMessage = (score: number): string | null => {
 
 export default function WinStreak({ winStreak }: { winStreak: number }) {
   return (
-    <Wrapper>
-      <BorderContainer />
-      <Container>
-        <p>Current Win Streak</p>
-        <TextWithIcon colorName="primary" iconName="flame" palette="color">
-          {winStreak}
-        </TextWithIcon>
-        <p>{getEncouragingMessage(winStreak)}</p>
-      </Container>
-    </Wrapper>
+    <Container>
+      <p>Current Win Streak</p>
+      <TextWithIcon colorName="primary" iconName="flame" palette="color">
+        {winStreak}
+      </TextWithIcon>
+      <p>{getEncouragingMessage(winStreak)}</p>
+    </Container>
   )
 }
