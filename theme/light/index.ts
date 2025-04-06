@@ -28,7 +28,7 @@ const lightTheme = {
     black: '#000000',
     brandPrimary: '#B24141',
     brandSecondary: '#41B2B2',
-    highlight: '#37e5e5',
+    highlight: '#3671b6',
     primary: '#050505',
     secondary: '#6b6565',
     tertiary: '#b10f0f',
