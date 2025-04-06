@@ -11,6 +11,7 @@ export const Col = styled.div`
 `
 
 export const Container = styled.div`
+  align-items: center;
   background-color: ${({ theme }) => theme.background.quaternary};
   color: ${({ theme }) => theme.text.primary};
   display: flex;
