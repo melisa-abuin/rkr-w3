@@ -53,7 +53,6 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       .sort((a: PlayerStats, b: PlayerStats) =>
         a.gamesPlayed.total < b.gamesPlayed.total ? 1 : -1,
       )
-      .slice(0, 3)
 
     const stats = {
       stats: [
