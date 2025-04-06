@@ -1,26 +1,11 @@
 'use client'
-import { BestTime } from '@/interfaces/player'
-import {
-  Card,
-  Container,
-  Header,
-  Footer,
-  Table,
-  Td,
-  Tr,
-  DefaultCell,
-  HoverCell,
-} from './styled'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { Card, Container, Header, Footer, Table } from './styled'
 import LoaderCard from './components/loaderCard'
-
-interface Data {
-  player: string
-  data: number | BestTime
-}
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import Row from './components/row'
 
 interface Props {
-  data?: { category: string; data: Data[]; key: string }[]
+  data?: LeaderboardCategories[]
   difficulty?: string
   hoverable?: boolean
   loading?: boolean
@@ -34,7 +19,11 @@ export default function ColumnCards({
   loading,
   viewAllKey,
 }: Props) {
-  const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
+  const getViewAllHref = (key: string) => {
+    const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
+    return `/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`
+  }
+
   return (
     <Container>
       {data?.map(({ category, data, key }) => (
@@ -47,39 +36,22 @@ export default function ColumnCards({
               ) : (
                 <>
                   {data?.map(({ player, data }, index) => (
-                    <Tr
-                      key={`${player}${index}`}
-                      hoverable={data instanceof Object && hoverable}
-                    >
-                      <DefaultCell>{player}</DefaultCell>
-                      {typeof data === 'number' || typeof data === 'string' ? (
-                        <Td>{data}</Td>
-                      ) : (
-                        <>
-                          <DefaultCell>
-                            {secondsToSexagesimal(data.time)}
-                          </DefaultCell>
-                          <HoverCell>{data.difficulty}</HoverCell>
-                        </>
-                      )}
-                    </Tr>
+                    <Row
+                      data={data}
+                      player={player}
+                      key={index}
+                      hoverable={hoverable}
+                    />
                   ))}
                   {data.length < 5 &&
-                    [...Array(5 - data.length)].map((_, rowIndex) => (
-                      <Tr key={rowIndex}>
-                        <Td>--</Td>
-                        <Td>--</Td>
-                      </Tr>
+                    [...Array(5 - data.length)].map((_, index) => (
+                      <Row key={index} hoverable={hoverable} />
                     ))}
                 </>
               )}
             </tbody>
           </Table>
-          <Footer
-            href={`/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`}
-          >
-            View all
-          </Footer>
+          <Footer href={getViewAllHref(key)}>View all</Footer>
         </Card>
       ))}
     </Container>

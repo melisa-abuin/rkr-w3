@@ -69,7 +69,7 @@ export const findTopFive = (
   })
 
   return topFive.map((elem: PlayerStats) => ({
-    player: elem.battleTag.name,
+    player: elem.battleTag,
     data: getDataToMap(key, elem, filter),
   }))
 }

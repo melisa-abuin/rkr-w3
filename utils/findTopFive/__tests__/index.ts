@@ -31,9 +31,9 @@ describe('findTopFive', () => {
     const result = findTopFive(mockedPlayers, 'wins')
 
     expect(result).toHaveLength(5)
-    expect(result[0].player).toBe('Pablo') // Highest wins
-    expect(result[1].player).toBe('Gonza') // Second highest
-    expect(result[4].player).toBe('Eve') // Fifth highest
+    expect(result[0].player).toStrictEqual({ name: 'Pablo', tag: 'Pablo#1234' }) // Highest wins
+    expect(result[1].player).toStrictEqual({ name: 'Gonza', tag: 'Gonza#1234' }) // Second highest
+    expect(result[4].player).toStrictEqual({ name: 'Eve', tag: 'Eve#1239' }) // Fifth highest
   })
 
   it('should handle empty input array', () => {

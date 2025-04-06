@@ -1,6 +1,5 @@
 'use client'
 
-import { BestTime } from '@/interfaces/player'
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { RoundDifficulty } from '@/interfaces/difficulty'
@@ -9,13 +8,9 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
 import { useToast } from '@/hooks/useToast'
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
 
-interface Data {
-  player: string
-  data: number | BestTime
-}
-
-type LeaderBoardData = { category: string; data: Data[]; key: string }[]
+type LeaderBoardData = LeaderboardCategories[]
 
 interface Props {
   data?: LeaderBoardData
