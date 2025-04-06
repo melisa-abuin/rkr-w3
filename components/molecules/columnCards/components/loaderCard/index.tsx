@@ -1,6 +1,6 @@
 import Loader from '@/components/atoms/loader'
-import { Td, Tr } from '../../styled'
 import { LoaderContainer } from './styled'
+import { Td, Tr } from '../row/styled'
 
 export default function LoaderCard() {
   return [...Array(5)].map((_, rowIndex) => (

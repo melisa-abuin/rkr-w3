@@ -3,7 +3,7 @@
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import { statsColumns } from '@/constants'
-import { BestTime, PlayersStats } from '@/interfaces/player'
+import { PlayersStats } from '@/interfaces/player'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import ColumnCards from '@/components/molecules/columnCards'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
@@ -13,15 +13,11 @@ import Link from '@/components/atoms/link'
 import HelpInfo from '@/components/molecules/helpInfo'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/hooks/useToast'
-
-interface Data {
-  player: string
-  data: number | BestTime
-}
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
 
 interface PlayerStatsData {
-  stats: Array<{ category: string; key: string; data: Data[] }>
-  times: Array<{ category: string; key: string; data: Data[] }>
+  stats: Array<LeaderboardCategories>
+  times: Array<LeaderboardCategories>
 }
 
 export default function Leaderboard({ data }: { data: PlayerStatsData }) {
