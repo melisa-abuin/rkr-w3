@@ -46,4 +46,9 @@ export const TooltipContainer = styled.div`
   position: relative;
   display: inline-block;
   cursor: pointer;
+
+  & span {
+    font-size: var(--font-size-xs-sm);
+    font-weight: var(--font-weight-regular);
+  }
 `

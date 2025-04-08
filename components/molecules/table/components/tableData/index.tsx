@@ -70,13 +70,16 @@ export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
     case 'wins':
     case 'gamesPlayed':
       if (isDifficultyStats(data)) {
+        if (difficultyFilter) {
+          return <>{data[difficultyFilter]}</>
+        }
         return (
           <Tooltip
             normal={data.normal}
             hard={data.hard}
             impossible={data.impossible}
           >
-            {difficultyFilter ? data[difficultyFilter] : data.total}
+            {data.total}
           </Tooltip>
         )
       }
@@ -84,20 +87,18 @@ export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
 
     default:
       if (isRoundStats(data)) {
+        if (difficultyFilter) {
+          return <>{secondsToSexagesimal(data[difficultyFilter])}</>
+        }
+
         return (
           <Tooltip
             normal={secondsToSexagesimal(data.normal)}
             hard={secondsToSexagesimal(data.hard)}
             impossible={secondsToSexagesimal(data.impossible)}
           >
-            {difficultyFilter ? (
-              secondsToSexagesimal(data[difficultyFilter])
-            ) : (
-              <>
-                {secondsToSexagesimal(data.best.time)}
-                <br />({data.best.difficulty})
-              </>
-            )}
+            {secondsToSexagesimal(data.best.time)}
+            <br />({data.best.difficulty})
           </Tooltip>
         )
       }
