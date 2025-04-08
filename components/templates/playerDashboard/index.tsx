@@ -19,6 +19,7 @@ import { formatKeyToWord } from '@/utils/formatKeyToWord'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { Row } from './styled'
+import Tabs from '@/components/atoms/tabs'
 
 const getDateToShow = (lastUploaded: string) => {
   const dateOptions = {
@@ -31,6 +32,22 @@ const getDateToShow = (lastUploaded: string) => {
 
   const lastDateUploaded = new Date(lastUploaded)
   return lastDateUploaded.toLocaleDateString(undefined, dateOptions)
+}
+const playerDataOutdated = (
+  player1: DetailedPlayerStats,
+  player2: DetailedPlayerStats,
+): string | null => {
+  const player1Date = new Date(player1.lastUploaded)
+  const player2Date = new Date(player2.lastUploaded)
+
+  const diffInMs = Math.abs(player1Date.getTime() - player2Date.getTime())
+  const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
+
+  if (diffInDays < 30) return null
+
+  return player1Date > player2Date
+    ? player2.battleTag.name
+    : player1.battleTag.name
 }
 
 export default function PlayerDashboard({
@@ -74,23 +91,10 @@ export default function PlayerDashboard({
         setSelectedPlayer(result)
 
         if (result) {
-          const currentPlayerDate = new Date(lastUploaded)
-          const comparedPlayerDate = new Date(result.lastUploaded)
-
-          const diffInMonths =
-            (currentPlayerDate.getFullYear() -
-              comparedPlayerDate.getFullYear()) *
-              12 +
-            (currentPlayerDate.getMonth() - comparedPlayerDate.getMonth())
-
-          if (Math.abs(diffInMonths) >= 1) {
-            const outdatedPlayerStats =
-              currentPlayerDate > comparedPlayerDate
-                ? result.battleTag.name
-                : battleTag.name
-
+          const outDatedPlayer = playerDataOutdated(playerData, result)
+          if (outDatedPlayer) {
             showToast(
-              `It looks like ${outdatedPlayerStats} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
+              `It looks like ${outDatedPlayer} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
               'warning',
               4000,
             )
@@ -104,7 +108,7 @@ export default function PlayerDashboard({
         setLoading(false)
       }
     },
-    [showToast, lastUploaded, battleTag.name],
+    [showToast, playerData],
   )
 
   useEffect(() => {
@@ -153,7 +157,14 @@ export default function PlayerDashboard({
         </Row>
       </PageContainer>
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
-        <Awards awards={awards} />
+        {selectedPlayer ? (
+          <Tabs titles={[battleTag.name, selectedPlayer.battleTag.name]}>
+            <Awards awards={awards} />
+            <Awards awards={selectedPlayer.awards} />
+          </Tabs>
+        ) : (
+          <Awards awards={awards} />
+        )}
       </PageContainer>
       {roundDifficultyNames.map((difficulty) => (
         <PageContainer
