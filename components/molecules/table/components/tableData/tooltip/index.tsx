@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { StyledTooltip, TooltipContainer } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
@@ -10,13 +10,30 @@ interface Props {
 }
 
 export default function Tooltip({ hard, impossible, normal, children }: Props) {
+  const [coords, setCoords] = useState({ x: 0, y: 0 })
+  const [showTooltip, setShowTooltip] = useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setCoords({ x: e.clientX, y: e.clientY })
+  }
+
   return (
-    <TooltipContainer aria-label="Player stats extended details">
+    <TooltipContainer
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onMouseMove={handleMouseMove}
+      aria-label="Player stats extended details"
+    >
       <TextWithIcon iconName="information" iconSize={12}>
         {children}
       </TextWithIcon>
 
-      <StyledTooltip role="tooltip">
+      <StyledTooltip
+        showTooltip={showTooltip}
+        x={coords.x}
+        y={coords.y}
+        role="tooltip"
+      >
         <table>
           <tbody>
             <tr>
