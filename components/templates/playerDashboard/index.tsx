@@ -20,6 +20,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { Row } from './styled'
 import Tabs from '@/components/atoms/tabs'
+import { playerDataOutdated } from '@/utils/playerDataOutdated'
 
 const getDateToShow = (lastUploaded: string) => {
   const dateOptions = {
@@ -33,29 +34,14 @@ const getDateToShow = (lastUploaded: string) => {
   const lastDateUploaded = new Date(lastUploaded)
   return lastDateUploaded.toLocaleDateString(undefined, dateOptions)
 }
-const playerDataOutdated = (
-  player1: DetailedPlayerStats,
-  player2: DetailedPlayerStats,
-): string | null => {
-  const player1Date = new Date(player1.lastUploaded)
-  const player2Date = new Date(player2.lastUploaded)
-
-  const diffInMs = Math.abs(player1Date.getTime() - player2Date.getTime())
-  const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
-
-  if (diffInDays < 30) return null
-
-  return player1Date > player2Date
-    ? player2.battleTag.name
-    : player1.battleTag.name
-}
 
 export default function PlayerDashboard({
   playerData,
 }: {
   playerData: DetailedPlayerStats
 }) {
-  const { awards, battleTag, skins, lastUploaded } = playerData
+  const { awards, battleTag, skins, lastUploaded, completedChallenges } =
+    playerData
   const [selectedPlayer, setSelectedPlayer] = useState<
     DetailedPlayerStats | undefined
   >()
@@ -158,7 +144,12 @@ export default function PlayerDashboard({
       </PageContainer>
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
         {selectedPlayer ? (
-          <Tabs titles={[battleTag.name, selectedPlayer.battleTag.name]}>
+          <Tabs
+            titles={[
+              `${battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
+              `${selectedPlayer.battleTag.name} - ${selectedPlayer.completedChallenges.general[0]}/${selectedPlayer.completedChallenges.general[1]}`,
+            ]}
+          >
             <Awards awards={awards} />
             <Awards awards={selectedPlayer.awards} />
           </Tabs>

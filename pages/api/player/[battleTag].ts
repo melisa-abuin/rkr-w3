@@ -8,6 +8,10 @@ import { formatGameAwards } from '@/utils/formatGameAwards'
 import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
 import { calculateWinRate } from '@/utils/calculateWinRate'
 import { fetchData } from '@/utils/fetchData'
+import {
+  calculateCompletedChallenges,
+  calculateCompletedChallengesLegacy,
+} from '@/utils/calculateCompletedChallenges'
 
 interface QueryParams {
   battleTag: string
@@ -53,6 +57,14 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     playerStats.deaths = GameStats.Deaths
     playerStats.highestWinStreak = GameStats.HighestWinStreak
     playerStats.winStreak = GameStats.WinStreak
+
+    if (GameAwardsSorted) {
+      playerStats.completedChallenges =
+        calculateCompletedChallenges(GameAwardsSorted)
+    } else {
+      playerStats.completedChallenges =
+        calculateCompletedChallengesLegacy(GameAwards)
+    }
 
     if (GameAwardsSorted) {
       playerStats.saveStreak = {

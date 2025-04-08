@@ -171,6 +171,7 @@ export const downloadFileName = 'RKR_Remastered_1.2.1'
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
 
+export const outdatedPlayerDaysThreshold = 30
 export const pageSize = 15
 export const routes = {
   home: {
