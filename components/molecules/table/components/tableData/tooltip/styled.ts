@@ -12,7 +12,7 @@ export const StyledTooltip = styled.div`
   padding: 8px;
   position: absolute;
   z-index: 10;
-  top: calc(100% + 8px); /* ⬅️ 8px gap below the text */
+  top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%) scale(0.95);
   transition:
