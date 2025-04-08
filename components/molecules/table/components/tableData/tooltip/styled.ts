@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const StyledTooltip = styled.div`
-  visibility: hidden;
-  display: none;
+  opacity: 0;
+  pointer-events: none;
   width: 150px;
   background-color: ${({ theme }) => theme.background.primary};
   border: 1px solid ${({ theme }) => theme.background.secondary};
@@ -11,12 +11,13 @@ export const StyledTooltip = styled.div`
   border-radius: 4px;
   padding: 8px;
   position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  transform: translateY(50%);
-  left: 150%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  z-index: 10;
+  top: calc(100% + 8px); /* ⬅️ 8px gap below the text */
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
   box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
 
   table {
@@ -34,14 +35,15 @@ export const StyledTooltip = styled.div`
     }
   }
 `
+
 export const TooltipContainer = styled.div`
   position: relative;
   display: inline-block;
   cursor: pointer;
 
   &:hover ${StyledTooltip} {
-    visibility: visible;
     opacity: 1;
-    display: inline;
+    pointer-events: auto;
+    transform: translateX(-50%) scale(1);
   }
 `

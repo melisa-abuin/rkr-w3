@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import { StyledTooltip, TooltipContainer } from './styled'
+import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
   hard: number | string
@@ -11,7 +12,9 @@ interface Props {
 export default function Tooltip({ hard, impossible, normal, children }: Props) {
   return (
     <TooltipContainer aria-label="Player stats extended details">
-      {children}
+      <TextWithIcon iconName="information" iconSize={12}>
+        {children}
+      </TextWithIcon>
 
       <StyledTooltip role="tooltip">
         <table>
