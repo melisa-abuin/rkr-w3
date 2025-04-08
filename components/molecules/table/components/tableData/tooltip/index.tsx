@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { StyledTooltip, TooltipContainer } from './styled'
+import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
   hard: number | string
@@ -9,11 +10,30 @@ interface Props {
 }
 
 export default function Tooltip({ hard, impossible, normal, children }: Props) {
-  return (
-    <TooltipContainer aria-label="Player stats extended details">
-      {children}
+  const [coords, setCoords] = useState({ x: 0, y: 0 })
+  const [showTooltip, setShowTooltip] = useState(false)
 
-      <StyledTooltip role="tooltip">
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setCoords({ x: e.clientX, y: e.clientY })
+  }
+
+  return (
+    <TooltipContainer
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onMouseMove={handleMouseMove}
+      aria-label="Player stats extended details"
+    >
+      <TextWithIcon iconName="information" iconSize={12}>
+        {children}
+      </TextWithIcon>
+
+      <StyledTooltip
+        showTooltip={showTooltip}
+        x={coords.x}
+        y={coords.y}
+        role="tooltip"
+      >
         <table>
           <tbody>
             <tr>

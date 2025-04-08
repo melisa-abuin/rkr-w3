@@ -6,11 +6,19 @@ import { Winner } from '@/components/icons/winner'
 import { Flame } from '@/components/icons/flame'
 import { Clock } from '@/components/icons/clock'
 import { Paw } from '@/components/icons/paw'
+import { Information } from '@/components/icons/information'
 
 interface Props {
   children: ReactNode
   colorName?: string
-  iconName?: 'clock' | 'crown' | 'flame' | 'paw' | 'winner' | undefined
+  iconName?:
+    | 'clock'
+    | 'crown'
+    | 'flame'
+    | 'paw'
+    | 'winner'
+    | 'information'
+    | undefined
   iconSize?: number
   large?: boolean
   palette?: 'color' | 'text'
@@ -22,6 +30,7 @@ const icons = {
   paw: Paw,
   winner: Winner,
   flame: Flame,
+  information: Information,
 }
 
 export default function TextWithIcon({

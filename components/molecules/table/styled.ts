@@ -7,10 +7,11 @@ export const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   padding: 24px;
-  overflow-x: auto;
+  position: relative;
 
   @media (max-width: 480px) {
     align-items: flex-start;
+    overflow-x: auto;
   }
 `
 

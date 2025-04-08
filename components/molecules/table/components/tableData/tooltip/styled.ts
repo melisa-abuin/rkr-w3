@@ -1,8 +1,15 @@
 import styled from 'styled-components'
 
-export const StyledTooltip = styled.div`
-  visibility: hidden;
-  display: none;
+export const StyledTooltip = styled.div<{
+  x: number
+  y: number
+  showTooltip: boolean
+}>`
+  opacity: ${({ showTooltip }) => (showTooltip ? '1' : '0')};
+  pointer-events: ${({ showTooltip }) => (showTooltip ? 'auto' : 'none')};
+  transform: ${({ showTooltip }) =>
+    `translate(-50%, 24px) ${showTooltip ? 'scale(1)' : 'scale(0.95)'}`};
+
   width: 150px;
   background-color: ${({ theme }) => theme.background.primary};
   border: 1px solid ${({ theme }) => theme.background.secondary};
@@ -10,13 +17,13 @@ export const StyledTooltip = styled.div`
   text-align: left;
   border-radius: 4px;
   padding: 8px;
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  transform: translateY(50%);
-  left: 150%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  position: fixed;
+  z-index: 10;
+  top: ${({ y }) => y}px;
+  left: ${({ x }) => x}px;
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
   box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
 
   table {
@@ -34,14 +41,14 @@ export const StyledTooltip = styled.div`
     }
   }
 `
+
 export const TooltipContainer = styled.div`
   position: relative;
   display: inline-block;
   cursor: pointer;
 
-  &:hover ${StyledTooltip} {
-    visibility: visible;
-    opacity: 1;
-    display: inline;
+  & span {
+    font-size: var(--font-size-xs-sm);
+    font-weight: var(--font-weight-regular);
   }
 `
