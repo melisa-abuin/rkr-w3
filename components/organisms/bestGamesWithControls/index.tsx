@@ -3,11 +3,12 @@
 import { BadgesContainer } from './styled'
 import { useState, useEffect } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
-import { difficultyNames } from '@/constants'
+import { bestGameTimesColumns, difficultyNames } from '@/constants'
 import BestGames from '@/components/molecules/bestGames'
 import { GamesStats } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
 import { useToast } from '@/hooks/useToast'
+import Table from '@/components/molecules/table'
 
 export default function BestGamesWithControls() {
   const [difficultyFilter, setDifficultyFilter] = useState<
@@ -67,7 +68,7 @@ export default function BestGamesWithControls() {
         />
       </BadgesContainer>
       <BestGames
-        games={filteredData || []}
+        games={filteredData?.slice(0, 5) || []}
         loading={loading}
         showDifficulty={!difficultyFilter}
       />

@@ -79,6 +79,7 @@ export default function ColumnCardsWithControls({
     <PageContainer
       ariaLabelledby="columns-time-title"
       marginTop={32}
+      withPadding={false}
       title={title}
     >
       <BadgesContainer>

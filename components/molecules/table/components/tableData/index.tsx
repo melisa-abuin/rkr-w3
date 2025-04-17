@@ -102,7 +102,7 @@ export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
           </Tooltip>
         )
       }
-      return typeof data === 'number' ? <>{data}</> : null
+      return <>{data}</>
   }
 
   return null

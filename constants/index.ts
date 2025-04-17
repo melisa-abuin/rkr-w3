@@ -238,6 +238,13 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Best R5 Times', key: 'roundFive' },
 ]
 
+export const bestGameTimesColumns: { title: string; key: string }[] = [
+  { title: 'Time', key: 'time' },
+  { title: 'Players', key: 'teamMembers' },
+  { title: 'Difficulty', key: 'difficulty' },
+  { title: 'Date', key: 'date' },
+]
+
 export const tournamentAwards = [
   'TurquoiseNitro',
   'TurquoiseWings',
