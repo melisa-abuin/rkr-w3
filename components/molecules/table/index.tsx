@@ -9,13 +9,12 @@ import {
   Container,
   Title,
 } from './styled'
-import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import LoaderTable from './components/loaderTable'
-import { TableData } from './components/tableData'
+import TableData from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 
-interface TableProps {
-  data?: PlayersStats
+interface Props<T> {
+  data?: T[]
   loading?: boolean
   difficultyFilter?: Difficulty | undefined
   filters?: ReactNode
@@ -23,14 +22,14 @@ interface TableProps {
   title?: string
   columns: Array<{
     title: string
-    key: keyof PlayerStats
+    key: keyof T
   }>
-  highlightedColumn?: keyof PlayerStats
-  onTableSort?: (columnKey: keyof PlayerStats) => void
+  highlightedColumn?: keyof T
+  onTableSort?: (columnKey: keyof T) => void
   pageSize?: number
 }
 
-export default function Table({
+export default function Table<T>({
   data,
   loading = false,
   columns,
@@ -41,8 +40,8 @@ export default function Table({
   onTableSort,
   pageSize = 5,
   title,
-}: TableProps) {
-  const onTableHeadClick = (columnKey: keyof PlayerStats) => {
+}: Props<T>) {
+  const onTableHeadClick = (columnKey: keyof T) => {
     if (!onTableSort) {
       return
     }
@@ -63,9 +62,9 @@ export default function Table({
           <StyledTr>
             {columns.map(({ key, title }) => (
               <StyledTh
+                key={key as string}
                 hasActions={!!onTableSort}
                 highlighted={highlightedColumn === key}
-                key={key}
                 onClick={() => onTableHeadClick(key)}
                 scope="col"
                 colSpan={1}
@@ -86,7 +85,7 @@ export default function Table({
                     data-label={title}
                     highlighted={highlightedColumn === key}
                     index={index}
-                    key={`${key} ${index}`}
+                    key={`${key as string} ${index}`}
                   >
                     <TableData
                       keyName={key}

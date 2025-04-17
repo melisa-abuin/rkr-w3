@@ -1,6 +1,5 @@
 import {
   DifficultyStats,
-  PlayerStats,
   RoundStats,
   BattleTag as BattleTagI,
   Challenges as ChallengesT,
@@ -14,16 +13,9 @@ import Ratio from './ratio'
 import Challenges from './challenges'
 import SaveStreak from './saveStreak'
 
-interface Props {
-  data:
-    | string
-    | number
-    | RoundStats
-    | DifficultyStats
-    | BattleTagI
-    | ChallengesT
-    | SaveStreakI
-  keyName: keyof PlayerStats
+interface Props<T> {
+  data?: T[keyof T]
+  keyName: keyof T
   difficultyFilter?: Difficulty | undefined
 }
 
@@ -49,7 +41,11 @@ const isChallenges = (data: unknown): data is ChallengesT =>
   'general' in data &&
   'tournament' in data
 
-export const TableData = ({ data, keyName, difficultyFilter }: Props) => {
+export default function TableData<T>({
+  data,
+  keyName,
+  difficultyFilter,
+}: Props<T>) {
   switch (keyName) {
     case 'saveDeathRatio':
       if (typeof data === 'number') return <Ratio ratio={data} />

@@ -72,6 +72,11 @@ export default function BestGamesWithControls() {
         loading={loading}
         showDifficulty={!difficultyFilter}
       />
+      <Table
+        columns={bestGameTimesColumns}
+        data={filteredData?.slice(0, 5) || []}
+        loading={loading}
+      />
     </>
   )
 }
