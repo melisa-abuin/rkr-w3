@@ -1,10 +1,3 @@
-import {
-  DifficultyStats,
-  RoundStats,
-  BattleTag as BattleTagI,
-  Challenges as ChallengesT,
-  SaveStreak as SaveStreakI,
-} from '@/interfaces/player'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { Difficulty } from '@/interfaces/difficulty'
 import BattleTag from './battleTag'
@@ -14,38 +7,72 @@ import Challenges from './challenges'
 import SaveStreak from './saveStreak'
 
 interface Props<T> {
-  data?: T[keyof T]
+  data?: T
   keyName: keyof T
   difficultyFilter?: Difficulty | undefined
 }
 
-const isDifficultyStats = (data: unknown): data is DifficultyStats =>
-  typeof data === 'object' && data !== null && 'total' in data
+type ComponentPropsMap = {
+  saveDeathRatio: React.ComponentProps<typeof Ratio>
+  completedChallenges: React.ComponentProps<typeof Challenges>
+  battleTag: React.ComponentProps<typeof BattleTag>
+  saveStreak: React.ComponentProps<typeof SaveStreak>
+  wins: React.ComponentProps<typeof Tooltip>
+  gamesPlayed: React.ComponentProps<typeof Tooltip>
+}
 
-const isRoundStats = (data: unknown): data is RoundStats =>
-  typeof data === 'object' && data !== null && 'best' in data
+const variants: {
+  [K in keyof ComponentPropsMap]: ({
+    data,
+  }: ComponentPropsMap[K]) => JSX.Element
+} = {
+  saveDeathRatio: Ratio,
+  completedChallenges: Challenges,
+  battleTag: BattleTag,
+  saveStreak: SaveStreak,
+  wins: Tooltip,
+  gamesPlayed: Tooltip,
+}
 
-const isBattleTag = (data: unknown): data is BattleTagI =>
-  typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
+const renderVariant = <K extends keyof ComponentPropsMap>(
+  key: K,
+  data: ComponentPropsMap[K],
+): JSX.Element => {
+  const Variant = variants[key]
 
-const isSaveStreak = (data: unknown): data is SaveStreakI =>
-  typeof data === 'object' &&
-  data !== null &&
-  'highestSaveStreak' in data &&
-  'redLightning' in data &&
-  'patrioticTendrils' in data
+  return <Variant data={data} />
+}
 
-const isChallenges = (data: unknown): data is ChallengesT =>
-  typeof data === 'object' &&
-  data !== null &&
-  'general' in data &&
-  'tournament' in data
+const isValidVariantKey = (key: PropertyKey): key is keyof ComponentPropsMap =>
+  key in variants
+
+const isValidVariantData = <K extends keyof ComponentPropsMap>(
+  _: K,
+  data: unknown,
+): data is ComponentPropsMap[K] => {
+  return data !== undefined && data !== null
+}
 
 export default function TableData<T>({
   data,
   keyName,
   difficultyFilter,
 }: Props<T>) {
+  if (!data?.[keyName]) {
+    return null
+  }
+
+  const componentData = data[keyName]
+
+  if (!isValidVariantKey(keyName)) return <>{String(data[keyName])}</>
+
+  if (!isValidVariantData(keyName as keyof ComponentPropsMap, componentData)) {
+    return <>{String(componentData)}</>
+  }
+  console.log(data, keyName)
+
+  return renderVariant(keyName as keyof ComponentPropsMap, componentData)
+
   switch (keyName) {
     case 'saveDeathRatio':
       if (typeof data === 'number') return <Ratio ratio={data} />

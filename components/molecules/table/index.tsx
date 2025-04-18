@@ -89,7 +89,7 @@ export default function Table<T>({
                   >
                     <TableData
                       keyName={key}
-                      data={player[key]}
+                      data={player}
                       difficultyFilter={difficultyFilter}
                     />
                   </StyledTd>

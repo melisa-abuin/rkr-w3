@@ -3,13 +3,16 @@ import { StyledTooltip, TooltipContainer } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
-  hard: number | string
-  impossible: number | string
-  normal: number | string
-  children?: ReactNode
+  data: {
+    hard: number | string
+    impossible: number | string
+    normal: number | string
+    children?: ReactNode
+  }
 }
 
-export default function Tooltip({ hard, impossible, normal, children }: Props) {
+export default function Tooltip({ data }: Props) {
+  const { hard, impossible, normal, children } = data
   const [coords, setCoords] = useState({ x: 0, y: 0 })
   const [showTooltip, setShowTooltip] = useState(false)
 

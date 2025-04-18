@@ -4,7 +4,7 @@ import { Challenges as ChallengesT } from '@/interfaces/player'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
-  challenges: ChallengesT
+  data: ChallengesT
 }
 
 interface ChallengesProps {
@@ -49,8 +49,8 @@ const GeneralChallenges = ({ challenges }: ChallengesProps) => {
   )
 }
 
-export default function Challenges({ challenges }: Props) {
-  const { general, tournament } = challenges
+export default function Challenges({ data }: Props) {
+  const { general, tournament } = data
   const [completedChallenges, totalChallenges] = tournament
 
   return (
