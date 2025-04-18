@@ -5,6 +5,15 @@ import Tooltip from './tooltip'
 import Ratio from './ratio'
 import Challenges from './challenges'
 import SaveStreak from './saveStreak'
+import {
+  DifficultyStats,
+  RoundStats,
+  BattleTag as BattleTagI,
+  Challenges as ChallengesT,
+  SaveStreak as SaveStreakI,
+} from '@/interfaces/player'
+import PlayersList from './playersList'
+import DatePlayed from './datePlayed'
 
 interface Props<T> {
   data?: T
@@ -12,47 +21,25 @@ interface Props<T> {
   difficultyFilter?: Difficulty | undefined
 }
 
-type ComponentPropsMap = {
-  saveDeathRatio: React.ComponentProps<typeof Ratio>
-  completedChallenges: React.ComponentProps<typeof Challenges>
-  battleTag: React.ComponentProps<typeof BattleTag>
-  saveStreak: React.ComponentProps<typeof SaveStreak>
-  wins: React.ComponentProps<typeof Tooltip>
-  gamesPlayed: React.ComponentProps<typeof Tooltip>
-}
+const isDifficultyStats = (data: unknown): data is DifficultyStats =>
+  typeof data === 'object' && data !== null && 'total' in data
+const isRoundStats = (data: unknown): data is RoundStats =>
+  typeof data === 'object' && data !== null && 'best' in data
+const isBattleTag = (data: unknown): data is BattleTagI =>
+  typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
+const isSaveStreak = (data: unknown): data is SaveStreakI =>
+  typeof data === 'object' &&
+  data !== null &&
+  'highestSaveStreak' in data &&
+  'redLightning' in data &&
+  'patrioticTendrils' in data
+const isChallenges = (data: unknown): data is ChallengesT =>
+  typeof data === 'object' &&
+  data !== null &&
+  'general' in data &&
+  'tournament' in data
 
-const variants: {
-  [K in keyof ComponentPropsMap]: ({
-    data,
-  }: ComponentPropsMap[K]) => JSX.Element
-} = {
-  saveDeathRatio: Ratio,
-  completedChallenges: Challenges,
-  battleTag: BattleTag,
-  saveStreak: SaveStreak,
-  wins: Tooltip,
-  gamesPlayed: Tooltip,
-}
-
-const renderVariant = <K extends keyof ComponentPropsMap>(
-  key: K,
-  data: ComponentPropsMap[K],
-): JSX.Element => {
-  const Variant = variants[key]
-
-  return <Variant data={data} />
-}
-
-const isValidVariantKey = (key: PropertyKey): key is keyof ComponentPropsMap =>
-  key in variants
-
-const isValidVariantData = <K extends keyof ComponentPropsMap>(
-  _: K,
-  data: unknown,
-): data is ComponentPropsMap[K] => {
-  return data !== undefined && data !== null
-}
-
+// Fix this component
 export default function TableData<T>({
   data,
   keyName,
@@ -61,71 +48,75 @@ export default function TableData<T>({
   if (!data?.[keyName]) {
     return null
   }
-
   const componentData = data[keyName]
-
-  if (!isValidVariantKey(keyName)) return <>{String(data[keyName])}</>
-
-  if (!isValidVariantData(keyName as keyof ComponentPropsMap, componentData)) {
-    return <>{String(componentData)}</>
-  }
-  console.log(data, keyName)
-
-  return renderVariant(keyName as keyof ComponentPropsMap, componentData)
 
   switch (keyName) {
     case 'saveDeathRatio':
-      if (typeof data === 'number') return <Ratio ratio={data} />
+      if (typeof componentData === 'number')
+        return <Ratio data={componentData} />
       break
-
+    case 'time':
+      if (typeof componentData === 'number')
+        return <>{secondsToSexagesimal(componentData)}</>
+      break
+    case 'date':
+      if (typeof componentData === 'string')
+        return <DatePlayed data={componentData} />
+      break
+    case 'teamMembers':
+      if (typeof componentData === 'string')
+        return <PlayersList data={componentData} />
+      break
     case 'completedChallenges':
-      if (isChallenges(data)) return <Challenges challenges={data} />
+      if (isChallenges(componentData))
+        return <Challenges data={componentData} />
       break
 
     case 'battleTag':
-      if (isBattleTag(data)) return <BattleTag battleTag={data} />
+      if (isBattleTag(componentData)) return <BattleTag data={componentData} />
       break
 
     case 'saveStreak':
-      if (isSaveStreak(data)) return <SaveStreak saveStreak={data} />
+      if (isSaveStreak(componentData))
+        return <SaveStreak data={componentData} />
       break
 
     case 'wins':
     case 'gamesPlayed':
-      if (isDifficultyStats(data)) {
-        if (difficultyFilter) {
-          return <>{data[difficultyFilter]}</>
-        }
+      if (isDifficultyStats(componentData)) {
         return (
           <Tooltip
-            normal={data.normal}
-            hard={data.hard}
-            impossible={data.impossible}
+            data={{
+              normal: componentData.normal,
+              hard: componentData.hard,
+              impossible: componentData.impossible,
+            }}
+            difficulty={difficultyFilter}
           >
-            {data.total}
+            {componentData.total}
           </Tooltip>
         )
       }
-      return typeof data === 'number' ? <>{data}</> : null
+      return typeof componentData === 'number' ? <>{componentData}</> : null
 
     default:
-      if (isRoundStats(data)) {
-        if (difficultyFilter) {
-          return <>{secondsToSexagesimal(data[difficultyFilter])}</>
-        }
-
+      if (isRoundStats(componentData)) {
         return (
           <Tooltip
-            normal={secondsToSexagesimal(data.normal)}
-            hard={secondsToSexagesimal(data.hard)}
-            impossible={secondsToSexagesimal(data.impossible)}
+            data={{
+              normal: componentData.normal,
+              hard: componentData.hard,
+              impossible: componentData.impossible,
+            }}
+            difficulty={difficultyFilter}
+            isTimeStats
           >
-            {secondsToSexagesimal(data.best.time)}
-            <br />({data.best.difficulty})
+            {secondsToSexagesimal(componentData.best.time)}
+            <br />({componentData.best.difficulty})
           </Tooltip>
         )
       }
-      return <>{data}</>
+      return <>{componentData}</>
   }
 
   return null
