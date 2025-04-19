@@ -66,7 +66,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
       <PageContainer>
         <PageHeader
           description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
-          title="Leaderboard"
+          title="Leaderboards"
         />
         <PlayerFinderWithResult />
         <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>
@@ -122,7 +122,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           </PageContainer>
           <PageContainer
             ariaLabelledby="columns-kibble-title"
-            title="Kibbles collected leaderboard"
+            title="Kibbles collected in a single game"
             withPadding={false}
           >
             <KibbleLeaderboardWithMoreResults />
