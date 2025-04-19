@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { formatSaveDataFile } from '@/utils/formatSaveDataFile'
-import { fetchData } from '@/utils/fetchData'
+import { formatSaveDataFile, fetchData } from '@/utils'
 
 interface QueryParams {
   battleTag: string
