@@ -32,6 +32,12 @@ export interface SaveStreak {
   redLightning: boolean
   patrioticTendrils: boolean
 }
+export interface Kibbles {
+  collectedAllTime: number
+  jackpots: number
+  superJackpots: number
+  collectedSingleGame: number
+}
 
 export interface PlayerStats {
   battleTag: BattleTag
@@ -50,6 +56,7 @@ export interface PlayerStats {
   roundThree: RoundStats
   roundFour: RoundStats
   roundFive: RoundStats
+  kibbles: Kibbles
 }
 
 export type DetailedPlayerStats = PlayerStats & {

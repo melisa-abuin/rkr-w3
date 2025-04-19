@@ -46,7 +46,7 @@ export default function TableData<T>({
   difficultyFilter,
 }: Props<T>) {
   if (!data?.[keyName]) {
-    return null
+    return <>0</>
   }
   const componentData = data[keyName]
 
@@ -116,8 +116,6 @@ export default function TableData<T>({
           </Tooltip>
         )
       }
-      return <>{componentData}</>
+      return <>{componentData || 0}</>
   }
-
-  return null
 }

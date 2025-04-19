@@ -26,7 +26,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       const { RoundTimes, PlayerName } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      playerStats['battleTag'] = {
+      playerStats.battleTag = {
         name: PlayerName?.split('#')[0] || '',
         tag: PlayerName || '',
       }

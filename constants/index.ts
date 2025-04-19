@@ -338,6 +338,12 @@ export const formattedMockData = [
         time: 450.0,
       },
     },
+    kibbles: {
+      collectedAllTime: 47,
+      jackpots: 1,
+      superJackpots: 1,
+      collectedSingleGame: 47,
+    },
   },
   {
     battleTag: {
@@ -422,6 +428,12 @@ export const formattedMockData = [
         difficulty: 'normal',
         time: 480.0,
       },
+    },
+    kibbles: {
+      collectedAllTime: 100,
+      jackpots: 4,
+      superJackpots: 2,
+      collectedSingleGame: 45,
     },
   },
   {
@@ -508,6 +520,12 @@ export const formattedMockData = [
         time: 430.0,
       },
     },
+    kibbles: {
+      collectedAllTime: 100,
+      jackpots: 4,
+      superJackpots: 2,
+      collectedSingleGame: 45,
+    },
   },
   {
     battleTag: {
@@ -593,6 +611,12 @@ export const formattedMockData = [
         time: 445.0,
       },
     },
+    kibbles: {
+      collectedAllTime: 100,
+      jackpots: 4,
+      superJackpots: 2,
+      collectedSingleGame: 45,
+    },
   },
   {
     battleTag: {
@@ -677,6 +701,12 @@ export const formattedMockData = [
         difficulty: 'impossible',
         time: 480.0,
       },
+    },
+    kibbles: {
+      collectedAllTime: 0,
+      jackpots: 0,
+      superJackpots: 0,
+      collectedSingleGame: 0,
     },
   },
 ] as const

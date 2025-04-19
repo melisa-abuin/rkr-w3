@@ -38,6 +38,10 @@ export const getValueForKey = (
     return getValueForSaveStreak(elem[key])
   }
 
+  if (key === 'kibbles') {
+    return elem[key].collectedSingleGame
+  }
+
   if (key === 'completedChallenges') {
     return elem[key]['general'][0]
   }

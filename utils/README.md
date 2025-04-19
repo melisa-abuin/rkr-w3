@@ -18,7 +18,8 @@ Below is a list of all available utilities:
 
 ### 🏆 Data Analysis
 
-- `findTopFive`
+- `findTopPlayersByInsertion`
+- `findTopPlayersByFullSort`
 
 ### 🧩 Data Formatting
 

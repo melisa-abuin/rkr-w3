@@ -2,7 +2,7 @@ import {
   getSortConditionByKey,
   getValueForKey,
 } from '@/utils/getSortConditionByKey'
-import { findTopFive } from '..'
+import { findTopPlayersByInsertion } from '..'
 import { Difficulty } from '@/interfaces/difficulty'
 import { formattedMockData } from '@/constants'
 import { PlayerStats } from '@/interfaces/player'
@@ -12,7 +12,7 @@ jest.mock('@/utils/getSortConditionByKey', () => ({
   getSortConditionByKey: jest.fn(),
 }))
 
-describe('findTopFive', () => {
+describe('findTopPlayersByInsertion', () => {
   const mockedPlayers: PlayerStats[] = [...formattedMockData]
   beforeEach(() => {
     jest.clearAllMocks()
@@ -28,7 +28,7 @@ describe('findTopFive', () => {
         (key, elem, compareElem) => elem[key] > compareElem[key],
       )
 
-    const result = findTopFive(mockedPlayers, 'wins')
+    const result = findTopPlayersByInsertion(mockedPlayers, 'wins')
 
     expect(result).toHaveLength(5)
     expect(result[0].player).toStrictEqual({ name: 'Pablo', tag: 'Pablo#1234' }) // Highest wins
@@ -37,7 +37,7 @@ describe('findTopFive', () => {
   })
 
   it('should handle empty input array', () => {
-    const result = findTopFive([], 'wins')
+    const result = findTopPlayersByInsertion([], 'wins')
 
     expect(result).toEqual([])
   })
@@ -56,7 +56,7 @@ describe('findTopFive', () => {
         (key, elem, compareElem) => elem[key] > compareElem[key],
       )
 
-    const result = findTopFive(mockedPlayers, 'wins', mockFilter)
+    const result = findTopPlayersByInsertion(mockedPlayers, 'wins', mockFilter)
 
     expect(getValueForKey).toHaveBeenCalledWith(
       'wins',

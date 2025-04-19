@@ -6,7 +6,7 @@ import {
   calculateSaveDeathRatio,
   calculateTotals,
   fetchData,
-  findTopFive,
+  findTopPlayersByInsertion,
   formatRoundsData,
 } from '@/utils'
 
@@ -25,23 +25,23 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         playerStats.saves = GameStats.Saves
         playerStats.highestWinStreak = GameStats.HighestWinStreak
 
-        playerStats['battleTag'] = {
+        playerStats.battleTag = {
           name: PlayerName?.split('#')[0] || '',
           tag: PlayerName || '',
         }
 
-        playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
+        playerStats.saveDeathRatio = calculateSaveDeathRatio(
           GameStats.Saves,
           GameStats.Deaths,
         )
 
-        playerStats['gamesPlayed'] = calculateTotals(
+        playerStats.gamesPlayed = calculateTotals(
           GameStats.NormalGames,
           GameStats.HardGames,
           GameStats.ImpossibleGames,
         )
 
-        playerStats['wins'] = calculateTotals(
+        playerStats.wins = calculateTotals(
           GameStats.NormalWins,
           GameStats.HardWins,
           GameStats.ImpossibleWins,
@@ -61,54 +61,54 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       stats: [
         {
           category: 'Win Streak',
-          data: findTopFive(formattedData, 'highestWinStreak'),
+          data: findTopPlayersByInsertion(formattedData, 'highestWinStreak'),
           key: 'highestWinStreak',
         },
         {
           category: 'Saves',
-          data: findTopFive(formattedData, 'saves'),
+          data: findTopPlayersByInsertion(formattedData, 'saves'),
           key: 'saves',
         },
         {
           category: 'Games Played',
-          data: findTopFive(formattedData, 'gamesPlayed'),
+          data: findTopPlayersByInsertion(formattedData, 'gamesPlayed'),
           key: 'gamesPlayed',
         },
         {
           category: 'Wins',
-          data: findTopFive(formattedData, 'wins'),
+          data: findTopPlayersByInsertion(formattedData, 'wins'),
           key: 'wins',
         },
         {
           category: 'Save/Death Ratio',
-          data: findTopFive(formattedData, 'saveDeathRatio'),
+          data: findTopPlayersByInsertion(formattedData, 'saveDeathRatio'),
           key: 'saveDeathRatio',
         },
       ],
       times: [
         {
           category: 'Round One',
-          data: findTopFive(formattedData, 'roundOne'),
+          data: findTopPlayersByInsertion(formattedData, 'roundOne'),
           key: 'roundOne',
         },
         {
           category: 'Round Two',
-          data: findTopFive(formattedData, 'roundTwo'),
+          data: findTopPlayersByInsertion(formattedData, 'roundTwo'),
           key: 'roundTwo',
         },
         {
           category: 'Round Three',
-          data: findTopFive(formattedData, 'roundThree'),
+          data: findTopPlayersByInsertion(formattedData, 'roundThree'),
           key: 'roundThree',
         },
         {
           category: 'Round Four',
-          data: findTopFive(formattedData, 'roundFour'),
+          data: findTopPlayersByInsertion(formattedData, 'roundFour'),
           key: 'roundFour',
         },
         {
           category: 'Round Five',
-          data: findTopFive(formattedData, 'roundFive'),
+          data: findTopPlayersByInsertion(formattedData, 'roundFive'),
           key: 'roundFive',
         },
       ],

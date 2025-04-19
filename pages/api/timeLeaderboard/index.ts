@@ -1,9 +1,7 @@
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { formatRoundsData } from '@/utils/formatRoundsData'
-import { findTopFive } from '@/utils/findTopFive'
 import { roundNames } from '@/constants'
-import { fetchData } from '@/utils/fetchData'
+import { fetchData, findTopPlayersByInsertion, formatRoundsData } from '@/utils'
 
 interface QueryParams {
   difficulty?: 'normal' | 'hard' | 'impossible' | undefined
@@ -21,7 +19,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       const { RoundTimes, PlayerName } = saveData
       const playerStats: Partial<PlayerStats> = {}
 
-      playerStats['battleTag'] = {
+      playerStats.battleTag = {
         name: PlayerName?.split('#')[0] || '',
         tag: PlayerName || '',
       }
@@ -38,27 +36,47 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     const stats = [
       {
         category: 'Round One',
-        data: findTopFive(formattedData, 'roundOne', difficultyFilter),
+        data: findTopPlayersByInsertion(
+          formattedData,
+          'roundOne',
+          difficultyFilter,
+        ),
         key: 'roundOne',
       },
       {
         category: 'Round Two',
-        data: findTopFive(formattedData, 'roundTwo', difficultyFilter),
+        data: findTopPlayersByInsertion(
+          formattedData,
+          'roundTwo',
+          difficultyFilter,
+        ),
         key: 'roundTwo',
       },
       {
         category: 'Round Three',
-        data: findTopFive(formattedData, 'roundThree', difficultyFilter),
+        data: findTopPlayersByInsertion(
+          formattedData,
+          'roundThree',
+          difficultyFilter,
+        ),
         key: 'roundThree',
       },
       {
         category: 'Round Four',
-        data: findTopFive(formattedData, 'roundFour', difficultyFilter),
+        data: findTopPlayersByInsertion(
+          formattedData,
+          'roundFour',
+          difficultyFilter,
+        ),
         key: 'roundFour',
       },
       {
         category: 'Round Five',
-        data: findTopFive(formattedData, 'roundFive', difficultyFilter),
+        data: findTopPlayersByInsertion(
+          formattedData,
+          'roundFive',
+          difficultyFilter,
+        ),
         key: 'roundFive',
       },
     ]
