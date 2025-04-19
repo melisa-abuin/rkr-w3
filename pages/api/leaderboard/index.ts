@@ -1,11 +1,14 @@
-import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { formatRoundsData } from '@/utils/formatRoundsData'
-import { calculateTotals } from '@/utils/calculateTotals'
-import { findTopFive } from '@/utils/findTopFive'
+
 import { roundNames } from '@/constants'
-import { fetchData } from '@/utils/fetchData'
+import {
+  calculateSaveDeathRatio,
+  calculateTotals,
+  fetchData,
+  findTopFive,
+  formatRoundsData,
+} from '@/utils'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {

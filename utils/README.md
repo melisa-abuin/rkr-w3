@@ -45,10 +45,6 @@ Below is a list of all available utilities:
 - `playerDataOutdated`
 - `removeBlacklistedPlayers`
 
-### 🎨 Rendering
-
-- `renderWithTheme`
-
 ### ⏱ Time Formatting
 
 - `secondsToSexagesimal`
