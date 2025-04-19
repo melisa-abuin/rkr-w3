@@ -1,6 +1,7 @@
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { fetchData } from '@/utils/fetchData'
+import { findTopPlayersByInsertion } from '@/utils'
 
 interface QueryParams {
   difficulty?: 'normal' | 'hard' | 'impossible' | undefined
@@ -12,44 +13,42 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
-    const formattedData = data
-      .map((elem: ApiPlayerStats) => {
-        const saveData = JSON.parse(elem['Save Data'])
+    const formattedData = data.map((elem: ApiPlayerStats) => {
+      const saveData = JSON.parse(elem['Save Data'])
 
-        const { PlayerName, KibbleCurrency, PersonalBests } = saveData
-        const playerStats: Partial<PlayerStats> = {}
+      const { PlayerName, KibbleCurrency, PersonalBests } = saveData
+      const playerStats: Partial<PlayerStats> = {}
 
-        playerStats.battleTag = {
-          name: PlayerName?.split('#')[0] || '',
-          tag: PlayerName || '',
+      playerStats.battleTag = {
+        name: PlayerName?.split('#')[0] || '',
+        tag: PlayerName || '',
+      }
+
+      if (!KibbleCurrency || !PersonalBests) {
+        playerStats.kibbles = {
+          collectedAllTime: 0,
+          jackpots: 0,
+          superJackpots: 0,
+          collectedSingleGame: 0,
         }
-
-        if (!KibbleCurrency || !PersonalBests) {
-          playerStats.kibbles = {
-            collectedAllTime: 0,
-            jackpots: 0,
-            superJackpots: 0,
-            collectedSingleGame: 0,
-          }
-        } else {
-          playerStats.kibbles = {
-            collectedAllTime: KibbleCurrency?.Collected,
-            jackpots: KibbleCurrency?.Jackpots,
-            superJackpots: KibbleCurrency.SuperJackpots,
-            collectedSingleGame: PersonalBests.KibbleCollected,
-          }
+      } else {
+        playerStats.kibbles = {
+          collectedAllTime: KibbleCurrency?.Collected,
+          jackpots: KibbleCurrency?.Jackpots,
+          superJackpots: KibbleCurrency.SuperJackpots,
+          collectedSingleGame: PersonalBests.KibbleCollected,
         }
+      }
 
-        return playerStats as PlayerStats
-      })
-      .sort(
-        (a: PlayerStats, b: PlayerStats) =>
-          b.kibbles.collectedSingleGame - a.kibbles.collectedSingleGame,
-      )
-      .slice(0, 5)
+      return playerStats as PlayerStats
+    })
 
-    console.log(formattedData)
-    const stats = formattedData
+    const stats = findTopPlayersByInsertion(
+      formattedData,
+      'kibbles',
+      undefined,
+      20,
+    )
 
     res.status(200).json(stats)
   } catch (error) {
