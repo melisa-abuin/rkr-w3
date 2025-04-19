@@ -2,7 +2,14 @@ import React from 'react'
 import { Container, SubTitle, Title } from './styled'
 import { BattleTag as BattleTagI } from '@/interfaces/player'
 
-interface Props {
+/*
+ * using this in each of the children of the tdata I can make it generic
+ */
+interface k {
+  data: unknown
+}
+
+interface Props extends k {
   data: BattleTagI
 }
 

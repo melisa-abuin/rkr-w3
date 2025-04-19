@@ -4,7 +4,7 @@ interface Props {
   data: string
 }
 
-const getDateToShow = (data: string) => {
+export const getDateToShow = (data: string) => {
   if (!data) return ''
 
   const now = new Date()

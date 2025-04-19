@@ -52,10 +52,12 @@ export default function Table<T>({
     <Container aria-labelledby={title || 'Player stats'}>
       <StyledTable aria-label="Player Stats">
         <caption id={title || 'Player stats'}>
-          <Title>
-            {title && <span>{title}</span>}
-            {headerLink}
-          </Title>
+          {title && (
+            <Title>
+              <span>{title}</span>
+              {headerLink}
+            </Title>
+          )}
           {filters}
         </caption>
         <thead>
