@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { useToast } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Tabs from '@/components/atoms/tabs'
+import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -68,10 +69,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           title="Leaderboard"
         />
         <PlayerFinderWithResult />
-        <Tabs
-          disabledTabs={['Kibbles (Coming soon)']}
-          titles={['General', 'Best Game Times', 'Kibbles (Coming soon)']}
-        >
+        <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>
           <div>
             <PageContainer
               ariaLabelledby="columns-score-title"
@@ -121,6 +119,13 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
             withPadding={false}
           >
             <BestGamesWithControls />
+          </PageContainer>
+          <PageContainer
+            ariaLabelledby="columns-kibble-title"
+            title="Kibbles collected leaderboard"
+            withPadding={false}
+          >
+            <KibbleLeaderboardWithMoreResults />
           </PageContainer>
         </Tabs>
       </PageContainer>
