@@ -5,6 +5,7 @@ export const OuterContainer = styled.div`
   background-color: ${({ theme }) => theme.background.primary};
   display: flex;
   justify-content: center;
+  padding-top: 16px;
   width: 100%;
 `
 export const InnerContainer = styled.div`
