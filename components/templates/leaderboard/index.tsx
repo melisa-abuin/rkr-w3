@@ -68,7 +68,10 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           title="Leaderboard"
         />
         <PlayerFinderWithResult />
-        <Tabs titles={[`General`, `Best Game Times`]}>
+        <Tabs
+          disabledTabs={['Kibbles (Coming soon)']}
+          titles={['General', 'Best Game Times', 'Kibbles (Coming soon)']}
+        >
           <div>
             <PageContainer
               ariaLabelledby="columns-score-title"
