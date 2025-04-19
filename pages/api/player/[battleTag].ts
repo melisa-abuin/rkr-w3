@@ -82,29 +82,29 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     playerStats.awards = formatGameAwards(GameAwardsSorted)
     playerStats.skins = transformKeysToCamelCase(SelectedData)
-    playerStats['battleTag'] = {
+    playerStats.battleTag = {
       name: PlayerName?.split('#')[0] || '',
       tag: PlayerName || '',
     }
 
-    playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
+    playerStats.saveDeathRatio = calculateSaveDeathRatio(
       GameStats.Saves,
       GameStats.Deaths,
     )
 
-    playerStats['gamesPlayed'] = calculateTotals(
+    playerStats.gamesPlayed = calculateTotals(
       GameStats.NormalGames,
       GameStats.HardGames,
       GameStats.ImpossibleGames,
     )
 
-    playerStats['wins'] = calculateTotals(
+    playerStats.wins = calculateTotals(
       GameStats.NormalWins,
       GameStats.HardWins,
       GameStats.ImpossibleWins,
     )
 
-    playerStats['winRate'] = calculateWinRate(
+    playerStats.winRate = calculateWinRate(
       playerStats.wins.total,
       playerStats.gamesPlayed.total,
     )

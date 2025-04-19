@@ -25,23 +25,23 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         playerStats.saves = GameStats.Saves
         playerStats.highestWinStreak = GameStats.HighestWinStreak
 
-        playerStats['battleTag'] = {
+        playerStats.battleTag = {
           name: PlayerName?.split('#')[0] || '',
           tag: PlayerName || '',
         }
 
-        playerStats['saveDeathRatio'] = calculateSaveDeathRatio(
+        playerStats.saveDeathRatio = calculateSaveDeathRatio(
           GameStats.Saves,
           GameStats.Deaths,
         )
 
-        playerStats['gamesPlayed'] = calculateTotals(
+        playerStats.gamesPlayed = calculateTotals(
           GameStats.NormalGames,
           GameStats.HardGames,
           GameStats.ImpossibleGames,
         )
 
-        playerStats['wins'] = calculateTotals(
+        playerStats.wins = calculateTotals(
           GameStats.NormalWins,
           GameStats.HardWins,
           GameStats.ImpossibleWins,
