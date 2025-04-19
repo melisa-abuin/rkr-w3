@@ -5,28 +5,31 @@ import { InnerContainer, OuterContainer, Title } from './styled'
 
 interface Props {
   align?: 'center' | 'left'
+  ariaLabelledby?: string
   as?: 'section' | 'div'
   children: ReactNode
-  ariaLabelledby?: string
-  title?: string
-  marginTop?: number
   marginBottom?: number
+  marginTop?: number
+  title?: string
+  withPadding?: boolean
 }
 
 export const PageContainer = ({
   align = 'left',
+  ariaLabelledby,
   as = 'section',
   children,
-  ariaLabelledby,
-  title,
-  marginTop = 0,
   marginBottom = 0,
+  marginTop = 0,
+  withPadding = true,
+  title,
 }: Props) => (
   <OuterContainer
-    as={as}
     aria-labelledby={ariaLabelledby}
-    marginTop={marginTop}
+    as={as}
     marginBottom={marginBottom}
+    marginTop={marginTop}
+    withPadding={withPadding}
   >
     <InnerContainer>
       {title && (

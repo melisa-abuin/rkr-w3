@@ -1,14 +1,14 @@
-import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { calculateTotals } from '@/utils/calculateTotals'
 import {
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,
-} from '@/utils/calculateCompletedChallenges'
-import { calculateWinRate } from '@/utils/calculateWinRate'
-import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import { fetchData } from '@/utils/fetchData'
+  calculateSaveDeathRatio,
+  calculateTotals,
+  calculateWinRate,
+  fetchData,
+  getSortConditionByKey,
+} from '@/utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 interface QueryParams {
   battleTag?: string

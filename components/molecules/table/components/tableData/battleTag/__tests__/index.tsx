@@ -9,7 +9,7 @@ describe('BattleTag', () => {
     const battletag = 'Alex'
 
     renderWithTheme(
-      <BattleTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
+      <BattleTag data={{ name: battletag, tag: completeBattleTag }} />,
     )
 
     const titleElement = screen.getByText('Alex')
@@ -26,7 +26,7 @@ describe('BattleTag', () => {
     const battletag = 'Alex'
 
     renderWithTheme(
-      <BattleTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
+      <BattleTag data={{ name: battletag, tag: completeBattleTag }} />,
     )
 
     const link = screen.getByText('Alex')

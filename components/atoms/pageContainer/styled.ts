@@ -11,15 +11,16 @@ export const InnerContainer = styled.div`
 export const OuterContainer = styled.section<{
   marginTop: number
   marginBottom: number
+  withPadding: boolean
 }>`
   align-items: center;
   background-color: ${({ theme }) => theme.background.primary};
   display: flex;
   justify-content: center;
-  margin-top: ${({ marginTop }) => `${marginTop}px`};
   margin-bottom: ${({ marginBottom }) => `${marginBottom}px`};
+  margin-top: ${({ marginTop }) => `${marginTop}px`};
+  padding: ${({ withPadding }) => (withPadding ? '0 24px' : '0')};
   width: 100%;
-  padding: 0 24px;
 `
 
 export const Title = styled.h2<{ align: 'center' | 'left' }>`

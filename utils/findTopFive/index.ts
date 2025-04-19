@@ -24,14 +24,20 @@ const getDataToMap = (
 }
 
 /**
- * This function Has a time complexity of approximately 𝑂(𝑛 × 𝑘), where 𝑛
- * is the number of items in the array, and 𝑘 (in this case, 5) is
- * the constant number of top elements to keep.
+ * Returns the top five players based on the provided key from their stats.
  *
- * @param array
- * @param key
- * @returns
+ * Uses an insertion-based approach to maintain a sorted list of the top five elements
+ * according to the dynamic condition provided by `getSortConditionByKey`. It supports filtering
+ * by difficulty for round keys, and uses fallback total values for wins or games played.
+ *
+ * Time Complexity: O(n × k), where n = array length, k = 5 (constant).
+ *
+ * @param array - Array of PlayerStats to evaluate.
+ * @param key - The stat key to rank players by (e.g., 'wins', 'gamesPlayed', or round keys).
+ * @param filter - Optional difficulty filter for round-based stats.
+ * @returns An array of the top five players with their battleTags and relevant stat data.
  */
+
 export const findTopFive = (
   array: PlayerStats[],
   key: keyof PlayerStats,
@@ -75,14 +81,19 @@ export const findTopFive = (
 }
 
 /**
- * This function Has a time complexity of 𝑂(𝑛 log 𝑛) due to the full array sort,
- * which is more computationally intensive than the linear approach of the first function.
- * This difference becomes significant as n grows.
- * @param array
- * @param key
- * @returns
+ * Returns the top five players by sorting the full array using the given key.
  *
- * @deprecated The method should not be used
+ * This function sorts the entire input array based on the selected stat key,
+ * and retrieves the top five elements. It's more computationally intensive and
+ * should be avoided in favor of the optimized `findTopFive` function.
+ *
+ * Time Complexity: O(n log n)
+ *
+ * @deprecated Use `findTopFive` instead for better performance and filtering options.
+ *
+ * @param array - Array of PlayerStats to sort and slice.
+ * @param key - The stat key used to compare and rank players.
+ * @returns An array of the top five PlayerStats objects.
  */
 export const findTopFiveOld = (
   array: PlayerStats[],

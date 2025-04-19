@@ -6,8 +6,8 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 24px;
   position: relative;
+  width: 100%;
 
   @media (max-width: 480px) {
     align-items: flex-start;

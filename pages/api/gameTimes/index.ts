@@ -26,7 +26,7 @@ export default async function handler(
         return gameStats
       })
       .sort((a: GameStats, b: GameStats) => a.time - b.time)
-      .slice(0, 5)
+      .slice(0, 20)
 
     res.status(200).json(formattedData)
   } catch (error) {

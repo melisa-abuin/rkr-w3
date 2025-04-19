@@ -6,12 +6,11 @@ import { SaveStreak as SaveStreakI } from '@/interfaces/player'
 import { Bolt } from '@/components/icons/bolt'
 
 interface Props {
-  saveStreak: SaveStreakI
+  data: SaveStreakI
 }
-
-const SaveStreak: React.FC<Props> = ({ saveStreak }) => {
+export default function SaveStreak({ data }: Props) {
   const [theme] = useTheme()
-  const { highestSaveStreak, redLightning, patrioticTendrils } = saveStreak
+  const { highestSaveStreak, redLightning, patrioticTendrils } = data
 
   const saveStreakToShow = () => {
     if (highestSaveStreak < 50 && patrioticTendrils) return '+50'
@@ -54,5 +53,3 @@ const SaveStreak: React.FC<Props> = ({ saveStreak }) => {
     </Container>
   )
 }
-
-export default SaveStreak

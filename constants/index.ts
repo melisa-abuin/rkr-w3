@@ -1,4 +1,5 @@
 import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
+import { GameStats } from '@/interfaces/game'
 import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
 
 export const awardsDescriptions = {
@@ -236,6 +237,13 @@ export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
   { title: 'Best R3 Times', key: 'roundThree' },
   { title: 'Best R4 Times', key: 'roundFour' },
   { title: 'Best R5 Times', key: 'roundFive' },
+]
+
+export const bestGameTimesColumns: { title: string; key: keyof GameStats }[] = [
+  { title: 'Time', key: 'time' },
+  { title: 'Players', key: 'teamMembers' },
+  { title: 'Difficulty', key: 'difficulty' },
+  { title: 'Date', key: 'date' },
 ]
 
 export const tournamentAwards = [

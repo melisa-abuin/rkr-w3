@@ -5,10 +5,13 @@ interface Props {
 }
 
 /**
- * Provides the best time among all difficulties for a specific round
+ * Determines the fastest completion time across all difficulty levels for a specific round.
  *
- * @param times object that contains all the times for a round
- * @returns object with the best time and the difficulty
+ * Prioritizes non-zero times: if a time is zero, it's considered incomplete or invalid
+ * and will be ignored in favor of valid times.
+ *
+ * @param times - An object containing completion times for each difficulty level.
+ * @returns An object containing the difficulty with the fastest valid time and its value.
  */
 export const calculateBestTimeByDifficulty = (times: Props) => {
   const bestDifficulty = (Object.keys(times) as Array<keyof Props>).reduce(
