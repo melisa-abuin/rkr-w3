@@ -3,13 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { fetchData } from '@/utils/fetchData'
 import { findTopPlayersByInsertion } from '@/utils'
 
-interface QueryParams {
-  difficulty?: 'normal' | 'hard' | 'impossible' | undefined
-}
-
-type StatsRequest = NextApiRequest & { query: QueryParams }
-
-export default async function handler(req: StatsRequest, res: NextApiResponse) {
+export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
