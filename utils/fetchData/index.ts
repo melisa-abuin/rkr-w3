@@ -45,7 +45,7 @@ export const fetchData = async (
       return removeBlacklistedPlayers(data)
     }
   } catch (error) {
-    console.error('Error fetching scoreboard data:', error)
+    console.error('Error fetching data:', error)
   }
 
   return data

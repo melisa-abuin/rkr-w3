@@ -30,7 +30,7 @@ export default async function handler(
 
     res.status(200).json(formattedData)
   } catch (error) {
-    console.error('Error fetching scoreboard data:', error)
+    console.error('Error fetching game times data:', error)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 }
