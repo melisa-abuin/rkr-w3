@@ -1,14 +1,22 @@
+'use client'
+
 import React, { useState } from 'react'
 import { Wrapper, Header, Button, Content } from './styled'
 
 interface TabsProps {
-  disabledTabs?: string[]
-  titles: string[]
   children: React.ReactNode[]
+  disabledTabs?: string[]
+  defaultSelectedIndex?: number
+  titles: string[]
 }
 
-export default function Tabs({ titles, children, disabledTabs }: TabsProps) {
-  const [activeIndex, setActiveIndex] = useState(0)
+export default function Tabs({
+  titles,
+  children,
+  disabledTabs,
+  defaultSelectedIndex = 0,
+}: TabsProps) {
+  const [activeIndex, setActiveIndex] = useState(defaultSelectedIndex)
 
   return (
     <Wrapper>

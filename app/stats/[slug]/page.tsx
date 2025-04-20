@@ -1,16 +1,17 @@
 import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
 import PageHeader from '@/components/atoms/pageHeader'
-import { statsColumns, timeAllDiffColumns } from '@/constants'
+import { kibbleColumns, statsColumns, timeAllDiffColumns } from '@/constants'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/molecules/error'
 import TableWithControls from '@/components/organisms/tableWithControls'
-import ScoreboardSelector from '@/components/molecules/scoreboardSelector'
 import HelpInfo from '@/components/molecules/helpInfo'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import { ToastProvider } from '@/hooks/useToast'
+import Tabs from '@/components/atoms/tabs'
+import KibbleTableWithControls from '@/components/organisms/kibbleTableWithControls'
 
 interface PlayerStatsData {
   error: string | null
@@ -22,11 +23,7 @@ const timeStrings = {
   description: 'Check all the time-based stats',
   columns: timeAllDiffColumns,
   defaultSortKey: 'roundOne',
-  link: {
-    ariaLabel: 'View all stats for all players',
-    href: '/stats/overview',
-    text: 'View all stats',
-  },
+  apiBaseUrl: 'times',
 } as const
 
 const overallStrings = {
@@ -34,15 +31,25 @@ const overallStrings = {
   description: 'Check all the general stats for all players',
   columns: statsColumns,
   defaultSortKey: 'completedChallenges',
-  link: {
-    ariaLabel: 'View all times for all players',
-    href: '/stats/time',
-    text: 'View time related stats',
-  },
+  apiBaseUrl: 'stats',
+} as const
+
+const kibbleStrings = {
+  title: 'Kibble stats',
+  description: 'Check all the kibble stats for all players',
+  columns: kibbleColumns,
+  defaultSortKey: 'collectedSingleGame',
+  apiBaseUrl: 'kibbleStats',
+} as const
+
+const pageVariants = {
+  overview: overallStrings,
+  time: timeStrings,
+  kibble: kibbleStrings,
 } as const
 
 async function fetchData(
-  shouldGetTimes: boolean,
+  apiBaseUrl: 'kibbleStats' | 'times' | 'stats',
   searchParams?: Record<string, string | string[] | undefined>,
 ): Promise<PlayerStatsData> {
   const queryString = new URLSearchParams(
@@ -57,7 +64,7 @@ async function fetchData(
   const isStage = process.env.ENVIRONMENT === 'stage'
   const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
 
-  const slugUrl = `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`
+  const slugUrl = `${url}/api/${apiBaseUrl}`
 
   const response = await fetch(
     `${slugUrl}${queryString ? `?${queryString}` : ''}`,
@@ -81,10 +88,19 @@ interface PageProps {
   searchParams?: Record<string, string | string[] | undefined>
 }
 
+type VariantKey = keyof typeof pageVariants
+
+const isValidVariant = (slug: string): slug is VariantKey =>
+  slug in pageVariants
+
 export default async function StatsPage({ params, searchParams }: PageProps) {
   const { slug } = params
-  const { data, error } = await fetchData(slug === 'time', searchParams)
-  const strings = slug === 'time' ? timeStrings : overallStrings
+  const pageVariant = isValidVariant(slug)
+    ? pageVariants[slug]
+    : pageVariants['overview']
+
+  const { data, error } = await fetchData(pageVariant.apiBaseUrl, searchParams)
+  const variantValues = Object.values(pageVariants)
 
   return (
     <ThemeProvider>
@@ -101,14 +117,47 @@ export default async function StatsPage({ params, searchParams }: PageProps) {
                   title="Scoreboard"
                 />
               </PageContainer>
-              <ScoreboardSelector toggleInitialValue={slug === 'overview'} />
-              <TableWithControls
-                columns={strings.columns}
-                data={data}
-                defaultSortKey={strings.defaultSortKey}
-                isTimeStats={slug === 'time'}
-                title={strings.title}
-              />
+              <PageContainer>
+                <Tabs
+                  defaultSelectedIndex={variantValues.findIndex(
+                    ({ title }) => title === pageVariant.title,
+                  )}
+                  titles={variantValues.map(({ title }) => title)}
+                >
+                  {variantValues.map(
+                    ({ title, columns, defaultSortKey, apiBaseUrl }, index) => {
+                      if (title === 'Kibble stats') {
+                        return (
+                          <KibbleTableWithControls
+                            key={index}
+                            columns={columns}
+                            data={{
+                              ...data,
+                              stats: data.stats?.map((elem) => ({
+                                battleTag: elem.battleTag,
+                                ...elem.kibbles,
+                              })),
+                            }}
+                            defaultSortKey={defaultSortKey}
+                            apiBaseUrl={apiBaseUrl}
+                            title={title}
+                          />
+                        )
+                      }
+                      return (
+                        <TableWithControls
+                          key={index}
+                          columns={columns}
+                          data={data}
+                          defaultSortKey={defaultSortKey}
+                          apiBaseUrl={apiBaseUrl}
+                          title={title}
+                        />
+                      )
+                    },
+                  )}
+                </Tabs>
+              </PageContainer>
               <HelpInfo />
             </>
           )}
