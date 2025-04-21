@@ -115,7 +115,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     res.status(200).json(playerStats)
   } catch (error) {
-    console.error('Error fetching scoreboard data:', error)
+    console.error('Error fetching player data:', error)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 }

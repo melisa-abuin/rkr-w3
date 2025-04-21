@@ -1,33 +1,38 @@
 'use client'
 
-import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import { useSearchParams } from 'next/navigation'
-import { useState, useCallback, ReactNode } from 'react'
-import { difficultyNames } from '@/constants'
-import { Difficulty } from '@/interfaces/difficulty'
-import Table from '@/components/molecules/table'
-import Badges from '@/components/molecules/badges'
-import { useToast } from '@/hooks/useToast'
+import { useState, useCallback, ReactNode, useEffect } from 'react'
 import Pagination from '@/components/molecules/pagination'
+import Table from '@/components/molecules/table'
+import { useToast } from '@/hooks/useToast'
+import { BattleTag, PlayerStats } from '@/interfaces/player'
+
+type KibbleType = {
+  collectedAllTime: number
+  jackpots: number
+  superJackpots: number
+  collectedSingleGame: number
+  battleTag: BattleTag
+}
 
 interface TableProps {
-  data: { pages: number; stats?: PlayersStats }
+  data: { pages: number; stats?: KibbleType[] }
   headerLink?: ReactNode
-  defaultSortKey: keyof PlayerStats
+  defaultSortKey: keyof KibbleType
   title?: string
-  apiBaseUrl: 'times' | 'stats'
+  apiBaseUrl: 'kibbleStats'
   columns: Array<{
     title: string
-    key: keyof PlayerStats
+    key: keyof KibbleType
   }>
 }
 
 interface SortingKey {
-  key: keyof PlayerStats
+  key: keyof KibbleType
   asc: boolean
 }
 
-export default function TableWithControls({
+export default function KibbleTableWithControls({
   data,
   defaultSortKey,
   columns,
@@ -37,29 +42,25 @@ export default function TableWithControls({
 }: TableProps) {
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
-  const initialFilter = searchParams?.get('difficulty') as Difficulty
   const initialSortData = {
-    key: (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey,
+    key: (searchParams?.get('sortKey') as keyof KibbleType) || defaultSortKey,
     asc: searchParams?.get('sortOrder') === 'asc',
   }
 
   const [currentPage, setCurrentPage] = useState<number>(initialPage)
-  const [difficultyFilter, setDifficultyFilter] = useState<
-    Difficulty | undefined
-  >(initialFilter)
+
   const [sortKey, setSortKey] = useState<SortingKey>(initialSortData)
   const [loading, setLoading] = useState(false)
   const [filteredData, setFilteredData] = useState<{
     pages: number
-    stats?: PlayersStats
+    stats?: KibbleType[]
   }>(data)
   const { showToast } = useToast()
 
   const updateURL = useCallback(
-    async (page: number, difficulty?: Difficulty, sort?: SortingKey) => {
+    async (page: number, sort?: SortingKey) => {
       const queryParams = new URLSearchParams()
       queryParams.set('page', page.toString())
-      if (difficulty) queryParams.set('difficulty', difficulty)
       if (sort) {
         queryParams.set('sortKey', sort.key)
         queryParams.set('sortOrder', sort.asc ? 'asc' : 'desc')
@@ -83,9 +84,16 @@ export default function TableWithControls({
         }
 
         const result = await response.json()
-        setFilteredData(result)
+        const formattedResult = {
+          stats: result.stats?.map((elem: PlayerStats) => ({
+            battleTag: elem.battleTag,
+            ...elem.kibbles,
+          })),
+          pages: result.pages,
+        }
+        setFilteredData(formattedResult)
       } catch (error) {
-        showToast(`Couldn't fetch the stats, please try again later.`)
+        showToast(`Couldn't fetch the kibble stats, please try again later.`)
       } finally {
         setLoading(false)
       }
@@ -99,30 +107,26 @@ export default function TableWithControls({
   const handlePageChange = useCallback(
     (page: number) => {
       setCurrentPage(page)
-      updateURL(page, difficultyFilter, sortKey)
+      updateURL(page, sortKey)
     },
-    [difficultyFilter, sortKey, updateURL],
+    [sortKey, updateURL],
   )
 
   const handleSortChange = useCallback(
-    (sort: keyof PlayerStats) => {
+    (sort: keyof KibbleType) => {
       const newSortKey = {
         key: sort,
         asc: sortKey.key === sort ? !sortKey.asc : false,
       }
       setSortKey(newSortKey)
-      updateURL(currentPage, difficultyFilter, newSortKey)
+      updateURL(currentPage, newSortKey)
     },
-    [currentPage, difficultyFilter, updateURL, sortKey],
+    [currentPage, updateURL, sortKey],
   )
 
-  const handleFilterChange = useCallback(
-    (difficulty?: Difficulty) => {
-      setDifficultyFilter(difficulty)
-      updateURL(currentPage, difficulty, sortKey)
-    },
-    [currentPage, sortKey, updateURL],
-  )
+  useEffect(() => {
+    console.log(filteredData)
+  }, [filteredData])
 
   return (
     <>
@@ -130,17 +134,9 @@ export default function TableWithControls({
         columns={columns}
         data={filteredData.stats ?? []}
         pageSize={15}
-        filters={
-          <Badges
-            onClick={handleFilterChange}
-            options={difficultyNames}
-            selected={difficultyFilter}
-          />
-        }
         headerLink={headerLink}
         highlightedColumn={sortKey.key}
         loading={loading}
-        difficultyFilter={difficultyFilter}
         title={title}
         onTableSort={handleSortChange}
       />

@@ -37,6 +37,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
       return playerStats
     })
+
     const {
       page = 1,
       sortKey = 'roundOne',

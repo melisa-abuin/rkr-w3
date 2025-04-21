@@ -1,48 +1,19 @@
 import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
-import PageHeader from '@/components/atoms/pageHeader'
-import { statsColumns, timeAllDiffColumns } from '@/constants'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { PlayersStats } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/molecules/error'
-import TableWithControls from '@/components/organisms/tableWithControls'
-import ScoreboardSelector from '@/components/molecules/scoreboardSelector'
-import HelpInfo from '@/components/molecules/helpInfo'
-import { PageContainer } from '@/components/atoms/pageContainer'
 import { ToastProvider } from '@/hooks/useToast'
+import Stats from '@/components/templates/stats'
 
 interface PlayerStatsData {
   error: string | null
   data: { pages: number; stats?: PlayersStats }
 }
 
-const timeStrings = {
-  title: 'Time stats',
-  description: 'Check all the time-based stats',
-  columns: timeAllDiffColumns,
-  defaultSortKey: 'roundOne',
-  link: {
-    ariaLabel: 'View all stats for all players',
-    href: '/stats/overview',
-    text: 'View all stats',
-  },
-} as const
-
-const overallStrings = {
-  title: 'Overall stats',
-  description: 'Check all the general stats for all players',
-  columns: statsColumns,
-  defaultSortKey: 'completedChallenges',
-  link: {
-    ariaLabel: 'View all times for all players',
-    href: '/stats/time',
-    text: 'View time related stats',
-  },
-} as const
-
 async function fetchData(
-  shouldGetTimes: boolean,
+  apiBaseUrl: 'kibbleStats' | 'times' | 'stats',
   searchParams?: Record<string, string | string[] | undefined>,
 ): Promise<PlayerStatsData> {
   const queryString = new URLSearchParams(
@@ -57,7 +28,7 @@ async function fetchData(
   const isStage = process.env.ENVIRONMENT === 'stage'
   const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
 
-  const slugUrl = `${url}/api/${shouldGetTimes ? 'times' : 'stats'}`
+  const slugUrl = `${url}/api/${apiBaseUrl}`
 
   const response = await fetch(
     `${slugUrl}${queryString ? `?${queryString}` : ''}`,
@@ -81,38 +52,30 @@ interface PageProps {
   searchParams?: Record<string, string | string[] | undefined>
 }
 
+const apiBaseUrls = {
+  overview: 'stats',
+  time: 'times',
+  kibble: 'kibbleStats',
+} as const
+
+type VariantKey = keyof typeof apiBaseUrls
+
+const isValidVariant = (slug: string): slug is VariantKey => slug in apiBaseUrls
+
 export default async function StatsPage({ params, searchParams }: PageProps) {
   const { slug } = params
-  const { data, error } = await fetchData(slug === 'time', searchParams)
-  const strings = slug === 'time' ? timeStrings : overallStrings
+
+  const apiBaseUrl = isValidVariant(slug)
+    ? apiBaseUrls[slug]
+    : apiBaseUrls['overview']
+
+  const { data, error } = await fetchData(apiBaseUrl, searchParams)
 
   return (
     <ThemeProvider>
       <ToastProvider>
         <Navbar />
-        <main>
-          {error ? (
-            <Error />
-          ) : (
-            <>
-              <PageContainer>
-                <PageHeader
-                  description="Overall times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
-                  title="Scoreboard"
-                />
-              </PageContainer>
-              <ScoreboardSelector toggleInitialValue={slug === 'overview'} />
-              <TableWithControls
-                columns={strings.columns}
-                data={data}
-                defaultSortKey={strings.defaultSortKey}
-                isTimeStats={slug === 'time'}
-                title={strings.title}
-              />
-              <HelpInfo />
-            </>
-          )}
-        </main>
+        <main>{error ? <Error /> : <Stats data={data} slug={slug} />}</main>
         <Footer />
       </ToastProvider>
     </ThemeProvider>
