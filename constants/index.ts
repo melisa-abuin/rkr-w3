@@ -264,6 +264,30 @@ export const tournamentAwards = [
   'VioletWings',
 ]
 
+export const statsPageVariants = {
+  overview: {
+    title: 'Overall stats',
+    description: 'Check all the general stats for all players',
+    columns: statsColumns,
+    defaultSortKey: 'completedChallenges',
+    apiBaseUrl: 'stats',
+  },
+  time: {
+    title: 'Time stats',
+    description: 'Check all the time-based stats',
+    columns: timeAllDiffColumns,
+    defaultSortKey: 'roundOne',
+    apiBaseUrl: 'times',
+  },
+  kibble: {
+    title: 'Kibble stats',
+    description: 'Check all the kibble stats for all players',
+    columns: kibbleColumns,
+    defaultSortKey: 'collectedSingleGame',
+    apiBaseUrl: 'kibbleStats',
+  },
+} as const
+
 export const formattedMockData = [
   {
     battleTag: {

@@ -5,60 +5,41 @@ import PageHeader from '@/components/atoms/pageHeader'
 import HelpInfo from '@/components/molecules/helpInfo'
 import Tabs from '@/components/atoms/tabs'
 import { PlayersStats } from '@/interfaces/player'
-import { kibbleColumns, statsColumns, timeAllDiffColumns } from '@/constants'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import KibbleTableWithControls from '@/components/organisms/kibbleTableWithControls'
 import { useRouter } from 'next/navigation'
-
-const timeStrings = {
-  title: 'Time stats',
-  description: 'Check all the time-based stats',
-  columns: timeAllDiffColumns,
-  defaultSortKey: 'roundOne',
-  apiBaseUrl: 'times',
-} as const
-
-const overallStrings = {
-  title: 'Overall stats',
-  description: 'Check all the general stats for all players',
-  columns: statsColumns,
-  defaultSortKey: 'completedChallenges',
-  apiBaseUrl: 'stats',
-} as const
-
-const kibbleStrings = {
-  title: 'Kibble stats',
-  description: 'Check all the kibble stats for all players',
-  columns: kibbleColumns,
-  defaultSortKey: 'collectedSingleGame',
-  apiBaseUrl: 'kibbleStats',
-} as const
-
-const pageVariants = {
-  overview: overallStrings,
-  time: timeStrings,
-  kibble: kibbleStrings,
-} as const
+import { statsPageVariants } from '@/constants'
 
 interface AllStatsData {
   data: { pages: number; stats?: PlayersStats }
   slug: string
 }
 
-type VariantKey = keyof typeof pageVariants
+type VariantKey = keyof typeof statsPageVariants
 
 const isValidVariant = (slug: string): slug is VariantKey =>
-  slug in pageVariants
+  slug in statsPageVariants
 
 export default function Stats({ data, slug }: AllStatsData) {
-  const variantValues = Object.values(pageVariants)
-  const variantKeys = Object.keys(pageVariants)
+  const variantValues = Object.values(statsPageVariants)
+  const variantKeys = Object.keys(statsPageVariants)
 
   const pageVariant = isValidVariant(slug)
-    ? pageVariants[slug]
-    : pageVariants['overview']
+    ? statsPageVariants[slug]
+    : statsPageVariants['overview']
 
   const router = useRouter()
+
+  const onTabeChange = (index: number) => {
+    const selectedVariantKey = variantKeys[index]
+    if (!selectedVariantKey || !isValidVariant(selectedVariantKey)) {
+      return
+    }
+
+    router.push(
+      `/stats/${selectedVariantKey}?page=1&sortKey=${statsPageVariants[selectedVariantKey].defaultSortKey}&sortOrder=desc`,
+    )
+  }
 
   return (
     <>
@@ -70,12 +51,8 @@ export default function Stats({ data, slug }: AllStatsData) {
       </PageContainer>
       <PageContainer>
         <Tabs
-          onTabChange={(index) =>
-            router.push(
-              `/stats/${variantKeys[index]}?page=1&sortKey=${pageVariants[variantKeys[index]].defaultSortKey}&sortOrder=desc`,
-            )
-          }
-          defaultSelectedIndex={variantValues.findIndex(
+          onTabChange={onTabeChange}
+          overrideSelectedIndex={variantValues.findIndex(
             ({ title }) => title === pageVariant.title,
           )}
           titles={variantValues.map(({ title }) => title)}
@@ -96,7 +73,6 @@ export default function Stats({ data, slug }: AllStatsData) {
                     }}
                     defaultSortKey={defaultSortKey}
                     apiBaseUrl={apiBaseUrl}
-                    title={title}
                   />
                 )
               }
@@ -107,7 +83,6 @@ export default function Stats({ data, slug }: AllStatsData) {
                   data={data}
                   defaultSortKey={defaultSortKey}
                   apiBaseUrl={apiBaseUrl}
-                  title={title}
                 />
               )
             },

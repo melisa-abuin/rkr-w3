@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useState, useCallback, ReactNode } from 'react'
+import { useState, useCallback, ReactNode, useEffect } from 'react'
 import Pagination from './components/pagination'
 import Table from '@/components/molecules/table'
 import { useToast } from '@/hooks/useToast'
@@ -123,7 +123,11 @@ export default function KibbleTableWithControls({
     },
     [currentPage, updateURL, sortKey],
   )
-  console.log(filteredData.stats)
+
+  useEffect(() => {
+    console.log(filteredData)
+  }, [filteredData])
+
   return (
     <>
       <Table
