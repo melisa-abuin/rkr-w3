@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useState, useCallback, ReactNode, useEffect } from 'react'
-import Pagination from './components/pagination'
+import Pagination from '@/components/molecules/pagination'
 import Table from '@/components/molecules/table'
 import { useToast } from '@/hooks/useToast'
 import { BattleTag, PlayerStats } from '@/interfaces/player'

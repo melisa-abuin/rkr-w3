@@ -3,12 +3,12 @@
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import { useSearchParams } from 'next/navigation'
 import { useState, useCallback, ReactNode } from 'react'
-import Pagination from './components/pagination'
 import { difficultyNames } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 import { useToast } from '@/hooks/useToast'
+import Pagination from '@/components/molecules/pagination'
 
 interface TableProps {
   data: { pages: number; stats?: PlayersStats }
