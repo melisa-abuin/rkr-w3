@@ -1,8 +1,8 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
-import Position from '../position'
 import { Container, DetailContainer, Name, Wrapper } from './styled'
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
 import { Difficulty } from '@/interfaces/difficulty'
+import PositionNumber from '@/components/atoms/positionNumber'
 
 interface Props {
   difficulty: Difficulty
@@ -20,7 +20,7 @@ export default function HighlightCard({
   const members = teamMembers.split(',')
   return (
     <Container>
-      <Position pos={1} />
+      <PositionNumber pos={1} />
       <DetailContainer>
         <Wrapper>
           <TextWithIcon colorName="tertiary" iconName="clock" palette="text">
