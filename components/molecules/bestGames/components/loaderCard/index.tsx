@@ -1,4 +1,3 @@
-import Position from '../position'
 import {
   Container,
   Description,
@@ -8,6 +7,7 @@ import {
   Wrapper,
 } from '../card/styled'
 import Loader from '@/components/atoms/loader'
+import PositionNumber from '@/components/atoms/positionNumber'
 
 interface Props {
   position: number
@@ -18,7 +18,7 @@ export default function LoaderCard({ position, showDifficulty }: Props) {
   return (
     <Container>
       <Header>
-        <Position pos={position} />
+        <PositionNumber pos={position} isSmall />
         <Wrapper>
           <Title>
             <Loader height={21} width={70} variant="secondary" />

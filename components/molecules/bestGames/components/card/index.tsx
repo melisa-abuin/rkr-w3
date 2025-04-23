@@ -1,5 +1,4 @@
 import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
-import Position from '../position'
 import {
   Container,
   Description,
@@ -9,6 +8,7 @@ import {
   Wrapper,
 } from './styled'
 import { Difficulty } from '@/interfaces/difficulty'
+import PositionNumber from '@/components/atoms/positionNumber'
 
 interface Props {
   difficulty: Difficulty
@@ -30,7 +30,7 @@ export default function Card({
   return (
     <Container>
       <Header>
-        <Position pos={position} />
+        <PositionNumber pos={position} isSmall />
         <Wrapper>
           <Title>{secondsToSexagesimal(time)}</Title>
           {showDifficulty && <Description>{difficulty}</Description>}

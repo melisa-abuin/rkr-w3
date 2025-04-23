@@ -1,7 +1,11 @@
 import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
-import { KibbleLeaderboard } from '@/interfaces/leaderboard'
-import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
+import {
+  Challenges,
+  Kibbles,
+  PlayerStats,
+  SaveStreak,
+} from '@/interfaces/player'
 
 export const awardsDescriptions = {
   AncientKitty: 'Obtained by getting 40 Normal+ wins',
@@ -248,7 +252,7 @@ export const bestGameTimesColumns: { title: string; key: keyof GameStats }[] = [
 ]
 export const kibbleColumns: {
   title: string
-  key: keyof KibbleLeaderboard['data'] | 'battleTag'
+  key: keyof Kibbles | 'battleTag'
 }[] = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Single Game', key: 'collectedSingleGame' },
