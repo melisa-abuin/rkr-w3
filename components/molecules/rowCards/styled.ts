@@ -29,6 +29,10 @@ export const ColumnsContainer = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   flex: 1;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `
 export const RowContainer = styled.div`
   align-items: center;
@@ -37,4 +41,8 @@ export const RowContainer = styled.div`
   flex-direction: row;
   flex: 1;
   gap: 16px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `
