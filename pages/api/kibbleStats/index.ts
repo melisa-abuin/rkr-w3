@@ -1,13 +1,12 @@
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Kibbles, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { fetchData } from '@/utils/fetchData'
 import { getSortConditionByKey } from '@/utils'
-import { KibbleLeaderboard } from '@/interfaces/leaderboard'
 
 interface QueryParams {
   page?: number
   pageSize?: number
-  sortKey?: keyof KibbleLeaderboard['data'] | 'battleTag'
+  sortKey?: keyof Kibbles | 'battleTag'
   sortOrder?: 'asc' | 'desc'
 }
 
