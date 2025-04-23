@@ -18,7 +18,10 @@ export default function RowCards({ data = [], loading }: Props) {
   return (
     <Container>
       {data.map((item, index) => (
-        <Card key={index}>
+        <Card
+          key={item.battleTag.tag}
+          aria-label={`Player card for ${item.battleTag.tag}`}
+        >
           <RowContainer>
             <PositionNumber pos={index + 1} />
             <BattleTag data={item.battleTag} />
