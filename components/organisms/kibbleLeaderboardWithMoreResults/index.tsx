@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react'
 import { kibbleColumns } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import Table from '@/components/molecules/table'
-import { KibbleLeaderboard } from '@/interfaces/leaderboard'
+import RowCards from '@/components/molecules/rowCards'
+import { PlayersStats } from '@/interfaces/player'
 
 export default function KibbleLeaderboardWithMoreResults() {
-  const [filteredData, setFilteredData] = useState<
-    KibbleLeaderboard[] | undefined
-  >()
+  const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
   const [loading, setLoading] = useState(true)
   const { showToast } = useToast()
 
@@ -46,12 +45,15 @@ export default function KibbleLeaderboardWithMoreResults() {
 
   return (
     <>
-      Leaderboard will be here
+      <RowCards data={filteredData?.slice(0, 5)} loading={loading} />
       <Table
         columns={kibbleColumns}
         data={
           filteredData
-            ?.map((elem) => ({ battleTag: elem.player, ...elem.data }))
+            ?.map((elem) => ({
+              battleTag: elem.battleTag,
+              ...elem.kibbles,
+            }))
             .slice(6, 20) || []
         }
         loading={loading}
