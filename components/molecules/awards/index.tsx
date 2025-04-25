@@ -11,7 +11,7 @@ import {
   Title,
 } from './styled'
 import Tooltip from './components/tooltip'
-import CircleImage from './components/CircleImage'
+import Image from '@/components/atoms/image'
 
 interface Props {
   awards: AwardsI[]
@@ -32,9 +32,10 @@ export default function Awards({ awards }: Props) {
                 {awards.map(
                   ({ id, completed, description, imagePath, title }) => (
                     <Tooltip key={id} description={description} title={title}>
-                      <CircleImage
+                      <Image
                         alt={id}
-                        completed={completed}
+                        circular
+                        colored={completed}
                         fallbackSrc="/awards/fallback.png"
                         src={imagePath}
                       />
