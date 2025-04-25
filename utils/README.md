@@ -11,6 +11,7 @@ Below is a list of all available utilities:
 - `calculateSaveDeathRatio`
 - `calculateTotals`
 - `calculateWinRate`
+- `getKibbleRewardMessage`
 
 ### 📥 Data Fetching
 
