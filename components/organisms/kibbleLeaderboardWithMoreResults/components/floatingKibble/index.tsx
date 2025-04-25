@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Container, ImageWrapper, Text } from './styled'
 import Lottie from 'lottie-react'
 import animationData from '@/public/animations/spark.json'
-import { getKibbleRewardMessage } from '@/utils/getKibbleRewardMessage'
+import { getKibbleRewardMessage } from '@/utils'
 
 type AnimationState = 'idle' | 'spark' | 'done'
 

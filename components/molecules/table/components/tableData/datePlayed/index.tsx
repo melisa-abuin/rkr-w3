@@ -1,4 +1,4 @@
-import { getTimeAgoFromToday } from '@/utils/getTimeAgoFromToday'
+import { getTimeAgoFromToday } from '@/utils'
 import React from 'react'
 
 interface Props {

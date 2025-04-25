@@ -1,6 +1,6 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Container, DetailContainer, Name, Wrapper } from './styled'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { secondsToSexagesimal } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import PositionNumber from '@/components/atoms/positionNumber'
 

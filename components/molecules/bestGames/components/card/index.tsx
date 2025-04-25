@@ -1,4 +1,4 @@
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { secondsToSexagesimal } from '@/utils'
 import {
   Container,
   Description,

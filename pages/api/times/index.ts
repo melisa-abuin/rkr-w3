@@ -1,9 +1,7 @@
 import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getSortConditionByKey } from '@/utils/getSortConditionByKey'
-import { fetchData } from '@/utils/fetchData'
+import { getSortConditionByKey, fetchData, formatRoundsData } from '@/utils'
 import { roundNames } from '@/constants'
-import { formatRoundsData } from '@/utils/formatRoundsData'
 
 interface QueryParams {
   battleTag?: string

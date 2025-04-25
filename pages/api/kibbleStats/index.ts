@@ -1,7 +1,6 @@
 import { ApiPlayerStats, Kibbles, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchData } from '@/utils/fetchData'
-import { getSortConditionByKey } from '@/utils'
+import { getSortConditionByKey, fetchData } from '@/utils'
 
 interface QueryParams {
   page?: number

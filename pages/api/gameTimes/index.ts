@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { ApiGameStats, GameStats } from '@/interfaces/game'
-import { fetchData } from '@/utils/fetchData'
+import { fetchData } from '@/utils'
 
 export default async function handler(
   req: NextApiRequest,

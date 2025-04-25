@@ -1,7 +1,6 @@
 import { ApiPlayerStats, DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchData } from '@/utils/fetchData'
-import { transformKeysToCamelCase } from '@/utils'
+import { transformKeysToCamelCase, fetchData } from '@/utils'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {
