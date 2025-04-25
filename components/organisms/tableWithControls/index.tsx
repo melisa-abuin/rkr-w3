@@ -3,19 +3,19 @@
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import { useSearchParams } from 'next/navigation'
 import { useState, useCallback, ReactNode } from 'react'
-import Pagination from './components/pagination'
 import { difficultyNames } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 import { useToast } from '@/hooks/useToast'
+import Pagination from '@/components/molecules/pagination'
 
 interface TableProps {
   data: { pages: number; stats?: PlayersStats }
   headerLink?: ReactNode
   defaultSortKey: keyof PlayerStats
   title?: string
-  isTimeStats: boolean
+  apiBaseUrl: 'times' | 'stats'
   columns: Array<{
     title: string
     key: keyof PlayerStats
@@ -31,7 +31,7 @@ export default function TableWithControls({
   data,
   defaultSortKey,
   columns,
-  isTimeStats,
+  apiBaseUrl,
   title,
   headerLink,
 }: TableProps) {
@@ -69,7 +69,7 @@ export default function TableWithControls({
       // TODO: create helper or what about react query?
       try {
         const response = await fetch(
-          `/api/${isTimeStats ? 'times' : 'stats'}?${queryParams.toString()}`,
+          `/api/${apiBaseUrl}?${queryParams.toString()}`,
           {
             method: 'GET',
             headers: {
@@ -93,7 +93,7 @@ export default function TableWithControls({
       window.history.pushState(null, '', `?${queryParams.toString()}`)
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     },
-    [isTimeStats, showToast],
+    [apiBaseUrl, showToast],
   )
 
   const handlePageChange = useCallback(

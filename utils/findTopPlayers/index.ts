@@ -101,8 +101,8 @@ export const findTopPlayersByInsertion = (
 export const findTopPlayersByFullSort = (
   array: PlayerStats[],
   key: keyof PlayerStats,
-  count: number = 5,
   filter?: DifficultyFilter,
+  count: number = 5,
 ) => {
   const sorted = [...array].sort((a, b) => {
     const shouldPlaceAFirst = getSortConditionByKey(key, a, b, filter)

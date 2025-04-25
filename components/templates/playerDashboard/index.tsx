@@ -15,12 +15,11 @@ import {
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
-import { formatKeyToWord } from '@/utils/formatKeyToWord'
+import { formatKeyToWord, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { Row } from './styled'
 import Tabs from '@/components/atoms/tabs'
-import { playerDataOutdated } from '@/utils/playerDataOutdated'
 
 const getDateToShow = (lastUploaded: string) => {
   const dateOptions = {

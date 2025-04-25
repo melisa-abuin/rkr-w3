@@ -1,6 +1,6 @@
-import Position from '../position'
 import { Container, DetailContainer, Wrapper } from '../highlightCard/styled'
 import Loader from '@/components/atoms/loader'
+import PositionNumber from '@/components/atoms/positionNumber'
 
 interface Props {
   showDifficulty: boolean
@@ -9,7 +9,7 @@ interface Props {
 export default function LoaderHighlightCard({ showDifficulty }: Props) {
   return (
     <Container>
-      <Position pos={1} />
+      <PositionNumber pos={1} />
       <DetailContainer>
         <Wrapper>
           <Loader

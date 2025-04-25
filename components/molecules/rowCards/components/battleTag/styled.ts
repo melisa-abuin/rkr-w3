@@ -1,0 +1,28 @@
+import styled from 'styled-components'
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+`
+
+export const Title = styled.a`
+  color: ${({ theme }) => theme.color.secondary};
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin-top: 10px;
+  margin-bottom 4px;
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.text.highlight};
+  }
+`
+
+export const SubTitle = styled.p`
+  color: ${({ theme }) => theme.text.secondary};
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semi-bold);
+  margin-top: 10px;
+  margin-bottom: 4px;
+`

@@ -1,6 +1,11 @@
 import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
-import { Challenges, PlayerStats, SaveStreak } from '@/interfaces/player'
+import {
+  Challenges,
+  Kibbles,
+  PlayerStats,
+  SaveStreak,
+} from '@/interfaces/player'
 
 export const awardsDescriptions = {
   AncientKitty: 'Obtained by getting 40 Normal+ wins',
@@ -172,6 +177,25 @@ export const downloadFileName = 'RKR_Remastered_1.2.1'
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
 
+export const kibbleLeaderboardColumns = [
+  {
+    title: 'Single game',
+    key: 'collectedSingleGame',
+  },
+  {
+    title: 'All time',
+    key: 'collectedAllTime',
+  },
+  {
+    title: 'Jackpots',
+    key: 'jackpots',
+  },
+  {
+    title: 'Super Jackpots',
+    key: 'superJackpots',
+  },
+] as const
+
 export const outdatedPlayerDaysThreshold = 30
 export const pageSize = 15
 export const routes = {
@@ -245,6 +269,16 @@ export const bestGameTimesColumns: { title: string; key: keyof GameStats }[] = [
   { title: 'Difficulty', key: 'difficulty' },
   { title: 'Date', key: 'date' },
 ]
+export const kibbleColumns: {
+  title: string
+  key: keyof Kibbles | 'battleTag'
+}[] = [
+  { title: 'Player', key: 'battleTag' },
+  { title: 'Single Game', key: 'collectedSingleGame' },
+  { title: 'All time', key: 'collectedAllTime' },
+  { title: 'Jackpots', key: 'jackpots' },
+  { title: 'Super Jackpots', key: 'superJackpots' },
+]
 
 export const tournamentAwards = [
   'TurquoiseNitro',
@@ -252,6 +286,30 @@ export const tournamentAwards = [
   'VioletAura',
   'VioletWings',
 ]
+
+export const statsPageVariants = {
+  overview: {
+    title: 'Overall stats',
+    description: 'Check all the general stats for all players',
+    columns: statsColumns,
+    defaultSortKey: 'completedChallenges',
+    apiBaseUrl: 'stats',
+  },
+  time: {
+    title: 'Time stats',
+    description: 'Check all the time-based stats',
+    columns: timeAllDiffColumns,
+    defaultSortKey: 'roundOne',
+    apiBaseUrl: 'times',
+  },
+  kibble: {
+    title: 'Kibble stats',
+    description: 'Check all the kibble stats for all players',
+    columns: kibbleColumns,
+    defaultSortKey: 'collectedSingleGame',
+    apiBaseUrl: 'kibbleStats',
+  },
+} as const
 
 export const formattedMockData = [
   {

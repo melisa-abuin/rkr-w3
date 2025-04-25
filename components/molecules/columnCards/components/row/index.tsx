@@ -1,4 +1,4 @@
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { secondsToSexagesimal } from '@/utils'
 import { LinkWrapper, Tr, BaseTd, HoverTd, Td } from './styled'
 import { BattleTag, BestTime } from '@/interfaces/player'
 

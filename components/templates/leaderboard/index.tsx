@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react'
 import { useToast } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Tabs from '@/components/atoms/tabs'
+import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -65,13 +66,10 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
       <PageContainer>
         <PageHeader
           description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
-          title="Leaderboard"
+          title="Leaderboards"
         />
         <PlayerFinderWithResult />
-        <Tabs
-          disabledTabs={['Kibbles (Coming soon)']}
-          titles={['General', 'Best Game Times', 'Kibbles (Coming soon)']}
-        >
+        <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>
           <div>
             <PageContainer
               ariaLabelledby="columns-score-title"
@@ -121,6 +119,13 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
             withPadding={false}
           >
             <BestGamesWithControls />
+          </PageContainer>
+          <PageContainer
+            ariaLabelledby="columns-kibble-title"
+            title="Kibbles collected in a single game"
+            withPadding={false}
+          >
+            <KibbleLeaderboardWithMoreResults />
           </PageContainer>
         </Tabs>
       </PageContainer>

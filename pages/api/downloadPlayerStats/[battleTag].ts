@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { formatSaveDataFile } from '@/utils/formatSaveDataFile'
-import { fetchData } from '@/utils/fetchData'
+import { formatSaveDataFile, fetchData } from '@/utils'
 
 interface QueryParams {
   battleTag: string
@@ -29,7 +28,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     res.status(200)
     res.send(fileFormattedSaveData)
   } catch (error) {
-    console.error('Error fetching scoreboard data:', error)
+    console.error('Error fetch data to download:', error)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 }

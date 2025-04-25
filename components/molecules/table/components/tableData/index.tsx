@@ -1,4 +1,4 @@
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { secondsToSexagesimal } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'

@@ -1,7 +1,4 @@
-import {
-  getSortConditionByKey,
-  getValueForKey,
-} from '@/utils/getSortConditionByKey'
+import { getSortConditionByKey, getValueForKey } from '@/utils'
 import { findTopPlayersByInsertion } from '..'
 import { Difficulty } from '@/interfaces/difficulty'
 import { formattedMockData } from '@/constants'

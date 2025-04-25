@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react'
 import { StyledTooltip, TooltipContainer } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Difficulty } from '@/interfaces/difficulty'
-import { secondsToSexagesimal } from '@/utils/secondsToSexagesimal'
+import { secondsToSexagesimal } from '@/utils'
 
 interface Props {
   data: {

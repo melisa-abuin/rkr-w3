@@ -3,9 +3,10 @@ import { Number } from './styled'
 
 interface Props {
   pos: number
+  isSmall?: boolean
 }
 
-export default function Position({ pos }: Props) {
+export default function PositionNumber({ pos, isSmall = false }: Props) {
   const [theme] = useTheme()
   const { color, text } = theme
 
@@ -18,7 +19,7 @@ export default function Position({ pos }: Props) {
   }
 
   return (
-    <Number color={colorByNumber[pos] ?? colorByNumber[1]} small={pos !== 1}>
+    <Number color={colorByNumber[pos] ?? colorByNumber[1]} small={isSmall}>
       {pos}
     </Number>
   )

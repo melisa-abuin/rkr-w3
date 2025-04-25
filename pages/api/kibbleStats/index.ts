@@ -1,10 +1,12 @@
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Kibbles, PlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchData } from '@/utils/fetchData'
-import { findTopPlayersByInsertion } from '@/utils'
+import { getSortConditionByKey, fetchData } from '@/utils'
 
 interface QueryParams {
-  difficulty?: 'normal' | 'hard' | 'impossible' | undefined
+  page?: number
+  pageSize?: number
+  sortKey?: keyof Kibbles | 'battleTag'
+  sortOrder?: 'asc' | 'desc'
 }
 
 type StatsRequest = NextApiRequest & { query: QueryParams }
@@ -13,7 +15,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
-    const formattedData = data.map((elem: ApiPlayerStats) => {
+    const formattedData: PlayerStats[] = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { PlayerName, KibbleCurrency, PersonalBests } = saveData
@@ -40,19 +42,38 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         }
       }
 
-      return playerStats as PlayerStats
+      return playerStats
     })
 
-    const stats = findTopPlayersByInsertion(
-      formattedData,
-      'kibbles',
-      undefined,
-      20,
-    )
+    const {
+      page = 1,
+      sortKey = 'collectedSingleGame',
+      sortOrder = 'desc',
+      pageSize = 15,
+    } = req.query
 
-    res.status(200).json(stats)
+    const totalPages = data ? Math.ceil(data?.length / pageSize) : 0
+
+    const initialIndex = (Number(page) - 1) * pageSize
+
+    const sortedData = formattedData.sort((a, b) => {
+      const condition =
+        sortKey === 'battleTag'
+          ? getSortConditionByKey(sortKey, a, b)
+          : a.kibbles[sortKey] > b.kibbles[sortKey]
+
+      if (condition === undefined) return 0
+      return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
+    })
+
+    res.status(200).json({
+      stats: sortedData.slice(initialIndex, initialIndex + pageSize),
+      pages: totalPages,
+    })
+
+    res.status(200).json(formattedData)
   } catch (error) {
-    console.error('Error fetching scoreboard data:', error)
+    console.error('Error fetching kibble stats data:', error)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 }

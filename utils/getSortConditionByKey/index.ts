@@ -50,6 +50,10 @@ export const getValueForKey = (
     return filter ? elem[key][filter] : elem[key].best.time
   }
 
+  if (key === 'battleTag') {
+    return elem[key]['name']
+  }
+
   return elem[key]
 }
 

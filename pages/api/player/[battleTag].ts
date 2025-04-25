@@ -1,17 +1,17 @@
-import { calculateSaveDeathRatio } from '@/utils/calculateSaveDeathRatio'
-import { DetailedPlayerStats } from '@/interfaces/player'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { formatRoundsData } from '@/utils/formatRoundsData'
-import { calculateTotals } from '@/utils/calculateTotals'
-import { blacklistedPlayers, roundNames } from '@/constants'
-import { formatGameAwards } from '@/utils/formatGameAwards'
-import { transformKeysToCamelCase } from '@/utils/transformKeysToCamelCase'
-import { calculateWinRate } from '@/utils/calculateWinRate'
-import { fetchData } from '@/utils/fetchData'
 import {
+  calculateSaveDeathRatio,
+  formatRoundsData,
+  calculateTotals,
+  formatGameAwards,
+  transformKeysToCamelCase,
+  calculateWinRate,
+  fetchData,
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,
-} from '@/utils/calculateCompletedChallenges'
+} from '@/utils'
+import { DetailedPlayerStats } from '@/interfaces/player'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { blacklistedPlayers, roundNames } from '@/constants'
 
 interface QueryParams {
   battleTag: string
@@ -115,7 +115,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     res.status(200).json(playerStats)
   } catch (error) {
-    console.error('Error fetching scoreboard data:', error)
+    console.error('Error fetching player data:', error)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 }
