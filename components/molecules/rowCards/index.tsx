@@ -9,7 +9,7 @@ import { kibbleLeaderboardColumns } from '@/constants'
 
 const formatSkinName = (skin: Skins) => {
   if (!skin.selectedSkin) return '/potm.png'
-  return `/awards/${skin.selectedSkin[0].toLowerCase()}${skin.selectedSkin.slice(1)}.png `
+  return `/awards/${skin.selectedSkin[0].toLowerCase()}${skin.selectedSkin.slice(1)}.png`
 }
 
 interface Props {
