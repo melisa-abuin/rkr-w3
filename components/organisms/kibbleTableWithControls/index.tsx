@@ -5,13 +5,9 @@ import { useState, useCallback, ReactNode, useEffect } from 'react'
 import Pagination from '@/components/molecules/pagination'
 import Table from '@/components/molecules/table'
 import { useToast } from '@/hooks/useToast'
-import { BattleTag, PlayerStats } from '@/interfaces/player'
+import { BattleTag, Kibbles, PlayerStats } from '@/interfaces/player'
 
-type KibbleType = {
-  collectedAllTime: number
-  jackpots: number
-  superJackpots: number
-  collectedSingleGame: number
+type KibbleType = Kibbles & {
   battleTag: BattleTag
 }
 

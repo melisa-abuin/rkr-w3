@@ -31,8 +31,8 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
           }
         } else {
           playerStats.kibbles = {
-            collectedAllTime: KibbleCurrency?.Collected,
-            jackpots: KibbleCurrency?.Jackpots,
+            collectedAllTime: KibbleCurrency.Collected,
+            jackpots: KibbleCurrency.Jackpots,
             superJackpots: KibbleCurrency.SuperJackpots,
             collectedSingleGame: PersonalBests.KibbleCollected,
           }
@@ -41,7 +41,6 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         return playerStats
       })
       .sort((a: DetailedPlayerStats, b: DetailedPlayerStats) => {
-        if (!a.kibbles || !b.kibbles) return 0
         return a.kibbles.collectedSingleGame < b.kibbles.collectedSingleGame
           ? 1
           : -1
