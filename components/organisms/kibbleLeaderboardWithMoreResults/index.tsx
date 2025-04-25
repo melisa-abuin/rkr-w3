@@ -6,6 +6,7 @@ import { useToast } from '@/hooks/useToast'
 import Table from '@/components/molecules/table'
 import RowCards from '@/components/molecules/rowCards'
 import { PlayersStats } from '@/interfaces/player'
+import FloatingKibble from './components/floatingKibble'
 
 export default function KibbleLeaderboardWithMoreResults() {
   const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
@@ -45,6 +46,7 @@ export default function KibbleLeaderboardWithMoreResults() {
 
   return (
     <>
+      <FloatingKibble />
       <RowCards data={filteredData?.slice(0, 5)} loading={loading} />
       <Table
         columns={kibbleColumns}
