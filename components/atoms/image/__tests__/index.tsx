@@ -1,6 +1,6 @@
 import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
-import CircleImage from '..'
+import Image from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 interface ImageProps {
@@ -16,23 +16,22 @@ jest.mock('next/image', () => ({
   )),
 }))
 
-describe('CircleImage', () => {
+describe('Image', () => {
   const defaultProps = {
-    alt: 'Test image',
-    completed: true,
+    colored: true,
     fallbackSrc: '/fallback.jpg',
     src: '/test.jpg',
-  }
+  } as const
 
   it('renders the image with the provided src', () => {
-    renderWithTheme(<CircleImage {...defaultProps} />)
-    const image = screen.getByAltText('Test image')
+    renderWithTheme(<Image {...defaultProps} alt="some alt text" />)
+    const image = screen.getByAltText('some alt text')
     expect(image).toHaveAttribute('src', '/test.jpg')
   })
 
   it('switches to the fallback source when the image fails to load', () => {
-    renderWithTheme(<CircleImage {...defaultProps} />)
-    const image = screen.getByAltText('Test image')
+    renderWithTheme(<Image {...defaultProps} alt="some alt text" />)
+    const image = screen.getByAltText('some alt text')
 
     fireEvent.error(image)
 

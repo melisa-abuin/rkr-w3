@@ -5,11 +5,13 @@ import { kibbleColumns } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import Table from '@/components/molecules/table'
 import RowCards from '@/components/molecules/rowCards'
-import { PlayersStats } from '@/interfaces/player'
+import { DetailedPlayerStats } from '@/interfaces/player'
 import FloatingKibble from './components/floatingKibble'
 
 export default function KibbleLeaderboardWithMoreResults() {
-  const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
+  const [filteredData, setFilteredData] = useState<
+    DetailedPlayerStats[] | undefined
+  >()
   const [loading, setLoading] = useState(true)
   const { showToast } = useToast()
 

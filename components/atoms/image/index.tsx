@@ -2,25 +2,28 @@ import { ImageProps } from 'next/image'
 import { useState } from 'react'
 import { StyledImage } from './styled'
 
-interface CircleImageProps extends ImageProps {
-  completed: boolean
+interface Props extends ImageProps {
+  colored: boolean
+  circular?: boolean
   fallbackSrc: string
 }
 
-export default function CircleImage({
+export default function Image({
   alt,
-  completed,
+  circular = false,
+  colored = true,
   fallbackSrc,
   src,
   ...rest
-}: CircleImageProps) {
+}: Props) {
   const [imgSrc, setImgSrc] = useState(src)
 
   return (
     <StyledImage
+      $circular={circular}
       {...rest}
       alt={alt}
-      $complete={completed}
+      $colored={colored}
       height={48}
       onError={() => {
         setImgSrc(fallbackSrc)
