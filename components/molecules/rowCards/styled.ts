@@ -44,5 +44,9 @@ export const RowContainer = styled.div`
 
   @media (max-width: 480px) {
     width: 100%;
+    & div:first-child {
+      height: 48px;
+      width: 48px;
+    }
   }
 `
