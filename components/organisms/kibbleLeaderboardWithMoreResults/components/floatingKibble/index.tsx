@@ -9,18 +9,26 @@ import { getKibbleRewardMessage } from '@/utils/getKibbleRewardMessage'
 
 type AnimationState = 'idle' | 'spark' | 'done'
 
+const animationStates: Record<string, AnimationState> = {
+  idle: 'idle',
+  spark: 'spark',
+  done: 'done',
+}
+
 export default function FloatingKibble() {
-  const [animationState, setAnimationState] = useState<AnimationState>('idle')
+  const [animationState, setAnimationState] = useState<AnimationState>(
+    animationStates.idle,
+  )
   const [rewardMessage, setRewardMessage] = useState('')
 
   const handleClick = () => {
     setRewardMessage(getKibbleRewardMessage())
-    setAnimationState('spark')
+    setAnimationState(animationStates.spark)
   }
 
   return (
-    <Container collapsed={animationState === 'done'}>
-      {animationState === 'idle' && (
+    <Container collapsed={animationState === animationStates.done}>
+      {animationState === animationStates.idle && (
         <>
           <ImageWrapper onClick={handleClick}>
             <Image alt="kibble" height={48} width={48} src="/kibble.png" />
@@ -28,13 +36,13 @@ export default function FloatingKibble() {
           <Text>Pick it up!</Text>
         </>
       )}
-      {animationState === 'spark' && (
+      {animationState === animationStates.spark && (
         <>
           <Lottie
             animationData={animationData}
             loop={false}
             autoplay
-            onComplete={() => setAnimationState('done')}
+            onComplete={() => setAnimationState(animationStates.done)}
             style={{ width: 64, height: 64 }}
           />
           <Text>{rewardMessage}</Text>

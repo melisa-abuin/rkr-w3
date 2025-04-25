@@ -5,6 +5,7 @@ import Column from './components/column'
 import LoadingCards from './components/loadingCards'
 import Image from '@/components/atoms/image'
 import { DetailedPlayerStats, Skins } from '@/interfaces/player'
+import { kibbleLeaderboardColumns } from '@/constants'
 
 const formatSkinName = (skin: Skins) => {
   if (!skin.selectedSkin) return '/potm.png'
@@ -40,22 +41,13 @@ export default function RowCards({ data = [], loading }: Props) {
             <BattleTag data={item.battleTag} />
           </RowContainer>
           <ColumnsContainer>
-            <Column
-              description="Single game"
-              value={item.kibbles?.collectedSingleGame ?? 0}
-            />
-            <Column
-              description="All time"
-              value={item.kibbles?.collectedAllTime ?? 0}
-            />
-            <Column
-              description="Jackpots"
-              value={item.kibbles?.jackpots ?? 0}
-            />
-            <Column
-              description="Super Jackpots"
-              value={item.kibbles?.superJackpots ?? 0}
-            />
+            {kibbleLeaderboardColumns.map(({ title, key }) => (
+              <Column
+                key={key}
+                description={title}
+                value={item.kibbles?.[key] ?? 0}
+              />
+            ))}
           </ColumnsContainer>
         </Card>
       ))}

@@ -177,6 +177,25 @@ export const downloadFileName = 'RKR_Remastered_1.2.1'
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
 
+export const kibbleLeaderboardColumns = [
+  {
+    title: 'Single game',
+    key: 'collectedSingleGame',
+  },
+  {
+    title: 'All time',
+    key: 'collectedAllTime',
+  },
+  {
+    title: 'Jackpots',
+    key: 'jackpots',
+  },
+  {
+    title: 'Super Jackpots',
+    key: 'superJackpots',
+  },
+] as const
+
 export const outdatedPlayerDaysThreshold = 30
 export const pageSize = 15
 export const routes = {
