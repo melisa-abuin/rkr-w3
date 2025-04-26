@@ -58,7 +58,7 @@ export default function KibbleLeaderboardWithMoreResults() {
               battleTag: elem.battleTag,
               ...elem.kibbles,
             }))
-            .slice(6, 20) || []
+            .slice(5, 20) || []
         }
         loading={loading}
       />
