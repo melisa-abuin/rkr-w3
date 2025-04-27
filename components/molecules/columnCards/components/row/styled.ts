@@ -25,8 +25,12 @@ export const HoverTd = styled(Td)`
 
 export const Tr = styled.tr<{ hoverable?: boolean }>`
   & td:first-child {
+    max-width: 110px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   & td:last-child {
     border-top-right-radius: 3px;
