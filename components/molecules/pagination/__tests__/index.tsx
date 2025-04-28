@@ -131,6 +131,6 @@ describe('Pagination Component', () => {
     )
 
     const activeButton = screen.getByText('2')
-    expect(activeButton).toHaveStyle('background-color: rgb(177, 15, 15)')
+    expect(activeButton).toHaveStyle('background-color: rgb(213, 91, 91)')
   })
 })
