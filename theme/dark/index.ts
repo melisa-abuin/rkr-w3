@@ -1,5 +1,19 @@
 const darkTheme = {
   name: 'dark' as const,
+  button: {
+    primary: {
+      background: '#cc5b5b',
+      color: '#130f0f',
+      hoverBackground: '#902c2c',
+      hoverColor: '#e6edf3',
+    },
+    secondary: {
+      background: '#41B2B2',
+      color: '#130f0f',
+      hoverBackground: '#027f7f',
+      hoverColor: '#e6edf3',
+    },
+  },
   color: {
     black: '#000000',
     green: '#2abf59',

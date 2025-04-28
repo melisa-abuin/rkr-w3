@@ -6,11 +6,11 @@ import { useTheme } from '@/hooks/useTheme'
 
 interface Props {
   children: ReactNode
-  color?: 'primary' | 'secondary'
   disabled?: boolean
   onClick: () => void
   small?: boolean
-  variant?: 'primary' | 'secondary'
+  color?: 'primary' | 'secondary'
+  variant?: 'outline' | 'solid' | 'ghost'
 }
 
 export default function Button({
@@ -19,21 +19,20 @@ export default function Button({
   disabled = false,
   onClick,
   small = false,
-  variant = 'primary',
+  variant = 'solid',
 }: Props) {
-  // TODO: refactor to match text with color and link color styling
   const [theme] = useTheme()
-  const backgroundColor =
-    color === 'primary' ? theme.color.primary : theme.color.secondary
-  const textColor = color === 'primary' ? theme.text.white : theme.text.black
-  const highlightColor =
-    color === 'primary' ? theme.text.tertiary : theme.text.highlight
+
+  if (!theme.button[color]) {
+    console.error(
+      `Button color "${color}" is not defined in ${theme.name} theme.`,
+    )
+    return null
+  }
 
   return (
     <StyledButton
-      backgroundColor={backgroundColor}
-      color={textColor}
-      highlightColor={highlightColor}
+      {...theme.button[color]}
       disabled={disabled}
       onClick={onClick}
       small={small}

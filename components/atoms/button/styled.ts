@@ -1,33 +1,57 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const StyledButton = styled.button<{
   color: string
-  backgroundColor: string
-  highlightColor: string
+  background: string
+  hoverBackground: string
+  hoverColor: string
   small: boolean
-  variant: 'primary' | 'secondary'
+  variant?: 'outline' | 'solid' | 'ghost'
 }>`
   padding: ${({ small }) => (small ? '4px 8px' : '8px 12px')};
   margin: 0 4px;
   border: none;
   border-radius: 4px;
-  background-color: ${({ variant, backgroundColor }) =>
-    variant === 'primary' ? backgroundColor : 'transparent'};
-
-  color: ${({ variant, color, backgroundColor }) =>
-    variant === 'primary' ? color : backgroundColor};
-
   cursor: pointer;
+
+  background-color: ${({ background }) => background};
+  color: ${({ color }) => color};
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ hoverBackground }) => hoverBackground};
+    color: ${({ hoverColor }) => hoverColor};
+  }
+
+  ${({ variant, background, color }) =>
+    variant === 'outline' &&
+    css`
+      background-color: transparent;
+      border: 1px solid ${background};
+      color: ${background};
+      &:hover {
+        background-color: ${background};
+        color: ${color};
+      }
+    `};
+
+  ${({ variant, background, color }) =>
+    variant === 'ghost' &&
+    css`
+      background-color: transparent;
+      color: ${background};
+      &:hover {
+        background-color: ${background};
+        color: ${color};
+      }
+    `};
+
   font-weight: ${({ small }) =>
     small ? 'var(--font-weight-regular)' : 'var(--font-weight-semi-bold)'};
   font-size: ${({ small }) =>
     small ? 'var(--font-size-xs)' : 'var(--font-size-xs-md)'};
-
-  &:hover {
-    background-color: ${({ variant, backgroundColor, highlightColor }) =>
-      variant === 'primary' ? highlightColor : backgroundColor};
-    color: ${({ color }) => color};
-  }
 
   &:disabled {
     cursor: not-allowed;

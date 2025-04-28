@@ -22,7 +22,7 @@ export default function Badges<T extends string>({
             key={option}
             onClick={() => onClick(option)}
             small
-            variant={option === selected ? 'primary' : 'secondary'}
+            variant={option === selected ? 'solid' : 'ghost'}
           >
             {option}
           </Button>
@@ -32,7 +32,7 @@ export default function Badges<T extends string>({
           color="secondary"
           small
           onClick={() => onClick(undefined)}
-          variant={!selected ? 'primary' : 'secondary'}
+          variant={!selected ? 'solid' : 'ghost'}
         >
           all
         </Button>
