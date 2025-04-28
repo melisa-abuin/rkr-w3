@@ -1,5 +1,19 @@
 const lightTheme = {
   name: 'light' as const,
+  button: {
+    primary: {
+      background: '#B24141',
+      color: '#FFFFFF',
+      hoverBackground: '#d55b5b',
+      hoverColor: '#000000',
+    },
+    secondary: {
+      background: '#297f7f',
+      color: '#FFFFFF',
+      hoverBackground: '#41B2B2',
+      hoverColor: '#000000',
+    },
+  },
   color: {
     black: '#000000',
     green: '#0040ff',
