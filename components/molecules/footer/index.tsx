@@ -11,7 +11,7 @@ export default function Footer() {
       <p>
         Warcraft is ©2025 by{' '}
         <Link
-          colorName="brandSecondary"
+          color="brandSecondary"
           href={blizzardLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -22,7 +22,7 @@ export default function Footer() {
       <p>
         This website is an open-source project created by Melisa, learn{' '}
         <Link
-          colorName="brandSecondary"
+          color="brandSecondary"
           href={githubReadMeLink}
           target="_blank"
           rel="noopener noreferrer"
@@ -33,7 +33,7 @@ export default function Footer() {
       <p>
         Uicons by{' '}
         <Link
-          colorName="brandSecondary"
+          color="brandSecondary"
           href="https://www.flaticon.com/uicons"
           target="_blank"
           rel="noopener noreferrer"
