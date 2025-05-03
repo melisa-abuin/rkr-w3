@@ -39,21 +39,23 @@ export default function TextWithIcon({
   iconName,
   iconSize = 20,
   large = false,
-  palette = 'text',
 }: Props) {
   const [theme] = useTheme()
   const Icon = iconName && icons[iconName]
-  const color = theme[palette][colorName]
+  const color = theme.text.color[colorName]
+
+  if (!color) {
+    console.error(
+      `Text color "${color}" is not defined in ${theme.name} theme.`,
+    )
+    return null
+  }
 
   return (
-    <Text color={color || theme.text.primary} large={large}>
+    <Text color={color} large={large}>
       {children}
       {iconName && !!Icon && (
-        <Icon
-          fill={color || theme.text.primary}
-          height={iconSize}
-          width={iconSize}
-        />
+        <Icon fill={color} height={iconSize} width={iconSize} />
       )}
     </Text>
   )

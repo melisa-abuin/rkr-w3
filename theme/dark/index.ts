@@ -41,6 +41,9 @@ const darkTheme = {
   text: {
     color: {
       black: '#000000',
+      green: '#2abf59',
+      yellow: '#cfd324',
+      teal: '#16b7c9',
       brandPrimary: '#B24141',
       brandSecondary: '#41B2B2',
       highlight: '#7cd9d9',
