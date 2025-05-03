@@ -16,6 +16,7 @@ export const StyledButton = styled.button<{
 
   background-color: ${({ background }) => background};
   color: ${({ color }) => color};
+  text-decoration: none;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;

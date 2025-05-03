@@ -1,15 +1,15 @@
 'use client'
 
-import Link from '@/components/atoms/link'
+import Button from '@/components/atoms/button'
 import { Container } from './styled'
 
 export default function Error() {
   return (
     <Container>
       <p>There was an error handling the request</p>
-      <Link colorName="brandPrimary" href="/" withButtonStyle>
+      <Button as="a" color="primary" href="/" variant="outline">
         Return to home
-      </Link>
+      </Button>
     </Container>
   )
 }

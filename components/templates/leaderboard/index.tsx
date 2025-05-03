@@ -9,13 +9,13 @@ import ColumnCards from '@/components/molecules/columnCards'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 import Table from '@/components/molecules/table'
-import Link from '@/components/atoms/link'
 import HelpInfo from '@/components/molecules/helpInfo'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Tabs from '@/components/atoms/tabs'
 import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
+import Button from '@/components/atoms/button'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -104,13 +104,14 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
               marginTop={24}
               withPadding={false}
             >
-              <Link
-                colorName="tertiary"
+              <Button
+                as="a"
+                variant="outline"
+                color="primary"
                 href="/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc"
-                withButtonStyle
               >
                 View all stats
-              </Link>
+              </Button>
             </PageContainer>
           </div>
           <PageContainer

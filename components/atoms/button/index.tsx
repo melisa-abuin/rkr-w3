@@ -5,15 +5,21 @@ import { StyledButton } from './styled'
 import { useTheme } from '@/hooks/useTheme'
 
 interface Props {
+  as?: 'a' | 'button'
+  href?: string
+  target?: string
   children: ReactNode
   disabled?: boolean
-  onClick: () => void
+  onClick?: () => void
   small?: boolean
   color?: 'primary' | 'secondary'
   variant?: 'outline' | 'solid' | 'ghost'
 }
 
 export default function Button({
+  as = 'button',
+  href,
+  target,
   children,
   color = 'primary',
   disabled = false,
@@ -32,6 +38,9 @@ export default function Button({
 
   return (
     <StyledButton
+      as={as}
+      href={href}
+      target={target}
       {...theme.button[color]}
       disabled={disabled}
       onClick={onClick}
