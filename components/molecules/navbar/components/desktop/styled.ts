@@ -33,8 +33,13 @@ export const NavLink = styled.li<NavLinkProps>`
 
   &:hover::after {
     background-color: ${({ theme }) => theme.text.hover.tertiary};
-
     transform: scaleX(1);
+  }
+
+  &:hover {
+    a {
+      color: ${({ theme }) => theme.text.hover.tertiary};
+    }
   }
 
   @media (max-width: 700px) {
