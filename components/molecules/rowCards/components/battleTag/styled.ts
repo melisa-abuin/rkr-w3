@@ -9,6 +9,7 @@ export const Container = styled.div`
     font-weight: var(--font-weight-bold);
     margin-top: 10px;
     margin-bottom 4px;
+    text-align: left; 
   }
 `
 
