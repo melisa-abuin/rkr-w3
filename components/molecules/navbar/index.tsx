@@ -28,7 +28,7 @@ export default function Navbar() {
             width={54}
           />
         </Link>
-        <DesktopNavbar />
+        <DesktopNavbar hasTransparentStyle={shouldShowTransparentNav} />
         <MobileNavbar />
       </Container>
     </StyledNav>
