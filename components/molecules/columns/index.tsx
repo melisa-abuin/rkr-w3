@@ -36,7 +36,6 @@ export default function Columns({
                 <TextWithIcon
                   large
                   colorName={highlight ? 'yellow' : undefined}
-                  palette={highlight ? 'color' : 'text'}
                 >
                   {value || 0}
                 </TextWithIcon>

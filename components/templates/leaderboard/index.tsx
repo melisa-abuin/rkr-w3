@@ -107,7 +107,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
               <Button
                 as="a"
                 variant="outline"
-                color="primary"
+                colorName="primary"
                 href="/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc"
               >
                 View all stats

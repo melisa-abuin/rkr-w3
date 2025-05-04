@@ -25,7 +25,7 @@ export default function PlayerFinderWithResult() {
             <Button
               as="a"
               variant="outline"
-              color="secondary"
+              colorName="secondary"
               href={`/player/${encodeURIComponent(selectedPlayer.battleTag.tag)}`}
             >
               See player stats

@@ -23,11 +23,11 @@ export default function HighlightCard({
       <PositionNumber pos={1} />
       <DetailContainer>
         <Wrapper>
-          <TextWithIcon colorName="tertiary" iconName="clock" palette="text">
+          <TextWithIcon colorName="tertiary" iconName="clock">
             {secondsToSexagesimal(time)}
           </TextWithIcon>
           {showDifficulty && (
-            <TextWithIcon colorName="secondary" iconName="paw" palette="text">
+            <TextWithIcon colorName="secondary" iconName="paw">
               {difficulty}
             </TextWithIcon>
           )}

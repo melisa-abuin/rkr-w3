@@ -18,7 +18,7 @@ export default function Badges<T extends string>({
         {options.map((option) => (
           <Button
             aria-pressed={option === selected}
-            color="secondary"
+            colorName="secondary"
             key={option}
             onClick={() => onClick(option)}
             small
@@ -29,7 +29,7 @@ export default function Badges<T extends string>({
         ))}
         <Button
           aria-pressed={!selected}
-          color="secondary"
+          colorName="secondary"
           small
           onClick={() => onClick(undefined)}
           variant={!selected ? 'solid' : 'ghost'}

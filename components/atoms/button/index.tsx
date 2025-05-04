@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean
   onClick?: () => void
   small?: boolean
-  color?: 'primary' | 'secondary'
+  colorName?: 'primary' | 'secondary'
   variant?: 'outline' | 'solid' | 'ghost'
 }
 
@@ -21,7 +21,7 @@ export default function Button({
   href,
   target,
   children,
-  color = 'primary',
+  colorName = 'primary',
   disabled = false,
   onClick,
   small = false,
@@ -29,9 +29,9 @@ export default function Button({
 }: Props) {
   const [theme] = useTheme()
 
-  if (!theme.button[color]) {
+  if (!theme.button[colorName]) {
     console.error(
-      `Button color "${color}" is not defined in ${theme.name} theme.`,
+      `Button color "${colorName}" is not defined in ${theme.name} theme.`,
     )
     return null
   }
@@ -41,7 +41,7 @@ export default function Button({
       as={as}
       href={href}
       target={target}
-      {...theme.button[color]}
+      {...theme.button[colorName]}
       disabled={disabled}
       onClick={onClick}
       small={small}

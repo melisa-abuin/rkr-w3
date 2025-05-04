@@ -29,11 +29,7 @@ describe('TextWithIcon', () => {
   })
 
   it('applies the correct color when colorName is provided', () => {
-    renderWithTheme(
-      <TextWithIcon colorName="yellow" palette="color">
-        Test
-      </TextWithIcon>,
-    )
+    renderWithTheme(<TextWithIcon colorName="yellow">Test</TextWithIcon>)
     expect(screen.getByText('Test')).toHaveStyle(
       `color: ${themes.light.color.yellow}`,
     )

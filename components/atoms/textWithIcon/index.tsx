@@ -21,7 +21,6 @@ interface Props {
     | undefined
   iconSize?: number
   large?: boolean
-  palette?: 'color' | 'text'
 }
 
 const icons = {

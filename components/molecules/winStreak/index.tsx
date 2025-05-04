@@ -33,7 +33,7 @@ export default function WinStreak({ winStreak }: { winStreak: number }) {
   return (
     <Container>
       <p>Current Win Streak</p>
-      <TextWithIcon colorName="primary" iconName="flame" palette="color">
+      <TextWithIcon colorName="primary" iconName="flame">
         {winStreak}
       </TextWithIcon>
       <p>{getEncouragingMessage(winStreak)}</p>
