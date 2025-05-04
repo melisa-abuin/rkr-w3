@@ -1,11 +1,13 @@
 'use client'
 
-import Image from 'next/image'
-import React, { useState } from 'react'
-import { Container, ImageWrapper, Text } from './styled'
-import Lottie from 'lottie-react'
 import animationData from '@/public/animations/spark.json'
-import { getKibbleRewardMessage } from '@/utils'
+import { getKibbleRewardMessage, Reward } from '@/utils'
+import Lottie from 'lottie-react'
+import Image from 'next/image'
+import { useState } from 'react'
+import ExperienceDisplay from '../ExperienceDisplay'
+import GoldDisplay from '../GoldDisplay'
+import { Container, ImageWrapper, Text } from './styled'
 
 type AnimationState = 'idle' | 'spark' | 'done'
 
@@ -19,10 +21,16 @@ export default function FloatingKibble() {
   const [animationState, setAnimationState] = useState<AnimationState>(
     animationStates.idle,
   )
-  const [rewardMessage, setRewardMessage] = useState('')
+  const [rewardMessage, setRewardMessage] = useState<string>('')
+  const [expGained, setExpGained] = useState<number>(0)
+  const [goldGained, setGoldGained] = useState<number>(0)
 
   const handleClick = () => {
-    setRewardMessage(getKibbleRewardMessage())
+    const reward: Reward = getKibbleRewardMessage()
+    setRewardMessage(reward.message)
+    // update xp or gold gained based on reward type
+    setExpGained(reward.type === 'xp' ? reward.amount : 0)
+    setGoldGained(reward.type === 'gold' ? reward.amount : 0)
     setAnimationState(animationStates.spark)
   }
 
@@ -48,6 +56,8 @@ export default function FloatingKibble() {
           <Text>{rewardMessage}</Text>
         </>
       )}
+      <ExperienceDisplay expGained={expGained} />
+      <GoldDisplay goldGained={goldGained} />
     </Container>
   )
 }

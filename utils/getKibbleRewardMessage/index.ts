@@ -1,4 +1,10 @@
-export const getKibbleRewardMessage = () => {
+export interface Reward {
+  type: 'xp' | 'gold' | 'none'
+  amount: number
+  message: string
+}
+
+export const getKibbleRewardMessage = (): Reward => {
   const xpMax = 350
   const goldMax = 150
   const jackpotMin = 600
@@ -11,19 +17,23 @@ export const getKibbleRewardMessage = () => {
 
     if (jackpotChance <= 1) {
       const superJackpotGold = getRandomInt(jackpotMax, jackpotMax + 500)
-      return `+${superJackpotGold} gold (super jackpot)`
+      const msg = `+${superJackpotGold} gold (super jackpot)`
+      return { type: 'gold', amount: superJackpotGold, message: msg }
     } else if (jackpotChance <= 3) {
       const jackpotGold = getRandomInt(jackpotMin, jackpotMax)
-      return `+${jackpotGold} gold (jackpot)`
+      const msg = `+${jackpotGold} gold (jackpot)`
+      return { type: 'gold', amount: jackpotGold, message: msg }
     } else {
       const goldAmount = getRandomInt(1, goldMax)
-      return `+${goldAmount} gold`
+      const msg = `+${goldAmount} gold`
+      return { type: 'gold', amount: goldAmount, message: msg }
     }
   } else if (randomChance <= 60) {
     const xpAmount = getRandomInt(50, xpMax)
-    return `+${xpAmount} xp`
+    const msg = `+${xpAmount} xp`
+    return { type: 'xp', amount: xpAmount, message: msg }
   } else {
-    return 'Nothing!'
+    return { type: 'none', amount: 0, message: 'Nothing!' }
   }
 }
 
