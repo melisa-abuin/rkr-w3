@@ -18,20 +18,20 @@ describe('DesktopNavbar', () => {
   })
 
   it('renders all navigation links', () => {
-    renderWithTheme(<DesktopNavbar />)
+    renderWithTheme(<DesktopNavbar hasTransparentStyle />)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('Leaderboard')).toBeInTheDocument()
   })
 
   it('applies the selected style to the current page link', () => {
-    mockUsePathname.mockReturnValue('/')
+    mockUsePathname.mockReturnValue('/leaderboard')
 
-    renderWithTheme(<DesktopNavbar />)
+    renderWithTheme(<DesktopNavbar hasTransparentStyle={false} />)
 
-    const challengesLink = screen.getByText('Home')
-    const styles = getComputedStyle(challengesLink.parentElement!)
+    const challengesLink = screen.getByText('Leaderboard')
+    const styles = getComputedStyle(challengesLink)
 
-    expect(styles.borderBottom).toBe('2px solid #050505')
+    expect(styles.fontWeight).toBe('var( --font-weight-bold )')
   })
 })

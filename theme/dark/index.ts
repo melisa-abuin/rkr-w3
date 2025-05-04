@@ -28,6 +28,7 @@ const darkTheme = {
     yellow: '#cfd324',
   },
   background: {
+    error: '#ba3232',
     highlightPrimary: '#3f3030',
     highlightSecondary: '#2d1c1c',
     highlightTertiary: '#4d3232',
@@ -35,22 +36,21 @@ const darkTheme = {
     quaternary: '#2b2222',
     secondary: '#1a4747',
     tertiary: '#391313',
-    error: '#ba3232',
     warning: '#ba6d32',
   },
   text: {
     color: {
       black: '#000000',
-      green: '#2abf59',
-      yellow: '#cfd324',
-      teal: '#16b7c9',
       brandPrimary: '#B24141',
       brandSecondary: '#41B2B2',
+      green: '#2abf59',
       highlight: '#7cd9d9',
       primary: '#fff5f5',
       secondary: '#9c9a9a',
+      teal: '#16b7c9',
       tertiary: '#d36e6e',
       white: '#fff5f5',
+      yellow: '#cfd324',
     },
     hover: {
       black: '#000000',

@@ -28,6 +28,7 @@ const lightTheme = {
     yellow: '#ff6c00',
   },
   background: {
+    error: '#db0404',
     highlightPrimary: '#e6dada',
     highlightSecondary: '#f7f7f7',
     highlightTertiary: '#f2eaea',
@@ -35,7 +36,6 @@ const lightTheme = {
     quaternary: '#efefef',
     secondary: '#b1e2e2',
     tertiary: '#ffe0e0',
-    error: '#db0404',
     warning: '#cf5b02',
   },
   text: {
@@ -43,11 +43,14 @@ const lightTheme = {
       black: '#000000',
       brandPrimary: '#B24141',
       brandSecondary: '#41B2B2',
+      green: '#0040ff',
       highlight: '#3671b6',
       primary: '#050505',
       secondary: '#6b6565',
+      teal: '#01c5db',
       tertiary: '#b10f0f',
       white: '#FFFFFF',
+      yellow: '#ff6c00',
     },
     hover: {
       black: '#000000',
