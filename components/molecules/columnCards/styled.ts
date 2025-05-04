@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import Link from 'next/link'
 
 export const Container = styled.div`
   align-items: center;
@@ -52,10 +51,8 @@ export const Table = styled.table`
   }
 `
 
-export const Footer = styled(Link)`
-  color: ${({ theme }) => theme.text.secondary};
+export const Footer = styled.div`
   font-size: var(--font-size-xs);
   margin: 8px 0;
   text-align: center;
-  text-decoration: none;
 `

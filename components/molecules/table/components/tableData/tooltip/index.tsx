@@ -24,13 +24,20 @@ export default function Tooltip({
   const { hard, impossible, normal } = data
   const [coords, setCoords] = useState({ x: 0, y: 0 })
   const [showTooltip, setShowTooltip] = useState(false)
+  const dataToRender = { ...data }
+
+  if (isTimeStats) {
+    dataToRender.hard = secondsToSexagesimal(hard as number)
+    dataToRender.impossible = secondsToSexagesimal(impossible as number)
+    dataToRender.normal = secondsToSexagesimal(normal as number)
+  }
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setCoords({ x: e.clientX, y: e.clientY })
   }
 
   if (difficulty) {
-    return <>{data[difficulty]}</>
+    return <>{dataToRender[difficulty]}</>
   }
 
   return (
@@ -54,23 +61,15 @@ export default function Tooltip({
           <tbody>
             <tr>
               <td>Normal</td>
-              <td>
-                {isTimeStats ? secondsToSexagesimal(normal as number) : normal}
-              </td>
+              <td>{dataToRender.normal}</td>
             </tr>
             <tr>
               <td>Hard</td>
-              <td>
-                {isTimeStats ? secondsToSexagesimal(hard as number) : hard}
-              </td>
+              <td>{dataToRender.hard}</td>
             </tr>
             <tr>
               <td>Impossible</td>
-              <td>
-                {isTimeStats
-                  ? secondsToSexagesimal(impossible as number)
-                  : impossible}
-              </td>
+              <td>{dataToRender.impossible}</td>
             </tr>
           </tbody>
         </table>

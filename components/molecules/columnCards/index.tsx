@@ -3,6 +3,7 @@ import { Card, Container, Header, Footer, Table } from './styled'
 import LoaderCard from './components/loaderCard'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Row from './components/row'
+import Link from '@/components/atoms/link'
 
 interface Props {
   data?: LeaderboardCategories[]
@@ -51,7 +52,11 @@ export default function ColumnCards({
               )}
             </tbody>
           </Table>
-          <Footer href={getViewAllHref(key)}>View all</Footer>
+          <Footer>
+            <Link href={getViewAllHref(key)} color="secondary">
+              View all
+            </Link>
+          </Footer>
         </Card>
       ))}
     </Container>

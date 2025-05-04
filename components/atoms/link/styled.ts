@@ -3,26 +3,18 @@ import Link from 'next/link'
 
 export const StyledLink = styled(Link).attrs<{
   color: string
-  withButtonStyle?: boolean
-}>(({ color, withButtonStyle }) => ({
+  hoverColor: string
+}>(({ color, hoverColor }) => ({
   as: 'a',
-  withButtonStyle,
   color,
-}))<{ color: string; withButtonStyle?: boolean }>`
-  background-color: inherit;
-  border: ${({ color, withButtonStyle }) =>
-    withButtonStyle ? `1px solid ${color}` : 'none'};
-  border-radius: 3px;
+  hoverColor,
+}))<{ color: string; hoverColor: string }>`
   color: ${({ color }) => color};
-  padding: ${({ withButtonStyle }) => (withButtonStyle ? '8px 16px' : '0')};
+  padding: 0;
   text-decoration: none;
   text-align: center;
-  width: fit-content;
 
   &:hover {
-    background-color: ${({ withButtonStyle, color }) =>
-      withButtonStyle ? color : 'inherit'};
-    color: ${({ withButtonStyle, theme }) =>
-      withButtonStyle ? theme.text.white : theme.text.highlight};
+    color: ${({ hoverColor }) => hoverColor};
   }
 `

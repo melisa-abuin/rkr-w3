@@ -1,5 +1,19 @@
 const lightTheme = {
   name: 'light' as const,
+  button: {
+    primary: {
+      background: '#B24141',
+      color: '#FFFFFF',
+      hoverBackground: '#d55b5b',
+      hoverColor: '#000000',
+    },
+    secondary: {
+      background: '#297f7f',
+      color: '#FFFFFF',
+      hoverBackground: '#41B2B2',
+      hoverColor: '#000000',
+    },
+  },
   color: {
     black: '#000000',
     green: '#0040ff',
@@ -14,6 +28,7 @@ const lightTheme = {
     yellow: '#ff6c00',
   },
   background: {
+    error: '#db0404',
     highlightPrimary: '#e6dada',
     highlightSecondary: '#f7f7f7',
     highlightTertiary: '#f2eaea',
@@ -21,10 +36,32 @@ const lightTheme = {
     quaternary: '#efefef',
     secondary: '#b1e2e2',
     tertiary: '#ffe0e0',
-    error: '#db0404',
     warning: '#cf5b02',
   },
   text: {
+    color: {
+      black: '#000000',
+      brandPrimary: '#B24141',
+      brandSecondary: '#41B2B2',
+      green: '#0040ff',
+      highlight: '#3671b6',
+      primary: '#050505',
+      secondary: '#6b6565',
+      teal: '#01c5db',
+      tertiary: '#b10f0f',
+      white: '#FFFFFF',
+      yellow: '#ff6c00',
+    },
+    hover: {
+      black: '#000000',
+      brandPrimary: '#B24141',
+      brandSecondary: '#3671b6',
+      highlight: '#3671b6',
+      primary: '#943636',
+      secondary: '#050505',
+      tertiary: '#ff2525',
+      white: '#FFFFFF',
+    },
     black: '#000000',
     brandPrimary: '#B24141',
     brandSecondary: '#41B2B2',

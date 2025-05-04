@@ -20,7 +20,7 @@ const GeneralChallenges = ({ challenges }: ChallengesProps) => {
 
   if (completedChallenges === totalChallenges) {
     return (
-      <TextWithIcon colorName="teal" iconName="winner" palette="color">
+      <TextWithIcon colorName="teal" iconName="winner">
         {completedChallenges}/{totalChallenges}
       </TextWithIcon>
     )
@@ -28,7 +28,7 @@ const GeneralChallenges = ({ challenges }: ChallengesProps) => {
 
   if (completedChallenges >= totalChallenges * 0.75) {
     return (
-      <TextWithIcon colorName="green" iconName="flame" palette="color">
+      <TextWithIcon colorName="green" iconName="flame">
         {completedChallenges}/{totalChallenges}
       </TextWithIcon>
     )
@@ -36,7 +36,7 @@ const GeneralChallenges = ({ challenges }: ChallengesProps) => {
 
   if (completedChallenges >= totalChallenges * 0.5) {
     return (
-      <TextWithIcon colorName="yellow" palette="color">
+      <TextWithIcon colorName="yellow">
         {completedChallenges}/{totalChallenges}
       </TextWithIcon>
     )

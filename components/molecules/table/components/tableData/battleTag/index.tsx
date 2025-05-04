@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, SubTitle, Title } from './styled'
+import { Container, SubTitle } from './styled'
 import { BattleTag as BattleTagI } from '@/interfaces/player'
+import Link from '@/components/atoms/link'
 
 /*
  * using this in each of the children of the tdata I can make it generic
@@ -18,7 +19,9 @@ export default function BattleTag({ data }: Props) {
 
   return (
     <Container>
-      <Title href={`/player/${encodeURIComponent(tag)}`}>{name}</Title>
+      <Link color="brandSecondary" href={`/player/${encodeURIComponent(tag)}`}>
+        {name}
+      </Link>
       <SubTitle>{tag}</SubTitle>
     </Container>
   )

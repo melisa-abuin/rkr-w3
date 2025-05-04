@@ -78,7 +78,7 @@ export default function DownloadModal({ battletag, date }: Props) {
             </p>
           </div>
           <ButtonGroup>
-            <Button onClick={() => setIsModalOpen(false)} variant="secondary">
+            <Button onClick={() => setIsModalOpen(false)} variant="outline">
               Cancel
             </Button>
             <Button onClick={fetchData}>

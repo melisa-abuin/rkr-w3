@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-import Link from 'next/link'
 
 export const Td = styled.td`
   background-color: ${({ theme }) => theme.background.highlightPrimary};
@@ -21,12 +20,22 @@ export const HoverTd = styled(Td)`
   position: absolute;
   top: 0;
   width: 100%;
+
+  a {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
 `
 
 export const Tr = styled.tr<{ hoverable?: boolean }>`
   & td:first-child {
+    max-width: 110px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   & td:last-child {
     border-top-right-radius: 3px;
@@ -48,13 +57,4 @@ export const Tr = styled.tr<{ hoverable?: boolean }>`
         opacity: 1;
       }
     `};
-`
-export const LinkWrapper = styled(Link)`
-  color: ${({ theme }) => theme.text.primary};
-  text-decoration: none;
-  width: 100%;
-
-  &:hover {
-    color: ${({ theme }) => theme.text.highlight};
-  }
 `

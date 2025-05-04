@@ -35,12 +35,12 @@ export default function Pagination({
         {currentPage > 1 && (
           <>
             <DesktopButtonContainer>
-              <Button onClick={() => changePage(1)} variant="secondary">
+              <Button onClick={() => changePage(1)} variant="ghost">
                 First
               </Button>
               <Button
                 onClick={() => changePage(currentPage - 1)}
-                variant="secondary"
+                variant="ghost"
               >
                 Previous
               </Button>
@@ -61,7 +61,7 @@ export default function Pagination({
             .map((page) => (
               <Button
                 key={page}
-                variant={page === currentPage ? 'primary' : 'secondary'}
+                variant={page === currentPage ? 'solid' : 'ghost'}
                 onClick={() => changePage(page)}
               >
                 {page}
@@ -72,15 +72,12 @@ export default function Pagination({
           <>
             <DesktopButtonContainer>
               <Button
-                variant="secondary"
+                variant="ghost"
                 onClick={() => changePage(currentPage + 1)}
               >
                 Next
               </Button>
-              <Button
-                onClick={() => changePage(totalPages)}
-                variant="secondary"
-              >
+              <Button onClick={() => changePage(totalPages)} variant="ghost">
                 Last
               </Button>
             </DesktopButtonContainer>

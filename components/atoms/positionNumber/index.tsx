@@ -14,8 +14,8 @@ export default function PositionNumber({ pos, isSmall = false }: Props) {
     1: color.teal,
     2: color.green,
     3: color.yellow,
-    4: text.primary,
-    5: text.primary,
+    4: text.color.primary,
+    5: text.color.primary,
   }
 
   return (

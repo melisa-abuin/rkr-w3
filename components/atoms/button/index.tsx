@@ -5,35 +5,43 @@ import { StyledButton } from './styled'
 import { useTheme } from '@/hooks/useTheme'
 
 interface Props {
+  as?: 'a' | 'button'
+  href?: string
+  target?: string
   children: ReactNode
-  color?: 'primary' | 'secondary'
   disabled?: boolean
-  onClick: () => void
+  onClick?: () => void
   small?: boolean
-  variant?: 'primary' | 'secondary'
+  colorName?: 'primary' | 'secondary'
+  variant?: 'outline' | 'solid' | 'ghost'
 }
 
 export default function Button({
+  as = 'button',
+  href,
+  target,
   children,
-  color = 'primary',
+  colorName = 'primary',
   disabled = false,
   onClick,
   small = false,
-  variant = 'primary',
+  variant = 'solid',
 }: Props) {
-  // TODO: refactor to match text with color and link color styling
   const [theme] = useTheme()
-  const backgroundColor =
-    color === 'primary' ? theme.color.primary : theme.color.secondary
-  const textColor = color === 'primary' ? theme.text.white : theme.text.black
-  const highlightColor =
-    color === 'primary' ? theme.text.tertiary : theme.text.highlight
+
+  if (!theme.button[colorName]) {
+    console.error(
+      `Button color "${colorName}" is not defined in ${theme.name} theme.`,
+    )
+    return null
+  }
 
   return (
     <StyledButton
-      backgroundColor={backgroundColor}
-      color={textColor}
-      highlightColor={highlightColor}
+      as={as}
+      href={href}
+      target={target}
+      {...theme.button[colorName]}
       disabled={disabled}
       onClick={onClick}
       small={small}

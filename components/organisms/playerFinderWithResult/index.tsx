@@ -1,6 +1,6 @@
 'use client'
 
-import Link from '@/components/atoms/link'
+import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import { playerColumns } from '@/constants'
@@ -22,13 +22,14 @@ export default function PlayerFinderWithResult() {
       {selectedPlayer && (
         <Columns
           actionColumn={
-            <Link
-              colorName="brandSecondary"
+            <Button
+              as="a"
+              variant="outline"
+              colorName="secondary"
               href={`/player/${encodeURIComponent(selectedPlayer.battleTag.tag)}`}
-              withButtonStyle
             >
               See player stats
-            </Link>
+            </Button>
           }
           data={[
             {

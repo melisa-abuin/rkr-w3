@@ -1,5 +1,19 @@
 const darkTheme = {
   name: 'dark' as const,
+  button: {
+    primary: {
+      background: '#cc5b5b',
+      color: '#130f0f',
+      hoverBackground: '#902c2c',
+      hoverColor: '#e6edf3',
+    },
+    secondary: {
+      background: '#41B2B2',
+      color: '#130f0f',
+      hoverBackground: '#027f7f',
+      hoverColor: '#e6edf3',
+    },
+  },
   color: {
     black: '#000000',
     green: '#2abf59',
@@ -14,6 +28,7 @@ const darkTheme = {
     yellow: '#cfd324',
   },
   background: {
+    error: '#ba3232',
     highlightPrimary: '#3f3030',
     highlightSecondary: '#2d1c1c',
     highlightTertiary: '#4d3232',
@@ -21,10 +36,32 @@ const darkTheme = {
     quaternary: '#2b2222',
     secondary: '#1a4747',
     tertiary: '#391313',
-    error: '#ba3232',
     warning: '#ba6d32',
   },
   text: {
+    color: {
+      black: '#000000',
+      brandPrimary: '#B24141',
+      brandSecondary: '#41B2B2',
+      green: '#2abf59',
+      highlight: '#7cd9d9',
+      primary: '#fff5f5',
+      secondary: '#9c9a9a',
+      teal: '#16b7c9',
+      tertiary: '#d36e6e',
+      white: '#fff5f5',
+      yellow: '#cfd324',
+    },
+    hover: {
+      black: '#000000',
+      brandPrimary: '#B24141',
+      brandSecondary: '#51ebeb',
+      highlight: '#7cd9d9',
+      primary: '#ffacac',
+      secondary: '#fff5f5',
+      tertiary: '#ffacac',
+      white: '#ffacac',
+    },
     black: '#000000',
     brandPrimary: '#B24141',
     brandSecondary: '#41B2B2',

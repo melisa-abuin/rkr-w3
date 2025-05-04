@@ -18,21 +18,21 @@ export default function Badges<T extends string>({
         {options.map((option) => (
           <Button
             aria-pressed={option === selected}
-            color="secondary"
+            colorName="secondary"
             key={option}
             onClick={() => onClick(option)}
             small
-            variant={option === selected ? 'primary' : 'secondary'}
+            variant={option === selected ? 'solid' : 'ghost'}
           >
             {option}
           </Button>
         ))}
         <Button
           aria-pressed={!selected}
-          color="secondary"
+          colorName="secondary"
           small
           onClick={() => onClick(undefined)}
-          variant={!selected ? 'primary' : 'secondary'}
+          variant={!selected ? 'solid' : 'ghost'}
         >
           all
         </Button>
