@@ -24,7 +24,7 @@ export default function Toast({
     <Wrapper index={index}>
       <Container onClick={onClick} variant={variant}>
         <Message>{message}</Message>
-        <Cross height={16} fill={theme.text.white} width={16} />
+        <Cross height={16} fill={theme.text.color.white} width={16} />
       </Container>
     </Wrapper>
   )

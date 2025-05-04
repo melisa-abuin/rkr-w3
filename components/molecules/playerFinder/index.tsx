@@ -110,7 +110,7 @@ export default function PlayerFinder({
               width={16}
             />
           ) : (
-            <Search height={16} fill={theme.text.primary} width={16} />
+            <Search height={16} fill={theme.text.color.primary} width={16} />
           )
         }
         name="player"

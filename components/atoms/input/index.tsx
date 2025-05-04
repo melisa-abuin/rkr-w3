@@ -39,7 +39,7 @@ export default function Input({
       />
       {value.length > 0 && onCrossClick && (
         <ClearIconContainer onClick={onCrossClick}>
-          <Cross height={16} fill={theme.text.primary} width={16} />
+          <Cross height={16} fill={theme.text.color.primary} width={16} />
         </ClearIconContainer>
       )}
     </Wrapper>
