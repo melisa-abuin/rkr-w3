@@ -37,6 +37,7 @@ const lightTheme = {
     secondary: '#b1e2e2',
     tertiary: '#ffe0e0',
     warning: '#cf5b02',
+    purple: '#B989F4',
   },
   text: {
     color: {
