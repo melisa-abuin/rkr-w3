@@ -37,6 +37,7 @@ const darkTheme = {
     secondary: '#1a4747',
     tertiary: '#391313',
     warning: '#ba6d32',
+    purple: '#6832AB',
   },
   text: {
     color: {

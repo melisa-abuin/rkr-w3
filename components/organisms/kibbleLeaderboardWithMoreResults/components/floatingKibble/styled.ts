@@ -14,7 +14,8 @@ export const Container = styled.div<{ collapsed: boolean }>`
   gap: 4px;
   justify-content: center;
   padding: ${({ collapsed }) => (collapsed ? '0px' : '24px')};
-  height: ${({ collapsed }) => (collapsed ? '0px' : '150px')};
+  height: ${({ collapsed }) => (collapsed ? '48px' : '150px')};
+  width: 100%;
   transition: height 0.4s ease;
 `
 
