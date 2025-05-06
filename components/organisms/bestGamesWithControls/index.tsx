@@ -74,7 +74,7 @@ export default function BestGamesWithControls() {
       />
       <Table
         columns={bestGameTimesColumns}
-        data={filteredData?.slice(6, 20) || []}
+        data={filteredData?.slice(5, 20) || []}
         loading={loading}
       />
     </>
