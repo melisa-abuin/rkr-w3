@@ -14,7 +14,7 @@ export const Container = styled.div<{ collapsed: boolean }>`
   gap: 4px;
   justify-content: center;
   padding: ${({ collapsed }) => (collapsed ? '0px' : '24px')};
-  height: ${({ collapsed }) => (collapsed ? '48px' : '150px')};
+  height: ${({ collapsed }) => (collapsed ? '0px' : '150px')};
   width: 100%;
   transition: height 0.4s ease;
 `
@@ -29,4 +29,13 @@ export const Text = styled.p`
   color: ${({ theme }) => theme.text.primary};
   font-size: var(--font-size-xs-sm);
   text-align: center;
+`
+export const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 400px;
+  padding-bottom: 16px;
 `

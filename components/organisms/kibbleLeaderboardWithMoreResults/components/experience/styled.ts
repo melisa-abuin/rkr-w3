@@ -1,9 +1,12 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+interface BarFillProps {
+  $noTransition?: boolean
+}
 
 export const Wrapper = styled.div`
   width: 100%;
   max-width: 400px;
-  margin: 20px auto;
 `
 
 export const BarBackground = styled.div`
@@ -14,10 +17,17 @@ export const BarBackground = styled.div`
   overflow: hidden;
 `
 
-export const BarFill = styled.div`
+export const BarFill = styled.div<BarFillProps>`
   background-color: ${({ theme }) => theme.background.purple};
   height: 100%;
-  transition: width 0.6s ease;
+  ${({ $noTransition }) =>
+    $noTransition
+      ? css`
+          transition: none;
+        `
+      : css`
+          transition: width 0.6s ease;
+        `}
 `
 
 export const Label = styled.div`

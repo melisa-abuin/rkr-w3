@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import ExperienceDisplay from '../experience'
 import GoldDisplay from '../gold'
-import { Container, ImageWrapper, Text } from './styled'
+import { Container, ImageWrapper, Text, Wrapper } from './styled'
 
 type AnimationState = 'idle' | 'spark' | 'done'
 
@@ -36,29 +36,33 @@ export default function FloatingKibble() {
   }
 
   return (
-    <Container collapsed={animationState === animationStates.done}>
-      {animationState === animationStates.idle && (
-        <>
-          <ImageWrapper onClick={handleClick}>
-            <Image alt="kibble" height={48} width={48} src="/kibble.png" />
-          </ImageWrapper>
-          <Text>Pick it up!</Text>
-        </>
-      )}
-      {animationState === animationStates.spark && (
-        <>
-          <Lottie
-            animationData={animationData}
-            loop={false}
-            autoplay
-            onComplete={() => setAnimationState(animationStates.done)}
-            style={{ width: 64, height: 64 }}
-          />
-          <Text>{rewardMessage}</Text>
-        </>
-      )}
-      <ExperienceDisplay expGained={expGained} />
-      <GoldDisplay goldGained={goldGained} />
-    </Container>
+    <>
+      <Container collapsed={animationState === animationStates.done}>
+        {animationState === animationStates.idle && (
+          <>
+            <ImageWrapper onClick={handleClick}>
+              <Image alt="kibble" height={48} width={48} src="/kibble.png" />
+            </ImageWrapper>
+            <Text>Pick it up!</Text>
+          </>
+        )}
+        {animationState === animationStates.spark && (
+          <>
+            <Lottie
+              animationData={animationData}
+              loop={false}
+              autoplay
+              onComplete={() => setAnimationState(animationStates.done)}
+              style={{ width: 64, height: 64 }}
+            />
+            <Text>{rewardMessage}</Text>
+          </>
+        )}
+      </Container>
+      <Wrapper>
+        <ExperienceDisplay expGained={expGained} />
+        <GoldDisplay goldGained={goldGained} />
+      </Wrapper>
+    </>
   )
 }
