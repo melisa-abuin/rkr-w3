@@ -1,4 +1,4 @@
-import { getStoredGold, saveGold } from '@/utils/gold'
+import { getStoredGold, saveGold } from '@/utils'
 import { useEffect, useState } from 'react'
 import { Wrapper } from './styled'
 import { Coins } from '@/components/icons/coins'

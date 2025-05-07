@@ -1,9 +1,4 @@
-import {
-  getLevelInfo,
-  getStoredExp,
-  LevelInfo,
-  saveExp,
-} from '@/utils/experience'
+import { getLevelInfo, getStoredExp, LevelInfo, saveExp } from '@/utils'
 import { useEffect, useState } from 'react'
 import { BarBackground, BarFill, Label, Wrapper } from './styled'
 
