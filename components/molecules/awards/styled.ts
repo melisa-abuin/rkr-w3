@@ -55,3 +55,19 @@ export const Title = styled.h3`
   font-weight: var(--font-weight-semi-bold);
   gap: 15px;
 `
+
+export const Description = styled.p`
+  font-size: var(--font-size-xs);
+  color: ${({ theme }) => theme.text.secondary};
+`
+
+export const TooltipTitle = styled.h3`
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  color: ${({ theme }) => theme.text.primary};
+  margin: 0 0 8px 0;
+`
+
+export const TooltipContainer = styled.div`
+  width: 200px;
+`
