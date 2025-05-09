@@ -1,8 +1,9 @@
-import React, { ReactNode, useState } from 'react'
-import { StyledTooltip, TooltipContainer } from './styled'
+import React, { ReactNode } from 'react'
+import { Content, Text } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Difficulty } from '@/interfaces/difficulty'
 import { secondsToSexagesimal } from '@/utils'
+import TooltipComponent from '@/components/atoms/tooltip'
 
 interface Props {
   data: {
@@ -22,8 +23,6 @@ export default function Tooltip({
   isTimeStats = false,
 }: Props) {
   const { hard, impossible, normal } = data
-  const [coords, setCoords] = useState({ x: 0, y: 0 })
-  const [showTooltip, setShowTooltip] = useState(false)
   const dataToRender = { ...data }
 
   if (isTimeStats) {
@@ -32,32 +31,15 @@ export default function Tooltip({
     dataToRender.normal = secondsToSexagesimal(normal as number)
   }
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setCoords({ x: e.clientX, y: e.clientY })
-  }
-
   if (difficulty) {
     return <>{dataToRender[difficulty]}</>
   }
 
   return (
-    <TooltipContainer
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-      onMouseMove={handleMouseMove}
-      aria-label="Player stats extended details"
-    >
-      <TextWithIcon iconName="information" iconSize={12}>
-        {children}
-      </TextWithIcon>
-
-      <StyledTooltip
-        showTooltip={showTooltip}
-        x={coords.x}
-        y={coords.y}
-        role="tooltip"
-      >
-        <table>
+    <TooltipComponent
+      ariaLabel="Extended stats"
+      body={
+        <Content>
           <tbody>
             <tr>
               <td>Normal</td>
@@ -72,8 +54,14 @@ export default function Tooltip({
               <td>{dataToRender.impossible}</td>
             </tr>
           </tbody>
-        </table>
-      </StyledTooltip>
-    </TooltipContainer>
+        </Content>
+      }
+    >
+      <Text>
+        <TextWithIcon iconName="information" iconSize={12}>
+          {children}
+        </TextWithIcon>
+      </Text>
+    </TooltipComponent>
   )
 }

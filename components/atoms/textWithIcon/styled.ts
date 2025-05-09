@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+// TODO: mana font size and weight with props
 export const Text = styled.span<{
   color: string
   large: boolean

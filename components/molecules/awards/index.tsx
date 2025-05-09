@@ -4,14 +4,17 @@ import { Awards as AwardsI } from '@/interfaces/player'
 import {
   Body,
   Conatiner,
+  Description,
   ErrorText,
   Line,
   Section,
   SectionContainer,
   Title,
+  TooltipTitle,
+  TooltipContainer,
 } from './styled'
-import Tooltip from './components/tooltip'
 import Image from '@/components/atoms/image'
+import Tooltip from '@/components/atoms/tooltip'
 
 interface Props {
   awards: AwardsI[]
@@ -31,7 +34,16 @@ export default function Awards({ awards }: Props) {
               <Section>
                 {awards.map(
                   ({ id, completed, description, imagePath, title }) => (
-                    <Tooltip key={id} description={description} title={title}>
+                    <Tooltip
+                      ariaLabel="Award details"
+                      key={id}
+                      body={
+                        <TooltipContainer>
+                          <TooltipTitle>{title}</TooltipTitle>
+                          <Description>{description}</Description>
+                        </TooltipContainer>
+                      }
+                    >
                       <Image
                         alt={id}
                         circular
