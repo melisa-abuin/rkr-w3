@@ -149,7 +149,7 @@ export const discordGuideSteps = [
   },
   {
     stepTitle: 'Step 4:',
-    text: "Make sure the folder name is 'Run-Kitty-Run' and not 'RunKittyRun' or some other variable. Once you are in that directory, you will see a text file named after your battletag. Select that file and press 'open'",
+    text: "Ensure the folder is named 'Run-Kitty-Run', not 'RunKittyRun' or any other variation. Once inside, you'll find a text file either named after your BattleTag or the AllSaveData file. Select the appropriate file and click 'Open'.",
     imageSrcSet: {
       dark: '/discord-example4.png',
       light: '/discord-example4.png',
@@ -158,7 +158,7 @@ export const discordGuideSteps = [
   {
     stepTitle: 'Step 5:',
 
-    text: "You will see that in the discord chat window your file is attached to the message. Now all you have to do is write the '!upload' command. Send the message, and you will automatically receive a response from the Discord bot informing you if the action was successful or not.",
+    text: "In the Discord chat window, you'll see your file attached to the message. Simply hit send, and the Discord bot will automatically respond, letting you know whether the action was successful.",
     imageSrcSet: {
       dark: '/discord-example5-dark.png',
       light: '/discord-example5-light.png',
@@ -172,7 +172,7 @@ export const discordGuideSteps = [
 ]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
-export const downloadFileName = 'RKR_Remastered_1.2.1'
+export const downloadFileName = 'RKR_Remastered_1.2.7'
 
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
