@@ -17,6 +17,10 @@ Below is a list of all available utilities:
 
 - `fetchData`
 
+### 📥 Data download
+
+- `downloadBlobFile`
+
 ### 🏆 Data Analysis
 
 - `findTopPlayersByInsertion`
