@@ -1,4 +1,8 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import {
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+} from '@tanstack/react-query'
 
 type QueryParams = Record<string, any>
 
@@ -8,12 +12,14 @@ const buildUrl = (url: string, params?: QueryParams) => {
   return `${url}?${searchParams}`
 }
 
-export const useApiQuery = <TData = unknown>(
+export const useApiQuery = <TData>(
   url: string,
   params?: QueryParams,
-  options?: UseQueryOptions<TData>,
-) => {
-  return useQuery<TData>({
+  options?: Omit<UseQueryOptions<TData>, 'queryKey' | 'queryFn'>,
+): UseQueryResult<TData> =>
+  useQuery({
+    ...options,
+    staleTime: 3000 * 60, // make it a param
     queryKey: [url, params],
     queryFn: async () => {
       const finalUrl = buildUrl(url, params)
@@ -21,9 +27,6 @@ export const useApiQuery = <TData = unknown>(
       if (!res.ok) {
         throw new Error(`Error fetching ${finalUrl}: ${res.statusText}`)
       }
-      const data = (await res.json()) as TData
-      return data
+      return (await res.json()) as TData
     },
-    ...options,
   })
-}

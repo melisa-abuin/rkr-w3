@@ -3,11 +3,14 @@
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
 import { useTheme } from '@/hooks/useTheme'
-import { useToast } from '@/hooks/useToast'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Image from 'next/image'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Option, Options, Wrapper } from './styled'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 interface Props {
   onPlayerSelect: (player: PlayerStats) => void
@@ -23,86 +26,56 @@ export default function PlayerFinder({
   defaultValue = '',
 }: Props) {
   const [query, setQuery] = useState(defaultValue)
-  const [filteredData, setFilteredData] = useState<PlayersStats | undefined>()
-  const [selectedPlayer, setSelectedPlayer] = useState<
-    PlayerStats | undefined
-  >()
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerStats>()
+  const [showOptions, setShowOptions] = useState(false)
 
-  const [loading, setLoading] = useState(false)
+  const debouncedQuery = useDebouncedValue(query, 300)
   const [theme] = useTheme()
-  const { showToast } = useToast()
+  const wrapperRef = useRef<HTMLDivElement>(null)
 
-  const fetchData = useCallback(
-    async (searchTerm: string) => {
-      if (
-        searchTerm.length >= 3 &&
-        searchTerm !== selectedPlayer?.battleTag.tag
-      ) {
-        setLoading(true)
+  useOutsideClick(() => setShowOptions(false), wrapperRef)
 
-        // TODO: create helper or what about react query?
-        try {
-          const response = await fetch(`/api/stats?battleTag=${searchTerm}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`)
-          }
-
-          const result = await response.json()
-          setFilteredData(result)
-        } catch (error) {
-          showToast(
-            `An error ocurred while searching for "${searchTerm}", please try again later.`,
-          )
-
-          setFilteredData(undefined)
-        } finally {
-          setLoading(false)
-        }
-      }
+  const { data, isFetching, refetch, error } = useApiQuery<PlayersStats>(
+    '/api/stats',
+    debouncedQuery ? { battleTag: debouncedQuery } : undefined,
+    {
+      enabled: false,
     },
-    [selectedPlayer, showToast],
   )
 
+  useQueryErrorToast(error, `searching for "${debouncedQuery}"`)
+
   useEffect(() => {
-    if (query !== defaultValue || !defaultValue) {
-      const handler = setTimeout(() => {
-        fetchData(query)
-      }, 300)
-
-      return () => clearTimeout(handler)
+    if (debouncedQuery && debouncedQuery !== selectedPlayer?.battleTag.tag) {
+      refetch()
     }
-  }, [query, fetchData, defaultValue])
+  }, [debouncedQuery, refetch, selectedPlayer?.battleTag.tag])
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value)
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+    setShowOptions(true)
   }
 
   const onSelect = (player: PlayerStats) => {
     setSelectedPlayer(player)
-    setFilteredData(undefined)
     setQuery(player.battleTag.tag)
     onPlayerSelect(player)
+    setShowOptions(false)
   }
 
   const onSearchClear = () => {
     setQuery('')
-    setFilteredData(undefined)
     setSelectedPlayer(undefined)
     onClear()
+    setShowOptions(false)
   }
 
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       <Input
         id="player"
         leftIcon={
-          loading ? (
+          isFetching ? (
             <Image
               alt="loading"
               height={16}
@@ -116,14 +89,15 @@ export default function PlayerFinder({
         name="player"
         onChange={onChange}
         onCrossClick={onSearchClear}
+        onFocus={() => setShowOptions(true)}
         placeholder={placeholder}
         value={query}
       />
 
-      {filteredData && !loading && (
+      {showOptions && data && (
         <Options>
-          {filteredData.length > 0 ? (
-            filteredData.map((player) => (
+          {data.length > 0 ? (
+            data.map((player) => (
               <Option
                 key={player.battleTag.tag}
                 isClickable
