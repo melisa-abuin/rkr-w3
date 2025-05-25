@@ -77,9 +77,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="ltr">
-      <QueryProvider>
-        <body className={inter.variable}>{children}</body>
-      </QueryProvider>
+      <body className={inter.variable}>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   )
 }

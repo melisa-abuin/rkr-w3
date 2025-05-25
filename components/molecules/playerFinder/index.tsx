@@ -5,7 +5,7 @@ import { Search } from '@/components/icons/search'
 import { useTheme } from '@/hooks/useTheme'
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Option, Options, Wrapper } from './styled'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
@@ -35,21 +35,16 @@ export default function PlayerFinder({
 
   useOutsideClick(() => setShowOptions(false), wrapperRef)
 
-  const { data, isFetching, refetch, error } = useApiQuery<PlayersStats>(
+  const { data, isFetching, error } = useApiQuery<PlayersStats>(
     '/api/stats',
-    debouncedQuery ? { battleTag: debouncedQuery } : undefined,
+    debouncedQuery.length > 2 ? { battleTag: debouncedQuery } : undefined,
     {
-      enabled: false,
+      enabled:
+        debouncedQuery.length > 2 && query !== selectedPlayer?.battleTag.tag,
     },
   )
 
   useQueryErrorToast(error, `searching for "${debouncedQuery}"`)
-
-  useEffect(() => {
-    if (debouncedQuery && debouncedQuery !== selectedPlayer?.battleTag.tag) {
-      refetch()
-    }
-  }, [debouncedQuery, refetch, selectedPlayer?.battleTag.tag])
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
@@ -94,7 +89,7 @@ export default function PlayerFinder({
         value={query}
       />
 
-      {showOptions && data && (
+      {showOptions && query.length > 2 && data && (
         <Options>
           {data.length > 0 ? (
             data.map((player) => (
