@@ -10,12 +10,12 @@ import ColumnCardsWithControls from '@/components/organisms/columnCardsWithContr
 import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 import Table from '@/components/molecules/table'
 import HelpInfo from '@/components/molecules/helpInfo'
-import { useEffect, useState } from 'react'
-import { useToast } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Tabs from '@/components/atoms/tabs'
 import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 import Button from '@/components/atoms/button'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -23,43 +23,25 @@ interface PlayerStatsData {
 }
 
 export default function Leaderboard({ data }: { data: PlayerStatsData }) {
-  const [statsData, setStatsData] = useState<
-    { stats: PlayersStats; page: number } | undefined
-  >()
-  const [loading, setLoading] = useState(true)
-  const { showToast } = useToast()
+  const {
+    data: statsData,
+    isFetching,
+    error,
+  } = useApiQuery<{
+    stats: PlayersStats
+    page: number
+  }>(
+    '/api/stats?page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
+    undefined,
+    {
+      enabled: true,
+    },
+  )
 
-  useEffect(() => {
-    const fetchFilteredData = async () => {
-      setLoading(true)
-
-      // TODO: create helper or what about react query?
-      try {
-        const response = await fetch(
-          '/api/stats?page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-
-        const result = await response.json()
-        setStatsData(result)
-      } catch (error) {
-        showToast(`Couldn't fetch the top five stats, please try again later.`)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchFilteredData()
-  }, [showToast])
+  useQueryErrorToast(
+    error,
+    `Couldn't fetch the top five stats, please try again later.`,
+  )
 
   return (
     <>
@@ -93,7 +75,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
             >
               <Table
                 columns={statsColumns}
-                loading={loading}
+                loading={isFetching}
                 data={statsData?.stats ?? []}
                 title="Leaderboard Highlights: Top Five Stats"
               />
