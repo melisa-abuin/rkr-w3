@@ -4,6 +4,7 @@ import LoaderCard from './components/loaderCard'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Row from './components/row'
 import Link from '@/components/atoms/link'
+import Loader from '@/components/atoms/loader'
 
 interface Props {
   data?: LeaderboardCategories[]
@@ -23,6 +24,28 @@ export default function ColumnCards({
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
     return `/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`
+  }
+
+  if (loading && data.length === 0) {
+    return (
+      <Container>
+        {[...Array(5)].map((_, rowIndex) => (
+          <Card key={rowIndex}>
+            <Header>
+              <Loader variant="secondary" height={21} width={100} />
+            </Header>
+            <Table>
+              <tbody>
+                <LoaderCard />
+              </tbody>
+            </Table>
+            <Footer>
+              <Loader variant="secondary" height={17} width={70} />
+            </Footer>
+          </Card>
+        ))}
+      </Container>
+    )
   }
 
   return (

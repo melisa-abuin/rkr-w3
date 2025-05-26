@@ -1,14 +1,15 @@
 'use client'
 
 import { BadgesContainer } from './styled'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { RoundDifficulty } from '@/interfaces/difficulty'
 import { roundDifficultyNames } from '@/constants'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
-import { useToast } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 type LeaderBoardData = LeaderboardCategories[]
 
@@ -26,50 +27,23 @@ export default function ColumnCardsWithControls({
   const [difficultyFilter, setDifficultyFilter] = useState<
     RoundDifficulty | undefined
   >()
-  const [filteredData, setFilteredData] = useState<
-    LeaderBoardData | undefined
-  >()
-  const [loading, setLoading] = useState(false)
-  const { showToast } = useToast()
 
-  useEffect(() => {
-    const fetchFilteredData = async () => {
-      if (difficultyFilter === undefined) {
-        setFilteredData(data)
-        return
-      }
+  const {
+    data: filteredData,
+    isFetching,
+    error,
+  } = useApiQuery<LeaderBoardData>(
+    `/api/timeLeaderboard?difficulty=${difficultyFilter}`,
+    undefined,
+    {
+      enabled: !!difficultyFilter,
+    },
+  )
 
-      setLoading(true)
-
-      // TODO: create helper or what about react query?
-      try {
-        const response = await fetch(
-          `/api/timeLeaderboard?difficulty=${difficultyFilter}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-
-        const result = await response.json()
-        setFilteredData(result)
-      } catch (error) {
-        showToast(
-          `Couldn't fetch the times leaderboard for the ${difficultyFilter} difficulty, please try again later.`,
-        )
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchFilteredData()
-  }, [difficultyFilter, data, showToast])
+  useQueryErrorToast(
+    error,
+    `Couldn't fetch the times leaderboard for the ${difficultyFilter} difficulty, please try again later.`,
+  )
 
   const onFilterClick = (difficulty: RoundDifficulty | undefined) => {
     setDifficultyFilter(difficulty)
@@ -93,7 +67,7 @@ export default function ColumnCardsWithControls({
         data={difficultyFilter === undefined ? data : filteredData}
         difficulty={difficultyFilter}
         hoverable={difficultyFilter === undefined}
-        loading={loading}
+        loading={isFetching}
         viewAllKey={viewAllKey}
       />
     </PageContainer>
