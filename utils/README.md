@@ -33,6 +33,7 @@ Below is a list of all available utilities:
 - `formatKeyToWord`
 - `formatRoundsData`
 - `formatSaveDataFile`
+- `hexToRgba`
 
 ### 🔢 Sorting & Filtering
 
