@@ -36,6 +36,7 @@ export default function KibbleTableWithControls({
   title,
   headerLink,
 }: TableProps) {
+  const [hasInteracted, setHasInteracted] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [sortKey, setSortKey] = useState<SortingKey>({
     key: defaultSortKey,
@@ -67,7 +68,7 @@ export default function KibbleTableWithControls({
     pages: number
     stats?: PlayersStats
   }>(`/api/${apiBaseUrl}?${queryString}`, undefined, {
-    enabled: true,
+    enabled: hasInteracted,
   })
 
   useQueryErrorToast(
@@ -76,10 +77,12 @@ export default function KibbleTableWithControls({
   )
 
   const handlePageChange = useCallback((page: number) => {
+    setHasInteracted(true)
     setCurrentPage(page)
   }, [])
 
   const handleSortChange = useCallback((newSortKey: keyof KibbleType) => {
+    setHasInteracted(true)
     setSortKey((prev) => ({
       key: newSortKey,
       asc: prev.key === newSortKey ? !prev.asc : false,

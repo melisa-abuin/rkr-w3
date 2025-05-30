@@ -45,6 +45,7 @@ export default function TableWithControls({
     (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey
   const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
 
+  const [hasInteracted, setHasInteracted] = useState(false)
   const [currentPage, setCurrentPage] = useState(initialPage)
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
@@ -79,16 +80,18 @@ export default function TableWithControls({
   } = useApiQuery<{ pages: number; stats?: PlayersStats }>(
     `/api/${apiBaseUrl}?${queryString}`,
     undefined,
-    { enabled: true },
+    { enabled: hasInteracted },
   )
 
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
   const handlePageChange = useCallback((page: number) => {
+    setHasInteracted(true)
     setCurrentPage(page)
   }, [])
 
   const handleSortChange = useCallback((newSortKey: keyof PlayerStats) => {
+    setHasInteracted(true)
     setSortKey((prev) => ({
       key: newSortKey,
       asc: prev.key === newSortKey ? !prev.asc : false,
@@ -96,8 +99,9 @@ export default function TableWithControls({
   }, [])
 
   const handleFilterChange = useCallback((difficulty?: Difficulty) => {
+    setHasInteracted(true)
     setDifficultyFilter(difficulty)
-    setCurrentPage(1) // Reset to page 1 when filtering
+    setCurrentPage(1)
   }, [])
 
   return (
