@@ -52,7 +52,10 @@ export const Table = styled.table`
 `
 
 export const Footer = styled.div`
+  align-items: center;
+  display: flex;
   font-size: var(--font-size-xs);
+  justify-content: center;
   margin: 8px 0;
   text-align: center;
 `

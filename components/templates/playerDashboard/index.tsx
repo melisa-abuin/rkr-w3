@@ -17,21 +17,20 @@ import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { formatKeyToWord, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Row } from './styled'
 import Tabs from '@/components/atoms/tabs'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 const getDateToShow = (lastUploaded: string) => {
-  const dateOptions = {
+  if (!lastUploaded) return ''
+  const lastDate = new Date(lastUploaded)
+  return lastDate.toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  } as const
-
-  if (!lastUploaded) return ''
-
-  const lastDateUploaded = new Date(lastUploaded)
-  return lastDateUploaded.toLocaleDateString(undefined, dateOptions)
+  })
 }
 
 export default function PlayerDashboard({
@@ -41,75 +40,48 @@ export default function PlayerDashboard({
 }) {
   const { awards, battleTag, skins, lastUploaded, completedChallenges } =
     playerData
-  const [selectedPlayer, setSelectedPlayer] = useState<
-    DetailedPlayerStats | undefined
-  >()
-  const [loading, setLoading] = useState(false)
-  const { showToast } = useToast()
 
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
+  const { showToast } = useToast()
 
   const lastDateUploaded = getDateToShow(lastUploaded)
 
-  const fetchData = useCallback(
-    async (playerTag: string) => {
-      setLoading(true)
+  const { data, isFetching, error } = useApiQuery<DetailedPlayerStats>(
+    compareTo ? `/api/player/${encodeURIComponent(compareTo)}` : '',
+    undefined,
+    { enabled: !!compareTo },
+  )
 
-      try {
-        const response = await fetch(
-          `/api/player/${encodeURIComponent(playerTag)}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-
-        const result = await response.json()
-        setSelectedPlayer(result)
-
-        if (result) {
-          const outDatedPlayer = playerDataOutdated(playerData, result)
-          if (outDatedPlayer) {
-            showToast(
-              `It looks like ${outDatedPlayer} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
-              'warning',
-              4000,
-            )
-          }
-        }
-      } catch (error) {
-        showToast(
-          `Couldn't fetch the stats of ${playerTag}, please try again later.`,
-        )
-      } finally {
-        setLoading(false)
-      }
-    },
-    [showToast, playerData],
+  useQueryErrorToast(
+    error,
+    `Couldn't fetch the stats of ${compareTo}, please try again later.`,
   )
 
   useEffect(() => {
-    if (compareTo) {
-      fetchData(compareTo)
+    if (data) {
+      const outDatedPlayer = playerDataOutdated(playerData, data)
+      if (outDatedPlayer) {
+        showToast(
+          `It looks like ${outDatedPlayer} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
+          'warning',
+          4000,
+        )
+      }
     }
-  }, [compareTo, fetchData])
+  }, [data, playerData, showToast])
 
-  const handlePlayerSelect = (player: PlayerStats) => {
-    router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
-  }
+  const handlePlayerSelect = useCallback(
+    (player: PlayerStats) => {
+      router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
+    },
+    [router],
+  )
 
-  const handleClear = () => {
-    router.push(`?`)
-    setSelectedPlayer(undefined)
-  }
+  const handleClear = useCallback(() => {
+    router.push('?')
+  }, [router])
 
   return (
     <>
@@ -118,8 +90,8 @@ export default function PlayerDashboard({
           align="flex-start"
           description={formatKeyToWord(skins?.selectedSkin)}
           title={
-            selectedPlayer
-              ? `${battleTag.name} vs ${selectedPlayer.battleTag.name}`
+            data
+              ? `${battleTag.name} vs ${data.battleTag.name}`
               : battleTag.name
           }
         />
@@ -130,32 +102,35 @@ export default function PlayerDashboard({
           defaultValue={compareTo || ''}
         />
       </PageContainer>
+
       <PageContainer title="Overall Stats">
         <Row>
           <ColumnsWithComparison
             columns={playerColumns}
-            loading={loading}
+            loading={isFetching}
             player={playerData}
-            comparePlayer={selectedPlayer}
+            comparePlayer={data}
           />
           <WinStreak winStreak={playerData.winStreak} />
         </Row>
       </PageContainer>
+
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
-        {selectedPlayer ? (
+        {data ? (
           <Tabs
             titles={[
               `${battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
-              `${selectedPlayer.battleTag.name} - ${selectedPlayer.completedChallenges.general[0]}/${selectedPlayer.completedChallenges.general[1]}`,
+              `${data.battleTag.name} - ${data.completedChallenges.general[0]}/${data.completedChallenges.general[1]}`,
             ]}
           >
             <Awards awards={awards} />
-            <Awards awards={selectedPlayer.awards} />
+            <Awards awards={data.awards} />
           </Tabs>
         ) : (
           <Awards awards={awards} />
         )}
       </PageContainer>
+
       {roundDifficultyNames.map((difficulty) => (
         <PageContainer
           key={difficulty}
@@ -164,16 +139,18 @@ export default function PlayerDashboard({
         >
           <ColumnsWithComparison
             columns={playerTimeColumns}
-            loading={loading}
+            loading={isFetching}
             player={playerData}
-            comparePlayer={selectedPlayer}
+            comparePlayer={data}
             difficulty={difficulty}
           />
         </PageContainer>
       ))}
+
       {lastDateUploaded && (
         <Info>Stats last uploaded on: {lastDateUploaded}</Info>
       )}
+
       <PageContainer marginBottom={24}>
         <DownloadModal
           date={lastDateUploaded}

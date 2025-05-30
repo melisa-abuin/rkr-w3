@@ -1,4 +1,5 @@
 'use client'
+
 import { Card, Container, Header, Footer, Table } from './styled'
 import LoaderCard from './components/loaderCard'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
@@ -25,6 +26,10 @@ export default function ColumnCards({
     return `/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`
   }
 
+  if (loading && data.length === 0) {
+    return <LoaderCard />
+  }
+
   return (
     <Container>
       {data?.map(({ category, data, key }) => (
@@ -32,24 +37,18 @@ export default function ColumnCards({
           <Header>{category}</Header>
           <Table>
             <tbody>
-              {loading ? (
-                <LoaderCard />
-              ) : (
-                <>
-                  {data?.map(({ player, data }, index) => (
-                    <Row
-                      data={data}
-                      player={player}
-                      key={index}
-                      hoverable={hoverable}
-                    />
-                  ))}
-                  {data.length < 5 &&
-                    [...Array(5 - data.length)].map((_, index) => (
-                      <Row key={index} hoverable={hoverable} />
-                    ))}
-                </>
-              )}
+              {data?.map(({ player, data }, index) => (
+                <Row
+                  data={data}
+                  player={player}
+                  key={index}
+                  hoverable={hoverable}
+                />
+              ))}
+              {data.length < 5 &&
+                [...Array(5 - data.length)].map((_, index) => (
+                  <Row key={index} hoverable={hoverable} />
+                ))}
             </tbody>
           </Table>
           <Footer>

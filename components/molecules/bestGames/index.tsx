@@ -43,6 +43,10 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
     )
   }
 
+  if (!bestGame) {
+    return null
+  }
+
   return (
     <Container>
       <DesktopCardContainer>

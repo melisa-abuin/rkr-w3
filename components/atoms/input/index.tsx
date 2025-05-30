@@ -11,6 +11,7 @@ interface Props {
   name: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   onCrossClick?: () => void
+  onFocus?: () => void
   placeholder: string
   value: string
 }
@@ -21,6 +22,7 @@ export default function Input({
   name,
   onChange,
   onCrossClick,
+  onFocus,
   placeholder,
   value,
 }: Props) {
@@ -32,6 +34,7 @@ export default function Input({
       <StyledInput
         id={id}
         name={name}
+        onFocus={onFocus}
         onChange={onChange}
         placeholder={placeholder}
         value={value}

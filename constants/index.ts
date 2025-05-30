@@ -313,6 +313,7 @@ export const statsPageVariants = {
   },
 } as const
 
+// TODO: separate this into a different file
 export const formattedMockData = [
   {
     battleTag: {
@@ -770,3 +771,44 @@ export const formattedMockData = [
     },
   },
 ] as const
+
+export const mockParsedGameStats: GameStats[] = [
+  {
+    difficulty: 'hard',
+    date: '2025-03-08 21:49:56',
+    teamMembers:
+      'Matt#2345, Laura#1234, Alexander#12345, Emmanuel#99999, Mike#6789, Jessie#3333',
+    time: 3162.418,
+  },
+  {
+    difficulty: 'normal',
+    date: '2025-03-07 23:26:58',
+    teamMembers: 'Matt#2345, Mike#6789, Jessie#3333',
+    time: 2194.204,
+  },
+  {
+    difficulty: 'impossible',
+    date: '2025-03-07 22:43:38',
+    teamMembers: 'Matt#2345, Mike#6789, Alexander#12345, Jessie#3333',
+    time: 4859.82,
+  },
+  {
+    difficulty: 'hard',
+    date: '2025-03-06 22:43:12',
+    teamMembers: 'Alexander#12345, Emmanuel#99999, Charlie#4567',
+    time: 2528.889,
+  },
+  {
+    difficulty: 'normal',
+    date: '2025-03-06 22:41:42',
+    teamMembers: 'Emmanuel#99999, Matt#2345, Alexander#12345, Noah#11111',
+    time: 1779.17,
+  },
+  {
+    difficulty: 'hard',
+    date: '2025-03-06 17:55:01',
+    teamMembers:
+      'Matt#2345, Laura#1234, Alexander#12345, Mike#6789, Noah#11111, Charlie#4567',
+    time: 3245.011,
+  },
+]

@@ -13,7 +13,7 @@ describe('LoaderCard', () => {
     )
 
     const rows = screen.getAllByRole('row')
-    expect(rows).toHaveLength(5)
+    expect(rows).toHaveLength(25)
   })
 
   it('each row contains 2 cells', () => {

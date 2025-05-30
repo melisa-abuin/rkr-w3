@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { QueryProvider } from '@/hooks/useQuery'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -76,7 +77,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="ltr">
-      <body className={inter.variable}>{children}</body>
+      <body className={inter.variable}>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   )
 }

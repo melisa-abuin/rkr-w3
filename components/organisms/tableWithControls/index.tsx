@@ -2,13 +2,14 @@
 
 import { PlayersStats, PlayerStats } from '@/interfaces/player'
 import { useSearchParams } from 'next/navigation'
-import { useState, useCallback, ReactNode } from 'react'
+import { useState, useMemo, useEffect, useCallback, ReactNode } from 'react'
 import { difficultyNames } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
-import { useToast } from '@/hooks/useToast'
 import Pagination from '@/components/molecules/pagination'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 interface TableProps {
   data: { pages: number; stats?: PlayersStats }
@@ -37,98 +38,77 @@ export default function TableWithControls({
 }: TableProps) {
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
-  const initialFilter = searchParams?.get('difficulty') as Difficulty
-  const initialSortData = {
-    key: (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey,
-    asc: searchParams?.get('sortOrder') === 'asc',
-  }
+  const initialFilter = searchParams?.get('difficulty') as
+    | Difficulty
+    | undefined
+  const initialSortKey =
+    (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey
+  const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
 
-  const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [currentPage, setCurrentPage] = useState(initialPage)
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >(initialFilter)
-  const [sortKey, setSortKey] = useState<SortingKey>(initialSortData)
-  const [loading, setLoading] = useState(false)
-  const [filteredData, setFilteredData] = useState<{
-    pages: number
-    stats?: PlayersStats
-  }>(data)
-  const { showToast } = useToast()
+  const [sortKey, setSortKey] = useState<SortingKey>({
+    key: initialSortKey,
+    asc: initialSortOrder,
+  })
 
-  const updateURL = useCallback(
-    async (page: number, difficulty?: Difficulty, sort?: SortingKey) => {
-      const queryParams = new URLSearchParams()
-      queryParams.set('page', page.toString())
-      if (difficulty) queryParams.set('difficulty', difficulty)
-      if (sort) {
-        queryParams.set('sortKey', sort.key)
-        queryParams.set('sortOrder', sort.asc ? 'asc' : 'desc')
-      }
-      setLoading(true)
+  const queryString = useMemo(() => {
+    const params = new URLSearchParams()
+    params.set('page', currentPage.toString())
+    if (difficultyFilter) params.set('difficulty', difficultyFilter)
+    params.set('sortKey', sortKey.key)
+    params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
+    return params.toString()
+  }, [currentPage, difficultyFilter, sortKey])
 
-      // TODO: create helper or what about react query?
-      try {
-        const response = await fetch(
-          `/api/${apiBaseUrl}?${queryParams.toString()}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
+  const syncURL = useCallback(() => {
+    window.history.pushState(null, '', `?${queryString}`)
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }, [queryString])
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
+  useEffect(() => {
+    syncURL()
+  }, [syncURL])
 
-        const result = await response.json()
-        setFilteredData(result)
-      } catch (error) {
-        showToast(`Couldn't fetch the stats, please try again later.`)
-      } finally {
-        setLoading(false)
-      }
-
-      window.history.pushState(null, '', `?${queryParams.toString()}`)
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    },
-    [apiBaseUrl, showToast],
+  const {
+    data: filteredData,
+    isFetching,
+    error,
+  } = useApiQuery<{ pages: number; stats?: PlayersStats }>(
+    `/api/${apiBaseUrl}?${queryString}`,
+    undefined,
+    { enabled: hasInteracted },
   )
 
-  const handlePageChange = useCallback(
-    (page: number) => {
-      setCurrentPage(page)
-      updateURL(page, difficultyFilter, sortKey)
-    },
-    [difficultyFilter, sortKey, updateURL],
-  )
+  useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
-  const handleSortChange = useCallback(
-    (sort: keyof PlayerStats) => {
-      const newSortKey = {
-        key: sort,
-        asc: sortKey.key === sort ? !sortKey.asc : false,
-      }
-      setSortKey(newSortKey)
-      updateURL(currentPage, difficultyFilter, newSortKey)
-    },
-    [currentPage, difficultyFilter, updateURL, sortKey],
-  )
+  const handlePageChange = useCallback((page: number) => {
+    setHasInteracted(true)
+    setCurrentPage(page)
+  }, [])
 
-  const handleFilterChange = useCallback(
-    (difficulty?: Difficulty) => {
-      setDifficultyFilter(difficulty)
-      updateURL(currentPage, difficulty, sortKey)
-    },
-    [currentPage, sortKey, updateURL],
-  )
+  const handleSortChange = useCallback((newSortKey: keyof PlayerStats) => {
+    setHasInteracted(true)
+    setSortKey((prev) => ({
+      key: newSortKey,
+      asc: prev.key === newSortKey ? !prev.asc : false,
+    }))
+  }, [])
+
+  const handleFilterChange = useCallback((difficulty?: Difficulty) => {
+    setHasInteracted(true)
+    setDifficultyFilter(difficulty)
+    setCurrentPage(1)
+  }, [])
 
   return (
     <>
       <Table
         columns={columns}
-        data={filteredData.stats ?? []}
+        data={filteredData?.stats ?? data.stats}
         pageSize={15}
         filters={
           <Badges
@@ -139,14 +119,14 @@ export default function TableWithControls({
         }
         headerLink={headerLink}
         highlightedColumn={sortKey.key}
-        loading={loading}
+        loading={isFetching}
         difficultyFilter={difficultyFilter}
         title={title}
         onTableSort={handleSortChange}
       />
       <Pagination
         currentPage={currentPage}
-        totalPages={filteredData.pages}
+        totalPages={filteredData?.pages ?? data.pages}
         onPageChange={handlePageChange}
       />
     </>

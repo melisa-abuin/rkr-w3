@@ -1,11 +1,11 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
-import { useState, useCallback, ReactNode, useEffect } from 'react'
+import { useCallback, useEffect, useMemo, useState, ReactNode } from 'react'
 import Pagination from '@/components/molecules/pagination'
 import Table from '@/components/molecules/table'
-import { useToast } from '@/hooks/useToast'
-import { BattleTag, Kibbles, PlayerStats } from '@/interfaces/player'
+import { BattleTag, Kibbles, PlayersStats } from '@/interfaces/player'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 type KibbleType = Kibbles & {
   battleTag: BattleTag
@@ -36,109 +36,81 @@ export default function KibbleTableWithControls({
   title,
   headerLink,
 }: TableProps) {
-  const searchParams = useSearchParams()
-  const initialPage = parseInt(searchParams?.get('page') || '1', 10)
-  const initialSortData = {
-    key: (searchParams?.get('sortKey') as keyof KibbleType) || defaultSortKey,
-    asc: searchParams?.get('sortOrder') === 'asc',
-  }
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [sortKey, setSortKey] = useState<SortingKey>({
+    key: defaultSortKey,
+    asc: false,
+  })
 
-  const [currentPage, setCurrentPage] = useState<number>(initialPage)
+  const queryString = useMemo(() => {
+    const params = new URLSearchParams()
+    params.set('page', currentPage.toString())
+    params.set('sortKey', sortKey.key)
+    params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
+    return params.toString()
+  }, [currentPage, sortKey])
 
-  const [sortKey, setSortKey] = useState<SortingKey>(initialSortData)
-  const [loading, setLoading] = useState(false)
-  const [filteredData, setFilteredData] = useState<{
-    pages: number
-    stats?: KibbleType[]
-  }>(data)
-  const { showToast } = useToast()
-
-  const updateURL = useCallback(
-    async (page: number, sort?: SortingKey) => {
-      const queryParams = new URLSearchParams()
-      queryParams.set('page', page.toString())
-      if (sort) {
-        queryParams.set('sortKey', sort.key)
-        queryParams.set('sortOrder', sort.asc ? 'asc' : 'desc')
-      }
-      setLoading(true)
-
-      // TODO: create helper or what about react query?
-      try {
-        const response = await fetch(
-          `/api/${apiBaseUrl}?${queryParams.toString()}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          },
-        )
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-
-        const result = await response.json()
-        const formattedResult = {
-          stats: result.stats?.map((elem: PlayerStats) => ({
-            battleTag: elem.battleTag,
-            ...elem.kibbles,
-          })),
-          pages: result.pages,
-        }
-        setFilteredData(formattedResult)
-      } catch (error) {
-        showToast(`Couldn't fetch the kibble stats, please try again later.`)
-      } finally {
-        setLoading(false)
-      }
-
-      window.history.pushState(null, '', `?${queryParams.toString()}`)
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-    },
-    [apiBaseUrl, showToast],
-  )
-
-  const handlePageChange = useCallback(
-    (page: number) => {
-      setCurrentPage(page)
-      updateURL(page, sortKey)
-    },
-    [sortKey, updateURL],
-  )
-
-  const handleSortChange = useCallback(
-    (sort: keyof KibbleType) => {
-      const newSortKey = {
-        key: sort,
-        asc: sortKey.key === sort ? !sortKey.asc : false,
-      }
-      setSortKey(newSortKey)
-      updateURL(currentPage, newSortKey)
-    },
-    [currentPage, updateURL, sortKey],
-  )
+  const syncURL = useCallback(() => {
+    window.history.pushState(null, '', `?${queryString}`)
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }, [queryString])
 
   useEffect(() => {
-    console.log(filteredData)
-  }, [filteredData])
+    syncURL()
+  }, [syncURL])
+
+  const {
+    data: filteredData,
+    isFetching,
+    error,
+  } = useApiQuery<{
+    pages: number
+    stats?: PlayersStats
+  }>(`/api/${apiBaseUrl}?${queryString}`, undefined, {
+    enabled: hasInteracted,
+  })
+
+  useQueryErrorToast(
+    error,
+    `Couldn't fetch the kibble stats, please try again later.`,
+  )
+
+  const handlePageChange = useCallback((page: number) => {
+    setHasInteracted(true)
+    setCurrentPage(page)
+  }, [])
+
+  const handleSortChange = useCallback((newSortKey: keyof KibbleType) => {
+    setHasInteracted(true)
+    setSortKey((prev) => ({
+      key: newSortKey,
+      asc: prev.key === newSortKey ? !prev.asc : false,
+    }))
+  }, [])
 
   return (
     <>
       <Table
         columns={columns}
-        data={filteredData.stats ?? []}
+        data={
+          filteredData
+            ? (filteredData?.stats?.map((elem) => ({
+                battleTag: elem.battleTag,
+                ...elem.kibbles,
+              })) as KibbleType[])
+            : data.stats
+        }
         pageSize={15}
         headerLink={headerLink}
         highlightedColumn={sortKey.key}
-        loading={loading}
+        loading={isFetching}
         title={title}
         onTableSort={handleSortChange}
       />
       <Pagination
         currentPage={currentPage}
-        totalPages={filteredData.pages}
+        totalPages={filteredData?.pages ?? data.pages}
         onPageChange={handlePageChange}
       />
     </>
