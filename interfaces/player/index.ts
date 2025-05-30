@@ -63,6 +63,32 @@ export type DetailedPlayerStats = PlayerStats & {
   awards: Awards[]
   skins: Skins
   lastUploaded: string
+  mostPlayedColor:
+    | 'red'
+    | 'blue'
+    | 'teal'
+    | 'purple'
+    | 'yellow'
+    | 'orange'
+    | 'green'
+    | 'pink'
+    | 'gray'
+    | 'lightblue'
+    | 'darkgreen'
+    | 'brown'
+    | 'maroon'
+    | 'navy'
+    | 'turquoise'
+    | 'violet'
+    | 'wheat'
+    | 'peach'
+    | 'mint'
+    | 'lavender'
+    | 'coal'
+    | 'snow'
+    | 'emerald'
+    | 'peanut'
+    | null
 }
 
 export interface FromattedApiPlayerStats {

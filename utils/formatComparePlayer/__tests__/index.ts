@@ -28,6 +28,7 @@ describe('formatComparePlayer', () => {
       selectedWindwalk: 'none',
       selectedWings: 'none',
     },
+    mostPlayedColor: 'red' as const,
   }
   beforeEach(() => {
     jest.clearAllMocks()

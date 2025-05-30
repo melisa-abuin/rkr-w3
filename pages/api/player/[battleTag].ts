@@ -50,6 +50,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       GameAwards,
       GameAwardsSorted,
       SelectedData,
+      PlayerColorData,
     } = saveData
 
     playerStats.lastUploaded = playerData.UploadDate
@@ -57,6 +58,9 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     playerStats.deaths = GameStats.Deaths
     playerStats.highestWinStreak = GameStats.HighestWinStreak
     playerStats.winStreak = GameStats.WinStreak
+    playerStats.mostPlayedColor = PlayerColorData
+      ? PlayerColorData.MostPlayedColor
+      : null
 
     if (GameAwardsSorted) {
       playerStats.completedChallenges =

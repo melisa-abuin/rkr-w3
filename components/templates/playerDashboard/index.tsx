@@ -2,7 +2,6 @@
 
 import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
-import PageHeader from '@/components/atoms/pageHeader'
 import Awards from '@/components/molecules/awards'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
@@ -15,13 +14,14 @@ import {
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
-import { formatKeyToWord, playerDataOutdated } from '@/utils'
+import { playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 import { Row } from './styled'
 import Tabs from '@/components/atoms/tabs'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import Header from './components/Header'
 
 const getDateToShow = (lastUploaded: string) => {
   if (!lastUploaded) return ''
@@ -38,8 +38,14 @@ export default function PlayerDashboard({
 }: {
   playerData: DetailedPlayerStats
 }) {
-  const { awards, battleTag, skins, lastUploaded, completedChallenges } =
-    playerData
+  const {
+    awards,
+    battleTag,
+    skins,
+    lastUploaded,
+    completedChallenges,
+    mostPlayedColor,
+  } = playerData
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -86,9 +92,9 @@ export default function PlayerDashboard({
   return (
     <>
       <PageContainer>
-        <PageHeader
-          align="flex-start"
-          description={formatKeyToWord(skins?.selectedSkin)}
+        <Header
+          color={mostPlayedColor}
+          skin={skins?.selectedSkin}
           title={
             data
               ? `${battleTag.name} vs ${data.battleTag.name}`
