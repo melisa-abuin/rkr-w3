@@ -29,6 +29,7 @@ Below is a list of all available utilities:
 ### 🧩 Data Formatting
 
 - `formatComparePlayer`
+- `formatDateToLocale`
 - `formatGameAwards`
 - `formatKeyToWord`
 - `formatRoundsData`

@@ -14,7 +14,7 @@ import {
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
-import { playerDataOutdated } from '@/utils'
+import { formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 import { Row } from './styled'
@@ -22,16 +22,6 @@ import Tabs from '@/components/atoms/tabs'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Header from './components/Header'
-
-const getDateToShow = (lastUploaded: string) => {
-  if (!lastUploaded) return ''
-  const lastDate = new Date(lastUploaded)
-  return lastDate.toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
 
 export default function PlayerDashboard({
   playerData,
@@ -52,7 +42,7 @@ export default function PlayerDashboard({
   const compareTo = searchParams?.get('compareTo')
   const { showToast } = useToast()
 
-  const lastDateUploaded = getDateToShow(lastUploaded)
+  const lastDateUploaded = formatDateToLocale(lastUploaded)
 
   const { data, isFetching, error } = useApiQuery<DetailedPlayerStats>(
     compareTo ? `/api/player/${encodeURIComponent(compareTo)}` : '',

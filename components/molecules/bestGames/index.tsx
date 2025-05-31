@@ -54,11 +54,13 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
           difficulty={bestGame.difficulty}
           time={bestGame.time}
           teamMembers={bestGame.teamMembers}
+          date={bestGame.date}
           showDifficulty={showDifficulty}
         />
       </DesktopCardContainer>
       <MobileCardContainer>
         <Card
+          date={bestGame.date}
           difficulty={bestGame.difficulty}
           time={bestGame.time}
           teamMembers={bestGame.teamMembers}
@@ -71,6 +73,7 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
           <Card
             key={index}
             position={index + 2}
+            date={game.date}
             difficulty={game.difficulty}
             showDifficulty={showDifficulty}
             time={game.time}
