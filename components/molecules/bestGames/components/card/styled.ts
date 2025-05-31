@@ -5,11 +5,17 @@ export const Container = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 180px;
   overflow: hidden;
   padding: 16px;
   text-align: center;
-  flex: 1;
-  min-width: 180px;
+`
+
+export const Description = styled.span`
+  color: ${({ theme }) => theme.text.secondary};
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xs);
 `
 
 export const Header = styled.div`
@@ -22,16 +28,23 @@ export const Header = styled.div`
 `
 
 export const NameList = styled.div`
+  align-content: center;
+  align-items: center;
   background-color: ${({ theme }) => theme.background.highlightPrimary};
   color: ${({ theme }) => theme.text.primary};
-  flex: 1;
-  padding: 10px;
-  align-content: center;
-  font-size: var(--font-size-xs);
-  text-align: center;
   display: flex;
-  align-items: center;
+  flex: 1;
+  font-size: var(--font-size-xs);
   justify-content: center;
+  padding: 10px;
+  text-align: center;
+`
+
+export const Row = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
 `
 
 export const Title = styled.h4`
@@ -39,11 +52,6 @@ export const Title = styled.h4`
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-sm);
   margin: 0;
-`
-export const Description = styled.span`
-  color: ${({ theme }) => theme.text.secondary};
-  font-weight: var(--font-weight-regular);
-  font-size: var(--font-size-xs);
 `
 
 export const Wrapper = styled.div`

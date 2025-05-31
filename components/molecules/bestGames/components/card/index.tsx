@@ -1,16 +1,21 @@
-import { secondsToSexagesimal } from '@/utils'
+import { formatDateToLocale, secondsToSexagesimal } from '@/utils'
 import {
   Container,
   Description,
   Header,
   NameList,
+  Row,
   Title,
   Wrapper,
 } from './styled'
 import { Difficulty } from '@/interfaces/difficulty'
 import PositionNumber from '@/components/atoms/positionNumber'
+import { Paw } from '@/components/icons/paw'
+import Tooltip from '@/components/atoms/tooltip'
+import { useTheme } from '@/hooks/useTheme'
 
-interface Props {
+interface CardProps {
+  date: string
   difficulty: Difficulty
   position: number
   time: number
@@ -18,22 +23,49 @@ interface Props {
   showDifficulty: boolean
 }
 
+const difficultyPawCounter = {
+  normal: 1,
+  hard: 2,
+  impossible: 3,
+}
+
 export default function Card({
+  date,
   difficulty,
   position,
   time,
   teamMembers,
   showDifficulty,
-}: Props) {
+}: CardProps) {
   const members = teamMembers.replace(/#\d+/g, '')
+  const matchDate = formatDateToLocale(date)
+  const [theme] = useTheme()
 
   return (
     <Container>
       <Header>
         <PositionNumber pos={position} isSmall />
         <Wrapper>
-          <Title>{secondsToSexagesimal(time)}</Title>
-          {showDifficulty && <Description>{difficulty}</Description>}
+          <Row>
+            <Title>{secondsToSexagesimal(time)}</Title>
+            {showDifficulty && (
+              <div>
+                {[...Array(difficultyPawCounter[difficulty])].map(
+                  (_, rowIndex) => (
+                    <Tooltip body={difficulty} key={rowIndex}>
+                      <Paw
+                        height={16}
+                        fill={theme.text.color.secondary}
+                        width={16}
+                      />
+                    </Tooltip>
+                  ),
+                )}
+              </div>
+            )}
+          </Row>
+
+          <Description>{matchDate}</Description>
         </Wrapper>
       </Header>
       <NameList>{members}</NameList>
