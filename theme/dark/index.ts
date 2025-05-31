@@ -26,6 +26,9 @@ const darkTheme = {
     teal: '#16b7c9',
     tertiary: '#441111',
     yellow: '#cfd324',
+    normal: '#cfd324',
+    hard: '#d14f0a',
+    impossible: '#d10a0a',
   },
   background: {
     error: '#ba3232',

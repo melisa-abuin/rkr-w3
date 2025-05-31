@@ -14,6 +14,7 @@ import {
 } from '@/interfaces/player'
 import PlayersList from './playersList'
 import DatePlayed from './datePlayed'
+import DifficultyData from './difficulty'
 
 interface Props<T> {
   data?: T
@@ -70,6 +71,10 @@ export default function TableData<T>({
     case 'completedChallenges':
       if (isChallenges(componentData))
         return <Challenges data={componentData} />
+      break
+    case 'difficulty':
+      if (typeof componentData === 'string')
+        return <DifficultyData data={componentData} />
       break
 
     case 'battleTag':
