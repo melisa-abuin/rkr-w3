@@ -79,6 +79,9 @@ export const awardsDescriptions = {
   TurquoiseFire:
     'Obtained by beating round 5 on Normal+ with 0 or less round deaths',
   TurquoiseNitro: 'Solo tournament',
+  NormalTeamDeathless: 'Obtained by completeing the team deathless challenge on Normal+ difficulty',
+  HardTeamDeathless: 'Obtained by completeing the team deathless challenge on Hard+ difficulty',
+  ImpossibleTeamDeathless: 'Obtained by completeing the team deathless challenge on Impossible+ difficulty',
   TurquoiseWings: 'Solo tournament',
   UndeadKitty: 'Obtained by getting 30 Normal+ wins',
   VioletAura: 'Team tournament',
