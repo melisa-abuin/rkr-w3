@@ -10,9 +10,13 @@ export const Col = styled.div`
   text-align: center;
 `
 
-export const Container = styled.div`
+export const Container = styled.div<{ variant: 'primary' | 'secondary' }>`
   align-items: center;
-  background-color: ${({ theme }) => theme.background.quaternary};
+  background-color: ${({ theme, variant }) =>
+    variant === 'primary'
+      ? theme.background.quaternary
+      : theme.background.highlightPrimary};
+  border-radius: 3px;
   color: ${({ theme }) => theme.text.primary};
   display: flex;
   flex-direction: row;

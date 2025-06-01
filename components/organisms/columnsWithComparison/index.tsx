@@ -9,6 +9,7 @@ interface Props {
   player: DetailedPlayerStats
   comparePlayer?: DetailedPlayerStats
   difficulty?: RoundDifficulty
+  variant?: 'primary' | 'secondary'
 }
 
 export default function ColumnsWithComparison({
@@ -17,11 +18,13 @@ export default function ColumnsWithComparison({
   loading,
   player,
   difficulty = undefined,
+  variant = 'primary',
 }: Props) {
   return (
     <Columns
       loading={loading}
       data={formatComparePlayer(player, comparePlayer, columns, difficulty)}
+      variant={variant}
     />
   )
 }
