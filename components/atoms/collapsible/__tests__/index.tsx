@@ -3,7 +3,7 @@ import Collapsible from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Collapsible', () => {
-  it('renders the title and plus icon by default', () => {
+  it('renders the title by default with the content hidden', () => {
     renderWithTheme(
       <Collapsible title="Test Title">Hidden Content</Collapsible>,
     )
@@ -14,7 +14,7 @@ describe('Collapsible', () => {
     expect(body).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('toggles content and icons on header click', () => {
+  it('toggles content on header click', () => {
     renderWithTheme(<Collapsible title="Click Me">Toggled Content</Collapsible>)
 
     const header = screen.getByText('Click Me')

@@ -1,5 +1,5 @@
 import { DetailedPlayerStats, SaveStreak } from '@/interfaces/player'
-import { isRoundKey } from '../isRoundKey'
+import { isTimeKey } from '../checkKeyType'
 import { RoundDifficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = RoundDifficulty | undefined
@@ -46,16 +46,13 @@ export const getValueForKey = (
     return elem.completedChallenges?.general?.[0]
   }
 
-  if (isRoundKey(key)) {
+  if (isTimeKey(key)) {
     return filter ? elem[key]?.[filter] : elem[key]?.best?.time
   }
 
   if (key === 'battleTag') {
     return elem.battleTag?.name
   }
-
-  if (key === 'bestGameTimes')
-    return filter ? elem.bestGameTimes?.[filter] : elem.bestGameTimes?.best
 
   return elem[key]
 }
@@ -85,7 +82,7 @@ export const getSortConditionByKey = (
   if (typeof firstElement !== 'number' || typeof secondElement !== 'number')
     return true
 
-  if (isRoundKey(key) || key === 'bestGameTimes') {
+  if (isTimeKey(key)) {
     // For round (time) keys the sort is done in the opposite direction since lower times are faster
     // But we send the 0:00 times to the end because it means that they didn't finish the round
     if (firstElement === 0 || secondElement === 0) {

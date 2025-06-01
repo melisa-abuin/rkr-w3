@@ -54,7 +54,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       PlayerColorData,
       BestGameTimes,
     } = saveData
-    console.log(saveData)
+
     playerStats.lastUploaded = playerData.UploadDate
     playerStats.saves = GameStats.Saves
     playerStats.deaths = GameStats.Deaths
@@ -114,16 +114,22 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       playerStats.wins.total,
       playerStats.gamesPlayed.total,
     )
+    const { NormalGameTime, HardGameTime, ImpossibleGameTime } =
+      BestGameTimes || {}
+
+    const normal = NormalGameTime.Time
+    const hard = HardGameTime.Time
+    const impossible = ImpossibleGameTime.Time
 
     playerStats.bestGameTimes = {
       solo: 0,
-      normal: BestGameTimes.NormalGameTime.Time,
-      hard: BestGameTimes.HardGameTime.Time,
-      impossible: BestGameTimes.ImpossibleGameTime.Time,
+      normal,
+      hard,
+      impossible,
       best: calculateBestTimeByDifficulty({
-        normal: BestGameTimes.NormalGameTime.Time,
-        hard: BestGameTimes.HardGameTime.Time,
-        impossible: BestGameTimes.ImpossibleGameTime.Time,
+        normal,
+        hard,
+        impossible,
       }),
     }
 
