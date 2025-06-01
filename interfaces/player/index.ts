@@ -59,16 +59,11 @@ export interface PlayerStats {
   kibbles: Kibbles
 }
 
-export type DetailedPlayerStats = PlayerStats & {
+export interface DetailedPlayerStats extends PlayerStats {
   awards: Awards[]
   skins: Skins
   lastUploaded: string
-  bestGameTimes: {
-    best: BestTime
-    hard: number
-    impossible: number
-    normal: number
-  }
+  bestGameTimes: RoundStats
   mostPlayedColor:
     | 'red'
     | 'blue'

@@ -116,6 +116,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     )
 
     playerStats.bestGameTimes = {
+      solo: 0,
       normal: BestGameTimes.NormalGameTime.Time,
       hard: BestGameTimes.HardGameTime.Time,
       impossible: BestGameTimes.ImpossibleGameTime.Time,
