@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface IconProps {
+interface WingProps {
   internalColor?: string
   externalColor?: string
   height?: number
@@ -14,7 +14,7 @@ export const Wing = ({
   height = 100,
   flipped = false,
   width = 100,
-}: IconProps) => {
+}: WingProps) => {
   const id = Math.random()
   return (
     <svg

@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface IconProps {
+interface Boltrops {
   internalColor?: string
   externalColor?: string
   height?: number
@@ -14,7 +14,7 @@ export const Bolt = ({
   height = 100,
   flipped = false,
   width = 100,
-}: IconProps) => {
+}: Boltrops) => {
   const id = Math.random()
 
   return (
