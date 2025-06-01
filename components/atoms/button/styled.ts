@@ -52,7 +52,7 @@ export const StyledButton = styled.button<{
   font-weight: ${({ small }) =>
     small ? 'var(--font-weight-regular)' : 'var(--font-weight-semi-bold)'};
   font-size: ${({ small }) =>
-    small ? 'var(--font-size-xs)' : 'var(--font-size-xs-md)'};
+    small ? 'var(--font-size-xs)' : 'var(--font-size-xs-sm)'};
 
   &:disabled {
     cursor: not-allowed;
