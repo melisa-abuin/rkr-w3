@@ -1,40 +1,29 @@
-import React from 'react'
 import { screen, fireEvent } from '@testing-library/react'
-import Image from '..'
+import Collapsible from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
-interface ImageProps {
-  src: string
-  alt: string
-  onError: () => void
-}
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: jest.fn(({ src, alt, onError }: ImageProps) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={alt} onError={onError} />
-  )),
-}))
+describe('Collapsible', () => {
+  it('renders the title and plus icon by default', () => {
+    renderWithTheme(
+      <Collapsible title="Test Title">Hidden Content</Collapsible>,
+    )
 
-describe('Image', () => {
-  const defaultProps = {
-    colored: true,
-    fallbackSrc: '/fallback.jpg',
-    src: '/test.jpg',
-  } as const
+    expect(screen.getByText('Test Title')).toBeInTheDocument()
 
-  it('renders the image with the provided src', () => {
-    renderWithTheme(<Image {...defaultProps} alt="some alt text" />)
-    const image = screen.getByAltText('some alt text')
-    expect(image).toHaveAttribute('src', '/test.jpg')
+    const body = screen.getByText('Hidden Content')
+    expect(body).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('switches to the fallback source when the image fails to load', () => {
-    renderWithTheme(<Image {...defaultProps} alt="some alt text" />)
-    const image = screen.getByAltText('some alt text')
+  it('toggles content and icons on header click', () => {
+    renderWithTheme(<Collapsible title="Click Me">Toggled Content</Collapsible>)
 
-    fireEvent.error(image)
+    const header = screen.getByText('Click Me')
+    fireEvent.click(header)
 
-    expect(image).toHaveAttribute('src', '/fallback.jpg')
+    const content = screen.getByText('Toggled Content')
+    expect(content).toHaveAttribute('aria-hidden', 'false')
+
+    fireEvent.click(header)
+    expect(content).toHaveAttribute('aria-hidden', 'true')
   })
 })

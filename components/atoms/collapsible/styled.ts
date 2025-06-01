@@ -6,7 +6,7 @@ export const Body = styled.div<{ isCollapsed: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  max-height: ${({ isCollapsed }) => (isCollapsed ? '0' : '500px')};
+  max-height: ${({ isCollapsed }) => (isCollapsed ? '0' : '800px')};
   opacity: ${({ isCollapsed }) => (isCollapsed ? 0 : 1)};
   overflow: hidden;
   padding-top: ${({ isCollapsed }) => (isCollapsed ? '0' : '8px')};

@@ -13,15 +13,17 @@ export default function Collapsible({ children, title }: CollapsibleProps) {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [theme] = useTheme()
 
+  const iconProps = {
+    fill: theme.text.color.primary,
+    height: 16,
+    width: 16,
+  }
+
   return (
     <Container>
       <Header onClick={() => setIsCollapsed((prev) => !prev)}>
         <Title>{title}</Title>
-        {isCollapsed ? (
-          <Plus fill={theme.text.color.primary} height={16} width={16} />
-        ) : (
-          <Minus fill={theme.text.color.primary} height={16} width={16} />
-        )}
+        {isCollapsed ? <Plus {...iconProps} /> : <Minus {...iconProps} />}
       </Header>
       <Body isCollapsed={isCollapsed} aria-hidden={isCollapsed}>
         {children}
