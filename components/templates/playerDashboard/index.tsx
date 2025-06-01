@@ -8,9 +8,10 @@ import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
+  difficultyNames,
   playerColumns,
+  playerDifficultyColumns,
   playerTimeColumns,
-  roundDifficultyNames,
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
@@ -112,9 +113,17 @@ export default function PlayerDashboard({
         </Row>
       </PageContainer>
 
-      {roundDifficultyNames.map((difficulty) => (
+      {difficultyNames.map((difficulty) => (
         <PageContainer key={difficulty} marginBottom={24}>
           <Collapsible title={`${difficulty} stats`}>
+            <ColumnsWithComparison
+              columns={playerDifficultyColumns}
+              loading={isFetching}
+              player={playerData}
+              comparePlayer={data}
+              difficulty={difficulty}
+              variant="secondary"
+            />
             <ColumnsWithComparison
               columns={playerTimeColumns}
               loading={isFetching}
@@ -126,6 +135,19 @@ export default function PlayerDashboard({
           </Collapsible>
         </PageContainer>
       ))}
+
+      <PageContainer marginBottom={24}>
+        <Collapsible title="Solo Stats">
+          <ColumnsWithComparison
+            columns={playerTimeColumns}
+            loading={isFetching}
+            player={playerData}
+            comparePlayer={data}
+            difficulty="solo"
+            variant="secondary"
+          />
+        </Collapsible>
+      </PageContainer>
 
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
         {data ? (

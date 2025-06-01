@@ -63,6 +63,12 @@ export type DetailedPlayerStats = PlayerStats & {
   awards: Awards[]
   skins: Skins
   lastUploaded: string
+  bestGameTimes: {
+    best: BestTime
+    hard: number
+    impossible: number
+    normal: number
+  }
   mostPlayedColor:
     | 'red'
     | 'blue'

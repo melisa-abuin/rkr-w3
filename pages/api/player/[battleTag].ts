@@ -8,6 +8,7 @@ import {
   fetchData,
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,
+  calculateBestTimeByDifficulty,
 } from '@/utils'
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -51,8 +52,9 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       GameAwardsSorted,
       SelectedData,
       PlayerColorData,
+      BestGameTimes,
     } = saveData
-
+    console.log(saveData)
     playerStats.lastUploaded = playerData.UploadDate
     playerStats.saves = GameStats.Saves
     playerStats.deaths = GameStats.Deaths
@@ -112,6 +114,17 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       playerStats.wins.total,
       playerStats.gamesPlayed.total,
     )
+
+    playerStats.bestGameTimes = {
+      normal: BestGameTimes.NormalGameTime.Time,
+      hard: BestGameTimes.HardGameTime.Time,
+      impossible: BestGameTimes.ImpossibleGameTime.Time,
+      best: calculateBestTimeByDifficulty({
+        normal: BestGameTimes.NormalGameTime.Time,
+        hard: BestGameTimes.HardGameTime.Time,
+        impossible: BestGameTimes.ImpossibleGameTime.Time,
+      }),
+    }
 
     roundNames.forEach((round) => {
       playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)

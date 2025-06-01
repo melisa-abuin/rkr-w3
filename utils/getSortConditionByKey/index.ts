@@ -1,6 +1,10 @@
-import { PlayerStats, SaveStreak } from '@/interfaces/player'
+import {
+  DetailedPlayerStats,
+  PlayerStats,
+  SaveStreak,
+} from '@/interfaces/player'
 import { isRoundKey } from '../isRoundKey'
-import { RoundDifficulty } from '@/interfaces/difficulty'
+import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = RoundDifficulty | undefined
 
@@ -25,9 +29,9 @@ const getValueForSaveStreak = (saveStreak: SaveStreak) => {
   return highestSaveStreak
 }
 
-export const getValueForKey = (
+export const getValueForKey = <T extends PlayerStats>(
   key: keyof PlayerStats,
-  elem: PlayerStats,
+  elem: T,
   filter?: DifficultyFilter,
 ) => {
   if ((key === 'wins' || key === 'gamesPlayed') && filter !== 'solo') {
@@ -57,6 +61,17 @@ export const getValueForKey = (
   return elem[key]
 }
 
+export const getValueForKeyExtended = <T extends DetailedPlayerStats>(
+  key: keyof DetailedPlayerStats,
+  elem: T,
+  filter?: Difficulty | undefined,
+) => {
+  if (key === 'bestGameTimes')
+    return filter ? elem['bestGameTimes'][filter] : elem[key].best
+
+  return elem[key]
+}
+
 /**
  * Provides the sort condition according to the provided key
  *
@@ -70,10 +85,10 @@ export const getValueForKey = (
  * @param elem2 second player stats element
  * @returns comparison between two player stats elements based on the corresponding condition
  */
-export const getSortConditionByKey = (
+export const getSortConditionByKey = <T extends PlayerStats>(
   key: keyof PlayerStats,
-  elem: PlayerStats,
-  elem2: PlayerStats,
+  elem: T,
+  elem2: T,
   filter?: DifficultyFilter,
 ) => {
   const firstElement = getValueForKey(key, elem, filter)

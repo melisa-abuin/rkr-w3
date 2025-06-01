@@ -1,16 +1,36 @@
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { secondsToSexagesimal } from '../secondsToSexagesimal'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
-import { RoundDifficulty } from '@/interfaces/difficulty'
+import { RoundDifficulty, Difficulty } from '@/interfaces/difficulty'
+import { isRoundKey } from '../isRoundKey'
+
+export const getValueForBestGamesKey = (
+  key: keyof DetailedPlayerStats,
+  elem: DetailedPlayerStats,
+  filter?: Difficulty,
+) => {
+  if (key === 'bestGameTimes')
+    return filter ? elem['bestGameTimes'][filter] : elem[key].best
+  return elem[key]
+}
 
 const formatColumns = (
-  column: { title: string; key: keyof PlayerStats },
+  column: { title: string; key: keyof DetailedPlayerStats },
   difficulty: RoundDifficulty | undefined,
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
 ) => {
-  const valueForKey = getValueForKey(column.key, player, difficulty) as number
-  const value = difficulty ? secondsToSexagesimal(valueForKey) : valueForKey
+  const valueForKey =
+    column.key === 'bestGameTimes' && difficulty
+      ? getValueForBestGamesKey(column.key, player, difficulty)
+      : (getValueForKey(column.key, player, difficulty) as number)
+  console.log(valueForKey, column.key)
+
+  const value =
+    isRoundKey(column.key) || column.key === 'bestGameTimes'
+      ? secondsToSexagesimal(valueForKey)
+      : valueForKey
+  console.log(value)
 
   const highlight = comparePlayer
     ? getSortConditionByKey(column.key, player, comparePlayer, difficulty)

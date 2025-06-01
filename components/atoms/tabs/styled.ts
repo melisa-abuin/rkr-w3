@@ -13,7 +13,7 @@ export const Button = styled.button<{ active: boolean }>`
   background: none;
   border: none;
   cursor: pointer;
-  font-size: var(--font-size-xs-md);
+  font-size: var(--font-size-sm-md);
   font-weight: ${({ active }) =>
     active ? 'var(--font-weight-bold)' : 'var(--font-weight-semi-bold)'};
   color: ${({ theme, active }) =>
