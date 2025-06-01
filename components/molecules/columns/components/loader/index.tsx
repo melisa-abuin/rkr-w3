@@ -1,9 +1,13 @@
 import Loader from '@/components/atoms/loader'
 import { Col, Container } from '../../styled'
 
-export default function LoaderColumns() {
+interface LoaderColumnsProps {
+  variant: 'primary' | 'secondary'
+}
+
+export default function LoaderColumns({ variant }: LoaderColumnsProps) {
   return (
-    <Container>
+    <Container variant={variant}>
       {[...Array(5)].map((_, rowIndex) => (
         <Col key={rowIndex}>
           <Loader height={30} variant="secondary" width={'80%'} />
