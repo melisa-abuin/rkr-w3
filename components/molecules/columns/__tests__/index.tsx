@@ -40,4 +40,29 @@ describe('Columns Component', () => {
     expect(screen.getByText('Points')).toBeInTheDocument()
     expect(screen.getByText('hello')).toBeInTheDocument()
   })
+
+  it('renders correctly the actions column', () => {
+    const columns = [{ description: 'Points' }]
+    const actionCol = <div>hello</div>
+    renderWithTheme(<Columns data={[{ columns }]} actionColumn={actionCol} />)
+
+    expect(screen.getByText('Points')).toBeInTheDocument()
+    expect(screen.getByText('hello')).toBeInTheDocument()
+  })
+
+  it('renders the correct variant', () => {
+    const columns = [{ description: 'Points' }]
+    const actionCol = <div>hello</div>
+    const { container } = renderWithTheme(
+      <Columns
+        data={[{ columns }]}
+        actionColumn={actionCol}
+        variant="secondary"
+      />,
+    )
+
+    expect(container.firstChild).toHaveStyle(
+      'background-color: rgb(230, 218, 218)',
+    )
+  })
 })

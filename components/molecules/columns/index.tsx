@@ -26,7 +26,7 @@ export default function Columns({
   variant = 'primary',
 }: Props) {
   return loading ? (
-    <LoaderColumns />
+    <LoaderColumns variant={variant} />
   ) : (
     <Container variant={variant}>
       {data.map(({ title, columns }, index) => (
