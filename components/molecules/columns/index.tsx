@@ -16,17 +16,19 @@ interface Props {
     }>
   }>
   loading?: boolean
+  variant?: 'primary' | 'secondary'
 }
 
 export default function Columns({
   actionColumn,
   data,
   loading = false,
+  variant = 'primary',
 }: Props) {
   return loading ? (
-    <LoaderColumns />
+    <LoaderColumns variant={variant} />
   ) : (
-    <Container>
+    <Container variant={variant}>
       {data.map(({ title, columns }, index) => (
         <Row key={index}>
           {title && <Title>{title}</Title>}

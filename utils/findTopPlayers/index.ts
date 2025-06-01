@@ -1,6 +1,6 @@
 import { PlayerStats } from '@/interfaces/player'
 import { getValueForKey, getSortConditionByKey } from '../getSortConditionByKey'
-import { isRoundKey } from '../isRoundKey'
+import { isRoundKey } from '../checkKeyType'
 import { Difficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = Difficulty | undefined

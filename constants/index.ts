@@ -275,6 +275,12 @@ export const playerColumns = [
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ] as const
 
+export const playerDifficultyColumns = [
+  { title: 'Fastest Game', key: 'bestGameTimes' },
+  { title: 'Games Played', key: 'gamesPlayed' },
+  { title: 'Wins', key: 'wins' },
+] as const
+
 export const playerTimeColumns = [
   { title: 'Round One', key: 'roundOne' },
   { title: 'Round Two', key: 'roundTwo' },

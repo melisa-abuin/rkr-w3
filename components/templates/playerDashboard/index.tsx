@@ -8,9 +8,10 @@ import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
+  difficultyNames,
   playerColumns,
+  playerDifficultyColumns,
   playerTimeColumns,
-  roundDifficultyNames,
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
@@ -22,6 +23,7 @@ import Tabs from '@/components/atoms/tabs'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Header from './components/Header'
+import Collapsible from '@/components/atoms/collapsible'
 
 export default function PlayerDashboard({
   playerData,
@@ -99,7 +101,7 @@ export default function PlayerDashboard({
         />
       </PageContainer>
 
-      <PageContainer title="Overall Stats">
+      <PageContainer title="Overall Stats" marginBottom={24}>
         <Row>
           <ColumnsWithComparison
             columns={playerColumns}
@@ -109,6 +111,42 @@ export default function PlayerDashboard({
           />
           <WinStreak winStreak={playerData.winStreak} />
         </Row>
+      </PageContainer>
+
+      {difficultyNames.map((difficulty) => (
+        <PageContainer key={difficulty} marginBottom={24}>
+          <Collapsible title={`${difficulty} stats`}>
+            <ColumnsWithComparison
+              columns={playerDifficultyColumns}
+              loading={isFetching}
+              player={playerData}
+              comparePlayer={data}
+              difficulty={difficulty}
+              variant="secondary"
+            />
+            <ColumnsWithComparison
+              columns={playerTimeColumns}
+              loading={isFetching}
+              player={playerData}
+              comparePlayer={data}
+              difficulty={difficulty}
+              variant="secondary"
+            />
+          </Collapsible>
+        </PageContainer>
+      ))}
+
+      <PageContainer marginBottom={24}>
+        <Collapsible title="Solo Stats">
+          <ColumnsWithComparison
+            columns={playerTimeColumns}
+            loading={isFetching}
+            player={playerData}
+            comparePlayer={data}
+            difficulty="solo"
+            variant="secondary"
+          />
+        </Collapsible>
       </PageContainer>
 
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
@@ -126,22 +164,6 @@ export default function PlayerDashboard({
           <Awards awards={awards} />
         )}
       </PageContainer>
-
-      {roundDifficultyNames.map((difficulty) => (
-        <PageContainer
-          key={difficulty}
-          title={`Best ${difficulty} Times`}
-          marginBottom={24}
-        >
-          <ColumnsWithComparison
-            columns={playerTimeColumns}
-            loading={isFetching}
-            player={playerData}
-            comparePlayer={data}
-            difficulty={difficulty}
-          />
-        </PageContainer>
-      ))}
 
       {lastDateUploaded && (
         <Info>Stats last uploaded on: {lastDateUploaded}</Info>

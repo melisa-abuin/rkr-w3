@@ -1,16 +1,16 @@
 import React from 'react'
 
-interface SearchProps {
+interface PlusProps {
   fill?: string
   width?: number
   height?: number
 }
 
-export const Search = ({
+export const Plus = ({
   fill = '#000',
   width = 100,
   height = 100,
-}: SearchProps) => {
+}: PlusProps) => {
   return (
     <svg
       fill="none"
@@ -20,8 +20,8 @@ export const Search = ({
       width={width}
     >
       <path
-        d="M23.707,22.293l-5.969-5.969a10.016,10.016,0,1,0-1.414,1.414l5.969,5.969a1,1,0,0,0,1.414-1.414ZM10,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,10,18Z"
         fill={fill}
+        d="m12 0a12 12 0 1 0 12 12 12.013 12.013 0 0 0 -12-12zm0 21a9 9 0 1 1 9-9 9.01 9.01 0 0 1 -9 9zm5-9a1.5 1.5 0 0 1 -1.5 1.5h-2v2a1.5 1.5 0 0 1 -3 0v-2h-2a1.5 1.5 0 0 1 0-3h2v-2a1.5 1.5 0 0 1 3 0v2h2a1.5 1.5 0 0 1 1.5 1.5z"
       />
     </svg>
   )

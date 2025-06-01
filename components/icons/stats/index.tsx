@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface IconProps {
+interface StatsProps {
   fill?: string
   width?: number
   height?: number
@@ -10,7 +10,7 @@ export const Stats = ({
   fill = '#000',
   width = 100,
   height = 100,
-}: IconProps) => {
+}: StatsProps) => {
   return (
     <svg
       fill="none"

@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface IconProps {
+interface CoinsProps {
   fill?: string
   width?: number
   height?: number
@@ -10,7 +10,7 @@ export const Coins = ({
   fill = '#000',
   width = 100,
   height = 100,
-}: IconProps) => {
+}: CoinsProps) => {
   return (
     <svg
       fill="none"

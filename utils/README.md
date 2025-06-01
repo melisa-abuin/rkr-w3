@@ -47,6 +47,7 @@ Below is a list of all available utilities:
 ### 🧠 Type Guards
 
 - `isRoundKey`
+- `isTimeKey`
 
 ### 🔄 Data Validation
 

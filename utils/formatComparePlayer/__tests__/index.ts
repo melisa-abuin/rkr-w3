@@ -20,6 +20,16 @@ describe('formatComparePlayer', () => {
       },
     ],
     lastUploaded: '22-22-2003',
+    bestGameTimes: {
+      normal: 100,
+      hard: 200,
+      impossible: 300,
+      solo: 0,
+      best: {
+        difficulty: 'normal',
+        time: 100,
+      } as const,
+    },
     skins: {
       selectedAura: 'none',
       selectedHat: 'none',
@@ -141,7 +151,7 @@ describe('formatComparePlayer', () => {
           {
             description: 'Round One',
             highlight: true,
-            value: 100,
+            value: '01:40',
           },
         ],
       },
@@ -151,7 +161,7 @@ describe('formatComparePlayer', () => {
           {
             description: 'Round One',
             highlight: false,
-            value: 120,
+            value: '02:00',
           },
         ],
       },

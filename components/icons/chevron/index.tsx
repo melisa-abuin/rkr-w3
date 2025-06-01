@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface IconProps {
+interface ChevronProps {
   fill?: string
   height?: number
   flipped?: boolean
@@ -12,7 +12,7 @@ export const Chevron = ({
   height = 100,
   flipped = false,
   width = 100,
-}: IconProps) => {
+}: ChevronProps) => {
   return (
     <svg
       fill="none"

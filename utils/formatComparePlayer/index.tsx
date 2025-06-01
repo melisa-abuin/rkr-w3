@@ -2,15 +2,19 @@ import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { secondsToSexagesimal } from '../secondsToSexagesimal'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { RoundDifficulty } from '@/interfaces/difficulty'
+import { isTimeKey } from '../checkKeyType'
 
 const formatColumns = (
-  column: { title: string; key: keyof PlayerStats },
+  column: { title: string; key: keyof DetailedPlayerStats },
   difficulty: RoundDifficulty | undefined,
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
 ) => {
   const valueForKey = getValueForKey(column.key, player, difficulty) as number
-  const value = difficulty ? secondsToSexagesimal(valueForKey) : valueForKey
+
+  const value = isTimeKey(column.key)
+    ? secondsToSexagesimal(valueForKey)
+    : valueForKey
 
   const highlight = comparePlayer
     ? getSortConditionByKey(column.key, player, comparePlayer, difficulty)
@@ -34,7 +38,7 @@ const formatColumns = (
 export const formatComparePlayer = (
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
-  columns: Readonly<Array<{ title: string; key: keyof PlayerStats }>>,
+  columns: Readonly<Array<{ title: string; key: keyof DetailedPlayerStats }>>,
   difficulty: RoundDifficulty | undefined,
 ) => {
   const result = []

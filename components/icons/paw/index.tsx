@@ -1,16 +1,12 @@
 import React from 'react'
 
-interface IconProps {
+interface PawProps {
   fill?: string
   width?: number
   height?: number
 }
 
-export const Paw = ({
-  fill = '#000',
-  width = 100,
-  height = 100,
-}: IconProps) => {
+export const Paw = ({ fill = '#000', width = 100, height = 100 }: PawProps) => {
   return (
     <svg
       fill="none"
