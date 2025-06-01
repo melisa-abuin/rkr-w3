@@ -1,18 +1,8 @@
 import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
 import { secondsToSexagesimal } from '../secondsToSexagesimal'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
-import { RoundDifficulty, Difficulty } from '@/interfaces/difficulty'
+import { RoundDifficulty } from '@/interfaces/difficulty'
 import { isRoundKey } from '../isRoundKey'
-
-export const getValueForBestGamesKey = (
-  key: keyof DetailedPlayerStats,
-  elem: DetailedPlayerStats,
-  filter?: Difficulty,
-) => {
-  if (key === 'bestGameTimes')
-    return filter ? elem['bestGameTimes'][filter] : elem[key].best
-  return elem[key]
-}
 
 const formatColumns = (
   column: { title: string; key: keyof DetailedPlayerStats },
@@ -20,17 +10,12 @@ const formatColumns = (
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
 ) => {
-  const valueForKey =
-    column.key === 'bestGameTimes' && difficulty
-      ? getValueForBestGamesKey(column.key, player, difficulty)
-      : (getValueForKey(column.key, player, difficulty) as number)
-  console.log(valueForKey, column.key)
+  const valueForKey = getValueForKey(column.key, player, difficulty) as number
 
   const value =
     isRoundKey(column.key) || column.key === 'bestGameTimes'
       ? secondsToSexagesimal(valueForKey)
       : valueForKey
-  console.log(value)
 
   const highlight = comparePlayer
     ? getSortConditionByKey(column.key, player, comparePlayer, difficulty)
@@ -54,7 +39,7 @@ const formatColumns = (
 export const formatComparePlayer = (
   player: DetailedPlayerStats,
   comparePlayer: DetailedPlayerStats | undefined,
-  columns: Readonly<Array<{ title: string; key: keyof PlayerStats }>>,
+  columns: Readonly<Array<{ title: string; key: keyof DetailedPlayerStats }>>,
   difficulty: RoundDifficulty | undefined,
 ) => {
   const result = []

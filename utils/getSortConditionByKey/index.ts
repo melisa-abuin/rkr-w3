@@ -1,10 +1,6 @@
-import {
-  DetailedPlayerStats,
-  PlayerStats,
-  SaveStreak,
-} from '@/interfaces/player'
+import { DetailedPlayerStats, SaveStreak } from '@/interfaces/player'
 import { isRoundKey } from '../isRoundKey'
-import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
+import { RoundDifficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = RoundDifficulty | undefined
 
@@ -29,45 +25,37 @@ const getValueForSaveStreak = (saveStreak: SaveStreak) => {
   return highestSaveStreak
 }
 
-export const getValueForKey = <T extends PlayerStats>(
-  key: keyof PlayerStats,
-  elem: T,
+export const getValueForKey = (
+  key: keyof Partial<DetailedPlayerStats>,
+  elem: Partial<DetailedPlayerStats>,
   filter?: DifficultyFilter,
 ) => {
   if ((key === 'wins' || key === 'gamesPlayed') && filter !== 'solo') {
-    return filter ? elem[key][filter] : elem[key].total
+    return filter ? elem[key]?.[filter] : elem[key]?.total
   }
 
   if (key === 'saveStreak') {
-    return getValueForSaveStreak(elem[key])
+    return elem.saveStreak ? getValueForSaveStreak(elem.saveStreak) : 0
   }
 
   if (key === 'kibbles') {
-    return elem[key].collectedSingleGame
+    return elem.kibbles?.collectedSingleGame
   }
 
   if (key === 'completedChallenges') {
-    return elem[key]['general'][0]
+    return elem.completedChallenges?.general?.[0]
   }
 
   if (isRoundKey(key)) {
-    return filter ? elem[key][filter] : elem[key].best.time
+    return filter ? elem[key]?.[filter] : elem[key]?.best?.time
   }
 
   if (key === 'battleTag') {
-    return elem[key]['name']
+    return elem.battleTag?.name
   }
 
-  return elem[key]
-}
-
-export const getValueForKeyExtended = <T extends DetailedPlayerStats>(
-  key: keyof DetailedPlayerStats,
-  elem: T,
-  filter?: Difficulty | undefined,
-) => {
   if (key === 'bestGameTimes')
-    return filter ? elem['bestGameTimes'][filter] : elem[key].best
+    return filter ? elem.bestGameTimes?.[filter] : elem.bestGameTimes?.best
 
   return elem[key]
 }
@@ -85,18 +73,21 @@ export const getValueForKeyExtended = <T extends DetailedPlayerStats>(
  * @param elem2 second player stats element
  * @returns comparison between two player stats elements based on the corresponding condition
  */
-export const getSortConditionByKey = <T extends PlayerStats>(
-  key: keyof PlayerStats,
-  elem: T,
-  elem2: T,
+export const getSortConditionByKey = (
+  key: keyof Partial<DetailedPlayerStats>,
+  elem: Partial<DetailedPlayerStats>,
+  elem2: Partial<DetailedPlayerStats>,
   filter?: DifficultyFilter,
 ) => {
   const firstElement = getValueForKey(key, elem, filter)
   const secondElement = getValueForKey(key, elem2, filter)
 
-  // For round (time) keys the sort is done in the opposite direction since lower times are faster
-  // But we send the 0:00 times to the end because it means that they didn't finish the round
-  if (isRoundKey(key)) {
+  if (typeof firstElement !== 'number' || typeof secondElement !== 'number')
+    return true
+
+  if (isRoundKey(key) || key === 'bestGameTimes') {
+    // For round (time) keys the sort is done in the opposite direction since lower times are faster
+    // But we send the 0:00 times to the end because it means that they didn't finish the round
     if (firstElement === 0 || secondElement === 0) {
       return !(firstElement < secondElement)
     }

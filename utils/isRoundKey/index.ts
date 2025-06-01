@@ -1,4 +1,4 @@
-import { PlayerStats } from '@/interfaces/player'
+import { DetailedPlayerStats } from '@/interfaces/player'
 
 const roundKeys = [
   'roundOne',
@@ -15,6 +15,6 @@ type RoundKey = (typeof roundKeys)[number]
  * @param key player stats key
  * @returns true if it is a round type
  */
-export const isRoundKey = (key: keyof PlayerStats): key is RoundKey => {
+export const isRoundKey = (key: keyof DetailedPlayerStats): key is RoundKey => {
   return roundKeys.includes(key as RoundKey)
 }
