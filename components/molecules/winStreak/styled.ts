@@ -8,7 +8,8 @@ const rotate = keyframes`
 
 export const CenterBox = styled.div`
   align-items: center;
-  border-radius: 12px;
+  background-color: ${({ theme }) => theme.background.quaternary};
+  border-radius: 5px;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -43,7 +44,7 @@ export const AnimatedBorderBox = styled.div`
   }
 
   &::after {
-    border-radius: 8px;
+    border-radius: 3px;
     content: '';
     height: calc(100% - 4px);
     left: 2px;
@@ -62,7 +63,7 @@ export const AnimatedBorderBoxGlow = styled(AnimatedBorderBox)`
 export const Container = styled.div<{ withMargin: boolean }>`
   align-items: center;
   background-color: ${({ theme }) => theme.background.quaternary};
-  border-radius: 8px;
+  border-radius: 3px;
   color: ${({ theme }) => theme.text.color.primary};
   display: flex;
   flex-direction: column;

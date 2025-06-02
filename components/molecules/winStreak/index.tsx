@@ -49,7 +49,7 @@ export default function WinStreak({ current, highest }: WinStreakProps) {
       <AnimatedBorderBoxGlow />
       <AnimatedBorderBox />
 
-      <Container withMargin={current > 10}>
+      <Container withMargin={current === highest}>
         <Title>Win Streak</Title>
         <Row>
           <Col>
