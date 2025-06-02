@@ -24,6 +24,7 @@ import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Header from './components/Header'
 import Collapsible from '@/components/atoms/collapsible'
+import Besties from './components/besties'
 
 export default function PlayerDashboard({
   playerData,
@@ -81,6 +82,11 @@ export default function PlayerDashboard({
     router.push('?')
   }, [router])
 
+  const showBesties =
+    playerData.fastestBesties &&
+    (playerData.fastestBesties[3].length > 0 ||
+      playerData.fastestBesties[2].length > 0)
+  console.log(showBesties, playerData.fastestBesties)
   return (
     <>
       <PageContainer>
@@ -151,6 +157,12 @@ export default function PlayerDashboard({
           />
         </Collapsible>
       </PageContainer>
+
+      {showBesties && (
+        <PageContainer title="Fastest Besties">
+          <Besties besties={playerData.fastestBesties} />
+        </PageContainer>
+      )}
 
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
         {data ? (
