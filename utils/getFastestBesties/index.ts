@@ -17,6 +17,15 @@ interface BestGameTimes {
 }
 
 export const getFastestBesties = (battleTag: string, times: BestGameTimes) => {
+  const apparitions: Record<1 | 2 | 3, string[]> = {
+    1: [],
+    2: [],
+    3: [],
+  }
+
+  if (!times) {
+    return apparitions
+  }
   const names = [
     ...times.HardGameTime.TeamMembers.split(', '),
     ...times.ImpossibleGameTime.TeamMembers.split(', '),
@@ -29,18 +38,10 @@ export const getFastestBesties = (battleTag: string, times: BestGameTimes) => {
     nameCounts[name] = (nameCounts[name] || 0) + 1
   })
 
-  const apparitions: Record<1 | 2 | 3, string[]> = {
-    1: [],
-    2: [],
-    3: [],
-  }
-
   Object.entries(nameCounts).forEach(([name, count]) => {
     const validCount = Math.min(count, 3) as 1 | 2 | 3
     if (name && name !== battleTag) apparitions[validCount].push(name)
   })
-
-  console.log(times.NormalGameTime.TeamMembers)
 
   return apparitions
 }

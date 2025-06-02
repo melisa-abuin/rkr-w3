@@ -118,9 +118,9 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     const { NormalGameTime, HardGameTime, ImpossibleGameTime } =
       BestGameTimes || {}
 
-    const normal = NormalGameTime.Time
-    const hard = HardGameTime.Time
-    const impossible = ImpossibleGameTime.Time
+    const normal = NormalGameTime?.Time
+    const hard = HardGameTime?.Time
+    const impossible = ImpossibleGameTime?.Time
 
     playerStats.bestGameTimes = {
       solo: 0,

@@ -86,7 +86,7 @@ export default function PlayerDashboard({
     playerData.fastestBesties &&
     (playerData.fastestBesties[3].length > 0 ||
       playerData.fastestBesties[2].length > 0)
-  console.log(showBesties, playerData.fastestBesties)
+
   return (
     <>
       <PageContainer>
