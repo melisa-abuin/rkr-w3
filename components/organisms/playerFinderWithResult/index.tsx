@@ -3,10 +3,17 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { playerColumns } from '@/constants'
 import { PlayerStats } from '@/interfaces/player'
 import { useState } from 'react'
 import { Wrapper } from './styled'
+
+export const columns = [
+  { title: 'Saves', key: 'saves' },
+  { title: 'Deaths', key: 'deaths' },
+  { title: 'S/D Ratio', key: 'saveDeathRatio' },
+  { title: 'Win Rate', key: 'winRate' },
+  { title: 'Highest Win Streak', key: 'winStreak' },
+] as const
 
 export default function PlayerFinderWithResult() {
   const [selectedPlayer, setSelectedPlayer] = useState<
@@ -35,7 +42,7 @@ export default function PlayerFinderWithResult() {
             }
             data={[
               {
-                columns: playerColumns.map((col) => ({
+                columns: columns.map((col) => ({
                   description: col.title,
                   value: selectedPlayer[col.key],
                 })),

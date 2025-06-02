@@ -1,7 +1,15 @@
 'use client'
 
 import TextWithIcon from '@/components/atoms/textWithIcon'
-import { Container } from './styled'
+import {
+  AnimatedBorderBox,
+  AnimatedBorderBoxGlow,
+  CenterBox,
+  Col,
+  Container,
+  Row,
+  Title,
+} from './styled'
 
 export const scoreMessagesMap: Record<number, string> = {
   3: 'Keep it up!',
@@ -29,14 +37,36 @@ const getEncouragingMessage = (score: number): string | null => {
   return message
 }
 
-export default function WinStreak({ winStreak }: { winStreak: number }) {
+interface WinStreakProps {
+  current: number
+  highest: number
+}
+
+export default function WinStreak({ current, highest }: WinStreakProps) {
+  const message = getEncouragingMessage(current)
   return (
-    <Container>
-      <p>Current Win Streak</p>
-      <TextWithIcon colorName="brandPrimary" iconName="flame">
-        {winStreak}
-      </TextWithIcon>
-      <p>{getEncouragingMessage(winStreak)}</p>
-    </Container>
+    <CenterBox>
+      <AnimatedBorderBoxGlow />
+      <AnimatedBorderBox />
+
+      <Container withMargin={current === highest}>
+        <Title>Win Streak</Title>
+        <Row>
+          <Col>
+            <p>Current</p>
+            <span>{current}</span>
+          </Col>
+          <Col>
+            <p>Highest</p>
+            <span>{highest}</span>
+          </Col>
+        </Row>
+        {message && (
+          <TextWithIcon colorName="brandPrimary" iconName="flame">
+            {message}
+          </TextWithIcon>
+        )}
+      </Container>
+    </CenterBox>
   )
 }

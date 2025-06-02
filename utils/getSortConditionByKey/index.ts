@@ -79,7 +79,10 @@ export const getSortConditionByKey = (
   const firstElement = getValueForKey(key, elem, filter)
   const secondElement = getValueForKey(key, elem2, filter)
 
-  if (typeof firstElement !== 'number' || typeof secondElement !== 'number')
+  if (typeof firstElement !== 'string' && typeof firstElement !== 'number')
+    return true
+
+  if (typeof secondElement !== 'string' && typeof secondElement !== 'number')
     return true
 
   if (isTimeKey(key)) {
