@@ -1,4 +1,4 @@
-name: Components File Structure CI
+name: Unused components CI
 on:
   pull_request:
     branches: [main]
@@ -17,4 +17,4 @@ jobs:
       - name: Execute Python script
         run: |
           cd scripts
-          python3 ./atomicStructureCheck.py
+          python3 ./unusedComponentsCheck.py
