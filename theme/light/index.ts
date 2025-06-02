@@ -13,6 +13,12 @@ const lightTheme = {
       hoverBackground: '#41B2B2',
       hoverColor: '#000000',
     },
+    tertiary: {
+      background: '#e6dada',
+      color: '#050505',
+      hoverBackground: '#d4a9a9',
+      hoverColor: '#050505',
+    },
   },
   color: {
     black: '#000000',

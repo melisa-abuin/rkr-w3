@@ -13,6 +13,12 @@ const darkTheme = {
       hoverBackground: '#027f7f',
       hoverColor: '#e6edf3',
     },
+    tertiary: {
+      background: '#3f3030',
+      color: '#e6edf3',
+      hoverBackground: '#604747',
+      hoverColor: '#e6edf3',
+    },
   },
   color: {
     black: '#000000',
