@@ -1,4 +1,4 @@
-import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
+import { DetailedPlayerStats } from '@/interfaces/player'
 import { secondsToSexagesimal } from '../secondsToSexagesimal'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { RoundDifficulty } from '@/interfaces/difficulty'

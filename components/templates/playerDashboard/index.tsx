@@ -109,7 +109,10 @@ export default function PlayerDashboard({
             player={playerData}
             comparePlayer={data}
           />
-          <WinStreak winStreak={playerData.winStreak} />
+          <WinStreak
+            current={playerData.winStreak}
+            highest={playerData.highestWinStreak}
+          />
         </Row>
       </PageContainer>
 
