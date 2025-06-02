@@ -16,6 +16,10 @@ def get_resources_relative_paths():
         continue
       full_path = os.path.join(folder_path, file)
       relative_path = os.path.relpath(full_path, base_path).replace(os.sep, "/")
+      if "dark" in relative_path or "light" in relative_path:
+        variable_theme = r"${theme.name}"
+        dynamic_path = relative_path.replace("dark", variable_theme).replace("light", variable_theme)
+        resources_relative_paths.append(dynamic_path)
       resources_relative_paths.append(relative_path)
   return resources_relative_paths
 
@@ -42,8 +46,23 @@ def find_imports(resources):
           file_path = os.path.join(folder_path, file)
           matches = find_matching_patterns(file_path, mutable_resources)
           for match in matches:
-            mutable_resources.remove(match)
+            safe_remove(mutable_resources, match)
+            variable_theme = r"${theme.name}"
+            if "dark" in match or "light" in match:
+              dynamic_path = match.replace("dark", variable_theme).replace("light", variable_theme)
+              safe_remove(mutable_resources, dynamic_path)
+            if variable_theme in match:
+              dark_path = match.replace(variable_theme, "dark")
+              light_path = match.replace(variable_theme, "light")
+              safe_remove(mutable_resources, dark_path)
+              safe_remove(mutable_resources, light_path)
   return mutable_resources
+
+def safe_remove(list, object):
+  try: 
+    list.remove(object)
+  except:
+    return
 
 def deleteUnusedResources(resources):
   base_path = os.path.abspath("../public")
@@ -54,15 +73,17 @@ def deleteUnusedResources(resources):
       os.remove(full_path)
 
 def main():
-  print("Scanning")
   parser = argparse.ArgumentParser(description="Delete resources after finding them.")
   parser.add_argument("-d", action="store_true", help="Delete unused resources")
 
+  print("Scanning")
   resources = get_resources_relative_paths()
   unused_resources = find_imports(resources)
   if unused_resources:
     for unused_resource in unused_resources:
-      print(f"Unused resource: {unused_resource}")
+      variable_theme = r"${theme.name}"
+      if variable_theme not in unused_resource:
+        print(f"Unused resource: {unused_resource}")
     args = parser.parse_args()
     if args.d:
       deleteUnusedResources(unused_resources)
