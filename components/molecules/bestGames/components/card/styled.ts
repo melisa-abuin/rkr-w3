@@ -31,6 +31,7 @@ export const NameList = styled.div`
   align-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.background.highlightPrimary};
+  border-radius: 3px;
   color: ${({ theme }) => theme.text.primary};
   display: flex;
   flex: 1;

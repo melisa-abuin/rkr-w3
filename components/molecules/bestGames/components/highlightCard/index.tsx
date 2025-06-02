@@ -1,8 +1,9 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
-import { Container, Date, DetailContainer, Name, Row, Wrapper } from './styled'
+import { Container, Date, DetailContainer, Info, Row, Wrapper } from './styled'
 import { formatDateToLocale, secondsToSexagesimal } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import PositionNumber from '@/components/atoms/positionNumber'
+import Button from '@/components/atoms/button'
 
 interface HighlightCardProps {
   difficulty: Difficulty
@@ -20,14 +21,14 @@ export default function HighlightCard({
   showDifficulty,
 }: HighlightCardProps) {
   const matchDate = formatDateToLocale(date)
-  const members = teamMembers.split(',')
+  const members = teamMembers.split(', ')
 
   return (
     <Container>
       <PositionNumber pos={1} />
       <DetailContainer>
         <Row>
-          <Wrapper>
+          <Info>
             <TextWithIcon colorName="tertiary" iconName="clock">
               {secondsToSexagesimal(time)}
             </TextWithIcon>
@@ -36,12 +37,20 @@ export default function HighlightCard({
                 {difficulty}
               </TextWithIcon>
             )}
-          </Wrapper>
+          </Info>
           <Date>{matchDate}</Date>
         </Row>
         <Wrapper>
           {members.map((memeber) => (
-            <Name key={memeber}>{memeber.split('#')[0]}</Name>
+            <Button
+              as="a"
+              key={memeber}
+              href={`/player/${encodeURIComponent(memeber)}`}
+              small
+              colorName="tertiary"
+            >
+              {memeber.split('#')[0]}
+            </Button>
           ))}
         </Wrapper>
       </DetailContainer>
