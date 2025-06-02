@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean
   onClick?: () => void
   small?: boolean
-  colorName?: 'primary' | 'secondary'
+  colorName?: 'primary' | 'secondary' | 'tertiary'
   variant?: 'outline' | 'solid' | 'ghost'
 }
 
