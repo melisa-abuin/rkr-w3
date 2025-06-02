@@ -15,12 +15,13 @@ def get_paths(directory):
   return filtered_paths
 
 def replace_root_with_alias(path_lists):
-  pattern = r"^.*?(?=\\components)"
+  pattern = r"^.*?(?=(/|\\)components)"
   return [re.sub(pattern, "@", path, count=1) for path in path_lists]
 
 def make_relative_if_needed(path_lists):
-  pattern = r"^(.*?\\components\\.*?\\components\\)"
-  return [re.sub(pattern, r"./components/", path, count=1) for path in path_lists]
+    normalized = [p.replace("\\", "/") for p in path_lists]
+    pattern = r"^(.*?/components/.*?/components/)"
+    return [re.sub(pattern, "./components/", path, count=1) for path in normalized]
 
 def make_regex_for_paths(paths):
     regex_list = []
@@ -64,7 +65,7 @@ def find_imports(patterns, paths):
     for pattern in mutable_patterns:
       try:
         index = patterns.index(pattern)
-        print(f"\033[91m Found unused component {paths[index]} \033[0m")
+        print(f"\033[91mFound unused component {paths[index]} \033[0m")
       except ValueError:
        print(f"Found unused component with regex: {pattern}")
     sys.exit("\033[91mUnused components found \033[0m")
