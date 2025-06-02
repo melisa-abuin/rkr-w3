@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import re
+import sys
 
 def get_paths(directory):
   black_listed_folders = ["components", "atoms", "molecules", "icons", "organisms", "templates", "__tests__"]
@@ -67,6 +68,7 @@ def find_imports(patterns, paths):
         print(f"\033[91m Found unused component {paths[index]} \033[0m")
       except ValueError:
        print(f"Found unused component with regex: {pattern}")
+  sys.exit(1)
 
 
 def main():

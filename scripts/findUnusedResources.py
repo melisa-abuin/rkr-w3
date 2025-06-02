@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import re
+import sys
 import argparse
 
 def get_resources_relative_paths():
@@ -66,8 +67,10 @@ def main():
     args = parser.parse_args()
     if args.d:
       deleteUnusedResources(unused_resources)
+    sys.exit(1)
   else:
     print("No unused resources where found")
+    sys.exit(0)
 
 if __name__ == "__main__":
     main()
