@@ -10,32 +10,7 @@ import {
   Row,
   Title,
 } from './styled'
-
-export const scoreMessagesMap: Record<number, string> = {
-  3: 'Keep it up!',
-  6: 'Looking sharp!',
-  10: 'Crushing it!',
-  15: 'On fire!',
-  20: 'Unstoppable!',
-}
-
-const getEncouragingMessage = (score: number): string | null => {
-  const thresholds = Object.keys(scoreMessagesMap)
-    .map(Number)
-    .sort((a, b) => a - b)
-
-  let message: string | null = null
-
-  for (const threshold of thresholds) {
-    if (score >= threshold) {
-      message = scoreMessagesMap[threshold]
-    } else {
-      break
-    }
-  }
-
-  return message
-}
+import { getMessageByScore } from '@/utils/getMessageByScore'
 
 interface WinStreakProps {
   current: number
@@ -43,7 +18,7 @@ interface WinStreakProps {
 }
 
 export default function WinStreak({ current, highest }: WinStreakProps) {
-  const message = getEncouragingMessage(current)
+  const message = getMessageByScore(current)
   return (
     <CenterBox>
       <AnimatedBorderBoxGlow />
