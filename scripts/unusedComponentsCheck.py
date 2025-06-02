@@ -12,7 +12,6 @@ def get_paths(directory):
         components_list.append(os.path.join(root, name))
   filtered_paths = replace_root_with_alias(components_list)
   filtered_paths = make_relative_if_needed(filtered_paths)
-  print(filtered_paths)
   return filtered_paths
 
 def replace_root_with_alias(path_lists):
@@ -68,7 +67,7 @@ def find_imports(patterns, paths):
         print(f"\033[91m Found unused component {paths[index]} \033[0m")
       except ValueError:
        print(f"Found unused component with regex: {pattern}")
-  sys.exit(1)
+    sys.exit("\033[91mUnused components found \033[0m")
 
 
 def main():

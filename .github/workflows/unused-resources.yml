@@ -16,4 +16,5 @@ jobs:
 
       - name: Execute Python script
         run: |
-          python3 ./scripts/findUnusedResources.py
+          cd scripts
+          python3 ./findUnusedResources.py

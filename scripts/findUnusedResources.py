@@ -63,11 +63,10 @@ def main():
   if unused_resources:
     for unused_resource in unused_resources:
       print(f"Unused resource: {unused_resource}")
-
     args = parser.parse_args()
     if args.d:
       deleteUnusedResources(unused_resources)
-    sys.exit(1)
+    sys.exit("\033[91mUnused resources found \033[0m")
   else:
     print("No unused resources where found")
     sys.exit(0)
