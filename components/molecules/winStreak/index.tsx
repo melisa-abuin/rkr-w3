@@ -20,7 +20,7 @@ interface WinStreakProps {
 export default function WinStreak({ current, highest }: WinStreakProps) {
   const message = getMessageByScore(current)
   return (
-    <CenterBox withPadding={current === highest}>
+    <CenterBox withPadding={current !== 0 && current === highest}>
       <AnimatedBorderBoxGlow />
       <AnimatedBorderBox />
 
