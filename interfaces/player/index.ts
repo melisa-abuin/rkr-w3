@@ -59,11 +59,14 @@ export interface PlayerStats {
   kibbles: Kibbles
 }
 
+export type FastestBesties = Record<1 | 2 | 3, string[]>
+
 export interface DetailedPlayerStats extends PlayerStats {
   awards: Awards[]
   skins: Skins
   lastUploaded: string
   bestGameTimes: RoundStats
+  fastestBesties: FastestBesties
   mostPlayedColor:
     | 'red'
     | 'blue'

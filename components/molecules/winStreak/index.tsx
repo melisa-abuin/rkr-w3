@@ -20,11 +20,11 @@ interface WinStreakProps {
 export default function WinStreak({ current, highest }: WinStreakProps) {
   const message = getMessageByScore(current)
   return (
-    <CenterBox>
+    <CenterBox withPadding={current !== 0 && current === highest}>
       <AnimatedBorderBoxGlow />
       <AnimatedBorderBox />
 
-      <Container withMargin={current === highest}>
+      <Container>
         <Title>Win Streak</Title>
         <Row>
           <Col>

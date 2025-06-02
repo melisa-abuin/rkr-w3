@@ -6,7 +6,7 @@ const rotate = keyframes`
   }
 `
 
-export const CenterBox = styled.div`
+export const CenterBox = styled.div<{ withPadding: boolean }>`
   align-items: center;
   background-color: ${({ theme }) => theme.background.quaternary};
   border-radius: 5px;
@@ -16,6 +16,7 @@ export const CenterBox = styled.div`
   min-width: 250px;
   overflow: hidden;
   position: relative;
+  padding: ${({ withPadding }) => (withPadding ? '2px' : '0')};
 `
 
 export const AnimatedBorderBox = styled.div`
@@ -60,7 +61,7 @@ export const AnimatedBorderBoxGlow = styled(AnimatedBorderBox)`
   z-index: 1;
 `
 
-export const Container = styled.div<{ withMargin: boolean }>`
+export const Container = styled.div`
   align-items: center;
   background-color: ${({ theme }) => theme.background.quaternary};
   border-radius: 3px;
@@ -68,7 +69,7 @@ export const Container = styled.div<{ withMargin: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: ${({ withMargin }) => (withMargin ? '2px' : '0')};
+  height: 100%;
   padding: 24px 16px;
   width: 100%;
   z-index: 1;

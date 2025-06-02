@@ -38,6 +38,11 @@ describe('formatComparePlayer', () => {
       selectedWindwalk: 'none',
       selectedWings: 'none',
     },
+    fastestBesties: {
+      1: [],
+      2: [],
+      3: [],
+    },
     mostPlayedColor: 'red' as const,
   }
   beforeEach(() => {

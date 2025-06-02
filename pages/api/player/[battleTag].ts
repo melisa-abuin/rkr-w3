@@ -13,6 +13,7 @@ import {
 import { DetailedPlayerStats } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { blacklistedPlayers, roundNames } from '@/constants'
+import { getFastestBesties } from '@/utils/getFastestBesties'
 
 interface QueryParams {
   battleTag: string
@@ -117,9 +118,9 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     const { NormalGameTime, HardGameTime, ImpossibleGameTime } =
       BestGameTimes || {}
 
-    const normal = NormalGameTime.Time
-    const hard = HardGameTime.Time
-    const impossible = ImpossibleGameTime.Time
+    const normal = NormalGameTime?.Time
+    const hard = HardGameTime?.Time
+    const impossible = ImpossibleGameTime?.Time
 
     playerStats.bestGameTimes = {
       solo: 0,
@@ -136,6 +137,8 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     roundNames.forEach((round) => {
       playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
     })
+
+    playerStats.fastestBesties = getFastestBesties(PlayerName, BestGameTimes)
 
     res.status(200).json(playerStats)
   } catch (error) {

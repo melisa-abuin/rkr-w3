@@ -12,7 +12,7 @@ export const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 4px;
+  gap: 8px;
   background-color: ${({ theme }) => theme.background.quaternary};
   padding: 8px;
   border-radius: 3px;

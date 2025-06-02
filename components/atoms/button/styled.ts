@@ -9,7 +9,6 @@ export const StyledButton = styled.button<{
   variant?: 'outline' | 'solid' | 'ghost'
 }>`
   padding: ${({ small }) => (small ? '4px 8px' : '8px 12px')};
-  margin: 0 4px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
