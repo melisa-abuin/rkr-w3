@@ -5,7 +5,7 @@ import { Col, Container, Description, Row, Title } from './styled'
 import LoaderColumns from './components/loader'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
-interface Props {
+interface ColumnsProps {
   actionColumn?: ReactNode
   data: Array<{
     title?: string
@@ -24,7 +24,7 @@ export default function Columns({
   data,
   loading = false,
   variant = 'primary',
-}: Props) {
+}: ColumnsProps) {
   return loading ? (
     <LoaderColumns variant={variant} />
   ) : (

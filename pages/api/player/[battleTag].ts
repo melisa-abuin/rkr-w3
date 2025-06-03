@@ -55,6 +55,8 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       SelectedData,
       PlayerColorData,
       BestGameTimes,
+      KibbleCurrency,
+      PersonalBests,
     } = saveData
 
     playerStats.lastUploaded = playerData.UploadDate
@@ -72,6 +74,23 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     } else {
       playerStats.completedChallenges =
         calculateCompletedChallengesLegacy(GameAwards)
+    }
+
+    //TODO: make this a function
+    if (!KibbleCurrency || !PersonalBests) {
+      playerStats.kibbles = {
+        allTime: 0,
+        jackpots: 0,
+        superJackpots: 0,
+        singleGame: 0,
+      }
+    } else {
+      playerStats.kibbles = {
+        allTime: KibbleCurrency?.Collected,
+        jackpots: KibbleCurrency?.Jackpots,
+        superJackpots: KibbleCurrency.SuperJackpots,
+        singleGame: PersonalBests.KibbleCollected,
+      }
     }
 
     if (GameAwardsSorted) {
@@ -140,7 +159,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     })
 
     playerStats.fastestBesties = getFastestBesties(PlayerName, BestGameTimes)
-    playerStats.savesSingleGame = 0
+    playerStats.savesSingleGame = PersonalBests?.Saves || 0
 
     res.status(200).json(playerStats)
   } catch (error) {

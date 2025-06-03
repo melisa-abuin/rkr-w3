@@ -276,6 +276,17 @@ export const playerColumns = [
   { title: 'Highest Save Streak', key: 'saveStreak' },
 ] as const
 
+export const personalBestsColumns = [
+  { title: 'Kibbles Collected', key: 'singleGame' },
+  { title: 'Saves', key: 'savesSingleGame' },
+] as const
+
+export const kibblesColumns = [
+  { title: 'Kibbles Collected', key: 'allTime' },
+  { title: 'Jackpots', key: 'jackpots' },
+  { title: 'Super Jackpots', key: 'superJackpots' },
+] as const
+
 export const playerDifficultyColumns = [
   { title: 'Fastest Game', key: 'bestGameTimes' },
   { title: 'Games Played', key: 'gamesPlayed' },

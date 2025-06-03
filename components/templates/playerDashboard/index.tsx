@@ -9,13 +9,15 @@ import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
   difficultyNames,
+  kibblesColumns,
+  personalBestsColumns,
   playerColumns,
   playerDifficultyColumns,
   playerTimeColumns,
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
 import { Player } from '@/interfaces/player'
-import { formatDateToLocale, playerDataOutdated } from '@/utils'
+import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 import { Row } from './styled'
@@ -25,6 +27,7 @@ import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Header from './components/Header'
 import Collapsible from '@/components/atoms/collapsible'
 import Besties from './components/besties'
+import Columns from '@/components/molecules/columns'
 
 export default function PlayerDashboard({
   playerData,
@@ -166,17 +169,13 @@ export default function PlayerDashboard({
 
       <PageContainer title="Personal bests" marginBottom={24}>
         <Row>
-          <ColumnsWithComparison
-            columns={playerColumns}
+          <Columns
+            data={formatCompare(playerData, data, kibblesColumns)}
             loading={isFetching}
-            player={playerData}
-            comparePlayer={data}
           />
-          <ColumnsWithComparison
-            columns={playerColumns}
+          <Columns
+            data={formatCompare(playerData, data, personalBestsColumns)}
             loading={isFetching}
-            player={playerData}
-            comparePlayer={data}
           />
         </Row>
       </PageContainer>
