@@ -70,7 +70,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 100%;
-  padding: 24px 16px;
+  padding: 16px;
   width: 100%;
   z-index: 1;
 `

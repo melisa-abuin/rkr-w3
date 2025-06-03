@@ -162,25 +162,30 @@ export default function PlayerDashboard({
       </PageContainer>
 
       {showBesties && (
-        <PageContainer title="Fastest Besties">
-          <Besties besties={playerData.fastestBesties} />
+        <PageContainer title="Fastest Besties" marginBottom={24}>
+          <Besties
+            battleTag={playerData.battleTag.name}
+            besties={playerData.fastestBesties}
+          />
         </PageContainer>
       )}
 
       <PageContainer title="Personal bests" marginBottom={24}>
         <Row>
           <Columns
+            title="All time"
             data={formatCompare(playerData, data, kibblesColumns)}
             loading={isFetching}
           />
           <Columns
+            title="Single Game"
             data={formatCompare(playerData, data, personalBestsColumns)}
             loading={isFetching}
           />
         </Row>
       </PageContainer>
 
-      <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
+      <PageContainer title="Game Awards">
         {data ? (
           <Tabs
             titles={[

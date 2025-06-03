@@ -33,7 +33,7 @@ export const Header = styled.div`
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-regular);
   justify-content: space-between;
-  padding: 16px 24px;
+  padding: 16px;
   text-transform: capitalize;
 `
 
