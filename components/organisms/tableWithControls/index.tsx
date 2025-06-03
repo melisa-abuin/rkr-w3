@@ -1,6 +1,6 @@
 'use client'
 
-import { PlayersStats, PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { useSearchParams } from 'next/navigation'
 import { useState, useMemo, useEffect, useCallback, ReactNode } from 'react'
 import { difficultyNames } from '@/constants'
@@ -12,19 +12,19 @@ import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 interface TableProps {
-  data: { pages: number; stats?: PlayersStats }
+  data: { pages: number; stats?: Player[] }
   headerLink?: ReactNode
-  defaultSortKey: keyof PlayerStats
+  defaultSortKey: keyof Player
   title?: string
   apiBaseUrl: 'times' | 'stats'
   columns: Array<{
     title: string
-    key: keyof PlayerStats
+    key: keyof Player
   }>
 }
 
 interface SortingKey {
-  key: keyof PlayerStats
+  key: keyof Player
   asc: boolean
 }
 
@@ -42,7 +42,7 @@ export default function TableWithControls({
     | Difficulty
     | undefined
   const initialSortKey =
-    (searchParams?.get('sortKey') as keyof PlayerStats) || defaultSortKey
+    (searchParams?.get('sortKey') as keyof Player) || defaultSortKey
   const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
 
   const [hasInteracted, setHasInteracted] = useState(false)
@@ -77,7 +77,7 @@ export default function TableWithControls({
     data: filteredData,
     isFetching,
     error,
-  } = useApiQuery<{ pages: number; stats?: PlayersStats }>(
+  } = useApiQuery<{ pages: number; stats?: Player[] }>(
     `/api/${apiBaseUrl}?${queryString}`,
     undefined,
     { enabled: hasInteracted },
@@ -90,7 +90,7 @@ export default function TableWithControls({
     setCurrentPage(page)
   }, [])
 
-  const handleSortChange = useCallback((newSortKey: keyof PlayerStats) => {
+  const handleSortChange = useCallback((newSortKey: keyof Player) => {
     setHasInteracted(true)
     setSortKey((prev) => ({
       key: newSortKey,

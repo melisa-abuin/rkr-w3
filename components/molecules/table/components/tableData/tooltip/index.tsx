@@ -31,7 +31,7 @@ export default function Tooltip({
     dataToRender.normal = secondsToSexagesimal(normal as number)
   }
 
-  if (difficulty) {
+  if (difficulty && difficulty !== 'solo') {
     return <>{dataToRender[difficulty]}</>
   }
 

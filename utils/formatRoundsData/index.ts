@@ -1,4 +1,4 @@
-import { FromattedApiPlayerStats } from '@/interfaces/player'
+import { ApiRounds } from '@/interfaces/player'
 import { calculateBestTimeByDifficulty } from '../calculateBestTimeByDifficulty'
 
 /**
@@ -9,7 +9,7 @@ import { calculateBestTimeByDifficulty } from '../calculateBestTimeByDifficulty'
  * @returns object containing the keys of a round formatted
  */
 export const formatRoundsData = (
-  newObject: Partial<FromattedApiPlayerStats>,
+  newObject: Partial<ApiRounds>,
   round: 'One' | 'Two' | 'Three' | 'Four' | 'Five',
 ) => {
   const normal = newObject[`Round${round}Normal`] || 0

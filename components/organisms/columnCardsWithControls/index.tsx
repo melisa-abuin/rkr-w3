@@ -2,7 +2,7 @@
 
 import { BadgesContainer } from './styled'
 import { useState } from 'react'
-import { RoundDifficulty } from '@/interfaces/difficulty'
+import { Difficulty } from '@/interfaces/difficulty'
 import { roundDifficultyNames } from '@/constants'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
@@ -25,7 +25,7 @@ export default function ColumnCardsWithControls({
   title,
 }: Props) {
   const [difficultyFilter, setDifficultyFilter] = useState<
-    RoundDifficulty | undefined
+    Difficulty | undefined
   >()
 
   const {
@@ -45,7 +45,7 @@ export default function ColumnCardsWithControls({
     `Couldn't fetch the times leaderboard for the ${difficultyFilter} difficulty, please try again later.`,
   )
 
-  const onFilterClick = (difficulty: RoundDifficulty | undefined) => {
+  const onFilterClick = (difficulty: Difficulty | undefined) => {
     setDifficultyFilter(difficulty)
   }
 

@@ -1,112 +1,6 @@
 import { Difficulty } from '../difficulty'
 
-export type Challenges = {
-  general: [number, number]
-  tournament: [number, number]
-}
-
-export interface Awards {
-  id: string
-  awards: Award[]
-}
-
-export interface Award {
-  id: string
-  completed: boolean
-  description: string
-  imagePath: string
-  title: string
-}
-
-export interface Skins {
-  selectedAura: string
-  selectedHat: string
-  selectedSkin: string
-  selectedTrail: string
-  selectedWindwalk: string
-  selectedWings: string
-}
-
-export interface SaveStreak {
-  highestSaveStreak: number
-  redLightning: boolean
-  patrioticTendrils: boolean
-}
-export interface Kibbles {
-  collectedAllTime: number
-  jackpots: number
-  superJackpots: number
-  collectedSingleGame: number
-}
-
-export interface PlayerStats {
-  battleTag: BattleTag
-  saves: number
-  deaths: number
-  highestWinStreak: number
-  saveStreak: SaveStreak
-  completedChallenges: Challenges
-  saveDeathRatio: number
-  gamesPlayed: DifficultyStats
-  winRate: string
-  wins: DifficultyStats
-  winStreak: number
-  roundOne: RoundStats
-  roundTwo: RoundStats
-  roundThree: RoundStats
-  roundFour: RoundStats
-  roundFive: RoundStats
-  kibbles: Kibbles
-}
-
-export type FastestBesties = Record<1 | 2 | 3, string[]>
-
-export interface DetailedPlayerStats extends PlayerStats {
-  awards: Awards[]
-  skins: Skins
-  lastUploaded: string
-  bestGameTimes: RoundStats
-  fastestBesties: FastestBesties
-  mostPlayedColor:
-    | 'red'
-    | 'blue'
-    | 'teal'
-    | 'purple'
-    | 'yellow'
-    | 'orange'
-    | 'green'
-    | 'pink'
-    | 'gray'
-    | 'lightblue'
-    | 'darkgreen'
-    | 'brown'
-    | 'maroon'
-    | 'navy'
-    | 'turquoise'
-    | 'violet'
-    | 'wheat'
-    | 'peach'
-    | 'mint'
-    | 'lavender'
-    | 'coal'
-    | 'snow'
-    | 'emerald'
-    | 'peanut'
-    | null
-}
-
-export interface FromattedApiPlayerStats {
-  battleTag: string
-  saves: number
-  deaths: number
-  normalGames: number
-  hardGames: number
-  impossibleGames: number
-  highestSaveStreak: number
-  highestWinStreak: number
-  normalWins: number
-  hardWins: number
-  impossibleWins: number
+export interface ApiRounds {
   RoundOneNormal: number
   RoundTwoNormal: number
   RoundThreeNormal: number
@@ -127,7 +21,6 @@ export interface FromattedApiPlayerStats {
   RoundThreeSolo: number
   RoundFourSolo: number
   RoundFiveSolo: number
-  completedChallenges: string
 }
 
 export interface ApiPlayerStats {
@@ -135,16 +28,18 @@ export interface ApiPlayerStats {
   'Save Data': string
 }
 
-export interface BattleTag {
-  name: string
-  tag: string
+/* Player after formnatting */
+export interface Award {
+  id: string
+  completed: boolean
+  description: string
+  imagePath: string
+  title: string
 }
-export interface RoundStats {
-  best: BestTime
-  hard: number
-  impossible: number
-  normal: number
-  solo: number
+
+export interface Awards {
+  id: string
+  awards: Award[]
 }
 
 export interface BestTime {
@@ -152,11 +47,105 @@ export interface BestTime {
   difficulty: Difficulty
 }
 
-export interface DifficultyStats {
+export interface BattleTag {
+  name: string
+  tag: string
+}
+
+export type Challenges = {
+  general: [number, number]
+  tournament: [number, number]
+}
+
+type Colors =
+  | 'red'
+  | 'blue'
+  | 'teal'
+  | 'purple'
+  | 'yellow'
+  | 'orange'
+  | 'green'
+  | 'pink'
+  | 'gray'
+  | 'lightblue'
+  | 'darkgreen'
+  | 'brown'
+  | 'maroon'
+  | 'navy'
+  | 'turquoise'
+  | 'violet'
+  | 'wheat'
+  | 'peach'
+  | 'mint'
+  | 'lavender'
+  | 'coal'
+  | 'snow'
+  | 'emerald'
+  | 'peanut'
+  | null
+
+export interface Kibbles {
+  allTime: number
+  singleGame: number
+  jackpots: number
+  superJackpots: number
+}
+
+export type FastestBesties = Record<1 | 2 | 3, string[]>
+
+export interface RoundTimes {
+  best: BestTime
   hard: number
-  normal: number
   impossible: number
+  normal: number
+  solo: number
+}
+
+export interface SaveStreak {
+  highestScore: number
+  redLightning: boolean
+  patrioticTendrils: boolean
+}
+
+export interface Skins {
+  selectedAura: string
+  selectedHat: string
+  selectedSkin: string
+  selectedTrail: string
+  selectedWindwalk: string
+  selectedWings: string
+}
+
+export interface TotalsPerDifficulty {
+  hard: number
+  impossible: number
+  normal: number
   total: number
 }
 
-export type PlayersStats = PlayerStats[]
+export interface Player {
+  awards: Awards[]
+  battleTag: BattleTag
+  bestGameTimes: RoundTimes
+  completedChallenges: Challenges
+  deaths: number
+  fastestBesties: FastestBesties
+  gamesPlayed: TotalsPerDifficulty
+  highestWinStreak: number
+  kibbles: Kibbles
+  lastUploaded: string
+  roundFive: RoundTimes
+  roundFour: RoundTimes
+  roundOne: RoundTimes
+  roundThree: RoundTimes
+  roundTwo: RoundTimes
+  saveDeathRatio: number
+  saves: number
+  savesSingleGame: number
+  saveStreak: SaveStreak
+  skins: Skins
+  winRate: string
+  wins: TotalsPerDifficulty
+  winStreak: number
+  mostPlayedColor: Colors
+}

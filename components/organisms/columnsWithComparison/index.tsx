@@ -1,14 +1,14 @@
 import Columns from '@/components/molecules/columns'
-import { RoundDifficulty } from '@/interfaces/difficulty'
-import { DetailedPlayerStats } from '@/interfaces/player'
+import { Difficulty } from '@/interfaces/difficulty'
+import { Player } from '@/interfaces/player'
 import { formatComparePlayer } from '@/utils'
 
 interface Props {
-  columns: Readonly<Array<{ title: string; key: keyof DetailedPlayerStats }>>
+  columns: Readonly<Array<{ title: string; key: keyof Player }>>
   loading: boolean
-  player: DetailedPlayerStats
-  comparePlayer?: DetailedPlayerStats
-  difficulty?: RoundDifficulty
+  player: Player
+  comparePlayer?: Player
+  difficulty?: Difficulty
   variant?: 'primary' | 'secondary'
 }
 

@@ -6,8 +6,8 @@ import Ratio from './ratio'
 import Challenges from './challenges'
 import SaveStreak from './saveStreak'
 import {
-  DifficultyStats,
-  RoundStats,
+  TotalsPerDifficulty,
+  RoundTimes,
   BattleTag as BattleTagI,
   Challenges as ChallengesT,
   SaveStreak as SaveStreakI,
@@ -22,9 +22,9 @@ interface Props<T> {
   difficultyFilter?: Difficulty | undefined
 }
 
-const isDifficultyStats = (data: unknown): data is DifficultyStats =>
+const isDifficultyStats = (data: unknown): data is TotalsPerDifficulty =>
   typeof data === 'object' && data !== null && 'total' in data
-const isRoundStats = (data: unknown): data is RoundStats =>
+const isRoundStats = (data: unknown): data is RoundTimes =>
   typeof data === 'object' && data !== null && 'best' in data
 const isBattleTag = (data: unknown): data is BattleTagI =>
   typeof data === 'object' && data !== null && 'name' in data && 'tag' in data

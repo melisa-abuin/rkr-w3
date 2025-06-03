@@ -3,7 +3,7 @@
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import { statsColumns } from '@/constants'
-import { PlayersStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import ColumnCards from '@/components/molecules/columnCards'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
@@ -28,7 +28,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     isFetching,
     error,
   } = useApiQuery<{
-    stats: PlayersStats
+    stats: Player[]
     page: number
   }>(
     '/api/stats?page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',

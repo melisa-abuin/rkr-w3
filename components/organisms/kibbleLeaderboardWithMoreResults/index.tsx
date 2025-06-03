@@ -3,13 +3,13 @@
 import { kibbleColumns } from '@/constants'
 import Table from '@/components/molecules/table'
 import RowCards from '@/components/molecules/rowCards'
-import { DetailedPlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import FloatingKibble from './components/floatingKibble'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
 export default function KibbleLeaderboardWithMoreResults() {
-  const { data, isFetching, error } = useApiQuery<DetailedPlayerStats[]>(
+  const { data, isFetching, error } = useApiQuery<Player[]>(
     '/api/kibbleLeaderboard',
     undefined,
     {

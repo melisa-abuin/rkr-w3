@@ -1,11 +1,6 @@
-import { Difficulty, RoundDifficulty } from '@/interfaces/difficulty'
+import { Difficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
-import {
-  Challenges,
-  Kibbles,
-  PlayerStats,
-  SaveStreak,
-} from '@/interfaces/player'
+import { Kibbles, Player } from '@/interfaces/player'
 
 export const awardsDescriptions = {
   AncientKitty: 'Obtained by getting 40 Normal+ wins',
@@ -137,7 +132,7 @@ export const colors: Record<string, string> = {
   peanut: '#a56f34',
 }
 
-export const roundDifficultyNames: RoundDifficulty[] = [
+export const roundDifficultyNames: Difficulty[] = [
   'normal',
   'hard',
   'impossible',
@@ -215,11 +210,11 @@ export const githubReadMeLink =
 export const kibbleLeaderboardColumns = [
   {
     title: 'Single game',
-    key: 'collectedSingleGame',
+    key: 'singleGame',
   },
   {
     title: 'All time',
-    key: 'collectedAllTime',
+    key: 'allTime',
   },
   {
     title: 'Jackpots',
@@ -262,7 +257,7 @@ export const routes = {
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-export const statsColumns: { title: string; key: keyof PlayerStats }[] = [
+export const statsColumns: { title: string; key: keyof Player }[] = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Completed Challenges', key: 'completedChallenges' },
   { title: 'Saves', key: 'saves' },
@@ -295,7 +290,7 @@ export const playerTimeColumns = [
   { title: 'Round Five', key: 'roundFive' },
 ] as const
 
-export const timeAllDiffColumns: { title: string; key: keyof PlayerStats }[] = [
+export const timeAllDiffColumns: { title: string; key: keyof Player }[] = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Best R1 Times', key: 'roundOne' },
   { title: 'Best R2 Times', key: 'roundTwo' },
@@ -315,8 +310,8 @@ export const kibbleColumns: {
   key: keyof Kibbles | 'battleTag'
 }[] = [
   { title: 'Player', key: 'battleTag' },
-  { title: 'Single Game', key: 'collectedSingleGame' },
-  { title: 'All time', key: 'collectedAllTime' },
+  { title: 'Single Game', key: 'singleGame' },
+  { title: 'All time', key: 'allTime' },
   { title: 'Jackpots', key: 'jackpots' },
   { title: 'Super Jackpots', key: 'superJackpots' },
 ]
@@ -347,469 +342,132 @@ export const statsPageVariants = {
     title: 'Kibble stats',
     description: 'Check all the kibble stats for all players',
     columns: kibbleColumns,
-    defaultSortKey: 'collectedSingleGame',
+    defaultSortKey: 'singleGame',
     apiBaseUrl: 'kibbleStats',
   },
 } as const
 
 // TODO: separate this into a different file
-export const formattedMockData = [
+export const formattedMockData: Player[] = [
   {
+    awards: [
+      {
+        id: 'event-2025',
+        awards: [
+          {
+            id: 'award1',
+            completed: true,
+            description: 'Completed 100 games',
+            imagePath: '/images/awards/100_games.png',
+            title: 'Veteran Player',
+          },
+          {
+            id: 'award2',
+            completed: false,
+            description: 'Win without dying',
+            imagePath: '/images/awards/flawless.png',
+            title: 'Flawless Victory',
+          },
+        ],
+      },
+    ],
     battleTag: {
-      name: 'Pablo',
-      tag: 'Pablo#1234',
+      name: 'KittyMaster',
+      tag: '1234',
     },
-    saves: 100,
-    deaths: 871,
-    normalGames: 10,
-    hardGames: 10,
-    impossibleGames: 10,
-    saveStreak: {
-      redLightning: true,
-      patrioticTendrils: true,
-    } as SaveStreak,
-    highestWinStreak: 100,
+    bestGameTimes: {
+      best: { time: 320, difficulty: 'impossible' },
+      hard: 400,
+      impossible: 320,
+      normal: 500,
+      solo: 380,
+    },
     completedChallenges: {
-      general: [56, 56],
-      tournament: [4, 4],
-    } as Challenges,
-    winRate: '25.2%',
-    winStreak: 2,
-    saveDeathRatio: 1.63,
+      general: [7, 10],
+      tournament: [3, 5],
+    },
+    deaths: 87,
+    fastestBesties: {
+      1: ['TeammateA', 'TeammateB'],
+      2: ['TeammateC'],
+      3: [],
+    },
     gamesPlayed: {
-      normal: 10,
-      hard: 10,
-      impossible: 10,
-      total: 30,
+      hard: 45,
+      impossible: 30,
+      normal: 60,
+      total: 135,
     },
-    wins: {
-      normal: 25,
-      hard: 11,
-      impossible: 1,
-      total: 37,
-    },
-    roundOne: {
-      solo: 0,
-      normal: 100.0,
-      hard: 110.0,
-      impossible: 120.0,
-      best: {
-        difficulty: 'normal',
-        time: 100.0,
-      },
-    },
-    roundTwo: {
-      solo: 0,
-      normal: 150.0,
-      hard: 160.0,
-      impossible: 170.0,
-      best: {
-        difficulty: 'normal',
-        time: 150.0,
-      },
-    },
-    roundThree: {
-      solo: 0,
-      normal: 250.0,
-      hard: 270.0,
-      impossible: 280.0,
-      best: {
-        difficulty: 'normal',
-        time: 250.0,
-      },
-    },
-    roundFour: {
-      solo: 0,
-      normal: 350.0,
-      hard: 370.0,
-      impossible: 380.0,
-      best: {
-        difficulty: 'normal',
-        time: 350.0,
-      },
-    },
-    roundFive: {
-      solo: 0,
-      normal: 450.0,
-      hard: 470.0,
-      impossible: 480.0,
-      best: {
-        difficulty: 'normal',
-        time: 450.0,
-      },
-    },
+    highestWinStreak: 14,
     kibbles: {
-      collectedAllTime: 47,
-      jackpots: 1,
-      superJackpots: 1,
-      collectedSingleGame: 47,
-    },
-  },
-  {
-    battleTag: {
-      name: 'Gonza',
-      tag: 'Gonza#1234',
-    },
-    saves: 50,
-    deaths: 871,
-    normalGames: 39,
-    hardGames: 16,
-    impossibleGames: 15,
-    winStreak: 2,
-    saveStreak: {
-      redLightning: true,
-      patrioticTendrils: true,
-    } as SaveStreak,
-    highestWinStreak: 100,
-    winRate: '25.2%',
-    completedChallenges: {
-      general: [56, 56],
-      tournament: [4, 4],
-    } as Challenges,
-    saveDeathRatio: 1.63,
-    gamesPlayed: {
-      normal: 39,
-      hard: 16,
-      impossible: 15,
-      total: 70,
-    },
-    wins: {
-      normal: 25,
-      hard: 11,
-      impossible: 1,
-      total: 37,
-    },
-    roundOne: {
-      solo: 0,
-      normal: 120.0,
-      hard: 130.0,
-      impossible: 140.0,
-      best: {
-        difficulty: 'normal',
-        time: 120.0,
-      },
-    },
-    roundTwo: {
-      solo: 0,
-      normal: 180.0,
-      hard: 200.0,
-      impossible: 210.0,
-      best: {
-        difficulty: 'normal',
-        time: 180.0,
-      },
-    },
-    roundThree: {
-      solo: 0,
-      normal: 280.0,
-      hard: 300.0,
-      impossible: 320.0,
-      best: {
-        difficulty: 'normal',
-        time: 280.0,
-      },
-    },
-    roundFour: {
-      solo: 0,
-      normal: 380.0,
-      hard: 400.0,
-      impossible: 420.0,
-      best: {
-        difficulty: 'normal',
-        time: 380.0,
-      },
-    },
-    roundFive: {
-      solo: 0,
-      normal: 480.0,
-      hard: 0,
-      impossible: 520.0,
-      best: {
-        difficulty: 'normal',
-        time: 480.0,
-      },
-    },
-    kibbles: {
-      collectedAllTime: 100,
-      jackpots: 4,
+      allTime: 10500,
+      singleGame: 420,
+      jackpots: 12,
       superJackpots: 2,
-      collectedSingleGame: 45,
     },
-  },
-  {
-    battleTag: {
-      name: 'Alice',
-      tag: 'Alice#5678',
+    lastUploaded: '2025-06-03T14:52:00Z',
+    roundFive: {
+      best: { time: 500, difficulty: 'hard' },
+      hard: 520,
+      impossible: 530,
+      normal: 550,
+      solo: 510,
     },
-    saves: 200,
-    deaths: 20,
-    normalGames: 50,
-    hardGames: 40,
-    winStreak: 2,
-    impossibleGames: 10,
+    roundFour: {
+      best: { time: 450, difficulty: 'normal' },
+      hard: 460,
+      impossible: 470,
+      normal: 450,
+      solo: 455,
+    },
+    roundOne: {
+      best: { time: 200, difficulty: 'normal' },
+      hard: 210,
+      impossible: 250,
+      normal: 200,
+      solo: 205,
+    },
+    roundThree: {
+      best: { time: 350, difficulty: 'hard' },
+      hard: 350,
+      impossible: 390,
+      normal: 400,
+      solo: 360,
+    },
+    roundTwo: {
+      best: { time: 300, difficulty: 'hard' },
+      hard: 300,
+      impossible: 330,
+      normal: 340,
+      solo: 310,
+    },
+    saveDeathRatio: 3.5,
+    saves: 305,
+    savesSingleGame: 28,
     saveStreak: {
+      highestScore: 140,
       redLightning: true,
-      patrioticTendrils: true,
-    } as SaveStreak,
-    highestWinStreak: 200,
-    winRate: '25.2%',
-    completedChallenges: {
-      general: [101, 102],
-      tournament: [4, 4],
-    } as Challenges,
-    saveDeathRatio: 10.0,
-    gamesPlayed: {
-      normal: 50,
-      hard: 40,
-      impossible: 10,
-      total: 100,
+      patrioticTendrils: false,
     },
+    skins: {
+      selectedAura: 'aura_fire',
+      selectedHat: 'top_hat',
+      selectedSkin: 'shadow_cat',
+      selectedTrail: 'rainbow_trail',
+      selectedWindwalk: 'windwalk_ghost',
+      selectedWings: 'dragon_wings',
+    },
+    winRate: '72.5%',
     wins: {
-      normal: 40,
       hard: 30,
-      impossible: 5,
-      total: 75,
+      impossible: 22,
+      normal: 50,
+      total: 102,
     },
-    roundOne: {
-      solo: 0,
-      normal: 90.0,
-      hard: 85.0,
-      impossible: 100.0,
-      best: {
-        difficulty: 'hard',
-        time: 85.0,
-      },
-    },
-    roundTwo: {
-      solo: 0,
-      normal: 140.0,
-      hard: 120.0,
-      impossible: 150.0,
-      best: {
-        difficulty: 'hard',
-        time: 120.0,
-      },
-    },
-    roundThree: {
-      solo: 0,
-      normal: 240.0,
-      hard: 230.0,
-      impossible: 250.0,
-      best: {
-        difficulty: 'hard',
-        time: 230.0,
-      },
-    },
-    roundFour: {
-      solo: 0,
-      normal: 340.0,
-      hard: 330.0,
-      impossible: 350.0,
-      best: {
-        difficulty: 'hard',
-        time: 330.0,
-      },
-    },
-    roundFive: {
-      solo: 0,
-      normal: 440.0,
-      hard: 430.0,
-      impossible: 450.0,
-      best: {
-        difficulty: 'hard',
-        time: 430.0,
-      },
-    },
-    kibbles: {
-      collectedAllTime: 100,
-      jackpots: 4,
-      superJackpots: 2,
-      collectedSingleGame: 45,
-    },
+    winStreak: 6,
+    mostPlayedColor: 'purple',
   },
-  {
-    battleTag: {
-      name: 'Charlie',
-      tag: 'Charlie#9876',
-    },
-    saves: 120,
-    deaths: 120,
-    normalGames: 30,
-    hardGames: 20,
-    winStreak: 2,
-    impossibleGames: 10,
-    saveStreak: {
-      redLightning: true,
-      patrioticTendrils: true,
-    } as SaveStreak,
-    highestWinStreak: 20,
-    winRate: '25.2%',
-    completedChallenges: {
-      general: [201, 202],
-      tournament: [4, 4],
-    } as Challenges,
-    saveDeathRatio: 1.0,
-    gamesPlayed: {
-      normal: 30,
-      hard: 20,
-      impossible: 10,
-      total: 60,
-    },
-    wins: {
-      normal: 15,
-      hard: 10,
-      impossible: 5,
-      total: 30,
-    },
-    roundOne: {
-      solo: 0,
-      normal: 95.0,
-      hard: 105.0,
-      impossible: 115.0,
-      best: {
-        difficulty: 'normal',
-        time: 95.0,
-      },
-    },
-    roundTwo: {
-      solo: 0,
-      normal: 145.0,
-      hard: 155.0,
-      impossible: 165.0,
-      best: {
-        difficulty: 'normal',
-        time: 145.0,
-      },
-    },
-    roundThree: {
-      solo: 0,
-      normal: 245.0,
-      hard: 255.0,
-      impossible: 265.0,
-      best: {
-        difficulty: 'normal',
-        time: 245.0,
-      },
-    },
-    roundFour: {
-      solo: 0,
-      normal: 345.0,
-      hard: 355.0,
-      impossible: 365.0,
-      best: {
-        difficulty: 'normal',
-        time: 345.0,
-      },
-    },
-    roundFive: {
-      solo: 0,
-      normal: 445.0,
-      hard: 455.0,
-      impossible: 465.0,
-      best: {
-        difficulty: 'normal',
-        time: 445.0,
-      },
-    },
-    kibbles: {
-      collectedAllTime: 100,
-      jackpots: 4,
-      superJackpots: 2,
-      collectedSingleGame: 45,
-    },
-  },
-  {
-    battleTag: {
-      name: 'Eve',
-      tag: 'Eve#1239',
-    },
-    saves: 50,
-    deaths: 300,
-    normalGames: 5,
-    hardGames: 3,
-    winStreak: 2,
-    impossibleGames: 2,
-    saveStreak: {
-      redLightning: true,
-      patrioticTendrils: true,
-    } as SaveStreak,
-    highestWinStreak: 2,
-    winRate: '25.2%',
-    completedChallenges: {
-      general: [0, 0],
-      tournament: [0, 0],
-    } as Challenges,
-    saveDeathRatio: 0.16,
-    gamesPlayed: {
-      normal: 5,
-      hard: 3,
-      impossible: 2,
-      total: 10,
-    },
-    wins: {
-      normal: 2,
-      hard: 1,
-      impossible: 0,
-      total: 3,
-    },
-    roundOne: {
-      solo: 0,
-      normal: 110.0,
-      hard: 120.0,
-      impossible: 130.0,
-      best: {
-        difficulty: 'impossible',
-        time: 130.0,
-      },
-    },
-    roundTwo: {
-      solo: 0,
-      normal: 160.0,
-      hard: 170.0,
-      impossible: 180.0,
-      best: {
-        difficulty: 'impossible',
-        time: 180.0,
-      },
-    },
-    roundThree: {
-      solo: 0,
-      normal: 260.0,
-      hard: 270.0,
-      impossible: 280.0,
-      best: {
-        difficulty: 'impossible',
-        time: 280.0,
-      },
-    },
-    roundFour: {
-      solo: 0,
-      normal: 360.0,
-      hard: 370.0,
-      impossible: 380.0,
-      best: {
-        difficulty: 'impossible',
-        time: 380.0,
-      },
-    },
-    roundFive: {
-      solo: 0,
-      normal: 460.0,
-      hard: 470.0,
-      impossible: 480.0,
-      best: {
-        difficulty: 'impossible',
-        time: 480.0,
-      },
-    },
-    kibbles: {
-      collectedAllTime: 0,
-      jackpots: 0,
-      superJackpots: 0,
-      collectedSingleGame: 0,
-    },
-  },
-] as const
+]
 
 export const mockParsedGameStats: GameStats[] = [
   {

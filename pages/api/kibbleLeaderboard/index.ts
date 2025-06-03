@@ -1,4 +1,4 @@
-import { ApiPlayerStats, DetailedPlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { transformKeysToCamelCase, fetchData } from '@/utils'
 
@@ -6,13 +6,13 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
-    const formattedData: DetailedPlayerStats[] = data
+    const formattedData: Player[] = data
       .map((elem: ApiPlayerStats) => {
         const saveData = JSON.parse(elem['Save Data'])
 
         const { PlayerName, KibbleCurrency, PersonalBests, SelectedData } =
           saveData
-        const playerStats: Partial<DetailedPlayerStats> = {}
+        const playerStats: Partial<Player> = {}
 
         playerStats.battleTag = {
           name: PlayerName?.split('#')[0] || '',
@@ -23,26 +23,24 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
         if (!KibbleCurrency || !PersonalBests) {
           playerStats.kibbles = {
-            collectedAllTime: 0,
+            allTime: 0,
             jackpots: 0,
             superJackpots: 0,
-            collectedSingleGame: 0,
+            singleGame: 0,
           }
         } else {
           playerStats.kibbles = {
-            collectedAllTime: KibbleCurrency.Collected,
+            allTime: KibbleCurrency.Collected,
             jackpots: KibbleCurrency.Jackpots,
             superJackpots: KibbleCurrency.SuperJackpots,
-            collectedSingleGame: PersonalBests.KibbleCollected,
+            singleGame: PersonalBests.KibbleCollected,
           }
         }
 
         return playerStats
       })
-      .sort((a: DetailedPlayerStats, b: DetailedPlayerStats) => {
-        return a.kibbles.collectedSingleGame < b.kibbles.collectedSingleGame
-          ? 1
-          : -1
+      .sort((a: Player, b: Player) => {
+        return a.kibbles.singleGame < b.kibbles.singleGame ? 1 : -1
       })
       .slice(0, 20)
 

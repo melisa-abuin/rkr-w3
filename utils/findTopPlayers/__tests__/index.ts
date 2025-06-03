@@ -2,7 +2,7 @@ import { getSortConditionByKey, getValueForKey } from '@/utils'
 import { findTopPlayersByInsertion } from '..'
 import { Difficulty } from '@/interfaces/difficulty'
 import { formattedMockData } from '@/constants'
-import { PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 
 jest.mock('@/utils/getSortConditionByKey', () => ({
   getValueForKey: jest.fn(),
@@ -10,7 +10,7 @@ jest.mock('@/utils/getSortConditionByKey', () => ({
 }))
 
 describe('findTopPlayersByInsertion', () => {
-  const mockedPlayers: PlayerStats[] = [...formattedMockData]
+  const mockedPlayers: Player[] = [...formattedMockData]
   beforeEach(() => {
     jest.clearAllMocks()
   })

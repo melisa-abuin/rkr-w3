@@ -14,7 +14,7 @@ import {
   playerTimeColumns,
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
-import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
@@ -29,7 +29,7 @@ import Besties from './components/besties'
 export default function PlayerDashboard({
   playerData,
 }: {
-  playerData: DetailedPlayerStats
+  playerData: Player
 }) {
   const {
     awards,
@@ -47,7 +47,7 @@ export default function PlayerDashboard({
 
   const lastDateUploaded = formatDateToLocale(lastUploaded)
 
-  const { data, isFetching, error } = useApiQuery<DetailedPlayerStats>(
+  const { data, isFetching, error } = useApiQuery<Player>(
     compareTo ? `/api/player/${encodeURIComponent(compareTo)}` : '',
     undefined,
     { enabled: !!compareTo },
@@ -72,7 +72,7 @@ export default function PlayerDashboard({
   }, [data, playerData, showToast])
 
   const handlePlayerSelect = useCallback(
-    (player: PlayerStats) => {
+    (player: Player) => {
       router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
     },
     [router],
@@ -163,6 +163,23 @@ export default function PlayerDashboard({
           <Besties besties={playerData.fastestBesties} />
         </PageContainer>
       )}
+
+      <PageContainer title="Personal bests" marginBottom={24}>
+        <Row>
+          <ColumnsWithComparison
+            columns={playerColumns}
+            loading={isFetching}
+            player={playerData}
+            comparePlayer={data}
+          />
+          <ColumnsWithComparison
+            columns={playerColumns}
+            loading={isFetching}
+            player={playerData}
+            comparePlayer={data}
+          />
+        </Row>
+      </PageContainer>
 
       <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
         {data ? (

@@ -4,14 +4,14 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import HelpInfo from '@/components/molecules/helpInfo'
 import Tabs from '@/components/atoms/tabs'
-import { PlayersStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import KibbleTableWithControls from '@/components/organisms/kibbleTableWithControls'
 import { useRouter } from 'next/navigation'
 import { statsPageVariants } from '@/constants'
 
 interface AllStatsData {
-  data: { pages: number; stats?: PlayersStats }
+  data: { pages: number; stats?: Player[] }
   slug: string
 }
 

@@ -1,6 +1,5 @@
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-
 import { roundNames } from '@/constants'
 import {
   calculateSaveDeathRatio,
@@ -20,7 +19,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
         const saveData = JSON.parse(elem['Save Data'])
 
         const { GameStats, RoundTimes, PlayerName } = saveData
-        const playerStats: Partial<PlayerStats> = {}
+        const playerStats: Partial<Player> = {}
 
         playerStats.saves = GameStats.Saves
         playerStats.highestWinStreak = GameStats.HighestWinStreak
@@ -53,7 +52,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
         return playerStats
       })
-      .sort((a: PlayerStats, b: PlayerStats) =>
+      .sort((a: Player, b: Player) =>
         a.gamesPlayed.total < b.gamesPlayed.total ? 1 : -1,
       )
 

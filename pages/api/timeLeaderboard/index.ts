@@ -1,4 +1,4 @@
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { roundNames } from '@/constants'
 import { fetchData, findTopPlayersByInsertion, formatRoundsData } from '@/utils'
@@ -17,7 +17,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { RoundTimes, PlayerName } = saveData
-      const playerStats: Partial<PlayerStats> = {}
+      const playerStats: Partial<Player> = {}
 
       playerStats.battleTag = {
         name: PlayerName?.split('#')[0] || '',
@@ -28,7 +28,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)
       })
 
-      return playerStats as PlayerStats
+      return playerStats as Player
     })
 
     const difficultyFilter = req.query.difficulty

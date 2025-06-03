@@ -22,5 +22,6 @@ export const Description = styled.p`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
 `

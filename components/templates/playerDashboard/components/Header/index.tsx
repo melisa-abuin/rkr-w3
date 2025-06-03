@@ -1,12 +1,12 @@
 'use client'
 
-import { DetailedPlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { Badges, ColorBadge, Container, SkinBadge, Title } from './styled'
 import { colors } from '@/constants'
 import { formatKeyToWord, hexToRgba } from '@/utils'
 
 interface Props {
-  color: DetailedPlayerStats['mostPlayedColor']
+  color: Player['mostPlayedColor']
   skin: string
   title: string
 }

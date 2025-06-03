@@ -1,9 +1,9 @@
 import { formatComparePlayer } from '..'
 import { formattedMockData } from '@/constants'
-import { PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 
 describe('formatComparePlayer', () => {
-  const mockedPlayers: PlayerStats[] = [...formattedMockData]
+  const mockedPlayers: Player[] = [...formattedMockData]
   const mockDetailedData = {
     awards: [
       {

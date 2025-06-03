@@ -10,12 +10,12 @@ interface Props {
 }
 export default function SaveStreak({ data }: Props) {
   const [theme] = useTheme()
-  const { highestSaveStreak, redLightning, patrioticTendrils } = data
+  const { highestScore, redLightning, patrioticTendrils } = data
 
   const saveStreakToShow = () => {
-    if (highestSaveStreak < 50 && patrioticTendrils) return '+50'
-    if (highestSaveStreak < 15 && redLightning) return '+15'
-    return String(highestSaveStreak)
+    if (highestScore < 50 && patrioticTendrils) return '+50'
+    if (highestScore < 15 && redLightning) return '+15'
+    return String(highestScore)
   }
 
   const Icon = ({ flipped }: { flipped?: boolean }) => {

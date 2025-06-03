@@ -1,7 +1,7 @@
 import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
 import { ThemeProvider } from '@/hooks/useTheme'
-import { PlayersStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import Error from '@/components/molecules/error'
 import { ToastProvider } from '@/hooks/useToast'
@@ -9,7 +9,7 @@ import Stats from '@/components/templates/stats'
 
 interface PlayerStatsData {
   error: string | null
-  data: { pages: number; stats?: PlayersStats }
+  data: { pages: number; stats?: Player[] }
 }
 
 async function fetchData(

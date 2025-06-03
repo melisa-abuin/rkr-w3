@@ -3,7 +3,7 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { useState } from 'react'
 import { Wrapper } from './styled'
 
@@ -16,9 +16,7 @@ export const columns = [
 ] as const
 
 export default function PlayerFinderWithResult() {
-  const [selectedPlayer, setSelectedPlayer] = useState<
-    PlayerStats | undefined
-  >()
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
 
   const handleClear = () => {
     setSelectedPlayer(undefined)

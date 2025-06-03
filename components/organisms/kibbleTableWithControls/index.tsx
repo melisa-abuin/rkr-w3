@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState, ReactNode } from 'react'
 import Pagination from '@/components/molecules/pagination'
 import Table from '@/components/molecules/table'
-import { BattleTag, Kibbles, PlayersStats } from '@/interfaces/player'
+import { BattleTag, Kibbles, Player } from '@/interfaces/player'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
@@ -66,7 +66,7 @@ export default function KibbleTableWithControls({
     error,
   } = useApiQuery<{
     pages: number
-    stats?: PlayersStats
+    stats?: Player[]
   }>(`/api/${apiBaseUrl}?${queryString}`, undefined, {
     enabled: hasInteracted,
   })
