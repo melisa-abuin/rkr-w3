@@ -3,7 +3,7 @@
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
 import { useTheme } from '@/hooks/useTheme'
-import { PlayersStats, PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import Image from 'next/image'
 import React, { useRef, useState } from 'react'
 import { Option, Options, Wrapper } from './styled'
@@ -13,7 +13,7 @@ import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 interface Props {
-  onPlayerSelect: (player: PlayerStats) => void
+  onPlayerSelect: (player: Player) => void
   onClear: () => void
   placeholder?: string
   defaultValue?: string
@@ -26,7 +26,7 @@ export default function PlayerFinder({
   defaultValue = '',
 }: Props) {
   const [query, setQuery] = useState(defaultValue)
-  const [selectedPlayer, setSelectedPlayer] = useState<PlayerStats>()
+  const [selectedPlayer, setSelectedPlayer] = useState<Player>()
   const [showOptions, setShowOptions] = useState(false)
 
   const debouncedQuery = useDebouncedValue(query, 300)
@@ -35,7 +35,7 @@ export default function PlayerFinder({
 
   useOutsideClick(() => setShowOptions(false), wrapperRef)
 
-  const { data, isFetching, error } = useApiQuery<PlayersStats>(
+  const { data, isFetching, error } = useApiQuery<Player[]>(
     '/api/stats',
     debouncedQuery.length > 2 ? { battleTag: debouncedQuery } : undefined,
     {
@@ -51,7 +51,7 @@ export default function PlayerFinder({
     setShowOptions(true)
   }
 
-  const onSelect = (player: PlayerStats) => {
+  const onSelect = (player: Player) => {
     setSelectedPlayer(player)
     setQuery(player.battleTag.tag)
     onPlayerSelect(player)

@@ -1,4 +1,5 @@
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { Difficulty } from '@/interfaces/difficulty'
+import { ApiPlayerStats, Player } from '@/interfaces/player'
 import {
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,
@@ -12,10 +13,10 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 interface QueryParams {
   battleTag?: string
-  difficulty?: 'normal' | 'hard' | 'impossible' | undefined
+  difficulty?: Difficulty | undefined
   page?: number
   pageSize?: number
-  sortKey?: keyof PlayerStats
+  sortKey?: keyof Player
   sortOrder?: 'asc' | 'desc'
 }
 
@@ -25,11 +26,11 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
-    const formattedData: PlayerStats[] = data.map((elem: ApiPlayerStats) => {
+    const formattedData: Player[] = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { GameStats, PlayerName, GameAwards, GameAwardsSorted } = saveData
-      const playerStats: Partial<PlayerStats> = {}
+      const playerStats: Partial<Player> = {}
 
       if (GameAwardsSorted) {
         playerStats.completedChallenges =
@@ -45,13 +46,13 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
       if (GameAwardsSorted) {
         playerStats.saveStreak = {
-          highestSaveStreak: GameStats.HighestSaveStreak,
+          highestScore: GameStats.HighestSaveStreak,
           redLightning: !!GameAwardsSorted.Trails.RedLightning,
           patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
         }
       } else {
         playerStats.saveStreak = {
-          highestSaveStreak: GameStats.HighestSaveStreak,
+          highestScore: GameStats.HighestSaveStreak,
           redLightning: !!GameAwards.RedLightning,
           patrioticTendrils: !!GameAwards.PatrioticTendrils,
         }

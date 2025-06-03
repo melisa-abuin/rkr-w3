@@ -9,15 +9,16 @@ import {
   calculateCompletedChallenges,
   calculateCompletedChallengesLegacy,
   calculateBestTimeByDifficulty,
+  getFastestBesties,
 } from '@/utils'
-import { DetailedPlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { blacklistedPlayers, roundNames } from '@/constants'
-import { getFastestBesties } from '@/utils/getFastestBesties'
 
 interface QueryParams {
   battleTag: string
 }
+
 type StatsRequest = NextApiRequest & { query: QueryParams }
 
 export default async function handler(req: StatsRequest, res: NextApiResponse) {
@@ -44,7 +45,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     }
 
     const saveData = JSON.parse(playerData['Save Data'])
-    const playerStats: Partial<DetailedPlayerStats> = {}
+    const playerStats: Partial<Player> = {}
     const {
       GameStats,
       RoundTimes,
@@ -54,6 +55,8 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       SelectedData,
       PlayerColorData,
       BestGameTimes,
+      KibbleCurrency,
+      PersonalBests,
     } = saveData
 
     playerStats.lastUploaded = playerData.UploadDate
@@ -73,15 +76,32 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         calculateCompletedChallengesLegacy(GameAwards)
     }
 
+    //TODO: make this a function
+    if (!KibbleCurrency || !PersonalBests) {
+      playerStats.kibbles = {
+        allTime: 0,
+        jackpots: 0,
+        superJackpots: 0,
+        singleGame: 0,
+      }
+    } else {
+      playerStats.kibbles = {
+        allTime: KibbleCurrency?.Collected,
+        jackpots: KibbleCurrency?.Jackpots,
+        superJackpots: KibbleCurrency.SuperJackpots,
+        singleGame: PersonalBests.KibbleCollected,
+      }
+    }
+
     if (GameAwardsSorted) {
       playerStats.saveStreak = {
-        highestSaveStreak: GameStats.HighestSaveStreak,
+        highestScore: GameStats.HighestSaveStreak,
         redLightning: !!GameAwardsSorted.Trails.RedLightning,
         patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
       }
     } else {
       playerStats.saveStreak = {
-        highestSaveStreak: GameStats.HighestSaveStreak,
+        highestScore: GameStats.HighestSaveStreak,
         redLightning: !!GameAwards.RedLightning,
         patrioticTendrils: !!GameAwards.PatrioticTendrils,
       }
@@ -139,6 +159,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     })
 
     playerStats.fastestBesties = getFastestBesties(PlayerName, BestGameTimes)
+    playerStats.savesSingleGame = PersonalBests?.Saves || 0
 
     res.status(200).json(playerStats)
   } catch (error) {

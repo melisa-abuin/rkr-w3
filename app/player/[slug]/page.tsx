@@ -3,14 +3,14 @@ import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
 import PlayerDashboard from '@/components/templates/playerDashboard'
 import { ThemeProvider } from '@/hooks/useTheme'
-import { DetailedPlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { ToastProvider } from '@/hooks/useToast'
 
 interface PlayerStatsData {
   error: string | null
-  data: DetailedPlayerStats | null
+  data: Player | null
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {

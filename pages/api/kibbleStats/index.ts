@@ -1,4 +1,4 @@
-import { ApiPlayerStats, Kibbles, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Kibbles, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSortConditionByKey, fetchData } from '@/utils'
 
@@ -15,11 +15,11 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
-    const formattedData: PlayerStats[] = data.map((elem: ApiPlayerStats) => {
+    const formattedData: Player[] = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { PlayerName, KibbleCurrency, PersonalBests } = saveData
-      const playerStats: Partial<PlayerStats> = {}
+      const playerStats: Partial<Player> = {}
 
       playerStats.battleTag = {
         name: PlayerName?.split('#')[0] || '',
@@ -28,17 +28,17 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
       if (!KibbleCurrency || !PersonalBests) {
         playerStats.kibbles = {
-          collectedAllTime: 0,
+          allTime: 0,
           jackpots: 0,
           superJackpots: 0,
-          collectedSingleGame: 0,
+          singleGame: 0,
         }
       } else {
         playerStats.kibbles = {
-          collectedAllTime: KibbleCurrency?.Collected,
+          allTime: KibbleCurrency?.Collected,
           jackpots: KibbleCurrency?.Jackpots,
           superJackpots: KibbleCurrency.SuperJackpots,
-          collectedSingleGame: PersonalBests.KibbleCollected,
+          singleGame: PersonalBests.KibbleCollected,
         }
       }
 
@@ -47,7 +47,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     const {
       page = 1,
-      sortKey = 'collectedSingleGame',
+      sortKey = 'singleGame',
       sortOrder = 'desc',
       pageSize = 15,
     } = req.query

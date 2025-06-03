@@ -1,9 +1,9 @@
 import { outdatedPlayerDaysThreshold } from '@/constants'
-import { DetailedPlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 
 export const playerDataOutdated = (
-  player1: DetailedPlayerStats,
-  player2: DetailedPlayerStats,
+  player1: Player,
+  player2: Player,
 ): string | null => {
   const player1Date = new Date(player1.lastUploaded)
   const player2Date = new Date(player2.lastUploaded)

@@ -36,7 +36,9 @@ export default function DownloadModal({ battletag, date }: Props) {
 
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>Download my stats</Button>
+      <Button colorName="secondary" onClick={() => setIsModalOpen(true)}>
+        Download my stats
+      </Button>
       <Modal
         title="Download my file stats"
         isOpen={isModalOpen}

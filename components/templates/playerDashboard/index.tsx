@@ -9,13 +9,15 @@ import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
   difficultyNames,
+  kibblesColumns,
+  personalBestsColumns,
   playerColumns,
   playerDifficultyColumns,
   playerTimeColumns,
 } from '@/constants'
 import { useToast } from '@/hooks/useToast'
-import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
-import { formatDateToLocale, playerDataOutdated } from '@/utils'
+import { Player } from '@/interfaces/player'
+import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 import { Row } from './styled'
@@ -25,11 +27,12 @@ import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Header from './components/Header'
 import Collapsible from '@/components/atoms/collapsible'
 import Besties from './components/besties'
+import Columns from '@/components/molecules/columns'
 
 export default function PlayerDashboard({
   playerData,
 }: {
-  playerData: DetailedPlayerStats
+  playerData: Player
 }) {
   const {
     awards,
@@ -47,7 +50,7 @@ export default function PlayerDashboard({
 
   const lastDateUploaded = formatDateToLocale(lastUploaded)
 
-  const { data, isFetching, error } = useApiQuery<DetailedPlayerStats>(
+  const { data, isFetching, error } = useApiQuery<Player>(
     compareTo ? `/api/player/${encodeURIComponent(compareTo)}` : '',
     undefined,
     { enabled: !!compareTo },
@@ -72,7 +75,7 @@ export default function PlayerDashboard({
   }, [data, playerData, showToast])
 
   const handlePlayerSelect = useCallback(
-    (player: PlayerStats) => {
+    (player: Player) => {
       router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
     },
     [router],
@@ -159,12 +162,30 @@ export default function PlayerDashboard({
       </PageContainer>
 
       {showBesties && (
-        <PageContainer title="Fastest Besties">
-          <Besties besties={playerData.fastestBesties} />
+        <PageContainer title="Fastest Besties" marginBottom={24}>
+          <Besties
+            battleTag={playerData.battleTag.name}
+            besties={playerData.fastestBesties}
+          />
         </PageContainer>
       )}
 
-      <PageContainer title="Game Awards" marginTop={24} marginBottom={24}>
+      <PageContainer title="Personal bests" marginBottom={24}>
+        <Row>
+          <Columns
+            title="All time"
+            data={formatCompare(playerData, data, kibblesColumns)}
+            loading={isFetching}
+          />
+          <Columns
+            title="Single Game"
+            data={formatCompare(playerData, data, personalBestsColumns)}
+            loading={isFetching}
+          />
+        </Row>
+      </PageContainer>
+
+      <PageContainer title="Game Awards">
         {data ? (
           <Tabs
             titles={[

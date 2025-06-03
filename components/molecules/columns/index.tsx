@@ -1,11 +1,11 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { Col, Container, Description, Row, Title } from './styled'
+import { Col, Container, Description, Row, SectionTitle, Title } from './styled'
 import LoaderColumns from './components/loader'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
-interface Props {
+interface ColumnsProps {
   actionColumn?: ReactNode
   data: Array<{
     title?: string
@@ -16,6 +16,7 @@ interface Props {
     }>
   }>
   loading?: boolean
+  title?: string
   variant?: 'primary' | 'secondary'
 }
 
@@ -23,12 +24,14 @@ export default function Columns({
   actionColumn,
   data,
   loading = false,
+  title,
   variant = 'primary',
-}: Props) {
+}: ColumnsProps) {
   return loading ? (
     <LoaderColumns variant={variant} />
   ) : (
     <Container variant={variant}>
+      {title && <SectionTitle>{title}</SectionTitle>}
       {data.map(({ title, columns }, index) => (
         <Row key={index}>
           {title && <Title>{title}</Title>}

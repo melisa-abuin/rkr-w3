@@ -1,19 +1,16 @@
 import { playerDataOutdated } from '..'
-import { DetailedPlayerStats, PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { formattedMockData, outdatedPlayerDaysThreshold } from '@/constants'
 
 const now = new Date()
 
-const createPlayer = (
-  mock: PlayerStats,
-  daysAgo: number,
-): DetailedPlayerStats =>
+const createPlayer = (mock: Player, daysAgo: number): Player =>
   ({
     ...mock,
     lastUploaded: new Date(
       now.getTime() - daysAgo * 24 * 60 * 60 * 1000,
     ).toISOString(),
-  }) as DetailedPlayerStats
+  }) as Player
 
 describe('playerDataOutdated', () => {
   it('returns null when difference is below threshold', () => {

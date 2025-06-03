@@ -4,7 +4,7 @@ import BattleTag from './components/battleTag'
 import Column from './components/column'
 import LoadingCards from './components/loadingCards'
 import Image from '@/components/atoms/image'
-import { DetailedPlayerStats, Skins } from '@/interfaces/player'
+import { Player, Skins } from '@/interfaces/player'
 import { kibbleLeaderboardColumns } from '@/constants'
 
 const formatSkinName = (skin: Skins) => {
@@ -13,7 +13,7 @@ const formatSkinName = (skin: Skins) => {
 }
 
 interface Props {
-  data?: DetailedPlayerStats[]
+  data?: Player[]
   loading: boolean
 }
 

@@ -4,11 +4,16 @@ import { FastestBesties } from '@/interfaces/player'
 import { Description, Container, Wrapper } from './styled'
 import Button from '@/components/atoms/button'
 
-export default function Besties({ besties }: { besties: FastestBesties }) {
+interface BestiesProps {
+  besties: FastestBesties
+  battleTag: string
+}
+
+export default function Besties({ battleTag, besties }: BestiesProps) {
   return (
     <Container>
       <Description>
-        Players with whom you have played your fastest games
+        Players with whom {battleTag} has played the fastest games
       </Description>
       <Wrapper>
         {besties[3].map((player) => (
@@ -16,7 +21,7 @@ export default function Besties({ besties }: { besties: FastestBesties }) {
             as="a"
             key={player}
             href={`/player/${encodeURIComponent(player)}`}
-            colorName="primary"
+            colorName="secondary"
             small
           >
             {player.split('#')[0]}

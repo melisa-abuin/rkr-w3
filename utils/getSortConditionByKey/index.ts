@@ -1,8 +1,8 @@
-import { DetailedPlayerStats, SaveStreak } from '@/interfaces/player'
+import { Player, SaveStreak } from '@/interfaces/player'
 import { isTimeKey } from '../checkKeyType'
-import { RoundDifficulty } from '@/interfaces/difficulty'
+import { Difficulty } from '@/interfaces/difficulty'
 
-type DifficultyFilter = RoundDifficulty | undefined
+type DifficultyFilter = Difficulty | undefined
 
 /**
  * Aproximate the save streak values for those players
@@ -13,21 +13,21 @@ type DifficultyFilter = RoundDifficulty | undefined
  * @returns number with the value of the save streak
  */
 const getValueForSaveStreak = (saveStreak: SaveStreak) => {
-  const { highestSaveStreak, patrioticTendrils, redLightning } = saveStreak
+  const { highestScore, patrioticTendrils, redLightning } = saveStreak
 
-  if (highestSaveStreak < 50 && patrioticTendrils) {
+  if (highestScore < 50 && patrioticTendrils) {
     return 50
   }
-  if (highestSaveStreak < 15 && redLightning) {
+  if (highestScore < 15 && redLightning) {
     return 15
   }
 
-  return highestSaveStreak
+  return highestScore
 }
 
 export const getValueForKey = (
-  key: keyof Partial<DetailedPlayerStats>,
-  elem: Partial<DetailedPlayerStats>,
+  key: keyof Partial<Player>,
+  elem: Partial<Player>,
   filter?: DifficultyFilter,
 ) => {
   if ((key === 'wins' || key === 'gamesPlayed') && filter !== 'solo') {
@@ -39,7 +39,7 @@ export const getValueForKey = (
   }
 
   if (key === 'kibbles') {
-    return elem.kibbles?.collectedSingleGame
+    return elem.kibbles?.singleGame
   }
 
   if (key === 'completedChallenges') {
@@ -71,9 +71,9 @@ export const getValueForKey = (
  * @returns comparison between two player stats elements based on the corresponding condition
  */
 export const getSortConditionByKey = (
-  key: keyof Partial<DetailedPlayerStats>,
-  elem: Partial<DetailedPlayerStats>,
-  elem2: Partial<DetailedPlayerStats>,
+  key: keyof Partial<Player>,
+  elem: Partial<Player>,
+  elem2: Partial<Player>,
   filter?: DifficultyFilter,
 ) => {
   const firstElement = getValueForKey(key, elem, filter)

@@ -21,7 +21,7 @@ export const Container = styled.div<{ variant: 'primary' | 'secondary' }>`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  padding: 24px 16px;
+  padding: 16px;
   width: 100%;
   gap: 20px;
   flex-wrap: wrap;
@@ -49,5 +49,18 @@ export const Title = styled.h3`
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-semi-bold);
   margin: 0;
+  gap: 15px;
+`
+
+export const SectionTitle = styled.h3`
+  align-items: center;
+  color: ${({ theme }) => theme.text.tertiary};
+  display: flex;
+  flex-direction: row;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  margin: 0;
+  justify-content: flex-start;
+  width: 100%;
   gap: 15px;
 `

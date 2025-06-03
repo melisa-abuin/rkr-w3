@@ -1,4 +1,4 @@
-import { PlayerStats } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import { getValueForKey, getSortConditionByKey } from '../getSortConditionByKey'
 import { isRoundKey } from '../checkKeyType'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -6,8 +6,8 @@ import { Difficulty } from '@/interfaces/difficulty'
 type DifficultyFilter = Difficulty | undefined
 
 const getDataToMap = (
-  key: keyof PlayerStats,
-  elem: PlayerStats,
+  key: keyof Player,
+  elem: Player,
   filter: DifficultyFilter,
 ) => {
   if (key === 'wins' || key === 'gamesPlayed') {
@@ -43,12 +43,12 @@ const getDataToMap = (
  * @returns An array of the top `count` players with their battleTags and relevant stat data.
  */
 export const findTopPlayersByInsertion = (
-  array: PlayerStats[],
-  key: keyof PlayerStats,
+  array: Player[],
+  key: keyof Player,
   filter?: DifficultyFilter,
   count: number = 5,
 ) => {
-  const top: PlayerStats[] = []
+  const top: Player[] = []
 
   array.forEach((elem) => {
     let inserted = false
@@ -76,7 +76,7 @@ export const findTopPlayersByInsertion = (
     }
   })
 
-  return top.map((elem: PlayerStats) => ({
+  return top.map((elem: Player) => ({
     player: elem.battleTag,
     data: getDataToMap(key, elem, filter),
   }))
@@ -99,8 +99,8 @@ export const findTopPlayersByInsertion = (
  * @returns An array of the top `count` players with their battleTags and relevant stat data.
  */
 export const findTopPlayersByFullSort = (
-  array: PlayerStats[],
-  key: keyof PlayerStats,
+  array: Player[],
+  key: keyof Player,
   filter?: DifficultyFilter,
   count: number = 5,
 ) => {

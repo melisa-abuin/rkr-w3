@@ -1,4 +1,4 @@
-import { ApiPlayerStats, PlayerStats } from '@/interfaces/player'
+import { ApiPlayerStats, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSortConditionByKey, fetchData, formatRoundsData } from '@/utils'
 import { roundNames } from '@/constants'
@@ -8,7 +8,7 @@ interface QueryParams {
   difficulty?: 'normal' | 'hard' | 'impossible' | undefined
   page?: number
   pageSize?: number
-  sortKey?: keyof PlayerStats
+  sortKey?: keyof Player
   sortOrder?: 'asc' | 'desc'
 }
 
@@ -18,11 +18,11 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
     const data = await fetchData('players')
 
-    const formattedData: PlayerStats[] = data.map((elem: ApiPlayerStats) => {
+    const formattedData: Player[] = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
       const { RoundTimes, PlayerName } = saveData
-      const playerStats: Partial<PlayerStats> = {}
+      const playerStats: Partial<Player> = {}
 
       playerStats.battleTag = {
         name: PlayerName?.split('#')[0] || '',

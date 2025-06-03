@@ -5,8 +5,8 @@ export const Body = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
-  padding: 20px;
+  justify-content: space-around;
+  padding: 16px;
 
   @media (max-width: 480px) {
     flex-direction: column;
