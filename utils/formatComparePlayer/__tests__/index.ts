@@ -4,47 +4,7 @@ import { Player } from '@/interfaces/player'
 
 describe('formatComparePlayer', () => {
   const mockedPlayers: Player[] = [...formattedMockData]
-  const mockDetailedData = {
-    awards: [
-      {
-        id: 'nitros',
-        awards: [
-          {
-            id: 'string',
-            completed: true,
-            description: 'string',
-            imagePath: 'string',
-            title: 'string',
-          },
-        ],
-      },
-    ],
-    lastUploaded: '22-22-2003',
-    bestGameTimes: {
-      normal: 100,
-      hard: 200,
-      impossible: 300,
-      solo: 0,
-      best: {
-        difficulty: 'normal',
-        time: 100,
-      } as const,
-    },
-    skins: {
-      selectedAura: 'none',
-      selectedHat: 'none',
-      selectedSkin: 'none',
-      selectedTrail: 'none',
-      selectedWindwalk: 'none',
-      selectedWings: 'none',
-    },
-    fastestBesties: {
-      1: [],
-      2: [],
-      3: [],
-    },
-    mostPlayedColor: 'red' as const,
-  }
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -55,11 +15,9 @@ describe('formatComparePlayer', () => {
     const result = formatComparePlayer(
       {
         ...mockedPlayers[0],
-        ...mockDetailedData,
       },
       {
         ...mockedPlayers[1],
-        ...mockDetailedData,
       },
       testColumns,
       undefined,
@@ -73,11 +31,9 @@ describe('formatComparePlayer', () => {
     const result = formatComparePlayer(
       {
         ...mockedPlayers[0],
-        ...mockDetailedData,
       },
       {
         ...mockedPlayers[1],
-        ...mockDetailedData,
       },
       testColumns,
       undefined,
@@ -90,7 +46,7 @@ describe('formatComparePlayer', () => {
           {
             description: 'Saves',
             highlight: true,
-            value: 100,
+            value: 305,
           },
         ],
       },
@@ -100,7 +56,7 @@ describe('formatComparePlayer', () => {
           {
             description: 'Saves',
             highlight: false,
-            value: 50,
+            value: 280,
           },
         ],
       },
@@ -113,7 +69,6 @@ describe('formatComparePlayer', () => {
     const result = formatComparePlayer(
       {
         ...mockedPlayers[0],
-        ...mockDetailedData,
       },
       undefined,
       testColumns,
@@ -126,7 +81,7 @@ describe('formatComparePlayer', () => {
           {
             description: 'Saves',
             highlight: false,
-            value: 100,
+            value: 305,
           },
         ],
       },
@@ -139,11 +94,9 @@ describe('formatComparePlayer', () => {
     const result = formatComparePlayer(
       {
         ...mockedPlayers[0],
-        ...mockDetailedData,
       },
       {
         ...mockedPlayers[1],
-        ...mockDetailedData,
       },
       testColumns,
       undefined,
@@ -155,8 +108,8 @@ describe('formatComparePlayer', () => {
         columns: [
           {
             description: 'Round One',
-            highlight: true,
-            value: '01:40',
+            highlight: false,
+            value: '03:20',
           },
         ],
       },
@@ -165,8 +118,8 @@ describe('formatComparePlayer', () => {
         columns: [
           {
             description: 'Round One',
-            highlight: false,
-            value: '02:00',
+            highlight: true,
+            value: '03:10',
           },
         ],
       },
@@ -179,11 +132,9 @@ describe('formatComparePlayer', () => {
     const result = formatComparePlayer(
       {
         ...mockedPlayers[0],
-        ...mockDetailedData,
       },
       {
         ...mockedPlayers[1],
-        ...mockDetailedData,
       },
       testColumns,
       'hard',
@@ -195,8 +146,8 @@ describe('formatComparePlayer', () => {
         columns: [
           {
             description: 'Round Five',
-            highlight: true,
-            value: '07:50',
+            highlight: false,
+            value: '08:40',
           },
         ],
       },
@@ -205,8 +156,8 @@ describe('formatComparePlayer', () => {
         columns: [
           {
             description: 'Round Five',
-            highlight: false,
-            value: 'DNF',
+            highlight: true,
+            value: '08:30',
           },
         ],
       },
