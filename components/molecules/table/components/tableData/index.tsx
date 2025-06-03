@@ -31,7 +31,7 @@ const isBattleTag = (data: unknown): data is BattleTagI =>
 const isSaveStreak = (data: unknown): data is SaveStreakI =>
   typeof data === 'object' &&
   data !== null &&
-  'highestSaveStreak' in data &&
+  'highestScore' in data &&
   'redLightning' in data &&
   'patrioticTendrils' in data
 const isChallenges = (data: unknown): data is ChallengesT =>
