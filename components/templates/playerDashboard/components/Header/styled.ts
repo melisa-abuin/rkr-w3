@@ -36,7 +36,6 @@ export const SkinBadge = styled.span`
 export const ColorBadge = styled.span<{
   color: string
 }>`
-  border: 1px solid ${({ theme }) => theme.text.primary};
   background-color: ${({ color }) => color};
   border-radius: 4px;
   font-size: var(--font-size-xs);

@@ -94,6 +94,7 @@ export default function PlayerDashboard({
     <>
       <PageContainer>
         <Header
+          battleTag={battleTag.tag}
           color={mostPlayedColor}
           skin={skins?.selectedSkin}
           title={
