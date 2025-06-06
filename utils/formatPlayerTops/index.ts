@@ -1,0 +1,135 @@
+import { GameStats } from '@/interfaces/game'
+import { Player } from '@/interfaces/player'
+import { findTopPlayersByInsertion } from '../findTopPlayers'
+import { Difficulty } from '@/interfaces/difficulty'
+
+type KeyOfPlayer = keyof Player
+interface Stats {
+  key: KeyOfPlayer
+  description: string
+  label: string
+}
+
+const roundKeys: KeyOfPlayer[] = [
+  'roundOne',
+  'roundTwo',
+  'roundThree',
+  'roundFour',
+  'roundFive',
+]
+
+const sortFastestGamesByDifficulty = (
+  bestGames: GameStats[],
+  diff: Difficulty,
+  battleTag: string,
+) =>
+  bestGames
+    .filter(({ difficulty }) => difficulty.toLowerCase() === diff.toLowerCase())
+    .sort((a, b) => a.time - b.time)
+    .slice(0, 5)
+    .findIndex(({ teamMembers }) => teamMembers.includes(battleTag))
+
+export const formatPlayerTops = (
+  battleTag: string,
+  formattedLeaderboard: Player[],
+  formattedBestGames: GameStats[],
+) => {
+  const simpleStats: Stats[] = [
+    {
+      key: 'saves',
+      label: 'Savior Kitty',
+      description: 'This player has the 1st place for saves.',
+    },
+    {
+      key: 'wins',
+      label: 'Victorious Kitty',
+      description: 'This player has the 1st place for wins.',
+    },
+    {
+      key: 'highestWinStreak',
+      label: 'Unstoppable Kitty',
+      description: 'This player has the highest win streak.',
+    },
+    {
+      key: 'gamesPlayed',
+      label: 'Addicted Kitty',
+      description: 'This player has the most games played.',
+    },
+    {
+      key: 'saveDeathRatio',
+      label: 'Immortal Kitty',
+      description: 'This player has the 1st place for save to death ratio.',
+    },
+    {
+      key: 'kibbles',
+      label: 'Hungriest Kitty',
+      description: 'This player has the most kibbles collected.',
+    },
+  ]
+
+  const fastestKittyEntry = (roundKey: KeyOfPlayer) => ({
+    label: 'Fastest Kitty',
+    description: 'This player has one of the fastest times for a round.',
+    normal: findTopPlayersByInsertion(
+      formattedLeaderboard,
+      roundKey,
+      'normal',
+    ).findIndex(({ player }) => player.tag === battleTag),
+    hard: findTopPlayersByInsertion(
+      formattedLeaderboard,
+      roundKey,
+      'hard',
+    ).findIndex(({ player }) => player.tag === battleTag),
+    impossible: findTopPlayersByInsertion(
+      formattedLeaderboard,
+      roundKey,
+      'impossible',
+    ).findIndex(({ player }) => player.tag === battleTag),
+  })
+
+  const fastestGamesEntry = {
+    label: 'Fastest Team Kitty',
+    description: 'This player has participated in the fastest games.',
+    normal: sortFastestGamesByDifficulty(
+      formattedBestGames,
+      'normal',
+      battleTag,
+    ),
+    hard: sortFastestGamesByDifficulty(formattedBestGames, 'hard', battleTag),
+    impossible: sortFastestGamesByDifficulty(
+      formattedBestGames,
+      'impossible',
+      battleTag,
+    ),
+  }
+
+  const tops: Record<
+    string,
+    {
+      label: string
+      description: string
+      all?: number
+      normal?: number
+      hard?: number
+      impossible?: number
+    }
+  > = {}
+
+  simpleStats.forEach(({ key, label, description }) => {
+    tops[key] = {
+      label,
+      description,
+      all: findTopPlayersByInsertion(formattedLeaderboard, key).findIndex(
+        ({ player }) => player.tag === battleTag,
+      ),
+    }
+  })
+
+  roundKeys.forEach((roundKey) => {
+    tops[roundKey] = fastestKittyEntry(roundKey)
+  })
+
+  tops['fastestGames'] = fastestGamesEntry
+
+  return tops
+}

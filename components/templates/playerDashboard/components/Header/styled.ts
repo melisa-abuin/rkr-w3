@@ -12,9 +12,11 @@ export const Container = styled.header`
 `
 
 export const Badges = styled.div`
+  align-items: center;
   display: flex;
   gap: 8px;
   flex-direction: row;
+  flex-wrap: wrap;
   max-width: 1000px;
   text-align: left;
   width: 100%;
