@@ -21,7 +21,7 @@ export default function Besties({ battleTag, besties }: BestiesProps) {
             as="a"
             key={player}
             href={`/player/${encodeURIComponent(player)}`}
-            colorName="secondary"
+            colorName="tertiary"
             small
           >
             {player.split('#')[0]}
