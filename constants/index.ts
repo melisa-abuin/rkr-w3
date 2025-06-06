@@ -200,7 +200,7 @@ export const discordGuideSteps = [
 ]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
-export const mapVersionNumber = '1.2.7'
+export const mapVersionNumber = '1.3.1'
 
 export const downloadFileName = `RKR_Remastered_${mapVersionNumber}`
 
