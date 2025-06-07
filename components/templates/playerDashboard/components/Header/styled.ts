@@ -12,9 +12,11 @@ export const Container = styled.header`
 `
 
 export const Badges = styled.div`
+  align-items: center;
   display: flex;
   gap: 8px;
   flex-direction: row;
+  flex-wrap: wrap;
   max-width: 1000px;
   text-align: left;
   width: 100%;
@@ -35,12 +37,12 @@ export const SkinBadge = styled.span`
 
 export const ColorBadge = styled.span<{
   color: string
+  capitalize?: boolean
 }>`
-  border: 1px solid ${({ theme }) => theme.text.primary};
   background-color: ${({ color }) => color};
   border-radius: 4px;
   font-size: var(--font-size-xs);
   color: ${({ theme }) => theme.text.primary};
   padding: 6px 8px;
-  text-transform: capitalize;
+  text-transform: ${({ capitalize }) => (capitalize ? 'capitalize' : 'none')};
 `
