@@ -77,7 +77,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           </ColorBadge>
         )}
         {color && (
-          <ColorBadge color={hexToRgba(colors[color], 0.5)}>
+          <ColorBadge capitalize color={hexToRgba(colors[color], 0.5)}>
             {`${color} kitty`}
           </ColorBadge>
         )}

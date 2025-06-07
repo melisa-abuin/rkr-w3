@@ -37,11 +37,12 @@ export const SkinBadge = styled.span`
 
 export const ColorBadge = styled.span<{
   color: string
+  capitalize?: boolean
 }>`
   background-color: ${({ color }) => color};
   border-radius: 4px;
   font-size: var(--font-size-xs);
   color: ${({ theme }) => theme.text.primary};
   padding: 6px 8px;
-  text-transform: capitalize;
+  text-transform: ${({ capitalize }) => (capitalize ? 'capitalize' : 'none')};
 `
