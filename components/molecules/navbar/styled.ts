@@ -28,7 +28,7 @@ export const StyledNav = styled.nav<NavProps>`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 
   a {
     color: ${({ hasTransparentStyle, theme }) =>
@@ -42,4 +42,15 @@ export const StyledNav = styled.nav<NavProps>`
         border-bottom-color: ${theme.text.white};
       `}
   }
+`
+export const Event = styled.div`
+  background-color: ${({ theme }) => theme.background.tertiary};
+  color: ${({ theme }) => theme.text.primary};
+  font-size: var(--font-size-xs-sm);
+  padding: 16px 24px;
+  top: 90px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
 `

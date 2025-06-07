@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { Container, StyledNav } from './styled'
+import { Container, StyledNav, Event } from './styled'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import DesktopNavbar from './components/desktop'
@@ -13,24 +13,29 @@ export default function Navbar() {
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
 
   return (
-    <StyledNav hasTransparentStyle={shouldShowTransparentNav}>
-      <Container>
-        <Link href="/">
-          <Image
-            alt="brand logo"
-            height={54}
-            priority
-            src={
-              shouldShowTransparentNav
-                ? '/rkr-icon-white.png'
-                : `/rkr-icon-primary.png`
-            }
-            width={54}
-          />
-        </Link>
-        <DesktopNavbar hasTransparentStyle={shouldShowTransparentNav} />
-        <MobileNavbar />
-      </Container>
-    </StyledNav>
+    <>
+      <StyledNav hasTransparentStyle={shouldShowTransparentNav}>
+        <Container>
+          <Link href="/">
+            <Image
+              alt="brand logo"
+              height={54}
+              priority
+              src={
+                shouldShowTransparentNav
+                  ? '/rkr-icon-white.png'
+                  : `/rkr-icon-primary.png`
+              }
+              width={54}
+            />
+          </Link>
+          <DesktopNavbar hasTransparentStyle={shouldShowTransparentNav} />
+          <MobileNavbar />
+        </Container>
+      </StyledNav>
+      {!shouldShowTransparentNav && (
+        <Event>Upcoming Event: Summer Team Tournament</Event>
+      )}
+    </>
   )
 }
