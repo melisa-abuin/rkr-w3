@@ -72,12 +72,15 @@ export default function Header({ battleTag, color, skin, title }: Props) {
       <Title>{title}</Title>
       <Badges>
         {skin && (
-          <ColorBadge color={theme.color.primary}>
+          <ColorBadge
+            background={theme.button.primary.background}
+            color={theme.button.primary.color}
+          >
             {formatKeyToWord(skin)}
           </ColorBadge>
         )}
         {color && (
-          <ColorBadge capitalize color={hexToRgba(colors[color], 0.5)}>
+          <ColorBadge capitalize background={hexToRgba(colors[color], 0.5)}>
             {`${color} kitty`}
           </ColorBadge>
         )}
@@ -86,7 +89,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
             ([key, value]) =>
               value.all === 0 && (
                 <Tooltip body={value.description} key={key}>
-                  <ColorBadge color={theme.button.tertiary.background}>
+                  <ColorBadge background={theme.button.tertiary.background}>
                     {value.label}
                   </ColorBadge>
                 </Tooltip>
@@ -97,7 +100,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           <Tooltip
             body={`This player has ${topRoundsCount} of the fastest times for a round.`}
           >
-            <ColorBadge color={theme.button.tertiary.background}>
+            <ColorBadge background={theme.button.tertiary.background}>
               Fastest Kitty x{topRoundsCount}
             </ColorBadge>
           </Tooltip>
@@ -106,7 +109,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           <Tooltip
             body={`This player has participated in ${fastestGamesCount} of the fastest games.`}
           >
-            <ColorBadge color={theme.button.tertiary.background}>
+            <ColorBadge background={theme.button.tertiary.background}>
               Fastest Team Kitty x{fastestGamesCount}
             </ColorBadge>
           </Tooltip>
