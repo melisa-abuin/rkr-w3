@@ -16,12 +16,24 @@ const bestTime: BestTime = {
 
 describe('Row', () => {
   it('renders empty cells if player or data is missing', () => {
-    renderWithTheme(<Row hoverable={true} />)
+    renderWithTheme(
+      <table>
+        <tbody>
+          <Row hoverable={true} />
+        </tbody>
+      </table>,
+    )
     expect(screen.getAllByText('--')).toHaveLength(2)
   })
 
   it('renders player name and formatted time when data is BestTime', () => {
-    renderWithTheme(<Row player={player} data={bestTime} hoverable={true} />)
+    renderWithTheme(
+      <table>
+        <tbody>
+          <Row player={player} data={bestTime} hoverable={true} />
+        </tbody>
+      </table>,
+    )
 
     expect(screen.getByText('PlayerOne')).toBeInTheDocument()
     expect(screen.getByText('02:30')).toBeInTheDocument()
@@ -34,7 +46,13 @@ describe('Row', () => {
   })
 
   it('renders player name and plain number when data is a number', () => {
-    renderWithTheme(<Row player={player} data={999} hoverable={false} />)
+    renderWithTheme(
+      <table>
+        <tbody>
+          <Row player={player} data={999} hoverable={false} />
+        </tbody>
+      </table>,
+    )
 
     expect(screen.getByText('PlayerOne')).toBeInTheDocument()
     expect(screen.getByText('999')).toBeInTheDocument()
@@ -42,7 +60,11 @@ describe('Row', () => {
 
   it('does not apply hoverable styling if hoverable is false or data is not BestTime', () => {
     const { container } = renderWithTheme(
-      <Row player={player} data={999} hoverable={false} />,
+      <table>
+        <tbody>
+          <Row player={player} data={999} hoverable={false} />
+        </tbody>
+      </table>,
     )
     const tr = container.querySelector('tr')
     expect(tr).not.toHaveAttribute('hoverable')

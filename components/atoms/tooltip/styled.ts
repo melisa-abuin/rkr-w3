@@ -11,15 +11,16 @@ export const StyledTooltip = styled.div<{
     `translate(-50%, 24px) ${showTooltip ? 'scale(1)' : 'scale(0.95)'}`};
 
   background-color: ${({ theme }) => theme.background.primary};
+  border-radius: 4px;
   border: 1px solid ${({ theme }) => theme.background.secondary};
   color: ${({ theme }) => theme.text.primary};
-  text-align: left;
-  border-radius: 4px;
+  font-size: var(--font-size-xs);
+  left: ${({ x }) => x}px;
   padding: 8px;
   position: fixed;
-  z-index: 10;
+  text-align: left;
   top: ${({ y }) => y}px;
-  left: ${({ x }) => x}px;
+  z-index: 10;
   transition:
     opacity 0.2s ease-out,
     transform 0.2s ease-out;

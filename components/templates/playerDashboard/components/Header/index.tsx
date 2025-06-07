@@ -1,13 +1,14 @@
 'use client'
 
-import { Player } from '@/interfaces/player'
-import { Badges, ColorBadge, Container, SkinBadge, Title } from './styled'
+import { Player, Tops } from '@/interfaces/player'
+import { Badges, ColorBadge, Container, Title } from './styled'
 import { colors } from '@/constants'
 import { formatKeyToWord, hexToRgba } from '@/utils'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Tooltip from '@/components/atoms/tooltip'
 import { useTheme } from '@/hooks/useTheme'
+import Loader from '@/components/atoms/loader'
 
 interface Props {
   battleTag: string
@@ -16,45 +17,30 @@ interface Props {
   title: string
 }
 
-const countTopRounds = (data) => {
+const countZeros = (entry: {
+  normal?: number
+  hard?: number
+  impossible?: number
+}) => {
   let count = 0
-
-  for (const key in data) {
-    if (key.startsWith('round')) {
-      const round = data[key]
-      if (round.normal === 0) {
-        count++
-      }
-      if (round.hard === 0) {
-        count++
-      }
-      if (round.impossible === 0) {
-        count++
-      }
-    }
-  }
-
+  if (entry.normal === 0) count++
+  if (entry.hard === 0) count++
+  if (entry.impossible === 0) count++
   return count
 }
 
-const countTopGames = (data) => {
+const countTopRounds = (data: Tops) => {
   let count = 0
-
-  if (data.normal == 0) {
-    count++
+  for (const key in data) {
+    if (key.startsWith('round')) {
+      count += countZeros(data[key])
+    }
   }
-  if (data.hard === 0) {
-    count++
-  }
-  if (data.impossible === 0) {
-    count++
-  }
-
   return count
 }
 
 export default function Header({ battleTag, color, skin, title }: Props) {
-  const { data, isFetching, error } = useApiQuery(
+  const { data, isFetching, error } = useApiQuery<Tops>(
     `/api/playerTopPositions/${encodeURIComponent(battleTag)}`,
     undefined,
     { enabled: true },
@@ -68,9 +54,19 @@ export default function Header({ battleTag, color, skin, title }: Props) {
   const [theme] = useTheme()
 
   const topRoundsCount = data ? countTopRounds(data) : 0
-  const fastestGamesCount = data ? countTopGames(data.fastestGames) : 0
-  console.log('Header data', fastestGamesCount)
+  const fastestGamesCount = data ? countZeros(data.fastestGames) : 0
 
+  if (isFetching) {
+    return (
+      <Container>
+        <Title>{title}</Title>
+        <Badges>
+          <Loader height={28} width={120} />
+          <Loader height={28} width={120} />
+        </Badges>
+      </Container>
+    )
+  }
   return (
     <Container>
       <Title>{title}</Title>

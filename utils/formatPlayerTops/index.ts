@@ -1,5 +1,5 @@
 import { GameStats } from '@/interfaces/game'
-import { Player } from '@/interfaces/player'
+import { Player, Tops } from '@/interfaces/player'
 import { findTopPlayersByInsertion } from '../findTopPlayers'
 import { Difficulty } from '@/interfaces/difficulty'
 import { topStatsConfiguration } from '@/constants'
@@ -13,18 +13,6 @@ const roundKeys: KeyOfPlayer[] = [
   'roundFour',
   'roundFive',
 ]
-
-type Tops = Record<
-  string,
-  {
-    label: string
-    description: string
-    all?: number
-    normal?: number
-    hard?: number
-    impossible?: number
-  }
->
 
 const sortFastestGamesByDifficulty = (
   bestGames: GameStats[],

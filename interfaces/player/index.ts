@@ -149,3 +149,15 @@ export interface Player {
   winStreak: number
   mostPlayedColor: Colors
 }
+
+export type Tops = Record<
+  string,
+  {
+    label: string
+    description: string
+    all?: number
+    normal?: number
+    hard?: number
+    impossible?: number
+  }
+>
