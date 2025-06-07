@@ -334,6 +334,43 @@ export const tournamentAwards = [
   'VioletWings',
 ]
 
+export const topStatsConfiguration: Array<{
+  key: keyof Player
+  description: string
+  label: string
+}> = [
+  {
+    key: 'saves',
+    label: 'Savior Kitty',
+    description: 'This player has the 1st place for saves.',
+  },
+  {
+    key: 'wins',
+    label: 'Victorious Kitty',
+    description: 'This player has the 1st place for wins.',
+  },
+  {
+    key: 'highestWinStreak',
+    label: 'Unstoppable Kitty',
+    description: 'This player has the highest win streak.',
+  },
+  {
+    key: 'gamesPlayed',
+    label: 'Addicted Kitty',
+    description: 'This player has the most games played.',
+  },
+  {
+    key: 'saveDeathRatio',
+    label: 'Immortal Kitty',
+    description: 'This player has the 1st place for save to death ratio.',
+  },
+  {
+    key: 'kibbles',
+    label: 'Hungriest Kitty',
+    description: 'This player has the most kibbles collected.',
+  },
+]
+
 export const statsPageVariants = {
   overview: {
     title: 'Overall stats',

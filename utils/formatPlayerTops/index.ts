@@ -2,13 +2,9 @@ import { GameStats } from '@/interfaces/game'
 import { Player } from '@/interfaces/player'
 import { findTopPlayersByInsertion } from '../findTopPlayers'
 import { Difficulty } from '@/interfaces/difficulty'
+import { topStatsConfiguration } from '@/constants'
 
 type KeyOfPlayer = keyof Player
-interface Stats {
-  key: KeyOfPlayer
-  description: string
-  label: string
-}
 
 const roundKeys: KeyOfPlayer[] = [
   'roundOne',
@@ -17,6 +13,18 @@ const roundKeys: KeyOfPlayer[] = [
   'roundFour',
   'roundFive',
 ]
+
+type Tops = Record<
+  string,
+  {
+    label: string
+    description: string
+    all?: number
+    normal?: number
+    hard?: number
+    impossible?: number
+  }
+>
 
 const sortFastestGamesByDifficulty = (
   bestGames: GameStats[],
@@ -34,39 +42,6 @@ export const formatPlayerTops = (
   formattedLeaderboard: Player[],
   formattedBestGames: GameStats[],
 ) => {
-  const simpleStats: Stats[] = [
-    {
-      key: 'saves',
-      label: 'Savior Kitty',
-      description: 'This player has the 1st place for saves.',
-    },
-    {
-      key: 'wins',
-      label: 'Victorious Kitty',
-      description: 'This player has the 1st place for wins.',
-    },
-    {
-      key: 'highestWinStreak',
-      label: 'Unstoppable Kitty',
-      description: 'This player has the highest win streak.',
-    },
-    {
-      key: 'gamesPlayed',
-      label: 'Addicted Kitty',
-      description: 'This player has the most games played.',
-    },
-    {
-      key: 'saveDeathRatio',
-      label: 'Immortal Kitty',
-      description: 'This player has the 1st place for save to death ratio.',
-    },
-    {
-      key: 'kibbles',
-      label: 'Hungriest Kitty',
-      description: 'This player has the most kibbles collected.',
-    },
-  ]
-
   const fastestKittyEntry = (roundKey: KeyOfPlayer) => ({
     label: 'Fastest Kitty',
     description: 'This player has one of the fastest times for a round.',
@@ -103,19 +78,9 @@ export const formatPlayerTops = (
     ),
   }
 
-  const tops: Record<
-    string,
-    {
-      label: string
-      description: string
-      all?: number
-      normal?: number
-      hard?: number
-      impossible?: number
-    }
-  > = {}
+  const tops: Tops = {}
 
-  simpleStats.forEach(({ key, label, description }) => {
+  topStatsConfiguration.forEach(({ key, label, description }) => {
     tops[key] = {
       label,
       description,

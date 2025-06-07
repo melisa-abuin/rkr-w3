@@ -25,3 +25,8 @@ export const Wrapper = styled.div`
   flex-wrap: wrap;
   gap: 8px;
 `
+export const Colored = styled.span`
+  color: ${({ theme }) => theme.text.color.brandSecondary};
+  font-weight: bold;
+  font-size: var(--font-size-xs);
+`
