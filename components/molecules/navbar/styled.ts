@@ -54,3 +54,6 @@ export const Event = styled.div`
   position: fixed;
   z-index: 2;
 `
+export const Spacer = styled.div`
+  height: 72px;
+`
