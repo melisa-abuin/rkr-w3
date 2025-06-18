@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { Container, StyledNav, Event } from './styled'
+import { Container, StyledNav, Event, Spacer } from './styled'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import DesktopNavbar from './components/desktop'
@@ -33,8 +33,23 @@ export default function Navbar() {
           <MobileNavbar />
         </Container>
       </StyledNav>
+
       {!shouldShowTransparentNav && (
-        <Event>Upcoming Event: Summer Team Tournament</Event>
+        <>
+          <Spacer />
+          <Event>
+            Save the date! <strong>Summer Team Tournament </strong>on Saturday,
+            August 9th, 2025
+            <br />
+            <small>
+              <i>
+                {' '}
+                20:00 CEST on European servers and 8:00pm Eastern on US East
+                servers
+              </i>
+            </small>
+          </Event>
+        </>
       )}
     </>
   )
