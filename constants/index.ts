@@ -105,33 +105,6 @@ export const blacklistedPlayers = ['Local Player']
 
 export const blizzardLink = 'https://www.blizzard.com/'
 
-export const colors: Record<string, string> = {
-  red: '#ff0303',
-  blue: '#0042ff',
-  teal: '#1be7ba',
-  purple: '#550081',
-  yellow: '#fefc00',
-  orange: '#fe890d',
-  green: '#21bf00',
-  pink: '#e45caf',
-  gray: '#939596',
-  lightblue: '#7ebff1',
-  darkgreen: '#106247',
-  brown: '#4f2b05',
-  maroon: '#9c0000',
-  navy: '#0000c3',
-  turquoise: '#00ebff',
-  violet: '#bd00ff',
-  wheat: '#ecce87',
-  peach: '#f7a58b',
-  mint: '#bfff81',
-  lavender: '#dbb8eb',
-  coal: '#4f5055',
-  snow: '#ecf0ff',
-  emerald: '#00781e',
-  peanut: '#a56f34',
-}
-
 export const roundDifficultyNames: Difficulty[] = [
   'normal',
   'hard',

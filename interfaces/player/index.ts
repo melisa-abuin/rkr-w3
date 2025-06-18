@@ -57,7 +57,7 @@ export type Challenges = {
   tournament: [number, number]
 }
 
-type Colors =
+export type KittyColors =
   | 'red'
   | 'blue'
   | 'teal'
@@ -147,7 +147,7 @@ export interface Player {
   winRate: string
   wins: TotalsPerDifficulty
   winStreak: number
-  mostPlayedColor: Colors
+  mostPlayedColor: KittyColors
 }
 
 export type Tops = Record<

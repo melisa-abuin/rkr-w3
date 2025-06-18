@@ -27,13 +27,6 @@ export const Title = styled.h1`
   font-size: var(--font-size-xl);
   margin-bottom: 1rem;
 `
-export const SkinBadge = styled.span`
-  border: 1px solid ${({ theme }) => theme.text.primary};
-  font-size: var(--font-size-xs);
-  border-radius: 4px;
-  color: ${({ theme }) => theme.text.primary};
-  padding: 6px 8px;
-`
 
 export const ColorBadge = styled.span<{
   background: string
