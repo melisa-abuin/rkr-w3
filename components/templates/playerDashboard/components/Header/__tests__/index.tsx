@@ -1,7 +1,5 @@
 import { screen } from '@testing-library/react'
 import Header from '..'
-import { colors } from '@/constants'
-import * as utils from '@/utils'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 import { useApiQuery } from '@/hooks/useApiQuery'
 
@@ -70,7 +68,6 @@ describe('<Header />', () => {
 
     renderWithTheme(<Header {...defaultProps} />)
     expect(screen.getByText('red kitty')).toBeInTheDocument()
-    expect(utils.hexToRgba).toHaveBeenCalledWith(colors.red, 0.5)
   })
 
   it('does not render skin badge if skin is not provided', () => {

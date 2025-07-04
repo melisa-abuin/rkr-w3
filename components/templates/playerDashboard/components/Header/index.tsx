@@ -2,13 +2,13 @@
 
 import { Player, Tops } from '@/interfaces/player'
 import { Badges, ColorBadge, Container, Title } from './styled'
-import { colors } from '@/constants'
-import { formatKeyToWord, hexToRgba } from '@/utils'
+import { formatKeyToWord } from '@/utils'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Tooltip from '@/components/atoms/tooltip'
 import { useTheme } from '@/hooks/useTheme'
 import Loader from '@/components/atoms/loader'
+import KittyColorBadge from '@/components/atoms/kittyColorBadge'
 
 interface Props {
   battleTag: string
@@ -52,6 +52,9 @@ export default function Header({ battleTag, color, skin, title }: Props) {
   )
 
   const [theme] = useTheme()
+  const {
+    button: { primary, tertiary },
+  } = theme
 
   const topRoundsCount = data ? countTopRounds(data) : 0
   const fastestGamesCount = data ? countZeros(data.fastestGames) : 0
@@ -67,29 +70,24 @@ export default function Header({ battleTag, color, skin, title }: Props) {
       </Container>
     )
   }
+
   return (
     <Container>
       <Title>{title}</Title>
       <Badges>
         {skin && (
-          <ColorBadge
-            background={theme.button.primary.background}
-            color={theme.button.primary.color}
-          >
+          <ColorBadge background={primary.background} color={primary.color}>
             {formatKeyToWord(skin)}
           </ColorBadge>
         )}
-        {color && (
-          <ColorBadge capitalize background={hexToRgba(colors[color], 0.5)}>
-            {`${color} kitty`}
-          </ColorBadge>
-        )}
+
+        <KittyColorBadge colorName={color}>{`${color} kitty`}</KittyColorBadge>
         {!!data &&
           Object.entries(data).map(
             ([key, value]) =>
               value.all === 0 && (
                 <Tooltip body={value.description} key={key}>
-                  <ColorBadge background={theme.button.tertiary.background}>
+                  <ColorBadge background={tertiary.background}>
                     {value.label}
                   </ColorBadge>
                 </Tooltip>
@@ -100,7 +98,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           <Tooltip
             body={`This player has ${topRoundsCount} of the fastest times for a round.`}
           >
-            <ColorBadge background={theme.button.tertiary.background}>
+            <ColorBadge background={tertiary.background}>
               Fastest Kitty x{topRoundsCount}
             </ColorBadge>
           </Tooltip>
@@ -109,7 +107,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           <Tooltip
             body={`This player has participated in ${fastestGamesCount} of the fastest games.`}
           >
-            <ColorBadge background={theme.button.tertiary.background}>
+            <ColorBadge background={tertiary.background}>
               Fastest Team Kitty x{fastestGamesCount}
             </ColorBadge>
           </Tooltip>

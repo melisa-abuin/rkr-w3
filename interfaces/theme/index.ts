@@ -9,6 +9,13 @@ export interface Theme {
       hoverColor: string
     }
   >
+  badge: Record<
+    string,
+    {
+      background: string
+      color: string
+    }
+  >
   color: Record<string, string>
   background: Record<string, string>
   text: {

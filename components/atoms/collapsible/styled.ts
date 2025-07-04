@@ -35,6 +35,8 @@ export const Header = styled.div`
   justify-content: space-between;
   padding: 16px;
   text-transform: capitalize;
+  pointer-events: all;
+  user-select: none;
 `
 
 export const Title = styled.h2`
