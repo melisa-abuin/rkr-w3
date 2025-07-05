@@ -43,17 +43,3 @@ export const StyledNav = styled.nav<NavProps>`
       `}
   }
 `
-export const Event = styled.div`
-  background-color: ${({ theme }) => theme.background.tertiary};
-  color: ${({ theme }) => theme.text.primary};
-  font-size: var(--font-size-xs-sm);
-  padding: 16px 24px;
-  top: 90px;
-  text-align: center;
-  width: 100%;
-  position: fixed;
-  z-index: 2;
-`
-export const Spacer = styled.div`
-  height: 72px;
-`
