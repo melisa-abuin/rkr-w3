@@ -1,11 +1,12 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { Container, StyledNav, Event, Spacer } from './styled'
+import { Container, StyledNav } from './styled'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import DesktopNavbar from './components/desktop'
 import MobileNavbar from './components/mobile'
 import Link from '@/components/atoms/link'
+import Announcement from './components/announcement'
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -34,23 +35,7 @@ export default function Navbar() {
         </Container>
       </StyledNav>
 
-      {!shouldShowTransparentNav && (
-        <>
-          <Spacer />
-          <Event>
-            Save the date! <strong>Summer Team Tournament </strong>on Saturday,
-            August 9th, 2025
-            <br />
-            <small>
-              <i>
-                {' '}
-                20:00 CEST on European servers and 8:00pm Eastern on US East
-                servers
-              </i>
-            </small>
-          </Event>
-        </>
-      )}
+      {!shouldShowTransparentNav && <Announcement />}
     </>
   )
 }
