@@ -51,7 +51,7 @@ export const getValueForKey = (
   }
 
   if (key === 'battleTag') {
-    return elem.battleTag?.name
+    return elem.battleTag?.name.toLocaleLowerCase() || ''
   }
 
   return elem[key]
