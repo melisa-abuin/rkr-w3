@@ -1,6 +1,6 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
-import Paws from '@/components/atoms/paws'
+import Paws from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Paws component', () => {
