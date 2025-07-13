@@ -15,6 +15,8 @@ import {
 import PlayersList from './playersList'
 import DatePlayed from './datePlayed'
 import DifficultyData from './difficulty'
+import Paws from '@/components/atoms/paws'
+import { Column, Subtitle, Title } from './styled'
 
 interface Props<T> {
   data?: T
@@ -116,8 +118,11 @@ export default function TableData<T>({
             difficulty={difficultyFilter}
             isTimeStats
           >
-            {secondsToSexagesimal(componentData.best.time)}
-            <br />({componentData.best.difficulty})
+            <Column>
+              <Title>{secondsToSexagesimal(componentData.best.time)}</Title>
+              <Subtitle>({componentData.best.difficulty})</Subtitle>
+              <Paws difficulty={componentData.best.difficulty} />
+            </Column>
           </Tooltip>
         )
       }

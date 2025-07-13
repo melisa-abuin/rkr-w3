@@ -9,8 +9,8 @@ import {
   Wrapper,
 } from './styled'
 import PositionNumber from '@/components/atoms/positionNumber'
-import { Paw } from '@/components/icons/paw'
 import Tooltip from '@/components/atoms/tooltip'
+import Paws from '@/components/atoms/paws'
 import { useTheme } from '@/hooks/useTheme'
 
 interface CardProps {
@@ -20,12 +20,6 @@ interface CardProps {
   time: number
   teamMembers: string
   showDifficulty: boolean
-}
-
-const difficultyPawCounter = {
-  normal: 1,
-  hard: 2,
-  impossible: 3,
 }
 
 export default function Card({
@@ -39,9 +33,6 @@ export default function Card({
   const members = teamMembers.replace(/#\d+/g, '')
   const matchDate = formatDateToLocale(date)
   const [theme] = useTheme()
-  const difficultyValue = difficulty.toLocaleLowerCase()
-
-  if (difficultyValue in difficultyPawCounter === false) return null
 
   return (
     <Container>
@@ -51,23 +42,12 @@ export default function Card({
           <Row>
             <Title>{secondsToSexagesimal(time)}</Title>
             {showDifficulty && (
-              <div>
-                {[
-                  ...Array(
-                    difficultyPawCounter[
-                      difficultyValue as keyof typeof difficultyPawCounter
-                    ],
-                  ),
-                ].map((_, rowIndex) => (
-                  <Tooltip body={difficulty} key={rowIndex}>
-                    <Paw
-                      height={16}
-                      fill={theme.text.color.secondary}
-                      width={16}
-                    />
-                  </Tooltip>
-                ))}
-              </div>
+              <Tooltip body={difficulty} ariaLabel="Difficulty">
+                <Paws
+                  color={theme.text.color.secondary}
+                  difficulty={difficulty}
+                />
+              </Tooltip>
             )}
           </Row>
 
