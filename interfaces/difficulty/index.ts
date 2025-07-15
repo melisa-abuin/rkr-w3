@@ -1,1 +1,1 @@
-export type Difficulty = 'normal' | 'hard' | 'impossible' | 'solo'
+export type Difficulty = 'normal' | 'hard' | 'impossible' | 'solo' | 'nightmare'

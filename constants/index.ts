@@ -110,9 +110,15 @@ export const roundDifficultyNames: Difficulty[] = [
   'hard',
   'impossible',
   'solo',
+  'nightmare',
 ]
 
-export const difficultyNames: Difficulty[] = ['normal', 'hard', 'impossible']
+export const difficultyNames: Difficulty[] = [
+  'normal',
+  'hard',
+  'impossible',
+  'nightmare',
+]
 
 export const discordData =
   'https://discord.com/api/v9/invites/GSu6zkNvx5?with_counts=true&with_expiration=false'

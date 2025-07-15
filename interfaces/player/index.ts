@@ -21,6 +21,11 @@ export interface ApiRounds {
   RoundThreeSolo: number
   RoundFourSolo: number
   RoundFiveSolo: number
+  RoundOneNightmare: number
+  RoundTwoNightmare: number
+  RoundThreeNightmare: number
+  RoundFourNightmare: number
+  RoundFiveNightmare: number
 }
 
 export interface ApiPlayerStats {
