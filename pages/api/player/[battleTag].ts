@@ -123,34 +123,43 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       GameStats.NormalGames,
       GameStats.HardGames,
       GameStats.ImpossibleGames,
+      GameStats.NightmareGames,
     )
 
     playerStats.wins = calculateTotals(
       GameStats.NormalWins,
       GameStats.HardWins,
       GameStats.ImpossibleWins,
+      GameStats.NightmareWins,
     )
 
     playerStats.winRate = calculateWinRate(
       playerStats.wins.total,
       playerStats.gamesPlayed.total,
     )
-    const { NormalGameTime, HardGameTime, ImpossibleGameTime } =
-      BestGameTimes || {}
+    const {
+      NormalGameTime,
+      HardGameTime,
+      ImpossibleGameTime,
+      NightmareGameTime,
+    } = BestGameTimes || {}
 
     const normal = NormalGameTime?.Time || 0
     const hard = HardGameTime?.Time || 0
     const impossible = ImpossibleGameTime?.Time || 0
+    const nightmare = NightmareGameTime?.Time || 0
 
     playerStats.bestGameTimes = {
       solo: 0,
       normal,
       hard,
       impossible,
+      nightmare,
       best: calculateBestTimeByDifficulty({
         normal,
         hard,
         impossible,
+        nightmare,
       }),
     }
 

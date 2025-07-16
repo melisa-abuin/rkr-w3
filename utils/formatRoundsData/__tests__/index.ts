@@ -7,11 +7,13 @@ describe('formatRoundsData', () => {
       RoundOneHard: 105.2,
       RoundOneImpossible: 150.5,
       RoundOneSolo: 0,
+      RoundOneNightmare: 120.0,
     }
     expect(formatRoundsData(mockedData, 'One')).toStrictEqual({
       normal: mockedData.RoundOneNormal,
       hard: mockedData.RoundOneHard,
       impossible: mockedData.RoundOneImpossible,
+      nightmare: mockedData.RoundOneNightmare,
       solo: mockedData.RoundOneSolo,
       best: {
         difficulty: 'normal',

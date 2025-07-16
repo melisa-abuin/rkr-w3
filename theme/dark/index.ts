@@ -49,6 +49,10 @@ const darkTheme = {
   color: {
     black: '#000000',
     green: '#2abf59',
+    hard: '#d14f0a',
+    impossible: '#d10a0a',
+    nightmare: '#9343c4',
+    normal: '#cfd324',
     patrioticTendrilsExternal: '#c22513',
     patrioticTendrilsInternal: '#3f4fe0',
     primary: '#B24141',
@@ -58,9 +62,6 @@ const darkTheme = {
     teal: '#16b7c9',
     tertiary: '#441111',
     yellow: '#cfd324',
-    normal: '#cfd324',
-    hard: '#d14f0a',
-    impossible: '#d10a0a',
   },
   background: {
     error: '#ba3232',

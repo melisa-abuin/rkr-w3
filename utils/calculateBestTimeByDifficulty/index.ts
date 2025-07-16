@@ -2,6 +2,7 @@ interface Props {
   normal: number
   hard: number
   impossible: number
+  nightmare: number
 }
 
 /**

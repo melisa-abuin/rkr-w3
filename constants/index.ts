@@ -110,9 +110,15 @@ export const roundDifficultyNames: Difficulty[] = [
   'hard',
   'impossible',
   'solo',
+  'nightmare',
 ]
 
-export const difficultyNames: Difficulty[] = ['normal', 'hard', 'impossible']
+export const difficultyNames: Difficulty[] = [
+  'normal',
+  'hard',
+  'impossible',
+  'nightmare',
+]
 
 export const discordData =
   'https://discord.com/api/v9/invites/GSu6zkNvx5?with_counts=true&with_expiration=false'
@@ -402,6 +408,7 @@ export const formattedMockData: Player[] = [
       impossible: 320,
       normal: 500,
       solo: 380,
+      nightmare: 360,
     },
     completedChallenges: {
       general: [7, 10],
@@ -418,6 +425,7 @@ export const formattedMockData: Player[] = [
       impossible: 30,
       normal: 60,
       total: 135,
+      nightmare: 0,
     },
     highestWinStreak: 14,
     kibbles: {
@@ -433,6 +441,7 @@ export const formattedMockData: Player[] = [
       impossible: 530,
       normal: 550,
       solo: 510,
+      nightmare: 540,
     },
     roundFour: {
       best: { time: 450, difficulty: 'normal' },
@@ -440,6 +449,7 @@ export const formattedMockData: Player[] = [
       impossible: 470,
       normal: 450,
       solo: 455,
+      nightmare: 480,
     },
     roundOne: {
       best: { time: 200, difficulty: 'normal' },
@@ -447,6 +457,7 @@ export const formattedMockData: Player[] = [
       impossible: 250,
       normal: 200,
       solo: 205,
+      nightmare: 220,
     },
     roundThree: {
       best: { time: 350, difficulty: 'hard' },
@@ -454,6 +465,7 @@ export const formattedMockData: Player[] = [
       impossible: 390,
       normal: 400,
       solo: 360,
+      nightmare: 370,
     },
     roundTwo: {
       best: { time: 300, difficulty: 'hard' },
@@ -461,6 +473,7 @@ export const formattedMockData: Player[] = [
       impossible: 330,
       normal: 340,
       solo: 310,
+      nightmare: 320,
     },
     saveDeathRatio: 3.5,
     saves: 305,
@@ -484,6 +497,7 @@ export const formattedMockData: Player[] = [
       impossible: 22,
       normal: 50,
       total: 102,
+      nightmare: 0,
     },
     winStreak: 6,
     mostPlayedColor: 'purple',
@@ -520,6 +534,7 @@ export const formattedMockData: Player[] = [
       impossible: 360,
       normal: 420,
       solo: 305,
+      nightmare: 310,
     },
     completedChallenges: {
       general: [8, 11],
@@ -536,6 +551,7 @@ export const formattedMockData: Player[] = [
       impossible: 20,
       normal: 80,
       total: 150,
+      nightmare: 5,
     },
     highestWinStreak: 10,
     kibbles: {
@@ -551,6 +567,7 @@ export const formattedMockData: Player[] = [
       impossible: 490,
       normal: 530,
       solo: 500,
+      nightmare: 520,
     },
     roundFour: {
       best: { time: 430, difficulty: 'hard' },
@@ -558,6 +575,7 @@ export const formattedMockData: Player[] = [
       impossible: 460,
       normal: 480,
       solo: 440,
+      nightmare: 450,
     },
     roundOne: {
       best: { time: 190, difficulty: 'hard' },
@@ -565,6 +583,7 @@ export const formattedMockData: Player[] = [
       impossible: 220,
       normal: 210,
       solo: 195,
+      nightmare: 205,
     },
     roundThree: {
       best: { time: 330, difficulty: 'normal' },
@@ -572,6 +591,7 @@ export const formattedMockData: Player[] = [
       impossible: 370,
       normal: 330,
       solo: 345,
+      nightmare: 360,
     },
     roundTwo: {
       best: { time: 290, difficulty: 'impossible' },
@@ -579,6 +599,7 @@ export const formattedMockData: Player[] = [
       impossible: 290,
       normal: 320,
       solo: 300,
+      nightmare: 315,
     },
     saveDeathRatio: 2.9,
     saves: 280,
@@ -602,6 +623,7 @@ export const formattedMockData: Player[] = [
       impossible: 15,
       normal: 52,
       total: 102,
+      nightmare: 0,
     },
     winStreak: 5,
     mostPlayedColor: 'blue',

@@ -7,6 +7,7 @@ describe('calculateTotals', () => {
       hard: 10,
       impossible: 10,
       total: 30,
+      nightmare: 0,
     })
   })
 })

@@ -21,6 +21,11 @@ export interface ApiRounds {
   RoundThreeSolo: number
   RoundFourSolo: number
   RoundFiveSolo: number
+  RoundOneNightmare: number
+  RoundTwoNightmare: number
+  RoundThreeNightmare: number
+  RoundFourNightmare: number
+  RoundFiveNightmare: number
 }
 
 export interface ApiPlayerStats {
@@ -97,6 +102,7 @@ export interface RoundTimes {
   best: BestTime
   hard: number
   impossible: number
+  nightmare: number
   normal: number
   solo: number
 }
@@ -119,6 +125,7 @@ export interface Skins {
 export interface TotalsPerDifficulty {
   hard: number
   impossible: number
+  nightmare: number
   normal: number
   total: number
 }
