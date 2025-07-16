@@ -49,6 +49,10 @@ const lightTheme = {
   color: {
     black: '#000000',
     green: '#0040ff',
+    hard: '#d10a0a',
+    impossible: '#850000',
+    nightmare: '#9f41b2',
+    normal: '#ff6c00',
     patrioticTendrilsExternal: '#f7020f',
     patrioticTendrilsInternal: '#127dff',
     primary: '#B24141',
@@ -58,9 +62,6 @@ const lightTheme = {
     teal: '#01c5db',
     tertiary: '#441111',
     yellow: '#ff6c00',
-    normal: '#ff6c00',
-    hard: '#d10a0a',
-    impossible: '#850000',
   },
   background: {
     error: '#db0404',

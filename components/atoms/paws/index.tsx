@@ -11,6 +11,7 @@ const difficultyPawCounter = {
   normal: 1,
   hard: 2,
   impossible: 3,
+  nightmare: 4,
 }
 
 export default function Paws({ color, difficulty }: PawsProps) {

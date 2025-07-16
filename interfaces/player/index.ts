@@ -102,6 +102,7 @@ export interface RoundTimes {
   best: BestTime
   hard: number
   impossible: number
+  nightmare: number
   normal: number
   solo: number
 }
@@ -124,6 +125,7 @@ export interface Skins {
 export interface TotalsPerDifficulty {
   hard: number
   impossible: number
+  nightmare: number
   normal: number
   total: number
 }

@@ -9,6 +9,7 @@ interface Props {
   data: {
     hard: number | string
     impossible: number | string
+    nightmare: number | string
     normal: number | string
   }
   difficulty?: Difficulty
@@ -22,13 +23,14 @@ export default function Tooltip({
   difficulty = undefined,
   isTimeStats = false,
 }: Props) {
-  const { hard, impossible, normal } = data
+  const { hard, impossible, normal, nightmare } = data
   const dataToRender = { ...data }
 
   if (isTimeStats) {
     dataToRender.hard = secondsToSexagesimal(hard as number)
     dataToRender.impossible = secondsToSexagesimal(impossible as number)
     dataToRender.normal = secondsToSexagesimal(normal as number)
+    dataToRender.nightmare = secondsToSexagesimal(nightmare as number)
   }
 
   if (difficulty && difficulty !== 'solo') {
@@ -52,6 +54,10 @@ export default function Tooltip({
             <tr>
               <td>Impossible</td>
               <td>{dataToRender.impossible}</td>
+            </tr>
+            <tr>
+              <td>Nightmare</td>
+              <td>{dataToRender.nightmare}</td>
             </tr>
           </tbody>
         </Content>
