@@ -50,9 +50,14 @@ export default function BestGamesWithControls() {
         showDifficulty={!difficultyFilter}
       />
       <Table
-        columns={bestGameTimesColumns}
+        columns={
+          !!difficultyFilter
+            ? bestGameTimesColumns.filter(({ key }) => key !== 'difficulty')
+            : bestGameTimesColumns
+        }
         data={data?.slice(5, 20) || []}
         loading={isFetching}
+        difficultyFilter={difficultyFilter}
       />
     </>
   )
