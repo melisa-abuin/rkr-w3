@@ -179,10 +179,6 @@ export const discordGuideSteps = [
 ]
 export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
-export const mapVersionNumber = '1.3.1'
-
-export const downloadFileName = `RKR_Remastered_${mapVersionNumber}`
-
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
 
@@ -231,6 +227,13 @@ export const routes = {
     pathname: '/guide',
     url: '/guide',
     target: '_self',
+  },
+  download: {
+    label: 'Download',
+    pathname:
+      'https://discord.com/channels/873715731873804298/1122346045968498738',
+    url: 'https://discord.com/channels/873715731873804298/1122346045968498738',
+    target: '_blank',
   },
 } as const
 

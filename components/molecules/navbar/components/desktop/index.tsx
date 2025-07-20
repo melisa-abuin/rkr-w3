@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { NavLinks, NavLink } from './styled'
-import { downloadFileName, mapVersionNumber, routes } from '@/constants'
+import { routes } from '@/constants'
 import Link from 'next/link'
 
 export default function DesktopNavbar({
@@ -26,11 +26,6 @@ export default function DesktopNavbar({
           </Link>
         </NavLink>
       ))}
-      <NavLink hasTransparentStyle={hasTransparentStyle}>
-        <Link href={`/${downloadFileName}.w3x`} download={downloadFileName}>
-          Download v{mapVersionNumber}
-        </Link>
-      </NavLink>
     </NavLinks>
   )
 }

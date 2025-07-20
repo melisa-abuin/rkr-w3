@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { useTheme } from '@/hooks/useTheme'
 import { useState } from 'react'
-import { downloadFileName, mapVersionNumber, routes } from '@/constants'
+import { routes } from '@/constants'
 import Link from '@/components/atoms/link'
 
 export default function MobileNavbar() {
@@ -55,11 +55,6 @@ export default function MobileNavbar() {
               </Link>
             </NavLink>
           ))}
-          <NavLink>
-            <Link href={`/${downloadFileName}.w3x`} download={downloadFileName}>
-              Download v{mapVersionNumber}
-            </Link>
-          </NavLink>
         </NavLinks>
       </MobileMenu>
     </Container>
