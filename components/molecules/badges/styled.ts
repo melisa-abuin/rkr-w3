@@ -6,6 +6,7 @@ export const OuterContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
+  overflow: auto;
 `
 export const InnerContainer = styled.div`
   align-items: center;
