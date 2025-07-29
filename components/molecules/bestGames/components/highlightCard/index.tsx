@@ -4,6 +4,7 @@ import { formatDateToLocale, secondsToSexagesimal } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import PositionNumber from '@/components/atoms/positionNumber'
 import Button from '@/components/atoms/button'
+import Tooltip from '@/components/atoms/tooltip'
 
 interface HighlightCardProps {
   difficulty: Difficulty
@@ -29,9 +30,12 @@ export default function HighlightCard({
       <DetailContainer>
         <Row>
           <Info>
-            <TextWithIcon colorName="tertiary" iconName="clock">
-              {secondsToSexagesimal(time)}
-            </TextWithIcon>
+            <Tooltip body={secondsToSexagesimal(time, true)}>
+              <TextWithIcon colorName="tertiary" iconName="clock">
+                {secondsToSexagesimal(time)}
+              </TextWithIcon>
+            </Tooltip>
+
             {showDifficulty && (
               <TextWithIcon colorName="secondary" iconName="paw">
                 {difficulty}

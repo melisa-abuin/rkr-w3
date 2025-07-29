@@ -48,6 +48,11 @@ export const formatPlayerTops = (
       roundKey,
       'impossible',
     ).findIndex(({ player }) => player.tag === battleTag),
+    nightmare: findTopPlayersByInsertion(
+      formattedLeaderboard,
+      roundKey,
+      'nightmare',
+    ).findIndex(({ player }) => player.tag === battleTag),
   })
 
   const fastestGamesEntry = {
