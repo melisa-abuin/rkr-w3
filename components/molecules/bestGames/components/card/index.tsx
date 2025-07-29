@@ -39,17 +39,20 @@ export default function Card({
       <Header>
         <PositionNumber pos={position} isSmall />
         <Wrapper>
-          <Row>
-            <Title>{secondsToSexagesimal(time)}</Title>
-            {showDifficulty && (
-              <Tooltip body={difficulty} ariaLabel="Difficulty">
+          <Tooltip
+            body={`${secondsToSexagesimal(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
+            ariaLabel="Difficulty"
+          >
+            <Row>
+              <Title>{secondsToSexagesimal(time)}</Title>
+              {showDifficulty && (
                 <Paws
                   color={theme.text.color.secondary}
                   difficulty={difficulty}
                 />
-              </Tooltip>
-            )}
-          </Row>
+              )}
+            </Row>
+          </Tooltip>
 
           <Description>{matchDate}</Description>
         </Wrapper>
