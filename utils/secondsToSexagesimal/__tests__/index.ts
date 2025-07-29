@@ -22,4 +22,12 @@ describe('secondsToSexagesimal', () => {
     expect(secondsToSexagesimal(7200)).toBe('2:00:00')
     expect(secondsToSexagesimal(180)).toBe('03:00')
   })
+
+  it('should include milliseconds when withMilliseconds is true', () => {
+    expect(secondsToSexagesimal(135.123, true)).toBe('02:15.122')
+    expect(secondsToSexagesimal(0.001, true)).toBe('00:00.001')
+    expect(secondsToSexagesimal(3665.789, true)).toBe('1:01:05.789')
+    expect(secondsToSexagesimal(59.999, true)).toBe('00:59.999')
+    expect(secondsToSexagesimal(7200.456, true)).toBe('2:00:00.456')
+  })
 })
