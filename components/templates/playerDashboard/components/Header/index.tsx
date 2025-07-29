@@ -21,11 +21,13 @@ const countZeros = (entry: {
   normal?: number
   hard?: number
   impossible?: number
+  nightmare?: number
 }) => {
   let count = 0
   if (entry.normal === 0) count++
   if (entry.hard === 0) count++
   if (entry.impossible === 0) count++
+  if (entry.nightmare === 0) count++
   return count
 }
 

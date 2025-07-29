@@ -57,12 +57,14 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         GameStats.NormalGames,
         GameStats.HardGames,
         GameStats.ImpossibleGames,
+        GameStats.NightmareGames,
       )
 
       playerStats.wins = calculateTotals(
         GameStats.NormalWins,
         GameStats.HardWins,
         GameStats.ImpossibleWins,
+        GameStats.NightmareWins,
       )
 
       roundNames.forEach((round) => {
