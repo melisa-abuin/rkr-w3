@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 
 // Change this key to update the announcement
 const announcementKey = 'announcement-2025-08-09'
-const isActiveAnnouncement = true
+const isActiveAnnouncement = false
 
 export default function Announcement() {
   const [visible, setVisible] = useState(false)
