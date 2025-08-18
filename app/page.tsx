@@ -1,11 +1,10 @@
-import Banner from '@/components/atoms/banner'
-import InfoColumns from '@/components/atoms/infoColumns'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
-import { PageContainer } from '@/components/atoms/pageContainer'
+import { ToastProvider } from '@/hooks/useToast'
+import Home from '@/components/templates/home'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {
@@ -31,24 +30,18 @@ async function getDiscordData(): Promise<DiscordType> {
   }
 }
 
-export default async function Home() {
+export default async function HomePage() {
   const data = await getDiscordData()
 
   return (
     <ThemeProvider>
-      <Navbar />
-      <main>
-        <Banner discordData={data} />
-        <PageContainer
-          align="center"
-          ariaLabelledby="info-columns"
-          marginTop={24}
-          title="Discover the map"
-        >
-          <InfoColumns />
-        </PageContainer>
-      </main>
-      <Footer />
+      <ToastProvider>
+        <Navbar />
+        <main>
+          <Home discordData={data} />
+        </main>
+        <Footer />
+      </ToastProvider>
     </ThemeProvider>
   )
 }
