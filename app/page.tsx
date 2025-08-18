@@ -1,10 +1,10 @@
-import Banner from '@/components/atoms/banner'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
 import { ToastProvider } from '@/hooks/useToast'
+import Home from '@/components/templates/home'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {
@@ -30,7 +30,7 @@ async function getDiscordData(): Promise<DiscordType> {
   }
 }
 
-export default async function Home() {
+export default async function HomePage() {
   const data = await getDiscordData()
 
   return (
@@ -38,7 +38,7 @@ export default async function Home() {
       <ToastProvider>
         <Navbar />
         <main>
-          <Banner discordData={data} />
+          <Home discordData={data} />
         </main>
         <Footer />
       </ToastProvider>

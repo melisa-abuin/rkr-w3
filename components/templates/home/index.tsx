@@ -18,7 +18,7 @@ interface Props {
   discordData: DiscordData
 }
 
-export default function Banner({ discordData }: Props) {
+export default function Home({ discordData }: Props) {
   const { data, error } = discordData
   return (
     <BannerContainer>
@@ -29,6 +29,7 @@ export default function Banner({ discordData }: Props) {
           Stats, leaderboards and more
         </Info>
         <PlayerFinderWithResult />
+
         <a href={discordJoinLink}>
           <Image
             alt="discord invitation"

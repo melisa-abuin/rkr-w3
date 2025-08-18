@@ -13,18 +13,6 @@ export const BannerContainer = styled.section`
   padding: 0 24px;
 `
 
-export const BannerContent = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 480px) {
-    align-items: center;
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-`
-
 export const Container = styled.div`
   align-items: center;
   display: flex;
