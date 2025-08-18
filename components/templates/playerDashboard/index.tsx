@@ -68,7 +68,7 @@ export default function PlayerDashboard({
         showToast(
           `It looks like ${outDatedPlayer} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
           'warning',
-          4000,
+          5000,
         )
       }
     }

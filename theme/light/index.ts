@@ -109,7 +109,7 @@ const lightTheme = {
     white: '#FFFFFF',
   },
   shadow: {
-    primary: 'rgba(0, 0, 0, 0.1)',
+    primary: 'rgba(0, 0, 0, 0.2)',
     secondary: 'rgba(0, 0, 0, 0.7);',
   },
 }
