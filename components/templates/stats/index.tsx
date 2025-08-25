@@ -30,17 +30,19 @@ export default function Stats({ data, slug }: AllStatsData) {
 
   const router = useRouter()
 
-  const onTabeChange = (index: number) => {
+  const onTabChange = (index: number) => {
     const selectedVariantKey = variantKeys[index]
     if (!selectedVariantKey || !isValidVariant(selectedVariantKey)) {
       return
     }
 
+    const pageVariant = statsPageVariants[selectedVariantKey]
+
     router.push(
-      `/stats/${selectedVariantKey}?page=1&sortKey=${statsPageVariants[selectedVariantKey].defaultSortKey}&sortOrder=desc`,
+      `/stats?filter=${pageVariant.apiBaseUrl}&page=1&sortKey=${pageVariant.defaultSortKey}&sortOrder=desc`,
     )
   }
-
+  console.log(data)
   return (
     <>
       <PageContainer>
@@ -51,7 +53,7 @@ export default function Stats({ data, slug }: AllStatsData) {
       </PageContainer>
       <PageContainer>
         <Tabs
-          onTabChange={onTabeChange}
+          onTabChange={onTabChange}
           overrideSelectedIndex={variantValues.findIndex(
             ({ title }) => title === pageVariant.title,
           )}
