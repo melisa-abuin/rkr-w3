@@ -13,10 +13,9 @@ interface PlayerStatsData {
 }
 
 async function fetchData(
-  apiBaseUrl: 'kibbleStats' | 'times' | 'stats',
-  searchParams?: Promise<{ url?: { search?: string } }>,
+  searchParams?: Promise<{ url?: { search?: string }; filter: string }>,
 ): Promise<PlayerStatsData> {
-  const { url } = (await searchParams) ?? {}
+  const { url, filter } = (await searchParams) ?? {}
 
   const headersList = headers()
   const protocol = (await headersList).get('x-forwarded-proto') || 'http'
@@ -28,7 +27,7 @@ async function fetchData(
     ? 'https://rkr-w3.vercel.app'
     : `${protocol}://${host}`
 
-  const slugUrl = `${baseUrl}/api/${apiBaseUrl}`
+  const slugUrl = `${baseUrl}/api/${filter}`
 
   const response = await fetch(`${slugUrl}${url?.search ?? ''}`)
   if (response.status === 200) {
@@ -47,27 +46,13 @@ interface PageProps {
   params: Promise<{
     slug: string
   }>
-  searchParams?: Promise<{ url?: { search?: string } }>
+  searchParams?: Promise<{ url?: { search?: string }; filter: string }>
 }
-
-const apiBaseUrls = {
-  overview: 'stats',
-  time: 'times',
-  kibble: 'kibbleStats',
-} as const
-
-type VariantKey = keyof typeof apiBaseUrls
-
-const isValidVariant = (slug: string): slug is VariantKey => slug in apiBaseUrls
 
 export default async function StatsPage({ params, searchParams }: PageProps) {
   const { slug } = await params
 
-  const apiBaseUrl = isValidVariant(slug)
-    ? apiBaseUrls[slug]
-    : apiBaseUrls['overview']
-
-  const { data, error } = await fetchData(apiBaseUrl, searchParams)
+  const { data, error } = await fetchData(searchParams)
 
   return (
     <ThemeProvider>

@@ -82,7 +82,7 @@ export default function TableWithControls({
     undefined,
     { enabled: hasInteracted },
   )
-
+  console.log(isFetching)
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
   const handlePageChange = useCallback((page: number) => {
