@@ -53,16 +53,23 @@ interface PageProps {
   searchParams?: Record<string, string | string[] | undefined>
 }
 
-export default async function StatsPage({ params, searchParams }: PageProps) {
-  const { slug } = params
-
+export default async function StatsPage({ searchParams }: PageProps) {
   const { data, error } = await fetchData(searchParams)
 
   return (
     <ThemeProvider>
       <ToastProvider>
         <Navbar />
-        <main>{error ? <Error /> : <Stats data={data} slug={slug} />}</main>
+        <main>
+          {error ? (
+            <Error />
+          ) : (
+            <Stats
+              data={data}
+              filter={searchParams?.filter?.toString() || 'stats'}
+            />
+          )}
+        </main>
         <Footer />
       </ToastProvider>
     </ThemeProvider>

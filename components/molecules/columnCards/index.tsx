@@ -11,7 +11,7 @@ interface Props {
   difficulty?: string
   hoverable?: boolean
   loading?: boolean
-  viewAllKey: 'overview' | 'time'
+  filter: 'stats' | 'times'
 }
 
 export default function ColumnCards({
@@ -19,11 +19,11 @@ export default function ColumnCards({
   difficulty = undefined,
   hoverable = false,
   loading,
-  viewAllKey,
+  filter,
 }: Props) {
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
-    return `/stats/${viewAllKey}?page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`
+    return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`
   }
 
   if (loading && data.length === 0) {
