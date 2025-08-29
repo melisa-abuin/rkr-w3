@@ -49,16 +49,21 @@ interface PageProps {
   searchParams?: Promise<{ url?: { search?: string }; filter: string }>
 }
 
-export default async function StatsPage({ params, searchParams }: PageProps) {
-  const { slug } = await params
-
+export default async function StatsPage({ searchParams }: PageProps) {
   const { data, error } = await fetchData(searchParams)
+  const { filter } = (await searchParams) ?? {}
 
   return (
     <ThemeProvider>
       <ToastProvider>
         <Navbar />
-        <main>{error ? <Error /> : <Stats data={data} slug={slug} />}</main>
+        <main>
+          {error ? (
+            <Error />
+          ) : (
+            <Stats data={data} filter={filter?.toString() || 'stats'} />
+          )}
+        </main>
         <Footer />
       </ToastProvider>
     </ThemeProvider>

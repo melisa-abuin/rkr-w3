@@ -17,10 +17,12 @@ interface TableProps {
   defaultSortKey: keyof Player
   title?: string
   apiBaseUrl: 'times' | 'stats'
+  shouldRefetch: boolean
   columns: Array<{
     title: string
     key: keyof Player
   }>
+  defaultQueryString: string | null
 }
 
 interface SortingKey {
@@ -35,6 +37,8 @@ export default function TableWithControls({
   apiBaseUrl,
   title,
   headerLink,
+  shouldRefetch = false,
+  defaultQueryString,
 }: TableProps) {
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
@@ -56,18 +60,30 @@ export default function TableWithControls({
   })
 
   const queryString = useMemo(() => {
+    if (!hasInteracted) {
+      return null
+    }
     const params = new URLSearchParams()
     params.set('page', currentPage.toString())
     if (difficultyFilter) params.set('difficulty', difficultyFilter)
     params.set('sortKey', sortKey.key)
     params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
+    params.set('filter', apiBaseUrl)
+
     return params.toString()
-  }, [currentPage, difficultyFilter, sortKey])
+  }, [
+    currentPage,
+    difficultyFilter,
+    sortKey.key,
+    sortKey.asc,
+    apiBaseUrl,
+    hasInteracted,
+  ])
 
   const syncURL = useCallback(() => {
-    window.history.pushState(null, '', `?${queryString}`)
+    window.history.pushState(null, '', `?${queryString || defaultQueryString}`)
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-  }, [queryString])
+  }, [queryString, defaultQueryString])
 
   useEffect(() => {
     syncURL()
@@ -78,11 +94,11 @@ export default function TableWithControls({
     isFetching,
     error,
   } = useApiQuery<{ pages: number; stats?: Player[] }>(
-    `/api/${apiBaseUrl}?${queryString}`,
+    `/api/${apiBaseUrl}?${queryString || defaultQueryString}`,
     undefined,
-    { enabled: hasInteracted },
+    { enabled: hasInteracted || shouldRefetch },
   )
-  console.log(isFetching)
+
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
   const handlePageChange = useCallback((page: number) => {

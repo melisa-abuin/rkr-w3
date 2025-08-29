@@ -7,12 +7,12 @@ import Tabs from '@/components/atoms/tabs'
 import { Player } from '@/interfaces/player'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import KibbleTableWithControls from '@/components/organisms/kibbleTableWithControls'
-import { useRouter } from 'next/navigation'
 import { statsPageVariants } from '@/constants'
+import { useState } from 'react'
 
 interface AllStatsData {
   data: { pages: number; stats?: Player[] }
-  slug: string
+  filter: string
 }
 
 type VariantKey = keyof typeof statsPageVariants
@@ -20,29 +20,30 @@ type VariantKey = keyof typeof statsPageVariants
 const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
-export default function Stats({ data, slug }: AllStatsData) {
+export default function Stats({ data, filter }: AllStatsData) {
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
 
-  const pageVariant = isValidVariant(slug)
-    ? statsPageVariants[slug]
-    : statsPageVariants['overview']
-
-  const router = useRouter()
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [defaultQueryString, setDefaultQueryString] = useState<string | null>(
+    null,
+  )
 
   const onTabChange = (index: number) => {
     const selectedVariantKey = variantKeys[index]
+
     if (!selectedVariantKey || !isValidVariant(selectedVariantKey)) {
       return
     }
 
-    const pageVariant = statsPageVariants[selectedVariantKey]
+    const newPageVariant = statsPageVariants[selectedVariantKey]
 
-    router.push(
-      `/stats?filter=${pageVariant.apiBaseUrl}&page=1&sortKey=${pageVariant.defaultSortKey}&sortOrder=desc`,
+    setHasInteracted(true)
+    setDefaultQueryString(
+      `/stats?filter=${newPageVariant.apiBaseUrl}&page=1&sortKey=${newPageVariant.defaultSortKey}&sortOrder=desc`,
     )
   }
-  console.log(data)
+
   return (
     <>
       <PageContainer>
@@ -54,8 +55,8 @@ export default function Stats({ data, slug }: AllStatsData) {
       <PageContainer>
         <Tabs
           onTabChange={onTabChange}
-          overrideSelectedIndex={variantValues.findIndex(
-            ({ title }) => title === pageVariant.title,
+          defaultIndex={variantValues.findIndex(
+            ({ apiBaseUrl }) => apiBaseUrl === filter,
           )}
           titles={variantValues.map(({ title }) => title)}
         >
@@ -64,6 +65,7 @@ export default function Stats({ data, slug }: AllStatsData) {
               if (title === 'Kibble stats') {
                 return (
                   <KibbleTableWithControls
+                    shouldRefetch={hasInteracted}
                     key={index}
                     columns={columns}
                     data={{
@@ -80,6 +82,8 @@ export default function Stats({ data, slug }: AllStatsData) {
               }
               return (
                 <TableWithControls
+                  defaultQueryString={defaultQueryString}
+                  shouldRefetch={hasInteracted}
                   key={index}
                   columns={columns}
                   data={data}
