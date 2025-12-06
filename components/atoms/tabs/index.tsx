@@ -5,7 +5,7 @@ import { Wrapper, Header, Button, Content } from './styled'
 
 interface TabsProps {
   children: React.ReactNode[]
-  overrideSelectedIndex?: number | null
+  defaultIndex?: number | null
   titles: string[]
   onTabChange?: (newIndex: number) => void
 }
@@ -13,17 +13,15 @@ interface TabsProps {
 export default function Tabs({
   titles,
   children,
-  overrideSelectedIndex = null,
+  defaultIndex = null,
   onTabChange,
 }: TabsProps) {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const currentIndex =
-    overrideSelectedIndex !== null ? overrideSelectedIndex : activeIndex
+  const [activeIndex, setActiveIndex] = useState(
+    defaultIndex !== null ? defaultIndex : 0,
+  )
 
   const handleTabClick = (index: number) => {
     onTabChange?.(index)
-    if (overrideSelectedIndex !== null) return
-
     setActiveIndex(index)
   }
 
@@ -33,14 +31,14 @@ export default function Tabs({
         {titles.map((title, index) => (
           <Button
             key={title}
-            active={index === currentIndex}
+            active={index === activeIndex}
             onClick={() => handleTabClick(index)}
           >
             {title}
           </Button>
         ))}
       </Header>
-      <Content>{children[currentIndex]}</Content>
+      <Content>{children[activeIndex]}</Content>
     </Wrapper>
   )
 }

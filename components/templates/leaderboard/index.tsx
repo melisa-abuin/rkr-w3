@@ -2,7 +2,7 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { statsColumns } from '@/constants'
+import { routes, statsColumns } from '@/constants'
 import { Player } from '@/interfaces/player'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -31,7 +31,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     stats: Player[]
     page: number
   }>(
-    '/api/stats?page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
+    '/api/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
     undefined,
     {
       enabled: true,
@@ -58,12 +58,12 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
               withPadding={false}
               title="Best scores"
             >
-              <ColumnCards data={data?.stats} viewAllKey="overview" />
+              <ColumnCards data={data?.stats} filter="stats" />
             </PageContainer>
 
             <ColumnCardsWithControls
               data={data?.times}
-              viewAllKey="time"
+              filter="times"
               title="Best times"
             />
 
@@ -90,7 +90,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
                 as="a"
                 variant="outline"
                 colorName="primary"
-                href="/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc"
+                href={routes.scoreboard.url}
               >
                 View all stats
               </Button>

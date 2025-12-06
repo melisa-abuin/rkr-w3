@@ -219,7 +219,7 @@ export const routes = {
   scoreboard: {
     label: 'Scoreboard',
     pathname: '/stats',
-    url: '/stats/overview?page=1&sortKey=completedChallenges&sortOrder=desc',
+    url: '/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc',
     target: '_self',
   },
   guide: {
@@ -354,21 +354,21 @@ export const topStatsConfiguration: Array<{
 ]
 
 export const statsPageVariants = {
-  overview: {
+  stats: {
     title: 'Overall stats',
     description: 'Check all the general stats for all players',
     columns: statsColumns,
     defaultSortKey: 'completedChallenges',
     apiBaseUrl: 'stats',
   },
-  time: {
+  times: {
     title: 'Time stats',
     description: 'Check all the time-based stats',
     columns: timeAllDiffColumns,
     defaultSortKey: 'roundOne',
     apiBaseUrl: 'times',
   },
-  kibble: {
+  kibbleStats: {
     title: 'Kibble stats',
     description: 'Check all the kibble stats for all players',
     columns: kibbleColumns,

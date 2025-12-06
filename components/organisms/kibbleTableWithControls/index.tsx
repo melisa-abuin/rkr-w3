@@ -21,6 +21,7 @@ interface TableProps {
     title: string
     key: keyof KibbleType
   }>
+  shouldRefetch: boolean
 }
 
 interface SortingKey {
@@ -35,6 +36,7 @@ export default function KibbleTableWithControls({
   apiBaseUrl,
   title,
   headerLink,
+  shouldRefetch = false,
 }: TableProps) {
   const [hasInteracted, setHasInteracted] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
@@ -48,8 +50,10 @@ export default function KibbleTableWithControls({
     params.set('page', currentPage.toString())
     params.set('sortKey', sortKey.key)
     params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
+    params.set('filter', apiBaseUrl)
+
     return params.toString()
-  }, [currentPage, sortKey])
+  }, [currentPage, sortKey.key, sortKey.asc, apiBaseUrl])
 
   const syncURL = useCallback(() => {
     window.history.pushState(null, '', `?${queryString}`)
@@ -57,8 +61,8 @@ export default function KibbleTableWithControls({
   }, [queryString])
 
   useEffect(() => {
-    syncURL()
-  }, [syncURL])
+    hasInteracted && syncURL()
+  }, [syncURL, hasInteracted])
 
   const {
     data: filteredData,
@@ -68,7 +72,7 @@ export default function KibbleTableWithControls({
     pages: number
     stats?: Player[]
   }>(`/api/${apiBaseUrl}?${queryString}`, undefined, {
-    enabled: hasInteracted,
+    enabled: hasInteracted || shouldRefetch,
   })
 
   useQueryErrorToast(

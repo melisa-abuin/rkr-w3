@@ -16,12 +16,12 @@ type LeaderBoardData = LeaderboardCategories[]
 interface Props {
   data?: LeaderBoardData
   title: string
-  viewAllKey: 'overview' | 'time'
+  filter: 'stats' | 'times'
 }
 
 export default function ColumnCardsWithControls({
   data,
-  viewAllKey,
+  filter,
   title,
 }: Props) {
   const [difficultyFilter, setDifficultyFilter] = useState<
@@ -68,7 +68,7 @@ export default function ColumnCardsWithControls({
         difficulty={difficultyFilter}
         hoverable={difficultyFilter === undefined}
         loading={isFetching}
-        viewAllKey={viewAllKey}
+        filter={filter}
       />
     </PageContainer>
   )
