@@ -11,5 +11,6 @@ export interface ApiGameStats {
   GameDate: string
   Difficulty: Difficulty
   Data: string
+  Invalid: number
 }
 export type GamesStats = GameStats[]
