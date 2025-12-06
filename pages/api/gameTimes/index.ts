@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import { ApiGameStats, GameStats } from '@/interfaces/game'
 import { fetchData } from '@/utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,6 +15,7 @@ export default async function handler(
     )
 
     const formattedData = data
+      .filter((elem: ApiGameStats) => elem.Invalid === 0)
       .map((elem: ApiGameStats) => {
         const data = JSON.parse(elem.Data)
 
