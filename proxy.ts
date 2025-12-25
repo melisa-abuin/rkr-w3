@@ -6,7 +6,7 @@ const LIMIT = 60
 const BOT_UA_REGEX =
   /(bot|crawler|spider|crawling|scrapy|curl|wget|python|httpclient|headless)/i
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const ua = req.headers.get('user-agent') || ''
   const ip = req.ip ?? 'unknown'
   const count = (hits.get(ip) ?? 0) + 1
