@@ -15,8 +15,8 @@ interface PlayerStatsData {
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
   const headersList = headers()
-  const protocol = headersList.get('x-forwarded-proto') || 'http'
-  const host = headersList.get('host')
+  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
+  const host = (await headersList).get('host')
 
   // workaround for feature instances
   const isStage = process.env.ENVIRONMENT === 'stage'
