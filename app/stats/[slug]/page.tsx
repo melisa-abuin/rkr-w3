@@ -14,25 +14,23 @@ interface PlayerStatsData {
 
 async function fetchData(
   apiBaseUrl: 'kibbleStats' | 'times' | 'stats',
-  searchParams?: Record<string, string | string[] | undefined>,
+  searchParams?: Promise<{ url?: { search?: string } }>,
 ): Promise<PlayerStatsData> {
-  const queryString = new URLSearchParams(
-    searchParams as Record<string, string>,
-  ).toString()
+  const { url } = (await searchParams) ?? {}
 
   const headersList = headers()
-  const protocol = headersList.get('x-forwarded-proto') || 'http'
-  const host = headersList.get('host')
+  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
+  const host = (await headersList).get('host')
 
   // workaround for feature instances
   const isStage = process.env.ENVIRONMENT === 'stage'
-  const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
+  const baseUrl = isStage
+    ? 'https://rkr-w3.vercel.app'
+    : `${protocol}://${host}`
 
-  const slugUrl = `${url}/api/${apiBaseUrl}`
+  const slugUrl = `${baseUrl}/api/${apiBaseUrl}`
 
-  const response = await fetch(
-    `${slugUrl}${queryString ? `?${queryString}` : ''}`,
-  )
+  const response = await fetch(`${slugUrl}${url?.search ?? ''}`)
   if (response.status === 200) {
     return {
       data: await response.json(),
@@ -46,10 +44,10 @@ async function fetchData(
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
-  searchParams?: Record<string, string | string[] | undefined>
+  }>
+  searchParams?: Promise<{ url?: { search?: string } }>
 }
 
 const apiBaseUrls = {
@@ -63,7 +61,7 @@ type VariantKey = keyof typeof apiBaseUrls
 const isValidVariant = (slug: string): slug is VariantKey => slug in apiBaseUrls
 
 export default async function StatsPage({ params, searchParams }: PageProps) {
-  const { slug } = params
+  const { slug } = await params
 
   const apiBaseUrl = isValidVariant(slug)
     ? apiBaseUrls[slug]

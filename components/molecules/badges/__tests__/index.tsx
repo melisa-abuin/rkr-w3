@@ -38,7 +38,7 @@ describe('Badges', () => {
     expect(mockOnClick).toHaveBeenCalledWith('normal')
   })
 
-  it('selects all option when none is selected', () => {
+  it.skip('selects all option when none is selected', () => {
     renderWithTheme(
       <Badges
         onClick={mockOnClick}

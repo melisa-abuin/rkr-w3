@@ -6,9 +6,17 @@ const LIMIT = 60
 const BOT_UA_REGEX =
   /(bot|crawler|spider|crawling|scrapy|curl|wget|python|httpclient|headless)/i
 
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    req.headers.get('x-real-ip') ||
+    'unknown'
+  )
+}
+
 export function middleware(req: NextRequest) {
   const ua = req.headers.get('user-agent') || ''
-  const ip = req.ip ?? 'unknown'
+  const ip = getClientIp(req)
   const count = (hits.get(ip) ?? 0) + 1
   hits.set(ip, count)
 
@@ -25,4 +33,8 @@ export function middleware(req: NextRequest) {
   }
 
   return NextResponse.next()
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 }

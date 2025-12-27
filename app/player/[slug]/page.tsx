@@ -15,8 +15,8 @@ interface PlayerStatsData {
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
   const headersList = headers()
-  const protocol = headersList.get('x-forwarded-proto') || 'http'
-  const host = headersList.get('host')
+  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
+  const host = (await headersList).get('host')
 
   // workaround for feature instances
   const isStage = process.env.ENVIRONMENT === 'stage'
@@ -50,9 +50,9 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
 export default async function PlayerPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = params
+  const { slug } = await params
   const { data, error } = await fetchData(slug)
 
   return (
