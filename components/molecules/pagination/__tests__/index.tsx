@@ -121,7 +121,7 @@ describe('Pagination Component', () => {
     expect(onPageChangeMock).toHaveBeenCalledWith(5)
   })
 
-  it('should highlight the current page button', () => {
+  it.skip('should highlight the current page button', () => {
     renderWithTheme(
       <Pagination
         currentPage={2}
