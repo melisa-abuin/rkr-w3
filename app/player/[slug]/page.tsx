@@ -50,9 +50,9 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
 export default async function PlayerPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const { slug } = params
+  const { slug } = await params
   const { data, error } = await fetchData(slug)
 
   return (
