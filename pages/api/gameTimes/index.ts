@@ -23,10 +23,17 @@ export default async function handler(
         gameStats.difficulty = elem.Difficulty
         gameStats.date = data.Date
         gameStats.teamMembers = data.TeamMembers
-        gameStats.time = data.Time
+        gameStats.times = {
+          roundFive: data.RoundFiveTime,
+          roundFour: data.RoundFourTime,
+          roundOne: data.RoundOneTime,
+          roundThree: data.RoundThreeTime,
+          roundTwo: data.RoundTwoTime,
+          total: data.Time,
+        }
         return gameStats
       })
-      .sort((a: GameStats, b: GameStats) => a.time - b.time)
+      .sort((a: GameStats, b: GameStats) => a.times.total - b.times.total)
       .slice(0, 20)
 
     res.status(200).json(formattedData)
