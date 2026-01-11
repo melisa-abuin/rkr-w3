@@ -58,7 +58,7 @@ export default function TableData<T>({
       if (typeof componentData === 'number')
         return <Ratio data={componentData} />
       break
-    case 'time':
+    case 'times':
       if (typeof componentData === 'number')
         return <>{secondsToSexagesimal(componentData)}</>
       break

@@ -52,7 +52,7 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
       <DesktopCardContainer>
         <HighlightCard
           difficulty={bestGame.difficulty}
-          time={bestGame.time}
+          time={bestGame.times.total}
           teamMembers={bestGame.teamMembers}
           date={bestGame.date}
           showDifficulty={showDifficulty}
@@ -62,7 +62,7 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
         <Card
           date={bestGame.date}
           difficulty={bestGame.difficulty}
-          time={bestGame.time}
+          time={bestGame.times.total}
           teamMembers={bestGame.teamMembers}
           showDifficulty={showDifficulty}
           position={1}
@@ -76,7 +76,7 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
             date={game.date}
             difficulty={game.difficulty}
             showDifficulty={showDifficulty}
-            time={game.time}
+            time={game.times.total}
             teamMembers={game.teamMembers}
           />
         ))}
