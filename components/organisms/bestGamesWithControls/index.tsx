@@ -55,7 +55,11 @@ export default function BestGamesWithControls() {
             ? bestGameTimesColumns.filter(({ key }) => key !== 'difficulty')
             : bestGameTimesColumns
         }
-        data={data?.slice(5, 20) || []}
+        data={
+          data
+            ?.slice(5, 20)
+            .map((elem) => ({ ...elem, times: elem.times.total })) || []
+        }
         loading={isFetching}
         difficultyFilter={difficultyFilter}
       />

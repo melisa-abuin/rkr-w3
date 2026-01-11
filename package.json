@@ -4,13 +4,14 @@
   "private": true,
   "packageManager": "yarn@1.22.22",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "typecheck": "tsc",
-    "prepare": "husky",
+    "dev": "next dev",
+    "lint": "eslint .",
     "postbuild": "next-sitemap",
-    "test": "jest"
+    "prepare": "husky",
+    "start": "next start",
+    "test": "jest",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.77.0",
