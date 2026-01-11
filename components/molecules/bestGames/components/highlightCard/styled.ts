@@ -21,7 +21,6 @@ export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 24px;
   justify-content: center;
   padding-left: 20px;
 `
@@ -32,6 +31,13 @@ export const Row = styled.div`
   flex-direction: row;
   flex: 1;
   justify-content: space-between;
+  width: 100%;
+`
+
+export const Background = styled.div`
+  background-color: ${({ theme }) => theme.background.highlightPrimary};
+  margin-bottom: 4px;
+  padding: 8px;
   width: 100%;
 `
 
@@ -46,4 +52,5 @@ export const Wrapper = styled.div`
 
 export const Info = styled(Wrapper)`
   gap: 16px;
+  padding-bottom: 24px;
 `
