@@ -1,4 +1,4 @@
-import { secondsToSexagesimal } from '@/utils'
+import { formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import BattleTag from './battleTag'
 import Tooltip from './tooltip'
@@ -60,7 +60,7 @@ export default function TableData<T>({
       break
     case 'times':
       if (typeof componentData === 'number')
-        return <>{secondsToSexagesimal(componentData)}</>
+        return <>{formatSecondsAsTime(componentData)}</>
       break
     case 'date':
       if (typeof componentData === 'string')
@@ -121,7 +121,7 @@ export default function TableData<T>({
             isTimeStats
           >
             <Column>
-              <Title>{secondsToSexagesimal(componentData.best.time)}</Title>
+              <Title>{formatSecondsAsTime(componentData.best.time)}</Title>
               <Subtitle>({componentData.best.difficulty})</Subtitle>
               <Paws difficulty={componentData.best.difficulty} />
             </Column>

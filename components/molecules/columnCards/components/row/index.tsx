@@ -1,4 +1,4 @@
-import { secondsToSexagesimal } from '@/utils'
+import { formatSecondsAsTime } from '@/utils'
 import { Tr, BaseTd, HoverTd, Td } from './styled'
 import { BattleTag, BestTime } from '@/interfaces/player'
 import Link from '@/components/atoms/link'
@@ -39,7 +39,7 @@ export default function Row({ player, data, hoverable }: Props) {
       </BaseTd>
       {isBestTime(data) ? (
         <>
-          <BaseTd>{secondsToSexagesimal(data.time)}</BaseTd>
+          <BaseTd>{formatSecondsAsTime(data.time)}</BaseTd>
           {hoverable && (
             <HoverTd>
               <Link href={playerLink}>{data.difficulty}</Link>

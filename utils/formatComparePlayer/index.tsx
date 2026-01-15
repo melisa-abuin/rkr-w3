@@ -1,5 +1,5 @@
 import { Player } from '@/interfaces/player'
-import { secondsToSexagesimal } from '../secondsToSexagesimal'
+import { formatSecondsAsTime } from '../secondsToSexagesimal'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isTimeKey } from '../checkKeyType'
@@ -13,7 +13,7 @@ const formatColumns = (
   const valueForKey = getValueForKey(column.key, player, difficulty) as number
 
   const value = isTimeKey(column.key)
-    ? secondsToSexagesimal(valueForKey)
+    ? formatSecondsAsTime(valueForKey)
     : valueForKey
 
   const highlight = comparePlayer

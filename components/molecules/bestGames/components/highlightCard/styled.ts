@@ -52,5 +52,5 @@ export const Wrapper = styled.div`
 
 export const Info = styled(Wrapper)`
   gap: 16px;
-  padding-bottom: 24px;
+  padding-bottom: 16px;
 `

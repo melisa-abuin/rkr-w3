@@ -1,4 +1,4 @@
-import { formatDateToLocale, secondsToSexagesimal } from '@/utils'
+import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import {
   Container,
   Description,
@@ -40,11 +40,11 @@ export default function Card({
         <PositionNumber pos={position} isSmall />
         <Wrapper>
           <Tooltip
-            body={`${secondsToSexagesimal(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
+            body={`${formatSecondsAsTime(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
             ariaLabel="Difficulty"
           >
             <Row>
-              <Title>{secondsToSexagesimal(time)}</Title>
+              <Title>{formatSecondsAsTime(time)}</Title>
               {showDifficulty && (
                 <Paws
                   color={theme.text.color.secondary}

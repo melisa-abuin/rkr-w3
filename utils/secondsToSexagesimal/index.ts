@@ -5,7 +5,7 @@
  * @param withMilliseconds whether to include milliseconds
  * @returns formatted time
  */
-export const secondsToSexagesimal = (
+export const formatSecondsAsTime = (
   seconds: number,
   withMilliseconds: boolean = false,
 ) => {

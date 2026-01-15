@@ -8,12 +8,13 @@ import {
   Row,
   Wrapper,
 } from './styled'
-import { formatDateToLocale, secondsToSexagesimal } from '@/utils'
+import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import PositionNumber from '@/components/atoms/positionNumber'
 import Button from '@/components/atoms/button'
 import Tooltip from '@/components/atoms/tooltip'
 import { GameStats } from '@/interfaces/game'
+import { useState } from 'react'
 
 interface HighlightCardProps {
   date: string
@@ -34,6 +35,7 @@ export default function HighlightCard({
 }: HighlightCardProps) {
   const matchDate = formatDateToLocale(date)
   const members = teamMembers.split(', ')
+  const [showRoundTimes, setShowRoundTimes] = useState(false)
 
   return (
     <Container>
@@ -41,12 +43,22 @@ export default function HighlightCard({
       <DetailContainer>
         <Row>
           <Info>
-            <Tooltip body={secondsToSexagesimal(times.total, true)}>
+            <Tooltip body={formatSecondsAsTime(times.total, true)}>
               <TextWithIcon colorName="tertiary" iconName="clock">
-                {secondsToSexagesimal(times.total)}
+                {formatSecondsAsTime(times.total)}
               </TextWithIcon>
             </Tooltip>
+            <Button onClick={() => setShowRoundTimes(true)}>{'->'}</Button>
 
+            {showRoundTimes && times.roundOne && (
+              <Wrapper>
+                <p>{formatSecondsAsTime(times.roundOne)}</p>
+                <p>{formatSecondsAsTime(times.roundTwo)}</p>
+                <p>{formatSecondsAsTime(times.roundThree)}</p>
+                <p>{formatSecondsAsTime(times.roundFour)}</p>
+                <p>{formatSecondsAsTime(times.roundFive)}</p>
+              </Wrapper>
+            )}
             {showDifficulty && (
               <TextWithIcon colorName="secondary" iconName="paw">
                 {difficulty}
@@ -55,34 +67,21 @@ export default function HighlightCard({
           </Info>
           <Date>{matchDate}</Date>
         </Row>
-        {times.roundOne && (
-          <Background>
-            <Wrapper>
-              <label>{secondsToSexagesimal(times.roundOne)}</label>
-              <label>{secondsToSexagesimal(times.roundTwo)}</label>
-              <label>{secondsToSexagesimal(times.roundThree)}</label>
-              <label>{secondsToSexagesimal(times.roundFour)}</label>
-              <label>{secondsToSexagesimal(times.roundFive)}</label>
-            </Wrapper>
-          </Background>
-        )}
 
-        <Background>
-          <Wrapper>
-            {members.map((memeber) => (
-              <Button
-                as="a"
-                key={memeber}
-                href={`/player/${encodeURIComponent(memeber)}`}
-                small
-                colorName="secondary"
-                variant="ghost"
-              >
-                {memeber.split('#')[0]}
-              </Button>
-            ))}
-          </Wrapper>
-        </Background>
+        <Wrapper>
+          {members.map((memeber) => (
+            <Button
+              as="a"
+              key={memeber}
+              href={`/player/${encodeURIComponent(memeber)}`}
+              small
+              colorName="tertiary"
+              variant="solid"
+            >
+              {memeber.split('#')[0]}
+            </Button>
+          ))}
+        </Wrapper>
       </DetailContainer>
     </Container>
   )
