@@ -1,9 +1,9 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import {
-  Background,
   Container,
   Date,
   DetailContainer,
+  IconButton,
   Info,
   Row,
   Wrapper,
@@ -15,6 +15,8 @@ import Button from '@/components/atoms/button'
 import Tooltip from '@/components/atoms/tooltip'
 import { GameStats } from '@/interfaces/game'
 import { useState } from 'react'
+import { Chevron } from '@/components/icons/chevron'
+import { useTheme } from '@/hooks/useTheme'
 
 interface HighlightCardProps {
   date: string
@@ -36,6 +38,7 @@ export default function HighlightCard({
   const matchDate = formatDateToLocale(date)
   const members = teamMembers.split(', ')
   const [showRoundTimes, setShowRoundTimes] = useState(false)
+  const [theme] = useTheme()
 
   return (
     <Container>
@@ -43,20 +46,32 @@ export default function HighlightCard({
       <DetailContainer>
         <Row>
           <Info>
-            <Tooltip body={formatSecondsAsTime(times.total, true)}>
-              <TextWithIcon colorName="tertiary" iconName="clock">
-                {formatSecondsAsTime(times.total)}
-              </TextWithIcon>
-            </Tooltip>
-            <Button onClick={() => setShowRoundTimes(true)}>{'->'}</Button>
+            <Wrapper>
+              <Tooltip body={formatSecondsAsTime(times.total, true)}>
+                <TextWithIcon colorName="tertiary" iconName="clock">
+                  {formatSecondsAsTime(times.total, showRoundTimes)}
+                </TextWithIcon>
+              </Tooltip>
+              {times.roundOne && (
+                <IconButton onClick={() => setShowRoundTimes((prev) => !prev)}>
+                  <Chevron
+                    height={16}
+                    fill={theme.text.color.tertiary}
+                    width={16}
+                    flipped={!showRoundTimes}
+                  />
+                </IconButton>
+              )}
+            </Wrapper>
 
             {showRoundTimes && times.roundOne && (
               <Wrapper>
-                <p>{formatSecondsAsTime(times.roundOne)}</p>
-                <p>{formatSecondsAsTime(times.roundTwo)}</p>
-                <p>{formatSecondsAsTime(times.roundThree)}</p>
-                <p>{formatSecondsAsTime(times.roundFour)}</p>
-                <p>{formatSecondsAsTime(times.roundFive)}</p>
+                <small>Round times:</small>
+                <small>{formatSecondsAsTime(times.roundOne)}</small>
+                <small>{formatSecondsAsTime(times.roundTwo)}</small>
+                <small>{formatSecondsAsTime(times.roundThree)}</small>
+                <small>{formatSecondsAsTime(times.roundFour)}</small>
+                <small>{formatSecondsAsTime(times.roundFive)}</small>
               </Wrapper>
             )}
             {showDifficulty && (

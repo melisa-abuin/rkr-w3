@@ -34,23 +34,26 @@ export const Row = styled.div`
   width: 100%;
 `
 
-export const Background = styled.div`
-  background-color: ${({ theme }) => theme.background.highlightPrimary};
-  margin-bottom: 4px;
-  padding: 8px;
-  width: 100%;
-`
-
 export const Wrapper = styled.div`
+  color: ${({ theme }) => theme.text.secondary};
   align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  flex: 1;
   gap: 8px;
 `
 
 export const Info = styled(Wrapper)`
   gap: 16px;
   padding-bottom: 16px;
+`
+
+export const IconButton = styled.button`
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
 `
