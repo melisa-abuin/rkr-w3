@@ -97,7 +97,14 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         const gameStats: Partial<GameStats> = {}
         gameStats.difficulty = elem.Difficulty
 
-        gameStats.time = data.Time
+        gameStats.times = {
+          roundFive: data.RoundFiveTime,
+          roundFour: data.RoundFourTime,
+          roundOne: data.RoundOneTime,
+          roundThree: data.RoundThreeTime,
+          roundTwo: data.RoundTwoTime,
+          total: data.Time,
+        }
         gameStats.teamMembers = data.TeamMembers
         return gameStats
       },

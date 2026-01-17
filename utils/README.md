@@ -56,7 +56,7 @@ Below is a list of all available utilities:
 
 ### ⏱ Time Formatting
 
-- `secondsToSexagesimal`
+- `formatSecondsAsTime`
 
 ### 🧼 Key Transforms
 

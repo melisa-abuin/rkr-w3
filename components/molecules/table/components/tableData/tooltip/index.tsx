@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 import { Content, Text } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Difficulty } from '@/interfaces/difficulty'
-import { secondsToSexagesimal } from '@/utils'
+import { formatSecondsAsTime } from '@/utils'
 import TooltipComponent from '@/components/atoms/tooltip'
 
 interface Props {
@@ -27,10 +27,10 @@ export default function Tooltip({
   const dataToRender = { ...data }
 
   if (isTimeStats) {
-    dataToRender.hard = secondsToSexagesimal(hard as number)
-    dataToRender.impossible = secondsToSexagesimal(impossible as number)
-    dataToRender.normal = secondsToSexagesimal(normal as number)
-    dataToRender.nightmare = secondsToSexagesimal(nightmare as number)
+    dataToRender.hard = formatSecondsAsTime(hard as number)
+    dataToRender.impossible = formatSecondsAsTime(impossible as number)
+    dataToRender.normal = formatSecondsAsTime(normal as number)
+    dataToRender.nightmare = formatSecondsAsTime(nightmare as number)
   }
 
   if (difficulty && difficulty !== 'solo') {

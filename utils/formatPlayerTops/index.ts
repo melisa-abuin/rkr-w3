@@ -21,7 +21,7 @@ const sortFastestGamesByDifficulty = (
 ) =>
   bestGames
     .filter(({ difficulty }) => difficulty.toLowerCase() === diff.toLowerCase())
-    .sort((a, b) => a.time - b.time)
+    .sort((a, b) => a.times.total - b.times.total)
     .slice(0, 5)
     .findIndex(({ teamMembers }) => teamMembers.includes(battleTag))
 

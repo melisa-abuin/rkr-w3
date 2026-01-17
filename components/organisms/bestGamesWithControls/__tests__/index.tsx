@@ -37,7 +37,7 @@ describe('BestGamesWithControls', () => {
 
     renderWithTheme(<BestGamesWithControls />)
 
-    expect(await screen.findByText('Matt')).toBeInTheDocument()
+    expect(await screen.findAllByText('Matt')).not.toHaveLength(0)
     expect(screen.getAllByText(/normal/i).length).toBeGreaterThan(0)
   })
 

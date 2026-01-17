@@ -9,35 +9,3 @@ export const Container = styled.div`
   max-width: 1000px;
   width: 100%;
 `
-
-export const DesktopCardContainer = styled.div`
-  display: block;
-  width: 100%;
-
-  @media (max-width: 480px) {
-    display: none;
-  }
-`
-
-export const MobileCardContainer = styled.div`
-  display: none;
-  width: 100%;
-
-  @media (max-width: 480px) {
-    display: block;
-  }
-`
-
-export const Wrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  width: 100%;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-  }
-`

@@ -1,16 +1,11 @@
 'use client'
 
-import {
-  Container,
-  DesktopCardContainer,
-  MobileCardContainer,
-  Wrapper,
-} from './styled'
-import Card from './components/card'
-import HighlightCard from './components/highlightCard'
+import { Container } from './styled'
+import MobileCard from './components/mobileCard'
+import DesktopCard from './components/desktopCard'
 import { GamesStats } from '@/interfaces/game'
-import LoaderCard from './components/loaderCard'
-import LoaderHighlightCard from './components/loaderHighlightCard'
+import LoaderMobileCard from './components/loaderMobileCard'
+import LoaderDesktopCard from './components/loaderDesktopCard'
 
 interface Props {
   games: GamesStats
@@ -19,68 +14,55 @@ interface Props {
 }
 
 export default function BestGames({ games, loading, showDifficulty }: Props) {
-  const bestGame = games[0]
-
   if (loading) {
     return (
       <Container>
-        <DesktopCardContainer>
-          <LoaderHighlightCard showDifficulty={showDifficulty} />
-        </DesktopCardContainer>
-        <MobileCardContainer>
-          <LoaderCard position={1} showDifficulty={showDifficulty} />
-        </MobileCardContainer>
-        <Wrapper>
-          {[...Array(4)].map((_, rowIndex) => (
-            <LoaderCard
-              key={rowIndex}
-              position={rowIndex + 2}
-              showDifficulty={showDifficulty}
-            />
-          ))}
-        </Wrapper>
+        {[...Array(5)].map((_, rowIndex) => (
+          <LoaderDesktopCard
+            key={rowIndex}
+            position={rowIndex + 1}
+            showDifficulty={showDifficulty}
+          />
+        ))}
+        {[...Array(5)].map((_, rowIndex) => (
+          <LoaderMobileCard
+            key={rowIndex}
+            position={rowIndex + 1}
+            showDifficulty={showDifficulty}
+          />
+        ))}
       </Container>
     )
   }
 
-  if (!bestGame) {
+  if (!games) {
     return null
   }
 
   return (
     <Container>
-      <DesktopCardContainer>
-        <HighlightCard
-          difficulty={bestGame.difficulty}
-          time={bestGame.time}
-          teamMembers={bestGame.teamMembers}
-          date={bestGame.date}
+      {games.slice(0, 5).map((game, index) => (
+        <DesktopCard
+          key={index}
+          position={index + 1}
+          difficulty={game.difficulty}
+          times={game.times}
+          teamMembers={game.teamMembers}
+          date={game.date}
           showDifficulty={showDifficulty}
         />
-      </DesktopCardContainer>
-      <MobileCardContainer>
-        <Card
-          date={bestGame.date}
-          difficulty={bestGame.difficulty}
-          time={bestGame.time}
-          teamMembers={bestGame.teamMembers}
+      ))}
+      {games.slice(0, 5).map((game, index) => (
+        <MobileCard
+          key={index}
+          date={game.date}
+          difficulty={game.difficulty}
+          time={game.times.total}
+          teamMembers={game.teamMembers}
           showDifficulty={showDifficulty}
-          position={1}
+          position={index + 1}
         />
-      </MobileCardContainer>
-      <Wrapper>
-        {games.slice(1, 5).map((game, index) => (
-          <Card
-            key={index}
-            position={index + 2}
-            date={game.date}
-            difficulty={game.difficulty}
-            showDifficulty={showDifficulty}
-            time={game.time}
-            teamMembers={game.teamMembers}
-          />
-        ))}
-      </Wrapper>
+      ))}
     </Container>
   )
 }

@@ -9,6 +9,10 @@ export const Container = styled.div`
   padding: 16px;
   text-align: center;
   width: 100%;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `
 
 export const Date = styled.span`
@@ -21,7 +25,6 @@ export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 24px;
   justify-content: center;
   padding-left: 20px;
 `
@@ -36,14 +39,25 @@ export const Row = styled.div`
 `
 
 export const Wrapper = styled.div`
+  color: ${({ theme }) => theme.text.secondary};
   align-items: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  flex: 1;
   gap: 8px;
 `
 
 export const Info = styled(Wrapper)`
   gap: 16px;
+  padding-bottom: 16px;
+`
+
+export const IconButton = styled.button`
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
 `
