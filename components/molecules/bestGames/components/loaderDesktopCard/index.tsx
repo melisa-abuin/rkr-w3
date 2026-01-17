@@ -20,7 +20,7 @@ export default function LoaderDesktopCard({ position, showDifficulty }: Props) {
           />
         </Wrapper>
         <Wrapper>
-          <Loader height={30} width={'60%'} variant="secondary" />
+          <Loader height={20} width={400} variant="secondary" />
         </Wrapper>
       </DetailContainer>
     </Container>
