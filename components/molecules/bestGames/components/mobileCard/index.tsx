@@ -22,7 +22,7 @@ interface CardProps {
   showDifficulty: boolean
 }
 
-export default function Card({
+export default function MobileCard({
   date,
   difficulty,
   position,

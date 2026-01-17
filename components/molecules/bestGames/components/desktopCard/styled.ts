@@ -9,6 +9,10 @@ export const Container = styled.div`
   padding: 16px;
   text-align: center;
   width: 100%;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `
 
 export const Date = styled.span`

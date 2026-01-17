@@ -1,11 +1,11 @@
 'use client'
 
-import { Container, DesktopCardContainer, MobileCardContainer } from './styled'
-import Card from './components/card'
-import HighlightCard from './components/highlightCard'
+import { Container } from './styled'
+import MobileCard from './components/mobileCard'
+import DesktopCard from './components/desktopCard'
 import { GamesStats } from '@/interfaces/game'
-import LoaderCard from './components/loaderCard'
-import LoaderHighlightCard from './components/loaderHighlightCard'
+import LoaderMobileCard from './components/loaderMobileCard'
+import LoaderDesktopCard from './components/loaderDesktopCard'
 
 interface Props {
   games: GamesStats
@@ -17,21 +17,19 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
   if (loading) {
     return (
       <Container>
-        {[...Array(4)].map((_, rowIndex) => (
-          <DesktopCardContainer key={rowIndex}>
-            <LoaderHighlightCard
-              position={rowIndex + 1}
-              showDifficulty={showDifficulty}
-            />
-          </DesktopCardContainer>
+        {[...Array(5)].map((_, rowIndex) => (
+          <LoaderDesktopCard
+            key={rowIndex}
+            position={rowIndex + 1}
+            showDifficulty={showDifficulty}
+          />
         ))}
-        {[...Array(4)].map((_, rowIndex) => (
-          <MobileCardContainer key={rowIndex}>
-            <LoaderCard
-              position={rowIndex + 1}
-              showDifficulty={showDifficulty}
-            />
-          </MobileCardContainer>
+        {[...Array(5)].map((_, rowIndex) => (
+          <LoaderMobileCard
+            key={rowIndex}
+            position={rowIndex + 1}
+            showDifficulty={showDifficulty}
+          />
         ))}
       </Container>
     )
@@ -44,28 +42,26 @@ export default function BestGames({ games, loading, showDifficulty }: Props) {
   return (
     <Container>
       {games.slice(0, 5).map((game, index) => (
-        <DesktopCardContainer key={index}>
-          <HighlightCard
-            position={index + 1}
-            difficulty={game.difficulty}
-            times={game.times}
-            teamMembers={game.teamMembers}
-            date={game.date}
-            showDifficulty={showDifficulty}
-          />
-        </DesktopCardContainer>
+        <DesktopCard
+          key={index}
+          position={index + 1}
+          difficulty={game.difficulty}
+          times={game.times}
+          teamMembers={game.teamMembers}
+          date={game.date}
+          showDifficulty={showDifficulty}
+        />
       ))}
       {games.slice(0, 5).map((game, index) => (
-        <MobileCardContainer key={index}>
-          <Card
-            date={game.date}
-            difficulty={game.difficulty}
-            time={game.times.total}
-            teamMembers={game.teamMembers}
-            showDifficulty={showDifficulty}
-            position={index + 1}
-          />
-        </MobileCardContainer>
+        <MobileCard
+          key={index}
+          date={game.date}
+          difficulty={game.difficulty}
+          time={game.times.total}
+          teamMembers={game.teamMembers}
+          showDifficulty={showDifficulty}
+          position={index + 1}
+        />
       ))}
     </Container>
   )

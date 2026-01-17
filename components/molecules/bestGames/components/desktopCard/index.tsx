@@ -18,7 +18,7 @@ import { useState } from 'react'
 import { Chevron } from '@/components/icons/chevron'
 import { useTheme } from '@/hooks/useTheme'
 
-interface HighlightCardProps {
+interface DesktopCardProps {
   date: string
   difficulty: Difficulty
   position: number
@@ -27,14 +27,14 @@ interface HighlightCardProps {
   times: GameStats['times']
 }
 
-export default function HighlightCard({
+export default function DesktopCard({
   date,
   difficulty,
   position,
   showDifficulty,
   teamMembers,
   times,
-}: HighlightCardProps) {
+}: DesktopCardProps) {
   const matchDate = formatDateToLocale(date)
   const members = teamMembers.split(', ')
   const [showRoundTimes, setShowRoundTimes] = useState(false)

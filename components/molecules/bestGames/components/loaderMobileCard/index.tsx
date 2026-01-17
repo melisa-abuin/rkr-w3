@@ -5,7 +5,7 @@ import {
   NameList,
   Title,
   Wrapper,
-} from '../card/styled'
+} from '../mobileCard/styled'
 import Loader from '@/components/atoms/loader'
 import PositionNumber from '@/components/atoms/positionNumber'
 
@@ -14,7 +14,7 @@ interface Props {
   showDifficulty: boolean
 }
 
-export default function LoaderCard({ position, showDifficulty }: Props) {
+export default function LoaderMobileCard({ position, showDifficulty }: Props) {
   return (
     <Container>
       <Header>

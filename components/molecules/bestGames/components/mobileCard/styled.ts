@@ -3,13 +3,18 @@ import styled from 'styled-components'
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.background.quaternary};
   border-radius: 5px;
-  display: flex;
+  display: none;
   flex-direction: column;
   flex: 1;
   min-width: 180px;
   overflow: hidden;
   padding: 16px;
   text-align: center;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    display: flex;
+  }
 `
 
 export const Description = styled.span`
