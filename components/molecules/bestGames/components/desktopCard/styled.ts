@@ -27,6 +27,7 @@ export const DetailContainer = styled.div`
   flex: 1;
   justify-content: center;
   padding-left: 20px;
+  gap: 16px;
 `
 
 export const Row = styled.div`
@@ -49,7 +50,6 @@ export const Wrapper = styled.div`
 
 export const Info = styled(Wrapper)`
   gap: 16px;
-  padding-bottom: 16px;
 `
 
 export const IconButton = styled.button`
