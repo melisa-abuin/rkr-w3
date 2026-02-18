@@ -8,11 +8,27 @@ import { Player } from '@/interfaces/player'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import KibbleTableWithControls from '@/components/organisms/kibbleTableWithControls'
 import { statsPageVariants } from '@/constants'
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface AllStatsData {
   data: { pages: number; stats?: Player[] }
   filter: string
+}
+
+interface SortingKey {
+  key: keyof Player
+  asc: boolean
+}
+
+const getSortValue = (
+  columns: { title: string; key: keyof Player }[],
+  currentSortKey: keyof Player,
+) => {
+  console.log(columns)
+  const isValidSort = columns.find(({ key }) => key === currentSortKey)
+  return isValidSort ? currentSortKey : columns[0].key
 }
 
 type VariantKey = keyof typeof statsPageVariants
@@ -21,13 +37,38 @@ const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
 export default function Stats({ data, filter }: AllStatsData) {
+  const searchParams = useSearchParams()
+  const initialPage = parseInt(searchParams?.get('page') || '1', 10)
+  const initialFilter = searchParams?.get('difficulty') as
+    | Difficulty
+    | undefined
+  const initialSortKey = (searchParams?.get('sortKey') as keyof Player) || ''
+  const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
+
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
 
-  const [hasInteracted, setHasInteracted] = useState(false)
-  const [defaultQueryString, setDefaultQueryString] = useState<string | null>(
-    null,
+  const defaultTabIndex = variantValues.findIndex(
+    ({ apiBaseUrl }) => apiBaseUrl === filter,
   )
+  const [hasInteracted, setHasInteracted] = useState(false)
+  const [currentApiUrl, setCurrentApiUrl] = useState<string>('stats')
+  const [currentColumns, setCurrentColumns] = useState<
+    | {
+        title: string
+        key: keyof Player
+      }[]
+    | null
+  >(variantValues[defaultTabIndex]?.columns || null)
+
+  const [currentPage, setCurrentPage] = useState(initialPage)
+  const [difficultyFilter, setDifficultyFilter] = useState<
+    Difficulty | undefined
+  >(initialFilter)
+  const [sortKey, setSortKey] = useState<SortingKey>({
+    key: initialSortKey,
+    asc: initialSortOrder,
+  })
 
   const onTabChange = (index: number) => {
     const selectedVariantKey = variantKeys[index]
@@ -39,12 +80,70 @@ export default function Stats({ data, filter }: AllStatsData) {
     const newPageVariant = statsPageVariants[selectedVariantKey]
 
     setHasInteracted(true)
-    // move pushState logic here
+    setCurrentApiUrl(newPageVariant.apiBaseUrl)
+    setCurrentColumns(variantValues[index].columns)
 
-    setDefaultQueryString(
-      `/stats?filter=${newPageVariant.apiBaseUrl}&page=1&sortKey=${newPageVariant.defaultSortKey}&sortOrder=desc`,
-    )
+    // Reset filters and sorting when changing tabs
+    setDifficultyFilter(undefined)
+    setSortKey({
+      key: newPageVariant.defaultSortKey,
+      asc: false,
+    })
+    setCurrentPage(1)
   }
+
+  const queryString = useMemo(() => {
+    if (!hasInteracted) {
+      return null
+    }
+    const params = new URLSearchParams()
+    params.set('page', currentPage.toString())
+    if (difficultyFilter) params.set('difficulty', difficultyFilter)
+
+    const sortValue = getSortValue(currentColumns, sortKey.key)
+
+    params.set('sortKey', sortValue)
+    params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
+    params.set('filter', currentApiUrl)
+
+    return params.toString()
+  }, [
+    currentPage,
+    difficultyFilter,
+    sortKey.key,
+    sortKey.asc,
+    currentApiUrl,
+    hasInteracted,
+    currentColumns,
+  ])
+
+  const syncURL = useCallback(() => {
+    window.history.pushState(null, '', `?${queryString}`)
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }, [queryString])
+
+  useEffect(() => {
+    hasInteracted && syncURL()
+  }, [syncURL, hasInteracted])
+
+  const handlePageChange = useCallback((page: number) => {
+    setHasInteracted(true)
+    setCurrentPage(page)
+  }, [])
+
+  const handleSortChange = useCallback((newSortKey: keyof Player) => {
+    setHasInteracted(true)
+    setSortKey((prev) => ({
+      key: newSortKey,
+      asc: prev.key === newSortKey ? !prev.asc : false,
+    }))
+  }, [])
+
+  const handleFilterChange = useCallback((difficulty?: Difficulty) => {
+    setHasInteracted(true)
+    setDifficultyFilter(difficulty)
+    setCurrentPage(1)
+  }, [])
 
   return (
     <>
@@ -77,20 +176,31 @@ export default function Stats({ data, filter }: AllStatsData) {
                         ...elem.kibbles,
                       })),
                     }}
-                    defaultSortKey={defaultSortKey}
+                    sortKey={
+                      getSortValue(columns, sortKey.key) || defaultSortKey
+                    }
                     apiBaseUrl={apiBaseUrl}
+                    handlePageChange={handlePageChange}
+                    handleSortChange={handleSortChange}
+                    currentPage={currentPage}
+                    queryString={queryString}
                   />
                 )
               }
               return (
                 <TableWithControls
-                  defaultQueryString={defaultQueryString}
                   shouldRefetch={hasInteracted}
                   key={index}
                   columns={columns}
                   data={data}
-                  defaultSortKey={defaultSortKey}
+                  sortKey={getSortValue(columns, sortKey.key) || defaultSortKey}
                   apiBaseUrl={apiBaseUrl}
+                  handlePageChange={handlePageChange}
+                  handleSortChange={handleSortChange}
+                  handleFilterChange={handleFilterChange}
+                  currentPage={currentPage}
+                  difficultyFilter={difficultyFilter}
+                  queryString={queryString}
                 />
               )
             },

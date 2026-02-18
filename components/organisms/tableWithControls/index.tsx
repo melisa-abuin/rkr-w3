@@ -1,20 +1,19 @@
 'use client'
 
 import { Player } from '@/interfaces/player'
-import { useSearchParams } from 'next/navigation'
-import { useState, useMemo, useEffect, useCallback, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { difficultyNames } from '@/constants'
-import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { Difficulty } from '@/interfaces/difficulty'
 
 interface TableProps {
   data: { pages: number; stats?: Player[] }
   headerLink?: ReactNode
-  defaultSortKey: keyof Player
+  sortKey: keyof Player
   title?: string
   apiBaseUrl: 'times' | 'stats'
   shouldRefetch: boolean
@@ -22,108 +21,40 @@ interface TableProps {
     title: string
     key: keyof Player
   }>
-  defaultQueryString: string | null
-}
-
-interface SortingKey {
-  key: keyof Player
-  asc: boolean
+  currentPage: number
+  queryString: string | null
+  handleSortChange: (columnKey: keyof Player) => void
+  handlePageChange: (page: number) => void
+  handleFilterChange: () => void
+  difficultyFilter?: Difficulty | undefined
 }
 
 export default function TableWithControls({
   data,
-  defaultSortKey,
+  sortKey,
   columns,
   apiBaseUrl,
   title,
   headerLink,
   shouldRefetch = false,
-  defaultQueryString,
+  handlePageChange,
+  handleSortChange,
+  handleFilterChange,
+  queryString,
+  currentPage,
+  difficultyFilter,
 }: TableProps) {
-  const searchParams = useSearchParams()
-  const initialPage = parseInt(searchParams?.get('page') || '1', 10)
-  const initialFilter = searchParams?.get('difficulty') as
-    | Difficulty
-    | undefined
-  const initialSortKey =
-    (searchParams?.get('sortKey') as keyof Player) || defaultSortKey
-  const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
-
-  const [hasInteracted, setHasInteracted] = useState(false)
-  const [currentPage, setCurrentPage] = useState(initialPage)
-  const [difficultyFilter, setDifficultyFilter] = useState<
-    Difficulty | undefined
-  >(initialFilter)
-  const [sortKey, setSortKey] = useState<SortingKey>({
-    key: initialSortKey,
-    asc: initialSortOrder,
-  })
-
-  const queryString = useMemo(() => {
-    if (!hasInteracted) {
-      return null
-    }
-    const params = new URLSearchParams()
-    params.set('page', currentPage.toString())
-    if (difficultyFilter) params.set('difficulty', difficultyFilter)
-
-    const isValidSort = columns.find(({ key }) => key === sortKey.key)
-    const sortValue = isValidSort ? sortKey.key : columns[0].key
-
-    params.set('sortKey', sortValue)
-    params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
-    params.set('filter', apiBaseUrl)
-
-    return params.toString()
-  }, [
-    currentPage,
-    difficultyFilter,
-    sortKey.key,
-    sortKey.asc,
-    apiBaseUrl,
-    hasInteracted,
-    columns,
-  ])
-
-  const syncURL = useCallback(() => {
-    window.history.pushState(null, '', `?${queryString || defaultQueryString}`)
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-  }, [queryString, defaultQueryString])
-
-  useEffect(() => {
-    hasInteracted && syncURL()
-  }, [syncURL, hasInteracted])
-
   const {
     data: filteredData,
     isFetching,
     error,
   } = useApiQuery<{ pages: number; stats?: Player[] }>(
-    `/api/${apiBaseUrl}?${queryString || defaultQueryString}`,
+    `/api/${apiBaseUrl}?${queryString}`,
     undefined,
-    { enabled: hasInteracted || shouldRefetch },
+    { enabled: shouldRefetch },
   )
 
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
-
-  const handlePageChange = useCallback((page: number) => {
-    setHasInteracted(true)
-    setCurrentPage(page)
-  }, [])
-
-  const handleSortChange = useCallback((newSortKey: keyof Player) => {
-    setHasInteracted(true)
-    setSortKey((prev) => ({
-      key: newSortKey,
-      asc: prev.key === newSortKey ? !prev.asc : false,
-    }))
-  }, [])
-
-  const handleFilterChange = useCallback((difficulty?: Difficulty) => {
-    setHasInteracted(true)
-    setDifficultyFilter(difficulty)
-    setCurrentPage(1)
-  }, [])
 
   return (
     <>
@@ -139,7 +70,7 @@ export default function TableWithControls({
           />
         }
         headerLink={headerLink}
-        highlightedColumn={sortKey.key}
+        highlightedColumn={sortKey}
         loading={isFetching}
         difficultyFilter={difficultyFilter}
         title={title}
