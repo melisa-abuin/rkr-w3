@@ -66,7 +66,11 @@ export default function TableWithControls({
     const params = new URLSearchParams()
     params.set('page', currentPage.toString())
     if (difficultyFilter) params.set('difficulty', difficultyFilter)
-    params.set('sortKey', sortKey.key)
+
+    const isValidSort = columns.find(({ key }) => key === sortKey.key)
+    const sortValue = isValidSort ? sortKey.key : columns[0].key
+
+    params.set('sortKey', sortValue)
     params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
     params.set('filter', apiBaseUrl)
 
@@ -78,16 +82,20 @@ export default function TableWithControls({
     sortKey.asc,
     apiBaseUrl,
     hasInteracted,
+    columns,
   ])
 
   const syncURL = useCallback(() => {
+    console.log(queryString, defaultQueryString)
     window.history.pushState(null, '', `?${queryString || defaultQueryString}`)
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [queryString, defaultQueryString])
 
   useEffect(() => {
-    syncURL()
-  }, [syncURL])
+    console.log('hello?', hasInteracted)
+
+    hasInteracted && syncURL()
+  }, [syncURL, hasInteracted])
 
   const {
     data: filteredData,
@@ -115,6 +123,7 @@ export default function TableWithControls({
   }, [])
 
   const handleFilterChange = useCallback((difficulty?: Difficulty) => {
+    console.log('EASY')
     setHasInteracted(true)
     setDifficultyFilter(difficulty)
     setCurrentPage(1)

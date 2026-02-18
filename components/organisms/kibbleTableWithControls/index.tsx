@@ -48,12 +48,16 @@ export default function KibbleTableWithControls({
   const queryString = useMemo(() => {
     const params = new URLSearchParams()
     params.set('page', currentPage.toString())
-    params.set('sortKey', sortKey.key)
+
+    const isValidSort = columns.find(({ key }) => key === sortKey.key)
+    const sortValue = isValidSort ? sortKey.key : columns[0].key
+
+    params.set('sortKey', sortValue)
     params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
     params.set('filter', apiBaseUrl)
 
     return params.toString()
-  }, [currentPage, sortKey.key, sortKey.asc, apiBaseUrl])
+  }, [currentPage, sortKey.key, sortKey.asc, apiBaseUrl, columns])
 
   const syncURL = useCallback(() => {
     window.history.pushState(null, '', `?${queryString}`)
