@@ -86,14 +86,11 @@ export default function TableWithControls({
   ])
 
   const syncURL = useCallback(() => {
-    console.log(queryString, defaultQueryString)
     window.history.pushState(null, '', `?${queryString || defaultQueryString}`)
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [queryString, defaultQueryString])
 
   useEffect(() => {
-    console.log('hello?', hasInteracted)
-
     hasInteracted && syncURL()
   }, [syncURL, hasInteracted])
 
@@ -123,7 +120,6 @@ export default function TableWithControls({
   }, [])
 
   const handleFilterChange = useCallback((difficulty?: Difficulty) => {
-    console.log('EASY')
     setHasInteracted(true)
     setDifficultyFilter(difficulty)
     setCurrentPage(1)

@@ -39,6 +39,8 @@ export default function Stats({ data, filter }: AllStatsData) {
     const newPageVariant = statsPageVariants[selectedVariantKey]
 
     setHasInteracted(true)
+    // move pushState logic here
+
     setDefaultQueryString(
       `/stats?filter=${newPageVariant.apiBaseUrl}&page=1&sortKey=${newPageVariant.defaultSortKey}&sortOrder=desc`,
     )
