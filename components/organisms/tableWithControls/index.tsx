@@ -1,6 +1,5 @@
 'use client'
 
-import { Player } from '@/interfaces/player'
 import { ReactNode } from 'react'
 import { difficultyNames } from '@/constants'
 import Table from '@/components/molecules/table'
@@ -10,26 +9,27 @@ import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
 
-interface TableProps {
-  data: { pages: number; stats?: Player[] }
+interface TableProps<T> {
+  data: { pages: number; stats?: T[] }
   headerLink?: ReactNode
-  sortKey: keyof Player
+  sortKey: keyof T
   title?: string
-  apiBaseUrl: 'times' | 'stats'
+  apiBaseUrl: 'times' | 'stats' | 'kibbleStats'
   shouldRefetch: boolean
   columns: Array<{
     title: string
-    key: keyof Player
+    key: keyof T
   }>
   currentPage: number
   queryString: string | null
-  handleSortChange: (columnKey: keyof Player) => void
+  handleSortChange: (columnKey: keyof T) => void
   handlePageChange: (page: number) => void
   handleFilterChange: () => void
   difficultyFilter?: Difficulty | undefined
+  withDifficultyFilter?: boolean
 }
 
-export default function TableWithControls({
+export default function TableWithControls<T>({
   data,
   sortKey,
   columns,
@@ -43,12 +43,13 @@ export default function TableWithControls({
   queryString,
   currentPage,
   difficultyFilter,
-}: TableProps) {
+  withDifficultyFilter,
+}: TableProps<T>) {
   const {
     data: filteredData,
     isFetching,
     error,
-  } = useApiQuery<{ pages: number; stats?: Player[] }>(
+  } = useApiQuery<{ pages: number; stats?: T[] }>(
     `/api/${apiBaseUrl}?${queryString}`,
     undefined,
     { enabled: shouldRefetch },
@@ -56,18 +57,37 @@ export default function TableWithControls({
 
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
+  const rows = filteredData?.stats as unknown[] | undefined
+  const hasKibbles =
+    rows?.[0] && typeof rows[0] === 'object' && 'kibbles' in rows[0]
+  const formattedQueryResult = hasKibbles
+    ? (rows?.map((elem) => {
+        const player = elem as {
+          battleTag: unknown
+          kibbles: Record<string, unknown>
+        }
+
+        return {
+          battleTag: player.battleTag,
+          ...player.kibbles,
+        }
+      }) as T[])
+    : filteredData?.stats
+
   return (
     <>
       <Table
         columns={columns}
-        data={filteredData?.stats ?? data.stats}
+        data={formattedQueryResult ?? data.stats}
         pageSize={15}
         filters={
-          <Badges
-            onClick={handleFilterChange}
-            options={difficultyNames}
-            selected={difficultyFilter}
-          />
+          withDifficultyFilter && (
+            <Badges
+              onClick={handleFilterChange}
+              options={difficultyNames}
+              selected={difficultyFilter}
+            />
+          )
         }
         headerLink={headerLink}
         highlightedColumn={sortKey}
