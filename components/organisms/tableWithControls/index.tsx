@@ -1,124 +1,96 @@
 'use client'
 
-import { Player } from '@/interfaces/player'
-import { useSearchParams } from 'next/navigation'
-import { useState, useMemo, useEffect, useCallback, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { difficultyNames } from '@/constants'
-import { Difficulty } from '@/interfaces/difficulty'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { Difficulty } from '@/interfaces/difficulty'
 
-interface TableProps {
-  data: { pages: number; stats?: Player[] }
+interface TableProps<T> {
+  data: { pages: number; stats?: T[] }
   headerLink?: ReactNode
-  defaultSortKey: keyof Player
+  sortKey: keyof T
   title?: string
-  apiBaseUrl: 'times' | 'stats'
+  apiBaseUrl: 'times' | 'stats' | 'kibbleStats'
+  shouldRefetch: boolean
   columns: Array<{
     title: string
-    key: keyof Player
+    key: keyof T
   }>
+  currentPage: number
+  queryString: string | null
+  handleSortChange: (columnKey: keyof T) => void
+  handlePageChange: (page: number) => void
+  handleFilterChange: () => void
+  difficultyFilter?: Difficulty | undefined
+  withDifficultyFilter?: boolean
 }
 
-interface SortingKey {
-  key: keyof Player
-  asc: boolean
-}
-
-export default function TableWithControls({
+export default function TableWithControls<T>({
   data,
-  defaultSortKey,
+  sortKey,
   columns,
   apiBaseUrl,
   title,
   headerLink,
-}: TableProps) {
-  const searchParams = useSearchParams()
-  const initialPage = parseInt(searchParams?.get('page') || '1', 10)
-  const initialFilter = searchParams?.get('difficulty') as
-    | Difficulty
-    | undefined
-  const initialSortKey =
-    (searchParams?.get('sortKey') as keyof Player) || defaultSortKey
-  const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
-
-  const [hasInteracted, setHasInteracted] = useState(false)
-  const [currentPage, setCurrentPage] = useState(initialPage)
-  const [difficultyFilter, setDifficultyFilter] = useState<
-    Difficulty | undefined
-  >(initialFilter)
-  const [sortKey, setSortKey] = useState<SortingKey>({
-    key: initialSortKey,
-    asc: initialSortOrder,
-  })
-
-  const queryString = useMemo(() => {
-    const params = new URLSearchParams()
-    params.set('page', currentPage.toString())
-    if (difficultyFilter) params.set('difficulty', difficultyFilter)
-    params.set('sortKey', sortKey.key)
-    params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
-    return params.toString()
-  }, [currentPage, difficultyFilter, sortKey])
-
-  const syncURL = useCallback(() => {
-    window.history.pushState(null, '', `?${queryString}`)
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-  }, [queryString])
-
-  useEffect(() => {
-    syncURL()
-  }, [syncURL])
-
+  shouldRefetch = false,
+  handlePageChange,
+  handleSortChange,
+  handleFilterChange,
+  queryString,
+  currentPage,
+  difficultyFilter,
+  withDifficultyFilter,
+}: TableProps<T>) {
   const {
     data: filteredData,
     isFetching,
     error,
-  } = useApiQuery<{ pages: number; stats?: Player[] }>(
+  } = useApiQuery<{ pages: number; stats?: T[] }>(
     `/api/${apiBaseUrl}?${queryString}`,
     undefined,
-    { enabled: hasInteracted },
+    { enabled: shouldRefetch },
   )
 
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
-  const handlePageChange = useCallback((page: number) => {
-    setHasInteracted(true)
-    setCurrentPage(page)
-  }, [])
+  const rows = filteredData?.stats as unknown[] | undefined
+  const hasKibbles =
+    rows?.[0] && typeof rows[0] === 'object' && 'kibbles' in rows[0]
+  const formattedQueryResult = hasKibbles
+    ? (rows?.map((elem) => {
+        const player = elem as {
+          battleTag: unknown
+          kibbles: Record<string, unknown>
+        }
 
-  const handleSortChange = useCallback((newSortKey: keyof Player) => {
-    setHasInteracted(true)
-    setSortKey((prev) => ({
-      key: newSortKey,
-      asc: prev.key === newSortKey ? !prev.asc : false,
-    }))
-  }, [])
-
-  const handleFilterChange = useCallback((difficulty?: Difficulty) => {
-    setHasInteracted(true)
-    setDifficultyFilter(difficulty)
-    setCurrentPage(1)
-  }, [])
+        return {
+          battleTag: player.battleTag,
+          ...player.kibbles,
+        }
+      }) as T[])
+    : filteredData?.stats
 
   return (
     <>
       <Table
         columns={columns}
-        data={filteredData?.stats ?? data.stats}
+        data={formattedQueryResult ?? data.stats}
         pageSize={15}
         filters={
-          <Badges
-            onClick={handleFilterChange}
-            options={difficultyNames}
-            selected={difficultyFilter}
-          />
+          withDifficultyFilter && (
+            <Badges
+              onClick={handleFilterChange}
+              options={difficultyNames}
+              selected={difficultyFilter}
+            />
+          )
         }
         headerLink={headerLink}
-        highlightedColumn={sortKey.key}
+        highlightedColumn={sortKey}
         loading={isFetching}
         difficultyFilter={difficultyFilter}
         title={title}
