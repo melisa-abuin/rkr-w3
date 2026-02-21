@@ -41,6 +41,8 @@ const isValidVariant = (slug: string): slug is VariantKey =>
 export default function Stats({ data, filter }: AllStatsData) {
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
+  const initialApi = searchParams?.get('filter') || 'stats'
+
   const initialFilter = searchParams?.get('difficulty') as
     | Difficulty
     | undefined
@@ -54,7 +56,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     ({ apiBaseUrl }) => apiBaseUrl === filter,
   )
   const [hasInteracted, setHasInteracted] = useState(false)
-  const [currentApiUrl, setCurrentApiUrl] = useState<string>('stats')
+  const [currentApiUrl, setCurrentApiUrl] = useState<string>(initialApi)
   const [currentColumns, setCurrentColumns] = useState(
     variantValues[defaultTabIndex]?.columns || null,
   )

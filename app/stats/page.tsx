@@ -12,10 +12,33 @@ interface PlayerStatsData {
   data: { pages: number; stats?: Player[] }
 }
 
+type SearchParams = Record<string, string | string[] | undefined>
+
+function buildSearchQuery(searchParams: SearchParams): string {
+  const query = new URLSearchParams()
+
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (value === undefined || key === 'filter') return
+
+    if (Array.isArray(value)) {
+      value.forEach((item) => query.append(key, item))
+      return
+    }
+
+    query.set(key, value)
+  })
+
+  const queryString = query.toString()
+  return queryString ? `?${queryString}` : ''
+}
+
 async function fetchData(
-  searchParams?: Promise<{ url?: { search?: string }; filter: string }>,
+  searchParams?: Promise<SearchParams>,
 ): Promise<PlayerStatsData> {
-  const { url, filter } = (await searchParams) ?? {}
+  const params = (await searchParams) ?? {}
+  const filterParam = params.filter
+  const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
+  const queryString = buildSearchQuery(params)
 
   const headersList = headers()
   const protocol = (await headersList).get('x-forwarded-proto') || 'http'
@@ -27,9 +50,8 @@ async function fetchData(
     ? 'https://rkr-w3.vercel.app'
     : `${protocol}://${host}`
 
-  const slugUrl = `${baseUrl}/api/${filter}`
-
-  const response = await fetch(`${slugUrl}${url?.search ?? ''}`)
+  const slugUrl = `${baseUrl}/api/${filter || 'stats'}`
+  const response = await fetch(`${slugUrl}${queryString}`)
   if (response.status === 200) {
     return {
       data: await response.json(),
@@ -46,12 +68,14 @@ interface PageProps {
   params: Promise<{
     slug: string
   }>
-  searchParams?: Promise<{ url?: { search?: string }; filter: string }>
+  searchParams?: Promise<SearchParams>
 }
 
 export default async function StatsPage({ searchParams }: PageProps) {
   const { data, error } = await fetchData(searchParams)
-  const { filter } = (await searchParams) ?? {}
+  const params = (await searchParams) ?? {}
+  const filterParam = params.filter
+  const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
 
   return (
     <ThemeProvider>
