@@ -1,5 +1,5 @@
 import { Player } from '@/interfaces/player'
-import { formatSecondsAsTime } from '../secondsToSexagesimal'
+import { formatSecondsAsTime } from '../formatSecondsAsTime'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isTimeKey } from '../checkKeyType'
