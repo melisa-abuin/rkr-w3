@@ -4,8 +4,7 @@ import { ThemeProvider } from '@/hooks/useTheme'
 import { ToastProvider } from '@/hooks/useToast'
 import { headers } from 'next/headers'
 import Error from '@/components/molecules/error'
-import { PageContainer } from '@/components/atoms/pageContainer'
-import PageHeader from '@/components/atoms/pageHeader'
+import Tournaments from '@/components/templates/tournaments'
 
 async function fetchData() {
   const headersList = headers()
@@ -36,20 +35,7 @@ export default async function TournamentsPage() {
     <ThemeProvider>
       <ToastProvider>
         <Navbar />
-        <main>
-          {error ? (
-            <Error />
-          ) : (
-            data && (
-              <PageContainer>
-                <PageHeader
-                  description="tournaments are events organized by the community everyone is welcome to participate"
-                  title="Tournaments"
-                />
-              </PageContainer>
-            )
-          )}
-        </main>
+        <main>{error ? <Error /> : data && <Tournaments data={data} />}</main>
         <Footer />
       </ToastProvider>
     </ThemeProvider>

@@ -5,9 +5,9 @@ export const Container = styled.div`
   flex-direction: column;
 
   a {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    margin-top: 10px;
+    font-size: var(--font-size-xs-sm);
+    font-weight: var(--font-weight-semi-bold);
+    margin-bottom: 4px;
     text-align: left;
   }
 `
@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const SubTitle = styled.p`
   color: ${({ theme }) => theme.text.secondary};
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semi-bold);
-  margin-top: 10px;
-  margin-bottom: 4px;
+  font-weight: var(--font-weight-regular);
+  margin-top: 4px;
+  margin-bottom: 0px;
 `
