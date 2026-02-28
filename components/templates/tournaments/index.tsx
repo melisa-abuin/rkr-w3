@@ -2,11 +2,8 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
-import { Card, ColumnsContainer, Container, RowContainer } from './styled'
-import PositionNumber from '@/components/atoms/positionNumber'
-import BattleTag from './components/battleTag'
-import Column from './components/column'
+import { formatDateToLocale } from '@/utils'
+import RowCards from './components/rowCards'
 import { Tournaments as TournamentsInterface } from '@/interfaces/tournament'
 
 interface Props {
@@ -29,36 +26,7 @@ export default function Tournaments({ data }: Props) {
             ${group[0].tournament.gamemode} Tournament`}
         >
           {group.map((item) => (
-            <Container key={item.tournament.id}>
-              <div>{item.tournament.region} region</div>
-              <Container>
-                {item.players.slice(0, 3).map((player, playerIndex) => (
-                  <Card
-                    key={player.battleTag.tag}
-                    aria-label={`Player card for ${player.battleTag.tag}`}
-                  >
-                    <RowContainer>
-                      <PositionNumber pos={playerIndex + 1} isSmall />
-                      <BattleTag data={player.battleTag} />
-                    </RowContainer>
-                    <ColumnsContainer>
-                      <Column
-                        value={formatSecondsAsTime(player.totalTime)}
-                        description="Total Time"
-                      />
-                      {player.games.map((game, gameIndex) => (
-                        <Column
-                          key={gameIndex}
-                          value={formatSecondsAsTime(game.totalTime)}
-                          description={`Game ${gameIndex + 1}`}
-                        />
-                      ))}
-                    </ColumnsContainer>
-                  </Card>
-                ))}
-                see more...
-              </Container>
-            </Container>
+            <RowCards key={item.tournament.id} item={item} />
           ))}
         </PageContainer>
       ))}
