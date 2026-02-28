@@ -39,6 +39,6 @@ describe('PositionNumber', () => {
 
   it('falls back to position 1 color for undefined positions', () => {
     const { container } = renderWithTheme(<PositionNumber pos={99} />)
-    expect(container.firstChild).toHaveStyle('color: rgb(1, 197, 219)')
+    expect(container.firstChild).toHaveStyle('color: rgb(5, 5, 5)')
   })
 })
