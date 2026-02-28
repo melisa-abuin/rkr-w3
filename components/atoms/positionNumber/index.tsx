@@ -19,7 +19,7 @@ export default function PositionNumber({ pos, isSmall = false }: Props) {
   }
 
   return (
-    <Number color={colorByNumber[pos] ?? colorByNumber[1]} small={isSmall}>
+    <Number color={colorByNumber[pos] ?? colorByNumber[5]} small={isSmall}>
       {pos}
     </Number>
   )
