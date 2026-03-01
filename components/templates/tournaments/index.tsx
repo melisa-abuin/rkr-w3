@@ -1,5 +1,6 @@
 'use client'
 
+import Button from '@/components/atoms/button'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import { formatDateToLocale } from '@/utils'
@@ -28,6 +29,11 @@ export default function Tournaments({ data }: Props) {
           {group.map((item) => (
             <RowCards key={item.tournament.id} item={item} />
           ))}
+          <div style={{ paddingTop: 16 }}>
+            <Button onClick={() => {}} variant="outline" colorName="primary">
+              See all tournament details
+            </Button>
+          </div>
         </PageContainer>
       ))}
     </>
