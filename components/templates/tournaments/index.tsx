@@ -34,7 +34,7 @@ export default function Tournaments({ data }: Props) {
               <div style={{ paddingTop: 24, paddingBottom: 24 }}>
                 <Button
                   as="a"
-                  href={`tournament/${item.tournament.id}`}
+                  href={`tournaments/${item.tournament.id}`}
                   variant="outline"
                   colorName="primary"
                 >
