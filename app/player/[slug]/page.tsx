@@ -4,9 +4,9 @@ import Navbar from '@/components/molecules/navbar'
 import PlayerDashboard from '@/components/templates/playerDashboard'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { Player } from '@/interfaces/player'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { ToastProvider } from '@/hooks/useToast'
+import { getBaseUrlFromHeaders } from '@/utils'
 
 interface PlayerStatsData {
   error: string | null
@@ -14,13 +14,7 @@ interface PlayerStatsData {
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
-  const headersList = headers()
-  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
-  const host = (await headersList).get('host')
-
-  // workaround for feature instances
-  const isStage = process.env.ENVIRONMENT === 'stage'
-  const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
+  const url = await getBaseUrlFromHeaders()
 
   const response = await fetch(
     `${url}/api/player/${encodeURIComponent(battleTag)}`,

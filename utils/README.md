@@ -16,6 +16,7 @@ Below is a list of all available utilities:
 ### 📥 Data Fetching
 
 - `fetchData`
+- `getBaseUrlFromHeaders`
 
 ### 📥 Data download
 
@@ -61,6 +62,10 @@ Below is a list of all available utilities:
 ### 🧼 Key Transforms
 
 - `transformKeysToCamelCase`
+
+### 🌐 URL Helpers
+
+- `getBaseUrlFromHeaders`: Builds the request base URL from server headers, with a stage fallback to `https://rkr-w3.vercel.app`.
 
 ---
 

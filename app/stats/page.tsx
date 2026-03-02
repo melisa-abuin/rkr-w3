@@ -2,10 +2,10 @@ import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { Player } from '@/interfaces/player'
-import { headers } from 'next/headers'
 import Error from '@/components/molecules/error'
 import { ToastProvider } from '@/hooks/useToast'
 import Stats from '@/components/templates/stats'
+import { getBaseUrlFromHeaders } from '@/utils'
 
 interface PlayerStatsData {
   error: string | null
@@ -40,15 +40,7 @@ async function fetchData(
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
   const queryString = buildSearchQuery(params)
 
-  const headersList = headers()
-  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
-  const host = (await headersList).get('host')
-
-  // workaround for feature instances
-  const isStage = process.env.ENVIRONMENT === 'stage'
-  const baseUrl = isStage
-    ? 'https://rkr-w3.vercel.app'
-    : `${protocol}://${host}`
+  const baseUrl = await getBaseUrlFromHeaders()
 
   const slugUrl = `${baseUrl}/api/${filter || 'stats'}`
   const response = await fetch(`${slugUrl}${queryString}`)

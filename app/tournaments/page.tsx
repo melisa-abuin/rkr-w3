@@ -2,18 +2,12 @@ import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
 import { ThemeProvider } from '@/hooks/useTheme'
 import { ToastProvider } from '@/hooks/useToast'
-import { headers } from 'next/headers'
 import Error from '@/components/molecules/error'
 import Tournaments from '@/components/templates/tournaments'
+import { getBaseUrlFromHeaders } from '@/utils'
 
 async function fetchData() {
-  const headersList = headers()
-  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
-  const host = (await headersList).get('host')
-
-  // workaround for feature instances
-  const isStage = process.env.ENVIRONMENT === 'stage'
-  const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
+  const url = await getBaseUrlFromHeaders()
 
   const response = await fetch(`${url}/api/tournaments`)
   if (response.status === 200) {
