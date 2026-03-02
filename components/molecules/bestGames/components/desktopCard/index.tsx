@@ -52,7 +52,7 @@ export default function DesktopCard({
                   {formatSecondsAsTime(times.total, showRoundTimes)}
                 </TextWithIcon>
               </Tooltip>
-              {times.roundOne && (
+              {!!times.roundOne && (
                 <IconButton onClick={() => setShowRoundTimes((prev) => !prev)}>
                   <Chevron
                     height={16}
