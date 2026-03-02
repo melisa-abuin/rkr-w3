@@ -5,7 +5,7 @@
  *
  * @param date - Date value as a string.
  * @param withoutDay - When true, returns only month and year.
- * @returns Localized date string with numeric year and long month, optionally with numeric day, or an empty string.
+ * @returns English date string with numeric year and long month, optionally with numeric day, or an empty string.
  */
 export const formatDateToLocale = (date: string, withoutDay = false) => {
   if (!date) return ''
@@ -22,7 +22,7 @@ export const formatDateToLocale = (date: string, withoutDay = false) => {
         day: 'numeric',
       }
 
-  return lastDate.toLocaleDateString(undefined, {
+  return lastDate.toLocaleDateString('en-US', {
     ...formatOptions,
   })
 }
