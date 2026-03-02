@@ -1,66 +1,29 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchData } from '@/utils'
-import {
-  ApiTournaments,
-  Tournament,
-  TournamentGame,
-  Tournaments,
-} from '@/interfaces/tournament'
-
-const addPlayersTotalTime = (item: ApiTournaments[number]): Tournament => {
-  const players = Array.isArray(item?.players) ? item.players : []
-  const playersWithTotalTime = players.map((player) => {
-    const games: TournamentGame[] = Array.isArray(player?.games)
-      ? player.games.map((game) => ({
-          ...game,
-          totalTime: game.total_time,
-        }))
-      : []
-
-    const totalTime = games.reduce((acc: number, game) => {
-      return acc + game.totalTime
-    }, 0)
-
-    return {
-      ...player,
-      battleTag: {
-        name: player.battletag?.split('#')[0] || '',
-        tag: player.battletag || '',
-      },
-      games,
-      totalTime,
-    }
-  })
-
-  return {
-    ...item,
-    players: playersWithTotalTime.sort(
-      (first, second) => first.totalTime - second.totalTime,
-    ),
-  }
-}
+import { fetchData, formatTournamentPlayers } from '@/utils'
+import { ApiTournaments, Tournaments } from '@/interfaces/tournament'
 
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {
     const data: ApiTournaments = await fetchData('tournaments/full')
 
-    const approvedTournaments = Array.isArray(data)
+    const officialTournaments = Array.isArray(data)
       ? data.filter(({ tournament }) => tournament?.admin_approved === 1)
       : []
 
-    const validTournaments: Tournaments =
-      approvedTournaments.map(addPlayersTotalTime)
-    validTournaments.sort(
+    const sortedTournaments: Tournaments = officialTournaments.map(
+      formatTournamentPlayers,
+    )
+    sortedTournaments.sort(
       (first, second) =>
         new Date(second?.tournament?.datetime ?? 0).getTime() -
         new Date(first?.tournament?.datetime ?? 0).getTime(),
     )
 
-    const groupedByTournamentGroupId: Record<number, typeof validTournaments> =
+    const groupedByTournamentGroupId: Record<number, typeof sortedTournaments> =
       {}
-    const tournamentGroups: Array<typeof validTournaments> = []
+    const tournamentGroups: Array<typeof sortedTournaments> = []
 
-    validTournaments.forEach((item) => {
+    sortedTournaments.forEach((item) => {
       const groupId = item?.tournament?.tournament_group_id
 
       if (groupId === null || groupId === undefined) {
