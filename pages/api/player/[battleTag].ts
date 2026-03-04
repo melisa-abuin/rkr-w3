@@ -42,6 +42,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     if (blacklistedPlayers.find((player) => player === playerData.battletag)) {
       res.redirect(307, '/')
+      return
     }
 
     const saveData = JSON.parse(playerData['Save Data'])

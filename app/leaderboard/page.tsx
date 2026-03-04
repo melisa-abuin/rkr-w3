@@ -2,10 +2,10 @@ import Error from '@/components/molecules/error'
 import { ThemeProvider } from '@/hooks/useTheme'
 import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
-import { headers } from 'next/headers'
 import LeaderboardTemplate from '@/components/templates/leaderboard'
 import { ToastProvider } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { getBaseUrlFromHeaders } from '@/utils'
 
 interface PlayerStatsData {
   error: string | null
@@ -16,13 +16,7 @@ interface PlayerStatsData {
 }
 
 async function fetchData(): Promise<PlayerStatsData> {
-  const headersList = headers()
-  const protocol = (await headersList).get('x-forwarded-proto') || 'http'
-  const host = (await headersList).get('host')
-
-  // workaround for feature instances
-  const isStage = process.env.ENVIRONMENT === 'stage'
-  const url = isStage ? 'https://rkr-w3.vercel.app' : `${protocol}://${host}`
+  const url = await getBaseUrlFromHeaders()
 
   const response = await fetch(`${url}/api/leaderboard`)
   if (response.status === 200) {

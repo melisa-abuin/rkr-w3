@@ -16,6 +16,7 @@ Below is a list of all available utilities:
 ### 📥 Data Fetching
 
 - `fetchData`
+- `getBaseUrlFromHeaders`
 
 ### 📥 Data download
 
@@ -34,6 +35,7 @@ Below is a list of all available utilities:
 - `formatKeyToWord`
 - `formatRoundsData`
 - `formatSaveDataFile`
+- `formatTournamentPlayers`
 - `hexToRgba`
 
 ### 🔢 Sorting & Filtering
@@ -61,6 +63,14 @@ Below is a list of all available utilities:
 ### 🧼 Key Transforms
 
 - `transformKeysToCamelCase`
+
+### 🌐 URL Helpers
+
+- `getBaseUrlFromHeaders`: Builds the request base URL from server headers, with a stage fallback to `https://rkr-w3.vercel.app`.
+
+### 🏁 Tournament Helpers
+
+- `formatTournamentPlayers`: Normalizes tournament players by mapping game `total_time`, calculating player `totalTime`, formatting battletags, and sorting by fastest total time.
 
 ---
 
