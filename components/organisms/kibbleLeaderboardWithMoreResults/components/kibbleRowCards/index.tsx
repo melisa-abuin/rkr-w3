@@ -5,9 +5,9 @@ import {
 } from '@/components/molecules/positionCard/styled'
 import { kibbleLeaderboardColumns } from '@/constants'
 import { Kibbles, Player } from '@/interfaces/player'
-import BattleTag from './components/battleTag'
 import Column from './components/column'
 import LoadingCards from './components/loadingCards'
+import PlayerTag from '@/components/molecules/playerTag'
 
 interface Props {
   data?: Player[]
@@ -27,7 +27,7 @@ export default function KibbleRowCards({ data = [], loading }: Props) {
           ariaLabel={`Player card for ${item.battleTag.tag}`}
           position={index + 1}
         >
-          <BattleTag battleTag={item.battleTag} skins={item.skins} />
+          <PlayerTag battleTag={item.battleTag} skins={item.skins} />
           <ColumnsContainer>
             {kibbleLeaderboardColumns.map(({ title, key }) => (
               <Column

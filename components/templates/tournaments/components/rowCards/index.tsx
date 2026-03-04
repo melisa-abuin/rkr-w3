@@ -4,8 +4,8 @@ import PositionCard from '@/components/molecules/positionCard'
 import { Tournament } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
 import Column from '../column'
-import BattleTag from '../battleTag'
 import { Card, Podium, Title, ColumnsContainer, Container } from './styled'
+import PlayerTag from '@/components/molecules/playerTag'
 
 interface Props {
   item: Tournament
@@ -25,7 +25,7 @@ export default function RowCards({ item }: Props) {
                 position={playerIndex + 1}
                 aria-label={`Player card for ${player.battleTag.tag}`}
               >
-                <BattleTag data={player.battleTag} />
+                <PlayerTag battleTag={player.battleTag} />
                 <ColumnsContainer>
                   <Column
                     value={formatSecondsAsTime(player.totalTime)}

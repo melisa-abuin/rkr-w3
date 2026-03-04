@@ -4,8 +4,8 @@ import PositionCard from '@/components/molecules/positionCard'
 import { Tournament } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
 import Column from '../column'
-import BattleTag from '../battleTag'
 import { Card, ColumnsContainer, Container } from './styled'
+import PlayerTag from '@/components/molecules/playerTag'
 
 interface Props {
   item: Tournament
@@ -21,7 +21,7 @@ export default function RowCards({ item }: Props) {
             isSmallPosition
             position={playerIndex + 1}
           >
-            <BattleTag data={player.battleTag} />
+            <PlayerTag battleTag={player.battleTag} />
             <ColumnsContainer>
               <Column
                 value={formatSecondsAsTime(player.totalTime)}
