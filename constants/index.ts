@@ -222,12 +222,12 @@ export const routes = {
     url: '/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc',
     target: '_self',
   },
-  tournaments: {
-    label: 'Tournaments',
-    pathname: '/tournaments',
-    url: '/tournaments',
-    target: '_self',
-  },
+  //tournaments: {
+  //  label: 'Tournaments',
+  //  pathname: '/tournaments',
+  //  url: '/tournaments',
+  //  target: '_self',
+  //},
   guide: {
     label: 'Guide',
     pathname: '/guide',
