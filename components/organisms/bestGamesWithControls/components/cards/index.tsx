@@ -13,7 +13,7 @@ interface Props {
   showDifficulty: boolean
 }
 
-export default function BestGames({ games, loading, showDifficulty }: Props) {
+export default function Cards({ games, loading, showDifficulty }: Props) {
   if (loading) {
     return (
       <Container>

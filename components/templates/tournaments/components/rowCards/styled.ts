@@ -6,16 +6,7 @@ export const Title = styled.h3`
 `
 
 export const Podium = styled.div`
-  align-items: center;
-  background-color: ${({ theme }) => theme.background.highlightPrimary};
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
   flex: 0 0 calc(50% - 8px);
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 16px;
   width: calc(50% - 8px);
 
   &:first-child {
@@ -24,10 +15,7 @@ export const Podium = styled.div`
   }
 
   @media (max-width: 480px) {
-    align-items: center;
-    flex-direction: row;
     flex: 0 0 100%;
-    flex-wrap: nowrap;
     width: 100%;
   }
 `
@@ -59,22 +47,6 @@ export const Container = styled.div`
   margin-top: 16px;
 `
 
-export const RowContainer = styled.div`
-  align-items: center;
-
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  gap: 16px;
-
-  @media (max-width: 480px) {
-    width: auto;
-    & div:first-child {
-      height: 48px;
-      width: 48px;
-    }
-  }
-`
 export const ColumnsContainer = styled.div`
   display: flex;
   flex-direction: row;

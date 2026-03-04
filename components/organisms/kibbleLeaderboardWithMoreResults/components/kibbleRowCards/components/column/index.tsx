@@ -1,5 +1,4 @@
 import { Container, Description, Title } from './styled'
-import React from 'react'
 
 interface Props {
   value: number

@@ -1,12 +1,7 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  background-color: ${({ theme }) => theme.background.quaternary};
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
+export const DesktopOnly = styled.div`
   overflow: hidden;
-  padding: 16px;
   text-align: center;
   width: 100%;
 
@@ -26,7 +21,6 @@ export const DetailContainer = styled.div`
   flex-direction: column;
   flex: 1;
   justify-content: center;
-  padding-left: 20px;
   gap: 16px;
 `
 

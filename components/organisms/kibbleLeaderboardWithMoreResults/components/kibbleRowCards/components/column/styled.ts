@@ -9,11 +9,13 @@ export const Container = styled.div`
   justify-content: flex-start;
   text-align: center;
 `
+
 export const Description = styled.span`
   color: ${({ theme }) => theme.text.primary};
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-regular);
 `
+
 export const Title = styled.p`
   color: ${({ theme }) => theme.text.primary};
   font-size: var(--font-size-sm);

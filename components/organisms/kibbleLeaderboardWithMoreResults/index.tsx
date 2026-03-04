@@ -2,9 +2,9 @@
 
 import { kibbleColumns } from '@/constants'
 import Table from '@/components/molecules/table'
-import RowCards from '@/components/molecules/rowCards'
 import { Player } from '@/interfaces/player'
 import FloatingKibble from './components/floatingKibble'
+import KibbleRowCards from './components/kibbleRowCards'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 
@@ -25,7 +25,7 @@ export default function KibbleLeaderboardWithMoreResults() {
   return (
     <>
       <FloatingKibble />
-      <RowCards data={data?.slice(0, 5)} loading={isFetching} />
+      <KibbleRowCards data={data?.slice(0, 5)} loading={isFetching} />
       <Table
         columns={kibbleColumns}
         data={

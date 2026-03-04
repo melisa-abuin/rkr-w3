@@ -4,7 +4,7 @@ import { BadgesContainer } from './styled'
 import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { bestGameTimesColumns, difficultyNames } from '@/constants'
-import BestGames from '@/components/molecules/bestGames'
+import Cards from './components/cards'
 import { GamesStats } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
 import Table from '@/components/molecules/table'
@@ -44,7 +44,7 @@ export default function BestGamesWithControls() {
           selected={difficultyFilter}
         />
       </BadgesContainer>
-      <BestGames
+      <Cards
         games={data?.slice(0, 5) || []}
         loading={isFetching}
         showDifficulty={!difficultyFilter}
