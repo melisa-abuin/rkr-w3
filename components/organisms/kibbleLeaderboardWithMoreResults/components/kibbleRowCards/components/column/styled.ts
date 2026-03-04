@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.div<{ $hideOnMobile: boolean }>`
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -8,6 +8,10 @@ export const Container = styled.div`
   gap: 8px;
   justify-content: flex-start;
   text-align: center;
+
+  @media (max-width: 480px) {
+    display: ${({ $hideOnMobile }) => ($hideOnMobile ? 'none' : 'flex')};
+  }
 `
 
 export const Description = styled.span`

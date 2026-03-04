@@ -8,6 +8,12 @@ export const Container = styled.div`
   gap: 16px;
 `
 
+export const ImageContainer = styled.div`
+  @media (max-width: 480px) {
+    display: none;
+  }
+`
+
 export const TextContainer = styled.div`
   display: flex;
   flex-direction: column;

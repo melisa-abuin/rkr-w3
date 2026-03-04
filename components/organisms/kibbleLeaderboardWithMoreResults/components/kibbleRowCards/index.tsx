@@ -33,6 +33,7 @@ export default function KibbleRowCards({ data = [], loading }: Props) {
               <Column
                 key={key}
                 description={title}
+                hideOnMobile={key !== 'singleGame'}
                 value={item.kibbles?.[key as keyof Kibbles] ?? 0}
               />
             ))}

@@ -16,11 +16,6 @@ export const Card = styled.div<{ $variant: PositionCardVariant }>`
   justify-content: space-between;
   padding: 16px;
   width: 100%;
-
-  @media (max-width: 480px) {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 `
 export const Container = styled.div`
   display: flex;
