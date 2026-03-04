@@ -20,7 +20,7 @@ def replace_root_with_alias(path_lists):
 
 def make_relative_if_needed(path_lists):
     normalized = [p.replace("\\", "/") for p in path_lists]
-    pattern = r"^(.*?/components/.*?/components/)"
+    pattern = r"^(.*?/components/.*/components/)"
     return [re.sub(pattern, "./components/", path, count=1) for path in normalized]
 
 def make_regex_for_paths(paths):
