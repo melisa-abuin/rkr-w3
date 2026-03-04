@@ -1,15 +1,15 @@
 import React from 'react'
 import { screen } from '@testing-library/react'
-import BattleTag from '..'
+import PlayerTag from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
 
-describe('BattleTag', () => {
+describe('PlayerTag', () => {
   it('renders battletag and displays correct title and subtitle', () => {
     const completeBattleTag = 'Alex#76923'
     const battletag = 'Alex'
 
     renderWithTheme(
-      <BattleTag data={{ name: battletag, tag: completeBattleTag }} />,
+      <PlayerTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
     )
 
     const titleElement = screen.getByText('Alex')
@@ -26,7 +26,7 @@ describe('BattleTag', () => {
     const battletag = 'Alex'
 
     renderWithTheme(
-      <BattleTag data={{ name: battletag, tag: completeBattleTag }} />,
+      <PlayerTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
     )
 
     const link = screen.getByText('Alex')

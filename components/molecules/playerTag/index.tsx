@@ -10,20 +10,22 @@ const formatSkinName = (skin: Skins) => {
 
 interface Props {
   battleTag: BattleTagI
-  skins: Skins
+  skins?: Skins | null
 }
 
-export default function BattleTag({ battleTag, skins }: Props) {
+export default function PlayerTag({ battleTag, skins = null }: Props) {
   return (
     <Container>
-      <ImageContainer>
-        <Image
-          alt={battleTag.tag}
-          colored
-          fallbackSrc={'/potm.png'}
-          src={formatSkinName(skins)}
-        />
-      </ImageContainer>
+      {skins && (
+        <ImageContainer>
+          <Image
+            alt={battleTag.tag}
+            colored
+            fallbackSrc={'/potm.png'}
+            src={formatSkinName(skins)}
+          />
+        </ImageContainer>
+      )}
       <TextContainer>
         <Link
           color="brandSecondary"
