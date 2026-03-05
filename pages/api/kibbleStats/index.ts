@@ -1,6 +1,10 @@
 import { ApiPlayerStats, Kibbles, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getSortConditionByKey, fetchData } from '@/utils'
+import {
+  filterSortAndPaginate,
+  getSortConditionByKey,
+  fetchData,
+} from '@/utils'
 
 interface QueryParams {
   battleTag?: string
@@ -54,38 +58,30 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       battleTag: queryBattletag,
     } = req.query
 
-    let filteredData = formattedData
+    const response = filterSortAndPaginate<
+      Partial<Player>,
+      keyof Kibbles | 'battleTag'
+    >({
+      battleTag: queryBattletag,
+      data: formattedData,
+      page,
+      pageSize,
+      sortKey,
+      sortOrder,
+      getSortCondition: (key, a, b) => {
+        if (key === 'battleTag') {
+          return getSortConditionByKey(key, a, b)
+        }
 
-    if (queryBattletag) {
-      filteredData = filteredData.filter(({ battleTag }) =>
-        battleTag.name.toLowerCase().includes(queryBattletag.toLowerCase()),
-      )
-    }
+        const kibbleKey = key as keyof Kibbles
+        const firstValue = a.kibbles?.[kibbleKey] ?? 0
+        const secondValue = b.kibbles?.[kibbleKey] ?? 0
 
-    const totalPages = filteredData
-      ? Math.ceil(filteredData?.length / pageSize)
-      : 0
-
-    const initialIndex = (Number(page) - 1) * pageSize
-
-    let sortedData = filteredData
-
-    if (sortKey) {
-      sortedData = filteredData.sort((a, b) => {
-        const condition =
-          sortKey === 'battleTag'
-            ? getSortConditionByKey(sortKey, a, b)
-            : a.kibbles[sortKey] > b.kibbles[sortKey]
-
-        if (condition === undefined) return 0
-        return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
-      })
-    }
-
-    res.status(200).json({
-      stats: sortedData.slice(initialIndex, initialIndex + pageSize),
-      pages: totalPages,
+        return firstValue > secondValue
+      },
     })
+
+    res.status(200).json(response)
   } catch (error) {
     console.error('Error fetching kibble stats data:', error)
     res.status(500).json({ message: 'Internal Server Error' })

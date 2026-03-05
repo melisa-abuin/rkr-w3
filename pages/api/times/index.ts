@@ -1,6 +1,11 @@
 import { ApiPlayerStats, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getSortConditionByKey, fetchData, formatRoundsData } from '@/utils'
+import {
+  filterSortAndPaginate,
+  getSortConditionByKey,
+  fetchData,
+  formatRoundsData,
+} from '@/utils'
 import { roundNames } from '@/constants'
 
 interface QueryParams {
@@ -45,33 +50,18 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       difficulty,
     } = req.query
 
-    let filteredData = formattedData
-
-    if (queryBattletag) {
-      filteredData = filteredData.filter(({ battleTag }) =>
-        battleTag.name.toLowerCase().includes(queryBattletag.toLowerCase()),
-      )
-    }
-
-    const totalPages = filteredData
-      ? Math.ceil(filteredData?.length / pageSize)
-      : 0
-
-    const initialIndex = (Number(page) - 1) * pageSize
-
-    let sortedData = filteredData
-
-    if (sortKey) {
-      sortedData = filteredData.sort((a, b) => {
-        const condition = getSortConditionByKey(sortKey, a, b, difficulty)
-        if (condition === undefined) return 0
-        return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
-      })
-    }
-    res.status(200).json({
-      stats: sortedData.slice(initialIndex, initialIndex + pageSize),
-      pages: totalPages,
+    const response = filterSortAndPaginate({
+      battleTag: queryBattletag,
+      data: formattedData,
+      page,
+      pageSize,
+      sortKey,
+      sortOrder,
+      getSortCondition: (key, a, b) =>
+        getSortConditionByKey(key, a, b, difficulty),
     })
+
+    res.status(200).json(response)
   } catch (error) {
     console.error('Error fetching times stats data:', error)
     res.status(500).json({ message: 'Internal Server Error' })
