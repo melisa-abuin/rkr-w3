@@ -32,9 +32,9 @@ describe('PlayerFinder', () => {
     mockUseApiQuery.mockImplementation((_url, params) => ({
       data:
         params?.battleTag === 'zzz'
-          ? []
+          ? { stats: [] }
           : params?.battleTag
-            ? [playerMock]
+            ? { stats: [playerMock] }
             : undefined,
       isFetching: false,
       error: null,

@@ -1,10 +1,12 @@
 import { ApiPlayerStats, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
-  filterSortAndPaginate,
+  filterByBattleTag,
   getSortConditionByKey,
   fetchData,
   formatRoundsData,
+  paginateData,
+  sortData,
 } from '@/utils'
 import { roundNames } from '@/constants'
 
@@ -50,15 +52,23 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       difficulty,
     } = req.query
 
-    const response = filterSortAndPaginate({
+    const filteredData = filterByBattleTag({
       battleTag: queryBattletag,
       data: formattedData,
-      page,
-      pageSize,
+    })
+
+    const sortedData = sortData({
+      data: filteredData,
       sortKey,
       sortOrder,
       getSortCondition: (key, a, b) =>
         getSortConditionByKey(key, a, b, difficulty),
+    })
+
+    const response = paginateData({
+      data: sortedData,
+      page,
+      pageSize,
     })
 
     res.status(200).json(response)

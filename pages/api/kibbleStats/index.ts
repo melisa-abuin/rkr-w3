@@ -1,9 +1,11 @@
 import { ApiPlayerStats, Kibbles, Player } from '@/interfaces/player'
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
-  filterSortAndPaginate,
+  filterByBattleTag,
   getSortConditionByKey,
   fetchData,
+  paginateData,
+  sortData,
 } from '@/utils'
 
 interface QueryParams {
@@ -58,14 +60,13 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       battleTag: queryBattletag,
     } = req.query
 
-    const response = filterSortAndPaginate<
-      Partial<Player>,
-      keyof Kibbles | 'battleTag'
-    >({
+    const filteredData = filterByBattleTag({
       battleTag: queryBattletag,
       data: formattedData,
-      page,
-      pageSize,
+    })
+
+    const sortedData = sortData<Partial<Player>, keyof Kibbles | 'battleTag'>({
+      data: filteredData,
       sortKey,
       sortOrder,
       getSortCondition: (key, a, b) => {
@@ -79,6 +80,12 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
         return firstValue > secondValue
       },
+    })
+
+    const response = paginateData({
+      data: sortedData,
+      page,
+      pageSize,
     })
 
     res.status(200).json(response)
