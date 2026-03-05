@@ -50,7 +50,9 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           description="Best times and scores of Run Kitty Run players. The scores shown on this page are subject to the files uploaded by the players, if a player is not present in this table it is because they have not uploaded their statistics in the latest versions of the game"
           title="Leaderboards"
         />
-        <PlayerFinderWithResult />
+        <PageContainer marginBottom={16} withPadding={false}>
+          <PlayerFinderWithResult />
+        </PageContainer>
         <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>
           <div>
             <PageContainer

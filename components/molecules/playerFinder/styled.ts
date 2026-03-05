@@ -38,7 +38,6 @@ export const Wrapper = styled.div`
   }
 
   max-width: 400px;
-  padding-bottom: 16px;
   position: relative;
   width: 100%;
 `

@@ -7,6 +7,7 @@ import { formatDateToLocale } from '@/utils'
 import RowCards from './components/rowCards'
 import { Tournaments as TournamentsInterface } from '@/interfaces/tournament'
 import { Fragment } from 'react/jsx-runtime'
+import { CTAContainer } from './styled'
 
 interface Props {
   data: TournamentsInterface[]
@@ -31,7 +32,7 @@ export default function Tournaments({ data }: Props) {
           {group.map((item) => (
             <Fragment key={item.tournament.id}>
               <RowCards item={item} />
-              <div style={{ paddingTop: 24, paddingBottom: 24 }}>
+              <CTAContainer>
                 <Button
                   as="a"
                   href={`tournaments/${item.tournament.id}`}
@@ -40,7 +41,7 @@ export default function Tournaments({ data }: Props) {
                 >
                   See all tournament details
                 </Button>
-              </div>
+              </CTAContainer>
             </Fragment>
           ))}
         </PageContainer>
@@ -48,4 +49,3 @@ export default function Tournaments({ data }: Props) {
     </>
   )
 }
-// rename button as CTA and use it instead of link and button
