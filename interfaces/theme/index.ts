@@ -1,4 +1,8 @@
 'use client'
+import { PlayerColor } from '../player'
+
+export type BadgeColor = Exclude<PlayerColor, null> | 'primary' | 'tertiary'
+
 export interface Theme {
   button: Record<
     string,
@@ -10,7 +14,7 @@ export interface Theme {
     }
   >
   badge: Record<
-    string,
+    BadgeColor,
     {
       background: string
       color: string

@@ -27,16 +27,3 @@ export const Title = styled.h1`
   font-size: var(--font-size-xl);
   margin-bottom: 1rem;
 `
-
-export const ColorBadge = styled.span<{
-  background: string
-  color?: string
-  capitalize?: boolean
-}>`
-  background-color: ${({ background }) => background};
-  border-radius: 4px;
-  font-size: var(--font-size-xs);
-  color: ${({ theme, color }) => (color ? color : theme.text.primary)};
-  padding: 6px 8px;
-  text-transform: ${({ capitalize }) => (capitalize ? 'capitalize' : 'none')};
-`

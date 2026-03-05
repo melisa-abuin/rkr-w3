@@ -21,6 +21,8 @@ const lightTheme = {
     },
   },
   badge: {
+    primary: { background: '#B24141', color: '#FFFFFF' },
+    tertiary: { background: '#e6dada', color: '#050505' },
     red: { background: '#e13c3c', color: '#ffffff' },
     blue: { background: '#315cd6', color: '#ffffff' },
     teal: { background: '#1be7ba', color: '#050505' },

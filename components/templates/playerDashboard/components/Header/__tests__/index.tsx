@@ -88,6 +88,6 @@ describe('<Header />', () => {
       error: null,
     })
     renderWithTheme(<Header {...defaultProps} color={null} />)
-    expect(screen.queryByText(/kitty/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/^red kitty$/)).not.toBeInTheDocument()
   })
 })

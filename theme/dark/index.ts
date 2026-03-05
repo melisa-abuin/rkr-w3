@@ -21,6 +21,8 @@ const darkTheme = {
     },
   },
   badge: {
+    primary: { background: '#B24141', color: '#0f0f0f' },
+    tertiary: { background: '#3f3030', color: '#fff5f5' },
     red: { background: '#ac0606', color: '#fff5f5' },
     blue: { background: '#0030b9', color: '#fff5f5' },
     teal: { background: '#12cba2', color: '#0f0f0f' },
