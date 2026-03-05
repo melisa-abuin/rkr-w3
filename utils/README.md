@@ -41,6 +41,9 @@ Below is a list of all available utilities:
 ### 🔢 Sorting & Filtering
 
 - `getSortConditionByKey`
+- `filterByBattleTag`
+- `sortData`
+- `paginateData`
 
 ### 📅 Time Helpers
 
