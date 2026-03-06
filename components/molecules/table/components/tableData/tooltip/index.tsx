@@ -11,6 +11,7 @@ interface Props {
     impossible: number | string
     nightmare: number | string
     normal: number | string
+    progressive: number | string
   }
   difficulty?: Difficulty
   children?: ReactNode
@@ -23,7 +24,7 @@ export default function Tooltip({
   difficulty = undefined,
   isTimeStats = false,
 }: Props) {
-  const { hard, impossible, normal, nightmare } = data
+  const { hard, impossible, normal, nightmare, progressive } = data
   const dataToRender = { ...data }
 
   if (isTimeStats) {
@@ -31,6 +32,7 @@ export default function Tooltip({
     dataToRender.impossible = formatSecondsAsTime(impossible as number)
     dataToRender.normal = formatSecondsAsTime(normal as number)
     dataToRender.nightmare = formatSecondsAsTime(nightmare as number)
+    dataToRender.progressive = formatSecondsAsTime(progressive as number)
   }
 
   if (difficulty && difficulty !== 'solo') {
@@ -58,6 +60,10 @@ export default function Tooltip({
             <tr>
               <td>Nightmare</td>
               <td>{dataToRender.nightmare}</td>
+            </tr>
+            <tr>
+              <td>Progressive</td>
+              <td>{dataToRender.progressive}</td>
             </tr>
           </tbody>
         </Content>

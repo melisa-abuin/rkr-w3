@@ -76,6 +76,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         GameStats.HardGames,
         GameStats.ImpossibleGames,
         GameStats.NightmareGames,
+        GameStats.ProgressiveGames,
       )
 
       playerStats.wins = calculateTotals(
@@ -83,13 +84,16 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         GameStats.HardWins,
         GameStats.ImpossibleWins,
         GameStats.NightmareWins,
+        GameStats.ProgressiveWins,
       )
 
       playerStats.winRate = calculateWinRate(
         playerStats.wins.total,
         playerStats.gamesPlayed.total,
       )
-
+      if (playerStats.battleTag.name === 'Cait') {
+        console.log('saveData', playerStats)
+      }
       return playerStats
     })
 

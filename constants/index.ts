@@ -439,6 +439,7 @@ export const formattedMockData: Player[] = [
       normal: 60,
       total: 135,
       nightmare: 0,
+      progressive: 10,
     },
     highestWinStreak: 14,
     kibbles: {
@@ -516,6 +517,7 @@ export const formattedMockData: Player[] = [
       normal: 50,
       total: 102,
       nightmare: 0,
+      progressive: 10,
     },
     winStreak: 6,
     mostPlayedColor: 'purple',
@@ -571,6 +573,7 @@ export const formattedMockData: Player[] = [
       normal: 80,
       total: 150,
       nightmare: 5,
+      progressive: 15,
     },
     highestWinStreak: 10,
     kibbles: {
@@ -648,6 +651,7 @@ export const formattedMockData: Player[] = [
       normal: 52,
       total: 102,
       nightmare: 0,
+      progressive: 10,
     },
     winStreak: 5,
     mostPlayedColor: 'blue',

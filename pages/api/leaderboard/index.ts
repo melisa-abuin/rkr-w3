@@ -27,9 +27,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
           name: PlayerName?.split('#')[0] || '',
           tag: PlayerName || '',
         }
-        if (playerStats.battleTag.name === 'Cait') {
-          console.log('saveData', saveData)
-        }
+
         playerStats.saveDeathRatio = calculateSaveDeathRatio(
           GameStats.Saves,
           GameStats.Deaths,
