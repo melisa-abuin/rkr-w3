@@ -69,12 +69,8 @@ Below is a list of all available utilities:
 
 ### 🌐 URL Helpers
 
-- `getBaseUrlFromHeaders`: Builds the request base URL from server headers, with a stage fallback to `https://rkr-w3.vercel.app`.
+- `getBaseUrlFromHeaders`
 
 ### 🏁 Tournament Helpers
 
-- `formatTournamentPlayers`: Normalizes tournament players by mapping game `total_time`, calculating player `totalTime`, formatting battletags, and sorting by fastest total time.
-
----
-
-> 📌 Detailed descriptions and usage examples coming soon.
+- `formatTournamentPlayers`
