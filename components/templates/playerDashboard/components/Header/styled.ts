@@ -32,6 +32,9 @@ export const Badges = styled.div`
   max-width: 1000px;
   text-align: left;
   width: 100%;
+  & div {
+    margin: 8px 0;
+  }
 `
 
 export const Title = styled.h1`
