@@ -16,6 +16,19 @@ interface BestGameTimes {
   }
 }
 
+/**
+ * Groups teammate names by how many times they appear across fastest game teams.
+ *
+ * It reads team members from normal/hard/impossible records, counts appearances,
+ * excludes the current player (`battleTag`), and buckets names into:
+ * - `1`: appeared once
+ * - `2`: appeared twice
+ * - `3`: appeared three or more times (capped)
+ *
+ * @param battleTag Current player tag to exclude from the result.
+ * @param times Fastest game entries by difficulty.
+ * @returns Object keyed by appearance count (`1 | 2 | 3`) with teammate names.
+ */
 export const getFastestBesties = (battleTag: string, times: BestGameTimes) => {
   const apparitions: Record<1 | 2 | 3, string[]> = {
     1: [],

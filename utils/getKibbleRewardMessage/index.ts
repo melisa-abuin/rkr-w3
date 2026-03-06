@@ -4,6 +4,21 @@ export interface Reward {
   message: string
 }
 
+/**
+ * Rolls a random kibble reward result.
+ *
+ * Outcome distribution:
+ * - 30%: gold reward
+ * - 30%: xp reward
+ * - 40%: no reward
+ *
+ * Gold branch includes rare jackpots:
+ * - 1% of gold rolls: super jackpot
+ * - next 2% of gold rolls: jackpot
+ * - otherwise: regular gold
+ *
+ * @returns Reward object with type, amount, and user-facing message.
+ */
 export const getKibbleRewardMessage = (): Reward => {
   const xpMax = 350
   const goldMax = 150
@@ -37,6 +52,13 @@ export const getKibbleRewardMessage = (): Reward => {
   }
 }
 
+/**
+ * Generates a random integer between `min` and `max` (inclusive).
+ *
+ * @param min Lower bound (inclusive).
+ * @param max Upper bound (inclusive).
+ * @returns Integer value in the inclusive range.
+ */
 export const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
