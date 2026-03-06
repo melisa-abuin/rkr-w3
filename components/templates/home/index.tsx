@@ -7,6 +7,7 @@ import {
   Container,
   DiscordDetail,
   Info,
+  PlayerFinderWrapper,
   Subtitle,
   Title,
 } from './styled'
@@ -28,7 +29,9 @@ export default function Home({ discordData }: Props) {
           <Subtitle>The famous Warcraft 3 custom map</Subtitle>
           Stats, leaderboards and more
         </Info>
-        <PlayerFinderWithResult />
+        <PlayerFinderWrapper>
+          <PlayerFinderWithResult />
+        </PlayerFinderWrapper>
 
         <a href={discordJoinLink}>
           <Image

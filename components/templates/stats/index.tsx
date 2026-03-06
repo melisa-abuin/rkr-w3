@@ -49,6 +49,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     | undefined
   const initialSortKey = (searchParams?.get('sortKey') as string) || ''
   const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
+  const initialPlayer = searchParams?.get('battleTag') || ''
 
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
@@ -70,7 +71,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     key: initialSortKey,
     asc: initialSortOrder,
   })
-  const [player, setPlayer] = useState<string>('')
+  const [player, setPlayer] = useState<string>(initialPlayer)
   const debouncedQuery = useDebouncedValue(player, 300)
 
   const onTabChange = (index: number) => {
@@ -195,7 +196,7 @@ export default function Stats({ data, filter }: AllStatsData) {
                   currentPage={currentPage}
                   queryString={queryString}
                   handlePlayerChange={handlePlayerChange}
-                  player=""
+                  player={initialPlayer}
                 />
               )
             }
@@ -217,7 +218,7 @@ export default function Stats({ data, filter }: AllStatsData) {
                 }
                 handleDifficultyChange={handleFilterChange}
                 handlePlayerChange={handlePlayerChange}
-                player=""
+                player={initialPlayer}
                 currentPage={currentPage}
                 difficulty={difficultyFilter}
                 queryString={queryString}

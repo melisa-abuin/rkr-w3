@@ -103,7 +103,7 @@ export default function TableWithControls<T>({
                 defaultValue={player || ''}
                 onChange={handlePlayerChange}
                 onPlayerSelect={() => {}}
-                onClear={() => {}}
+                onClear={() => handlePlayerChange?.('')}
               />
             </div>
           )
