@@ -1,9 +1,10 @@
 'use client'
 
 import { Player, Tops } from '@/interfaces/player'
-import { Badges, Container, Title } from './styled'
+import { Badges, Container, FloatingTitle, Title } from './styled'
 import { formatKeyToWord } from '@/utils'
 import { useApiQuery } from '@/hooks/useApiQuery'
+import { useElementInView } from '@/hooks/useElementInView'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Tooltip from '@/components/atoms/tooltip'
 import Loader from '@/components/atoms/loader'
@@ -41,6 +42,9 @@ const countTopRounds = (data: Tops) => {
 }
 
 export default function Header({ battleTag, color, skin, title }: Props) {
+  const { isElementInView, elementRef } = useElementInView(90)
+  const showFloatingTitle = !isElementInView
+
   const { data, isFetching, error } = useApiQuery<Tops>(
     `/api/playerTopPositions/${encodeURIComponent(battleTag)}`,
     undefined,
@@ -58,7 +62,10 @@ export default function Header({ battleTag, color, skin, title }: Props) {
   if (isFetching) {
     return (
       <Container>
-        <Title>{title}</Title>
+        {showFloatingTitle && (
+          <FloatingTitle aria-hidden>{title}</FloatingTitle>
+        )}
+        <Title ref={elementRef}>{title}</Title>
         <Badges>
           <Loader height={28} width={120} />
           <Loader height={28} width={120} />
@@ -69,7 +76,8 @@ export default function Header({ battleTag, color, skin, title }: Props) {
 
   return (
     <Container>
-      <Title>{title}</Title>
+      {showFloatingTitle && <FloatingTitle aria-hidden>{title}</FloatingTitle>}
+      <Title ref={elementRef}>{title}</Title>
       <Badges>
         {skin && (
           <ColorBadge colorName="primary">{formatKeyToWord(skin)}</ColorBadge>
