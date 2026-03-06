@@ -10,6 +10,7 @@ import { statsPageVariants } from '@/constants'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Difficulty } from '@/interfaces/difficulty'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 
 interface AllStatsData {
   data: { pages: number; stats?: Player[] }
@@ -48,6 +49,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     | undefined
   const initialSortKey = (searchParams?.get('sortKey') as string) || ''
   const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
+  const initialPlayer = searchParams?.get('battleTag') || ''
 
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
@@ -69,6 +71,8 @@ export default function Stats({ data, filter }: AllStatsData) {
     key: initialSortKey,
     asc: initialSortOrder,
   })
+  const [player, setPlayer] = useState<string>(initialPlayer)
+  const debouncedQuery = useDebouncedValue(player, 300)
 
   const onTabChange = (index: number) => {
     const selectedVariantKey = variantKeys[index]
@@ -102,6 +106,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     params.set('sortKey', sortValue)
     params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
     params.set('filter', currentApiUrl)
+    params.set('battleTag', debouncedQuery)
 
     return params.toString()
   }, [
@@ -111,6 +116,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     sortKey.asc,
     currentApiUrl,
     currentColumns,
+    debouncedQuery,
   ])
 
   const syncURL = useCallback(() => {
@@ -121,6 +127,11 @@ export default function Stats({ data, filter }: AllStatsData) {
   useEffect(() => {
     syncURL()
   }, [syncURL])
+
+  const handlePlayerChange = useCallback((player: string) => {
+    setHasInteracted(true)
+    setPlayer(player)
+  }, [])
 
   const handlePageChange = useCallback((page: number) => {
     setHasInteracted(true)
@@ -182,9 +193,10 @@ export default function Stats({ data, filter }: AllStatsData) {
                   handleSortChange={(columnKey) =>
                     handleSortChange(columnKey as string)
                   }
-                  handleFilterChange={handleFilterChange}
                   currentPage={currentPage}
                   queryString={queryString}
+                  handlePlayerChange={handlePlayerChange}
+                  player={initialPlayer}
                 />
               )
             }
@@ -204,11 +216,12 @@ export default function Stats({ data, filter }: AllStatsData) {
                 handleSortChange={(columnKey) =>
                   handleSortChange(columnKey as string)
                 }
-                handleFilterChange={handleFilterChange}
+                handleDifficultyChange={handleFilterChange}
+                handlePlayerChange={handlePlayerChange}
+                player={initialPlayer}
                 currentPage={currentPage}
-                difficultyFilter={difficultyFilter}
+                difficulty={difficultyFilter}
                 queryString={queryString}
-                withDifficultyFilter
               />
             )
           })}

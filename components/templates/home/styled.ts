@@ -22,6 +22,15 @@ export const Container = styled.div`
   width: 100%;
 `
 
+export const PlayerFinderWrapper = styled.div`
+  padding-bottom: 16px;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export const DiscordDetail = styled.small`
   display: inline;
   font-size: var(--font-size-xs);

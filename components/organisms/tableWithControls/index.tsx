@@ -8,42 +8,45 @@ import Pagination from '@/components/molecules/pagination'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
+import PlayerFinder from '@/components/molecules/playerFinder'
 
 interface TableProps<T> {
-  data: { pages: number; stats?: T[] }
-  headerLink?: ReactNode
-  sortKey: keyof T
-  title?: string
   apiBaseUrl: 'times' | 'stats' | 'kibbleStats'
-  shouldRefetch: boolean
   columns: Array<{
     title: string
     key: keyof T
   }>
   currentPage: number
-  queryString: string | null
-  handleSortChange: (columnKey: keyof T) => void
+  data: { pages: number; stats?: T[] }
+  difficulty?: Difficulty | undefined
+  handleDifficultyChange?: () => void
   handlePageChange: (page: number) => void
-  handleFilterChange: () => void
-  difficultyFilter?: Difficulty | undefined
-  withDifficultyFilter?: boolean
+  handlePlayerChange?: (player: string) => void
+  handleSortChange: (columnKey: keyof T) => void
+  headerLink?: ReactNode
+  player?: string
+  queryString: string | null
+  shouldRefetch: boolean
+  sortKey: keyof T
+  title?: string
 }
 
 export default function TableWithControls<T>({
-  data,
-  sortKey,
-  columns,
   apiBaseUrl,
-  title,
-  headerLink,
-  shouldRefetch = false,
-  handlePageChange,
-  handleSortChange,
-  handleFilterChange,
-  queryString,
+  columns,
   currentPage,
-  difficultyFilter,
-  withDifficultyFilter,
+  data,
+  difficulty,
+  handleDifficultyChange,
+  handlePageChange,
+  handlePlayerChange,
+  handleSortChange,
+  headerLink,
+  player,
+  queryString,
+  shouldRefetch = false,
+  sortKey,
+  title,
 }: TableProps<T>) {
   const {
     data: filteredData,
@@ -81,18 +84,34 @@ export default function TableWithControls<T>({
         data={formattedQueryResult ?? data.stats}
         pageSize={15}
         filters={
-          withDifficultyFilter && (
-            <Badges
-              onClick={handleFilterChange}
-              options={difficultyNames}
-              selected={difficultyFilter}
-            />
+          !!handleDifficultyChange && (
+            <div
+              style={{
+                display: 'flex',
+                gap: 16,
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                width: '100%',
+              }}
+            >
+              <Badges
+                onClick={handleDifficultyChange}
+                options={difficultyNames}
+                selected={difficulty}
+              />
+              <PlayerFinder
+                defaultValue={player || ''}
+                onChange={handlePlayerChange}
+                onPlayerSelect={() => {}}
+                onClear={() => handlePlayerChange?.('')}
+              />
+            </div>
           )
         }
         headerLink={headerLink}
         highlightedColumn={sortKey}
         loading={isFetching}
-        difficultyFilter={difficultyFilter}
+        difficultyFilter={difficulty}
         title={title}
         onTableSort={handleSortChange}
       />

@@ -7,7 +7,10 @@ import {
   calculateTotals,
   calculateWinRate,
   fetchData,
+  filterByBattleTag,
   getSortConditionByKey,
+  paginateData,
+  sortData,
 } from '@/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
@@ -92,36 +95,33 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
 
     const {
       page = 1,
-      sortKey = 'completedChallenges',
+      sortKey,
       sortOrder = 'desc',
       difficulty,
       pageSize = 15,
       battleTag: queryBattletag,
     } = req.query
 
-    if (queryBattletag) {
-      res
-        .status(200)
-        .json(
-          formattedData.filter(({ battleTag }) =>
-            battleTag.name.toLowerCase().includes(queryBattletag.toLowerCase()),
-          ),
-        )
-    } else {
-      const totalPages = data ? Math.ceil(data?.length / pageSize) : 0
+    const filteredData = filterByBattleTag({
+      battleTag: queryBattletag,
+      data: formattedData,
+    })
 
-      const initialIndex = (Number(page) - 1) * pageSize
+    const sortedData = sortData({
+      data: filteredData,
+      sortKey,
+      sortOrder,
+      getSortCondition: (key, a, b) =>
+        getSortConditionByKey(key, a, b, difficulty),
+    })
 
-      const sortedData = formattedData.sort((a, b) => {
-        const condition = getSortConditionByKey(sortKey, a, b, difficulty)
-        if (condition === undefined) return 0
-        return sortOrder === 'asc' ? (condition ? 1 : -1) : condition ? -1 : 1
-      })
-      res.status(200).json({
-        stats: sortedData.slice(initialIndex, initialIndex + pageSize),
-        pages: totalPages,
-      })
-    }
+    const response = paginateData({
+      data: sortedData,
+      page,
+      pageSize,
+    })
+
+    res.status(200).json(response)
   } catch (error) {
     console.error('Error fetching scoreboard data:', error)
     res.status(500).json({ message: 'Internal Server Error' })

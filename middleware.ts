@@ -6,7 +6,11 @@ const LIMIT = 60
 const BOT_UA_REGEX =
   /(bot|crawler|spider|crawling|scrapy|curl|wget|python|httpclient|headless)/i
 
-function getClientIp(req: NextRequest): string {
+/**
+ * Resolves the best available client IP from proxy and direct-IP headers.
+ * Prefers the first IP from `x-forwarded-for`, then falls back to `x-real-ip`.
+ */
+const getClientIp = (req: NextRequest): string => {
   return (
     req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
     req.headers.get('x-real-ip') ||
@@ -14,6 +18,7 @@ function getClientIp(req: NextRequest): string {
   )
 }
 
+// TODO: remove this and use vercel firewall rules instead for better performance and reliability
 export function middleware(req: NextRequest) {
   const ua = req.headers.get('user-agent') || ''
   const ip = getClientIp(req)

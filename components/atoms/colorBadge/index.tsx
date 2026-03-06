@@ -3,17 +3,17 @@
 import React, { ReactNode } from 'react'
 import { Badge } from './styled'
 import { useTheme } from '@/hooks/useTheme'
-import { KittyColors } from '@/interfaces/player'
+import { BadgeColor } from '@/interfaces/theme'
 
-interface KittyColorBadgeProps {
+interface ColorBadgeProps {
   children: ReactNode
-  colorName?: KittyColors
+  colorName?: BadgeColor | null
 }
 
-export default function KittyColorBadge({
+export default function ColorBadge({
   children,
   colorName = 'red',
-}: KittyColorBadgeProps) {
+}: ColorBadgeProps) {
   const [theme] = useTheme()
 
   if (!colorName) {
