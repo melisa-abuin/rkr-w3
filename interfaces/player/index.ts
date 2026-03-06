@@ -26,6 +26,12 @@ export interface ApiRounds {
   RoundThreeNightmare: number
   RoundFourNightmare: number
   RoundFiveNightmare: number
+  RoundOneProgressive?: number
+  RoundTwoProgressive?: number
+  RoundThreeProgressive?: number
+  // Round 4 and 5 progressive time is always 0, but we want to keep it in the interface for consistency
+  RoundFourProgressive?: 0
+  RoundFiveProgressive?: 0
 }
 
 export interface ApiPlayerStats {
@@ -105,6 +111,7 @@ export interface RoundTimes {
   nightmare: number
   normal: number
   solo: number
+  progressive: number
 }
 
 export interface SaveStreak {
@@ -128,6 +135,7 @@ export interface TotalsPerDifficulty {
   nightmare: number
   normal: number
   total: number
+  progressive: number
 }
 
 export interface Player {
@@ -166,5 +174,8 @@ export type Tops = Record<
     normal?: number
     hard?: number
     impossible?: number
+    progressive?: number
+    solo?: number
+    nightmare?: number
   }
 >

@@ -13,10 +13,12 @@ export const calculateTotals = (
   hard: number = 0,
   impossible: number = 0,
   nightmare: number = 0,
+  progressive: number = 0,
 ) => ({
   normal,
   hard,
   impossible,
   nightmare,
-  total: normal + hard + impossible + nightmare,
+  progressive,
+  total: normal + hard + impossible + nightmare + progressive,
 })
