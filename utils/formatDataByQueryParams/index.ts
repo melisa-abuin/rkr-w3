@@ -17,7 +17,13 @@ interface PaginateDataParams<T> {
 }
 
 /**
- * Filters data by player battle tag name.
+ * Filters records by `battleTag.name` using a case-insensitive partial match.
+ *
+ * If `battleTag` is not provided, the original dataset is returned unchanged.
+ *
+ * @param params.data Dataset to filter.
+ * @param params.battleTag Search value to match against `battleTag.name`.
+ * @returns Filtered dataset or the original data when no search term is provided.
  */
 export const filterByBattleTag = <T extends { battleTag?: { name?: string } }>({
   data,
@@ -37,7 +43,20 @@ export const filterByBattleTag = <T extends { battleTag?: { name?: string } }>({
 }
 
 /**
- * Sorts data with a comparator condition callback.
+ * Sorts records based on a custom comparison condition callback.
+ *
+ * The `getSortCondition` callback receives two records and returns:
+ * - `true` when `a` should come after `b`
+ * - `false` when `a` should come before `b`
+ * - `undefined` when items should be treated as equal
+ *
+ * If `sortKey` is not provided, the original dataset is returned unchanged.
+ *
+ * @param params.data Dataset to sort.
+ * @param params.sortKey Key used by `getSortCondition` to choose comparison logic.
+ * @param params.sortOrder Sort direction (`asc` or `desc`). Defaults to `desc`.
+ * @param params.getSortCondition Comparator-like callback for pairwise ordering.
+ * @returns Sorted copy of the dataset when sorting is requested, otherwise original data.
  */
 export const sortData = <T, K extends string>({
   data,
@@ -61,7 +80,12 @@ export const sortData = <T, K extends string>({
 }
 
 /**
- * Returns paginated data and total pages.
+ * Splits data into pages and returns the current page slice with page metadata.
+ *
+ * @param params.data Full dataset to paginate.
+ * @param params.page 1-based page index. Defaults to `1`.
+ * @param params.pageSize Number of items per page. Defaults to `15`.
+ * @returns Object with `stats` (current page items) and `pages` (total page count).
  */
 export const paginateData = <T>({
   data,

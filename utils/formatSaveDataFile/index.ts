@@ -1,5 +1,16 @@
 import { encode } from 'js-base64'
 
+/**
+ * Converts raw player save data into a Warcraft III preload script.
+ *
+ * The save payload is base64-encoded, split into fixed-size chunks, and wrapped
+ * into `BlzSendSyncData` calls with hex-encoded sequence metadata so the game can
+ * reconstruct the original data in order.
+ *
+ * @param playerSaveData Raw save data string to encode and serialize.
+ * @param chunkSize Maximum characters per encoded chunk. Defaults to `180`.
+ * @returns A full preload function script string (`PreloadFiles`).
+ */
 export const formatSaveDataFile = (
   playerSaveData: string,
   chunkSize: number = 180,

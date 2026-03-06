@@ -1,6 +1,14 @@
 import { outdatedPlayerDaysThreshold } from '@/constants'
 import { Player } from '@/interfaces/player'
 
+/**
+ * Checks whether two players' uploaded stats dates differ by an outdated threshold.
+ *
+ * @param player1 First player to compare.
+ * @param player2 Second player to compare.
+ * @returns The battle tag name of the player with older data when the date gap is
+ * at least `outdatedPlayerDaysThreshold`; otherwise `null`.
+ */
 export const playerDataOutdated = (
   player1: Player,
   player2: Player,

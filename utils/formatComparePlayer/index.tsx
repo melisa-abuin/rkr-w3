@@ -4,6 +4,13 @@ import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isTimeKey } from '../checkKeyType'
 
+/**
+ * Formats a single column for a player's stats row.
+ *
+ * Resolves the value by key and optional difficulty, converts time-based keys to
+ * display format, and computes whether the value should be highlighted against a
+ * comparison player.
+ */
 const formatColumns = (
   column: { title: string; key: keyof Player },
   difficulty: Difficulty | undefined,
@@ -28,12 +35,16 @@ const formatColumns = (
 }
 
 /**
- * Format the data of two players and provide a comparison by category requested
- * @param player
- * @param comparePlayer
- * @param columns
- * @param difficulty
- * @returns
+ * Builds comparison data for fixed player keys.
+ *
+ * Returns one row when `comparePlayer` is not provided, and two rows when it is.
+ * Each row contains a player title and formatted columns with highlight metadata.
+ *
+ * @param player Base player to format.
+ * @param comparePlayer Optional player used to compare and highlight values.
+ * @param columns Column definitions using strongly typed `Player` keys.
+ * @param difficulty Optional difficulty used for nested difficulty-based keys.
+ * @returns Array of formatted rows ready for UI rendering.
  */
 export const formatComparePlayer = (
   player: Player,
@@ -62,6 +73,12 @@ export const formatComparePlayer = (
   return result
 }
 
+/**
+ * Formats a single column for dynamic string keys.
+ *
+ * Supports keys from `player.kibbles` and top-level numeric `Player` fields.
+ * For unsupported/non-numeric values, it falls back to a safe default.
+ */
 const formatColumnsDynamic = (
   column: { title: string; key: string },
   player: Player,
@@ -100,12 +117,15 @@ const formatColumnsDynamic = (
 }
 
 /**
- * Format the data of two players and provide a comparison by category requested
- * @param player
- * @param comparePlayer
- * @param columns
- * @param difficulty
- * @returns
+ * Builds comparison data for dynamic string keys.
+ *
+ * Works like `formatComparePlayer`, but accepts untyped keys (for mixed data
+ * sources such as kibbles and top-level numeric fields).
+ *
+ * @param player Base player to format.
+ * @param comparePlayer Optional player used to compare and highlight values.
+ * @param columns Column definitions using dynamic string keys.
+ * @returns Array of formatted rows ready for UI rendering.
  */
 export const formatCompare = (
   player: Player,
