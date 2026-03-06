@@ -8,6 +8,8 @@ Below is a list of all available utilities:
 
 - `calculateBestTimeByDifficulty`
 - `calculateCompletedChallenges`
+- `calculateExperience`
+- `calculateGold`
 - `calculateSaveDeathRatio`
 - `calculateTotals`
 - `calculateWinRate`
@@ -30,9 +32,11 @@ Below is a list of all available utilities:
 ### 🧩 Data Formatting
 
 - `formatComparePlayer`
+- `formatDataByQueryParams`
 - `formatDateToLocale`
 - `formatGameAwards`
 - `formatKeyToWord`
+- `formatPlayerTops`
 - `formatRoundsData`
 - `formatSaveDataFile`
 - `formatTournamentPlayers`
@@ -47,12 +51,18 @@ Below is a list of all available utilities:
 
 ### 📅 Time Helpers
 
+- `getFastestBesties`
 - `getTimeAgoFromToday`
 
 ### 🧠 Type Guards
 
+- `checkKeyType`
 - `isRoundKey`
 - `isTimeKey`
+
+### 🧾 Messaging Helpers
+
+- `getMessageByScore`
 
 ### 🔄 Data Validation
 
