@@ -91,9 +91,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         playerStats.wins.total,
         playerStats.gamesPlayed.total,
       )
-      if (playerStats.battleTag.name === 'Cait') {
-        console.log('saveData', playerStats)
-      }
+
       return playerStats
     })
 
