@@ -12,6 +12,7 @@ import {
 import LoaderTable from './components/loaderTable'
 import TableData from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
+import { isRoundDifficultyAvailable } from '@/utils'
 
 interface Props<T> {
   data?: T[]
@@ -48,6 +49,10 @@ export default function Table<T>({
     onTableSort(columnKey)
   }
 
+  const cols = columns.filter(({ key }) =>
+    isRoundDifficultyAvailable(key as string, difficultyFilter),
+  )
+
   return (
     <Container aria-labelledby={title || 'Player stats'}>
       <StyledTable aria-label="Player Stats">
@@ -62,7 +67,7 @@ export default function Table<T>({
         </caption>
         <thead>
           <StyledTr>
-            {columns.map(({ key, title }) => (
+            {cols.map(({ key, title }) => (
               <StyledTh
                 key={key as string}
                 hasActions={!!onTableSort}
@@ -77,12 +82,12 @@ export default function Table<T>({
           </StyledTr>
         </thead>
         {loading ? (
-          <LoaderTable columns={columns.length} rows={pageSize} />
+          <LoaderTable columns={cols.length} rows={pageSize} />
         ) : (
           <tbody>
             {data?.map((player, index) => (
               <tr key={index}>
-                {columns.map(({ key, title }) => (
+                {cols.map(({ key, title }) => (
                   <StyledTd
                     data-label={title}
                     highlighted={highlightedColumn === key}

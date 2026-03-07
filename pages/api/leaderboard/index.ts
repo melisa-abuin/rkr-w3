@@ -17,7 +17,6 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
       .map((elem: ApiPlayerStats) => {
         // We need to format ONLY what is sent to the frontend
         const saveData = JSON.parse(elem['Save Data'])
-
         const { GameStats, RoundTimes, PlayerName } = saveData
         const playerStats: Partial<Player> = {}
 
@@ -39,6 +38,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
           GameStats.HardGames,
           GameStats.ImpossibleGames,
           GameStats.NightmareGames,
+          GameStats.ProgressiveGames,
         )
 
         playerStats.wins = calculateTotals(
@@ -46,6 +46,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
           GameStats.HardWins,
           GameStats.ImpossibleWins,
           GameStats.NightmareWins,
+          GameStats.ProgressiveWins,
         )
 
         roundNames.forEach((round) => {

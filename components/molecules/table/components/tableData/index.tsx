@@ -98,6 +98,7 @@ export default function TableData<T>({
               hard: componentData.hard,
               impossible: componentData.impossible,
               nightmare: componentData.nightmare,
+              progressive: componentData.progressive,
             }}
             difficulty={difficultyFilter}
           >
@@ -116,6 +117,7 @@ export default function TableData<T>({
               hard: componentData.hard,
               impossible: componentData.impossible,
               nightmare: componentData.nightmare,
+              progressive: componentData.progressive,
             }}
             difficulty={difficultyFilter}
             isTimeStats

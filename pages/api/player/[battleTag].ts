@@ -125,6 +125,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       GameStats.HardGames,
       GameStats.ImpossibleGames,
       GameStats.NightmareGames,
+      GameStats.ProgressiveGames,
     )
 
     playerStats.wins = calculateTotals(
@@ -132,6 +133,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       GameStats.HardWins,
       GameStats.ImpossibleWins,
       GameStats.NightmareWins,
+      GameStats.ProgressiveWins,
     )
 
     playerStats.winRate = calculateWinRate(
@@ -143,12 +145,14 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       HardGameTime,
       ImpossibleGameTime,
       NightmareGameTime,
+      ProgressiveGameTime,
     } = BestGameTimes || {}
 
     const normal = NormalGameTime?.Time || 0
     const hard = HardGameTime?.Time || 0
     const impossible = ImpossibleGameTime?.Time || 0
     const nightmare = NightmareGameTime?.Time || 0
+    const progressive = ProgressiveGameTime?.Time || 0
 
     playerStats.bestGameTimes = {
       solo: 0,
@@ -156,11 +160,13 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       hard,
       impossible,
       nightmare,
+      progressive,
       best: calculateBestTimeByDifficulty({
         normal,
         hard,
         impossible,
         nightmare,
+        progressive,
       }),
     }
 
