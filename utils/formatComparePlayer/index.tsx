@@ -3,6 +3,7 @@ import { formatSecondsAsTime } from '../formatSecondsAsTime'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isTimeKey } from '../checkKeyType'
+import { isRoundDifficultyAvailable } from '../isRoundDifficultyAvailable'
 
 /**
  * Formats a single column for a player's stats row.
@@ -53,10 +54,13 @@ export const formatComparePlayer = (
   difficulty: Difficulty | undefined,
 ) => {
   const result = []
+  const filteredColumns = columns.filter((col) =>
+    isRoundDifficultyAvailable(col.key as string, difficulty),
+  )
 
   result.push({
     title: comparePlayer ? player.battleTag.name : '',
-    columns: columns.map((col) =>
+    columns: filteredColumns.map((col) =>
       formatColumns(col, difficulty, player, comparePlayer),
     ),
   })
@@ -64,7 +68,7 @@ export const formatComparePlayer = (
   if (comparePlayer) {
     result.push({
       title: comparePlayer.battleTag.name,
-      columns: columns.map((col) =>
+      columns: filteredColumns.map((col) =>
         formatColumns(col, difficulty, comparePlayer, player),
       ),
     })

@@ -163,4 +163,34 @@ describe('formatComparePlayer', () => {
       },
     ])
   })
+
+  it('filters out unavailable rounds for progressive difficulty', () => {
+    const testColumns = [
+      { title: 'Round One', key: 'roundOne' },
+      { title: 'Round Four', key: 'roundFour' },
+      { title: 'Round Five', key: 'roundFive' },
+      { title: 'Saves', key: 'saves' },
+    ] as const
+
+    const result = formatComparePlayer(
+      {
+        ...mockedPlayers[0],
+      },
+      {
+        ...mockedPlayers[1],
+      },
+      testColumns,
+      'progressive',
+    )
+
+    expect(result).toHaveLength(2)
+    expect(result[0].columns).toHaveLength(2)
+    expect(result[1].columns).toHaveLength(2)
+    expect(result[0].columns.map((column) => column.description)).toStrictEqual(
+      ['Round One', 'Saves'],
+    )
+    expect(result[1].columns.map((column) => column.description)).toStrictEqual(
+      ['Round One', 'Saves'],
+    )
+  })
 })
