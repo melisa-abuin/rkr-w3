@@ -20,14 +20,26 @@ export default function PlayerFinderWithResult({
   setSelectedPlayer,
   onClear,
 }: {
-  selectedPlayer: Player | undefined
-  setSelectedPlayer: (player: Player | undefined) => void
-  onClear: () => void
+  selectedPlayer?: Player
+  setSelectedPlayer?: (player: Player | undefined) => void
+  onClear?: () => void
 }) {
+  const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
+
+  const activePlayer = selectedPlayer ?? player
+
+  const handleSelect = (p: Player | undefined) => {
+    setSelectedPlayer ? setSelectedPlayer(p) : setPlayer(p)
+  }
+
+  const handleClear = () => {
+    onClear ? onClear() : setPlayer(undefined)
+  }
+
   return (
     <>
-      <PlayerFinder onPlayerSelect={setSelectedPlayer} onClear={onClear} />
-      {selectedPlayer && (
+      <PlayerFinder onPlayerSelect={handleSelect} onClear={handleClear} />
+      {activePlayer && (
         <Wrapper>
           <Columns
             actionColumn={
@@ -35,7 +47,7 @@ export default function PlayerFinderWithResult({
                 as="a"
                 variant="outline"
                 colorName="secondary"
-                href={`/player/${encodeURIComponent(selectedPlayer.battleTag.tag)}`}
+                href={`/player/${encodeURIComponent(activePlayer.battleTag.tag)}`}
               >
                 See player stats
               </Button>
@@ -44,7 +56,7 @@ export default function PlayerFinderWithResult({
               {
                 columns: columns.map((col) => ({
                   description: col.title,
-                  value: selectedPlayer[col.key],
+                  value: activePlayer[col.key],
                 })),
               },
             ]}
