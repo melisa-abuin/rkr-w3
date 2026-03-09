@@ -28,7 +28,14 @@ export const HoverTd = styled(Td)`
   }
 `
 
-export const Tr = styled.tr<{ hoverable?: boolean }>`
+export const Tr = styled.tr<{ hoverable?: boolean; isSelected?: boolean }>`
+  & td {
+    background-color: ${({ theme, isSelected }) =>
+      isSelected
+        ? theme.background.highlightTertiary
+        : theme.background.highlightPrimary};
+  }
+
   & td:first-child {
     max-width: 110px;
     border-top-left-radius: 3px;

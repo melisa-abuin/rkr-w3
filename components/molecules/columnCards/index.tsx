@@ -14,6 +14,7 @@ interface Props {
   hoverable?: boolean
   loading?: boolean
   filter: 'stats' | 'times'
+  selectedPlayer?: string
 }
 
 export default function ColumnCards({
@@ -22,6 +23,7 @@ export default function ColumnCards({
   hoverable = false,
   loading,
   filter,
+  selectedPlayer,
 }: Props) {
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
@@ -47,6 +49,7 @@ export default function ColumnCards({
                     player={player}
                     key={index}
                     hoverable={hoverable}
+                    isSelected={selectedPlayer === player.tag}
                   />
                 ))}
                 {data.length < 5 &&

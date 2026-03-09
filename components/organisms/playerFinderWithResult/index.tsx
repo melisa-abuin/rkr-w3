@@ -15,16 +15,18 @@ export const columns = [
   { title: 'Highest Win Streak', key: 'winStreak' },
 ] as const
 
-export default function PlayerFinderWithResult() {
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
-
-  const handleClear = () => {
-    setSelectedPlayer(undefined)
-  }
-
+export default function PlayerFinderWithResult({
+  selectedPlayer,
+  setSelectedPlayer,
+  onClear,
+}: {
+  selectedPlayer: Player | undefined
+  setSelectedPlayer: (player: Player | undefined) => void
+  onClear: () => void
+}) {
   return (
     <>
-      <PlayerFinder onPlayerSelect={setSelectedPlayer} onClear={handleClear} />
+      <PlayerFinder onPlayerSelect={setSelectedPlayer} onClear={onClear} />
       {selectedPlayer && (
         <Wrapper>
           <Columns

@@ -7,6 +7,7 @@ interface Props {
   player?: BattleTag
   hoverable: boolean
   data?: number | BestTime
+  isSelected?: boolean
 }
 
 const isBestTime = (data: number | BestTime): data is BestTime => {
@@ -18,7 +19,7 @@ const isBestTime = (data: number | BestTime): data is BestTime => {
   )
 }
 
-export default function Row({ player, data, hoverable }: Props) {
+export default function Row({ player, data, hoverable, isSelected }: Props) {
   const isEmptyRow = !player || data === undefined || data === null
 
   if (isEmptyRow) {
@@ -33,7 +34,7 @@ export default function Row({ player, data, hoverable }: Props) {
   const playerLink = `/player/${encodedTag}`
 
   return (
-    <Tr hoverable={hoverable && isBestTime(data)}>
+    <Tr hoverable={hoverable && isBestTime(data)} isSelected={isSelected}>
       <BaseTd>
         <Link href={playerLink}>{player.name}</Link>
       </BaseTd>

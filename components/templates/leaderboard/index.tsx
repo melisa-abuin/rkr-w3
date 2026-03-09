@@ -16,6 +16,7 @@ import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeade
 import Button from '@/components/atoms/button'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { useState } from 'react'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -43,6 +44,12 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     `Couldn't fetch the top five stats, please try again later.`,
   )
 
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
+
+  const handleClear = () => {
+    setSelectedPlayer(undefined)
+  }
+
   return (
     <>
       <PageContainer>
@@ -51,7 +58,11 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           title="Leaderboards"
         />
         <PageContainer marginBottom={16} withPadding={false}>
-          <PlayerFinderWithResult />
+          <PlayerFinderWithResult
+            selectedPlayer={selectedPlayer}
+            setSelectedPlayer={setSelectedPlayer}
+            onClear={handleClear}
+          />
         </PageContainer>
         <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>
           <div>
@@ -60,10 +71,15 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
               withPadding={false}
               title="Best scores"
             >
-              <ColumnCards data={data?.stats} filter="stats" />
+              <ColumnCards
+                selectedPlayer={selectedPlayer?.battleTag.tag}
+                data={data?.stats}
+                filter="stats"
+              />
             </PageContainer>
 
             <ColumnCardsWithControls
+              selectedPlayer={selectedPlayer?.battleTag.tag}
               data={data?.times}
               filter="times"
               title="Best times"

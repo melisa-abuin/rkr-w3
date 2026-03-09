@@ -17,12 +17,14 @@ interface Props {
   data?: LeaderBoardData
   title: string
   filter: 'stats' | 'times'
+  selectedPlayer?: string
 }
 
 export default function ColumnCardsWithControls({
   data,
   filter,
   title,
+  selectedPlayer,
 }: Props) {
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
@@ -69,6 +71,7 @@ export default function ColumnCardsWithControls({
         hoverable={difficultyFilter === undefined}
         loading={isFetching}
         filter={filter}
+        selectedPlayer={selectedPlayer}
       />
     </PageContainer>
   )
