@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
 import { formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
-import BattleTag from './battleTag'
-import Tooltip from './tooltip'
-import Ratio from './ratio'
-import Challenges from './challenges'
-import SaveStreak from './saveStreak'
+import BattleTag from './components/battleTag'
+import Tooltip from './components/tooltip'
+import Ratio from './components/ratio'
+import Challenges from './components/challenges'
+import SaveStreak from './components/saveStreak'
 import {
   TotalsPerDifficulty,
   RoundTimes,
@@ -13,9 +13,9 @@ import {
   Challenges as ChallengesT,
   SaveStreak as SaveStreakI,
 } from '@/interfaces/player'
-import PlayersList from './playersList'
-import DatePlayed from './datePlayed'
-import DifficultyData from './difficulty'
+import PlayersList from './components/playersList'
+import DatePlayed from './components/datePlayed'
+import DifficultyData from './components/difficulty'
 import Paws from '@/components/atoms/paws'
 import { Column, Subtitle, Title } from './styled'
 
