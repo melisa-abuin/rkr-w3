@@ -17,15 +17,14 @@ import PlayersList from './components/playersList'
 import DatePlayed from './components/datePlayed'
 import DifficultyData from './components/difficulty'
 
+type TooltipData = TotalsPerDifficulty | RoundTimes | number
+
 export type Renderer<T = unknown> = (
   value: T,
   difficultyFilter?: Difficulty,
 ) => ReactNode
 
-const renderTooltip: Renderer<TotalsPerDifficulty | RoundTimes | number> = (
-  value,
-  difficultyFilter,
-) => {
+const renderTooltip: Renderer<TooltipData> = (value, difficultyFilter) => {
   if (typeof value === 'number') return <>{value}</>
   if ('best' in value) {
     return (
@@ -39,17 +38,20 @@ const renderTooltip: Renderer<TotalsPerDifficulty | RoundTimes | number> = (
   )
 }
 
-export const renderers: Record<string, Renderer<any>> = {
-  saveDeathRatio: (value: number) => <Ratio data={value} />,
-  times: (value: number) => <>{formatSecondsAsTime(value)}</>,
-  date: (value: string) => <DatePlayed data={value} />,
-  teamMembers: (value: string) => <PlayersList data={value} />,
-  completedChallenges: (value: ChallengesT) => <Challenges data={value} />,
-  difficulty: (value: string) => <DifficultyData data={value} />,
-  battleTag: (value: BattleTagI) => <BattleTag data={value} />,
-  saveStreak: (value: SaveStreakI) => <SaveStreak data={value} />,
-  wins: renderTooltip,
-  gamesPlayed: renderTooltip,
+export const renderers: Record<string, Renderer<unknown>> = {
+  saveDeathRatio: (value) => <Ratio data={value as number} />,
+  times: (value) => <>{formatSecondsAsTime(value as number)}</>,
+  date: (value) => <DatePlayed data={value as string} />,
+  teamMembers: (value) => <PlayersList data={value as string} />,
+  completedChallenges: (value) => <Challenges data={value as ChallengesT} />,
+  difficulty: (value) => <DifficultyData data={value as string} />,
+  battleTag: (value) => <BattleTag data={value as BattleTagI} />,
+  saveStreak: (value) => <SaveStreak data={value as SaveStreakI} />,
+  wins: (value, difficultyFilter) =>
+    renderTooltip(value as TooltipData, difficultyFilter),
+  gamesPlayed: (value, difficultyFilter) =>
+    renderTooltip(value as TooltipData, difficultyFilter),
 }
 
-export const defaultRenderer: Renderer<any> = renderTooltip
+export const defaultRenderer: Renderer<unknown> = (value, difficultyFilter) =>
+  renderTooltip(value as TooltipData, difficultyFilter)
