@@ -99,7 +99,7 @@ export const awardsDescriptions = {
   YellowLightning: 'Obtained by getting 6 saves within 3 seconds.',
   ZandalariKitty:
     'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
-} as Record<string, string>
+} satisfies Record<string, string>
 
 export const blacklistedPlayers = ['Local Player']
 
@@ -247,7 +247,7 @@ export const routes = {
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-export const statsColumns: { title: string; key: keyof Player }[] = [
+export const statsColumns = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Completed Challenges', key: 'completedChallenges' },
   { title: 'Saves', key: 'saves' },
@@ -256,7 +256,7 @@ export const statsColumns: { title: string; key: keyof Player }[] = [
   { title: 'Wins', key: 'wins' },
   { title: 'Highest Save Streak', key: 'saveStreak' },
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
-]
+] satisfies { title: string; key: keyof Player }[]
 
 export const playerColumns = [
   { title: 'Saves', key: 'saves' },
@@ -291,32 +291,29 @@ export const playerTimeColumns = [
   { title: 'Round Five', key: 'roundFive' },
 ] as const
 
-export const timeAllDiffColumns: { title: string; key: keyof Player }[] = [
+export const timeAllDiffColumns = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Best R1 Times', key: 'roundOne' },
   { title: 'Best R2 Times', key: 'roundTwo' },
   { title: 'Best R3 Times', key: 'roundThree' },
   { title: 'Best R4 Times', key: 'roundFour' },
   { title: 'Best R5 Times', key: 'roundFive' },
-]
+] satisfies { title: string; key: keyof Player }[]
 
-export const bestGameTimesColumns: { title: string; key: keyof GameStats }[] = [
+export const bestGameTimesColumns = [
   { title: 'Time', key: 'times' },
   { title: 'Players', key: 'teamMembers' },
   { title: 'Difficulty', key: 'difficulty' },
   { title: 'Date', key: 'date' },
-]
+] satisfies { title: string; key: keyof GameStats }[]
 
-export const kibbleColumns: {
-  title: string
-  key: keyof Kibbles | 'battleTag'
-}[] = [
+export const kibbleColumns = [
   { title: 'Player', key: 'battleTag' },
   { title: 'Single Game', key: 'singleGame' },
   { title: 'All time', key: 'allTime' },
   { title: 'Jackpots', key: 'jackpots' },
   { title: 'Super Jackpots', key: 'superJackpots' },
-]
+] satisfies { title: string; key: keyof Kibbles | 'battleTag' }[]
 
 export const tournamentAwards = [
   'TurquoiseNitro',
@@ -325,11 +322,7 @@ export const tournamentAwards = [
   'VioletWings',
 ]
 
-export const topStatsConfiguration: Array<{
-  key: keyof Player
-  description: string
-  label: string
-}> = [
+export const topStatsConfiguration = [
   {
     key: 'saves',
     label: 'Savior Kitty',
@@ -360,7 +353,11 @@ export const topStatsConfiguration: Array<{
     label: 'Hungriest Kitty',
     description: 'This player has the most kibbles collected.',
   },
-]
+] satisfies Array<{
+  key: keyof Player
+  description: string
+  label: string
+}>
 
 export const statsPageVariants = {
   stats: {
