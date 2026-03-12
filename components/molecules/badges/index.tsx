@@ -17,22 +17,22 @@ export default function Badges<T extends string>({
       <InnerContainer>
         {options.map((option) => (
           <Button
+            key={option}
+            small
             aria-pressed={option === selected}
             colorName="secondary"
-            key={option}
-            onClick={() => onClick(option)}
-            small
             variant={option === selected ? 'solid' : 'ghost'}
+            onClick={() => onClick(option)}
           >
             {option}
           </Button>
         ))}
         <Button
+          small
           aria-pressed={!selected}
           colorName="secondary"
-          small
-          onClick={() => onClick(undefined)}
           variant={!selected ? 'solid' : 'ghost'}
+          onClick={() => onClick(undefined)}
         >
           all
         </Button>

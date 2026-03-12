@@ -19,9 +19,9 @@ export default function Navbar() {
         <Container>
           <Link href="/">
             <Image
+              priority
               alt="brand logo"
               height={54}
-              priority
               src={
                 shouldShowTransparentNav
                   ? '/rkr-icon-white.png'

@@ -21,13 +21,13 @@ export default function MobileNavbar() {
         <Image
           alt="hamburger menu"
           height={25}
-          onClick={() => setIsMenuOpen((prev) => !prev)}
           src={
             shouldShowTransparentNav || theme.name === 'dark'
               ? '/hamburger-white.png'
               : '/hamburger-black.png'
           }
           width={25}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
         />
       </Container>
     )
@@ -37,9 +37,9 @@ export default function MobileNavbar() {
     <Container>
       <MobileMenu>
         <CloseButton
+          aria-label="Close modal"
           type="button"
           onClick={() => setIsMenuOpen(false)}
-          aria-label="Close modal"
         >
           <span aria-hidden="true">&times;</span>
         </CloseButton>

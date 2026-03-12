@@ -11,9 +11,9 @@ describe('Badges', () => {
   it('renders all options as badges', () => {
     renderWithTheme(
       <Badges
-        onClick={mockOnClick}
         options={difficultyNames}
         selected={selected}
+        onClick={mockOnClick}
       />,
     )
 
@@ -25,9 +25,9 @@ describe('Badges', () => {
   it('calls onClick with the correct option when a badge is clicked', async () => {
     renderWithTheme(
       <Badges
-        onClick={mockOnClick}
         options={difficultyNames}
         selected={selected}
+        onClick={mockOnClick}
       />,
     )
 
@@ -41,9 +41,9 @@ describe('Badges', () => {
   it.skip('selects all option when none is selected', () => {
     renderWithTheme(
       <Badges
-        onClick={mockOnClick}
         options={difficultyNames}
         selected={undefined}
+        onClick={mockOnClick}
       />,
     )
 
@@ -54,9 +54,9 @@ describe('Badges', () => {
   it('clears selected value when all option is clicked', async () => {
     renderWithTheme(
       <Badges
-        onClick={mockOnClick}
         options={difficultyNames}
         selected={selected}
+        onClick={mockOnClick}
       />,
     )
 

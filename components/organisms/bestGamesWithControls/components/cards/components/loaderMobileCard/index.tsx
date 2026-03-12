@@ -18,14 +18,14 @@ export default function LoaderMobileCard({ position, showDifficulty }: Props) {
   return (
     <Container>
       <Header>
-        <PositionNumber pos={position} isSmall />
+        <PositionNumber isSmall pos={position} />
         <Wrapper>
           <Title>
-            <Loader height={21} width={70} variant="secondary" />
+            <Loader height={21} variant="secondary" width={70} />
           </Title>
           {showDifficulty && (
             <Description>
-              <Loader height={17} width={70} variant="secondary" />
+              <Loader height={17} variant="secondary" width={70} />
             </Description>
           )}
         </Wrapper>

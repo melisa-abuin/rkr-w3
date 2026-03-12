@@ -13,8 +13,8 @@ export default function Footer() {
         <Link
           color="brandSecondary"
           href={blizzardLink}
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
         >
           Blizzard Entertainment
         </Link>
@@ -24,8 +24,8 @@ export default function Footer() {
         <Link
           color="brandSecondary"
           href={githubReadMeLink}
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
         >
           how to contribute
         </Link>
@@ -35,8 +35,8 @@ export default function Footer() {
         <Link
           color="brandSecondary"
           href="https://www.flaticon.com/uicons"
-          target="_blank"
           rel="noopener noreferrer"
+          target="_blank"
         >
           Flaticon
         </Link>

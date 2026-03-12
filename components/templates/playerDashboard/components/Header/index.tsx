@@ -88,7 +88,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           Object.entries(data).map(
             ([key, value]) =>
               value.all === 0 && (
-                <Tooltip body={value.description} key={key}>
+                <Tooltip key={key} body={value.description}>
                   <ColorBadge colorName="tertiary">{value.label}</ColorBadge>
                 </Tooltip>
               ),

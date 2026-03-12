@@ -55,9 +55,9 @@ describe('PlayerFinder', () => {
 
     renderWithTheme(
       <PlayerFinder
+        onChange={onChange}
         onClear={onClear}
         onPlayerSelect={onPlayerSelect}
-        onChange={onChange}
       />,
     )
 

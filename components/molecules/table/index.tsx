@@ -70,12 +70,12 @@ export default function Table<T>({
           <StyledTr>
             {cols.map(({ key, title }) => (
               <StyledTh
+                key={key as string}
                 colSpan={1}
                 hasActions={!!onTableSort}
                 highlighted={highlightedColumn === key}
-                key={key as string}
-                onClick={() => onTableHeadClick(key)}
                 scope="col"
+                onClick={() => onTableHeadClick(key)}
               >
                 {title}
               </StyledTh>
@@ -92,10 +92,10 @@ export default function Table<T>({
                   const renderer = renderers[key as string] ?? defaultRenderer
                   return (
                     <StyledTd
+                      key={`${key as string} ${index}`}
                       data-label={title}
                       highlighted={highlightedColumn === key}
                       index={index}
-                      key={`${key as string} ${index}`}
                     >
                       {render
                         ? render(player, difficultyFilter)

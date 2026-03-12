@@ -37,12 +37,12 @@ export default function Link({
   return (
     <StyledLink
       color={colorName}
-      hoverColor={hoverColor}
       download={download}
+      hoverColor={hoverColor}
       href={href}
-      onClick={onClick}
       rel={rel}
       target={target}
+      onClick={onClick}
     >
       {children}
     </StyledLink>

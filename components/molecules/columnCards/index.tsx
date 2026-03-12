@@ -45,11 +45,11 @@ export default function ColumnCards({
               <tbody>
                 {data?.map(({ player, data }, index) => (
                   <Row
-                    data={data}
-                    player={player}
                     key={index}
+                    data={data}
                     hoverable={hoverable}
                     isSelected={selectedPlayer === player.tag}
+                    player={player}
                   />
                 ))}
                 {data.length < 5 &&
@@ -59,7 +59,7 @@ export default function ColumnCards({
               </tbody>
             </Table>
             <Footer>
-              <Link href={getViewAllHref(key)} color="secondary">
+              <Link color="secondary" href={getViewAllHref(key)}>
                 View all
               </Link>
             </Footer>

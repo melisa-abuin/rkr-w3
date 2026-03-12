@@ -76,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" dir="ltr">
+    <html dir="ltr" lang="en">
       <body className={inter.variable}>
         <QueryProvider>{children}</QueryProvider>
       </body>

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Content, LabelTd, Text } from './styled'
+import { Content, Td, Text } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Difficulty } from '@/interfaces/difficulty'
 import { formatSecondsAsTime } from '@/utils'
@@ -55,7 +55,7 @@ export default function Tooltip({
           <tbody>
             {getObjectKeys(dataToRender).map((key) => (
               <tr key={key}>
-                <LabelTd>{key}</LabelTd>
+                <Td>{key}</Td>
                 <td>{dataToRender[key]}</td>
               </tr>
             ))}

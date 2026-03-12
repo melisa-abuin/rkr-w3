@@ -31,7 +31,7 @@ describe('PositionNumber', () => {
 
   // css var can be used in tests, but the value is not predictable. Anyway, another reason to remove styled components
   it.skip('applies small styles when isSmall is true', () => {
-    const { container } = renderWithTheme(<PositionNumber pos={1} isSmall />)
+    const { container } = renderWithTheme(<PositionNumber isSmall pos={1} />)
     expect(container.firstChild).toHaveStyle(
       'font-size: var(--font-size-xs-sm)',
     )

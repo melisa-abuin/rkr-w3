@@ -17,8 +17,8 @@ export default function DesktopNavbar({
     <NavLinks>
       {Object.values(routes).map((route) => (
         <NavLink
-          hasTransparentStyle={hasTransparentStyle}
           key={route.label}
+          hasTransparentStyle={hasTransparentStyle}
           selected={basePath === route.pathname}
         >
           <Link href={route.url} target={route.target}>

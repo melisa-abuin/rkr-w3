@@ -21,7 +21,7 @@ export default function Modal({
       <Content onClick={(e) => e.stopPropagation()}>
         <Header>
           {title && <Title>{title}</Title>}
-          <Button onClick={onClose} aria-label="Close modal">
+          <Button aria-label="Close modal" onClick={onClose}>
             ✕
           </Button>
         </Header>

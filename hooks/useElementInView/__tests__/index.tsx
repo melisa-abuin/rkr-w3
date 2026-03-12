@@ -7,8 +7,8 @@ const HookHarness = ({ offsetTop = 0 }: { offsetTop?: number }) => {
   return (
     <h1
       ref={elementRef}
-      data-testid="target"
       data-in-view={isElementInView ? 'true' : 'false'}
+      data-testid="target"
     >
       Title
     </h1>

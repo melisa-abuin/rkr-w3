@@ -29,7 +29,7 @@ const renderTooltip: Renderer<TotalsPerDifficulty | RoundTimes | number> = (
   if (typeof value === 'number') return <>{value}</>
   if ('best' in value) {
     return (
-      <Tooltip data={value} best={value.best} difficulty={difficultyFilter} />
+      <Tooltip best={value.best} data={value} difficulty={difficultyFilter} />
     )
   }
   return (

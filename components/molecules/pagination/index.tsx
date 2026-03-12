@@ -35,18 +35,18 @@ export default function Pagination({
         {currentPage > 1 && (
           <>
             <DesktopButtonContainer>
-              <Button onClick={() => changePage(1)} variant="ghost">
+              <Button variant="ghost" onClick={() => changePage(1)}>
                 First
               </Button>
               <Button
-                onClick={() => changePage(currentPage - 1)}
                 variant="ghost"
+                onClick={() => changePage(currentPage - 1)}
               >
                 Previous
               </Button>
             </DesktopButtonContainer>
             <MobileButtonContainer onClick={() => changePage(currentPage - 1)}>
-              <Chevron height={16} fill={theme.color.primary} width={16} />
+              <Chevron fill={theme.color.primary} height={16} width={16} />
             </MobileButtonContainer>
           </>
         )}
@@ -77,16 +77,16 @@ export default function Pagination({
               >
                 Next
               </Button>
-              <Button onClick={() => changePage(totalPages)} variant="ghost">
+              <Button variant="ghost" onClick={() => changePage(totalPages)}>
                 Last
               </Button>
             </DesktopButtonContainer>
             <MobileButtonContainer onClick={() => changePage(currentPage + 1)}>
               <Chevron
-                height={16}
-                fill={theme.color.primary}
-                width={16}
                 flipped
+                fill={theme.color.primary}
+                height={16}
+                width={16}
               />
             </MobileButtonContainer>
           </>

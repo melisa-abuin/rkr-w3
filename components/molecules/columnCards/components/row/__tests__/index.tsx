@@ -30,7 +30,7 @@ describe('Row', () => {
     renderWithTheme(
       <table>
         <tbody>
-          <Row player={player} data={bestTime} hoverable={true} />
+          <Row data={bestTime} hoverable={true} player={player} />
         </tbody>
       </table>,
     )
@@ -49,7 +49,7 @@ describe('Row', () => {
     renderWithTheme(
       <table>
         <tbody>
-          <Row player={player} data={999} hoverable={false} />
+          <Row data={999} hoverable={false} player={player} />
         </tbody>
       </table>,
     )
@@ -62,7 +62,7 @@ describe('Row', () => {
     const { container } = renderWithTheme(
       <table>
         <tbody>
-          <Row player={player} data={999} hoverable={false} />
+          <Row data={999} hoverable={false} player={player} />
         </tbody>
       </table>,
     )

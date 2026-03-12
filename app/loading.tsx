@@ -14,11 +14,11 @@ export default function Loading() {
       }}
     >
       <Image
+        priority
         alt="loading-icon"
         height={96}
-        priority
-        width={96}
         src="/rkr-icon-gray.png"
+        width={96}
       />
       Run Kitty Run
       <br />
@@ -28,11 +28,11 @@ export default function Loading() {
         }}
       >
         <Image
+          priority
           alt="loading-progress"
           height={60}
-          priority
-          width={200}
           src="/screen-loading.gif"
+          width={200}
         />
       </div>
     </div>

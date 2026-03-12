@@ -12,7 +12,7 @@ jest.mock('next/image', () => ({
   __esModule: true,
   default: jest.fn(({ src, alt, onError }: ImageProps) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={alt} onError={onError} />
+    <img alt={alt} src={src} onError={onError} />
   )),
 }))
 
@@ -22,7 +22,7 @@ describe('Step', () => {
   })
 
   it('renders step text correctly', () => {
-    renderWithTheme(<Step text="top text" stepTitle="step 1" />)
+    renderWithTheme(<Step stepTitle="step 1" text="top text" />)
 
     expect(screen.getByText('top text')).toBeInTheDocument()
     expect(screen.getByText('step 1')).toBeInTheDocument()
@@ -31,11 +31,11 @@ describe('Step', () => {
   it('uses the correct src passed by props', () => {
     renderWithTheme(
       <Step
-        text="top text"
         imageSrcSet={{
           dark: '/discord-example5-dark.png',
           light: '/discord-example5-light.png',
         }}
+        text="top text"
       />,
     )
 

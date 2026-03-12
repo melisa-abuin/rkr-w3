@@ -15,9 +15,9 @@ export default function Loader({
     <Background
       aria-busy="true"
       aria-valuetext="Loading..."
+      height={height}
       role="progressbar"
       variant={variant}
-      height={height}
       width={width}
     />
   )

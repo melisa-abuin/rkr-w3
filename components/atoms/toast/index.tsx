@@ -22,9 +22,9 @@ export default function Toast({
 
   return (
     <Wrapper index={index}>
-      <Container onClick={onClick} variant={variant}>
+      <Container variant={variant} onClick={onClick}>
         <Message>{message}</Message>
-        <Cross height={16} fill={theme.text.color.white} width={16} />
+        <Cross fill={theme.text.color.white} height={16} width={16} />
       </Container>
     </Wrapper>
   )

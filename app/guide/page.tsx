@@ -16,10 +16,10 @@ export default async function GuidePage() {
 
           {discordGuideSteps.map(({ imageSrcSet, stepTitle, text }, index) => (
             <Step
-              imageSrcSet={imageSrcSet}
               key={index}
-              text={text}
+              imageSrcSet={imageSrcSet}
               stepTitle={stepTitle}
+              text={text}
             />
           ))}
         </PageContainer>

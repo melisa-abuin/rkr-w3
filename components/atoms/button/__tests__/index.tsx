@@ -22,7 +22,7 @@ describe('Button Component', () => {
     const user = userEvent.setup()
     const handleClick = jest.fn()
     renderWithTheme(
-      <Button onClick={handleClick} disabled>
+      <Button disabled onClick={handleClick}>
         Click Me
       </Button>,
     )

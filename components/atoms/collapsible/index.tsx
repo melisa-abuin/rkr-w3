@@ -25,7 +25,7 @@ export default function Collapsible({ children, title }: CollapsibleProps) {
         <Title>{title}</Title>
         {isCollapsed ? <Plus {...iconProps} /> : <Minus {...iconProps} />}
       </Header>
-      <Body isCollapsed={isCollapsed} aria-hidden={isCollapsed}>
+      <Body aria-hidden={isCollapsed} isCollapsed={isCollapsed}>
         {children}
       </Body>
     </Container>
