@@ -16,35 +16,27 @@ import {
 import PlayersList from './components/playersList'
 import DatePlayed from './components/datePlayed'
 import DifficultyData from './components/difficulty'
-import Paws from '@/components/atoms/paws'
-import { Column, Subtitle, Title } from './styled'
 
 export type Renderer<T = unknown> = (
   value: T,
   difficultyFilter?: Difficulty,
 ) => ReactNode
 
-const renderDifficultyStats: Renderer<TotalsPerDifficulty | number> = (
+const renderTooltip: Renderer<TotalsPerDifficulty | RoundTimes | number> = (
   value,
   difficultyFilter,
 ) => {
-  if (typeof value === 'object') {
+  if (typeof value === 'number') return <>{value}</>
+  if ('best' in value) {
     return (
-      <Tooltip
-        data={{
-          normal: value.normal,
-          hard: value.hard,
-          impossible: value.impossible,
-          nightmare: value.nightmare,
-          progressive: value.progressive,
-        }}
-        difficulty={difficultyFilter}
-      >
-        {value.total}
-      </Tooltip>
+      <Tooltip data={value} best={value.best} difficulty={difficultyFilter} />
     )
   }
-  return <>{value}</>
+  return (
+    <Tooltip data={value} difficulty={difficultyFilter}>
+      {value.total}
+    </Tooltip>
+  )
 }
 
 export const renderers: Record<string, Renderer<any>> = {
@@ -56,36 +48,8 @@ export const renderers: Record<string, Renderer<any>> = {
   difficulty: (value: string) => <DifficultyData data={value} />,
   battleTag: (value: BattleTagI) => <BattleTag data={value} />,
   saveStreak: (value: SaveStreakI) => <SaveStreak data={value} />,
-  wins: renderDifficultyStats,
-  gamesPlayed: renderDifficultyStats,
+  wins: renderTooltip,
+  gamesPlayed: renderTooltip,
 }
 
-export const defaultRenderer: Renderer<RoundTimes | unknown> = (
-  value,
-  difficultyFilter,
-) => {
-  if (!value) return <>0</>
-  if (typeof value === 'object' && 'best' in (value as object)) {
-    const roundStats = value as RoundTimes
-    return (
-      <Tooltip
-        data={{
-          normal: roundStats.normal,
-          hard: roundStats.hard,
-          impossible: roundStats.impossible,
-          nightmare: roundStats.nightmare,
-          progressive: roundStats.progressive,
-        }}
-        difficulty={difficultyFilter}
-        isTimeStats
-      >
-        <Column>
-          <Title>{formatSecondsAsTime(roundStats.best.time)}</Title>
-          <Subtitle>({roundStats.best.difficulty})</Subtitle>
-          <Paws difficulty={roundStats.best.difficulty} />
-        </Column>
-      </Tooltip>
-    )
-  }
-  return <>{value || 0}</>
-}
+export const defaultRenderer: Renderer<any> = renderTooltip

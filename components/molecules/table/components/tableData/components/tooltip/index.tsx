@@ -1,9 +1,16 @@
 import React, { ReactNode } from 'react'
-import { Content, Text } from './styled'
+import { Content, LabelTd, Text } from './styled'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Difficulty } from '@/interfaces/difficulty'
 import { formatSecondsAsTime } from '@/utils'
 import TooltipComponent from '@/components/atoms/tooltip'
+import { BestTime } from '@/interfaces/player'
+import Paws from '@/components/atoms/paws'
+import { Column, Subtitle, Title } from '../../styled'
+
+const getObjectKeys = Object.keys as <T extends object>(
+  obj: T,
+) => Array<keyof T>
 
 interface Props {
   data: {
@@ -13,17 +20,18 @@ interface Props {
     normal: number | string
     progressive: number | string
   }
+  best?: BestTime
   difficulty?: Difficulty
   children?: ReactNode
-  isTimeStats?: boolean
 }
 
 export default function Tooltip({
   data,
+  best,
   children,
   difficulty = undefined,
-  isTimeStats = false,
 }: Props) {
+  const isTimeStats = !!best
   const { hard, impossible, normal, nightmare, progressive } = data
   const dataToRender = { ...data }
 
@@ -45,33 +53,27 @@ export default function Tooltip({
       body={
         <Content>
           <tbody>
-            <tr>
-              <td>Normal</td>
-              <td>{dataToRender.normal}</td>
-            </tr>
-            <tr>
-              <td>Hard</td>
-              <td>{dataToRender.hard}</td>
-            </tr>
-            <tr>
-              <td>Impossible</td>
-              <td>{dataToRender.impossible}</td>
-            </tr>
-            <tr>
-              <td>Nightmare</td>
-              <td>{dataToRender.nightmare}</td>
-            </tr>
-            <tr>
-              <td>Progressive</td>
-              <td>{dataToRender.progressive}</td>
-            </tr>
+            {getObjectKeys(dataToRender).map((key) => (
+              <tr key={key}>
+                <LabelTd>{key}</LabelTd>
+                <td>{dataToRender[key]}</td>
+              </tr>
+            ))}
           </tbody>
         </Content>
       }
     >
       <Text>
         <TextWithIcon iconName="information" iconSize={12}>
-          {children}
+          {best ? (
+            <Column>
+              <Title>{formatSecondsAsTime(best.time)}</Title>
+              <Subtitle>({best.difficulty})</Subtitle>
+              <Paws difficulty={best.difficulty} />
+            </Column>
+          ) : (
+            children
+          )}
         </TextWithIcon>
       </Text>
     </TooltipComponent>
