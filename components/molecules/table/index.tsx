@@ -9,35 +9,35 @@ import {
   Container,
   Title,
 } from './styled'
-import LoaderTable from './components/loaderTable'
+import LoaderTable from './components/loader'
 import TableData from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isRoundDifficultyAvailable } from '@/utils'
 
 interface Props<T> {
-  data?: T[]
-  loading?: boolean
-  difficultyFilter?: Difficulty | undefined
-  filters?: ReactNode
-  headerLink?: ReactNode
-  title?: string
   columns: Array<{
     title: string
     key: keyof T
   }>
+  data?: T[]
+  difficultyFilter?: Difficulty | undefined
+  filters?: ReactNode
+  headerLink?: ReactNode
   highlightedColumn?: keyof T
+  loading?: boolean
   onTableSort?: (columnKey: keyof T) => void
   pageSize?: number
+  title?: string
 }
 
 export default function Table<T>({
-  data,
-  loading = false,
   columns,
+  data,
   difficultyFilter,
   filters,
   headerLink,
   highlightedColumn,
+  loading = false,
   onTableSort,
   pageSize = 5,
   title,
