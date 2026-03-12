@@ -1,3 +1,5 @@
+import { Theme } from '@/interfaces/theme'
+
 const lightTheme = {
   name: 'light' as const,
   button: {
@@ -114,6 +116,6 @@ const lightTheme = {
     primary: 'rgba(0, 0, 0, 0.2)',
     secondary: 'rgba(0, 0, 0, 0.7);',
   },
-}
+} satisfies Theme
 
 export default lightTheme
