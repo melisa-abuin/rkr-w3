@@ -169,15 +169,24 @@ export default function Stats({ data, filter }: AllStatsData) {
           onTabChange={onTabChange}
         >
           {variantValues.map(({ columns, defaultSortKey, apiBaseUrl }) => {
+            const commonProps = {
+              apiBaseUrl,
+              currentPage,
+              handlePageChange,
+              handlePlayerChange,
+              handleSortChange,
+              player: initialPlayer,
+              queryString,
+              shouldRefetch: hasInteracted,
+            }
+
             if (apiBaseUrl === 'kibbleStats') {
               return (
                 <TableWithControls<KibbleType>
-                  key={apiBaseUrl}
-                  apiBaseUrl={apiBaseUrl}
+                  {...commonProps}
                   columns={
                     columns as { title: string; key: keyof KibbleType }[]
                   }
-                  currentPage={currentPage}
                   data={{
                     ...data,
                     stats: data.stats?.map((elem) => ({
@@ -185,14 +194,7 @@ export default function Stats({ data, filter }: AllStatsData) {
                       ...elem.kibbles,
                     })),
                   }}
-                  handlePageChange={handlePageChange}
-                  handlePlayerChange={handlePlayerChange}
-                  handleSortChange={(columnKey) =>
-                    handleSortChange(columnKey as string)
-                  }
-                  player={initialPlayer}
-                  queryString={queryString}
-                  shouldRefetch={hasInteracted}
+                  key={apiBaseUrl}
                   sortKey={
                     (getSortValue(columns, sortKey.key) ||
                       defaultSortKey) as keyof KibbleType
@@ -203,21 +205,12 @@ export default function Stats({ data, filter }: AllStatsData) {
 
             return (
               <TableWithControls<Player>
-                key={apiBaseUrl}
-                apiBaseUrl={apiBaseUrl}
+                {...commonProps}
                 columns={columns as { title: string; key: keyof Player }[]}
-                currentPage={currentPage}
                 data={data}
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}
-                handlePageChange={handlePageChange}
-                handlePlayerChange={handlePlayerChange}
-                handleSortChange={(columnKey) =>
-                  handleSortChange(columnKey as string)
-                }
-                player={initialPlayer}
-                queryString={queryString}
-                shouldRefetch={hasInteracted}
+                key={apiBaseUrl}
                 sortKey={
                   (getSortValue(columns, sortKey.key) ||
                     defaultSortKey) as keyof Player
