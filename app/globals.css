@@ -1,0 +1,49 @@
+:root {
+  --font-size-xl: 3rem; /* Extra Large */
+  --font-size-lg: 2.25rem; /* Large */
+  --font-size-md-lg: 1.875rem; /* Medium-Large */
+  --font-size-md: 1.5rem; /* Medium */
+  --font-size-sm-md: 1.25rem; /* Small-Medium */
+  --font-size-sm: 1.125rem; /* Small */
+  --font-size-xs-sm: 1rem; /* Small-Extra Small */
+  --font-size-xs: 0.875rem; /* Extra Small */
+
+  --font-weight-bold: 700; /* Bold */
+  --font-weight-semi-bold: 600; /* Semi-bold */
+  --font-weight-medium: 500; /* Medium */
+  --font-weight-regular: 400; /* Regular */
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    color: #ebe4e4;
+    background: #130f0f;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-inter), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+html {
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+}

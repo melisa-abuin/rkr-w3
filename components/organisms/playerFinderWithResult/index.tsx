@@ -1,0 +1,68 @@
+'use client'
+
+import Button from '@/components/atoms/button'
+import Columns from '@/components/molecules/columns'
+import PlayerFinder from '@/components/molecules/playerFinder'
+import { Player } from '@/interfaces/player'
+import { useState } from 'react'
+import { Wrapper } from './styled'
+
+export const columns = [
+  { title: 'Saves', key: 'saves' },
+  { title: 'Deaths', key: 'deaths' },
+  { title: 'S/D Ratio', key: 'saveDeathRatio' },
+  { title: 'Win Rate', key: 'winRate' },
+  { title: 'Highest Win Streak', key: 'winStreak' },
+] as const
+
+export default function PlayerFinderWithResult({
+  selectedPlayer,
+  setSelectedPlayer,
+  onClear,
+}: {
+  selectedPlayer?: Player
+  setSelectedPlayer?: (player: Player | undefined) => void
+  onClear?: () => void
+}) {
+  const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
+
+  const activePlayer = selectedPlayer ?? player
+
+  const handleSelect = (p: Player | undefined) => {
+    setSelectedPlayer ? setSelectedPlayer(p) : setPlayer(p)
+  }
+
+  const handleClear = () => {
+    onClear ? onClear() : setPlayer(undefined)
+  }
+
+  return (
+    <>
+      <PlayerFinder onPlayerSelect={handleSelect} onClear={handleClear} />
+      {activePlayer && (
+        <Wrapper>
+          <Columns
+            actionColumn={
+              <Button
+                as="a"
+                variant="outline"
+                colorName="secondary"
+                href={`/player/${encodeURIComponent(activePlayer.battleTag.tag)}`}
+              >
+                See player stats
+              </Button>
+            }
+            data={[
+              {
+                columns: columns.map((col) => ({
+                  description: col.title,
+                  value: activePlayer[col.key],
+                })),
+              },
+            ]}
+          />
+        </Wrapper>
+      )}
+    </>
+  )
+}

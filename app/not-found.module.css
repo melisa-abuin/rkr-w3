@@ -1,0 +1,34 @@
+@media (prefers-color-scheme: dark) {
+  .link:hover {
+    color: #e6edf3;
+  }
+  .wrapper {
+    color: #9c9a9a;
+  }
+}
+
+.link {
+  background-color: inherit;
+  border: px solid #b24141;
+  border-radius: 3px;
+  color: #b24141;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-align: center;
+  width: fit-content;
+}
+
+.link:hover {
+  background-color: #b24141;
+  color: #ffffff;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100vh;
+  color: #6b6565;
+}
