@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import BattleTag from './battleTag'
@@ -18,118 +19,73 @@ import DifficultyData from './difficulty'
 import Paws from '@/components/atoms/paws'
 import { Column, Subtitle, Title } from './styled'
 
-interface Props<T> {
-  data?: T
-  keyName: keyof T
-  difficultyFilter?: Difficulty | undefined
+export type Renderer<T = unknown> = (
+  value: T,
+  difficultyFilter?: Difficulty,
+) => ReactNode
+
+const renderDifficultyStats: Renderer<TotalsPerDifficulty | number> = (
+  value,
+  difficultyFilter,
+) => {
+  if (typeof value === 'object') {
+    return (
+      <Tooltip
+        data={{
+          normal: value.normal,
+          hard: value.hard,
+          impossible: value.impossible,
+          nightmare: value.nightmare,
+          progressive: value.progressive,
+        }}
+        difficulty={difficultyFilter}
+      >
+        {value.total}
+      </Tooltip>
+    )
+  }
+  return <>{value}</>
 }
 
-const isDifficultyStats = (data: unknown): data is TotalsPerDifficulty =>
-  typeof data === 'object' && data !== null && 'total' in data
-const isRoundStats = (data: unknown): data is RoundTimes =>
-  typeof data === 'object' && data !== null && 'best' in data
-const isBattleTag = (data: unknown): data is BattleTagI =>
-  typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
-const isSaveStreak = (data: unknown): data is SaveStreakI =>
-  typeof data === 'object' &&
-  data !== null &&
-  'highestScore' in data &&
-  'redLightning' in data &&
-  'patrioticTendrils' in data
-const isChallenges = (data: unknown): data is ChallengesT =>
-  typeof data === 'object' &&
-  data !== null &&
-  'general' in data &&
-  'tournament' in data
+export const renderers: Record<string, Renderer<any>> = {
+  saveDeathRatio: (value: number) => <Ratio data={value} />,
+  times: (value: number) => <>{formatSecondsAsTime(value)}</>,
+  date: (value: string) => <DatePlayed data={value} />,
+  teamMembers: (value: string) => <PlayersList data={value} />,
+  completedChallenges: (value: ChallengesT) => <Challenges data={value} />,
+  difficulty: (value: string) => <DifficultyData data={value} />,
+  battleTag: (value: BattleTagI) => <BattleTag data={value} />,
+  saveStreak: (value: SaveStreakI) => <SaveStreak data={value} />,
+  wins: renderDifficultyStats,
+  gamesPlayed: renderDifficultyStats,
+}
 
-// Fix this component
-export default function TableData<T>({
-  data,
-  keyName,
+export const defaultRenderer: Renderer<RoundTimes | unknown> = (
+  value,
   difficultyFilter,
-}: Props<T>) {
-  if (!data?.[keyName]) {
-    return <>0</>
+) => {
+  if (!value) return <>0</>
+  if (typeof value === 'object' && 'best' in (value as object)) {
+    const roundStats = value as RoundTimes
+    return (
+      <Tooltip
+        data={{
+          normal: roundStats.normal,
+          hard: roundStats.hard,
+          impossible: roundStats.impossible,
+          nightmare: roundStats.nightmare,
+          progressive: roundStats.progressive,
+        }}
+        difficulty={difficultyFilter}
+        isTimeStats
+      >
+        <Column>
+          <Title>{formatSecondsAsTime(roundStats.best.time)}</Title>
+          <Subtitle>({roundStats.best.difficulty})</Subtitle>
+          <Paws difficulty={roundStats.best.difficulty} />
+        </Column>
+      </Tooltip>
+    )
   }
-  const componentData = data[keyName]
-
-  switch (keyName) {
-    case 'saveDeathRatio':
-      if (typeof componentData === 'number')
-        return <Ratio data={componentData} />
-      break
-    case 'times':
-      if (typeof componentData === 'number')
-        return <>{formatSecondsAsTime(componentData)}</>
-      break
-    case 'date':
-      if (typeof componentData === 'string')
-        return <DatePlayed data={componentData} />
-      break
-    case 'teamMembers':
-      if (typeof componentData === 'string')
-        return <PlayersList data={componentData} />
-      break
-    case 'completedChallenges':
-      if (isChallenges(componentData))
-        return <Challenges data={componentData} />
-      break
-    case 'difficulty':
-      if (typeof componentData === 'string')
-        return <DifficultyData data={componentData} />
-      break
-
-    case 'battleTag':
-      if (isBattleTag(componentData)) return <BattleTag data={componentData} />
-      break
-
-    case 'saveStreak':
-      if (isSaveStreak(componentData))
-        return <SaveStreak data={componentData} />
-      break
-
-    case 'wins':
-    case 'gamesPlayed':
-      if (isDifficultyStats(componentData)) {
-        return (
-          <Tooltip
-            data={{
-              normal: componentData.normal,
-              hard: componentData.hard,
-              impossible: componentData.impossible,
-              nightmare: componentData.nightmare,
-              progressive: componentData.progressive,
-            }}
-            difficulty={difficultyFilter}
-          >
-            {componentData.total}
-          </Tooltip>
-        )
-      }
-      return typeof componentData === 'number' ? <>{componentData}</> : null
-
-    default:
-      if (isRoundStats(componentData)) {
-        return (
-          <Tooltip
-            data={{
-              normal: componentData.normal,
-              hard: componentData.hard,
-              impossible: componentData.impossible,
-              nightmare: componentData.nightmare,
-              progressive: componentData.progressive,
-            }}
-            difficulty={difficultyFilter}
-            isTimeStats
-          >
-            <Column>
-              <Title>{formatSecondsAsTime(componentData.best.time)}</Title>
-              <Subtitle>({componentData.best.difficulty})</Subtitle>
-              <Paws difficulty={componentData.best.difficulty} />
-            </Column>
-          </Tooltip>
-        )
-      }
-      return <>{componentData || 0}</>
-  }
+  return <>{value || 0}</>
 }

@@ -10,7 +10,7 @@ import {
   Title,
 } from './styled'
 import LoaderTable from './components/loader'
-import TableData from './components/tableData'
+import { renderers, defaultRenderer } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isRoundDifficultyAvailable } from '@/utils'
 
@@ -18,6 +18,7 @@ interface Props<T> {
   columns: Array<{
     title: string
     key: keyof T
+    render?: (data: T, difficultyFilter?: Difficulty) => ReactNode
   }>
   data?: T[]
   difficultyFilter?: Difficulty | undefined
@@ -69,12 +70,12 @@ export default function Table<T>({
           <StyledTr>
             {cols.map(({ key, title }) => (
               <StyledTh
-                key={key as string}
+                colSpan={1}
                 hasActions={!!onTableSort}
                 highlighted={highlightedColumn === key}
+                key={key as string}
                 onClick={() => onTableHeadClick(key)}
                 scope="col"
-                colSpan={1}
               >
                 {title}
               </StyledTh>
@@ -87,20 +88,21 @@ export default function Table<T>({
           <tbody>
             {data?.map((player, index) => (
               <tr key={index}>
-                {cols.map(({ key, title }) => (
-                  <StyledTd
-                    data-label={title}
-                    highlighted={highlightedColumn === key}
-                    index={index}
-                    key={`${key as string} ${index}`}
-                  >
-                    <TableData
-                      keyName={key}
-                      data={player}
-                      difficultyFilter={difficultyFilter}
-                    />
-                  </StyledTd>
-                ))}
+                {cols.map(({ key, title, render }) => {
+                  const renderer = renderers[key as string] ?? defaultRenderer
+                  return (
+                    <StyledTd
+                      data-label={title}
+                      highlighted={highlightedColumn === key}
+                      index={index}
+                      key={`${key as string} ${index}`}
+                    >
+                      {render
+                        ? render(player, difficultyFilter)
+                        : renderer(player[key], difficultyFilter)}
+                    </StyledTd>
+                  )
+                })}
               </tr>
             ))}
           </tbody>

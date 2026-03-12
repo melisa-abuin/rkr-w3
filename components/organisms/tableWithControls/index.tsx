@@ -15,6 +15,7 @@ interface TableProps<T> {
   columns: Array<{
     title: string
     key: keyof T
+    render?: (data: T, difficultyFilter?: Difficulty) => ReactNode
   }>
   currentPage: number
   data: { pages: number; stats?: T[] }
