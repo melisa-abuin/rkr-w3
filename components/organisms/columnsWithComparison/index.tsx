@@ -22,8 +22,8 @@ export default function ColumnsWithComparison({
 }: Props) {
   return (
     <Columns
-      loading={loading}
       data={formatComparePlayer(player, comparePlayer, columns, difficulty)}
+      loading={loading}
       variant={variant}
     />
   )

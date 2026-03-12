@@ -43,9 +43,9 @@ export default function Button({
       target={target}
       {...theme.button[colorName]}
       disabled={disabled}
-      onClick={onClick}
       small={small}
       variant={variant}
+      onClick={onClick}
     >
       {children}
     </StyledButton>

@@ -35,7 +35,7 @@ describe('Columns Component', () => {
   it('renders correctly the actions column', () => {
     const columns = [{ description: 'Points' }]
     const actionCol = <div>hello</div>
-    renderWithTheme(<Columns data={[{ columns }]} actionColumn={actionCol} />)
+    renderWithTheme(<Columns actionColumn={actionCol} data={[{ columns }]} />)
 
     expect(screen.getByText('Points')).toBeInTheDocument()
     expect(screen.getByText('hello')).toBeInTheDocument()
@@ -46,8 +46,8 @@ describe('Columns Component', () => {
     const actionCol = <div>hello</div>
     const { container } = renderWithTheme(
       <Columns
-        data={[{ columns }]}
         actionColumn={actionCol}
+        data={[{ columns }]}
         variant="secondary"
       />,
     )

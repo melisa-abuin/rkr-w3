@@ -12,7 +12,7 @@ jest.mock('next/image', () => ({
   __esModule: true,
   default: jest.fn(({ src, alt, onError }: ImageProps) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt={alt} onError={onError} />
+    <img alt={alt} src={src} onError={onError} />
   )),
 }))
 

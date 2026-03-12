@@ -9,19 +9,21 @@ import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
 import PlayerFinder from '@/components/molecules/playerFinder'
+import { FiltersRow } from './styled'
 
 interface TableProps<T> {
   apiBaseUrl: 'times' | 'stats' | 'kibbleStats'
   columns: Array<{
     title: string
     key: keyof T
+    render?: (data: T, difficultyFilter?: Difficulty) => ReactNode
   }>
   currentPage: number
   data: { pages: number; stats?: T[] }
   difficulty?: Difficulty | undefined
   handleDifficultyChange?: () => void
   handlePageChange: (page: number) => void
-  handlePlayerChange?: (player: string) => void
+  handlePlayerChange: (player: string) => void
   handleSortChange: (columnKey: keyof T) => void
   headerLink?: ReactNode
   player?: string
@@ -60,58 +62,33 @@ export default function TableWithControls<T>({
 
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
-  const rows = filteredData?.stats as unknown[] | undefined
-  const hasKibbles =
-    rows?.[0] && typeof rows[0] === 'object' && 'kibbles' in rows[0]
-  const formattedQueryResult = hasKibbles
-    ? (rows?.map((elem) => {
-        const player = elem as {
-          battleTag: unknown
-          kibbles: Record<string, unknown>
-        }
-
-        return {
-          battleTag: player.battleTag,
-          ...player.kibbles,
-        }
-      }) as T[])
-    : filteredData?.stats
-
   return (
     <>
       <Table
         columns={columns}
-        data={formattedQueryResult ?? data.stats}
-        pageSize={15}
+        data={filteredData?.stats ?? data.stats}
+        difficultyFilter={difficulty}
         filters={
           !!handleDifficultyChange && (
-            <div
-              style={{
-                display: 'flex',
-                gap: 16,
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                width: '100%',
-              }}
-            >
+            <FiltersRow>
               <Badges
-                onClick={handleDifficultyChange}
                 options={difficultyNames}
                 selected={difficulty}
+                onClick={handleDifficultyChange}
               />
               <PlayerFinder
                 defaultValue={player || ''}
                 onChange={handlePlayerChange}
+                onClear={() => handlePlayerChange('')}
                 onPlayerSelect={() => {}}
-                onClear={() => handlePlayerChange?.('')}
               />
-            </div>
+            </FiltersRow>
           )
         }
         headerLink={headerLink}
         highlightedColumn={sortKey}
         loading={isFetching}
-        difficultyFilter={difficulty}
+        pageSize={15}
         title={title}
         onTableSort={handleSortChange}
       />

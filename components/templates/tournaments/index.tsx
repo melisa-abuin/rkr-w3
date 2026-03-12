@@ -35,9 +35,9 @@ export default function Tournaments({ data }: Props) {
               <CTAContainer>
                 <Button
                   as="a"
+                  colorName="primary"
                   href={`tournaments/${item.tournament.id}`}
                   variant="outline"
-                  colorName="primary"
                 >
                   See all tournament details
                 </Button>

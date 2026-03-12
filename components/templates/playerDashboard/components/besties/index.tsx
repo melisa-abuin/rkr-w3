@@ -21,11 +21,11 @@ export default function Besties({ battleTag, besties }: BestiesProps) {
       <Wrapper>
         {sortedBesties.map((player) => (
           <Button
-            as="a"
             key={player}
-            href={`/player/${encodeURIComponent(player)}`}
-            colorName="tertiary"
             small
+            as="a"
+            colorName="tertiary"
+            href={`/player/${encodeURIComponent(player)}`}
           >
             {player.split('#')[0]}
           </Button>

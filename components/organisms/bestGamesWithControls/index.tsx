@@ -39,9 +39,9 @@ export default function BestGamesWithControls() {
     <>
       <BadgesContainer>
         <Badges
-          onClick={onFilterClick}
           options={difficultyNames}
           selected={difficultyFilter}
+          onClick={onFilterClick}
         />
       </BadgesContainer>
       <Cards
@@ -60,8 +60,8 @@ export default function BestGamesWithControls() {
             ?.slice(5, 20)
             .map((elem) => ({ ...elem, times: elem.times.total })) || []
         }
-        loading={isFetching}
         difficultyFilter={difficultyFilter}
+        loading={isFetching}
       />
     </>
   )

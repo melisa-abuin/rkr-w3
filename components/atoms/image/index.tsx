@@ -22,14 +22,14 @@ export default function Image({
     <StyledImage
       $circular={circular}
       {...rest}
-      alt={alt}
       $colored={colored}
+      alt={alt}
       height={48}
+      src={imgSrc}
+      width={48}
       onError={() => {
         setImgSrc(fallbackSrc)
       }}
-      src={imgSrc}
-      width={48}
     />
   )
 }

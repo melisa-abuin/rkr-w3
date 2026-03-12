@@ -25,7 +25,7 @@ export const Wing = ({
       width={width}
     >
       <defs>
-        <linearGradient id={`gradient${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id={`gradient${id}`} x1="0%" x2="100%" y1="0%" y2="0%">
           <stop offset="0%" stopColor={internalColor} />
           <stop offset="100%" stopColor={externalColor} />
         </linearGradient>

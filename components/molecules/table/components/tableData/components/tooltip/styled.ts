@@ -14,6 +14,10 @@ export const Content = styled.table`
     font-weight: var(--font-weight-bold);
   }
 `
+export const Td = styled.td`
+  text-transform: capitalize;
+`
+
 export const Text = styled.div`
   position: relative;
   display: inline-block;

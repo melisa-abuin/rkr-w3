@@ -68,20 +68,20 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           <div>
             <PageContainer
               ariaLabelledby="columns-score-title"
-              withPadding={false}
               title="Best scores"
+              withPadding={false}
             >
               <ColumnCards
-                selectedPlayer={selectedPlayer?.battleTag.tag}
                 data={data?.stats}
                 filter="stats"
+                selectedPlayer={selectedPlayer?.battleTag.tag}
               />
             </PageContainer>
 
             <ColumnCardsWithControls
-              selectedPlayer={selectedPlayer?.battleTag.tag}
               data={data?.times}
               filter="times"
+              selectedPlayer={selectedPlayer?.battleTag.tag}
               title="Best times"
             />
 
@@ -93,8 +93,8 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
             >
               <Table
                 columns={statsColumns}
-                loading={isFetching}
                 data={statsData?.stats ?? []}
+                loading={isFetching}
                 title="Leaderboard Highlights: Top Five Stats"
               />
             </PageContainer>
@@ -106,9 +106,9 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
             >
               <Button
                 as="a"
-                variant="outline"
                 colorName="primary"
                 href={routes.scoreboard.url}
+                variant="outline"
               >
                 View all stats
               </Button>

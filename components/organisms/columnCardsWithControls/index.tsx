@@ -55,22 +55,22 @@ export default function ColumnCardsWithControls({
     <PageContainer
       ariaLabelledby="columns-time-title"
       marginTop={32}
-      withPadding={false}
       title={title}
+      withPadding={false}
     >
       <BadgesContainer>
         <Badges
-          onClick={onFilterClick}
           options={roundDifficultyNames}
           selected={difficultyFilter}
+          onClick={onFilterClick}
         />
       </BadgesContainer>
       <ColumnCards
         data={difficultyFilter === undefined ? data : filteredData}
         difficulty={difficultyFilter}
+        filter={filter}
         hoverable={difficultyFilter === undefined}
         loading={isFetching}
-        filter={filter}
         selectedPlayer={selectedPlayer}
       />
     </PageContainer>

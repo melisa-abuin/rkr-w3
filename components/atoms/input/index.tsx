@@ -32,17 +32,17 @@ export default function Input({
     <Wrapper>
       {leftIcon}
       <StyledInput
+        autoComplete="off"
         id={id}
         name={name}
-        onFocus={onFocus}
-        onChange={onChange}
         placeholder={placeholder}
         value={value}
-        autoComplete="off"
+        onChange={onChange}
+        onFocus={onFocus}
       />
       {value.length > 0 && onCrossClick && (
         <ClearIconContainer onClick={onCrossClick}>
-          <Cross height={16} fill={theme.text.color.primary} width={16} />
+          <Cross fill={theme.text.color.primary} height={16} width={16} />
         </ClearIconContainer>
       )}
     </Wrapper>

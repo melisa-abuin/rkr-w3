@@ -16,7 +16,7 @@ describe('PageContainer', () => {
 
   it('renders a title when provided', () => {
     renderWithTheme(
-      <PageContainer title="Test Title" ariaLabelledby="test-title-id">
+      <PageContainer ariaLabelledby="test-title-id" title="Test Title">
         <p>Some child</p>
       </PageContainer>,
     )
@@ -40,9 +40,9 @@ describe('PageContainer', () => {
   it('applies correct alignment to title', () => {
     renderWithTheme(
       <PageContainer
-        title="Aligned Title"
         align="center"
         ariaLabelledby="aligned-id"
+        title="Aligned Title"
       >
         <span>Child</span>
       </PageContainer>,
@@ -55,7 +55,7 @@ describe('PageContainer', () => {
 
   it('renders with different HTML element using "as" prop', () => {
     const { container } = renderWithTheme(
-      <PageContainer as="div" ariaLabelledby="div-test">
+      <PageContainer ariaLabelledby="div-test" as="div">
         <div>Some content</div>
       </PageContainer>,
     )

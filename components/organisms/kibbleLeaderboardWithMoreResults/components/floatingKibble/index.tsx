@@ -41,7 +41,7 @@ export default function FloatingKibble() {
         {animationState === animationStates.idle && (
           <>
             <ImageWrapper onClick={handleClick}>
-              <Image alt="kibble" height={48} width={48} src="/kibble.png" />
+              <Image alt="kibble" height={48} src="/kibble.png" width={48} />
             </ImageWrapper>
             <Text>Pick it up!</Text>
           </>
@@ -49,11 +49,11 @@ export default function FloatingKibble() {
         {animationState === animationStates.spark && (
           <>
             <Lottie
+              autoplay
               animationData={animationData}
               loop={false}
-              autoplay
-              onComplete={() => setAnimationState(animationStates.done)}
               style={{ width: 64, height: 64 }}
+              onComplete={() => setAnimationState(animationStates.done)}
             />
             <Text>{rewardMessage}</Text>
           </>

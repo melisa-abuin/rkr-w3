@@ -9,7 +9,7 @@ export default function LoaderCard() {
       {[...Array(5)].map((_, rowIndex) => (
         <Card key={rowIndex}>
           <Header>
-            <Loader variant="secondary" height={21} width={100} />
+            <Loader height={21} variant="secondary" width={100} />
           </Header>
           <Table>
             <tbody>
@@ -30,7 +30,7 @@ export default function LoaderCard() {
             </tbody>
           </Table>
           <Footer>
-            <Loader variant="secondary" height={17} width={70} />
+            <Loader height={17} variant="secondary" width={70} />
           </Footer>
         </Card>
       ))}

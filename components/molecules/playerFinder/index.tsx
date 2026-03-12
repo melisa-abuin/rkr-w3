@@ -88,15 +88,15 @@ export default function PlayerFinder({
               width={16}
             />
           ) : (
-            <Search height={16} fill={theme.text.color.primary} width={16} />
+            <Search fill={theme.text.color.primary} height={16} width={16} />
           )
         }
         name="player"
+        placeholder={placeholder}
+        value={query}
         onChange={handleChange}
         onCrossClick={handleSearchClear}
         onFocus={() => setShowOptions(true)}
-        placeholder={placeholder}
-        value={query}
       />
 
       {showOptions && query.length > 2 && data && (

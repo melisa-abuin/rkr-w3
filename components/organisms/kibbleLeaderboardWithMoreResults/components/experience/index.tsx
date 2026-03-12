@@ -48,8 +48,8 @@ export default function Experience({ expGained = 0 }: Props) {
     <Wrapper>
       <BarBackground>
         <BarFill
-          style={{ width: `${barPercentage}%` }}
           $noTransition={disableTransition}
+          style={{ width: `${barPercentage}%` }}
         />
         <Label>{`Level ${levelInfo.level} Kitty`}</Label>
       </BarBackground>

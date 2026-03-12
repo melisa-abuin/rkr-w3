@@ -38,16 +38,16 @@ export default function PlayerFinderWithResult({
 
   return (
     <>
-      <PlayerFinder onPlayerSelect={handleSelect} onClear={handleClear} />
+      <PlayerFinder onClear={handleClear} onPlayerSelect={handleSelect} />
       {activePlayer && (
         <Wrapper>
           <Columns
             actionColumn={
               <Button
                 as="a"
-                variant="outline"
                 colorName="secondary"
                 href={`/player/${encodeURIComponent(activePlayer.battleTag.tag)}`}
+                variant="outline"
               >
                 See player stats
               </Button>

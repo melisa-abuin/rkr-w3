@@ -39,8 +39,8 @@ export default function Announcement() {
             </i>
           </small>
         </Content>
-        <CrossContainer onClick={handleClose} aria-label="Close announcement">
-          <Cross height={16} fill="#fff" width={16} />
+        <CrossContainer aria-label="Close announcement" onClick={handleClose}>
+          <Cross fill="#fff" height={16} width={16} />
         </CrossContainer>
       </Container>
     </>

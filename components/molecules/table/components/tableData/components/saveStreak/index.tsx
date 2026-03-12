@@ -22,10 +22,10 @@ export default function SaveStreak({ data }: Props) {
     if (patrioticTendrils) {
       return (
         <Wing
-          internalColor={theme.color.patrioticTendrilsInternal}
           externalColor={theme.color.patrioticTendrilsExternal}
-          height={24}
           flipped={flipped}
+          height={24}
+          internalColor={theme.color.patrioticTendrilsInternal}
           width={24}
         />
       )
@@ -34,10 +34,10 @@ export default function SaveStreak({ data }: Props) {
     if (redLightning) {
       return (
         <Bolt
-          internalColor={theme.color.redLightningInternal}
           externalColor={theme.color.redLightningExternal}
-          height={24}
           flipped={flipped}
+          height={24}
+          internalColor={theme.color.redLightningInternal}
           width={24}
         />
       )

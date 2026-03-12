@@ -26,11 +26,11 @@ describe('Input Component', () => {
     renderWithTheme(
       <Input
         id="test-input"
+        leftIcon={<span data-testid="left-icon">🔍</span>}
         name="test"
         placeholder="Enter text"
         value=""
         onChange={mockOnChange}
-        leftIcon={<span data-testid="left-icon">🔍</span>}
       />,
     )
 

@@ -19,8 +19,8 @@ export default function PlayerTag({ battleTag, skins = null }: Props) {
       {skins && (
         <ImageContainer>
           <Image
-            alt={battleTag.tag}
             colored
+            alt={battleTag.tag}
             fallbackSrc={'/potm.png'}
             src={formatSkinName(skins)}
           />

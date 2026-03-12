@@ -162,18 +162,28 @@ export default function Stats({ data, filter }: AllStatsData) {
       </PageContainer>
       <PageContainer>
         <Tabs
-          onTabChange={onTabChange}
           defaultIndex={variantValues.findIndex(
             ({ apiBaseUrl }) => apiBaseUrl === filter,
           )}
           titles={variantValues.map(({ title }) => title)}
+          onTabChange={onTabChange}
         >
           {variantValues.map(({ columns, defaultSortKey, apiBaseUrl }) => {
+            const commonProps = {
+              apiBaseUrl,
+              currentPage,
+              handlePageChange,
+              handlePlayerChange,
+              handleSortChange,
+              player: initialPlayer,
+              queryString,
+              shouldRefetch: hasInteracted,
+            }
+
             if (apiBaseUrl === 'kibbleStats') {
               return (
                 <TableWithControls<KibbleType>
-                  shouldRefetch={hasInteracted}
-                  key={apiBaseUrl}
+                  {...commonProps}
                   columns={
                     columns as { title: string; key: keyof KibbleType }[]
                   }
@@ -184,44 +194,27 @@ export default function Stats({ data, filter }: AllStatsData) {
                       ...elem.kibbles,
                     })),
                   }}
+                  key={apiBaseUrl}
                   sortKey={
                     (getSortValue(columns, sortKey.key) ||
                       defaultSortKey) as keyof KibbleType
                   }
-                  apiBaseUrl={apiBaseUrl}
-                  handlePageChange={handlePageChange}
-                  handleSortChange={(columnKey) =>
-                    handleSortChange(columnKey as string)
-                  }
-                  currentPage={currentPage}
-                  queryString={queryString}
-                  handlePlayerChange={handlePlayerChange}
-                  player={initialPlayer}
                 />
               )
             }
 
             return (
               <TableWithControls<Player>
-                shouldRefetch={hasInteracted}
-                key={apiBaseUrl}
+                {...commonProps}
                 columns={columns as { title: string; key: keyof Player }[]}
                 data={data}
+                difficulty={difficultyFilter}
+                handleDifficultyChange={handleFilterChange}
+                key={apiBaseUrl}
                 sortKey={
                   (getSortValue(columns, sortKey.key) ||
                     defaultSortKey) as keyof Player
                 }
-                apiBaseUrl={apiBaseUrl}
-                handlePageChange={handlePageChange}
-                handleSortChange={(columnKey) =>
-                  handleSortChange(columnKey as string)
-                }
-                handleDifficultyChange={handleFilterChange}
-                handlePlayerChange={handlePlayerChange}
-                player={initialPlayer}
-                currentPage={currentPage}
-                difficulty={difficultyFilter}
-                queryString={queryString}
               />
             )
           })}

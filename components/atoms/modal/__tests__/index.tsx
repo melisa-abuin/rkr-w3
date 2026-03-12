@@ -24,7 +24,7 @@ describe('Modal Component', () => {
 
   it('renders title when provided', () => {
     renderWithTheme(
-      <Modal isOpen={true} onClose={jest.fn()} title="Test Title">
+      <Modal isOpen={true} title="Test Title" onClose={jest.fn()}>
         Modal Content
       </Modal>,
     )

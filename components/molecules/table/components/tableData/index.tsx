@@ -1,10 +1,11 @@
+import { ReactNode } from 'react'
 import { formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
-import BattleTag from './battleTag'
-import Tooltip from './tooltip'
-import Ratio from './ratio'
-import Challenges from './challenges'
-import SaveStreak from './saveStreak'
+import BattleTag from './components/battleTag'
+import Tooltip from './components/tooltip'
+import Ratio from './components/ratio'
+import Challenges from './components/challenges'
+import SaveStreak from './components/saveStreak'
 import {
   TotalsPerDifficulty,
   RoundTimes,
@@ -12,124 +13,45 @@ import {
   Challenges as ChallengesT,
   SaveStreak as SaveStreakI,
 } from '@/interfaces/player'
-import PlayersList from './playersList'
-import DatePlayed from './datePlayed'
-import DifficultyData from './difficulty'
-import Paws from '@/components/atoms/paws'
-import { Column, Subtitle, Title } from './styled'
+import PlayersList from './components/playersList'
+import DatePlayed from './components/datePlayed'
+import DifficultyData from './components/difficulty'
 
-interface Props<T> {
-  data?: T
-  keyName: keyof T
-  difficultyFilter?: Difficulty | undefined
+type TooltipData = TotalsPerDifficulty | RoundTimes | number
+
+export type Renderer<T = unknown> = (
+  value: T,
+  difficultyFilter?: Difficulty,
+) => ReactNode
+
+const renderTooltip: Renderer<TooltipData> = (value, difficultyFilter) => {
+  if (typeof value === 'number') return <>{value}</>
+  if ('best' in value) {
+    return (
+      <Tooltip best={value.best} data={value} difficulty={difficultyFilter} />
+    )
+  }
+  return (
+    <Tooltip data={value} difficulty={difficultyFilter}>
+      {value.total}
+    </Tooltip>
+  )
 }
 
-const isDifficultyStats = (data: unknown): data is TotalsPerDifficulty =>
-  typeof data === 'object' && data !== null && 'total' in data
-const isRoundStats = (data: unknown): data is RoundTimes =>
-  typeof data === 'object' && data !== null && 'best' in data
-const isBattleTag = (data: unknown): data is BattleTagI =>
-  typeof data === 'object' && data !== null && 'name' in data && 'tag' in data
-const isSaveStreak = (data: unknown): data is SaveStreakI =>
-  typeof data === 'object' &&
-  data !== null &&
-  'highestScore' in data &&
-  'redLightning' in data &&
-  'patrioticTendrils' in data
-const isChallenges = (data: unknown): data is ChallengesT =>
-  typeof data === 'object' &&
-  data !== null &&
-  'general' in data &&
-  'tournament' in data
-
-// Fix this component
-export default function TableData<T>({
-  data,
-  keyName,
-  difficultyFilter,
-}: Props<T>) {
-  if (!data?.[keyName]) {
-    return <>0</>
-  }
-  const componentData = data[keyName]
-
-  switch (keyName) {
-    case 'saveDeathRatio':
-      if (typeof componentData === 'number')
-        return <Ratio data={componentData} />
-      break
-    case 'times':
-      if (typeof componentData === 'number')
-        return <>{formatSecondsAsTime(componentData)}</>
-      break
-    case 'date':
-      if (typeof componentData === 'string')
-        return <DatePlayed data={componentData} />
-      break
-    case 'teamMembers':
-      if (typeof componentData === 'string')
-        return <PlayersList data={componentData} />
-      break
-    case 'completedChallenges':
-      if (isChallenges(componentData))
-        return <Challenges data={componentData} />
-      break
-    case 'difficulty':
-      if (typeof componentData === 'string')
-        return <DifficultyData data={componentData} />
-      break
-
-    case 'battleTag':
-      if (isBattleTag(componentData)) return <BattleTag data={componentData} />
-      break
-
-    case 'saveStreak':
-      if (isSaveStreak(componentData))
-        return <SaveStreak data={componentData} />
-      break
-
-    case 'wins':
-    case 'gamesPlayed':
-      if (isDifficultyStats(componentData)) {
-        return (
-          <Tooltip
-            data={{
-              normal: componentData.normal,
-              hard: componentData.hard,
-              impossible: componentData.impossible,
-              nightmare: componentData.nightmare,
-              progressive: componentData.progressive,
-            }}
-            difficulty={difficultyFilter}
-          >
-            {componentData.total}
-          </Tooltip>
-        )
-      }
-      return typeof componentData === 'number' ? <>{componentData}</> : null
-
-    default:
-      if (isRoundStats(componentData)) {
-        return (
-          <Tooltip
-            data={{
-              normal: componentData.normal,
-              hard: componentData.hard,
-              impossible: componentData.impossible,
-              nightmare: componentData.nightmare,
-              progressive: componentData.progressive,
-            }}
-            difficulty={difficultyFilter}
-            isTimeStats
-          >
-            <Column>
-              <Title>{formatSecondsAsTime(componentData.best.time)}</Title>
-              <Subtitle>({componentData.best.difficulty})</Subtitle>
-              <Paws difficulty={componentData.best.difficulty} />
-            </Column>
-          </Tooltip>
-        )
-      }
-      return <>{componentData || 0}</>
-  }
+export const renderers: Record<string, Renderer<unknown>> = {
+  saveDeathRatio: (value) => <Ratio data={value as number} />,
+  times: (value) => <>{formatSecondsAsTime(value as number)}</>,
+  date: (value) => <DatePlayed data={value as string} />,
+  teamMembers: (value) => <PlayersList data={value as string} />,
+  completedChallenges: (value) => <Challenges data={value as ChallengesT} />,
+  difficulty: (value) => <DifficultyData data={value as string} />,
+  battleTag: (value) => <BattleTag data={value as BattleTagI} />,
+  saveStreak: (value) => <SaveStreak data={value as SaveStreakI} />,
+  wins: (value, difficultyFilter) =>
+    renderTooltip(value as TooltipData, difficultyFilter),
+  gamesPlayed: (value, difficultyFilter) =>
+    renderTooltip(value as TooltipData, difficultyFilter),
 }
+
+export const defaultRenderer: Renderer<unknown> = (value, difficultyFilter) =>
+  renderTooltip(value as TooltipData, difficultyFilter)

@@ -17,18 +17,18 @@ export default function Tooltip({ ariaLabel, body, children }: Props) {
 
   return (
     <TooltipContainer
+      aria-label={ariaLabel || 'Tooltip'}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       onMouseMove={handleMouseMove}
-      aria-label={ariaLabel || 'Tooltip'}
     >
       {children}
 
       <StyledTooltip
+        role="tooltip"
         showTooltip={showTooltip}
         x={coords.x}
         y={coords.y}
-        role="tooltip"
       >
         {body}
       </StyledTooltip>

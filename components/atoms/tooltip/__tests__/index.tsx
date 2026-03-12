@@ -19,7 +19,7 @@ describe('Tooltip', () => {
 
   it('applies custom aria-label if provided', () => {
     renderWithTheme(
-      <Tooltip body={tooltipText} ariaLabel={ariaLabel}>
+      <Tooltip ariaLabel={ariaLabel} body={tooltipText}>
         <div>Hover</div>
       </Tooltip>,
     )

@@ -57,10 +57,10 @@ export default function DesktopCard({
                     onClick={() => setShowRoundTimes((prev) => !prev)}
                   >
                     <Chevron
-                      height={16}
                       fill={theme.text.color.tertiary}
-                      width={16}
                       flipped={!showRoundTimes}
+                      height={16}
+                      width={16}
                     />
                   </IconButton>
                 )}
@@ -88,11 +88,11 @@ export default function DesktopCard({
           <Wrapper>
             {members.map((memeber) => (
               <Button
-                as="a"
                 key={memeber}
-                href={`/player/${encodeURIComponent(memeber)}`}
                 small
+                as="a"
                 colorName="tertiary"
+                href={`/player/${encodeURIComponent(memeber)}`}
                 variant="solid"
               >
                 {memeber.split('#')[0]}

@@ -17,21 +17,21 @@ export default function RowCards({ item }: Props) {
       {item.players.map((player, playerIndex) => (
         <Card key={player.battleTag.tag}>
           <PositionCard
-            ariaLabel={`Player card for ${player.battleTag.tag}`}
             isSmallPosition
+            ariaLabel={`Player card for ${player.battleTag.tag}`}
             position={playerIndex + 1}
           >
             <PlayerTag battleTag={player.battleTag} />
             <ColumnsContainer>
               <Column
-                value={formatSecondsAsTime(player.totalTime)}
                 description="Total Time"
+                value={formatSecondsAsTime(player.totalTime)}
               />
               {player.games.map((game, gameIndex) => (
                 <Column
                   key={gameIndex}
-                  value={formatSecondsAsTime(game.totalTime)}
                   description={`Game ${gameIndex + 1}`}
+                  value={formatSecondsAsTime(game.totalTime)}
                 />
               ))}
             </ColumnsContainer>

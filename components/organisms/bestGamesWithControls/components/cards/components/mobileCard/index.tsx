@@ -37,11 +37,11 @@ export default function MobileCard({
   return (
     <Container>
       <Header>
-        <PositionNumber pos={position} isSmall />
+        <PositionNumber isSmall pos={position} />
         <Wrapper>
           <Tooltip
-            body={`${formatSecondsAsTime(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
             ariaLabel="Difficulty"
+            body={`${formatSecondsAsTime(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
           >
             <Row>
               <Title>{formatSecondsAsTime(time)}</Title>

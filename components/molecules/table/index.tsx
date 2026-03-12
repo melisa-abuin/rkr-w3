@@ -9,35 +9,36 @@ import {
   Container,
   Title,
 } from './styled'
-import LoaderTable from './components/loaderTable'
-import TableData from './components/tableData'
+import LoaderTable from './components/loader'
+import { renderers, defaultRenderer } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isRoundDifficultyAvailable } from '@/utils'
 
 interface Props<T> {
-  data?: T[]
-  loading?: boolean
-  difficultyFilter?: Difficulty | undefined
-  filters?: ReactNode
-  headerLink?: ReactNode
-  title?: string
   columns: Array<{
     title: string
     key: keyof T
+    render?: (data: T, difficultyFilter?: Difficulty) => ReactNode
   }>
+  data?: T[]
+  difficultyFilter?: Difficulty | undefined
+  filters?: ReactNode
+  headerLink?: ReactNode
   highlightedColumn?: keyof T
+  loading?: boolean
   onTableSort?: (columnKey: keyof T) => void
   pageSize?: number
+  title?: string
 }
 
 export default function Table<T>({
-  data,
-  loading = false,
   columns,
+  data,
   difficultyFilter,
   filters,
   headerLink,
   highlightedColumn,
+  loading = false,
   onTableSort,
   pageSize = 5,
   title,
@@ -70,11 +71,11 @@ export default function Table<T>({
             {cols.map(({ key, title }) => (
               <StyledTh
                 key={key as string}
+                colSpan={1}
                 hasActions={!!onTableSort}
                 highlighted={highlightedColumn === key}
-                onClick={() => onTableHeadClick(key)}
                 scope="col"
-                colSpan={1}
+                onClick={() => onTableHeadClick(key)}
               >
                 {title}
               </StyledTh>
@@ -87,20 +88,21 @@ export default function Table<T>({
           <tbody>
             {data?.map((player, index) => (
               <tr key={index}>
-                {cols.map(({ key, title }) => (
-                  <StyledTd
-                    data-label={title}
-                    highlighted={highlightedColumn === key}
-                    index={index}
-                    key={`${key as string} ${index}`}
-                  >
-                    <TableData
-                      keyName={key}
-                      data={player}
-                      difficultyFilter={difficultyFilter}
-                    />
-                  </StyledTd>
-                ))}
+                {cols.map(({ key, title, render }) => {
+                  const renderer = renderers[key as string] ?? defaultRenderer
+                  return (
+                    <StyledTd
+                      key={`${key as string} ${index}`}
+                      data-label={title}
+                      highlighted={highlightedColumn === key}
+                      index={index}
+                    >
+                      {render
+                        ? render(player, difficultyFilter)
+                        : renderer(player[key], difficultyFilter)}
+                    </StyledTd>
+                  )
+                })}
               </tr>
             ))}
           </tbody>

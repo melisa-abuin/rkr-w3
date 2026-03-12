@@ -30,8 +30,8 @@ export default function Paws({ color, difficulty }: PawsProps) {
       ].map((_, rowIndex) => (
         <Paw
           key={rowIndex}
-          height={16}
           fill={color || theme.color[difficultyValue]}
+          height={16}
           width={16}
         />
       ))}

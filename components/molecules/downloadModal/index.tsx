@@ -40,8 +40,8 @@ export default function DownloadModal({ battletag, date }: Props) {
         Download my stats
       </Button>
       <Modal
-        title="Download my file stats"
         isOpen={isModalOpen}
+        title="Download my file stats"
         onClose={() => setIsModalOpen(false)}
       >
         <Content>
@@ -60,7 +60,7 @@ export default function DownloadModal({ battletag, date }: Props) {
             </p>
           </div>
           <ButtonGroup>
-            <Button onClick={() => setIsModalOpen(false)} variant="outline">
+            <Button variant="outline" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
             <Button onClick={handleDownload}>

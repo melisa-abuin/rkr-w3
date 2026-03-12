@@ -104,20 +104,20 @@ export default function PlayerDashboard({
           }
         />
         <PlayerFinder
-          onPlayerSelect={handlePlayerSelect}
-          onClear={handleClear}
-          placeholder="Compare with another player"
           defaultValue={compareTo || ''}
+          placeholder="Compare with another player"
+          onClear={handleClear}
+          onPlayerSelect={handlePlayerSelect}
         />
       </PageContainer>
 
-      <PageContainer title="Overall Stats" marginBottom={24}>
+      <PageContainer marginBottom={24} title="Overall Stats">
         <Row>
           <ColumnsWithComparison
             columns={playerColumns}
+            comparePlayer={data}
             loading={isFetching}
             player={playerData}
-            comparePlayer={data}
           />
           <WinStreak
             current={playerData.winStreak}
@@ -131,18 +131,18 @@ export default function PlayerDashboard({
           <Collapsible title={`${difficulty} stats`}>
             <ColumnsWithComparison
               columns={playerDifficultyColumns}
-              loading={isFetching}
-              player={playerData}
               comparePlayer={data}
               difficulty={difficulty}
+              loading={isFetching}
+              player={playerData}
               variant="secondary"
             />
             <ColumnsWithComparison
               columns={playerTimeColumns}
-              loading={isFetching}
-              player={playerData}
               comparePlayer={data}
               difficulty={difficulty}
+              loading={isFetching}
+              player={playerData}
               variant="secondary"
             />
           </Collapsible>
@@ -153,17 +153,17 @@ export default function PlayerDashboard({
         <Collapsible title="Solo Stats">
           <ColumnsWithComparison
             columns={playerTimeColumns}
-            loading={isFetching}
-            player={playerData}
             comparePlayer={data}
             difficulty="solo"
+            loading={isFetching}
+            player={playerData}
             variant="secondary"
           />
         </Collapsible>
       </PageContainer>
 
       {showBesties && (
-        <PageContainer title="Fastest Besties" marginBottom={24}>
+        <PageContainer marginBottom={24} title="Fastest Besties">
           <Besties
             battleTag={playerData.battleTag.name}
             besties={playerData.fastestBesties}
@@ -171,17 +171,17 @@ export default function PlayerDashboard({
         </PageContainer>
       )}
 
-      <PageContainer title="Personal bests" marginBottom={24}>
+      <PageContainer marginBottom={24} title="Personal bests">
         <Row>
           <Columns
-            title="All time"
             data={formatCompare(playerData, data, kibblesColumns)}
             loading={isFetching}
+            title="All time"
           />
           <Columns
-            title="Single Game"
             data={formatCompare(playerData, data, personalBestsColumns)}
             loading={isFetching}
+            title="Single Game"
           />
         </Row>
       </PageContainer>
@@ -208,8 +208,8 @@ export default function PlayerDashboard({
 
       <PageContainer marginBottom={24}>
         <DownloadModal
-          date={lastDateUploaded}
           battletag={playerData.battleTag.tag}
+          date={lastDateUploaded}
         />
       </PageContainer>
     </>

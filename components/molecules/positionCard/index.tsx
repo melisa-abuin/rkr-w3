@@ -23,11 +23,11 @@ export default function PositionCard({
 }: Props) {
   return (
     <Card
-      className={className}
       $variant={variant}
       aria-label={ariaLabel || `Position card ${position}`}
+      className={className}
     >
-      <PositionNumber pos={position} isSmall={isSmallPosition} />
+      <PositionNumber isSmall={isSmallPosition} pos={position} />
       <ContentContainer>{children}</ContentContainer>
     </Card>
   )
