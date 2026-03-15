@@ -8,6 +8,7 @@ import Pagination from '@/components/molecules/pagination'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
+import { BattleTag, Kibbles } from '@/interfaces/player'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import { FiltersRow } from './styled'
 
@@ -60,13 +61,25 @@ export default function TableWithControls<T>({
     { enabled: shouldRefetch },
   )
 
+  let formattedData = filteredData ?? data
+  // TODO: fix me
+  if (apiBaseUrl === 'kibbleStats' && filteredData?.stats) {
+    formattedData = {
+      ...filteredData,
+      stats: filteredData?.stats?.map((elem) => {
+        const e = elem as unknown as { battleTag: BattleTag; kibbles: Kibbles }
+        return { battleTag: e.battleTag, ...e.kibbles }
+      }) as unknown as T[],
+    }
+  }
+
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
   return (
     <>
       <Table
         columns={columns}
-        data={filteredData?.stats ?? data.stats}
+        data={formattedData?.stats}
         difficultyFilter={difficulty}
         filters={
           !!handleDifficultyChange && (
