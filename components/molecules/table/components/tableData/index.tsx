@@ -27,9 +27,8 @@ export type Renderer<T = unknown> = (
 const renderTooltip: Renderer<TooltipData> = (value, difficultyFilter) => {
   if (typeof value === 'number') return <>{value}</>
   if ('best' in value) {
-    return (
-      <Tooltip best={value.best} data={value} difficulty={difficultyFilter} />
-    )
+    const { best, ...rest } = value
+    return <Tooltip best={best} data={rest} difficulty={difficultyFilter} />
   }
   return (
     <Tooltip data={value} difficulty={difficultyFilter}>
