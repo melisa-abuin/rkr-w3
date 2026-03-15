@@ -22,10 +22,12 @@ export interface Theme {
   >
   color: Record<string, string>
   background: Record<string, string>
-  text: {
-    color: Record<string, string>
-    hover: Record<string, string>
-  }
+  text:
+    | {
+        color: Record<string, string>
+        hover: Record<string, string>
+      }
+    | Record<string, string>
   shadow: Record<string, string>
   name: 'dark' | 'light'
 }

@@ -23,7 +23,7 @@ export const formatGameAwards = (awards: Record<string, number>) =>
             id: `${awardKey[0].toLowerCase()}${awardKey.slice(1)}`,
             completed: awardValue === 1,
             description:
-              awardsDescriptions[awardKey] || 'Description not available',
+              awardsDescriptions[awardKey as keyof typeof awardsDescriptions] || 'Description not available',
             imagePath: `/awards/${awardKey[0].toLowerCase()}${awardKey.slice(1)}.png`,
             title: formatKeyToWord(awardKey),
           })),
