@@ -1,3 +1,5 @@
+import { Theme } from '@/interfaces/theme'
+
 const darkTheme = {
   name: 'dark' as const,
   button: {
@@ -101,19 +103,11 @@ const darkTheme = {
       tertiary: '#ffacac',
       white: '#ffacac',
     },
-    black: '#000000',
-    brandPrimary: '#B24141',
-    brandSecondary: '#41B2B2',
-    highlight: '#7cd9d9',
-    primary: '#e6edf3',
-    secondary: '#9c9a9a',
-    tertiary: '#d36e6e',
-    white: '#e6edf3',
   },
   shadow: {
     primary: 'rgba(255, 255, 255, 0.2);',
     secondary: 'rgba(255, 255, 255, 0.1);',
   },
-}
+} satisfies Theme
 
 export default darkTheme

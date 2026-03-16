@@ -11,7 +11,7 @@ export const Header = styled.header<{ align: 'center' | 'flex-start' }>`
 `
 
 export const Info = styled.p<{ align: 'center' | 'flex-start' }>`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   font-size: var(--font-size-xs-sm);
   margin-bottom: 2rem;
 

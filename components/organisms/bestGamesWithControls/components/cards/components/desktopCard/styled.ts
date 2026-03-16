@@ -11,7 +11,7 @@ export const DesktopOnly = styled.div`
 `
 
 export const Date = styled.span`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   font-size: var(--font-size-xs);
 `
 
@@ -34,7 +34,7 @@ export const Row = styled.div`
 `
 
 export const Wrapper = styled.div`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   align-items: center;
   display: flex;
   flex-direction: row;

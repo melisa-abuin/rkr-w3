@@ -29,7 +29,7 @@ export const NavLink = styled.li<NavLinkProps>`
     width: 100%;
     height: 2px;
     background-color: ${({ theme, hasTransparentStyle }) =>
-      hasTransparentStyle ? theme.text.white : theme.text.color.primary};
+      hasTransparentStyle ? theme.text.color.white : theme.text.color.primary};
     transform: scaleX(${({ selected }) => (selected ? 1 : 0)});
     transform-origin: center;
     transition: transform 0.3s ease;
@@ -37,14 +37,16 @@ export const NavLink = styled.li<NavLinkProps>`
 
   &:hover::after {
     background-color: ${({ theme, hasTransparentStyle }) =>
-      hasTransparentStyle ? theme.text.white : theme.text.hover.tertiary};
+      hasTransparentStyle ? theme.text.color.white : theme.text.hover.tertiary};
     transform: scaleX(1);
   }
 
   &:hover {
     a {
       color: ${({ theme, hasTransparentStyle }) =>
-        hasTransparentStyle ? theme.text.white : theme.text.hover.tertiary};
+        hasTransparentStyle
+          ? theme.text.color.white
+          : theme.text.hover.tertiary};
     }
   }
 

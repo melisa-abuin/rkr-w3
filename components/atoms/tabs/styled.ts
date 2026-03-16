@@ -17,7 +17,7 @@ export const Button = styled.button<{ active: boolean }>`
   font-weight: ${({ active }) =>
     active ? 'var(--font-weight-bold)' : 'var(--font-weight-semi-bold)'};
   color: ${({ theme, active }) =>
-    active ? theme.text.primary : theme.text.secondary};
+    active ? theme.text.primary : theme.text.color.secondary};
   border-bottom: 2px solid
     ${({ theme, active }) => (active ? theme.color.primary : 'transparent')};
   transition: all 0.2s;

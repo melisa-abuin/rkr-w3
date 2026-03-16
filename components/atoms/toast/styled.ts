@@ -18,7 +18,7 @@ export const Container = styled.div<{ variant?: ToastVariant }>`
   background-color: ${({ theme, variant }) =>
     variant === 'warning' ? theme.background.warning : theme.background.error};
   box-shadow: 0px 4px 6px ${({ theme }) => theme.shadow.primary};
-  color: ${({ theme }) => theme.text.white};
+  color: ${({ theme }) => theme.text.color.white};
   cursor: pointer;
   display: flex;
   justify-content: space-between;

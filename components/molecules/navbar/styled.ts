@@ -32,14 +32,14 @@ export const StyledNav = styled.nav<NavProps>`
 
   a {
     color: ${({ hasTransparentStyle, theme }) =>
-      hasTransparentStyle ? theme.text.white : theme.text.primary};
+      hasTransparentStyle ? theme.text.color.white : theme.text.color.primary};
   }
 
   ${NavLink} {
     ${({ hasTransparentStyle, theme }) =>
       hasTransparentStyle &&
       css`
-        border-bottom-color: ${theme.text.white};
+        border-bottom-color: ${theme.text.color.white};
       `}
   }
 `

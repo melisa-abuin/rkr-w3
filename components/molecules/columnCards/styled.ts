@@ -29,7 +29,7 @@ export const Card = styled.div`
 
 export const Header = styled.div`
   align-items: center;
-  color: ${({ theme }) => theme.text.tertiary};
+  color: ${({ theme }) => theme.text.color.tertiary};
   display: flex;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
