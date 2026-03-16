@@ -12,7 +12,7 @@ const mockUsePreferredTheme = jest.requireMock(
 ).usePreferredTheme
 
 const MockChildComponent = styled.div`
-  background-color: ${({ theme }) => theme.text.primary};
+  background-color: ${({ theme }) => theme.text.color.primary};
 `
 
 describe('ThemeProvider', () => {
