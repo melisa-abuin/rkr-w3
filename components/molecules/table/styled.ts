@@ -44,7 +44,7 @@ export const StyledTh = styled.th<{
   highlighted: boolean
 }>`
   border-bottom: ${({ highlighted, theme }) =>
-    highlighted ? `1px solid ${theme.text.tertiary}` : 'none'};
+    highlighted ? `1px solid ${theme.text.color.tertiary}` : 'none'};
   background-color: ${({ theme }) => theme.background.quaternary};
   cursor: ${({ hasActions }) => (hasActions ? 'pointer' : 'auto')};
   font-weight: var(--font-weight-bold);
@@ -55,7 +55,7 @@ export const StyledTh = styled.th<{
 
 export const StyledTr = styled.tr`
   border: none;
-  color: ${({ theme }) => theme.text.tertiary};
+  color: ${({ theme }) => theme.text.color.tertiary};
   border-radius: 10px;
 `
 
@@ -88,7 +88,7 @@ export const Title = styled.div`
   width: 100%;
 
   a {
-    color: ${({ theme }) => theme.text.secondary};
+    color: ${({ theme }) => theme.text.color.secondary};
     font-size: var(--font-size-sm);
     text-decoration: none;
 

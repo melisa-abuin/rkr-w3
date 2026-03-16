@@ -6,7 +6,7 @@ export const Container = styled.div`
 `
 
 export const Text = styled.p`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
   margin-bottom: 4px;

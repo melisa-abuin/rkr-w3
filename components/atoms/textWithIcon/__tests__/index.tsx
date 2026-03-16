@@ -24,7 +24,7 @@ describe('TextWithIcon', () => {
   it('applies default color when no colorName is provided', () => {
     renderWithTheme(<TextWithIcon>Test</TextWithIcon>)
     expect(screen.getByText('Test')).toHaveStyle(
-      `color: ${themes.light.text.primary}`,
+      `color: ${themes.light.text.color.primary}`,
     )
   })
 

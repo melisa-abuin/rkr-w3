@@ -48,7 +48,7 @@ export const MobileMenu = styled.div`
 export const CloseButton = styled.button`
   background: none;
   border: none;
-  color: ${({ theme }) => theme.text.white};
+  color: ${({ theme }) => theme.text.color.white};
   cursor: pointer;
   padding: 20px;
 

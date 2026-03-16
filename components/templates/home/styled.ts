@@ -8,7 +8,7 @@ export const BannerContainer = styled.section`
   background: ${({ theme }) => `
     linear-gradient(66deg, ${theme.color.tertiary} 0%, ${theme.color.tertiary} 35%, ${theme.color.secondary} 100%);
   `};
-  color: ${({ theme }) => theme.text.white};
+  color: ${({ theme }) => theme.text.color.white};
 
   padding: 0 24px;
 `

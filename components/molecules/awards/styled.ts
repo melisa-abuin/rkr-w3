@@ -48,7 +48,7 @@ export const Section = styled.div`
 
 export const Title = styled.h3`
   align-items: center;
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   display: flex;
   flex-direction: row;
   font-size: var(--font-size-xs-sm);
@@ -58,7 +58,7 @@ export const Title = styled.h3`
 
 export const Description = styled.p`
   font-size: var(--font-size-xs);
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
 `
 
 export const TooltipTitle = styled.h3`

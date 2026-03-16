@@ -28,7 +28,7 @@ export const TextContainer = styled.div`
 `
 
 export const SubTitle = styled.p`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
   margin-top: 4px;

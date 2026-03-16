@@ -36,14 +36,14 @@ export const Row = styled.div`
 `
 export const Description = styled.span<{ highlight?: boolean }>`
   color: ${({ theme, highlight }) =>
-    highlight ? theme.color.yellow : theme.text.primary};
+    highlight ? theme.color.yellow : theme.text.color.primary};
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-regular);
 `
 
 export const Title = styled.h3`
   align-items: center;
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   display: flex;
   flex-direction: row;
   font-size: var(--font-size-xs-sm);
@@ -54,7 +54,7 @@ export const Title = styled.h3`
 
 export const SectionTitle = styled.h3`
   align-items: center;
-  color: ${({ theme }) => theme.text.tertiary};
+  color: ${({ theme }) => theme.text.color.tertiary};
   display: flex;
   flex-direction: row;
   font-size: var(--font-size-sm);

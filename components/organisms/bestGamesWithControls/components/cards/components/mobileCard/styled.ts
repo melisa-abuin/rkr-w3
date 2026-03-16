@@ -18,7 +18,7 @@ export const Container = styled.div`
 `
 
 export const Description = styled.span`
-  color: ${({ theme }) => theme.text.secondary};
+  color: ${({ theme }) => theme.text.color.secondary};
   font-weight: var(--font-weight-regular);
   font-size: var(--font-size-xs);
 `
@@ -54,7 +54,7 @@ export const Row = styled.div`
 `
 
 export const Title = styled.h4`
-  color: ${({ theme }) => theme.text.tertiary};
+  color: ${({ theme }) => theme.text.color.tertiary};
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-sm);
   margin: 0;
