@@ -40,7 +40,12 @@ export const Description = styled.span<{ highlight?: boolean }>`
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-regular);
 `
-
+export const Small = styled.span<{ highlight?: boolean }>`
+  color: ${({ theme, highlight }) =>
+    highlight ? theme.color.yellow : theme.text.color.secondary};
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+`
 export const Title = styled.h3`
   align-items: center;
   color: ${({ theme }) => theme.text.color.secondary};

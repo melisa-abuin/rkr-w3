@@ -1,5 +1,10 @@
 import { BattleTag } from '../player'
 
+interface FastestRound {
+  player: BattleTag
+  time: number
+}
+
 export interface ApiTournament {
   tournament: {
     id: number
@@ -47,7 +52,20 @@ export interface ApiTournamentRound {
   saves: number
 }
 
-export interface Tournament extends Omit<ApiTournament, 'players'> {
+export interface Tournament {
+  tournament: {
+    region: string
+    gamemode: string
+    gameType: string
+    datetime: string
+  }
+  fastestRounds: {
+    roundOne: FastestRound
+    roundTwo: FastestRound
+    roundThree: FastestRound
+    roundFour: FastestRound
+    roundFive: FastestRound
+  }
   players: TournamentPlayer[]
 }
 
