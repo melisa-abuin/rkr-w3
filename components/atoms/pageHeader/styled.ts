@@ -24,4 +24,5 @@ export const Title = styled.h1`
   color: ${({ theme }) => theme.text.primary};
   font-size: var(--font-size-xl);
   margin-bottom: 1rem;
+  text-align: center;
 `
