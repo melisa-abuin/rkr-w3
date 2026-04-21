@@ -69,6 +69,10 @@ export const formatTournamentPlayers = (
 
   return {
     ...item,
+    tournament: {
+      ...item.tournament,
+      gameType: item.tournament.game_type,
+    },
     fastestRounds,
     players: playersWithTotalTime.sort(
       (first, second) => first.totalTime - second.totalTime,

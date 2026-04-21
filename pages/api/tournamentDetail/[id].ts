@@ -83,7 +83,6 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     const data: ApiTournament = await fetchData(`tournaments/${id}/full`)
     const tournament: Tournament = formatTournamentPlayers(data)
 
-    tournament.tournament.gameType = data.tournament.game_type
     if (!data) {
       return res.status(404).json({ message: 'Tournament not found' })
     }

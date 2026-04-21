@@ -40,7 +40,7 @@ export default function Tournaments({ data }: Props) {
       <PageContainer marginBottom={16}>
         <RowCards item={data} />
       </PageContainer>
-      <PageContainer title="Fastest rounds" marginBottom={16}>
+      <PageContainer marginBottom={16} title="Fastest rounds">
         <Columns
           data={[
             {
