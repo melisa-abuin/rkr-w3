@@ -42,6 +42,7 @@ export const fetchData = async (
       })
 
       data = await response.json()
+      if (!Array.isArray(data)) return data
       return removeBlacklistedPlayers(data)
     }
   } catch (error) {

@@ -90,7 +90,7 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
     const tournamentGroups: Array<typeof sortedTournaments> = []
 
     sortedTournaments.forEach((item) => {
-      const groupId = item?.tournament?.tournament_group_id
+      const groupId = item?.tournament?.groupId
 
       if (groupId === null || groupId === undefined) {
         tournamentGroups.push([item])
