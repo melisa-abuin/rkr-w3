@@ -1,0 +1,69 @@
+.bannerContainer {
+  align-items: center;
+  background: linear-gradient(
+    66deg,
+    var(--color-tertiary) 0%,
+    var(--color-tertiary) 35%,
+    var(--color-secondary) 100%
+  );
+  color: var(--text-color-white);
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  padding: 0 24px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  margin-bottom: 1rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-xs-sm);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--color-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: 8px;
+}
+
+.playerFinderWrapper {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 16px;
+  width: 100%;
+}
+
+.discordDetail {
+  display: inline;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+}
+
+.colored {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+@media (max-width: 480px) {
+  .info,
+  .discordDetail {
+    display: none;
+  }
+}

@@ -1,9 +1,8 @@
 'use client'
 
 import { Cross } from '@/components/icons/cross'
-import { useTheme } from '@/hooks/useTheme'
 import { ToastVariant } from '@/interfaces/toast'
-import { Container, Message, Wrapper } from './styled'
+import styles from './index.module.css'
 
 type Props = {
   index: number
@@ -18,14 +17,14 @@ export default function Toast({
   onClick,
   variant = 'error',
 }: Props) {
-  const [theme] = useTheme()
+  const containerClassName = `${styles.container} ${styles[variant]}`
 
   return (
-    <Wrapper index={index}>
-      <Container variant={variant} onClick={onClick}>
-        <Message>{message}</Message>
-        <Cross fill={theme.text.color.white} height={16} width={16} />
-      </Container>
-    </Wrapper>
+    <div className={styles.wrapper} style={{ bottom: `calc(${index} * 74px)` }}>
+      <div className={containerClassName} onClick={onClick}>
+        <p className={styles.message}>{message}</p>
+        <Cross fill="currentColor" height={16} width={16} />
+      </div>
+    </div>
   )
 }

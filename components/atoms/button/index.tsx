@@ -1,53 +1,60 @@
 'use client'
 
-import React, { ReactNode } from 'react'
-import { StyledButton } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from 'react'
+import styles from './index.module.css'
 
-interface Props {
-  as?: 'a' | 'button'
-  href?: string
-  target?: string
+type CommonProps = {
   children: ReactNode
   disabled?: boolean
-  onClick?: () => void
   small?: boolean
   colorName?: 'primary' | 'secondary' | 'tertiary'
   variant?: 'outline' | 'solid' | 'ghost'
 }
 
+type ButtonAsButtonProps = CommonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'color'> & {
+    as?: 'button'
+  }
+
+type ButtonAsAnchorProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'color'> & {
+    as: 'a'
+  }
+
+type Props = ButtonAsAnchorProps | ButtonAsButtonProps
+
 export default function Button({
   as = 'button',
-  href,
-  target,
   children,
   colorName = 'primary',
   disabled = false,
-  onClick,
   small = false,
   variant = 'solid',
+  ...props
 }: Props) {
-  const [theme] = useTheme()
+  const className = `${styles.button} ${styles[colorName]} ${styles[variant]} ${
+    small ? styles.small : styles.regular
+  }`
 
-  if (!theme.button[colorName]) {
-    console.error(
-      `Button color "${colorName}" is not defined in ${theme.name} theme.`,
+  if (as === 'a') {
+    const anchorProps = props as Omit<ButtonAsAnchorProps, keyof CommonProps>
+
+    return (
+      <a className={className} {...anchorProps}>
+        {children}
+      </a>
     )
-    return null
   }
 
+  const buttonProps = props as Omit<ButtonAsButtonProps, keyof CommonProps>
+
   return (
-    <StyledButton
-      as={as}
-      href={href}
-      target={target}
-      {...theme.button[colorName]}
-      disabled={disabled}
-      small={small}
-      variant={variant}
-      onClick={onClick}
-    >
+    <button className={className} disabled={disabled} {...buttonProps}>
       {children}
-    </StyledButton>
+    </button>
   )
 }

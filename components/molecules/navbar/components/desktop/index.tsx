@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { NavLinks, NavLink } from './styled'
+import styles from './index.module.css'
 import { routes } from '@/constants'
 import Link from 'next/link'
 
@@ -14,18 +14,23 @@ export default function DesktopNavbar({
   const basePath = pathname?.split('/').slice(0, 2).join('/')
 
   return (
-    <NavLinks>
+    <ul className={styles.navLinks}>
       {Object.values(routes).map((route) => (
-        <NavLink
+        <li
           key={route.label}
-          hasTransparentStyle={hasTransparentStyle}
-          selected={basePath === route.pathname}
+          className={`${styles.navLink} ${
+            basePath === route.pathname ? styles.selected : ''
+          } ${hasTransparentStyle ? styles.transparent : ''}`}
         >
-          <Link href={route.url} target={route.target}>
+          <Link
+            className={styles.navLinkAnchor}
+            href={route.url}
+            target={route.target}
+          >
             {route.label}
           </Link>
-        </NavLink>
+        </li>
       ))}
-    </NavLinks>
+    </ul>
   )
 }

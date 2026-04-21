@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import '../theme/dark.css'
 import { Inter } from 'next/font/google'
 import { QueryProvider } from '@/hooks/useQuery'
 

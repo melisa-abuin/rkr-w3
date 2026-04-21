@@ -1,16 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import {
-  BannerContainer,
-  Colored,
-  Container,
-  DiscordDetail,
-  Info,
-  PlayerFinderWrapper,
-  Subtitle,
-  Title,
-} from './styled'
+import styles from './index.module.css'
 import { discordJoinLink } from '@/constants'
 import { DiscordData } from '@/interfaces/discord'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
@@ -22,16 +13,18 @@ interface Props {
 export default function Home({ discordData }: Props) {
   const { data, error } = discordData
   return (
-    <BannerContainer>
-      <Container>
-        <Title>Run Kitty Run</Title>
-        <Info>
-          <Subtitle>The famous Warcraft 3 custom map</Subtitle>
+    <section className={styles.bannerContainer}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Run Kitty Run</h1>
+        <p className={styles.info}>
+          <span className={styles.subtitle}>
+            The famous Warcraft 3 custom map
+          </span>
           Stats, leaderboards and more
-        </Info>
-        <PlayerFinderWrapper>
+        </p>
+        <div className={styles.playerFinderWrapper}>
           <PlayerFinderWithResult />
-        </PlayerFinderWrapper>
+        </div>
 
         <a href={discordJoinLink}>
           <Image
@@ -45,18 +38,23 @@ export default function Home({ discordData }: Props) {
         </a>
 
         {data && !error && (
-          <DiscordDetail>
+          <small className={styles.discordDetail}>
             {data && (
               <>
-                <Colored>{data?.approximateMemberCount}</Colored>
+                <span className={styles.colored}>
+                  {data?.approximateMemberCount}
+                </span>
                 {` kitties - `}
-                <Colored>{data?.approximatePresenceCount}</Colored> running
+                <span className={styles.colored}>
+                  {data?.approximatePresenceCount}
+                </span>{' '}
+                running
               </>
             )}
             {error && <>There was an issue while fetching discord data</>}
-          </DiscordDetail>
+          </small>
         )}
-      </Container>
-    </BannerContainer>
+      </div>
+    </section>
   )
 }

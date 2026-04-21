@@ -1,0 +1,53 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+.container {
+  align-items: center;
+  animation: fadeIn 0.3s forwards;
+  border-radius: 3px;
+  box-shadow: 0 4px 6px var(--shadow-primary);
+  color: var(--text-color-white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  padding: 16px 24px;
+}
+
+.error {
+  background-color: var(--background-error);
+}
+
+.warning {
+  background-color: var(--background-warning);
+}
+
+.message {
+  margin: 0;
+  padding-right: 5px;
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 16px;
+  }
+}

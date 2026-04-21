@@ -1,0 +1,29 @@
+.spacer {
+  height: 72px;
+}
+
+.container {
+  align-items: center;
+  background-color: var(--background-tertiary);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 24px;
+  position: fixed;
+  top: 90px;
+  width: 100%;
+  z-index: 2;
+}
+
+.content {
+  color: var(--text-color-primary);
+  flex: 1;
+  font-size: var(--font-size-xs-sm);
+  text-align: center;
+}
+
+.crossContainer {
+  background: none;
+  border: none;
+  cursor: pointer;
+}

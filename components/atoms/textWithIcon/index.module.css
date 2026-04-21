@@ -1,0 +1,60 @@
+.text {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-weight: var(--font-weight-semi-bold);
+  gap: 8px;
+  justify-content: center;
+}
+
+.small {
+  font-size: var(--font-size-sm);
+}
+
+.large {
+  font-size: var(--font-size-md);
+}
+
+.primary {
+  color: var(--text-color-primary);
+}
+
+.secondary {
+  color: var(--text-color-secondary);
+}
+
+.tertiary {
+  color: var(--text-color-tertiary);
+}
+
+.brandPrimary {
+  color: var(--text-color-brand-primary);
+}
+
+.brandSecondary {
+  color: var(--text-color-brand-secondary);
+}
+
+.green {
+  color: var(--text-color-green);
+}
+
+.teal {
+  color: var(--text-color-teal);
+}
+
+.yellow {
+  color: var(--text-color-yellow);
+}
+
+.highlight {
+  color: var(--text-color-highlight);
+}
+
+.black {
+  color: var(--text-color-black);
+}
+
+.white {
+  color: var(--text-color-white);
+}

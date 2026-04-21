@@ -1,0 +1,38 @@
+.styledNav {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 16px 24px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.defaultNav {
+  background: var(--background-primary);
+  box-shadow: 0 4px 6px var(--shadow-primary);
+}
+
+.transparentNav {
+  background: transparent;
+  box-shadow: none;
+}
+
+.defaultNav a {
+  color: var(--text-color-primary);
+}
+
+.transparentNav a {
+  color: var(--text-color-white);
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 100%;
+}

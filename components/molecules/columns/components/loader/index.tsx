@@ -1,20 +1,22 @@
 import Loader from '@/components/atoms/loader'
-import { Col, Container } from '../../styled'
+import styles from '../../index.module.css'
 
 interface LoaderColumnsProps {
   variant: 'primary' | 'secondary'
 }
 
 export default function LoaderColumns({ variant }: LoaderColumnsProps) {
+  const containerClassName = `${styles.container} ${styles[variant]}`
+
   return (
-    <Container variant={variant}>
+    <div className={containerClassName}>
       {[...Array(5)].map((_, rowIndex) => (
-        <Col key={rowIndex}>
+        <div key={rowIndex} className={styles.col}>
           <Loader height={30} variant="secondary" width={'80%'} />
           <Loader height={30} variant="secondary" width={'80%'} />
           <Loader height={20} variant="secondary" width={'80%'} />
-        </Col>
+        </div>
       ))}
-    </Container>
+    </div>
   )
 }

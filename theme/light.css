@@ -1,0 +1,122 @@
+:root {
+  --theme-name: light;
+
+  --button-primary-background: #b24141;
+  --button-primary-color: #ffffff;
+  --button-primary-hover-background: #d55b5b;
+  --button-primary-hover-color: #000000;
+
+  --button-secondary-background: #297f7f;
+  --button-secondary-color: #ffffff;
+  --button-secondary-hover-background: #41b2b2;
+  --button-secondary-hover-color: #000000;
+
+  --button-tertiary-background: #e6dada;
+  --button-tertiary-color: #050505;
+  --button-tertiary-hover-background: #d4a9a9;
+  --button-tertiary-hover-color: #050505;
+
+  --badge-primary-background: #b24141;
+  --badge-primary-color: #ffffff;
+  --badge-tertiary-background: #e6dada;
+  --badge-tertiary-color: #050505;
+  --badge-red-background: #e13c3c;
+  --badge-red-color: #ffffff;
+  --badge-blue-background: #315cd6;
+  --badge-blue-color: #ffffff;
+  --badge-teal-background: #1be7ba;
+  --badge-teal-color: #050505;
+  --badge-purple-background: #8b18c7;
+  --badge-purple-color: #ffffff;
+  --badge-yellow-background: #f5d719;
+  --badge-yellow-color: #050505;
+  --badge-orange-background: #f39f45;
+  --badge-orange-color: #050505;
+  --badge-green-background: #5ee342;
+  --badge-green-color: #050505;
+  --badge-pink-background: #fe77c9;
+  --badge-pink-color: #050505;
+  --badge-gray-background: #bfc0c0;
+  --badge-gray-color: #050505;
+  --badge-lightblue-background: #a0cff3;
+  --badge-lightblue-color: #050505;
+  --badge-darkgreen-background: #217b5d;
+  --badge-darkgreen-color: #ffffff;
+  --badge-brown-background: #65390a;
+  --badge-brown-color: #ffffff;
+  --badge-maroon-background: #ae0a0a;
+  --badge-maroon-color: #ffffff;
+  --badge-navy-background: #1f1fd8;
+  --badge-navy-color: #ffffff;
+  --badge-turquoise-background: #37dfee;
+  --badge-turquoise-color: #050505;
+  --badge-violet-background: #bb2fec;
+  --badge-violet-color: #ffffff;
+  --badge-wheat-background: #ecce87;
+  --badge-wheat-color: #050505;
+  --badge-peach-background: #f7a58b;
+  --badge-peach-color: #050505;
+  --badge-mint-background: #a0dd65;
+  --badge-mint-color: #050505;
+  --badge-lavender-background: #d8b0ea;
+  --badge-lavender-color: #050505;
+  --badge-coal-background: #626365;
+  --badge-coal-color: #ffffff;
+  --badge-snow-background: #d3d9f0;
+  --badge-snow-color: #050505;
+  --badge-emerald-background: #1f8d3a;
+  --badge-emerald-color: #ffffff;
+  --badge-peanut-background: #c68d4f;
+  --badge-peanut-color: #ffffff;
+
+  --color-black: #000000;
+  --color-green: #0040ff;
+  --color-hard: #d10a0a;
+  --color-impossible: #850000;
+  --color-nightmare: #9f41b2;
+  --color-normal: #ff6c00;
+  --color-patriotic-tendrils-external: #f7020f;
+  --color-patriotic-tendrils-internal: #127dff;
+  --color-primary: #b24141;
+  --color-red-lightning-external: #e39a59;
+  --color-red-lightning-internal: #f7020f;
+  --color-secondary: #41b2b2;
+  --color-teal: #01c5db;
+  --color-tertiary: #441111;
+  --color-yellow: #ff6c00;
+
+  --background-error: #db0404;
+  --background-highlight-primary: #e6dada;
+  --background-highlight-secondary: #f7f7f7;
+  --background-highlight-tertiary: #f2eaea;
+  --background-primary: #ffffff;
+  --background-quaternary: #efefef;
+  --background-secondary: #b1e2e2;
+  --background-tertiary: #ffe0e0;
+  --background-warning: #cf5b02;
+  --background-purple: #b989f4;
+
+  --text-color-black: #000000;
+  --text-color-brand-primary: #b24141;
+  --text-color-brand-secondary: #41b2b2;
+  --text-color-green: #0040ff;
+  --text-color-highlight: #3671b6;
+  --text-color-primary: #050505;
+  --text-color-secondary: #6b6565;
+  --text-color-teal: #01c5db;
+  --text-color-tertiary: #b10f0f;
+  --text-color-white: #ffffff;
+  --text-color-yellow: #ff6c00;
+
+  --text-hover-black: #000000;
+  --text-hover-brand-primary: #b24141;
+  --text-hover-brand-secondary: #3671b6;
+  --text-hover-highlight: #3671b6;
+  --text-hover-primary: #943636;
+  --text-hover-secondary: #050505;
+  --text-hover-tertiary: #ff2525;
+  --text-hover-white: #ffffff;
+
+  --shadow-primary: rgba(0, 0, 0, 0.2);
+  --shadow-secondary: rgba(0, 0, 0, 0.7);
+}
