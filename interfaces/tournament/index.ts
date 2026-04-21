@@ -54,10 +54,12 @@ export interface ApiTournamentRound {
 
 export interface Tournament {
   tournament: {
+    id: number
     region: string
     gamemode: string
     gameType: string
     datetime: string
+    groupId: number | null
   }
   fastestRounds: {
     roundOne: FastestRound

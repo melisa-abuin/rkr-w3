@@ -72,6 +72,7 @@ export const formatTournamentPlayers = (
     tournament: {
       ...item.tournament,
       gameType: item.tournament.game_type,
+      groupId: item.tournament.tournament_group_id,
     },
     fastestRounds,
     players: playersWithTotalTime.sort(

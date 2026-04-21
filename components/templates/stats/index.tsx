@@ -184,6 +184,7 @@ export default function Stats({ data, filter }: AllStatsData) {
               return (
                 <TableWithControls<KibbleType>
                   {...commonProps}
+                  key={apiBaseUrl}
                   columns={
                     columns as { title: string; key: keyof KibbleType }[]
                   }
@@ -194,7 +195,6 @@ export default function Stats({ data, filter }: AllStatsData) {
                       ...elem.kibbles,
                     })),
                   }}
-                  key={apiBaseUrl}
                   sortKey={
                     (getSortValue(columns, sortKey.key) ||
                       defaultSortKey) as keyof KibbleType
@@ -206,11 +206,11 @@ export default function Stats({ data, filter }: AllStatsData) {
             return (
               <TableWithControls<Player>
                 {...commonProps}
+                key={apiBaseUrl}
                 columns={columns as { title: string; key: keyof Player }[]}
                 data={data}
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}
-                key={apiBaseUrl}
                 sortKey={
                   (getSortValue(columns, sortKey.key) ||
                     defaultSortKey) as keyof Player
