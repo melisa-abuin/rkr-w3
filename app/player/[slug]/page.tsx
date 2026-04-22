@@ -1,11 +1,7 @@
 import Error from '@/components/molecules/error'
-import Footer from '@/components/molecules/footer'
-import Navbar from '@/components/molecules/navbar'
 import PlayerDashboard from '@/components/templates/playerDashboard'
-import { ThemeProvider } from '@/hooks/useTheme'
 import { Player } from '@/interfaces/player'
 import { notFound } from 'next/navigation'
-import { ToastProvider } from '@/hooks/useToast'
 import { getBaseUrlFromHeaders } from '@/utils'
 
 interface PlayerStatsData {
@@ -50,14 +46,8 @@ export default async function PlayerPage({
   const { data, error } = await fetchData(slug)
 
   return (
-    <ThemeProvider>
-      <ToastProvider>
-        <Navbar />
-        <main>
-          {error ? <Error /> : data && <PlayerDashboard playerData={data} />}
-        </main>
-        <Footer />
-      </ToastProvider>
-    </ThemeProvider>
+    <main>
+      {error ? <Error /> : data && <PlayerDashboard playerData={data} />}
+    </main>
   )
 }

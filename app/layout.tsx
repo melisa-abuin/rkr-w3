@@ -1,9 +1,12 @@
 import type { Metadata } from 'next'
+import Footer from '@/components/molecules/footer'
+import Navbar from '@/components/molecules/navbar'
 import './globals.css'
 import '../theme/light.css'
 import '../theme/dark.css'
 import { Inter } from 'next/font/google'
 import { QueryProvider } from '@/hooks/useQuery'
+import { ToastProvider } from '@/hooks/useToast'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -80,7 +83,13 @@ export default function RootLayout({
   return (
     <html dir="ltr" lang="en">
       <body className={inter.variable}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <ToastProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </ToastProvider>
+        </QueryProvider>
       </body>
     </html>
   )

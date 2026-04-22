@@ -1,7 +1,3 @@
-import Footer from '@/components/molecules/footer'
-import Navbar from '@/components/molecules/navbar'
-import { ThemeProvider } from '@/hooks/useTheme'
-import { ToastProvider } from '@/hooks/useToast'
 import Error from '@/components/molecules/error'
 import Tournaments from '@/components/templates/tournaments'
 import { getBaseUrlFromHeaders } from '@/utils'
@@ -25,13 +21,5 @@ async function fetchData() {
 export default async function TournamentsPage() {
   const { data, error } = await fetchData()
 
-  return (
-    <ThemeProvider>
-      <ToastProvider>
-        <Navbar />
-        <main>{error ? <Error /> : data && <Tournaments data={data} />}</main>
-        <Footer />
-      </ToastProvider>
-    </ThemeProvider>
-  )
+  return <main>{error ? <Error /> : data && <Tournaments data={data} />}</main>
 }

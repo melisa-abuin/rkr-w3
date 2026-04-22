@@ -7,10 +7,10 @@ import themes from '@/theme'
 const darkThemeSelector = '(prefers-color-scheme: dark)'
 
 export const usePreferredTheme = (): [
-  Theme | null,
-  React.Dispatch<React.SetStateAction<Theme | null>>,
+  Theme,
+  React.Dispatch<React.SetStateAction<Theme>>,
 ] => {
-  const [theme, setTheme] = useState<Theme | null>(null)
+  const [theme, setTheme] = useState<Theme>(themes.light)
 
   useEffect(() => {
     const defaultTheme = window.matchMedia(darkThemeSelector).matches

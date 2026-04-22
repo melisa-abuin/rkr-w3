@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react'
-import { ThemeProvider } from '@/hooks/useTheme'
 import themes from '@/theme'
 import { ReactNode } from 'react'
 
@@ -8,7 +7,7 @@ jest.mock('@/hooks/usePreferredTheme', () => ({
 }))
 
 const renderWithTheme = (ui: ReactNode) => {
-  return render(<ThemeProvider>{ui}</ThemeProvider>)
+  return render(ui)
 }
 
 export { renderWithTheme }
