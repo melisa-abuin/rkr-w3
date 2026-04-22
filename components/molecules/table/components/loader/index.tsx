@@ -14,7 +14,7 @@ export default function Loader({ columns, rows }: Props) {
           {[...Array(columns)].map((_, cellIndex) => (
             <td key={cellIndex} className={styles.td}>
               <br />
-              <LoaderSkeleton height={20} />
+              <LoaderSkeleton height={20} variant="secondary" width="100%" />
             </td>
           ))}
         </tr>
