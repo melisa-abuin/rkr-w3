@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react'
 import ColorBadge from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
-import themes from '@/theme'
 
 describe('ColorBadge', () => {
   afterEach(() => {
@@ -17,22 +16,18 @@ describe('ColorBadge', () => {
     renderWithTheme(<ColorBadge>Default Badge</ColorBadge>)
 
     expect(screen.getByText('Default Badge')).toHaveStyle(
-      `background-color: ${themes.light.badge.red.background}`,
+      'background-color: #e13c3c',
     )
-    expect(screen.getByText('Default Badge')).toHaveStyle(
-      `color: ${themes.light.badge.red.color}`,
-    )
+    expect(screen.getByText('Default Badge')).toHaveStyle('color: #ffffff')
   })
 
   it('uses provided badge color variant', () => {
     renderWithTheme(<ColorBadge colorName="primary">Primary Badge</ColorBadge>)
 
     expect(screen.getByText('Primary Badge')).toHaveStyle(
-      `background-color: ${themes.light.badge.primary.background}`,
+      'background-color: #b24141',
     )
-    expect(screen.getByText('Primary Badge')).toHaveStyle(
-      `color: ${themes.light.badge.primary.color}`,
-    )
+    expect(screen.getByText('Primary Badge')).toHaveStyle('color: #ffffff')
   })
 
   it('returns null when colorName is null', () => {

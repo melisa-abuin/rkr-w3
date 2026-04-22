@@ -3,7 +3,7 @@ import Modal from '@/components/atoms/modal'
 import Button from '@/components/atoms/button'
 import Image from 'next/image'
 import styles from './index.module.css'
-import { usePreferredTheme } from '@/hooks/usePreferredTheme'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import { useToast } from '@/hooks/useToast'
 import { useDownloadStats } from '@/hooks/useDownloadStats'
 import { downloadBlobFile } from '@/utils/downloadBlobFile'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function DownloadModal({ battletag, date }: Props) {
-  const [theme] = usePreferredTheme()
+  const prefersDarkMode = usePrefersDarkMode()
   const { showToast } = useToast()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -69,7 +69,9 @@ export default function DownloadModal({ battletag, date }: Props) {
                 <Image
                   alt="loading"
                   height={16}
-                  src={`/loading-${theme.name}.gif`}
+                  src={
+                    prefersDarkMode ? '/loading-dark.gif' : '/loading-light.gif'
+                  }
                   width={16}
                 />
               ) : (

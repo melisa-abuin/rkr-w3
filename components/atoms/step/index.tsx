@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import styles from './index.module.css'
-import { usePreferredTheme } from '@/hooks/usePreferredTheme'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 
 interface Props {
   imageSrcSet?: {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function Step({ imageSrcSet, stepTitle, text }: Props) {
-  const [theme] = usePreferredTheme()
+  const prefersDarkMode = usePrefersDarkMode()
 
   //TODO: use srcSet images for mobile devices
   return (
@@ -25,7 +25,7 @@ export default function Step({ imageSrcSet, stepTitle, text }: Props) {
         <Image
           alt="Discord screenshot example"
           height={354}
-          src={imageSrcSet[theme.name]}
+          src={prefersDarkMode ? imageSrcSet.dark : imageSrcSet.light}
           width={640}
         />
       )}

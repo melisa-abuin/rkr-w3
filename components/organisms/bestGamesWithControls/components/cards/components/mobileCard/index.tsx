@@ -3,7 +3,6 @@ import styles from './index.module.css'
 import PositionNumber from '@/components/atoms/positionNumber'
 import Tooltip from '@/components/atoms/tooltip'
 import Paws from '@/components/atoms/paws'
-import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 
 interface CardProps {
   date: string
@@ -24,7 +23,6 @@ export default function MobileCard({
 }: CardProps) {
   const members = teamMembers.replace(/#\d+/g, '')
   const matchDate = formatDateToLocale(date)
-  const [theme] = usePreferredTheme()
 
   return (
     <div className={styles.container}>
@@ -39,7 +37,7 @@ export default function MobileCard({
               <h4 className={styles.title}>{formatSecondsAsTime(time)}</h4>
               {showDifficulty && (
                 <Paws
-                  color={theme.text.color.secondary}
+                  color="var(--text-color-secondary)"
                   difficulty={difficulty}
                 />
               )}

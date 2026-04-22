@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import styles from './index.module.css'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
-import { usePreferredTheme } from '@/hooks/usePreferredTheme'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import { useState } from 'react'
 import { routes } from '@/constants'
 import Link from '@/components/atoms/link'
@@ -11,7 +11,7 @@ import Link from '@/components/atoms/link'
 export default function MobileNavbar() {
   const pathname = usePathname()
   const [isAtTopPage] = useIsScrollAtTop()
-  const [theme] = usePreferredTheme()
+  const prefersDarkMode = usePrefersDarkMode()
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -23,7 +23,7 @@ export default function MobileNavbar() {
           className={styles.hamburger}
           height={25}
           src={
-            shouldShowTransparentNav || theme.name === 'dark'
+            shouldShowTransparentNav || prefersDarkMode
               ? '/hamburger-white.png'
               : '/hamburger-black.png'
           }

@@ -1,21 +1,8 @@
 import { screen } from '@testing-library/react'
 import TextWithIcon from '..'
 import { renderWithTheme } from '@/utils/renderWithTheme'
-import themes from '@/theme'
-
-jest.mock('@/hooks/usePreferredTheme', () => ({
-  usePreferredTheme: jest.fn(),
-}))
-
-const mockUsePreferredTheme = jest.requireMock(
-  '@/hooks/usePreferredTheme',
-).usePreferredTheme
 
 describe('TextWithIcon', () => {
-  beforeEach(() => {
-    mockUsePreferredTheme.mockReturnValue([themes.light, jest.fn()])
-  })
-
   it('renders children correctly', () => {
     renderWithTheme(<TextWithIcon>Test Text</TextWithIcon>)
     expect(screen.getByText('Test Text')).toBeInTheDocument()
@@ -23,16 +10,12 @@ describe('TextWithIcon', () => {
 
   it('applies default color when no colorName is provided', () => {
     renderWithTheme(<TextWithIcon>Test</TextWithIcon>)
-    expect(screen.getByText('Test')).toHaveStyle(
-      `color: ${themes.light.text.color.primary}`,
-    )
+    expect(screen.getByText('Test')).toHaveStyle('color: #050505')
   })
 
   it('applies the correct color when colorName is provided', () => {
     renderWithTheme(<TextWithIcon colorName="yellow">Test</TextWithIcon>)
-    expect(screen.getByText('Test')).toHaveStyle(
-      `color: ${themes.light.color.yellow}`,
-    )
+    expect(screen.getByText('Test')).toHaveStyle('color: #ff6c00')
   })
 
   it('renders the correct icon when iconName is "crown"', () => {
