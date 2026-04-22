@@ -3,7 +3,7 @@ import Modal from '@/components/atoms/modal'
 import Button from '@/components/atoms/button'
 import Image from 'next/image'
 import styles from './index.module.css'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 import { useToast } from '@/hooks/useToast'
 import { useDownloadStats } from '@/hooks/useDownloadStats'
 import { downloadBlobFile } from '@/utils/downloadBlobFile'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function DownloadModal({ battletag, date }: Props) {
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
   const { showToast } = useToast()
 
   const [isModalOpen, setIsModalOpen] = useState(false)

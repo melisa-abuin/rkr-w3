@@ -1,5 +1,5 @@
 import { Paw } from '@/components/icons/paw'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 import styles from './index.module.css'
 
 interface PawsProps {
@@ -15,7 +15,7 @@ const difficultyPawCounter = {
 }
 
 export default function Paws({ color, difficulty }: PawsProps) {
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
   const difficultyValue = difficulty.toLocaleLowerCase()
   if (difficultyValue in difficultyPawCounter === false) return null
 

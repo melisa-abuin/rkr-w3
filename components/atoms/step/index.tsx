@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import styles from './index.module.css'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 
 interface Props {
   imageSrcSet?: {
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function Step({ imageSrcSet, stepTitle, text }: Props) {
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
 
   //TODO: use srcSet images for mobile devices
   return (

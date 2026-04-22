@@ -2,7 +2,7 @@ import { getStoredGold, saveGold } from '@/utils'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import { Coins } from '@/components/icons/coins'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 
 interface Props {
   goldGained?: number
@@ -10,7 +10,7 @@ interface Props {
 
 export default function Gold({ goldGained = 0 }: Props) {
   const [currentGold, setCurrentGold] = useState<number>(() => getStoredGold())
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
 
   useEffect(() => {
     const newGold = getStoredGold() + goldGained

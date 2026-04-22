@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation'
 import styles from './index.module.css'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 import { useState } from 'react'
 import { routes } from '@/constants'
 import Link from '@/components/atoms/link'
@@ -11,7 +11,7 @@ import Link from '@/components/atoms/link'
 export default function MobileNavbar() {
   const pathname = usePathname()
   const [isAtTopPage] = useIsScrollAtTop()
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 

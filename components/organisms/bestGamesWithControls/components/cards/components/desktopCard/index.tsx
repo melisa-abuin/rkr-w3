@@ -8,7 +8,7 @@ import Tooltip from '@/components/atoms/tooltip'
 import { GameStats } from '@/interfaces/game'
 import { useState } from 'react'
 import { Chevron } from '@/components/icons/chevron'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 
 interface DesktopCardProps {
   date: string
@@ -30,7 +30,7 @@ export default function DesktopCard({
   const matchDate = formatDateToLocale(date)
   const members = teamMembers.split(', ')
   const [showRoundTimes, setShowRoundTimes] = useState(false)
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
 
   return (
     <div className={styles.desktopOnly}>

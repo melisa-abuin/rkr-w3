@@ -1,7 +1,7 @@
 import React from 'react'
 import { Wing } from '@/components/icons/wing'
 import styles from './index.module.css'
-import { useTheme } from '@/hooks/useTheme'
+import { usePreferredTheme } from '@/hooks/usePreferredTheme'
 import { SaveStreak as SaveStreakI } from '@/interfaces/player'
 import { Bolt } from '@/components/icons/bolt'
 
@@ -9,7 +9,7 @@ interface Props {
   data: SaveStreakI
 }
 export default function SaveStreak({ data }: Props) {
-  const [theme] = useTheme()
+  const [theme] = usePreferredTheme()
   const { highestScore, redLightning, patrioticTendrils } = data
 
   const saveStreakToShow = () => {
