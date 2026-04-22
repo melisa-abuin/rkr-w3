@@ -6,7 +6,6 @@ import Error from '@/components/molecules/error'
 import { ToastProvider } from '@/hooks/useToast'
 import Stats from '@/components/templates/stats'
 import { getBaseUrlFromHeaders } from '@/utils'
-import '../../theme/light.css' // TODO: create hook for no styled components theming
 
 interface PlayerStatsData {
   error: string | null

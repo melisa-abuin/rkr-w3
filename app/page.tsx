@@ -5,7 +5,6 @@ import Navbar from '@/components/molecules/navbar'
 import Footer from '@/components/molecules/footer'
 import { ToastProvider } from '@/hooks/useToast'
 import Home from '@/components/templates/home'
-import '../theme/light.css' // TODO: create hook for no styled components theming
 
 async function getDiscordData(): Promise<DiscordType> {
   try {

@@ -5,7 +5,6 @@ import { ToastProvider } from '@/hooks/useToast'
 import Error from '@/components/molecules/error'
 import TournamentDetail from '@/components/templates/tournamentDetail'
 import { getBaseUrlFromHeaders } from '@/utils'
-import '../../../theme/light.css' // TODO: create hook for no styled components theming
 
 async function fetchData(id: string) {
   const url = await getBaseUrlFromHeaders()
