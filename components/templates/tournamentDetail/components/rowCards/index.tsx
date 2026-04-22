@@ -3,7 +3,7 @@
 import PositionCard from '@/components/molecules/positionCard'
 import { Tournament } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
-import Column from '../column'
+import Column from './components/column'
 import styles from './index.module.css'
 import PlayerTag from '@/components/molecules/playerTag'
 
