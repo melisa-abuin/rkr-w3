@@ -1,8 +1,7 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { Badge } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import styles from './index.module.css'
 import { BadgeColor } from '@/interfaces/theme'
 
 interface ColorBadgeProps {
@@ -10,22 +9,48 @@ interface ColorBadgeProps {
   colorName?: BadgeColor | null
 }
 
+const colorVariants: Record<BadgeColor, string> = {
+  primary: styles.colorPrimary,
+  tertiary: styles.colorTertiary,
+  red: styles.colorRed,
+  blue: styles.colorBlue,
+  teal: styles.colorTeal,
+  purple: styles.colorPurple,
+  yellow: styles.colorYellow,
+  orange: styles.colorOrange,
+  green: styles.colorGreen,
+  pink: styles.colorPink,
+  gray: styles.colorGray,
+  lightblue: styles.colorLightblue,
+  darkgreen: styles.colorDarkgreen,
+  brown: styles.colorBrown,
+  maroon: styles.colorMaroon,
+  navy: styles.colorNavy,
+  turquoise: styles.colorTurquoise,
+  violet: styles.colorViolet,
+  wheat: styles.colorWheat,
+  peach: styles.colorPeach,
+  mint: styles.colorMint,
+  lavender: styles.colorLavender,
+  coal: styles.colorCoal,
+  snow: styles.colorSnow,
+  emerald: styles.colorEmerald,
+  peanut: styles.colorPeanut,
+}
+
 export default function ColorBadge({
   children,
   colorName = 'red',
 }: ColorBadgeProps) {
-  const [theme] = useTheme()
-
   if (!colorName) {
     return null
   }
 
-  if (!theme.badge[colorName]) {
-    console.error(
-      `Badge color "${colorName}" is not defined in ${theme.name} theme.`,
-    )
-    return null
-  }
+  const colorClass = colorVariants[colorName]
 
-  return <Badge {...theme.badge[colorName]}>{children}</Badge>
+  return (
+    <span className={`${styles.badge} ${colorClass || styles.colorRed}`}>
+      {children}
+    </span>
+  )
 }
