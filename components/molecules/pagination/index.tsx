@@ -1,13 +1,7 @@
 import React from 'react'
-import {
-  OuterContainer,
-  InnerContainer,
-  DesktopButtonContainer,
-  MobileButtonContainer,
-} from './styled'
+import styles from './index.module.css'
 import Button from '@/components/atoms/button'
 import { Chevron } from '@/components/icons/chevron'
-import { useTheme } from '@/hooks/useTheme'
 
 interface PaginationProps {
   currentPage: number
@@ -19,8 +13,6 @@ export default function Pagination({
   totalPages,
   onPageChange,
 }: PaginationProps) {
-  const [theme] = useTheme()
-
   const pageOffsetToShow = 3
   const pagesList = Array.from({ length: totalPages }, (_, i) => i + 1)
   const changePage = (page: number) => {
@@ -30,11 +22,11 @@ export default function Pagination({
   }
 
   return (
-    <OuterContainer>
-      <InnerContainer>
+    <div className={styles.outerContainer}>
+      <div className={styles.innerContainer}>
         {currentPage > 1 && (
           <>
-            <DesktopButtonContainer>
+            <div className={styles.desktopButtonContainer}>
               <Button variant="ghost" onClick={() => changePage(1)}>
                 First
               </Button>
@@ -44,10 +36,13 @@ export default function Pagination({
               >
                 Previous
               </Button>
-            </DesktopButtonContainer>
-            <MobileButtonContainer onClick={() => changePage(currentPage - 1)}>
-              <Chevron fill={theme.color.primary} height={16} width={16} />
-            </MobileButtonContainer>
+            </div>
+            <div
+              className={styles.mobileButtonContainer}
+              onClick={() => changePage(currentPage - 1)}
+            >
+              <Chevron fill="var(--color-primary)" height={16} width={16} />
+            </div>
           </>
         )}
         <div>
@@ -70,7 +65,7 @@ export default function Pagination({
         </div>
         {currentPage < totalPages && (
           <>
-            <DesktopButtonContainer>
+            <div className={styles.desktopButtonContainer}>
               <Button
                 variant="ghost"
                 onClick={() => changePage(currentPage + 1)}
@@ -80,18 +75,21 @@ export default function Pagination({
               <Button variant="ghost" onClick={() => changePage(totalPages)}>
                 Last
               </Button>
-            </DesktopButtonContainer>
-            <MobileButtonContainer onClick={() => changePage(currentPage + 1)}>
+            </div>
+            <div
+              className={styles.mobileButtonContainer}
+              onClick={() => changePage(currentPage + 1)}
+            >
               <Chevron
                 flipped
-                fill={theme.color.primary}
+                fill="var(--color-primary)"
                 height={16}
                 width={16}
               />
-            </MobileButtonContainer>
+            </div>
           </>
         )}
-      </InnerContainer>
-    </OuterContainer>
+      </div>
+    </div>
   )
 }

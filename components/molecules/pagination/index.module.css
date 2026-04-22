@@ -1,0 +1,36 @@
+.outerContainer {
+  align-items: center;
+  background-color: var(--background-primary);
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+  width: 100%;
+}
+
+.innerContainer {
+  align-items: center;
+  background-color: var(--background-quaternary);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 8px;
+}
+
+.desktopButtonContainer {
+  display: block;
+}
+
+.mobileButtonContainer {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .desktopButtonContainer {
+    display: none;
+  }
+
+  .mobileButtonContainer {
+    display: block;
+  }
+}
