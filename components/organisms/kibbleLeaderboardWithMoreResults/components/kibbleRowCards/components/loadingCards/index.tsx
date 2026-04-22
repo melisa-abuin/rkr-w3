@@ -1,10 +1,7 @@
 import Loader from '@/components/atoms/loader'
 import PositionCard from '@/components/molecules/positionCard'
-import {
-  ColumnsContainer,
-  Container as CardsContainer,
-} from '@/components/molecules/positionCard/styled'
-import { Col } from './styled'
+import positionCardStyles from '@/components/molecules/positionCard/index.module.css'
+import styles from './index.module.css'
 
 interface Props {
   rows?: number
@@ -13,23 +10,23 @@ interface Props {
 
 export default function LoadingCards({ rows = 5, columns }: Props) {
   return (
-    <CardsContainer>
+    <div className={positionCardStyles.container}>
       {[...Array(rows)].map((_, rowIndex) => (
         <PositionCard key={rowIndex} position={rowIndex + 1}>
-          <Col>
+          <div className={styles.col}>
             <Loader height={30} variant="secondary" width={'60%'} />
             <Loader height={20} variant="secondary" width={'60%'} />
-          </Col>
-          <ColumnsContainer>
+          </div>
+          <div className={positionCardStyles.columnsContainer}>
             {[...Array(columns)].map((_, colIndex) => (
-              <Col key={colIndex}>
+              <div key={colIndex} className={styles.col}>
                 <Loader height={30} variant="secondary" width={'80%'} />
                 <Loader height={20} variant="secondary" width={'80%'} />
-              </Col>
+              </div>
             ))}
-          </ColumnsContainer>
+          </div>
         </PositionCard>
       ))}
-    </CardsContainer>
+    </div>
   )
 }

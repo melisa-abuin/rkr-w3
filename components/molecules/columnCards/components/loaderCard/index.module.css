@@ -1,0 +1,32 @@
+.loaderContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  position: relative;
+}
+
+.td {
+  background-color: var(--background-highlight-primary);
+  color: var(--text-color-primary);
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  transition: opacity 0.1s ease;
+}
+
+.row td:first-child {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row td:last-child {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}

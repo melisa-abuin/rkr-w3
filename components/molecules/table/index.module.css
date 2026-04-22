@@ -1,0 +1,98 @@
+.container {
+  align-items: center;
+  background-color: var(--background-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .container {
+    align-items: flex-start;
+    overflow-x: auto;
+  }
+}
+
+.table {
+  background-color: var(--background-quaternary);
+  border-collapse: separate;
+  border-spacing: 0;
+  max-width: 1000px;
+  padding: 16px;
+  width: 100%;
+}
+
+.table caption {
+  font-weight: var(--font-weight-bold);
+  padding: 16px 0;
+  text-align: left;
+}
+
+.table tr:nth-child(odd) {
+  background-color: var(--background-highlight-primary);
+}
+
+.table th:first-child {
+  min-width: 140px;
+}
+
+.th {
+  background-color: var(--background-quaternary);
+  font-weight: var(--font-weight-bold);
+  padding: 10px;
+  text-align: center;
+  transition: background-color 1s;
+}
+
+.thHighlighted {
+  border-bottom: 1px solid var(--text-color-tertiary);
+}
+
+.thWithActions {
+  cursor: pointer;
+}
+
+.tr {
+  border: none;
+  border-radius: 10px;
+  color: var(--text-color-tertiary);
+}
+
+.td {
+  border: none;
+  color: var(--text-color-primary);
+  padding: 10px;
+  text-align: center;
+  transition: background-color 1s;
+}
+
+.tdHighlightedEven {
+  background-color: var(--background-highlight-tertiary);
+}
+
+.tdHighlightedOdd {
+  background-color: var(--background-highlight-secondary);
+}
+
+.title {
+  align-items: center;
+  color: var(--text-color-primary);
+  display: flex;
+  font-size: var(--font-size-md);
+  font-weight: bold;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.title a {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.title a:hover {
+  text-decoration: underline;
+}

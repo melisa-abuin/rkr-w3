@@ -1,0 +1,19 @@
+.outerContainer {
+  align-items: center;
+  background-color: var(--background-primary);
+  display: flex;
+  justify-content: flex-start;
+  overflow: auto;
+  width: 100%;
+}
+
+.innerContainer {
+  align-items: center;
+  background-color: var(--background-quaternary);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  padding: 8px;
+}

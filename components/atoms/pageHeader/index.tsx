@@ -1,6 +1,6 @@
 'use client'
 
-import { Header, Info, Title } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   align?: 'center' | 'flex-start'
@@ -14,9 +14,15 @@ export default function PageHeader({
   title,
 }: Props) {
   return (
-    <Header align={align}>
-      <Title>{title}</Title>
-      <Info align={align}>{description}</Info>
-    </Header>
+    <header
+      className={`${styles.header} ${align === 'center' ? styles.headerCenter : styles.headerStart}`}
+    >
+      <h1 className={styles.title}>{title}</h1>
+      <p
+        className={`${styles.info} ${align === 'center' ? styles.infoCenter : styles.infoStart}`}
+      >
+        {description}
+      </p>
+    </header>
   )
 }

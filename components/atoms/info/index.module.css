@@ -1,0 +1,22 @@
+.container {
+  align-items: center;
+  background-color: var(--background-primary);
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+  padding-top: 2rem;
+}
+
+.container li {
+  padding: 8px 0;
+}
+
+.text {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs-sm);
+  max-width: 1000px;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}

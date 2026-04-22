@@ -55,20 +55,11 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
         playerStats.skins = transformKeysToCamelCase(SelectedData)
 
-        if (!KibbleCurrency || !PersonalBests) {
-          playerStats.kibbles = {
-            allTime: 0,
-            jackpots: 0,
-            superJackpots: 0,
-            singleGame: 0,
-          }
-        } else {
-          playerStats.kibbles = {
-            allTime: KibbleCurrency.Collected,
-            jackpots: KibbleCurrency.Jackpots,
-            superJackpots: KibbleCurrency.SuperJackpots,
-            singleGame: PersonalBests.KibbleCollected,
-          }
+        playerStats.kibbles = {
+          allTime: KibbleCurrency?.Collected ?? 0,
+          jackpots: KibbleCurrency?.Jackpots ?? 0,
+          superJackpots: KibbleCurrency?.SuperJackpots ?? 0,
+          singleGame: PersonalBests?.KibbleCollected ?? 0,
         }
 
         return playerStats

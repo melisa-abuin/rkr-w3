@@ -1,4 +1,4 @@
-import { Container, Description, Title } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   value: number
@@ -11,10 +11,14 @@ export default function Column({
   description,
   hideOnMobile = false,
 }: Props) {
+  const className = `${styles.container} ${
+    hideOnMobile ? styles.containerHiddenOnMobile : ''
+  }`
+
   return (
-    <Container $hideOnMobile={hideOnMobile}>
-      <Title>{value || 0}</Title>
-      <Description>{description}</Description>
-    </Container>
+    <div className={className}>
+      <p className={styles.title}>{value || 0}</p>
+      <span className={styles.description}>{description}</span>
+    </div>
   )
 }

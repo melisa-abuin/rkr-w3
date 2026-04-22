@@ -1,7 +1,7 @@
 import Link from '@/components/atoms/link'
 import Image from '@/components/atoms/image'
 import { BattleTag as BattleTagI, Skins } from '@/interfaces/player'
-import { Container, ImageContainer, SubTitle, TextContainer } from './styled'
+import styles from './index.module.css'
 
 const formatSkinName = (skin: Skins) => {
   if (!skin.selectedSkin) return '/potm.png'
@@ -15,26 +15,26 @@ interface Props {
 
 export default function PlayerTag({ battleTag, skins = null }: Props) {
   return (
-    <Container>
+    <div className={styles.container}>
       {skins && (
-        <ImageContainer>
+        <div className={styles.imageContainer}>
           <Image
             colored
             alt={battleTag.tag}
             fallbackSrc={'/potm.png'}
             src={formatSkinName(skins)}
           />
-        </ImageContainer>
+        </div>
       )}
-      <TextContainer>
+      <div className={styles.textContainer}>
         <Link
           color="brandSecondary"
           href={`/player/${encodeURIComponent(battleTag.tag)}`}
         >
           {battleTag.name}
         </Link>
-        <SubTitle>{battleTag.tag}</SubTitle>
-      </TextContainer>
-    </Container>
+        <p className={styles.subTitle}>{battleTag.tag}</p>
+      </div>
+    </div>
   )
 }

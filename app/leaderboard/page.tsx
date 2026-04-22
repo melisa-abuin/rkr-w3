@@ -6,6 +6,7 @@ import LeaderboardTemplate from '@/components/templates/leaderboard'
 import { ToastProvider } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { getBaseUrlFromHeaders } from '@/utils'
+import '../../theme/light.css' // TODO: create hook for no styled components theming
 
 interface PlayerStatsData {
   error: string | null

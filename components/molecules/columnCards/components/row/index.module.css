@@ -1,0 +1,67 @@
+.row {
+  position: relative;
+}
+
+.row td {
+  background-color: var(--background-highlight-primary);
+}
+
+.rowSelected td {
+  background-color: var(--background-highlight-tertiary);
+}
+
+.td {
+  background-color: var(--background-highlight-primary);
+  color: var(--text-color-primary);
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  transition: opacity 0.1s ease;
+}
+
+.baseTd {
+  opacity: 1;
+}
+
+.hoverTd {
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.hoverTd a {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.row td:first-child {
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row td:last-child {
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.rowHoverable {
+  cursor: pointer;
+}
+
+.rowHoverable:hover .baseTd,
+.rowHoverable:active .baseTd {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rowHoverable:hover .hoverTd,
+.rowHoverable:active .hoverTd {
+  opacity: 1;
+}

@@ -1,13 +1,5 @@
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
-import {
-  Container,
-  Description,
-  Header,
-  NameList,
-  Row,
-  Title,
-  Wrapper,
-} from './styled'
+import styles from './index.module.css'
 import PositionNumber from '@/components/atoms/positionNumber'
 import Tooltip from '@/components/atoms/tooltip'
 import Paws from '@/components/atoms/paws'
@@ -35,29 +27,29 @@ export default function MobileCard({
   const [theme] = useTheme()
 
   return (
-    <Container>
-      <Header>
+    <div className={styles.container}>
+      <div className={styles.header}>
         <PositionNumber isSmall pos={position} />
-        <Wrapper>
+        <div className={styles.wrapper}>
           <Tooltip
             ariaLabel="Difficulty"
             body={`${formatSecondsAsTime(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
           >
-            <Row>
-              <Title>{formatSecondsAsTime(time)}</Title>
+            <div className={styles.row}>
+              <h4 className={styles.title}>{formatSecondsAsTime(time)}</h4>
               {showDifficulty && (
                 <Paws
                   color={theme.text.color.secondary}
                   difficulty={difficulty}
                 />
               )}
-            </Row>
+            </div>
           </Tooltip>
 
-          <Description>{matchDate}</Description>
-        </Wrapper>
-      </Header>
-      <NameList>{members}</NameList>
-    </Container>
+          <span className={styles.description}>{matchDate}</span>
+        </div>
+      </div>
+      <div className={styles.nameList}>{members}</div>
+    </div>
   )
 }

@@ -1,0 +1,7 @@
+.container {
+  color: var(--text-color-primary);
+}
+
+.containerHighlighted {
+  color: var(--color-green);
+}

@@ -1,13 +1,5 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
-import {
-  DesktopOnly,
-  Date,
-  DetailContainer,
-  IconButton,
-  Info,
-  Row,
-  Wrapper,
-} from './styled'
+import styles from './index.module.css'
 import PositionCard from '@/components/molecules/positionCard'
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -41,19 +33,20 @@ export default function DesktopCard({
   const [theme] = useTheme()
 
   return (
-    <DesktopOnly>
+    <div className={styles.desktopOnly}>
       <PositionCard position={position}>
-        <DetailContainer>
-          <Row>
-            <Info>
-              <Wrapper>
+        <div className={styles.detailContainer}>
+          <div className={styles.row}>
+            <div className={styles.info}>
+              <div className={styles.wrapper}>
                 <Tooltip body={formatSecondsAsTime(times.total, true)}>
                   <TextWithIcon colorName="tertiary" iconName="clock">
                     {formatSecondsAsTime(times.total, showRoundTimes)}
                   </TextWithIcon>
                 </Tooltip>
                 {!!times.roundOne && (
-                  <IconButton
+                  <button
+                    className={styles.iconButton}
                     onClick={() => setShowRoundTimes((prev) => !prev)}
                   >
                     <Chevron
@@ -62,30 +55,30 @@ export default function DesktopCard({
                       height={16}
                       width={16}
                     />
-                  </IconButton>
+                  </button>
                 )}
-              </Wrapper>
+              </div>
 
               {showRoundTimes && times.roundOne && (
-                <Wrapper>
+                <div className={styles.wrapper}>
                   <small>Round times:</small>
                   <small>{formatSecondsAsTime(times.roundOne)}</small>
                   <small>{formatSecondsAsTime(times.roundTwo)}</small>
                   <small>{formatSecondsAsTime(times.roundThree)}</small>
                   <small>{formatSecondsAsTime(times.roundFour)}</small>
                   <small>{formatSecondsAsTime(times.roundFive)}</small>
-                </Wrapper>
+                </div>
               )}
               {showDifficulty && (
                 <TextWithIcon colorName="secondary" iconName="paw">
                   {difficulty}
                 </TextWithIcon>
               )}
-            </Info>
-            <Date>{matchDate}</Date>
-          </Row>
+            </div>
+            <span className={styles.date}>{matchDate}</span>
+          </div>
 
-          <Wrapper>
+          <div className={styles.wrapper}>
             {members.map((memeber) => (
               <Button
                 key={memeber}
@@ -98,9 +91,9 @@ export default function DesktopCard({
                 {memeber.split('#')[0]}
               </Button>
             ))}
-          </Wrapper>
-        </DetailContainer>
+          </div>
+        </div>
       </PositionCard>
-    </DesktopOnly>
+    </div>
   )
 }

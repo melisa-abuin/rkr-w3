@@ -25,7 +25,7 @@ export type Renderer<T = unknown> = (
 ) => ReactNode
 
 const renderTooltip: Renderer<TooltipData> = (value, difficultyFilter) => {
-  if (!value) return null
+  if (value === null) return null
 
   if (typeof value === 'number') return <>{value}</>
   if ('best' in value) {

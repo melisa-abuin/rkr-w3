@@ -1,0 +1,11 @@
+.container {
+  align-items: center;
+  background-color: var(--background-primary);
+  color: var(--text-color-primary);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  padding: 2rem;
+  padding-top: 100px;
+}

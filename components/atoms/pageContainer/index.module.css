@@ -1,0 +1,30 @@
+.outerContainer {
+  align-items: center;
+  background-color: var(--background-primary);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.innerContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.title {
+  color: var(--text-color-primary);
+  text-transform: capitalize;
+  width: 100%;
+}
+
+.titleCenter {
+  text-align: center;
+}
+
+.titleLeft {
+  text-align: left;
+}

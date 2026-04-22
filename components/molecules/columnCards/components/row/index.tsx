@@ -1,7 +1,7 @@
 import { formatSecondsAsTime } from '@/utils'
-import { Tr, BaseTd, HoverTd, Td } from './styled'
 import { BattleTag, BestTime } from '@/interfaces/player'
 import Link from '@/components/atoms/link'
+import styles from './index.module.css'
 
 interface Props {
   player?: BattleTag
@@ -21,35 +21,45 @@ const isBestTime = (data: number | BestTime): data is BestTime => {
 
 export default function Row({ player, data, hoverable, isSelected }: Props) {
   const isEmptyRow = !player || data === undefined || data === null
+  const isHoverableRow = hoverable && !isEmptyRow && isBestTime(data)
+  const rowClassName = [
+    styles.row,
+    isHoverableRow ? styles.rowHoverable : '',
+    isSelected ? styles.rowSelected : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   if (isEmptyRow) {
     return (
-      <Tr>
-        <Td>--</Td>
-        <Td>--</Td>
-      </Tr>
+      <tr className={styles.row}>
+        <td className={styles.td}>--</td>
+        <td className={styles.td}>--</td>
+      </tr>
     )
   }
   const encodedTag = encodeURIComponent(player.tag)
   const playerLink = `/player/${encodedTag}`
 
   return (
-    <Tr hoverable={hoverable && isBestTime(data)} isSelected={isSelected}>
-      <BaseTd>
+    <tr className={rowClassName}>
+      <td className={`${styles.td} ${styles.baseTd}`}>
         <Link href={playerLink}>{player.name}</Link>
-      </BaseTd>
+      </td>
       {isBestTime(data) ? (
         <>
-          <BaseTd>{formatSecondsAsTime(data.time)}</BaseTd>
+          <td className={`${styles.td} ${styles.baseTd}`}>
+            {formatSecondsAsTime(data.time)}
+          </td>
           {hoverable && (
-            <HoverTd>
+            <td className={`${styles.td} ${styles.hoverTd}`}>
               <Link href={playerLink}>{data.difficulty}</Link>
-            </HoverTd>
+            </td>
           )}
         </>
       ) : (
-        <Td>{data}</Td>
+        <td className={styles.td}>{data}</td>
       )}
-    </Tr>
+    </tr>
   )
 }

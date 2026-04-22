@@ -1,18 +1,10 @@
 import Image from 'next/image'
 
+import styles from './loading.module.css'
+
 export default function Loading() {
   return (
-    <div
-      style={{
-        alignItems: 'center',
-        color: 'gray',
-        display: 'flex',
-        gap: '10px',
-        height: '100vh',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}
-    >
+    <div className={styles.wrapper}>
       <Image
         priority
         alt="loading-icon"
@@ -22,11 +14,7 @@ export default function Loading() {
       />
       Run Kitty Run
       <br />
-      <div
-        style={{
-          paddingTop: '16px',
-        }}
-      >
+      <div className={styles.progressContainer}>
         <Image
           priority
           alt="loading-progress"

@@ -1,14 +1,7 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import {
-  StyledTable,
-  StyledTh,
-  StyledTr,
-  StyledTd,
-  Container,
-  Title,
-} from './styled'
+import styles from './index.module.css'
 import LoaderTable from './components/loader'
 import { renderers, defaultRenderer } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -55,32 +48,43 @@ export default function Table<T>({
   )
 
   return (
-    <Container aria-labelledby={title || 'Player stats'}>
-      <StyledTable aria-label="Player Stats">
+    <section
+      aria-labelledby={title || 'Player stats'}
+      className={styles.container}
+    >
+      <table aria-label="Player Stats" className={styles.table}>
         <caption id={title || 'Player stats'}>
           {title && (
-            <Title>
+            <div className={styles.title}>
               <span>{title}</span>
               {headerLink}
-            </Title>
+            </div>
           )}
           {filters}
         </caption>
         <thead>
-          <StyledTr>
-            {cols.map(({ key, title }) => (
-              <StyledTh
-                key={key as string}
-                colSpan={1}
-                hasActions={!!onTableSort}
-                highlighted={highlightedColumn === key}
-                scope="col"
-                onClick={() => onTableHeadClick(key)}
-              >
-                {title}
-              </StyledTh>
-            ))}
-          </StyledTr>
+          <tr className={styles.tr}>
+            {cols.map(({ key, title }) => {
+              const thClassName = [
+                styles.th,
+                highlightedColumn === key ? styles.thHighlighted : '',
+                !!onTableSort ? styles.thWithActions : '',
+              ]
+                .filter(Boolean)
+                .join(' ')
+              return (
+                <th
+                  key={key as string}
+                  className={thClassName}
+                  colSpan={1}
+                  scope="col"
+                  onClick={() => onTableHeadClick(key)}
+                >
+                  {title}
+                </th>
+              )
+            })}
+          </tr>
         </thead>
         {loading ? (
           <LoaderTable columns={cols.length} rows={pageSize} />
@@ -90,24 +94,33 @@ export default function Table<T>({
               <tr key={index}>
                 {cols.map(({ key, title, render }) => {
                   const renderer = renderers[key as string] ?? defaultRenderer
+                  const tdClassName = [
+                    styles.td,
+                    highlightedColumn === key
+                      ? index % 2 !== 0
+                        ? styles.tdHighlightedOdd
+                        : styles.tdHighlightedEven
+                      : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ')
                   return (
-                    <StyledTd
+                    <td
                       key={`${key as string} ${index}`}
+                      className={tdClassName}
                       data-label={title}
-                      highlighted={highlightedColumn === key}
-                      index={index}
                     >
                       {render
                         ? render(player, difficultyFilter)
                         : renderer(player[key], difficultyFilter)}
-                    </StyledTd>
+                    </td>
                   )
                 })}
               </tr>
             ))}
           </tbody>
         )}
-      </StyledTable>
-    </Container>
+      </table>
+    </section>
   )
 }

@@ -1,0 +1,70 @@
+.link {
+  padding: 0;
+  text-decoration: none;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.colorBlack {
+  color: var(--text-color-black);
+}
+
+.colorBlack:hover {
+  color: var(--text-hover-black);
+}
+
+.colorBrandPrimary {
+  color: var(--text-color-brand-primary);
+}
+
+.colorBrandPrimary:hover {
+  color: var(--text-hover-brand-primary);
+}
+
+.colorBrandSecondary {
+  color: var(--text-color-brand-secondary);
+}
+
+.colorBrandSecondary:hover {
+  color: var(--text-hover-brand-secondary);
+}
+
+.colorHighlight {
+  color: var(--text-color-highlight);
+}
+
+.colorHighlight:hover {
+  color: var(--text-hover-highlight);
+}
+
+.colorPrimary {
+  color: var(--text-color-primary);
+}
+
+.colorPrimary:hover {
+  color: var(--text-hover-primary);
+}
+
+.colorSecondary {
+  color: var(--text-color-secondary);
+}
+
+.colorSecondary:hover {
+  color: var(--text-hover-secondary);
+}
+
+.colorTertiary {
+  color: var(--text-color-tertiary);
+}
+
+.colorTertiary:hover {
+  color: var(--text-hover-tertiary);
+}
+
+.colorWhite {
+  color: var(--text-color-white);
+}
+
+.colorWhite:hover {
+  color: var(--text-hover-white);
+}

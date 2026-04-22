@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, Container, Header, Footer, Table } from './styled'
+import styles from './index.module.css'
 import LoaderCard from './components/loaderCard'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Row from './components/row'
@@ -35,13 +35,13 @@ export default function ColumnCards({
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       {data
         ?.filter(({ key }) => isRoundDifficultyAvailable(key, difficulty))
         .map(({ category, data, key }) => (
-          <Card key={key}>
-            <Header>{category}</Header>
-            <Table>
+          <div key={key} className={styles.card}>
+            <div className={styles.header}>{category}</div>
+            <table className={styles.table}>
               <tbody>
                 {data?.map(({ player, data }, index) => (
                   <Row
@@ -57,14 +57,14 @@ export default function ColumnCards({
                     <Row key={index} hoverable={hoverable} />
                   ))}
               </tbody>
-            </Table>
-            <Footer>
+            </table>
+            <div className={styles.footer}>
               <Link color="secondary" href={getViewAllHref(key)}>
                 View all
               </Link>
-            </Footer>
-          </Card>
+            </div>
+          </div>
         ))}
-    </Container>
+    </div>
   )
 }

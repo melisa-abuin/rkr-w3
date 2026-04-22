@@ -1,6 +1,6 @@
 import React from 'react'
 import { Wing } from '@/components/icons/wing'
-import { Container } from './styled'
+import styles from './index.module.css'
 import { useTheme } from '@/hooks/useTheme'
 import { SaveStreak as SaveStreakI } from '@/interfaces/player'
 import { Bolt } from '@/components/icons/bolt'
@@ -46,10 +46,10 @@ export default function SaveStreak({ data }: Props) {
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       <Icon flipped />
       {saveStreakToShow()}
       <Icon />
-    </Container>
+    </div>
   )
 }

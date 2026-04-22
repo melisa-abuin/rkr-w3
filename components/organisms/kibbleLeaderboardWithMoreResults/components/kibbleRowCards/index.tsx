@@ -1,8 +1,5 @@
 import PositionCard from '@/components/molecules/positionCard'
-import {
-  ColumnsContainer,
-  Container as CardsContainer,
-} from '@/components/molecules/positionCard/styled'
+import positionCardStyles from '@/components/molecules/positionCard/index.module.css'
 import { kibbleLeaderboardColumns } from '@/constants'
 import { Kibbles, Player } from '@/interfaces/player'
 import Column from './components/column'
@@ -20,7 +17,7 @@ export default function KibbleRowCards({ data = [], loading }: Props) {
   }
 
   return (
-    <CardsContainer>
+    <div className={positionCardStyles.container}>
       {data.map((item, index) => (
         <PositionCard
           key={item.battleTag.tag}
@@ -28,7 +25,7 @@ export default function KibbleRowCards({ data = [], loading }: Props) {
           position={index + 1}
         >
           <PlayerTag battleTag={item.battleTag} skins={item.skins} />
-          <ColumnsContainer>
+          <div className={positionCardStyles.columnsContainer}>
             {kibbleLeaderboardColumns.map(({ title, key }) => (
               <Column
                 key={key}
@@ -37,9 +34,9 @@ export default function KibbleRowCards({ data = [], loading }: Props) {
                 value={item.kibbles?.[key as keyof Kibbles] ?? 0}
               />
             ))}
-          </ColumnsContainer>
+          </div>
         </PositionCard>
       ))}
-    </CardsContainer>
+    </div>
   )
 }

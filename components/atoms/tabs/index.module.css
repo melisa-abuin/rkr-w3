@@ -1,0 +1,33 @@
+.wrapper {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+}
+
+.button {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-color-secondary);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  padding: 10px 16px;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  color: var(--text-color-primary);
+}
+
+.buttonActive {
+  border-bottom-color: var(--color-primary);
+  color: var(--text-color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.content {
+  padding: 16px 0;
+}

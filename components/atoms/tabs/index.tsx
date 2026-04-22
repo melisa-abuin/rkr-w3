@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Wrapper, Header, Button, Content } from './styled'
+import styles from './index.module.css'
 
 interface TabsProps {
   children: React.ReactNode[]
@@ -26,19 +26,21 @@ export default function Tabs({
   }
 
   return (
-    <Wrapper>
-      <Header>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
         {titles.map((title, index) => (
-          <Button
+          <button
             key={title}
-            active={index === activeIndex}
+            className={`${styles.button} ${
+              index === activeIndex ? styles.buttonActive : ''
+            }`}
             onClick={() => handleTabClick(index)}
           >
             {title}
-          </Button>
+          </button>
         ))}
-      </Header>
-      <Content>{children[activeIndex]}</Content>
-    </Wrapper>
+      </div>
+      <div className={styles.content}>{children[activeIndex]}</div>
+    </div>
   )
 }

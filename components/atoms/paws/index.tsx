@@ -1,6 +1,6 @@
 import { Paw } from '@/components/icons/paw'
 import { useTheme } from '@/hooks/useTheme'
-import { Row } from './styled'
+import styles from './index.module.css'
 
 interface PawsProps {
   color?: string
@@ -20,7 +20,7 @@ export default function Paws({ color, difficulty }: PawsProps) {
   if (difficultyValue in difficultyPawCounter === false) return null
 
   return (
-    <Row>
+    <div className={styles.row}>
       {[
         ...Array(
           difficultyPawCounter[
@@ -35,6 +35,6 @@ export default function Paws({ color, difficulty }: PawsProps) {
           width={16}
         />
       ))}
-    </Row>
+    </div>
   )
 }

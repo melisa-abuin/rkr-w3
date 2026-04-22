@@ -1,5 +1,5 @@
 import PositionCard from '@/components/molecules/positionCard'
-import { DesktopOnly, DetailContainer, Wrapper } from '../desktopCard/styled'
+import styles from '../desktopCard/index.module.css'
 import Loader from '@/components/atoms/loader'
 
 interface Props {
@@ -9,21 +9,21 @@ interface Props {
 
 export default function LoaderDesktopCard({ position, showDifficulty }: Props) {
   return (
-    <DesktopOnly>
+    <div className={styles.desktopOnly}>
       <PositionCard position={position}>
-        <DetailContainer>
-          <Wrapper>
+        <div className={styles.detailContainer}>
+          <div className={styles.wrapper}>
             <Loader
               height={21}
               variant="secondary"
               width={showDifficulty ? 200 : 100}
             />
-          </Wrapper>
-          <Wrapper>
+          </div>
+          <div className={styles.wrapper}>
             <Loader height={20} variant="secondary" width={400} />
-          </Wrapper>
-        </DetailContainer>
+          </div>
+        </div>
       </PositionCard>
-    </DesktopOnly>
+    </div>
   )
 }

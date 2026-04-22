@@ -36,9 +36,24 @@ export default function Button({
   variant = 'solid',
   ...props
 }: Props) {
-  const className = `${styles.button} ${styles[colorName]} ${styles[variant]} ${
-    small ? styles.small : styles.regular
-  }`
+  const colorVariants: Record<NonNullable<CommonProps['colorName']>, string> = {
+    primary: styles.primary,
+    secondary: styles.secondary,
+    tertiary: styles.tertiary,
+  }
+
+  const buttonVariants: Record<NonNullable<CommonProps['variant']>, string> = {
+    ghost: styles.ghost,
+    outline: styles.outline,
+    solid: styles.solid,
+  }
+
+  const sizeClass = small ? styles.small : styles.regular
+  const colorClass = colorVariants[colorName]
+  const variantClass = buttonVariants[variant]
+  const className = `${styles.button} ${colorClass || styles.primary} ${
+    variantClass || styles.solid
+  } ${sizeClass}`
 
   if (as === 'a') {
     const anchorProps = props as Omit<ButtonAsAnchorProps, keyof CommonProps>
