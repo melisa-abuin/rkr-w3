@@ -1,18 +1,7 @@
 'use client'
 
 import { Awards as AwardsI } from '@/interfaces/player'
-import {
-  Body,
-  Conatiner,
-  Description,
-  ErrorText,
-  Line,
-  Section,
-  SectionContainer,
-  Title,
-  TooltipTitle,
-  TooltipContainer,
-} from './styled'
+import styles from './index.module.css'
 import Image from '@/components/atoms/image'
 import Tooltip from '@/components/atoms/tooltip'
 
@@ -21,27 +10,27 @@ interface Props {
 }
 export default function Awards({ awards }: Props) {
   return (
-    <Conatiner>
-      <Body>
+    <div className={styles.container}>
+      <div className={styles.body}>
         {awards.length > 0 ? (
           awards.map(({ id, awards }) => (
-            <SectionContainer key={id}>
-              <Title>
+            <div key={id} className={styles.sectionContainer}>
+              <h3 className={styles.title}>
                 {id}
-                <Line />
-              </Title>
+                <div className={styles.line} />
+              </h3>
 
-              <Section>
+              <div className={styles.section}>
                 {awards.map(
                   ({ id, completed, description, imagePath, title }) => (
                     <Tooltip
                       key={id}
                       ariaLabel="Award details"
                       body={
-                        <TooltipContainer>
-                          <TooltipTitle>{title}</TooltipTitle>
-                          <Description>{description}</Description>
-                        </TooltipContainer>
+                        <div className={styles.tooltipContainer}>
+                          <h3 className={styles.tooltipTitle}>{title}</h3>
+                          <p className={styles.description}>{description}</p>
+                        </div>
                       }
                     >
                       <Image
@@ -54,17 +43,17 @@ export default function Awards({ awards }: Props) {
                     </Tooltip>
                   ),
                 )}
-              </Section>
-            </SectionContainer>
+              </div>
+            </div>
           ))
         ) : (
-          <ErrorText>
+          <p className={styles.errorText}>
             This player doesn&apos;t have any game awards available. <br />
             Please try updating your save file to the Discord server again or
             reach out to the page administrator for assistance.
-          </ErrorText>
+          </p>
         )}
-      </Body>
-    </Conatiner>
+      </div>
+    </div>
   )
 }

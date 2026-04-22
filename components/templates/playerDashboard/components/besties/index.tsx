@@ -1,7 +1,7 @@
 'use client'
 
 import { FastestBesties } from '@/interfaces/player'
-import { Description, Colored, Container, Wrapper } from './styled'
+import styles from './index.module.css'
 import Button from '@/components/atoms/button'
 
 interface BestiesProps {
@@ -13,12 +13,12 @@ export default function Besties({ battleTag, besties }: BestiesProps) {
   const sortedBesties = besties[3].concat(besties[2])
 
   return (
-    <Container>
-      <Description>
-        Players with whom <Colored>{battleTag}</Colored> has played the fastest
-        games
-      </Description>
-      <Wrapper>
+    <div className={styles.container}>
+      <p className={styles.description}>
+        Players with whom <span className={styles.colored}>{battleTag}</span>{' '}
+        has played the fastest games
+      </p>
+      <div className={styles.wrapper}>
         {sortedBesties.map((player) => (
           <Button
             key={player}
@@ -30,7 +30,7 @@ export default function Besties({ battleTag, besties }: BestiesProps) {
             {player.split('#')[0]}
           </Button>
         ))}
-      </Wrapper>
-    </Container>
+      </div>
+    </div>
   )
 }

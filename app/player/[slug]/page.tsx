@@ -7,6 +7,7 @@ import { Player } from '@/interfaces/player'
 import { notFound } from 'next/navigation'
 import { ToastProvider } from '@/hooks/useToast'
 import { getBaseUrlFromHeaders } from '@/utils'
+import '../../../theme/light.css' // TODO: create hook for no styled components theming
 
 interface PlayerStatsData {
   error: string | null

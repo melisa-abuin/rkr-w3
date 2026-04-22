@@ -1,0 +1,31 @@
+.container {
+  align-items: flex-start;
+  background-color: var(--background-quaternary);
+  border-radius: 3px;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+  width: 100%;
+}
+
+.description {
+  color: var(--text-color-secondary);
+  margin: 0;
+  font-size: var(--font-size-xs);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.colored {
+  color: var(--text-color-brand-secondary);
+  font-weight: bold;
+  font-size: var(--font-size-xs);
+}

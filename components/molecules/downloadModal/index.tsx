@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from '@/components/atoms/modal'
 import Button from '@/components/atoms/button'
 import Image from 'next/image'
-import { ButtonGroup, Colored, Content } from './styled'
+import styles from './index.module.css'
 import { useTheme } from '@/hooks/useTheme'
 import { useToast } from '@/hooks/useToast'
 import { useDownloadStats } from '@/hooks/useDownloadStats'
@@ -44,12 +44,13 @@ export default function DownloadModal({ battletag, date }: Props) {
         title="Download my file stats"
         onClose={() => setIsModalOpen(false)}
       >
-        <Content>
+        <div className={styles.content}>
           <div>
             <p>
               You are about to download the file containing{' '}
-              <Colored>{battletag}</Colored>&apos;s stats, last updated on{' '}
-              <Colored>{date}</Colored>.
+              <strong className={styles.colored}>{battletag}</strong>&apos;s
+              stats, last updated on{' '}
+              <strong className={styles.colored}>{date}</strong>.
             </p>
             <p>
               Once downloaded place it into your Documents/Warcraft
@@ -59,7 +60,7 @@ export default function DownloadModal({ battletag, date }: Props) {
               Only download this file if you have lost your local stats file.
             </p>
           </div>
-          <ButtonGroup>
+          <div className={styles.buttonGroup}>
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
@@ -75,8 +76,8 @@ export default function DownloadModal({ battletag, date }: Props) {
                 'Proceed'
               )}
             </Button>
-          </ButtonGroup>
-        </Content>
+          </div>
+        </div>
       </Modal>
     </>
   )

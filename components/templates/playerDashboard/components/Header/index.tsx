@@ -1,7 +1,7 @@
 'use client'
 
 import { Player, Tops } from '@/interfaces/player'
-import { Badges, Container, FloatingTitle, Title } from './styled'
+import styles from './index.module.css'
 import { formatKeyToWord } from '@/utils'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useElementInView } from '@/hooks/useElementInView'
@@ -61,24 +61,34 @@ export default function Header({ battleTag, color, skin, title }: Props) {
 
   if (isFetching) {
     return (
-      <Container>
+      <header className={styles.container}>
         {showFloatingTitle && (
-          <FloatingTitle aria-hidden>{title}</FloatingTitle>
+          <h2 aria-hidden className={styles.floatingTitle}>
+            {title}
+          </h2>
         )}
-        <Title ref={elementRef}>{title}</Title>
-        <Badges>
+        <h1 ref={elementRef} className={styles.title}>
+          {title}
+        </h1>
+        <div className={styles.badges}>
           <Loader height={28} width={120} />
           <Loader height={28} width={120} />
-        </Badges>
-      </Container>
+        </div>
+      </header>
     )
   }
 
   return (
-    <Container>
-      {showFloatingTitle && <FloatingTitle aria-hidden>{title}</FloatingTitle>}
-      <Title ref={elementRef}>{title}</Title>
-      <Badges>
+    <header className={styles.container}>
+      {showFloatingTitle && (
+        <h2 aria-hidden className={styles.floatingTitle}>
+          {title}
+        </h2>
+      )}
+      <h1 ref={elementRef} className={styles.title}>
+        {title}
+      </h1>
+      <div className={styles.badges}>
         {skin && (
           <ColorBadge colorName="primary">{formatKeyToWord(skin)}</ColorBadge>
         )}
@@ -112,7 +122,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
             </ColorBadge>
           </Tooltip>
         )}
-      </Badges>
-    </Container>
+      </div>
+    </header>
   )
 }

@@ -1,0 +1,22 @@
+.image {
+  border: 2px solid var(--color-primary);
+  cursor: pointer;
+}
+
+.circular {
+  border-radius: 50%;
+}
+
+.notCircular {
+  border-radius: 0px;
+}
+
+.colored {
+  filter: none;
+  opacity: 1;
+}
+
+.grayscale {
+  filter: grayscale(1);
+  opacity: 0.5;
+}

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Body, Button, Container, Content, Header, Title } from './styled'
+import styles from './index.module.css'
 
 interface ModalProps {
   children: ReactNode
@@ -17,17 +17,21 @@ export default function Modal({
   if (!isOpen) return null
 
   return (
-    <Container onClick={onClose}>
-      <Content onClick={(e) => e.stopPropagation()}>
-        <Header>
-          {title && <Title>{title}</Title>}
-          <Button aria-label="Close modal" onClick={onClose}>
+    <div className={styles.container} onClick={onClose}>
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.header}>
+          {title && <h2 className={styles.title}>{title}</h2>}
+          <button
+            aria-label="Close modal"
+            className={styles.button}
+            onClick={onClose}
+          >
             ✕
-          </Button>
-        </Header>
+          </button>
+        </div>
 
-        <Body>{children}</Body>
-      </Content>
-    </Container>
+        <div className={styles.body}>{children}</div>
+      </div>
+    </div>
   )
 }
