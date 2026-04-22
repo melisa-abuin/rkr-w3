@@ -11,7 +11,7 @@ describe('PageHeader', () => {
     expect(screen.getByText('How to play')).toBeInTheDocument()
     expect(screen.getByText('Some description')).toBeInTheDocument()
   })
-  it('adds the correctr align based on props', () => {
+  it('adds the correct align based on props', () => {
     const { container } = renderWithTheme(
       <PageHeader
         align="flex-start"
