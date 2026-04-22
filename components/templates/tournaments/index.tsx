@@ -7,7 +7,7 @@ import { formatDateToLocale } from '@/utils'
 import RowCards from './components/rowCards'
 import { Tournaments as TournamentsInterface } from '@/interfaces/tournament'
 import { Fragment } from 'react/jsx-runtime'
-import { CTAContainer } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   data: TournamentsInterface[]
@@ -32,7 +32,7 @@ export default function Tournaments({ data }: Props) {
           {group.map((item) => (
             <Fragment key={item.tournament.id}>
               <RowCards item={item} />
-              <CTAContainer>
+              <div className={styles.ctaContainer}>
                 <Button
                   as="a"
                   colorName="primary"
@@ -41,7 +41,7 @@ export default function Tournaments({ data }: Props) {
                 >
                   See all tournament details
                 </Button>
-              </CTAContainer>
+              </div>
             </Fragment>
           ))}
         </PageContainer>
