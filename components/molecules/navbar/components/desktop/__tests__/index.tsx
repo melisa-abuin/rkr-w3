@@ -30,8 +30,7 @@ describe('DesktopNavbar', () => {
     renderWithTheme(<DesktopNavbar hasTransparentStyle={false} />)
 
     const challengesLink = screen.getByText('Leaderboard')
-    const styles = getComputedStyle(challengesLink)
 
-    expect(styles.fontWeight).toBe('var( --font-weight-bold )')
+    expect(challengesLink.closest('li')).toHaveClass('selected')
   })
 })

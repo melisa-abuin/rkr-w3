@@ -1,18 +1,15 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import PageHeader from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('PageHeader', () => {
   it('renders the title', () => {
-    renderWithTheme(
-      <PageHeader description="Some description" title="How to play" />,
-    )
+    render(<PageHeader description="Some description" title="How to play" />)
 
     expect(screen.getByText('How to play')).toBeInTheDocument()
     expect(screen.getByText('Some description')).toBeInTheDocument()
   })
   it('adds the correct align based on props', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <PageHeader
         align="flex-start"
         description="Some description"
@@ -20,6 +17,6 @@ describe('PageHeader', () => {
       />,
     )
 
-    expect(container.firstChild).toHaveStyle('align-items: flex-start')
+    expect(container.firstChild).toHaveClass('headerStart')
   })
 })

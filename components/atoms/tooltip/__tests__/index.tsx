@@ -1,15 +1,14 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Tooltip from '..'
 import userEvent from '@testing-library/user-event'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Tooltip', () => {
   const tooltipText = 'This is a tooltip'
   const ariaLabel = 'Custom Tooltip Label'
 
   it('renders children correctly', () => {
-    renderWithTheme(
+    render(
       <Tooltip body={tooltipText}>
         <button>Hover me</button>
       </Tooltip>,
@@ -18,7 +17,7 @@ describe('Tooltip', () => {
   })
 
   it('applies custom aria-label if provided', () => {
-    renderWithTheme(
+    render(
       <Tooltip ariaLabel={ariaLabel} body={tooltipText}>
         <div>Hover</div>
       </Tooltip>,
@@ -27,7 +26,7 @@ describe('Tooltip', () => {
   })
 
   it('applies default aria-label if none is provided', () => {
-    renderWithTheme(
+    render(
       <Tooltip body={tooltipText}>
         <div>Hover</div>
       </Tooltip>,
@@ -36,7 +35,7 @@ describe('Tooltip', () => {
   })
 
   it('shows the tooltip on mouse enter', async () => {
-    renderWithTheme(
+    render(
       <Tooltip body={tooltipText}>
         <div>Hover here</div>
       </Tooltip>,
@@ -47,7 +46,7 @@ describe('Tooltip', () => {
   })
 
   it('hides the tooltip on mouse leave', async () => {
-    renderWithTheme(
+    render(
       <Tooltip body={tooltipText}>
         <div>Hover here</div>
       </Tooltip>,
@@ -55,9 +54,9 @@ describe('Tooltip', () => {
 
     const trigger = screen.getByText('Hover here')
     await userEvent.hover(trigger)
-    expect(screen.getByRole('tooltip')).toBeVisible()
+    expect(screen.getByRole('tooltip')).toHaveClass('tooltipVisible')
 
     await userEvent.unhover(trigger)
-    expect(screen.getByRole('tooltip')).not.toBeVisible()
+    expect(screen.getByRole('tooltip')).not.toHaveClass('tooltipVisible')
   })
 })

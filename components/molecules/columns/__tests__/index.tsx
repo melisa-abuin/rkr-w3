@@ -1,6 +1,5 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Columns from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Columns Component', () => {
   it('renders columns correctly', () => {
@@ -9,7 +8,7 @@ describe('Columns Component', () => {
       { description: 'Losses', value: 5 },
     ]
 
-    renderWithTheme(<Columns data={[{ columns }]} />)
+    render(<Columns data={[{ columns }]} />)
 
     expect(screen.getByText('Wins')).toBeInTheDocument()
     expect(screen.getByText('10')).toBeInTheDocument()
@@ -20,14 +19,14 @@ describe('Columns Component', () => {
   it('handles missing values (undefined) gracefully', () => {
     const columns = [{ description: 'Points' }]
 
-    renderWithTheme(<Columns data={[{ columns }]} />)
+    render(<Columns data={[{ columns }]} />)
 
     expect(screen.getByText('Points')).toBeInTheDocument()
     expect(screen.getByText('0')).toBeInTheDocument()
   })
 
   it('renders correctly when columns array is empty', () => {
-    renderWithTheme(<Columns data={[]} />)
+    render(<Columns data={[]} />)
 
     expect(screen.queryByRole('column')).not.toBeInTheDocument()
   })
@@ -35,7 +34,7 @@ describe('Columns Component', () => {
   it('renders correctly the actions column', () => {
     const columns = [{ description: 'Points' }]
     const actionCol = <div>hello</div>
-    renderWithTheme(<Columns actionColumn={actionCol} data={[{ columns }]} />)
+    render(<Columns actionColumn={actionCol} data={[{ columns }]} />)
 
     expect(screen.getByText('Points')).toBeInTheDocument()
     expect(screen.getByText('hello')).toBeInTheDocument()
@@ -44,7 +43,7 @@ describe('Columns Component', () => {
   it('renders the correct variant', () => {
     const columns = [{ description: 'Points' }]
     const actionCol = <div>hello</div>
-    const { container } = renderWithTheme(
+    const { container } = render(
       <Columns
         actionColumn={actionCol}
         data={[{ columns }]}
@@ -52,8 +51,6 @@ describe('Columns Component', () => {
       />,
     )
 
-    expect(container.firstChild).toHaveStyle(
-      'background-color: rgb(230, 218, 218)',
-    )
+    expect(container.firstChild).toHaveClass('secondary')
   })
 })
