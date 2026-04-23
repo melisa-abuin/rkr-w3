@@ -1,0 +1,5 @@
+.item {
+  border-left: 2px solid var(--color-secondary);
+  list-style: none;
+  padding: 8px 0 8px 12px;
+}
