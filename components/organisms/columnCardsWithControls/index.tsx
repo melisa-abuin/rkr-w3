@@ -1,6 +1,5 @@
 'use client'
 
-import { BadgesContainer } from './styled'
 import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { roundDifficultyNames } from '@/constants'
@@ -10,6 +9,7 @@ import ColumnCards from '@/components/molecules/columnCards'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import styles from './index.module.css'
 
 type LeaderBoardData = LeaderboardCategories[]
 
@@ -58,13 +58,13 @@ export default function ColumnCardsWithControls({
       title={title}
       withPadding={false}
     >
-      <BadgesContainer>
+      <div className={styles.badgesContainer}>
         <Badges
           options={roundDifficultyNames}
           selected={difficultyFilter}
           onClick={onFilterClick}
         />
-      </BadgesContainer>
+      </div>
       <ColumnCards
         data={difficultyFilter === undefined ? data : filteredData}
         difficulty={difficultyFilter}

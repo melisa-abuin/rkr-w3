@@ -1,0 +1,40 @@
+.header {
+  background-color: var(--background-primary);
+  color: var(--text-color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 120px;
+  width: 100%;
+}
+
+.headerCenter {
+  align-items: center;
+}
+
+.headerStart {
+  align-items: flex-start;
+}
+
+.title {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xl);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.info {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-xs-sm);
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.infoCenter {
+  text-align: center;
+}
+
+.infoStart {
+  text-align: left;
+}

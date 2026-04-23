@@ -1,11 +1,10 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Modal from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Modal Component', () => {
   it('does not render when isOpen is false', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <Modal isOpen={false} onClose={jest.fn()}>
         Modal Content
       </Modal>,
@@ -14,7 +13,7 @@ describe('Modal Component', () => {
   })
 
   it('renders when isOpen is true', () => {
-    renderWithTheme(
+    render(
       <Modal isOpen={true} onClose={jest.fn()}>
         Modal Content
       </Modal>,
@@ -23,7 +22,7 @@ describe('Modal Component', () => {
   })
 
   it('renders title when provided', () => {
-    renderWithTheme(
+    render(
       <Modal isOpen={true} title="Test Title" onClose={jest.fn()}>
         Modal Content
       </Modal>,
@@ -33,7 +32,7 @@ describe('Modal Component', () => {
 
   it('calls onClose when close button is clicked', async () => {
     const onClose = jest.fn()
-    renderWithTheme(
+    render(
       <Modal isOpen={true} onClose={onClose}>
         Modal Content
       </Modal>,

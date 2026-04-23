@@ -1,7 +1,6 @@
 import React from 'react'
 import { Wing } from '@/components/icons/wing'
-import { Container } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import styles from './index.module.css'
 import { SaveStreak as SaveStreakI } from '@/interfaces/player'
 import { Bolt } from '@/components/icons/bolt'
 
@@ -9,7 +8,6 @@ interface Props {
   data: SaveStreakI
 }
 export default function SaveStreak({ data }: Props) {
-  const [theme] = useTheme()
   const { highestScore, redLightning, patrioticTendrils } = data
 
   const saveStreakToShow = () => {
@@ -22,10 +20,10 @@ export default function SaveStreak({ data }: Props) {
     if (patrioticTendrils) {
       return (
         <Wing
-          externalColor={theme.color.patrioticTendrilsExternal}
+          externalColor="var(--color-patriotic-tendrils-external)"
           flipped={flipped}
           height={24}
-          internalColor={theme.color.patrioticTendrilsInternal}
+          internalColor="var(--color-patriotic-tendrils-internal)"
           width={24}
         />
       )
@@ -34,10 +32,10 @@ export default function SaveStreak({ data }: Props) {
     if (redLightning) {
       return (
         <Bolt
-          externalColor={theme.color.redLightningExternal}
+          externalColor="var(--color-red-lightning-external)"
           flipped={flipped}
           height={24}
-          internalColor={theme.color.redLightningInternal}
+          internalColor="var(--color-red-lightning-internal)"
           width={24}
         />
       )
@@ -46,10 +44,10 @@ export default function SaveStreak({ data }: Props) {
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       <Icon flipped />
       {saveStreakToShow()}
       <Icon />
-    </Container>
+    </div>
   )
 }

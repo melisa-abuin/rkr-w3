@@ -1,5 +1,5 @@
-import { InnerContainer, OuterContainer } from './styled'
 import Button from '@/components/atoms/button'
+import styles from './index.module.css'
 
 interface Props<T extends string> {
   onClick: (option: T | undefined) => void
@@ -13,8 +13,8 @@ export default function Badges<T extends string>({
   selected,
 }: Props<T>) {
   return (
-    <OuterContainer>
-      <InnerContainer>
+    <div className={styles.outerContainer}>
+      <div className={styles.innerContainer}>
         {options.map((option) => (
           <Button
             key={option}
@@ -36,7 +36,7 @@ export default function Badges<T extends string>({
         >
           all
         </Button>
-      </InnerContainer>
-    </OuterContainer>
+      </div>
+    </div>
   )
 }

@@ -1,5 +1,4 @@
-import { renderWithTheme } from '@/utils/renderWithTheme'
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PlayerFinder from '..'
 import { useApiQuery } from '@/hooks/useApiQuery'
@@ -42,9 +41,7 @@ describe('PlayerFinder', () => {
   })
 
   it('renders with the default placeholder', () => {
-    renderWithTheme(
-      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
-    )
+    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
 
     expect(screen.getByPlaceholderText('Search a player')).toBeInTheDocument()
   })
@@ -53,7 +50,7 @@ describe('PlayerFinder', () => {
     const user = userEvent.setup()
     const onChange = jest.fn()
 
-    renderWithTheme(
+    render(
       <PlayerFinder
         onChange={onChange}
         onClear={onClear}
@@ -69,9 +66,7 @@ describe('PlayerFinder', () => {
   it('shows options and selects a player', async () => {
     const user = userEvent.setup()
 
-    renderWithTheme(
-      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
-    )
+    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
 
     const input = screen.getByRole('textbox')
     await user.click(input)
@@ -88,9 +83,7 @@ describe('PlayerFinder', () => {
   it('shows no results for an empty response', async () => {
     const user = userEvent.setup()
 
-    renderWithTheme(
-      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
-    )
+    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
 
     const input = screen.getByRole('textbox')
     await user.click(input)
@@ -102,9 +95,7 @@ describe('PlayerFinder', () => {
   it('clears the query and calls onClear', async () => {
     const user = userEvent.setup()
 
-    renderWithTheme(
-      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
-    )
+    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
 
     const input = screen.getByRole('textbox')
     await user.type(input, 'alpha')

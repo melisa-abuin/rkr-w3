@@ -1,12 +1,11 @@
 import React, { ReactNode } from 'react'
-import { Content, Td, Text } from './styled'
+import styles from './index.module.css'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Difficulty } from '@/interfaces/difficulty'
 import { formatSecondsAsTime } from '@/utils'
 import TooltipComponent from '@/components/atoms/tooltip'
 import { BestTime } from '@/interfaces/player'
 import Paws from '@/components/atoms/paws'
-import { Column, Subtitle, Title } from '../../styled'
 
 const getObjectKeys = Object.keys as <T extends object>(
   obj: T,
@@ -51,31 +50,31 @@ export default function Tooltip({
     <TooltipComponent
       ariaLabel="Extended stats"
       body={
-        <Content>
+        <table className={styles.content}>
           <tbody>
             {getObjectKeys(dataToRender).map((key) => (
               <tr key={key}>
-                <Td>{key}</Td>
+                <td className={styles.td}>{key}</td>
                 <td>{dataToRender[key]}</td>
               </tr>
             ))}
           </tbody>
-        </Content>
+        </table>
       }
     >
-      <Text>
+      <div className={styles.text}>
         <TextWithIcon iconName="information" iconSize={12}>
           {best ? (
-            <Column>
-              <Title>{formatSecondsAsTime(best.time)}</Title>
-              <Subtitle>({best.difficulty})</Subtitle>
+            <div className={styles.column}>
+              <p className={styles.title}>{formatSecondsAsTime(best.time)}</p>
+              <p className={styles.subtitle}>({best.difficulty})</p>
               <Paws difficulty={best.difficulty} />
-            </Column>
+            </div>
           ) : (
             children
           )}
         </TextWithIcon>
-      </Text>
+      </div>
     </TooltipComponent>
   )
 }

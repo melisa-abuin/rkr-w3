@@ -1,14 +1,13 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import PlayerTag from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('PlayerTag', () => {
   it('renders battletag and displays correct title and subtitle', () => {
     const completeBattleTag = 'Alex#76923'
     const battletag = 'Alex'
 
-    renderWithTheme(
+    render(
       <PlayerTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
     )
 
@@ -25,7 +24,7 @@ describe('PlayerTag', () => {
     const completeBattleTag = 'Alex#76923'
     const battletag = 'Alex'
 
-    renderWithTheme(
+    render(
       <PlayerTag battleTag={{ name: battletag, tag: completeBattleTag }} />,
     )
 

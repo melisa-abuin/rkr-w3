@@ -20,7 +20,7 @@ import { Player } from '@/interfaces/player'
 import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
-import { Row } from './styled'
+import styles from './index.module.css'
 import Tabs from '@/components/atoms/tabs'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -112,7 +112,7 @@ export default function PlayerDashboard({
       </PageContainer>
 
       <PageContainer marginBottom={24} title="Overall Stats">
-        <Row>
+        <div className={styles.row}>
           <ColumnsWithComparison
             columns={playerColumns}
             comparePlayer={data}
@@ -123,7 +123,7 @@ export default function PlayerDashboard({
             current={playerData.winStreak}
             highest={playerData.highestWinStreak}
           />
-        </Row>
+        </div>
       </PageContainer>
 
       {difficultyNames.map((difficulty) => (
@@ -172,7 +172,7 @@ export default function PlayerDashboard({
       )}
 
       <PageContainer marginBottom={24} title="Personal bests">
-        <Row>
+        <div className={styles.row}>
           <Columns
             data={formatCompare(playerData, data, kibblesColumns)}
             loading={isFetching}
@@ -183,7 +183,7 @@ export default function PlayerDashboard({
             loading={isFetching}
             title="Single Game"
           />
-        </Row>
+        </div>
       </PageContainer>
 
       <PageContainer title="Game Awards">

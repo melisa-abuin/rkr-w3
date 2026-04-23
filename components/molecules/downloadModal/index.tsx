@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Modal from '@/components/atoms/modal'
 import Button from '@/components/atoms/button'
 import Image from 'next/image'
-import { ButtonGroup, Colored, Content } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import styles from './index.module.css'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import { useToast } from '@/hooks/useToast'
 import { useDownloadStats } from '@/hooks/useDownloadStats'
 import { downloadBlobFile } from '@/utils/downloadBlobFile'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function DownloadModal({ battletag, date }: Props) {
-  const [theme] = useTheme()
+  const prefersDarkMode = usePrefersDarkMode()
   const { showToast } = useToast()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -44,12 +44,13 @@ export default function DownloadModal({ battletag, date }: Props) {
         title="Download my file stats"
         onClose={() => setIsModalOpen(false)}
       >
-        <Content>
+        <div className={styles.content}>
           <div>
             <p>
               You are about to download the file containing{' '}
-              <Colored>{battletag}</Colored>&apos;s stats, last updated on{' '}
-              <Colored>{date}</Colored>.
+              <strong className={styles.colored}>{battletag}</strong>&apos;s
+              stats, last updated on{' '}
+              <strong className={styles.colored}>{date}</strong>.
             </p>
             <p>
               Once downloaded place it into your Documents/Warcraft
@@ -59,7 +60,7 @@ export default function DownloadModal({ battletag, date }: Props) {
               Only download this file if you have lost your local stats file.
             </p>
           </div>
-          <ButtonGroup>
+          <div className={styles.buttonGroup}>
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
@@ -68,15 +69,17 @@ export default function DownloadModal({ battletag, date }: Props) {
                 <Image
                   alt="loading"
                   height={16}
-                  src={`/loading-${theme.name}.gif`}
+                  src={
+                    prefersDarkMode ? '/loading-dark.gif' : '/loading-light.gif'
+                  }
                   width={16}
                 />
               ) : (
                 'Proceed'
               )}
             </Button>
-          </ButtonGroup>
-        </Content>
+          </div>
+        </div>
       </Modal>
     </>
   )

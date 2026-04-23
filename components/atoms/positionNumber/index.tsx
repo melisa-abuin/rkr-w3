@@ -1,5 +1,4 @@
-import { useTheme } from '@/hooks/useTheme'
-import { Number } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   pos: number
@@ -7,20 +6,23 @@ interface Props {
 }
 
 export default function PositionNumber({ pos, isSmall = false }: Props) {
-  const [theme] = useTheme()
-  const { color, text } = theme
-
   const colorByNumber: Record<number, string> = {
-    1: color.teal,
-    2: color.green,
-    3: color.yellow,
-    4: text.color.primary,
-    5: text.color.primary,
+    1: styles.colorTeal,
+    2: styles.colorGreen,
+    3: styles.colorYellow,
+    4: styles.colorPrimary,
+    5: styles.colorPrimary,
   }
 
+  const colorClass = colorByNumber[pos] ?? colorByNumber[5]
+
   return (
-    <Number color={colorByNumber[pos] ?? colorByNumber[5]} small={isSmall}>
+    <div
+      className={`${styles.number} ${colorClass} ${
+        isSmall ? styles.small : styles.regular
+      }`}
+    >
       {pos}
-    </Number>
+    </div>
   )
 }

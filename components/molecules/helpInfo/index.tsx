@@ -2,11 +2,12 @@
 
 import Info from '@/components/atoms/info'
 import Link from '@/components/atoms/link'
+import styles from './index.module.css'
 
 export default function HelpInfo() {
   return (
     <Info as="ul">
-      <li>
+      <li className={styles.item}>
         <strong>Can&apos;t find your stats?</strong>{' '}
         <Link aria-label="Go to guide" color="tertiary" href="/guide">
           Click here
@@ -14,7 +15,7 @@ export default function HelpInfo() {
         to learn how to upload your game progress and get featured on the
         leaderboard!
       </li>
-      <li>
+      <li className={styles.item}>
         Don&apos;t want your BattleTag displayed on this page? Join our{' '}
         <Link
           aria-label="Discord server"

@@ -1,15 +1,7 @@
 'use client'
 
-import React, { ReactNode } from 'react'
-import {
-  Col,
-  Container,
-  Description,
-  Row,
-  SectionTitle,
-  Title,
-  Small,
-} from './styled'
+import type { ReactNode } from 'react'
+import styles from './index.module.css'
 import LoaderColumns from './components/loader'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
@@ -36,35 +28,49 @@ export default function Columns({
   title,
   variant = 'primary',
 }: ColumnsProps) {
+  const containerClassName = `${styles.container} ${styles[variant]}`
+
   return loading ? (
     <LoaderColumns variant={variant} />
   ) : (
-    <Container variant={variant}>
-      {title && <SectionTitle>{title}</SectionTitle>}
+    <div className={containerClassName}>
+      {title && <h3 className={styles.sectionTitle}>{title}</h3>}
       {data.map(({ title, columns }, index) => (
-        <Row key={index}>
-          {title && <Title>{title}</Title>}
-          <Row>
+        <div key={index} className={styles.row}>
+          {title && <h3 className={styles.title}>{title}</h3>}
+          <div className={styles.row}>
             {columns.map(
               ({ description, value, highlight, additionalInfo }) => (
-                <Col key={description}>
+                <div key={description} className={styles.col}>
                   <TextWithIcon
                     large
                     colorName={highlight ? 'yellow' : undefined}
                   >
                     {value || 0}
                   </TextWithIcon>
-                  <Description highlight={highlight}>{description}</Description>
+                  <span
+                    className={`${styles.description} ${
+                      highlight ? styles.descriptionHighlight : ''
+                    }`}
+                  >
+                    {description}
+                  </span>
                   {additionalInfo && (
-                    <Small highlight={highlight}>{additionalInfo}</Small>
+                    <span
+                      className={`${styles.small} ${
+                        highlight ? styles.smallHighlight : ''
+                      }`}
+                    >
+                      {additionalInfo}
+                    </span>
                   )}
-                </Col>
+                </div>
               ),
             )}
-            {actionColumn && <Col>{actionColumn}</Col>}
-          </Row>
-        </Row>
+            {actionColumn && <div className={styles.col}>{actionColumn}</div>}
+          </div>
+        </div>
       ))}
-    </Container>
+    </div>
   )
 }

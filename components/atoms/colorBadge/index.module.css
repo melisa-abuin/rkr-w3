@@ -1,0 +1,136 @@
+.badge {
+  border-radius: 4px;
+  font-size: var(--font-size-xs);
+  padding: 6px 8px;
+  text-transform: capitalize;
+}
+
+.colorPrimary {
+  background-color: var(--badge-primary-background);
+  color: var(--badge-primary-color);
+}
+
+.colorTertiary {
+  background-color: var(--badge-tertiary-background);
+  color: var(--badge-tertiary-color);
+}
+
+.colorRed {
+  background-color: var(--badge-red-background);
+  color: var(--badge-red-color);
+}
+
+.colorBlue {
+  background-color: var(--badge-blue-background);
+  color: var(--badge-blue-color);
+}
+
+.colorTeal {
+  background-color: var(--badge-teal-background);
+  color: var(--badge-teal-color);
+}
+
+.colorPurple {
+  background-color: var(--badge-purple-background);
+  color: var(--badge-purple-color);
+}
+
+.colorYellow {
+  background-color: var(--badge-yellow-background);
+  color: var(--badge-yellow-color);
+}
+
+.colorOrange {
+  background-color: var(--badge-orange-background);
+  color: var(--badge-orange-color);
+}
+
+.colorGreen {
+  background-color: var(--badge-green-background);
+  color: var(--badge-green-color);
+}
+
+.colorPink {
+  background-color: var(--badge-pink-background);
+  color: var(--badge-pink-color);
+}
+
+.colorGray {
+  background-color: var(--badge-gray-background);
+  color: var(--badge-gray-color);
+}
+
+.colorLightblue {
+  background-color: var(--badge-lightblue-background);
+  color: var(--badge-lightblue-color);
+}
+
+.colorDarkgreen {
+  background-color: var(--badge-darkgreen-background);
+  color: var(--badge-darkgreen-color);
+}
+
+.colorBrown {
+  background-color: var(--badge-brown-background);
+  color: var(--badge-brown-color);
+}
+
+.colorMaroon {
+  background-color: var(--badge-maroon-background);
+  color: var(--badge-maroon-color);
+}
+
+.colorNavy {
+  background-color: var(--badge-navy-background);
+  color: var(--badge-navy-color);
+}
+
+.colorTurquoise {
+  background-color: var(--badge-turquoise-background);
+  color: var(--badge-turquoise-color);
+}
+
+.colorViolet {
+  background-color: var(--badge-violet-background);
+  color: var(--badge-violet-color);
+}
+
+.colorWheat {
+  background-color: var(--badge-wheat-background);
+  color: var(--badge-wheat-color);
+}
+
+.colorPeach {
+  background-color: var(--badge-peach-background);
+  color: var(--badge-peach-color);
+}
+
+.colorMint {
+  background-color: var(--badge-mint-background);
+  color: var(--badge-mint-color);
+}
+
+.colorLavender {
+  background-color: var(--badge-lavender-background);
+  color: var(--badge-lavender-color);
+}
+
+.colorCoal {
+  background-color: var(--badge-coal-background);
+  color: var(--badge-coal-color);
+}
+
+.colorSnow {
+  background-color: var(--badge-snow-background);
+  color: var(--badge-snow-color);
+}
+
+.colorEmerald {
+  background-color: var(--badge-emerald-background);
+  color: var(--badge-emerald-color);
+}
+
+.colorPeanut {
+  background-color: var(--badge-peanut-background);
+  color: var(--badge-peanut-color);
+}

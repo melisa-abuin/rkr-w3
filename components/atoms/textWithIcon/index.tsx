@@ -1,16 +1,28 @@
-import React, { ReactNode } from 'react'
-import { Text } from './styled'
+import type { ReactNode } from 'react'
+import styles from './index.module.css'
 import { Crown } from '@/components/icons/crown'
-import { useTheme } from '@/hooks/useTheme'
 import { Winner } from '@/components/icons/winner'
 import { Flame } from '@/components/icons/flame'
 import { Clock } from '@/components/icons/clock'
 import { Paw } from '@/components/icons/paw'
 import { Information } from '@/components/icons/information'
 
+type ColorName =
+  | 'black'
+  | 'brandPrimary'
+  | 'brandSecondary'
+  | 'green'
+  | 'highlight'
+  | 'primary'
+  | 'secondary'
+  | 'teal'
+  | 'tertiary'
+  | 'white'
+  | 'yellow'
+
 interface Props {
   children: ReactNode
-  colorName?: string
+  colorName?: ColorName
   iconName?:
     | 'clock'
     | 'crown'
@@ -39,23 +51,17 @@ export default function TextWithIcon({
   iconSize = 20,
   large = false,
 }: Props) {
-  const [theme] = useTheme()
   const Icon = iconName && icons[iconName]
-  const color = theme.text.color[colorName]
-
-  if (!color) {
-    console.error(
-      `Text color "${color}" is not defined in ${theme.name} theme.`,
-    )
-    return null
-  }
+  const className = `${styles.text} ${styles[colorName]} ${
+    large ? styles.large : styles.small
+  }`
 
   return (
-    <Text color={color} large={large}>
+    <span className={className}>
       {children}
       {iconName && !!Icon && (
-        <Icon fill={color} height={iconSize} width={iconSize} />
+        <Icon fill="currentColor" height={iconSize} width={iconSize} />
       )}
-    </Text>
+    </span>
   )
 }

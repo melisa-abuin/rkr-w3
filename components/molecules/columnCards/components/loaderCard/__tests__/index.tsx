@@ -1,17 +1,16 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import LoaderCard from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('LoaderCard', () => {
   it('renders  5 rows', () => {
-    renderWithTheme(<LoaderCard />)
+    render(<LoaderCard />)
 
     const rows = screen.getAllByRole('row')
     expect(rows).toHaveLength(25)
   })
 
   it('each row contains 2 cells', () => {
-    renderWithTheme(<LoaderCard />)
+    render(<LoaderCard />)
 
     const rows = screen.getAllByRole('row')
     rows.forEach((row) => {

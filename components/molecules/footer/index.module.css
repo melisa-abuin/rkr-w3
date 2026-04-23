@@ -1,0 +1,8 @@
+.footerContainer {
+  background-color: var(--color-black);
+  color: var(--text-color-white);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+  padding: 20px;
+  text-align: center;
+}

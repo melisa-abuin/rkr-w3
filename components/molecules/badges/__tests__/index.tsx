@@ -1,7 +1,6 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Badges from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 import { difficultyNames } from '@/constants'
 
 describe('Badges', () => {
@@ -9,7 +8,7 @@ describe('Badges', () => {
   const selected = 'normal'
 
   it('renders all options as badges', () => {
-    renderWithTheme(
+    render(
       <Badges
         options={difficultyNames}
         selected={selected}
@@ -23,7 +22,7 @@ describe('Badges', () => {
   })
 
   it('calls onClick with the correct option when a badge is clicked', async () => {
-    renderWithTheme(
+    render(
       <Badges
         options={difficultyNames}
         selected={selected}
@@ -39,7 +38,7 @@ describe('Badges', () => {
   })
 
   it.skip('selects all option when none is selected', () => {
-    renderWithTheme(
+    render(
       <Badges
         options={difficultyNames}
         selected={undefined}
@@ -52,7 +51,7 @@ describe('Badges', () => {
   })
 
   it('clears selected value when all option is clicked', async () => {
-    renderWithTheme(
+    render(
       <Badges
         options={difficultyNames}
         selected={selected}

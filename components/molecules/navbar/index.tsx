@@ -1,6 +1,6 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { Container, StyledNav } from './styled'
+import styles from './index.module.css'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import DesktopNavbar from './components/desktop'
@@ -12,11 +12,14 @@ export default function Navbar() {
   const pathname = usePathname()
   const [isAtTopPage] = useIsScrollAtTop()
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
+  const navClassName = `${styles.styledNav} ${
+    shouldShowTransparentNav ? styles.transparentNav : styles.defaultNav
+  }`
 
   return (
     <>
-      <StyledNav hasTransparentStyle={shouldShowTransparentNav}>
-        <Container>
+      <nav className={navClassName}>
+        <div className={styles.container}>
           <Link href="/">
             <Image
               priority
@@ -32,8 +35,8 @@ export default function Navbar() {
           </Link>
           <DesktopNavbar hasTransparentStyle={shouldShowTransparentNav} />
           <MobileNavbar />
-        </Container>
-      </StyledNav>
+        </div>
+      </nav>
 
       {!shouldShowTransparentNav && <Announcement />}
     </>

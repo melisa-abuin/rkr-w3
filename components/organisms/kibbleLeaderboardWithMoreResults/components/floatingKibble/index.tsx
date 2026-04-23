@@ -5,9 +5,9 @@ import { getKibbleRewardMessage, Reward } from '@/utils'
 import Lottie from 'lottie-react'
 import Image from 'next/image'
 import { useState } from 'react'
-import ExperienceDisplay from '../experience'
-import GoldDisplay from '../gold'
-import { Container, ImageWrapper, Text, Wrapper } from './styled'
+import Experience from './components/experience'
+import Gold from './components/gold'
+import styles from './index.module.css'
 
 type AnimationState = 'idle' | 'spark' | 'done'
 
@@ -37,13 +37,19 @@ export default function FloatingKibble() {
 
   return (
     <>
-      <Container collapsed={animationState === animationStates.done}>
+      <div
+        className={`${styles.container} ${
+          animationState === animationStates.done
+            ? styles.containerCollapsed
+            : ''
+        }`}
+      >
         {animationState === animationStates.idle && (
           <>
-            <ImageWrapper onClick={handleClick}>
+            <div className={styles.imageWrapper} onClick={handleClick}>
               <Image alt="kibble" height={48} src="/kibble.png" width={48} />
-            </ImageWrapper>
-            <Text>Pick it up!</Text>
+            </div>
+            <p className={styles.text}>Pick it up!</p>
           </>
         )}
         {animationState === animationStates.spark && (
@@ -55,14 +61,14 @@ export default function FloatingKibble() {
               style={{ width: 64, height: 64 }}
               onComplete={() => setAnimationState(animationStates.done)}
             />
-            <Text>{rewardMessage}</Text>
+            <p className={styles.text}>{rewardMessage}</p>
           </>
         )}
-      </Container>
-      <Wrapper>
-        <ExperienceDisplay expGained={expGained} />
-        <GoldDisplay goldGained={goldGained} />
-      </Wrapper>
+      </div>
+      <div className={styles.wrapper}>
+        <Experience expGained={expGained} />
+        <Gold goldGained={goldGained} />
+      </div>
     </>
   )
 }

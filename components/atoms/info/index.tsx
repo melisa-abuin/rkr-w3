@@ -1,7 +1,7 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { Container, Text } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   children: ReactNode
@@ -9,9 +9,11 @@ interface Props {
 }
 
 export default function Info({ children, as = 'p' }: Props) {
+  const Element = as
+
   return (
-    <Container>
-      <Text as={as}>{children}</Text>
-    </Container>
+    <div className={styles.container}>
+      <Element className={styles.text}>{children}</Element>
+    </div>
   )
 }

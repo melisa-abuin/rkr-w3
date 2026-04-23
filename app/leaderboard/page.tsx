@@ -1,9 +1,5 @@
 import Error from '@/components/molecules/error'
-import { ThemeProvider } from '@/hooks/useTheme'
-import Navbar from '@/components/molecules/navbar'
-import Footer from '@/components/molecules/footer'
 import LeaderboardTemplate from '@/components/templates/leaderboard'
-import { ToastProvider } from '@/hooks/useToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { getBaseUrlFromHeaders } from '@/utils'
 
@@ -35,14 +31,8 @@ export default async function Leaderboard() {
   const { data, error } = await fetchData()
 
   return (
-    <ThemeProvider>
-      <ToastProvider>
-        <Navbar />
-        <main>
-          {error ? <Error /> : data && <LeaderboardTemplate data={data} />}
-        </main>
-        <Footer />
-      </ToastProvider>
-    </ThemeProvider>
+    <main>
+      {error ? <Error /> : data && <LeaderboardTemplate data={data} />}
+    </main>
   )
 }

@@ -1,17 +1,16 @@
 'use client'
 
-import React, { ReactNode } from 'react'
-import { ClearIconContainer, StyledInput, Wrapper } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import type { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react'
+import styles from './index.module.css'
 import { Cross } from '@/components/icons/cross'
 
-interface Props {
+type Props = {
   id: string
   leftIcon?: ReactNode
   name: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: ChangeEventHandler<HTMLInputElement>
   onCrossClick?: () => void
-  onFocus?: () => void
+  onFocus?: FocusEventHandler<HTMLInputElement>
   placeholder: string
   value: string
 }
@@ -26,13 +25,12 @@ export default function Input({
   placeholder,
   value,
 }: Props) {
-  const [theme] = useTheme()
-
   return (
-    <Wrapper>
+    <div className={styles.wrapper}>
       {leftIcon}
-      <StyledInput
+      <input
         autoComplete="off"
+        className={styles.input}
         id={id}
         name={name}
         placeholder={placeholder}
@@ -41,10 +39,15 @@ export default function Input({
         onFocus={onFocus}
       />
       {value.length > 0 && onCrossClick && (
-        <ClearIconContainer onClick={onCrossClick}>
-          <Cross fill={theme.text.color.primary} height={16} width={16} />
-        </ClearIconContainer>
+        <button
+          aria-label="Clear input"
+          className={styles.clearIconContainer}
+          type="button"
+          onClick={onCrossClick}
+        >
+          <Cross fill="currentColor" height={16} width={16} />
+        </button>
       )}
-    </Wrapper>
+    </div>
   )
 }

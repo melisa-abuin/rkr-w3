@@ -1,6 +1,6 @@
 'use client'
 
-import { BadgesContainer } from './styled'
+import styles from './index.module.css'
 import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { bestGameTimesColumns, difficultyNames } from '@/constants'
@@ -37,13 +37,13 @@ export default function BestGamesWithControls() {
 
   return (
     <>
-      <BadgesContainer>
+      <div className={styles.badgesContainer}>
         <Badges
           options={difficultyNames}
           selected={difficultyFilter}
           onClick={onFilterClick}
         />
-      </BadgesContainer>
+      </div>
       <Cards
         games={data?.slice(0, 5) || []}
         loading={isFetching}

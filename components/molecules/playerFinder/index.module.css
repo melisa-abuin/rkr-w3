@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  position: relative;
+  width: 100%;
+}
+
+.wrapper input {
+  font-size: var(--font-size-xs-sm);
+  font-weight: var(--font-weight-regular);
+}
+
+.options {
+  border: 1px solid var(--background-highlight-tertiary);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px var(--shadow-primary);
+  position: absolute;
+  top: 40px;
+  width: 100%;
+}
+
+.option {
+  background-color: var(--background-quaternary);
+  color: var(--text-color-primary);
+  cursor: auto;
+  display: block;
+  padding: 8px;
+  width: 100%;
+}
+
+.clickableOption {
+  cursor: pointer;
+}

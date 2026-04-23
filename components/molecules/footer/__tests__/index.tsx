@@ -1,11 +1,10 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Footer from '..'
 import { blizzardLink, githubReadMeLink } from '@/constants'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Footer', () => {
   it('renders footer text correctly', () => {
-    renderWithTheme(<Footer />)
+    render(<Footer />)
 
     expect(
       screen.getByText(
@@ -15,7 +14,7 @@ describe('Footer', () => {
   })
 
   it('contains correct Blizzard link', () => {
-    renderWithTheme(<Footer />)
+    render(<Footer />)
 
     const blizzardAnchor = screen.getByText('Blizzard Entertainment')
     expect(blizzardAnchor).toBeInTheDocument()
@@ -23,7 +22,7 @@ describe('Footer', () => {
   })
 
   it('contains correct GitHub link', () => {
-    renderWithTheme(<Footer />)
+    render(<Footer />)
 
     const githubAnchor = screen.getByText('how to contribute')
     expect(githubAnchor).toBeInTheDocument()

@@ -1,8 +1,8 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { StyledLink } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import NextLink from 'next/link'
+import styles from './index.module.css'
 
 interface Props {
   children: ReactNode
@@ -23,28 +23,33 @@ export default function Link({
   rel,
   target = '_self',
 }: Props) {
-  const [theme] = useTheme()
-  const colorName = theme.text.color[color]
-  const hoverColor = theme.text.hover[color]
+  const colorVariants: Record<string, string> = {
+    black: styles.colorBlack,
+    brandPrimary: styles.colorBrandPrimary,
+    brandSecondary: styles.colorBrandSecondary,
+    highlight: styles.colorHighlight,
+    primary: styles.colorPrimary,
+    secondary: styles.colorSecondary,
+    tertiary: styles.colorTertiary,
+    white: styles.colorWhite,
+  }
 
-  if (!colorName || !hoverColor) {
-    console.error(
-      `Text color "${color}" is not defined in ${theme.name} theme.`,
-    )
-    return null
+  const colorClass = colorVariants[color]
+
+  if (!colorClass) {
+    console.error(`Text color "${color}" is not defined for Link component.`)
   }
 
   return (
-    <StyledLink
-      color={colorName}
+    <NextLink
+      className={`${styles.link} ${colorClass || styles.colorPrimary}`}
       download={download}
-      hoverColor={hoverColor}
       href={href}
       rel={rel}
       target={target}
       onClick={onClick}
     >
       {children}
-    </StyledLink>
+    </NextLink>
   )
 }

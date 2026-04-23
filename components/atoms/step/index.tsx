@@ -1,8 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { Container, StepCounter } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import styles from './index.module.css'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 
 interface Props {
   imageSrcSet?: {
@@ -14,21 +14,21 @@ interface Props {
 }
 
 export default function Step({ imageSrcSet, stepTitle, text }: Props) {
-  const [theme] = useTheme()
+  const prefersDarkMode = usePrefersDarkMode()
 
   //TODO: use srcSet images for mobile devices
   return (
-    <Container>
-      {stepTitle && <StepCounter>{stepTitle}</StepCounter>}
+    <div className={styles.container}>
+      {stepTitle && <strong className={styles.stepCounter}>{stepTitle}</strong>}
       <p>{text}</p>
       {imageSrcSet && (
         <Image
           alt="Discord screenshot example"
           height={354}
-          src={imageSrcSet[theme.name]}
+          src={prefersDarkMode ? imageSrcSet.dark : imageSrcSet.light}
           width={640}
         />
       )}
-    </Container>
+    </div>
   )
 }

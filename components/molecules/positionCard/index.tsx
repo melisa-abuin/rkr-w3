@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Card, ContentContainer } from './styled'
+import styles from './index.module.css'
 import PositionNumber from '@/components/atoms/positionNumber'
 
 export type PositionCardVariant = 'default' | 'highlight'
@@ -21,14 +21,17 @@ export default function PositionCard({
   isSmallPosition = false,
   children,
 }: Props) {
+  const cardClassName = `${styles.card} ${
+    variant === 'highlight' ? styles.cardHighlight : ''
+  } ${className || ''}`
+
   return (
-    <Card
-      $variant={variant}
+    <div
       aria-label={ariaLabel || `Position card ${position}`}
-      className={className}
+      className={cardClassName}
     >
       <PositionNumber isSmall={isSmallPosition} pos={position} />
-      <ContentContainer>{children}</ContentContainer>
-    </Card>
+      <div className={styles.contentContainer}>{children}</div>
+    </div>
   )
 }

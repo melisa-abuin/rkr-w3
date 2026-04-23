@@ -1,0 +1,33 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.containerHiddenOnMobile {
+  display: flex;
+}
+
+.description {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs-sm);
+  font-weight: var(--font-weight-regular);
+}
+
+.title {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 480px) {
+  .containerHiddenOnMobile {
+    display: none;
+  }
+}

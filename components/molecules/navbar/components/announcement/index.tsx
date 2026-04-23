@@ -1,7 +1,7 @@
 'use client'
 
 import { Cross } from '@/components/icons/cross'
-import { Container, Content, CrossContainer, Spacer } from './styled'
+import styles from './index.module.css'
 import { useEffect, useState } from 'react'
 
 // Change this key to update the announcement
@@ -25,9 +25,9 @@ export default function Announcement() {
 
   return (
     <>
-      <Spacer />
-      <Container>
-        <Content>
+      <div className={styles.spacer} />
+      <div className={styles.container}>
+        <div className={styles.content}>
           Save the date! <strong>Summer Team Tournament </strong>on Saturday,
           August 9th, 2025
           <br />
@@ -38,11 +38,16 @@ export default function Announcement() {
               servers
             </i>
           </small>
-        </Content>
-        <CrossContainer aria-label="Close announcement" onClick={handleClose}>
+        </div>
+        <button
+          aria-label="Close announcement"
+          className={styles.crossContainer}
+          type="button"
+          onClick={handleClose}
+        >
           <Cross fill="#fff" height={16} width={16} />
-        </CrossContainer>
-      </Container>
+        </button>
+      </div>
     </>
   )
 }

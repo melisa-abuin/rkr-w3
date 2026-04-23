@@ -1,6 +1,5 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import DesktopNavbar from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
@@ -18,7 +17,7 @@ describe('DesktopNavbar', () => {
   })
 
   it('renders all navigation links', () => {
-    renderWithTheme(<DesktopNavbar hasTransparentStyle />)
+    render(<DesktopNavbar hasTransparentStyle />)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('Leaderboard')).toBeInTheDocument()
@@ -27,11 +26,10 @@ describe('DesktopNavbar', () => {
   it('applies the selected style to the current page link', () => {
     mockUsePathname.mockReturnValue('/leaderboard')
 
-    renderWithTheme(<DesktopNavbar hasTransparentStyle={false} />)
+    render(<DesktopNavbar hasTransparentStyle={false} />)
 
     const challengesLink = screen.getByText('Leaderboard')
-    const styles = getComputedStyle(challengesLink)
 
-    expect(styles.fontWeight).toBe('var( --font-weight-bold )')
+    expect(challengesLink.closest('li')).toHaveClass('selected')
   })
 })

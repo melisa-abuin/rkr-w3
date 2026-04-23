@@ -1,6 +1,6 @@
 'use client'
 
-import { Container } from './styled'
+import styles from './index.module.css'
 import MobileCard from './components/mobileCard'
 import DesktopCard from './components/desktopCard'
 import { GamesStats } from '@/interfaces/game'
@@ -16,7 +16,7 @@ interface Props {
 export default function Cards({ games, loading, showDifficulty }: Props) {
   if (loading) {
     return (
-      <Container>
+      <div className={styles.container}>
         {[...Array(5)].map((_, rowIndex) => (
           <LoaderDesktopCard
             key={rowIndex}
@@ -31,7 +31,7 @@ export default function Cards({ games, loading, showDifficulty }: Props) {
             showDifficulty={showDifficulty}
           />
         ))}
-      </Container>
+      </div>
     )
   }
 
@@ -40,7 +40,7 @@ export default function Cards({ games, loading, showDifficulty }: Props) {
   }
 
   return (
-    <Container>
+    <div className={styles.container}>
       {games.slice(0, 5).map((game, index) => (
         <DesktopCard
           key={index}
@@ -63,6 +63,6 @@ export default function Cards({ games, loading, showDifficulty }: Props) {
           time={game.times.total}
         />
       ))}
-    </Container>
+    </div>
   )
 }

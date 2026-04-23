@@ -1,0 +1,38 @@
+.content {
+  align-items: flex-end;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+}
+
+.colored {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+  max-width: 300px;
+  width: 100%;
+}
+
+.buttonGroup > button {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .content {
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .buttonGroup {
+    max-width: unset;
+    width: 100%;
+  }
+}

@@ -1,0 +1,23 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.description {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+}
+
+.title {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-sm-xs);
+  font-weight: var(--font-weight-semi-bold);
+  margin: 0;
+  padding: 0;
+}

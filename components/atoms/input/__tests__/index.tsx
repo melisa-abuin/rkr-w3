@@ -1,14 +1,13 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Input from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Input Component', () => {
   const mockOnChange = jest.fn()
   const mockOnCrossClick = jest.fn()
 
   it('renders correctly with required props', () => {
-    renderWithTheme(
+    render(
       <Input
         id="test-input"
         name="test"
@@ -23,7 +22,7 @@ describe('Input Component', () => {
   })
 
   it('renders with a left icon if provided', () => {
-    renderWithTheme(
+    render(
       <Input
         id="test-input"
         leftIcon={<span data-testid="left-icon">🔍</span>}
@@ -41,7 +40,7 @@ describe('Input Component', () => {
   it('calls onChange handler when typing', async () => {
     const user = userEvent.setup()
 
-    renderWithTheme(
+    render(
       <Input
         id="test-input"
         name="test"
@@ -58,7 +57,7 @@ describe('Input Component', () => {
   })
 
   it('renders clear icon when there is a value and onCrossClick is provided', () => {
-    renderWithTheme(
+    render(
       <Input
         id="test-input"
         name="test"
@@ -76,7 +75,7 @@ describe('Input Component', () => {
   it('calls onCrossClick when clicking the clear icon', async () => {
     const user = userEvent.setup()
 
-    renderWithTheme(
+    render(
       <Input
         id="test-input"
         name="test"
@@ -97,7 +96,7 @@ describe('Input Component', () => {
     const onFocus = jest.fn()
     const user = userEvent.setup()
 
-    renderWithTheme(
+    render(
       <Input
         id="test-input"
         name="test"

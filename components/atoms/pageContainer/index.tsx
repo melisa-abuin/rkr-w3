@@ -1,7 +1,7 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import { InnerContainer, OuterContainer, Title } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   align?: 'center' | 'left'
@@ -23,21 +23,32 @@ export const PageContainer = ({
   marginTop = 0,
   withPadding = true,
   title,
-}: Props) => (
-  <OuterContainer
-    aria-labelledby={ariaLabelledby}
-    as={as}
-    marginBottom={marginBottom}
-    marginTop={marginTop}
-    withPadding={withPadding}
-  >
-    <InnerContainer>
-      {title && (
-        <Title align={align} id={ariaLabelledby}>
-          {title}
-        </Title>
-      )}
-      {children}
-    </InnerContainer>
-  </OuterContainer>
-)
+}: Props) => {
+  const OuterElement = as
+  const titleAlignClass =
+    align === 'center' ? styles.titleCenter : styles.titleLeft
+
+  return (
+    <OuterElement
+      aria-labelledby={ariaLabelledby}
+      className={styles.outerContainer}
+      style={{
+        marginBottom: `${marginBottom}px`,
+        marginTop: `${marginTop}px`,
+        padding: withPadding ? '0 24px' : '0',
+      }}
+    >
+      <div className={styles.innerContainer}>
+        {title && (
+          <h2
+            className={`${styles.title} ${titleAlignClass}`}
+            id={ariaLabelledby}
+          >
+            {title}
+          </h2>
+        )}
+        {children}
+      </div>
+    </OuterElement>
+  )
+}

@@ -1,4 +1,4 @@
-import { Col } from './styled'
+import styles from './index.module.css'
 import Paws from '@/components/atoms/paws'
 
 interface DifficultyDataProps {
@@ -7,9 +7,9 @@ interface DifficultyDataProps {
 
 export default function DifficultyData({ data }: DifficultyDataProps) {
   return (
-    <Col>
+    <div className={styles.col}>
       {data}
       <Paws difficulty={data} />
-    </Col>
+    </div>
   )
 }

@@ -1,15 +1,7 @@
 'use client'
 
 import TextWithIcon from '@/components/atoms/textWithIcon'
-import {
-  AnimatedBorderBox,
-  AnimatedBorderBoxGlow,
-  CenterBox,
-  Col,
-  Container,
-  Row,
-  Title,
-} from './styled'
+import styles from './index.module.css'
 import { getMessageByScore } from '@/utils/getMessageByScore'
 
 interface WinStreakProps {
@@ -19,29 +11,34 @@ interface WinStreakProps {
 
 export default function WinStreak({ current, highest }: WinStreakProps) {
   const message = getMessageByScore(current)
-  return (
-    <CenterBox withPadding={current !== 0 && current === highest}>
-      <AnimatedBorderBoxGlow />
-      <AnimatedBorderBox />
+  const hasPadding = current !== 0 && current === highest
+  const centerBoxClass = hasPadding
+    ? `${styles.centerBox} ${styles.centerBoxWithPadding}`
+    : styles.centerBox
 
-      <Container>
-        <Title>Win Streak</Title>
-        <Row>
-          <Col>
+  return (
+    <div className={centerBoxClass}>
+      <div className={styles.animatedBorderBoxGlow} />
+      <div className={styles.animatedBorderBox} />
+
+      <div className={styles.container}>
+        <h2 className={styles.title}>Win Streak</h2>
+        <div className={styles.row}>
+          <div className={styles.col}>
             <p>Current</p>
             <span>{current}</span>
-          </Col>
-          <Col>
+          </div>
+          <div className={styles.col}>
             <p>Highest</p>
             <span>{highest}</span>
-          </Col>
-        </Row>
+          </div>
+        </div>
         {message && (
           <TextWithIcon colorName="brandPrimary" iconName="flame">
             {message}
           </TextWithIcon>
         )}
-      </Container>
-    </CenterBox>
+      </div>
+    </div>
   )
 }

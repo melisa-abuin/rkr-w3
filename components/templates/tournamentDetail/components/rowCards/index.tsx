@@ -3,8 +3,8 @@
 import PositionCard from '@/components/molecules/positionCard'
 import { Tournament } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
-import Column from '../column'
-import { Card, ColumnsContainer, Container } from './styled'
+import Column from './components/column'
+import styles from './index.module.css'
 import PlayerTag from '@/components/molecules/playerTag'
 
 interface Props {
@@ -13,16 +13,16 @@ interface Props {
 
 export default function RowCards({ item }: Props) {
   return (
-    <Container>
+    <div className={styles.container}>
       {item.players.map((player, playerIndex) => (
-        <Card key={player.battleTag.tag}>
+        <div key={player.battleTag.tag} className={styles.card}>
           <PositionCard
             isSmallPosition
             ariaLabel={`Player card for ${player.battleTag.tag}`}
             position={playerIndex + 1}
           >
             <PlayerTag battleTag={player.battleTag} />
-            <ColumnsContainer>
+            <div className={styles.columnsContainer}>
               <Column
                 description="Total Time"
                 value={formatSecondsAsTime(player.totalTime)}
@@ -34,10 +34,10 @@ export default function RowCards({ item }: Props) {
                   value={formatSecondsAsTime(game.totalTime)}
                 />
               ))}
-            </ColumnsContainer>
+            </div>
           </PositionCard>
-        </Card>
+        </div>
       ))}
-    </Container>
+    </div>
   )
 }

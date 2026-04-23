@@ -1,7 +1,6 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import MobileNavbar from '..'
 import userEvent from '@testing-library/user-event'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(),
@@ -25,7 +24,7 @@ describe('MobileNavbar', () => {
   })
 
   it('renders the hamburger menu icon and opens the menu', async () => {
-    renderWithTheme(<MobileNavbar />)
+    render(<MobileNavbar />)
 
     const menuIcon = screen.getByAltText('hamburger menu')
     expect(menuIcon).toBeInTheDocument()

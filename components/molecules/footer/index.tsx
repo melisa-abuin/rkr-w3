@@ -1,12 +1,12 @@
 'use client'
 
 import { blizzardLink, githubReadMeLink } from '@/constants'
-import { FooterContainer } from './styled'
+import styles from './index.module.css'
 import Link from '@/components/atoms/link'
 
 export default function Footer() {
   return (
-    <FooterContainer>
+    <footer className={styles.footerContainer}>
       <p>This is a non-profit project developed and maintained by Aches</p>
       <p>
         Warcraft is ©2025 by{' '}
@@ -41,6 +41,6 @@ export default function Footer() {
           Flaticon
         </Link>
       </p>
-    </FooterContainer>
+    </footer>
   )
 }

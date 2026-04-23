@@ -8,7 +8,7 @@ describe('formatDateToLocale', () => {
   it('should return a formatted date string for a valid ISO date', () => {
     const result = formatDateToLocale('2023-12-25')
 
-    const expected = new Date('2023-12-25').toLocaleDateString(undefined, {
+    const expected = new Date('2023-12-25').toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -19,7 +19,7 @@ describe('formatDateToLocale', () => {
   it('should handle a full ISO datetime string', () => {
     const result = formatDateToLocale('2023-12-25T15:30:00Z')
     const expected = new Date('2023-12-25T15:30:00Z').toLocaleDateString(
-      undefined,
+      'en-US',
       {
         year: 'numeric',
         month: 'long',

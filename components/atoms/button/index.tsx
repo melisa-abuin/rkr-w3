@@ -1,53 +1,75 @@
 'use client'
 
-import React, { ReactNode } from 'react'
-import { StyledButton } from './styled'
-import { useTheme } from '@/hooks/useTheme'
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+} from 'react'
+import styles from './index.module.css'
 
-interface Props {
-  as?: 'a' | 'button'
-  href?: string
-  target?: string
+type CommonProps = {
   children: ReactNode
   disabled?: boolean
-  onClick?: () => void
   small?: boolean
   colorName?: 'primary' | 'secondary' | 'tertiary'
   variant?: 'outline' | 'solid' | 'ghost'
 }
 
+type ButtonAsButtonProps = CommonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'color'> & {
+    as?: 'button'
+  }
+
+type ButtonAsAnchorProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'color'> & {
+    as: 'a'
+  }
+
+type Props = ButtonAsAnchorProps | ButtonAsButtonProps
+
 export default function Button({
   as = 'button',
-  href,
-  target,
   children,
   colorName = 'primary',
   disabled = false,
-  onClick,
   small = false,
   variant = 'solid',
+  ...props
 }: Props) {
-  const [theme] = useTheme()
-
-  if (!theme.button[colorName]) {
-    console.error(
-      `Button color "${colorName}" is not defined in ${theme.name} theme.`,
-    )
-    return null
+  const colorVariants: Record<NonNullable<CommonProps['colorName']>, string> = {
+    primary: styles.primary,
+    secondary: styles.secondary,
+    tertiary: styles.tertiary,
   }
 
+  const buttonVariants: Record<NonNullable<CommonProps['variant']>, string> = {
+    ghost: styles.ghost,
+    outline: styles.outline,
+    solid: styles.solid,
+  }
+
+  const sizeClass = small ? styles.small : styles.regular
+  const colorClass = colorVariants[colorName]
+  const variantClass = buttonVariants[variant]
+  const className = `${styles.button} ${colorClass || styles.primary} ${
+    variantClass || styles.solid
+  } ${sizeClass}`
+
+  if (as === 'a') {
+    const anchorProps = props as Omit<ButtonAsAnchorProps, keyof CommonProps>
+
+    return (
+      <a className={className} {...anchorProps}>
+        {children}
+      </a>
+    )
+  }
+
+  const buttonProps = props as Omit<ButtonAsButtonProps, keyof CommonProps>
+
   return (
-    <StyledButton
-      as={as}
-      href={href}
-      target={target}
-      {...theme.button[colorName]}
-      disabled={disabled}
-      small={small}
-      variant={variant}
-      onClick={onClick}
-    >
+    <button className={className} disabled={disabled} {...buttonProps}>
       {children}
-    </StyledButton>
+    </button>
   )
 }

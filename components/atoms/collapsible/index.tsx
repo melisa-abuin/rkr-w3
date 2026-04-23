@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react'
-import { Body, Container, Header, Title } from './styled'
+import styles from './index.module.css'
 import { Plus } from '@/components/icons/plus'
-import { useTheme } from '@/hooks/useTheme'
 import { Minus } from '@/components/icons/minus'
 
 interface CollapsibleProps {
@@ -11,23 +10,27 @@ interface CollapsibleProps {
 
 export default function Collapsible({ children, title }: CollapsibleProps) {
   const [isCollapsed, setIsCollapsed] = useState(true)
-  const [theme] = useTheme()
 
   const iconProps = {
-    fill: theme.text.color.primary,
+    fill: 'var(--text-color-primary)',
     height: 16,
     width: 16,
   }
 
+  const bodyClass = isCollapsed ? styles.bodyCollapsed : styles.bodyOpen
+
   return (
-    <Container>
-      <Header onClick={() => setIsCollapsed((prev) => !prev)}>
-        <Title>{title}</Title>
+    <div className={styles.container}>
+      <div
+        className={styles.header}
+        onClick={() => setIsCollapsed((prev) => !prev)}
+      >
+        <h2 className={styles.title}>{title}</h2>
         {isCollapsed ? <Plus {...iconProps} /> : <Minus {...iconProps} />}
-      </Header>
-      <Body aria-hidden={isCollapsed} isCollapsed={isCollapsed}>
+      </div>
+      <div aria-hidden={isCollapsed} className={`${styles.body} ${bodyClass}`}>
         {children}
-      </Body>
-    </Container>
+      </div>
+    </div>
   )
 }

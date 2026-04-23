@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react'
-import { StyledTooltip, TooltipContainer } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   ariaLabel?: string
@@ -16,22 +16,22 @@ export default function Tooltip({ ariaLabel, body, children }: Props) {
   }
 
   return (
-    <TooltipContainer
+    <div
       aria-label={ariaLabel || 'Tooltip'}
+      className={styles.container}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
       onMouseMove={handleMouseMove}
     >
       {children}
 
-      <StyledTooltip
+      <div
+        className={`${styles.tooltip} ${showTooltip ? styles.tooltipVisible : ''}`}
         role="tooltip"
-        showTooltip={showTooltip}
-        x={coords.x}
-        y={coords.y}
+        style={{ left: coords.x, top: coords.y }}
       >
         {body}
-      </StyledTooltip>
-    </TooltipContainer>
+      </div>
+    </div>
   )
 }

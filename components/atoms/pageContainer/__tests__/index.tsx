@@ -1,11 +1,10 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { PageContainer } from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('PageContainer', () => {
   it('renders children correctly', () => {
     const childText = 'Test Content'
-    renderWithTheme(
+    render(
       <PageContainer ariaLabelledby="some-title">
         <div>{childText}</div>
       </PageContainer>,
@@ -15,7 +14,7 @@ describe('PageContainer', () => {
   })
 
   it('renders a title when provided', () => {
-    renderWithTheme(
+    render(
       <PageContainer ariaLabelledby="test-title-id" title="Test Title">
         <p>Some child</p>
       </PageContainer>,
@@ -28,7 +27,7 @@ describe('PageContainer', () => {
   })
 
   it('does not render title when not provided', () => {
-    renderWithTheme(
+    render(
       <PageContainer>
         <span>No title here</span>
       </PageContainer>,
@@ -38,7 +37,7 @@ describe('PageContainer', () => {
   })
 
   it('applies correct alignment to title', () => {
-    renderWithTheme(
+    render(
       <PageContainer
         align="center"
         ariaLabelledby="aligned-id"
@@ -50,11 +49,11 @@ describe('PageContainer', () => {
 
     const title = screen.getByText('Aligned Title')
     expect(title).toHaveAttribute('id', 'aligned-id')
-    expect(title).toHaveStyle({ textAlign: 'center' })
+    expect(title).toHaveClass('titleCenter')
   })
 
   it('renders with different HTML element using "as" prop', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <PageContainer ariaLabelledby="div-test" as="div">
         <div>Some content</div>
       </PageContainer>,

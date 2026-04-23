@@ -2,11 +2,10 @@
 
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
-import { useTheme } from '@/hooks/useTheme'
 import { Player } from '@/interfaces/player'
 import Image from 'next/image'
-import React, { useRef, useState } from 'react'
-import { Option, Options, Wrapper } from './styled'
+import { useRef, useState } from 'react'
+import styles from './index.module.css'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -32,7 +31,6 @@ export default function PlayerFinder({
   const [showOptions, setShowOptions] = useState(false)
 
   const debouncedQuery = useDebouncedValue(query, 300)
-  const [theme] = useTheme()
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   const hasCustomOnChange = !!onChange
@@ -75,8 +73,10 @@ export default function PlayerFinder({
     setShowOptions(false)
   }
 
+  const clickableOptionClassName = `${styles.option} ${styles.clickableOption}`
+
   return (
-    <Wrapper ref={wrapperRef}>
+    <div ref={wrapperRef} className={styles.wrapper}>
       <Input
         id="player"
         leftIcon={
@@ -84,11 +84,11 @@ export default function PlayerFinder({
             <Image
               alt="loading"
               height={16}
-              src={`/loading-${theme.name}.gif`}
+              src="/loading-dark.gif"
               width={16}
             />
           ) : (
-            <Search fill={theme.text.color.primary} height={16} width={16} />
+            <Search fill="currentColor" height={16} width={16} />
           )
         }
         name="player"
@@ -100,22 +100,22 @@ export default function PlayerFinder({
       />
 
       {showOptions && query.length > 2 && data && (
-        <Options>
+        <div className={styles.options}>
           {data.stats.length > 0 ? (
             data.stats.map((player) => (
-              <Option
+              <span
                 key={player.battleTag.tag}
-                isClickable
+                className={clickableOptionClassName}
                 onClick={() => handleSelect(player)}
               >
                 {player.battleTag.tag}
-              </Option>
+              </span>
             ))
           ) : (
-            <Option>No results</Option>
+            <span className={styles.option}>No results</span>
           )}
-        </Options>
+        </div>
       )}
-    </Wrapper>
+    </div>
   )
 }

@@ -1,39 +1,38 @@
 import Loader from '@/components/atoms/loader'
-import { LoaderContainer } from './styled'
-import { Td, Tr } from '../row/styled'
-import { Card, Container, Footer, Header, Table } from '../../styled'
+import styles from './index.module.css'
+import columnCardStyles from '../../index.module.css'
 
 export default function LoaderCard() {
   return (
-    <Container>
+    <div className={columnCardStyles.container}>
       {[...Array(5)].map((_, rowIndex) => (
-        <Card key={rowIndex}>
-          <Header>
+        <div key={rowIndex} className={columnCardStyles.card}>
+          <div className={columnCardStyles.header}>
             <Loader height={21} variant="secondary" width={100} />
-          </Header>
-          <Table>
+          </div>
+          <table className={columnCardStyles.table}>
             <tbody>
               {[...Array(5)].map((_, rowIndex) => (
-                <Tr key={rowIndex}>
-                  <Td>
-                    <LoaderContainer>
+                <tr key={rowIndex} className={styles.row}>
+                  <td className={styles.td}>
+                    <div className={styles.loaderContainer}>
                       <Loader height={17} width={70} />
-                    </LoaderContainer>
-                  </Td>
-                  <Td>
-                    <LoaderContainer>
+                    </div>
+                  </td>
+                  <td className={styles.td}>
+                    <div className={styles.loaderContainer}>
                       <Loader height={17} width={30} />
-                    </LoaderContainer>
-                  </Td>
-                </Tr>
+                    </div>
+                  </td>
+                </tr>
               ))}
             </tbody>
-          </Table>
-          <Footer>
+          </table>
+          <div className={columnCardStyles.footer}>
             <Loader height={17} variant="secondary" width={70} />
-          </Footer>
-        </Card>
+          </div>
+        </div>
       ))}
-    </Container>
+    </div>
   )
 }

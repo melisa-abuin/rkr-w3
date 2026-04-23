@@ -1,9 +1,5 @@
-import Footer from '@/components/molecules/footer'
-import Navbar from '@/components/molecules/navbar'
-import { ThemeProvider } from '@/hooks/useTheme'
 import { Player } from '@/interfaces/player'
 import Error from '@/components/molecules/error'
-import { ToastProvider } from '@/hooks/useToast'
 import Stats from '@/components/templates/stats'
 import { getBaseUrlFromHeaders } from '@/utils'
 
@@ -70,18 +66,12 @@ export default async function StatsPage({ searchParams }: PageProps) {
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
 
   return (
-    <ThemeProvider>
-      <ToastProvider>
-        <Navbar />
-        <main>
-          {error ? (
-            <Error />
-          ) : (
-            <Stats data={data} filter={filter?.toString() || 'stats'} />
-          )}
-        </main>
-        <Footer />
-      </ToastProvider>
-    </ThemeProvider>
+    <main>
+      {error ? (
+        <Error />
+      ) : (
+        <Stats data={data} filter={filter?.toString() || 'stats'} />
+      )}
+    </main>
   )
 }

@@ -10,7 +10,7 @@ import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
 import { BattleTag, Kibbles } from '@/interfaces/player'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { FiltersRow } from './styled'
+import styles from './index.module.css'
 
 interface TableProps<T> {
   apiBaseUrl: 'times' | 'stats' | 'kibbleStats'
@@ -83,7 +83,7 @@ export default function TableWithControls<T>({
         difficultyFilter={difficulty}
         filters={
           !!handleDifficultyChange && (
-            <FiltersRow>
+            <div className={styles.filtersRow}>
               <Badges
                 options={difficultyNames}
                 selected={difficulty}
@@ -95,7 +95,7 @@ export default function TableWithControls<T>({
                 onClear={() => handlePlayerChange('')}
                 onPlayerSelect={() => {}}
               />
-            </FiltersRow>
+            </div>
           )
         }
         headerLink={headerLink}

@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.container a {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 4px;
+  margin-top: 10px;
+}
+
+.subtitle {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semi-bold);
+  margin-bottom: 4px;
+  margin-top: 10px;
+}

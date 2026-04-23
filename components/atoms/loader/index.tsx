@@ -1,4 +1,5 @@
-import { Background } from './styled'
+import type { CSSProperties } from 'react'
+import styles from './index.module.css'
 
 interface Props {
   height?: number | string
@@ -11,14 +12,19 @@ export default function Loader({
   variant = 'primary',
   width = 'auto',
 }: Props) {
+  const className = `${styles.background} ${styles[variant]}`
+  const style = {
+    height: typeof height === 'number' ? `${height}px` : height,
+    width: typeof width === 'number' ? `${width}px` : width,
+  } satisfies CSSProperties
+
   return (
-    <Background
+    <div
       aria-busy="true"
       aria-valuetext="Loading..."
-      height={height}
+      className={className}
       role="progressbar"
-      variant={variant}
-      width={width}
+      style={style}
     />
   )
 }

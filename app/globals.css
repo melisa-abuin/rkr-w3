@@ -14,27 +14,26 @@
   --font-weight-regular: 400; /* Regular */
 }
 
+html {
+  color-scheme: light;
+  min-height: 100vh;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-  body {
-    color: #ebe4e4;
-    background: #130f0f;
-  }
 }
 
 body {
+  color: var(--text-color-primary);
+  background: var(--background-primary);
   display: flex;
   flex-direction: column;
   margin: 0;
   font-family: var(--font-inter), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100vh;
-}
-
-html {
   min-height: 100vh;
 }
 

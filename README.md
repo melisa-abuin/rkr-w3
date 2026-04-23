@@ -6,7 +6,6 @@ A web application built to help _Run Kitty Run_ players join the community Disco
 
 - [Typescript](https://www.typescriptlang.org/) as the programming language
 - [React](https://reactjs.org/) as the library for the components
-- [Styled Components](https://styled-components.com/) as the library for styling the app
 - [Jest](https://jestjs.io/) as the unit tests framework
 - [Next](https://nextjs.org/) as the web development framework
 

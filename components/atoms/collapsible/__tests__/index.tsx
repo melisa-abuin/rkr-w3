@@ -1,12 +1,9 @@
-import { screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Collapsible from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Collapsible', () => {
   it('renders the title by default with the content hidden', () => {
-    renderWithTheme(
-      <Collapsible title="Test Title">Hidden Content</Collapsible>,
-    )
+    render(<Collapsible title="Test Title">Hidden Content</Collapsible>)
 
     expect(screen.getByText('Test Title')).toBeInTheDocument()
 
@@ -15,7 +12,7 @@ describe('Collapsible', () => {
   })
 
   it('toggles content on header click', () => {
-    renderWithTheme(<Collapsible title="Click Me">Toggled Content</Collapsible>)
+    render(<Collapsible title="Click Me">Toggled Content</Collapsible>)
 
     const header = screen.getByText('Click Me')
     fireEvent.click(header)

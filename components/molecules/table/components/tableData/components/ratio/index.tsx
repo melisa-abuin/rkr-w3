@@ -1,10 +1,16 @@
 import React from 'react'
-import { Container } from './styled'
+import styles from './index.module.css'
 
 interface Props {
   data: number
 }
 
 export default function Ratio({ data }: Props) {
-  return <Container highlighted={data > 1}>{data}</Container>
+  return (
+    <div
+      className={`${styles.container} ${data > 1 ? styles.containerHighlighted : ''}`}
+    >
+      {data}
+    </div>
+  )
 }

@@ -1,0 +1,8 @@
+.td {
+  background-color: inherit;
+  border: none;
+  color: var(--text-color-primary);
+  padding: 10px;
+  text-align: center;
+  transition: background-color 1s;
+}

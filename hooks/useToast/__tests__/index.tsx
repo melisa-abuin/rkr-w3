@@ -1,7 +1,6 @@
-import { screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { ToastProvider, useToast } from '..'
 import userEvent from '@testing-library/user-event'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 const TestComponent = () => {
   const { showToast } = useToast()
@@ -28,7 +27,7 @@ describe('ToastProvider', () => {
   })
 
   it('renders children', async () => {
-    renderWithTheme(
+    render(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
@@ -38,7 +37,7 @@ describe('ToastProvider', () => {
   })
 
   it('removes toast messages after duration', () => {
-    renderWithTheme(
+    render(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
@@ -57,7 +56,7 @@ describe('ToastProvider', () => {
   it('removes toast messages after clicking on toast', async () => {
     jest.useRealTimers()
 
-    renderWithTheme(
+    render(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,
@@ -74,7 +73,7 @@ describe('ToastProvider', () => {
   it('shows waning message when specified', async () => {
     jest.useRealTimers()
 
-    renderWithTheme(
+    render(
       <ToastProvider>
         <TestComponent />
       </ToastProvider>,

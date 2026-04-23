@@ -1,0 +1,12 @@
+.wrapper {
+  position: relative;
+  background-color: var(--background-quaternary);
+  color: var(--text-color-primary);
+  height: 32px;
+  border-radius: 8px;
+  padding: 0 8px;
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

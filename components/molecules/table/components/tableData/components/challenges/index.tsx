@@ -1,6 +1,6 @@
 import React from 'react'
-import { Container, Text } from './styled'
 import { Challenges as ChallengesT } from '@/interfaces/player'
+import styles from './index.module.css'
 import TextWithIcon from '@/components/atoms/textWithIcon'
 
 interface Props {
@@ -55,13 +55,13 @@ export default function Challenges({ data }: Props) {
 
   return (
     <div>
-      <Container>
+      <div className={styles.container}>
         <GeneralChallenges challenges={general} />
-      </Container>
+      </div>
 
-      <Text>
+      <p className={styles.text}>
         Tournament: {completedChallenges}/{totalChallenges}
-      </Text>
+      </p>
     </div>
   )
 }

@@ -1,6 +1,7 @@
+import NextImage from 'next/image'
 import { ImageProps } from 'next/image'
 import { useState } from 'react'
-import { StyledImage } from './styled'
+import styles from './index.module.css'
 
 interface Props extends ImageProps {
   colored: boolean
@@ -17,13 +18,15 @@ export default function Image({
   ...rest
 }: Props) {
   const [imgSrc, setImgSrc] = useState(src)
+  const circularClass = circular ? styles.circular : styles.notCircular
+  const coloredClass = colored ? styles.colored : styles.grayscale
+  const className = `${styles.image} ${circularClass} ${coloredClass}`
 
   return (
-    <StyledImage
-      $circular={circular}
+    <NextImage
       {...rest}
-      $colored={colored}
       alt={alt}
+      className={className}
       height={48}
       src={imgSrc}
       width={48}

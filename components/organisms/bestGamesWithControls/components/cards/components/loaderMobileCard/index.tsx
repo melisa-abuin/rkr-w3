@@ -1,11 +1,4 @@
-import {
-  Container,
-  Description,
-  Header,
-  NameList,
-  Title,
-  Wrapper,
-} from '../mobileCard/styled'
+import styles from '../mobileCard/index.module.css'
 import Loader from '@/components/atoms/loader'
 import PositionNumber from '@/components/atoms/positionNumber'
 
@@ -16,23 +9,23 @@ interface Props {
 
 export default function LoaderMobileCard({ position, showDifficulty }: Props) {
   return (
-    <Container>
-      <Header>
+    <div className={styles.container}>
+      <div className={styles.header}>
         <PositionNumber isSmall pos={position} />
-        <Wrapper>
-          <Title>
+        <div className={styles.wrapper}>
+          <h4 className={styles.title}>
             <Loader height={21} variant="secondary" width={70} />
-          </Title>
+          </h4>
           {showDifficulty && (
-            <Description>
+            <span className={styles.description}>
               <Loader height={17} variant="secondary" width={70} />
-            </Description>
+            </span>
           )}
-        </Wrapper>
-      </Header>
-      <NameList>
+        </div>
+      </div>
+      <div className={styles.nameList}>
         <Loader height={30} width={'90%'} />
-      </NameList>
-    </Container>
+      </div>
+    </div>
   )
 }

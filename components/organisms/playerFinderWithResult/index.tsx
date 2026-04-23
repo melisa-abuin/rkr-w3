@@ -5,14 +5,14 @@ import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import { Player } from '@/interfaces/player'
 import { useState } from 'react'
-import { Wrapper } from './styled'
+import styles from './index.module.css'
 
 export const columns = [
   { title: 'Saves', key: 'saves' },
   { title: 'Deaths', key: 'deaths' },
   { title: 'S/D Ratio', key: 'saveDeathRatio' },
   { title: 'Win Rate', key: 'winRate' },
-  { title: 'Highest Win Streak', key: 'winStreak' },
+  { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ] as const
 
 export default function PlayerFinderWithResult({
@@ -40,7 +40,7 @@ export default function PlayerFinderWithResult({
     <>
       <PlayerFinder onClear={handleClear} onPlayerSelect={handleSelect} />
       {activePlayer && (
-        <Wrapper>
+        <div className={styles.wrapper}>
           <Columns
             actionColumn={
               <Button
@@ -61,7 +61,7 @@ export default function PlayerFinderWithResult({
               },
             ]}
           />
-        </Wrapper>
+        </div>
       )}
     </>
   )

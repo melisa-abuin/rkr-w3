@@ -1,9 +1,9 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import { CloseButton, Container, MobileMenu, NavLinks, NavLink } from './styled'
+import styles from './index.module.css'
 import Image from 'next/image'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
-import { useTheme } from '@/hooks/useTheme'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import { useState } from 'react'
 import { routes } from '@/constants'
 import Link from '@/components/atoms/link'
@@ -11,41 +11,50 @@ import Link from '@/components/atoms/link'
 export default function MobileNavbar() {
   const pathname = usePathname()
   const [isAtTopPage] = useIsScrollAtTop()
-  const [theme] = useTheme()
+  const prefersDarkMode = usePrefersDarkMode()
   const shouldShowTransparentNav = isAtTopPage && pathname === '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   if (!isMenuOpen) {
     return (
-      <Container>
+      <div className={styles.container}>
         <Image
           alt="hamburger menu"
+          className={styles.hamburger}
           height={25}
           src={
-            shouldShowTransparentNav || theme.name === 'dark'
+            shouldShowTransparentNav || prefersDarkMode
               ? '/hamburger-white.png'
               : '/hamburger-black.png'
           }
           width={25}
           onClick={() => setIsMenuOpen((prev) => !prev)}
         />
-      </Container>
+      </div>
     )
   }
 
   return (
-    <Container>
-      <MobileMenu>
-        <CloseButton
+    <div className={styles.container}>
+      <div className={styles.mobileMenu}>
+        <button
           aria-label="Close modal"
+          className={styles.closeButton}
           type="button"
           onClick={() => setIsMenuOpen(false)}
         >
-          <span aria-hidden="true">&times;</span>
-        </CloseButton>
-        <NavLinks>
+          <span aria-hidden="true" className={styles.closeIcon}>
+            &times;
+          </span>
+        </button>
+        <ul className={styles.navLinks}>
           {Object.values(routes).map((route) => (
-            <NavLink key={route.label} selected={pathname === route.pathname}>
+            <li
+              key={route.label}
+              className={`${styles.navLink} ${
+                pathname === route.pathname ? styles.selected : ''
+              }`}
+            >
               <Link
                 href={route.url}
                 target={route.target}
@@ -53,10 +62,10 @@ export default function MobileNavbar() {
               >
                 {route.label}
               </Link>
-            </NavLink>
+            </li>
           ))}
-        </NavLinks>
-      </MobileMenu>
-    </Container>
+        </ul>
+      </div>
+    </div>
   )
 }

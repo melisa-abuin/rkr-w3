@@ -1,6 +1,5 @@
 import { Paw } from '@/components/icons/paw'
-import { useTheme } from '@/hooks/useTheme'
-import { Row } from './styled'
+import styles from './index.module.css'
 
 interface PawsProps {
   color?: string
@@ -15,12 +14,11 @@ const difficultyPawCounter = {
 }
 
 export default function Paws({ color, difficulty }: PawsProps) {
-  const [theme] = useTheme()
   const difficultyValue = difficulty.toLocaleLowerCase()
   if (difficultyValue in difficultyPawCounter === false) return null
 
   return (
-    <Row>
+    <div className={styles.row}>
       {[
         ...Array(
           difficultyPawCounter[
@@ -30,11 +28,11 @@ export default function Paws({ color, difficulty }: PawsProps) {
       ].map((_, rowIndex) => (
         <Paw
           key={rowIndex}
-          fill={color || theme.color[difficultyValue]}
+          fill={color || `var(--color-${difficultyValue})`}
           height={16}
           width={16}
         />
       ))}
-    </Row>
+    </div>
   )
 }

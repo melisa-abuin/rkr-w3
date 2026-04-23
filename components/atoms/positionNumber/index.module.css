@@ -1,0 +1,42 @@
+.number {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  padding: 8px 8px 8px 0;
+  text-align: center;
+  width: 24px;
+}
+
+.regular {
+  height: 48px;
+}
+
+.small {
+  height: 32px;
+}
+
+.colorTeal {
+  border-right: 1px solid var(--color-teal);
+  color: var(--color-teal);
+}
+
+.colorGreen {
+  border-right: 1px solid var(--color-green);
+  color: var(--color-green);
+}
+
+.colorYellow {
+  border-right: 1px solid var(--color-yellow);
+  color: var(--color-yellow);
+}
+
+.colorPrimary {
+  border-right: 1px solid var(--text-color-primary);
+  color: var(--text-color-primary);
+}
+
+@media (max-width: 480px) {
+  .regular {
+    height: 32px;
+  }
+}
