@@ -1,7 +1,6 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Home from '..'
 import { discordJoinLink } from '@/constants'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 import { useApiQuery } from '@/hooks/useApiQuery'
 
 const discordDataMock = {
@@ -32,7 +31,7 @@ describe('Home', () => {
   })
 
   it('renders the title and description', () => {
-    renderWithTheme(<Home discordData={discordDataMock} />)
+    render(<Home discordData={discordDataMock} />)
 
     expect(screen.getByText('Run Kitty Run')).toBeInTheDocument()
     expect(
@@ -41,7 +40,7 @@ describe('Home', () => {
   })
 
   it('renders the Discord invitation image', () => {
-    renderWithTheme(<Home discordData={discordDataMock} />)
+    render(<Home discordData={discordDataMock} />)
 
     const discordImage = screen.getByAltText('discord invitation')
     expect(discordImage).toBeInTheDocument()
@@ -49,7 +48,7 @@ describe('Home', () => {
   })
 
   it('displays the member and presence counts when data is fetched', () => {
-    renderWithTheme(<Home discordData={discordDataMock} />)
+    render(<Home discordData={discordDataMock} />)
 
     expect(screen.getByText('10')).toBeInTheDocument()
     expect(screen.getByText('5')).toBeInTheDocument()
@@ -61,7 +60,7 @@ describe('Home', () => {
       error: 'There was an issue while fetching discord data',
       loading: false,
     }
-    renderWithTheme(<Home discordData={discordDataMockError} />)
+    render(<Home discordData={discordDataMockError} />)
 
     expect(screen.queryByText('loading...')).not.toBeInTheDocument()
     expect(screen.queryByText('kitties - ')).not.toBeInTheDocument()

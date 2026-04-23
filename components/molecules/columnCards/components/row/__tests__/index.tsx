@@ -1,8 +1,7 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Row from '..'
 import { BestTime } from '@/interfaces/player'
 import { BattleTag } from '@/interfaces/player'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 const player: BattleTag = {
   name: 'PlayerOne',
@@ -16,7 +15,7 @@ const bestTime: BestTime = {
 
 describe('Row', () => {
   it('renders empty cells if player or data is missing', () => {
-    renderWithTheme(
+    render(
       <table>
         <tbody>
           <Row hoverable={true} />
@@ -27,7 +26,7 @@ describe('Row', () => {
   })
 
   it('renders player name and formatted time when data is BestTime', () => {
-    renderWithTheme(
+    render(
       <table>
         <tbody>
           <Row data={bestTime} hoverable={true} player={player} />
@@ -46,7 +45,7 @@ describe('Row', () => {
   })
 
   it('renders player name and plain number when data is a number', () => {
-    renderWithTheme(
+    render(
       <table>
         <tbody>
           <Row data={999} hoverable={false} player={player} />
@@ -59,7 +58,7 @@ describe('Row', () => {
   })
 
   it('does not apply hoverable styling if hoverable is false or data is not BestTime', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <table>
         <tbody>
           <Row data={999} hoverable={false} player={player} />

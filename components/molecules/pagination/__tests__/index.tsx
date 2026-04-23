@@ -1,7 +1,6 @@
 import React from 'react'
-import { screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import Pagination from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Pagination Component', () => {
   const onPageChangeMock = jest.fn()
@@ -11,7 +10,7 @@ describe('Pagination Component', () => {
   })
 
   it('should render the correct number of page buttons', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={1}
         totalPages={5}
@@ -23,7 +22,7 @@ describe('Pagination Component', () => {
   })
 
   it('should disable the Previous button on the first page', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={1}
         totalPages={5}
@@ -36,7 +35,7 @@ describe('Pagination Component', () => {
   })
 
   it('should disable the Next button on the last page', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={5}
         totalPages={5}
@@ -49,7 +48,7 @@ describe('Pagination Component', () => {
   })
 
   it('should call onPageChange with the correct page number when a page button is clicked', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={1}
         totalPages={5}
@@ -64,7 +63,7 @@ describe('Pagination Component', () => {
   })
 
   it('should call onPageChange with the previous page when Previous is clicked', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={3}
         totalPages={5}
@@ -79,7 +78,7 @@ describe('Pagination Component', () => {
   })
 
   it('should call onPageChange with the next page when Next is clicked', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={3}
         totalPages={5}
@@ -93,7 +92,7 @@ describe('Pagination Component', () => {
     expect(onPageChangeMock).toHaveBeenCalledWith(4)
   })
   it('should call onPageChange with the first page when First is clicked', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={3}
         totalPages={5}
@@ -107,7 +106,7 @@ describe('Pagination Component', () => {
     expect(onPageChangeMock).toHaveBeenCalledWith(1)
   })
   it('should call onPageChange with the last page when Last is clicked', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={3}
         totalPages={5}
@@ -122,7 +121,7 @@ describe('Pagination Component', () => {
   })
 
   it.skip('should highlight the current page button', () => {
-    renderWithTheme(
+    render(
       <Pagination
         currentPage={2}
         totalPages={5}

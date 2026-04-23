@@ -1,8 +1,7 @@
-import { screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import BestGamesWithControls from '..'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 import { mockParsedGameStats } from '@/constants'
 
 jest.mock('@/hooks/useApiQuery')
@@ -23,7 +22,7 @@ describe('BestGamesWithControls', () => {
       error: null,
     })
 
-    renderWithTheme(<BestGamesWithControls />)
+    render(<BestGamesWithControls />)
 
     expect(screen.getAllByRole('progressbar')).not.toHaveLength(0)
   })
@@ -35,7 +34,7 @@ describe('BestGamesWithControls', () => {
       error: null,
     })
 
-    renderWithTheme(<BestGamesWithControls />)
+    render(<BestGamesWithControls />)
 
     expect(await screen.findAllByText('Matt')).not.toHaveLength(0)
     expect(screen.getAllByText(/normal/i).length).toBeGreaterThan(0)
@@ -49,7 +48,7 @@ describe('BestGamesWithControls', () => {
       error,
     })
 
-    renderWithTheme(<BestGamesWithControls />)
+    render(<BestGamesWithControls />)
 
     expect(mockUseQueryErrorToast).toHaveBeenCalledWith(
       error,
@@ -64,7 +63,7 @@ describe('BestGamesWithControls', () => {
       error: null,
     })
 
-    renderWithTheme(<BestGamesWithControls />)
+    render(<BestGamesWithControls />)
 
     const badge = screen.getByRole('button', { name: /normal/i })
     fireEvent.click(badge)

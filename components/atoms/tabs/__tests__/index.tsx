@@ -1,14 +1,13 @@
 import React from 'react'
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Tabs from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 describe('Tabs component', () => {
   const titles = ['Tab 1', 'Tab 2', 'Tab 3']
 
   const setup = () =>
-    renderWithTheme(
+    render(
       <Tabs titles={titles}>
         <div>Content 1</div>
         <div>Content 2</div>

@@ -1,6 +1,5 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Header from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 import { useApiQuery } from '@/hooks/useApiQuery'
 
 jest.mock('@/hooks/useApiQuery')
@@ -44,7 +43,7 @@ describe('<Header />', () => {
       error: null,
     })
 
-    renderWithTheme(<Header {...defaultProps} />)
+    render(<Header {...defaultProps} />)
     expect(screen.getByText('Test Title')).toBeInTheDocument()
   })
 
@@ -55,7 +54,7 @@ describe('<Header />', () => {
       error: null,
     })
 
-    renderWithTheme(<Header {...defaultProps} />)
+    render(<Header {...defaultProps} />)
     expect(screen.getByText('Formatted HuntresKitty')).toBeInTheDocument()
   })
 
@@ -66,7 +65,7 @@ describe('<Header />', () => {
       error: null,
     })
 
-    renderWithTheme(<Header {...defaultProps} />)
+    render(<Header {...defaultProps} />)
     expect(screen.getByText('red kitty')).toBeInTheDocument()
   })
 
@@ -77,7 +76,7 @@ describe('<Header />', () => {
       error: null,
     })
 
-    renderWithTheme(<Header {...defaultProps} skin="" />)
+    render(<Header {...defaultProps} skin="" />)
     expect(screen.queryByText(/Formatted/)).not.toBeInTheDocument()
   })
 
@@ -87,7 +86,7 @@ describe('<Header />', () => {
       isFetching: false,
       error: null,
     })
-    renderWithTheme(<Header {...defaultProps} color={null} />)
+    render(<Header {...defaultProps} color={null} />)
     expect(screen.queryByText(/^red kitty$/)).not.toBeInTheDocument()
   })
 })

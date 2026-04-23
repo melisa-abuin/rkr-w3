@@ -1,6 +1,5 @@
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import Step from '..'
-import { renderWithTheme } from '@/utils/renderWithTheme'
 
 interface ImageProps {
   src: string
@@ -22,14 +21,14 @@ describe('Step', () => {
   })
 
   it('renders step text correctly', () => {
-    renderWithTheme(<Step stepTitle="step 1" text="top text" />)
+    render(<Step stepTitle="step 1" text="top text" />)
 
     expect(screen.getByText('top text')).toBeInTheDocument()
     expect(screen.getByText('step 1')).toBeInTheDocument()
   })
 
   it('uses the correct src passed by props', () => {
-    renderWithTheme(
+    render(
       <Step
         imageSrcSet={{
           dark: '/discord-example5-dark.png',
