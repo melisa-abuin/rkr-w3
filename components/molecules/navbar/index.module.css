@@ -21,14 +21,6 @@
   box-shadow: none;
 }
 
-.defaultNav a {
-  color: var(--text-color-primary);
-}
-
-.transparentNav a {
-  color: var(--text-color-white);
-}
-
 .container {
   align-items: center;
   display: flex;

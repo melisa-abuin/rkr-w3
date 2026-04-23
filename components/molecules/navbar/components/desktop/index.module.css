@@ -59,6 +59,14 @@
   color: var(--text-color-white);
 }
 
+.navLink .navLinkAnchor {
+  color: var(--text-color-primary);
+}
+
+.transparent .navLinkAnchor {
+  color: var(--text-color-white);
+}
+
 @media (max-width: 700px) {
   .navLink {
     display: none;
