@@ -4,7 +4,7 @@ import Button from '@/components/atoms/button'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import { formatDateToLocale } from '@/utils'
-import RowCards from './components/rowCards'
+import TournamentSummary from './components/tournamentSummary'
 import { Tournaments as TournamentsInterface } from '@/interfaces/tournament'
 import { Fragment } from 'react/jsx-runtime'
 import styles from './index.module.css'
@@ -31,7 +31,7 @@ export default function Tournaments({ data }: Props) {
         >
           {group.map((item) => (
             <Fragment key={item.tournament.id}>
-              <RowCards item={item} />
+              <TournamentSummary item={item} />
               <div className={styles.ctaContainer}>
                 <Button
                   as="a"

@@ -1,4 +1,4 @@
-import PositionCard from '@/components/molecules/positionCard'
+import RowCard from '@/components/molecules/rowCard'
 import styles from '../desktopCard/index.module.css'
 import Loader from '@/components/atoms/loader'
 
@@ -10,7 +10,7 @@ interface Props {
 export default function LoaderDesktopCard({ position, showDifficulty }: Props) {
   return (
     <div className={styles.desktopOnly}>
-      <PositionCard position={position}>
+      <RowCard position={position}>
         <div className={styles.detailContainer}>
           <div className={styles.wrapper}>
             <Loader
@@ -23,7 +23,7 @@ export default function LoaderDesktopCard({ position, showDifficulty }: Props) {
             <Loader height={20} variant="secondary" width={400} />
           </div>
         </div>
-      </PositionCard>
+      </RowCard>
     </div>
   )
 }

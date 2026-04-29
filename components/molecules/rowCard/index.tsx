@@ -2,18 +2,18 @@ import { ReactNode } from 'react'
 import styles from './index.module.css'
 import PositionNumber from '@/components/atoms/positionNumber'
 
-export type PositionCardVariant = 'default' | 'highlight'
+export type RowCardVariant = 'default' | 'highlight'
 
 interface Props {
   position: number
   ariaLabel?: string
   className?: string
-  variant?: PositionCardVariant
+  variant?: RowCardVariant
   isSmallPosition?: boolean
   children: ReactNode
 }
 
-export default function PositionCard({
+export default function RowCard({
   position,
   ariaLabel,
   className,
