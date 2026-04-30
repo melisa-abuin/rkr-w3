@@ -1,6 +1,26 @@
 import { awardsDescriptions } from '@/constants'
 import { formatKeyToWord } from '../formatKeyToWord'
 
+type FormattedGameAward = {
+  description: string
+  imagePath: string
+  title: string
+  percentage: number
+}
+
+export const formatGameAwards = (
+  awardsPercentages: Record<string, number> = {},
+): { id: string; awards: FormattedGameAward[] }[] =>
+  Object.entries(awardsDescriptions).map(([key, category]) => ({
+    id: key,
+    awards: Object.entries(category).map(([awardKey, description]) => ({
+      description,
+      imagePath: `/awards/${awardKey[0].toLowerCase()}${awardKey.slice(1)}.png`,
+      title: formatKeyToWord(awardKey),
+      percentage: awardsPercentages[awardKey] || 0,
+    })),
+  }))
+
 /**
  * Formats raw game awards data into a UI-friendly structure.
  *
@@ -13,7 +33,9 @@ import { formatKeyToWord } from '../formatKeyToWord'
  * @param awards Raw awards map keyed by game/category identifier.
  * @returns Array of formatted award groups. Returns an empty array when no data is provided.
  */
-export const formatGameAwards = (awards: Record<string, number>) =>
+export const formatGameAwardsPerPlayer = (
+  awards: Record<string, Record<string, number>>,
+) =>
   awards
     ? Object.entries(awards).map(([key, value]) => ({
         id: key,
@@ -23,7 +45,7 @@ export const formatGameAwards = (awards: Record<string, number>) =>
             id: `${awardKey[0].toLowerCase()}${awardKey.slice(1)}`,
             completed: awardValue === 1,
             description:
-              awardsDescriptions[awardKey as keyof typeof awardsDescriptions] ||
+              awardsDescriptions[key]?.[awardKey] ||
               'Description not available',
             imagePath: `/awards/${awardKey[0].toLowerCase()}${awardKey.slice(1)}.png`,
             title: formatKeyToWord(awardKey),
