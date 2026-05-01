@@ -1,16 +1,10 @@
 import { awardsDescriptions } from '@/constants'
+import { AwardsData } from '@/interfaces/award'
 import { formatKeyToWord } from '../formatKeyToWord'
-
-type FormattedGameAward = {
-  description: string
-  imagePath: string
-  title: string
-  percentage: number
-}
 
 export const formatGameAwards = (
   awardsPercentages: Record<string, number> = {},
-): { id: string; awards: FormattedGameAward[] }[] =>
+): AwardsData =>
   Object.entries(awardsDescriptions).map(([key, category]) => ({
     id: key,
     awards: Object.entries(category).map(([awardKey, description]) => ({

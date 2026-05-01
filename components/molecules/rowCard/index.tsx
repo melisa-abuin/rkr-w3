@@ -5,7 +5,7 @@ import PositionNumber from '@/components/atoms/positionNumber'
 export type RowCardVariant = 'default' | 'highlight'
 
 interface Props {
-  position: number
+  position?: number
   ariaLabel?: string
   className?: string
   variant?: RowCardVariant
@@ -25,12 +25,17 @@ export default function RowCard({
     variant === 'highlight' ? styles.cardHighlight : ''
   } ${className || ''}`
 
+  const withPosition = position !== undefined && position !== null
+
+  const ariaLabelValue = withPosition
+    ? ariaLabel || `Position card ${position}`
+    : ariaLabel || 'Row card'
+
   return (
-    <div
-      aria-label={ariaLabel || `Position card ${position}`}
-      className={cardClassName}
-    >
-      <PositionNumber isSmall={isSmallPosition} pos={position} />
+    <div aria-label={ariaLabelValue} className={cardClassName}>
+      {withPosition && (
+        <PositionNumber isSmall={isSmallPosition} pos={position} />
+      )}
       <div className={styles.contentContainer}>{children}</div>
     </div>
   )
