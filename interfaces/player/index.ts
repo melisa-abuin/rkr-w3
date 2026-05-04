@@ -53,6 +53,10 @@ export interface Awards {
   awards: Award[]
 }
 
+export interface AwardsPercentages {
+  [awardKey: string]: number
+}
+
 export interface BestTime {
   time: number
   difficulty: Difficulty

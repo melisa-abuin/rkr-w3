@@ -1,4 +1,3 @@
-import { tournamentAwards } from '@/constants'
 import { Challenges } from '@/interfaces/player'
 
 type RewardsData = Record<string, Record<string, number>>
@@ -21,7 +20,7 @@ type RewardsData = Record<string, Record<string, number>>
  *          - `tournament`: [number of completed tournament challenges, total tournament challenges]
  */
 export const calculateCompletedChallenges = (data: RewardsData): Challenges => {
-  let trueRewards = 0
+  let completedRewards = 0
   let totalRewards = 0
   let tournamentRewards = [0, 0]
 
@@ -42,48 +41,13 @@ export const calculateCompletedChallenges = (data: RewardsData): Challenges => {
         totalRewards++
       }
       if (data[category][reward] === 1) {
-        trueRewards++
+        completedRewards++
       }
     }
   }
 
   return {
-    general: [trueRewards, totalRewards],
+    general: [completedRewards, totalRewards],
     tournament: [tournamentRewards[0], tournamentRewards[1]],
-  }
-}
-
-/**
- * Legacy version of challenge completion calculator used for player stats
- * uploaded before version 1.0.4.
- *
- * This function separates tournament and general challenges using a fixed
- * list of tournament award names. Only awards with a value other than -1
- * are counted, where `1` represents completion.
- *
- * @param data - An array-like structure of challenge key-value pairs,
- *               where each value represents completion (1 or 0) or is -1 (unavailable).
- * @returns An object with two tuples:
- *          - `general`: [number of completed general challenges, total general challenges]
- *          - `tournament`: [number of completed tournament challenges, total tournament challenges]
- */
-export const calculateCompletedChallengesLegacy = (data: []): Challenges => {
-  const awardValues = Object.entries(data).filter(([, value]) => value !== -1)
-  const generalValues = awardValues.filter(
-    ([key]) => !tournamentAwards.includes(key),
-  )
-  const tournamentValues = awardValues.filter(([key]) =>
-    tournamentAwards.includes(key),
-  )
-
-  return {
-    general: [
-      generalValues.filter(([, value]) => value).length,
-      generalValues.length,
-    ],
-    tournament: [
-      tournamentValues.filter(([, value]) => value).length,
-      tournamentValues.length,
-    ],
   }
 }

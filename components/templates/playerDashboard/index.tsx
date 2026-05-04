@@ -2,7 +2,7 @@
 
 import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
-import Awards from '@/components/molecules/awards'
+import Awards from '@/components/molecules/completedAwards'
 import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'

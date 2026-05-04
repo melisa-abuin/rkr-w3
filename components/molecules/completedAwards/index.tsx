@@ -8,7 +8,7 @@ import Tooltip from '@/components/atoms/tooltip'
 interface Props {
   awards: AwardsI[]
 }
-export default function Awards({ awards }: Props) {
+export default function CompletedAwards({ awards }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.body}>

@@ -1,6 +1,6 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import styles from './index.module.css'
-import PositionCard from '@/components/molecules/positionCard'
+import RowCard from '@/components/molecules/rowCard'
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
 import Button from '@/components/atoms/button'
@@ -32,7 +32,7 @@ export default function DesktopCard({
 
   return (
     <div className={styles.desktopOnly}>
-      <PositionCard position={position}>
+      <RowCard position={position}>
         <div className={styles.detailContainer}>
           <div className={styles.row}>
             <div className={styles.info}>
@@ -91,7 +91,7 @@ export default function DesktopCard({
             ))}
           </div>
         </div>
-      </PositionCard>
+      </RowCard>
     </div>
   )
 }

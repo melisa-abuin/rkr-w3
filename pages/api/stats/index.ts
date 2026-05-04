@@ -2,7 +2,6 @@ import { Difficulty } from '@/interfaces/difficulty'
 import { ApiPlayerStats, Player } from '@/interfaces/player'
 import {
   calculateCompletedChallenges,
-  calculateCompletedChallengesLegacy,
   calculateSaveDeathRatio,
   calculateTotals,
   calculateWinRate,
@@ -68,33 +67,20 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     const formattedData: Player[] = data.map((elem: ApiPlayerStats) => {
       const saveData = JSON.parse(elem['Save Data'])
 
-      const { GameStats, PlayerName, GameAwards, GameAwardsSorted } = saveData
+      const { GameStats, PlayerName, GameAwardsSorted } = saveData
       const playerStats: Partial<Player> = {}
 
-      if (GameAwardsSorted) {
-        playerStats.completedChallenges =
-          calculateCompletedChallenges(GameAwardsSorted)
-      } else {
-        playerStats.completedChallenges =
-          calculateCompletedChallengesLegacy(GameAwards)
-      }
+      playerStats.completedChallenges =
+        calculateCompletedChallenges(GameAwardsSorted)
 
       playerStats.saves = GameStats.Saves
       playerStats.deaths = GameStats.Deaths
       playerStats.highestWinStreak = GameStats.HighestWinStreak
 
-      if (GameAwardsSorted) {
-        playerStats.saveStreak = {
-          highestScore: GameStats.HighestSaveStreak,
-          redLightning: !!GameAwardsSorted.Trails.RedLightning,
-          patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
-        }
-      } else {
-        playerStats.saveStreak = {
-          highestScore: GameStats.HighestSaveStreak,
-          redLightning: !!GameAwards.RedLightning,
-          patrioticTendrils: !!GameAwards.PatrioticTendrils,
-        }
+      playerStats.saveStreak = {
+        highestScore: GameStats.HighestSaveStreak,
+        redLightning: !!GameAwardsSorted.Trails.RedLightning,
+        patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
       }
 
       playerStats.battleTag = {

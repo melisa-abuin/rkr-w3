@@ -3,103 +3,138 @@ import { GameStats } from '@/interfaces/game'
 import { Kibbles, Player } from '@/interfaces/player'
 
 export const awardsDescriptions = {
-  AncientKitty: 'Obtained by getting 40 Normal+ wins',
-  ArchangelWings: 'Obtained by reaching 425 saves',
-  AstralKitty: 'Obtained by playing at least 55 Normal+ games',
-  AzureLight: 'Obtained by beating the nitro timer on Round 2 Impossible+.',
-  Bandana: 'Obtained by reaching 200 saves',
-  BlueFire:
-    'Obtained by winning the game on Normal+ with less than 25 total deaths.',
-  BlueLightning: 'Obtained by reaching 2000 saves',
-  ButterflyAura:
-    'Obtained by beating the Round 4 nitro on Impossible with 5 or less deaths',
-  ChaosWings: 'Obtained by reaching 450 saves',
-  ChefHat: 'Obtained by reaching 300 saves',
-  CosmicWings: 'Obtained by reaching 550 saves',
-  CrimsonLight: 'Obtained by beating the nitro timer on Round 3 Impossible+.',
-  DivineLight:
-    'Obtained by beating the nitro timer for ALL rounds in a single game OR Round 1 Impossible+.',
-  DivinityTendrils:
-    'Obtained by getting 4 revives using your ultimate`s AoE effect.',
-  EmeraldLight: 'Obtained by beating the nitro timer on Round 4 Impossible+.',
-  FairyWings: 'Obtained by reaching 275 saves',
-  FreezeAura:
-    'Using the Frostbite Ring, collectively freeze a total of 50 wolves in a single game and win the game on Normal+ difficulty.',
-  GreenLightning:
-    'Obtained by finishing a round with a save streak of 10 and 0 deaths.',
-  GreenTendrils: 'Obtained by purchasing from the shop.',
-  HuntressKitty: 'Obtained by winning the kibble collection event.',
-  HighelfKitty: 'Obtained by playing at least 40 Normal+ games',
-  ManaAura: 'Obtained by getting 20 Normal+ wins',
-  NatureWings: 'Obtained by reaching 750 saves',
-  NightmareWings: 'Obtained by reaching 325 saves',
-  Nitro: 'Obtained by beating the Round 1 nitro timer',
-  NitroBlue: 'Obtained by beating the Round 2 nitro timer',
-  NitroGreen: 'Obtained by beating the Round 4 nitro timer',
-  NitroPurple: 'Obtained by beating the Round 5 nitro timer',
-  NitroRed: 'Obtained by beating the Round 3 nitro timer',
-  NormalDeathless1:
-    'Obtained by reaching all 14 safezones on Normal+ for round 1 without dying',
-  NormalDeathless2:
-    'Obtained by reaching all 14 safezones on Normal+ for round 2 without dying',
-  NormalDeathless3:
-    'Obtained by reaching all 14 safezones on Normal+ for round 3 without dying',
-  NormalDeathless4:
-    'Obtained by reaching 10 safezones on Normal+ for round 4 without dying',
-  NormalDeathless5:
-    'Obtained by reaching 6 safezones on Normal+ for round 5 without dying',
-  PatrioticLight:
-    'Obtained by reaching the end for Round 5 on Impossible difficulty in under 16 minutes and 35 seconds of total game time.',
-  PatrioticTendrils: 'Obtained by reaching a save streak of 50 without dying',
-  PenguinSkin: 'Solo tournament',
-  PhoenixWings: 'Obtained by reaching 375 saves',
-  PinkFire: 'Obtained by winning a Normal+ game with a 3:1 ratio or better',
-  PinkWings: 'Obtained by reaching 600 saves',
-  PirateHat: 'Obtained by reaching 250 saves',
-  PurpleFire: 'Obtained by beating round 2 on impossible with 0 deaths',
-  PurpleLightning: 'Obtained by getting 175 saves within one game.',
-  RedLightning: 'Obtained by reaching a save streak of 15 without dying.',
-  RedTendrils: 'Obtained by returning Fieryfox his missing shoe.',
-  SamuraiHelm: 'Obtained by reaching 400 saves',
-  SantaHat: 'Obtained by reaching 800 saves',
-  SatyrKitty: 'Obtained by getting 25 Normal+ wins',
-  SnowTrail2023:
-    'Obtained by playing this map during the Christmas holidays :)',
-  SnowWings2023:
-    'Obtained by playing this map during the Christmas holidays :)',
-  SpecialAura: 'Obtained by getting 5 Hard+ wins',
-  SpectacularAura: 'Obtained by getting 30 Normal+ wins',
-  StarlightAura: 'Obtained by playing at least 65 Normal+ games',
-  TikiMask: 'Obtained by reaching 350 saves',
-  TurquoiseFire:
-    'Obtained by beating round 5 on Normal+ with 0 or less round deaths',
-  TurquoiseNitro: 'Solo tournament',
-  NormalTeamDeathless:
-    'Obtained by completeing the team deathless challenge on Normal+ difficulty',
-  HardTeamDeathless:
-    'Obtained by completeing the team deathless challenge on Hard+ difficulty',
-  ImpossibleTeamDeathless:
-    'Obtained by completeing the team deathless challenge on Impossible+ difficulty',
-  TurquoiseWings: 'Solo tournament',
-  UndeadKitty: 'Obtained by getting 30 Normal+ wins',
-  VioletAura: 'Team tournament',
-  VioletLight: 'Obtained by beating the nitro timer on Round 5 Impossible+.',
-  VioletWings: 'Team Tournament',
-  VoidWings: 'Obtained by reaching 500 saves',
-  WWBlood: 'Obtained by completing the Blood Vial easter egg',
-  WWBlue: 'Obtained by completing the Urn of a Broken Soul easter egg',
-  WWDivine: 'Obtained by reaching the limit... only to retrace your journey.',
-  WWFire: 'Obtained by completing the Crystal of Fire easter egg',
-  WWNecro: 'Obtained by winning the game in under 25 mins',
-  WWSwift: 'Obtained by completing the Cat Figurine easter egg',
-  WWViolet: 'Obtainer by... ???',
-  WhiteFire:
-    'Obtained by beating round 3 nitro on Normal+ with 3 or less deaths.',
-  WhiteTendrils: 'Obtained by simply winning a game on Impossible difficulty.',
-  YellowLightning: 'Obtained by getting 6 saves within 3 seconds.',
-  ZandalariKitty:
-    'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
-} satisfies Record<string, string>
+  Auras: {
+    ButterflyAura:
+      'Obtained by beating the Round 4 nitro on Impossible with 5 or less deaths',
+    ChainedHardAura: 'Description not available',
+    ChainedImpossibleAura: 'Description not available',
+    ChainedNightmareAura: 'Description not available',
+    ChainedNormalAura: 'Description not available',
+    FreezeAura:
+      'Using the Frostbite Ring, collectively freeze a total of 50 wolves in a single game and win the game on Normal+ difficulty.',
+    ManaAura: 'Obtained by getting 20 Normal+ wins',
+    SpecialAura: 'Obtained by getting 5 Hard+ wins',
+    SpectacularAura: 'Obtained by getting 30 Normal+ wins',
+    StarlightAura: 'Obtained by playing at least 65 Normal+ games',
+  },
+  Deathless: {
+    HardDeathless1: 'Description not available',
+    HardDeathless2: 'Description not available',
+    HardDeathless3: 'Description not available',
+    HardDeathless4: 'Description not available',
+    HardDeathless5: 'Description not available',
+    HardTeamDeathless:
+      'Obtained by completeing the team deathless challenge on Hard+ difficulty',
+    ImpossibleDeathless1: 'Description not available',
+    ImpossibleDeathless2: 'Description not available',
+    ImpossibleDeathless3: 'Description not available',
+    ImpossibleDeathless4: 'Description not available',
+    ImpossibleDeathless5: 'Description not available',
+    ImpossibleTeamDeathless:
+      'Obtained by completeing the team deathless challenge on Impossible+ difficulty',
+    NormalDeathless1:
+      'Obtained by reaching all 14 safezones on Normal+ for round 1 without dying',
+    NormalDeathless2:
+      'Obtained by reaching all 14 safezones on Normal+ for round 2 without dying',
+    NormalDeathless3:
+      'Obtained by reaching all 14 safezones on Normal+ for round 3 without dying',
+    NormalDeathless4:
+      'Obtained by reaching 10 safezones on Normal+ for round 4 without dying',
+    NormalDeathless5:
+      'Obtained by reaching 6 safezones on Normal+ for round 5 without dying',
+    NormalTeamDeathless:
+      'Obtained by completeing the team deathless challenge on Normal+ difficulty',
+  },
+  Hats: {
+    Bandana: 'Obtained by reaching 200 saves',
+    ChefHat: 'Obtained by reaching 300 saves',
+    PirateHat: 'Obtained by reaching 250 saves',
+    SamuraiHelm: 'Obtained by reaching 400 saves',
+    SantaHat: 'Obtained by reaching 800 saves',
+    TikiMask: 'Obtained by reaching 350 saves',
+  },
+  Nitros: {
+    AzureLight: 'Obtained by beating the nitro timer on Round 2 Impossible+.',
+    CrimsonLight: 'Obtained by beating the nitro timer on Round 3 Impossible+.',
+    DivineLight:
+      'Obtained by beating the nitro timer for ALL rounds in a single game OR Round 1 Impossible+.',
+    EmeraldLight: 'Obtained by beating the nitro timer on Round 4 Impossible+.',
+    Nitro: 'Obtained by beating the Round 1 nitro timer',
+    NitroBlue: 'Obtained by beating the Round 2 nitro timer',
+    NitroGreen: 'Obtained by beating the Round 4 nitro timer',
+    NitroPurple: 'Obtained by beating the Round 5 nitro timer',
+    NitroRed: 'Obtained by beating the Round 3 nitro timer',
+    PatrioticLight:
+      'Obtained by reaching the end for Round 5 on Impossible difficulty in under 16 minutes and 35 seconds of total game time.',
+    VioletLight: 'Obtained by beating the nitro timer on Round 5 Impossible+.',
+  },
+  Skins: {
+    AncientKitty: 'Obtained by getting 40 Normal+ wins',
+    AstralKitty: 'Obtained by playing at least 55 Normal+ games',
+    HighelfKitty: 'Obtained by playing at least 40 Normal+ games',
+    HuntressKitty: 'Obtained by winning the kibble collection event.',
+    KibbleSkin: 'Description not available',
+    SatyrKitty: 'Obtained by getting 25 Normal+ wins',
+    UndeadKitty: 'Obtained by getting 30 Normal+ wins',
+    ZandalariKitty:
+      'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
+  },
+  Tournament: {
+    LightningSpeed: 'Description not available',
+    PenguinSkin: 'Solo tournament',
+    TurquoiseNitro: 'Solo tournament',
+    TurquoiseWings: 'Solo tournament',
+    VioletAura: 'Team tournament',
+    VioletWings: 'Team Tournament',
+  },
+  Trails: {
+    BlueFire:
+      'Obtained by winning the game on Normal+ with less than 25 total deaths.',
+    BlueLightning: 'Obtained by reaching 2000 saves',
+    GreenLightning:
+      'Obtained by finishing a round with a save streak of 10 and 0 deaths.',
+    PinkFire: 'Obtained by winning a Normal+ game with a 3:1 ratio or better',
+    PurpleFire: 'Obtained by beating round 2 on impossible with 0 deaths',
+    PurpleLightning: 'Obtained by getting 175 saves within one game.',
+    RedLightning: 'Obtained by reaching a save streak of 15 without dying.',
+    SnowTrail2023:
+      'Obtained by playing this map during the Christmas holidays :)',
+    TurquoiseFire:
+      'Obtained by beating round 5 on Normal+ with 0 or less round deaths',
+    WhiteFire:
+      'Obtained by beating round 3 nitro on Normal+ with 3 or less deaths.',
+    YellowLightning: 'Obtained by getting 6 saves within 3 seconds.',
+  },
+  Windwalks: {
+    WWBlood: 'Obtained by completing the Blood Vial easter egg',
+    WWBlue: 'Obtained by completing the Urn of a Broken Soul easter egg',
+    WWDivine: 'Obtained by reaching the limit... only to retrace your journey.',
+    WWFire: 'Obtained by completing the Crystal of Fire easter egg',
+    WWNecro: 'Obtained by winning the game in under 25 mins',
+    WWSwift: 'Obtained by completing the Cat Figurine easter egg',
+    WWViolet: 'Obtainer by... ???',
+  },
+  Wings: {
+    ArchangelWings: 'Obtained by reaching 425 saves',
+    ChaosWings: 'Obtained by reaching 450 saves',
+    CosmicWings: 'Obtained by reaching 550 saves',
+    DivinityTendrils:
+      'Obtained by getting 4 revives using your ultimate`s AoE effect.',
+    FairyWings: 'Obtained by reaching 275 saves',
+    GreenTendrils: 'Obtained by purchasing from the shop.',
+    NatureWings: 'Obtained by reaching 750 saves',
+    NightmareWings: 'Obtained by reaching 325 saves',
+    PatrioticTendrils: 'Obtained by reaching a save streak of 50 without dying',
+    PhoenixWings: 'Obtained by reaching 375 saves',
+    PinkWings: 'Obtained by reaching 600 saves',
+    RedTendrils: 'Obtained by returning Fieryfox his missing shoe.',
+    SnowWings2023:
+      'Obtained by playing this map during the Christmas holidays :)',
+    VoidWings: 'Obtained by reaching 500 saves',
+    WhiteTendrils:
+      'Obtained by simply winning a game on Impossible difficulty.',
+  },
+} as Record<string, Record<string, string>>
 
 export const blacklistedPlayers = ['Local Player']
 
@@ -228,6 +263,12 @@ export const routes = {
     label: 'Tournaments',
     pathname: '/tournaments',
     url: '/tournaments',
+    target: '_self',
+  },
+  challenges: {
+    label: 'Challenges',
+    pathname: '/challenges',
+    url: '/challenges',
     target: '_self',
   },
   guide: {

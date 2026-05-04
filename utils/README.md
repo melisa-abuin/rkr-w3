@@ -63,6 +63,7 @@ Below is a list of all available utilities:
 ### 🧾 Messaging Helpers
 
 - `getMessageByScore`
+- `getMatchedThreshold`
 
 ### 🔄 Data Validation
 

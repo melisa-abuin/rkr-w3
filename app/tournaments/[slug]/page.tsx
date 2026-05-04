@@ -21,7 +21,7 @@ async function fetchData(id: string) {
 export default async function TournamentsPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
 

@@ -2,12 +2,11 @@ import {
   calculateSaveDeathRatio,
   formatRoundsData,
   calculateTotals,
-  formatGameAwards,
+  formatGameAwardsPerPlayer,
   transformKeysToCamelCase,
   calculateWinRate,
   fetchData,
   calculateCompletedChallenges,
-  calculateCompletedChallengesLegacy,
   calculateBestTimeByDifficulty,
   getFastestBesties,
 } from '@/utils'
@@ -97,7 +96,6 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       GameStats,
       RoundTimes,
       PlayerName,
-      GameAwards,
       GameAwardsSorted,
       SelectedData,
       PlayerColorData,
@@ -115,13 +113,8 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       ? PlayerColorData.MostPlayedColor
       : null
 
-    if (GameAwardsSorted) {
-      playerStats.completedChallenges =
-        calculateCompletedChallenges(GameAwardsSorted)
-    } else {
-      playerStats.completedChallenges =
-        calculateCompletedChallengesLegacy(GameAwards)
-    }
+    playerStats.completedChallenges =
+      calculateCompletedChallenges(GameAwardsSorted)
 
     //TODO: make this a function
     if (!KibbleCurrency || !PersonalBests) {
@@ -140,21 +133,13 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
       }
     }
 
-    if (GameAwardsSorted) {
-      playerStats.saveStreak = {
-        highestScore: GameStats.HighestSaveStreak,
-        redLightning: !!GameAwardsSorted.Trails.RedLightning,
-        patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
-      }
-    } else {
-      playerStats.saveStreak = {
-        highestScore: GameStats.HighestSaveStreak,
-        redLightning: !!GameAwards.RedLightning,
-        patrioticTendrils: !!GameAwards.PatrioticTendrils,
-      }
+    playerStats.saveStreak = {
+      highestScore: GameStats.HighestSaveStreak,
+      redLightning: !!GameAwardsSorted.Trails.RedLightning,
+      patrioticTendrils: !!GameAwardsSorted.Wings.PatrioticTendrils,
     }
 
-    playerStats.awards = formatGameAwards(GameAwardsSorted)
+    playerStats.awards = formatGameAwardsPerPlayer(GameAwardsSorted)
     playerStats.skins = transformKeysToCamelCase(SelectedData)
     playerStats.battleTag = {
       name: PlayerName?.split('#')[0] || '',

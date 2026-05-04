@@ -2,18 +2,18 @@ import { ReactNode } from 'react'
 import styles from './index.module.css'
 import PositionNumber from '@/components/atoms/positionNumber'
 
-export type PositionCardVariant = 'default' | 'highlight'
+export type RowCardVariant = 'default' | 'highlight'
 
 interface Props {
-  position: number
+  position?: number
   ariaLabel?: string
   className?: string
-  variant?: PositionCardVariant
+  variant?: RowCardVariant
   isSmallPosition?: boolean
   children: ReactNode
 }
 
-export default function PositionCard({
+export default function RowCard({
   position,
   ariaLabel,
   className,
@@ -25,12 +25,17 @@ export default function PositionCard({
     variant === 'highlight' ? styles.cardHighlight : ''
   } ${className || ''}`
 
+  const withPosition = position !== undefined && position !== null
+
+  const ariaLabelValue = withPosition
+    ? ariaLabel || `Position card ${position}`
+    : ariaLabel || 'Row card'
+
   return (
-    <div
-      aria-label={ariaLabel || `Position card ${position}`}
-      className={cardClassName}
-    >
-      <PositionNumber isSmall={isSmallPosition} pos={position} />
+    <div aria-label={ariaLabelValue} className={cardClassName}>
+      {withPosition && (
+        <PositionNumber isSmall={isSmallPosition} pos={position} />
+      )}
       <div className={styles.contentContainer}>{children}</div>
     </div>
   )

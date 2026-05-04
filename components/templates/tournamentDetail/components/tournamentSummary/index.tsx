@@ -1,6 +1,6 @@
 'use client'
 
-import PositionCard from '@/components/molecules/positionCard'
+import RowCard from '@/components/molecules/rowCard'
 import { Tournament } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
 import Column from './components/column'
@@ -11,12 +11,12 @@ interface Props {
   item: Tournament
 }
 
-export default function RowCards({ item }: Props) {
+export default function TournamentSummary({ item }: Props) {
   return (
     <div className={styles.container}>
       {item.players.map((player, playerIndex) => (
         <div key={player.battleTag.tag} className={styles.card}>
-          <PositionCard
+          <RowCard
             isSmallPosition
             ariaLabel={`Player card for ${player.battleTag.tag}`}
             position={playerIndex + 1}
@@ -35,7 +35,7 @@ export default function RowCards({ item }: Props) {
                 />
               ))}
             </div>
-          </PositionCard>
+          </RowCard>
         </div>
       ))}
     </div>

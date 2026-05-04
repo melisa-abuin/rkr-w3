@@ -4,7 +4,7 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import { Tournament as TournamentInterface } from '@/interfaces/tournament'
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
-import RowCards from './components/rowCards'
+import TournamentSummary from './components/tournamentSummary'
 import Columns from '@/components/molecules/columns'
 
 interface Props {
@@ -38,7 +38,7 @@ export default function Tournaments({ data }: Props) {
         />
       </PageContainer>
       <PageContainer marginBottom={16}>
-        <RowCards item={data} />
+        <TournamentSummary item={data} />
       </PageContainer>
       <PageContainer marginBottom={16} title="Fastest rounds">
         <Columns
