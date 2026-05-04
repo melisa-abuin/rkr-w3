@@ -44,7 +44,16 @@ export default async function handler(_: NextApiRequest, res: NextApiResponse) {
 
     const formattedData: AwardsData = formatGameAwards(awardsPercentages)
 
-    res.status(200).json(formattedData)
+    const visibleAwardsData: AwardsData = formattedData
+      .map((awardCategory) => ({
+        ...awardCategory,
+        awards: awardCategory.awards.filter(
+          (challenge) => challenge.percentage > 0,
+        ),
+      }))
+      .filter((awardCategory) => awardCategory.awards.length > 0)
+
+    res.status(200).json(visibleAwardsData)
   } catch (error) {
     console.error('Error fetching leaderboard data:', error)
     res.status(500).json({ message: 'Internal Server Error' })

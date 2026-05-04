@@ -23,9 +23,17 @@ export function middleware(req: NextRequest) {
   const ua = req.headers.get('user-agent') || ''
   const ip = getClientIp(req)
 
-  return NextResponse.next()
-}
+  if (BOT_UA_REGEX.test(ua)) {
+    return new NextResponse(null, { status: 403 })
+  }
 
-export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  if (req.nextUrl.pathname.startsWith('/api')) {
+    const count = (hits.get(ip) ?? 0) + 1
+    hits.set(ip, count)
+    if (count > LIMIT) {
+      return new NextResponse(null, { status: 429 })
+    }
+  }
+
+  return NextResponse.next()
 }

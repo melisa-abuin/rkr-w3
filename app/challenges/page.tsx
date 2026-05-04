@@ -5,7 +5,7 @@ import Error from '@/components/molecules/error'
 import CardsContainer from '@/components/atoms/cardsContainer'
 import RowCard from '@/components/molecules/rowCard'
 import AwardDetail from '@/components/molecules/awardDetail'
-import { Award, AwardsData } from '@/interfaces/award'
+import { AwardsData } from '@/interfaces/award'
 
 async function fetchData(): Promise<{
   data: AwardsData | null
@@ -38,14 +38,6 @@ export default async function ChallengesPage() {
           <PageContainer>
             <PageHeader description="" title="Challenges" />
             {data.map((award) => {
-              const visibleAwards = award.awards.filter(
-                (challenge) => challenge.percentage > 0,
-              )
-
-              if (visibleAwards.length === 0) {
-                return null
-              }
-
               return (
                 <PageContainer
                   key={award.id}
@@ -53,7 +45,7 @@ export default async function ChallengesPage() {
                   withPadding={false}
                 >
                   <CardsContainer title={award.id} twoPerRow={true}>
-                    {visibleAwards.map((challenge: Award) => (
+                    {award.awards.map((challenge) => (
                       <RowCard key={challenge.title} variant="highlight">
                         <AwardDetail
                           description={challenge.description}
