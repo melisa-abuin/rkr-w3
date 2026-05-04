@@ -1,4 +1,5 @@
 import Image from '@/components/atoms/image'
+import { getMatchedThreshold } from '@/utils'
 import styles from './index.module.css'
 
 interface Props {
@@ -14,9 +15,21 @@ export default function AwardDetail({
   imagePath,
   percentage,
 }: Props) {
-  const percentageClassName = `${styles.percentageValue} ${
-    percentage > 70 ? styles.percentageValueHigh : ''
-  }`
+  const colorByPercentage: Record<number, string> = {
+    5: styles.percentageValueTeal,
+    10: styles.percentageValueGreen,
+    25: styles.percentageValueYellow,
+  }
+
+  const matchedPercentageColor = getMatchedThreshold(
+    percentage,
+    colorByPercentage,
+  )
+
+  const percentageColorClass =
+    matchedPercentageColor ?? styles.percentageValuePrimary
+
+  const percentageClassName = `${styles.percentageValue} ${percentageColorClass}`
 
   return (
     <div className={styles.container}>

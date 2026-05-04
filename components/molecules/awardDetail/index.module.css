@@ -34,15 +34,26 @@
 }
 
 .percentageValue {
-  color: var(--text-color-brand-secondary);
   font-size: var(--font-size-sm-md);
   font-weight: var(--font-weight-semi-bold);
   margin-bottom: 2px;
   margin-top: 0;
 }
 
-.percentageValueHigh {
-  color: var(--text-color-yellow);
+.percentageValueTeal {
+  color: var(--color-teal);
+}
+
+.percentageValueGreen {
+  color: var(--color-green);
+}
+
+.percentageValueYellow {
+  color: var(--color-yellow);
+}
+
+.percentageValuePrimary {
+  color: var(--text-color-primary);
 }
 
 .percentageLabel {
