@@ -265,6 +265,12 @@ export const routes = {
     url: '/tournaments',
     target: '_self',
   },
+  challenges: {
+    label: 'Challenges',
+    pathname: '/challenges',
+    url: '/challenges',
+    target: '_self',
+  },
   guide: {
     label: 'Guide',
     pathname: '/guide',

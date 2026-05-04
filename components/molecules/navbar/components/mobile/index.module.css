@@ -52,7 +52,7 @@
   font-weight: var(--font-weight-semi-bold);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .container {
     display: inline;
   }
