@@ -74,6 +74,10 @@ type StatsRequest = NextApiRequest & { query: QueryParams }
  */
 export default async function handler(req: StatsRequest, res: NextApiResponse) {
   try {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=900, stale-while-revalidate=1800',
+    )
     const { id } = req.query
 
     if (!id) {
