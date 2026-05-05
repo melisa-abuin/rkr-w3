@@ -9,7 +9,8 @@ export default function Loading() {
         priority
         alt="loading-icon"
         height={96}
-        src="/rkr-icon-gray.png"
+        sizes="96px"
+        src="/rkr-icon-gray-x120.png"
         width={96}
       />
       Run Kitty Run

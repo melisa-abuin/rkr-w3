@@ -8,11 +8,12 @@ export default function Loading() {
         priority
         alt="loading-icon"
         height={96}
-        src="/rkr-icon-gray.png"
+        sizes="96px"
+        src="/rkr-icon-gray-x120.png"
         width={96}
       />
       <h1>Oops!</h1>
-      <p>We can&apos;t seem to find the plage you are looking for.</p>
+      <p>We can&apos;t seem to find the page you are looking for.</p>
       <br />
       <a className={styles.link} href="/">
         Go Back Home
