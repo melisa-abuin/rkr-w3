@@ -27,8 +27,8 @@ export default function Navbar() {
               height={54}
               src={
                 shouldShowTransparentNav
-                  ? '/rkr-icon-white.png'
-                  : `/rkr-icon-primary.png`
+                  ? '/rkr-icon-white-x64.png'
+                  : `/rkr-icon-primary-x64.png`
               }
               width={54}
             />
