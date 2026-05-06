@@ -70,6 +70,10 @@ import { ApiTournaments, Tournaments } from '@/interfaces/tournament'
  */
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=480, stale-while-revalidate=960',
+    )
     const data: ApiTournaments = await fetchData('tournaments/full')
 
     const officialTournaments = Array.isArray(data)

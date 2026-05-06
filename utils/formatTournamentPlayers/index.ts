@@ -6,6 +6,20 @@ import {
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
+type FastestRounds = Tournament['fastestRounds']
+
+const getDefaultFastestRound = (): FastestRounds['roundOne'] => ({
+  player: { name: '', tag: '' },
+  time: Number.POSITIVE_INFINITY,
+})
+
+const getDefaultFastestRounds = (): FastestRounds =>
+  roundNames.reduce((accumulator, roundName) => {
+    const key = `round${roundName}` as keyof FastestRounds
+    accumulator[key] = getDefaultFastestRound()
+    return accumulator
+  }, {} as FastestRounds)
+
 /**
  * Normalizes tournament players for UI/API consumption.
  *
@@ -17,13 +31,7 @@ export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 export const formatTournamentPlayers = (
   item: ApiTournaments[number],
 ): Tournament => {
-  const fastestRounds = {
-    roundOne: { player: { name: 'komoto', tag: 'komoto' }, time: 999999 },
-    roundTwo: { player: { name: 'komoto', tag: 'komoto' }, time: 999999 },
-    roundThree: { player: { name: 'komoto', tag: 'komoto' }, time: 999999 },
-    roundFour: { player: { name: 'komoto', tag: 'komoto' }, time: 999999 },
-    roundFive: { player: { name: 'komoto', tag: 'komoto' }, time: 999999 },
-  }
+  const fastestRounds = getDefaultFastestRounds()
   const players = Array.isArray(item?.players) ? item.players : []
   const playersWithTotalTime = players.map((player) => {
     const games: TournamentGame[] = []
@@ -32,7 +40,7 @@ export const formatTournamentPlayers = (
       game.rounds.forEach((round) => {
         const roundTime = round.round_time
         const roundNumber = round.round_number
-        console.log('roundTime', roundTime, 'roundNumber', roundNumber)
+
         if (
           roundTime <
           fastestRounds[

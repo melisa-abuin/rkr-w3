@@ -36,6 +36,10 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=480, stale-while-revalidate=960',
+    )
     const difficultyFilter = req.query?.difficulty
 
     const data = await fetchData(

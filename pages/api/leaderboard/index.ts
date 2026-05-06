@@ -49,6 +49,10 @@ import {
  */
 export default async function handler(_: NextApiRequest, res: NextApiResponse) {
   try {
+    res.setHeader(
+      'Cache-Control',
+      'public, s-maxage=480, stale-while-revalidate=960',
+    )
     const data = await fetchData('players')
 
     const formattedData = data

@@ -1,9 +1,3 @@
-@media (prefers-color-scheme: dark) {
-  .wrapper {
-    color: #9c9a9a;
-  }
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -12,6 +6,18 @@
   gap: 10px;
   height: 100vh;
   color: #6b6565;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrapper {
+    color: #9c9a9a;
+  }
 }
 
 .progressContainer {

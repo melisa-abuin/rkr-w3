@@ -28,7 +28,7 @@ async function fetchData(): Promise<{
 
 export default async function ChallengesPage() {
   const { data, error } = await fetchData()
-  console.log(data)
+
   return (
     <main>
       {error ? (
