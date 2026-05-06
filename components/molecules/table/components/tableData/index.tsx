@@ -17,42 +17,52 @@ import PlayersList from './components/playersList'
 import DatePlayed from './components/datePlayed'
 import DifficultyData from './components/difficulty'
 
-type TooltipData = TotalsPerDifficulty | RoundTimes | number
-
-export type Renderer<T = unknown> = (
-  value: T,
+export const renderRoundTimesTooltip = (
+  value: RoundTimes,
   difficultyFilter?: Difficulty,
-) => ReactNode
+): ReactNode => {
+  const { best, ...rest } = value
 
-const renderTooltip: Renderer<TooltipData> = (value, difficultyFilter) => {
-  if (value === null) return null
-
-  if (typeof value === 'number') return <>{value}</>
-  if ('best' in value) {
-    const { best, ...rest } = value
-    return <Tooltip best={best} data={rest} difficulty={difficultyFilter} />
-  }
-  return (
-    <Tooltip data={value} difficulty={difficultyFilter}>
-      {value.total}
-    </Tooltip>
-  )
+  return <Tooltip best={best} data={rest} difficulty={difficultyFilter} />
 }
 
-export const renderers: Record<string, Renderer<unknown>> = {
-  saveDeathRatio: (value) => <Ratio data={value as number} />,
-  times: (value) => <>{formatSecondsAsTime(value as number)}</>,
-  date: (value) => <DatePlayed data={value as string} />,
-  teamMembers: (value) => <PlayersList data={value as string} />,
-  completedChallenges: (value) => <Challenges data={value as ChallengesT} />,
-  difficulty: (value) => <DifficultyData data={value as string} />,
-  battleTag: (value) => <BattleTag data={value as BattleTagI} />,
-  saveStreak: (value) => <SaveStreak data={value as SaveStreakI} />,
-  wins: (value, difficultyFilter) =>
-    renderTooltip(value as TooltipData, difficultyFilter),
-  gamesPlayed: (value, difficultyFilter) =>
-    renderTooltip(value as TooltipData, difficultyFilter),
-}
+export const renderTotalsPerDifficultyTooltip = (
+  value: TotalsPerDifficulty,
+  difficultyFilter?: Difficulty,
+): ReactNode => (
+  <Tooltip data={value} difficulty={difficultyFilter}>
+    {value.total}
+  </Tooltip>
+)
 
-export const defaultRenderer: Renderer<unknown> = (value, difficultyFilter) =>
-  renderTooltip(value as TooltipData, difficultyFilter)
+export const renderSaveDeathRatio = (value: number): ReactNode => (
+  <Ratio data={value} />
+)
+
+export const renderTimes = (value: number): ReactNode => (
+  <>{formatSecondsAsTime(value)}</>
+)
+
+export const renderDate = (value: string): ReactNode => (
+  <DatePlayed data={value} />
+)
+
+export const renderTeamMembers = (value: string): ReactNode => (
+  <PlayersList data={value} />
+)
+
+export const renderCompletedChallenges = (value: ChallengesT): ReactNode => (
+  <Challenges data={value} />
+)
+
+export const renderDifficulty = (value: string): ReactNode => (
+  <DifficultyData data={value} />
+)
+
+export const renderBattleTag = (value: BattleTagI): ReactNode => (
+  <BattleTag data={value} />
+)
+
+export const renderSaveStreak = (value: SaveStreakI): ReactNode => (
+  <SaveStreak data={value} />
+)

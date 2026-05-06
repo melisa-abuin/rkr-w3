@@ -2,7 +2,7 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { routes, statsColumns } from '@/constants'
+import { routes } from '@/constants'
 import { Player } from '@/interfaces/player'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -17,6 +17,7 @@ import Button from '@/components/atoms/button'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { useState } from 'react'
+import { statsColumnsWithRender } from '@/constants/tableColumns'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -92,7 +93,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
               withPadding={false}
             >
               <Table
-                columns={statsColumns}
+                columns={statsColumnsWithRender}
                 data={statsData?.stats ?? []}
                 loading={isFetching}
                 title="Leaderboard Highlights: Top Five Stats"

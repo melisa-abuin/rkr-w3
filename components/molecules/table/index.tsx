@@ -3,7 +3,6 @@
 import React, { ReactNode } from 'react'
 import styles from './index.module.css'
 import LoaderTable from './components/loader'
-import { renderers, defaultRenderer } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isRoundDifficultyAvailable } from '@/utils'
 
@@ -46,6 +45,25 @@ export default function Table<T>({
   const cols = columns.filter(({ key }) =>
     isRoundDifficultyAvailable(key as string, difficultyFilter),
   )
+
+  const getTdClassName = (columnKey: keyof T, rowIndex: number) =>
+    [
+      styles.td,
+      highlightedColumn === columnKey
+        ? rowIndex % 2 !== 0
+          ? styles.tdHighlightedOdd
+          : styles.tdHighlightedEven
+        : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
+
+  const renderCellValue = (value: unknown) => {
+    if (value === null || value === undefined) return null
+    if (typeof value === 'object') return null
+
+    return value as ReactNode
+  }
 
   return (
     <section
@@ -93,17 +111,7 @@ export default function Table<T>({
             {data?.map((player, index) => (
               <tr key={index}>
                 {cols.map(({ key, title, render }) => {
-                  const renderer = renderers[key as string] ?? defaultRenderer
-                  const tdClassName = [
-                    styles.td,
-                    highlightedColumn === key
-                      ? index % 2 !== 0
-                        ? styles.tdHighlightedOdd
-                        : styles.tdHighlightedEven
-                      : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')
+                  const tdClassName = getTdClassName(key, index)
                   return (
                     <td
                       key={`${key as string} ${index}`}
@@ -112,7 +120,7 @@ export default function Table<T>({
                     >
                       {render
                         ? render(player, difficultyFilter)
-                        : renderer(player[key], difficultyFilter)}
+                        : renderCellValue(player[key])}
                     </td>
                   )
                 })}

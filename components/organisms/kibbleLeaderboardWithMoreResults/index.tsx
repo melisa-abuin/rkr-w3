@@ -1,6 +1,6 @@
 'use client'
 
-import { kibbleColumns } from '@/constants'
+import { kibbleColumnsWithRender, KibbleRow } from '@/constants/tableColumns'
 import Table from '@/components/molecules/table'
 import { Player } from '@/interfaces/player'
 import FloatingKibble from './components/floatingKibble'
@@ -26,8 +26,8 @@ export default function KibbleLeaderboardWithMoreResults() {
     <>
       <FloatingKibble />
       <KibbleRowCards data={data?.slice(0, 5)} loading={isFetching} />
-      <Table
-        columns={kibbleColumns}
+      <Table<KibbleRow>
+        columns={kibbleColumnsWithRender}
         data={
           data
             ?.map((elem) => ({
