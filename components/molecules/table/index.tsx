@@ -47,6 +47,18 @@ export default function Table<T>({
     isRoundDifficultyAvailable(key as string, difficultyFilter),
   )
 
+  const getTdClassName = (columnKey: keyof T, rowIndex: number) =>
+    [
+      styles.td,
+      highlightedColumn === columnKey
+        ? rowIndex % 2 !== 0
+          ? styles.tdHighlightedOdd
+          : styles.tdHighlightedEven
+        : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
+
   return (
     <section
       aria-labelledby={title || 'Player stats'}
@@ -94,16 +106,7 @@ export default function Table<T>({
               <tr key={index}>
                 {cols.map(({ key, title, render }) => {
                   const renderer = renderers[key as string] ?? defaultRenderer
-                  const tdClassName = [
-                    styles.td,
-                    highlightedColumn === key
-                      ? index % 2 !== 0
-                        ? styles.tdHighlightedOdd
-                        : styles.tdHighlightedEven
-                      : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')
+                  const tdClassName = getTdClassName(key, index)
                   return (
                     <td
                       key={`${key as string} ${index}`}
