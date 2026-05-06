@@ -11,6 +11,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Difficulty } from '@/interfaces/difficulty'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import {
+  kibbleColumnsWithRender,
+  statsColumnsWithRender,
+  timeAllDiffColumnsWithRender,
+} from '@/constants/tableColumns'
 
 interface AllStatsData {
   data: { pages: number; stats?: Player[] }
@@ -40,6 +45,12 @@ const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
 export default function Stats({ data, filter }: AllStatsData) {
+  const columnsByVariant = {
+    stats: statsColumnsWithRender,
+    times: timeAllDiffColumnsWithRender,
+    kibbleStats: kibbleColumnsWithRender,
+  }
+
   const searchParams = useSearchParams()
   const initialPage = parseInt(searchParams?.get('page') || '1', 10)
   const initialApi = searchParams?.get('filter') || 'stats'
@@ -169,6 +180,7 @@ export default function Stats({ data, filter }: AllStatsData) {
           onTabChange={onTabChange}
         >
           {variantValues.map(({ columns, defaultSortKey, apiBaseUrl }) => {
+            const renderedColumns = columnsByVariant[apiBaseUrl as VariantKey]
             const commonProps = {
               apiBaseUrl,
               currentPage,
@@ -186,7 +198,10 @@ export default function Stats({ data, filter }: AllStatsData) {
                   {...commonProps}
                   key={apiBaseUrl}
                   columns={
-                    columns as { title: string; key: keyof KibbleType }[]
+                    renderedColumns as {
+                      title: string
+                      key: keyof KibbleType
+                    }[]
                   }
                   data={{
                     ...data,
@@ -207,7 +222,9 @@ export default function Stats({ data, filter }: AllStatsData) {
               <TableWithControls<Player>
                 {...commonProps}
                 key={apiBaseUrl}
-                columns={columns as { title: string; key: keyof Player }[]}
+                columns={
+                  renderedColumns as { title: string; key: keyof Player }[]
+                }
                 data={data}
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}

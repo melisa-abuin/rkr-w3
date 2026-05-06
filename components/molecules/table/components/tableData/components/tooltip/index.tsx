@@ -30,6 +30,10 @@ export default function Tooltip({
   children,
   difficulty = undefined,
 }: Props) {
+  if (!data) {
+    return <>{children}</>
+  }
+
   const isTimeStats = !!best
   const { hard, impossible, normal, nightmare, progressive } = data
   const dataToRender = { ...data }

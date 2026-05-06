@@ -3,7 +3,6 @@
 import React, { ReactNode } from 'react'
 import styles from './index.module.css'
 import LoaderTable from './components/loader'
-import { renderers, defaultRenderer } from './components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isRoundDifficultyAvailable } from '@/utils'
 
@@ -59,6 +58,13 @@ export default function Table<T>({
       .filter(Boolean)
       .join(' ')
 
+  const renderCellValue = (value: unknown) => {
+    if (value === null || value === undefined) return null
+    if (typeof value === 'object') return null
+
+    return value as ReactNode
+  }
+
   return (
     <section
       aria-labelledby={title || 'Player stats'}
@@ -105,7 +111,6 @@ export default function Table<T>({
             {data?.map((player, index) => (
               <tr key={index}>
                 {cols.map(({ key, title, render }) => {
-                  const renderer = renderers[key as string] ?? defaultRenderer
                   const tdClassName = getTdClassName(key, index)
                   return (
                     <td
@@ -115,7 +120,7 @@ export default function Table<T>({
                     >
                       {render
                         ? render(player, difficultyFilter)
-                        : renderer(player[key], difficultyFilter)}
+                        : renderCellValue(player[key])}
                     </td>
                   )
                 })}
