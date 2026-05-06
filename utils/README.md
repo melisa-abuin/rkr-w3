@@ -39,6 +39,7 @@ Below is a list of all available utilities:
 - `formatPlayerTops`
 - `formatRoundsData`
 - `formatSaveDataFile`
+- `tableData`
 - `formatTournamentPlayers`
 - `hexToRgba`
 
