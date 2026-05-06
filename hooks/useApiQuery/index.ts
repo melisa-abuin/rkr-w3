@@ -19,7 +19,7 @@ export const useApiQuery = <TData>(
 ): UseQueryResult<TData> =>
   useQuery({
     ...options,
-    staleTime: 15 * 60 * 1000,
+    staleTime: 8 * 60 * 1000,
     queryKey: [url, params],
     queryFn: async () => {
       const finalUrl = buildUrl(url, params)

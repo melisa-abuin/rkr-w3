@@ -8,7 +8,7 @@ interface CacheEntry {
 
 // In-memory cache for API responses
 const responseCache = new Map<string, CacheEntry>()
-const CACHE_TTL = 15 * 60 * 1000 // 15 minutes in milliseconds
+const CACHE_TTL = 8 * 60 * 1000 // 8 minutes in milliseconds
 
 /**
  * Generates a cache key from the URL and params.
@@ -31,7 +31,7 @@ const isCacheValid = (entry: CacheEntry): boolean => {
  * If the environment is set to development, it returns mock data depending on the endpoint.
  * Otherwise, it fetches from the real API using the base URL from environment variables.
  * It also filters out any blacklisted players before returning the data.
- * Responses are cached in-memory for 15 minutes to prevent redundant API calls.
+ * Responses are cached in-memory for 8 minutes to prevent redundant API calls.
  *
  * @param url - Optional relative endpoint to append to the base API URL.
  * @param params - Optional query parameters to append to the URL.
