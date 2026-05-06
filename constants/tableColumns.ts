@@ -13,7 +13,7 @@ import {
   renderTeamMembers,
   renderTimes,
   renderTotalsPerDifficultyTooltip,
-} from '@/utils'
+} from '@/components/molecules/table/components/tableData'
 
 type Column<T> = {
   title: string

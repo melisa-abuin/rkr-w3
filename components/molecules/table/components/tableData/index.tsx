@@ -1,5 +1,11 @@
 import { ReactNode } from 'react'
+import { formatSecondsAsTime } from '@/utils'
 import { Difficulty } from '@/interfaces/difficulty'
+import BattleTag from './components/battleTag'
+import Tooltip from './components/tooltip'
+import Ratio from './components/ratio'
+import Challenges from './components/challenges'
+import SaveStreak from './components/saveStreak'
 import {
   TotalsPerDifficulty,
   RoundTimes,
@@ -7,15 +13,9 @@ import {
   Challenges as ChallengesT,
   SaveStreak as SaveStreakI,
 } from '@/interfaces/player'
-import { formatSecondsAsTime } from '../formatSecondsAsTime'
-import BattleTag from '@/components/molecules/table/components/tableData/components/battleTag'
-import Tooltip from '@/components/molecules/table/components/tableData/components/tooltip'
-import Ratio from '@/components/molecules/table/components/tableData/components/ratio'
-import Challenges from '@/components/molecules/table/components/tableData/components/challenges'
-import SaveStreak from '@/components/molecules/table/components/tableData/components/saveStreak'
-import PlayersList from '@/components/molecules/table/components/tableData/components/playersList'
-import DatePlayed from '@/components/molecules/table/components/tableData/components/datePlayed'
-import DifficultyData from '@/components/molecules/table/components/tableData/components/difficulty'
+import PlayersList from './components/playersList'
+import DatePlayed from './components/datePlayed'
+import DifficultyData from './components/difficulty'
 
 export const renderRoundTimesTooltip = (
   value: RoundTimes,

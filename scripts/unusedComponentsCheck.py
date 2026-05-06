@@ -3,13 +3,26 @@ import os
 import re
 import sys
 
+IGNORED_PATHS = {
+  "components/molecules/table/components/tableData/index.tsx",
+  "components/molecules/table/components/tableData",
+}
+
 def get_paths(directory):
   black_listed_folders = ["components", "atoms", "molecules", "icons", "organisms", "templates", "__tests__"]
   components_list = []
   for root, dirs, files in os.walk(directory):
     for name in dirs:
       if name not in black_listed_folders and not files:
-        components_list.append(os.path.join(root, name))
+        folder_path = os.path.join(root, name)
+        normalized_folder_path = folder_path.replace("\\", "/")
+        relative_folder_path = os.path.relpath(normalized_folder_path, os.path.abspath("..")).replace("\\", "/")
+        index_file_path = f"{relative_folder_path}/index.tsx"
+
+        if relative_folder_path in IGNORED_PATHS or index_file_path in IGNORED_PATHS:
+          continue
+
+        components_list.append(folder_path)
   filtered_paths = replace_root_with_alias(components_list)
   filtered_paths = make_relative_if_needed(filtered_paths)
   return filtered_paths
