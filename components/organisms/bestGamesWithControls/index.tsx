@@ -19,8 +19,8 @@ export default function BestGamesWithControls() {
 
   const { data, isFetching, error } = useApiQuery<GamesStats>(
     difficultyFilter
-      ? `${process.env.API_URL_NEW}/api/Players/timeleaderboard?difficulty=${difficultyFilter}`
-      : `${process.env.API_URL_NEW}/api/Players/timeleaderboard`,
+      ? `/proxy/api/Players/timeleaderboard?difficulty=${difficultyFilter}`
+      : `/proxy/api/Players/timeleaderboard`,
     undefined,
     {
       enabled: true,

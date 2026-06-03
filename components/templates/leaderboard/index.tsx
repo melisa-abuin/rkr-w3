@@ -33,7 +33,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     stats: Player[]
     page: number
   }>(
-    '/api/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
+    `/proxy/api/PlayerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`,
     undefined,
     {
       enabled: true,
@@ -44,7 +44,6 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     error,
     `Couldn't fetch the top five stats, please try again later.`,
   )
-
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
 
   const handleClear = () => {
