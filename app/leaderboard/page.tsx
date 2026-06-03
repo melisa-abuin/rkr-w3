@@ -30,7 +30,7 @@ async function fetchData(): Promise<PlayerStatsData> {
 
 export default async function Leaderboard() {
   const { data, error } = await fetchData()
-  console.log(process.env.API_URL_NEW)
+
   return (
     <main>
       {error ? <Error /> : data && <LeaderboardTemplate data={data} />}
