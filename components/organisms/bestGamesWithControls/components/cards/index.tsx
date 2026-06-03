@@ -44,12 +44,9 @@ export default function Cards({ games, loading, showDifficulty }: Props) {
       {games.slice(0, 5).map((game, index) => (
         <DesktopCard
           key={index}
-          date={game.date}
-          difficulty={game.difficulty}
+          {...game}
           position={index + 1}
           showDifficulty={showDifficulty}
-          teamMembers={game.teamMembers}
-          times={game.times}
         />
       ))}
       {games.slice(0, 5).map((game, index) => (
@@ -60,7 +57,7 @@ export default function Cards({ games, loading, showDifficulty }: Props) {
           position={index + 1}
           showDifficulty={showDifficulty}
           teamMembers={game.teamMembers}
-          time={game.times.total}
+          time={game.totalTime}
         />
       ))}
     </div>

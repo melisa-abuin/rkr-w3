@@ -115,8 +115,8 @@ export const kibbleColumnsWithRender: Column<KibbleRow>[] = [
 export const bestGameTimesColumnsWithRender: Column<GameStats>[] = [
   {
     title: 'Time',
-    key: 'times',
-    render: (game) => renderTimes(game.times.total),
+    key: 'totalTime',
+    render: (game) => renderTimes(game.totalTime),
   },
   {
     title: 'Players',

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
-import { roundDifficultyNames } from '@/constants'
+import { apiUrl, roundDifficultyNames } from '@/constants'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -35,7 +35,7 @@ export default function ColumnCardsWithControls({
     isFetching,
     error,
   } = useApiQuery<LeaderBoardData>(
-    `/api/timeLeaderboard?difficulty=${difficultyFilter}`,
+    `${apiUrl}/api/Players/timeleaderboard?difficulty=${difficultyFilter}`,
     undefined,
     {
       enabled: !!difficultyFilter,
