@@ -19,8 +19,8 @@ export default function BestGamesWithControls() {
 
   const { data, isFetching, error } = useApiQuery<GamesStats>(
     difficultyFilter
-      ? `/api/gameTimes?difficulty=${difficultyFilter}`
-      : '/api/gameTimes',
+      ? `${process.env.API_URL_NEW}/api/Players/timeleaderboard?difficulty=${difficultyFilter}`
+      : `${process.env.API_URL_NEW}/api/Players/timeleaderboard`,
     undefined,
     {
       enabled: true,
@@ -36,10 +36,9 @@ export default function BestGamesWithControls() {
     setDifficultyFilter(difficulty)
   }
 
-  const columns =
-    !!difficultyFilter
-      ? bestGameTimesColumnsWithRender.filter(({ key }) => key !== 'difficulty')
-      : bestGameTimesColumnsWithRender
+  const columns = !!difficultyFilter
+    ? bestGameTimesColumnsWithRender.filter(({ key }) => key !== 'difficulty')
+    : bestGameTimesColumnsWithRender
 
   return (
     <>

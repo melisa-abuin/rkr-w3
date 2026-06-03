@@ -70,7 +70,9 @@ describe('BestGamesWithControls', () => {
 
     await waitFor(() => {
       expect(mockUseApiQuery).toHaveBeenCalledWith(
-        expect.stringContaining('/api/gameTimes?difficulty=normal'),
+        expect.stringContaining(
+          `${process.env.API_URL_NEW}/api/Players/timeleaderboard?difficulty=normal`,
+        ),
         undefined,
         expect.objectContaining({ enabled: true }),
       )
