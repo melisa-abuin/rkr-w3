@@ -2,7 +2,7 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { apiUrlNew, routes } from '@/constants'
+import { routes } from '@/constants'
 import { Player } from '@/interfaces/player'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -33,7 +33,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     stats: Player[]
     page: number
   }>(
-    `${apiUrlNew}/api/PlayerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`,
+    '/api/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
     undefined,
     {
       enabled: true,
