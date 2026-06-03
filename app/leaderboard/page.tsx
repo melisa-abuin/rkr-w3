@@ -1,7 +1,6 @@
 import Error from '@/components/molecules/error'
 import LeaderboardTemplate from '@/components/templates/leaderboard'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
-import { getBaseUrlFromHeaders } from '@/utils'
 
 interface PlayerStatsData {
   error: string | null
@@ -12,9 +11,11 @@ interface PlayerStatsData {
 }
 
 async function fetchData(): Promise<PlayerStatsData> {
-  const url = await getBaseUrlFromHeaders()
+  const response = await fetch(
+    `${process.env.API_URL_NEW}/api/Players/leaderboard`,
+    { next: { revalidate: 480 } },
+  )
 
-  const response = await fetch(`${url}/api/leaderboard`)
   if (response.status === 200) {
     return {
       data: await response.json(),
