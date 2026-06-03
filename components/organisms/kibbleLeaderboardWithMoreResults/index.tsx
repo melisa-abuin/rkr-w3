@@ -3,10 +3,14 @@
 import { kibbleColumnsWithRender, KibbleRow } from '@/constants/tableColumns'
 import Table from '@/components/molecules/table'
 import { Player } from '@/interfaces/player'
-import FloatingKibble from './components/floatingKibble'
+import dynamic from 'next/dynamic'
 import KibbleRowCards from './components/kibbleRowCards'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+
+const FloatingKibble = dynamic(() => import('./components/floatingKibble'), {
+  ssr: false,
+})
 
 export default function KibbleLeaderboardWithMoreResults() {
   const { data, isFetching, error } = useApiQuery<Player[]>(
