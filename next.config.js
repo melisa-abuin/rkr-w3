@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
+    if (!process.env.API_URL_NEW) return []
     return [
       {
         source: '/proxy/:path*',
