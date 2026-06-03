@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic'
 import KibbleRowCards from './components/kibbleRowCards'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { apiUrl } from '@/constants'
 
 const FloatingKibble = dynamic(() => import('./components/floatingKibble'), {
   ssr: false,
@@ -14,7 +15,7 @@ const FloatingKibble = dynamic(() => import('./components/floatingKibble'), {
 
 export default function KibbleLeaderboardWithMoreResults() {
   const { data, isFetching, error } = useApiQuery<Player[]>(
-    '/api/kibbleLeaderboard',
+    `${apiUrl}/api/PlayerStats/kibbleleaderboard`,
     undefined,
     {
       enabled: true,
