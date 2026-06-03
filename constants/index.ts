@@ -136,7 +136,7 @@ export const awardsDescriptions = {
   },
 } as Record<string, Record<string, string>>
 
-export const apiUrlNew = 'https://rkrapi-801419031002.us-east1.run.app'
+export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
 export const blacklistedPlayers = ['Local Player']
 

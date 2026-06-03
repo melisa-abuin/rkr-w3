@@ -2,7 +2,7 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import BestGamesWithControls from '..'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import { mockParsedGameStats, apiUrlNew } from '@/constants'
+import { mockParsedGameStats, apiUrl } from '@/constants'
 
 jest.mock('@/hooks/useApiQuery')
 jest.mock('@/hooks/useQueryErrorToast')
@@ -71,7 +71,7 @@ describe('BestGamesWithControls', () => {
     await waitFor(() => {
       expect(mockUseApiQuery).toHaveBeenCalledWith(
         expect.stringContaining(
-          `${apiUrlNew}/api/Players/timeleaderboard?difficulty=normal`,
+          `${apiUrl}/api/Players/timeleaderboard?difficulty=normal`,
         ),
         undefined,
         expect.objectContaining({ enabled: true }),

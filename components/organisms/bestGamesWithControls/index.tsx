@@ -3,7 +3,7 @@
 import styles from './index.module.css'
 import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
-import { apiUrlNew, difficultyNames } from '@/constants'
+import { apiUrl, difficultyNames } from '@/constants'
 import Cards from './components/cards'
 import { GamesStats } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
@@ -19,8 +19,8 @@ export default function BestGamesWithControls() {
 
   const { data, isFetching, error } = useApiQuery<GamesStats>(
     difficultyFilter
-      ? `${apiUrlNew}/api/Players/timeleaderboard?difficulty=${difficultyFilter}`
-      : `${apiUrlNew}/api/Players/timeleaderboard`,
+      ? `${apiUrl}/api/Players/timeleaderboard?difficulty=${difficultyFilter}`
+      : `${apiUrl}/api/Players/timeleaderboard`,
     undefined,
     {
       enabled: true,
