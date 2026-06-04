@@ -3,17 +3,11 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
+import { playerFinderColumns } from '@/constants/tableColumns'
+import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './index.module.css'
-
-export const columns = [
-  { title: 'Saves', key: 'saves' },
-  { title: 'Deaths', key: 'deaths' },
-  { title: 'S/D Ratio', key: 'saveDeathRatio' },
-  { title: 'Win Rate', key: 'winRate' },
-  { title: 'Highest Win Streak', key: 'highestWinStreak' },
-] as const
 
 export default function PlayerFinderWithResult({
   selectedPlayer,
@@ -25,11 +19,26 @@ export default function PlayerFinderWithResult({
   onClear?: () => void
 }) {
   const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
+  const [pendingBattleTag, setPendingBattleTag] = useState<string | undefined>()
 
   const activePlayer = selectedPlayer ?? player
 
-  const handleSelect = (p: Player | undefined) => {
-    setSelectedPlayer ? setSelectedPlayer(p) : setPlayer(p)
+  const { data: fetchedPlayer } = useApiQuery<Player>(
+    `/api/player/${encodeURIComponent(pendingBattleTag ?? '')}`,
+    undefined,
+    { enabled: !!pendingBattleTag },
+  )
+
+  useEffect(() => {
+    if (!fetchedPlayer) return
+    setSelectedPlayer
+      ? setSelectedPlayer(fetchedPlayer)
+      : setPlayer(fetchedPlayer)
+    setPendingBattleTag(undefined)
+  }, [fetchedPlayer, setSelectedPlayer])
+
+  const handleSelect = (battleTag: string) => {
+    setPendingBattleTag(battleTag)
   }
 
   const handleClear = () => {
@@ -54,7 +63,7 @@ export default function PlayerFinderWithResult({
             }
             data={[
               {
-                columns: columns.map((col) => ({
+                columns: playerFinderColumns.map((col) => ({
                   description: col.title,
                   value: activePlayer[col.key],
                 })),

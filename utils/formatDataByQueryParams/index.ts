@@ -1,4 +1,4 @@
-interface FilterByBattleTagParams<T extends { battleTag?: { name?: string } }> {
+interface FilterByBattleTagParams<T extends { battleTag: string }> {
   data: T[]
   battleTag?: string
 }
@@ -25,7 +25,7 @@ interface PaginateDataParams<T> {
  * @param params.battleTag Search value to match against `battleTag.name`.
  * @returns Filtered dataset or the original data when no search term is provided.
  */
-export const filterByBattleTag = <T extends { battleTag?: { name?: string } }>({
+export const filterByBattleTag = <T extends { battleTag: string }>({
   data,
   battleTag,
 }: FilterByBattleTagParams<T>) => {
@@ -33,9 +33,7 @@ export const filterByBattleTag = <T extends { battleTag?: { name?: string } }>({
 
   if (battleTag) {
     filteredData = data.filter(({ battleTag: playerBattleTag }) =>
-      (playerBattleTag?.name || '')
-        .toLowerCase()
-        .includes(battleTag.toLowerCase()),
+      (playerBattleTag || '').toLowerCase().includes(battleTag.toLowerCase()),
     )
   }
 

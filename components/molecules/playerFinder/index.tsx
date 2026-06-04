@@ -2,7 +2,6 @@
 
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
-import { Player } from '@/interfaces/player'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import styles from './index.module.css'
@@ -10,14 +9,18 @@ import { useApiQuery } from '@/hooks/useApiQuery'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { apiUrl } from '@/constants'
+import { filterByBattleTag } from '@/utils/formatDataByQueryParams'
 
 interface Props {
   defaultValue?: string
   onChange?: (value: string) => void
   onClear: () => void
-  onPlayerSelect: (player: Player) => void
+  onPlayerSelect: (player: string) => void
   placeholder?: string
 }
+
+type PlayerSearchResponse = [{ battleTag: string }]
 
 export default function PlayerFinder({
   defaultValue = '',
@@ -27,7 +30,7 @@ export default function PlayerFinder({
   placeholder = 'Search a player',
 }: Props) {
   const [query, setQuery] = useState(defaultValue)
-  const [selectedPlayer, setSelectedPlayer] = useState<Player>()
+  const [selectedPlayer, setSelectedPlayer] = useState('')
   const [showOptions, setShowOptions] = useState(false)
 
   const debouncedQuery = useDebouncedValue(query, 300)
@@ -37,16 +40,22 @@ export default function PlayerFinder({
 
   useOutsideClick(() => setShowOptions(false), wrapperRef)
 
-  const { data, isFetching, error } = useApiQuery<{ stats: Player[] }>(
-    '/api/stats',
+  const { data, isFetching, error } = useApiQuery<PlayerSearchResponse>(
+    `${apiUrl}/api/Players`,
     debouncedQuery.length > 2 ? { battleTag: debouncedQuery } : undefined,
     {
       enabled:
         !hasCustomOnChange &&
         debouncedQuery.length > 2 &&
-        query !== selectedPlayer?.battleTag.tag,
+        query !== selectedPlayer,
     },
   )
+
+  const filteredData = filterByBattleTag({
+    data: data ?? [],
+    battleTag: debouncedQuery,
+  })
+
 
   useQueryErrorToast(error, `searching for "${debouncedQuery}"`)
 
@@ -59,22 +68,22 @@ export default function PlayerFinder({
     setQuery(e.target.value)
   }
 
-  const handleSelect = (player: Player) => {
+  const handleSelect = (player: string) => {
     setSelectedPlayer(player)
-    setQuery(player.battleTag.tag)
+    setQuery(player)
     onPlayerSelect(player)
     setShowOptions(false)
   }
 
   const handleSearchClear = () => {
     setQuery('')
-    setSelectedPlayer(undefined)
+    setSelectedPlayer('')
     onClear()
     setShowOptions(false)
   }
 
   const clickableOptionClassName = `${styles.option} ${styles.clickableOption}`
-
+  console.log(filteredData)
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
       <Input
@@ -101,14 +110,14 @@ export default function PlayerFinder({
 
       {showOptions && query.length > 2 && data && (
         <div className={styles.options}>
-          {data.stats.length > 0 ? (
-            data.stats.map((player) => (
+          {filteredData.length > 0 ? (
+            filteredData.map((player) => (
               <span
-                key={player.battleTag.tag}
+                key={player.battleTag}
                 className={clickableOptionClassName}
-                onClick={() => handleSelect(player)}
+                onClick={() => handleSelect(player.battleTag)}
               >
-                {player.battleTag.tag}
+                {player.battleTag}
               </span>
             ))
           ) : (

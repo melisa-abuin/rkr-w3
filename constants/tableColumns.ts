@@ -134,3 +134,11 @@ export const bestGameTimesColumnsWithRender: Column<GameStats>[] = [
     render: (game) => renderDate(game.date),
   },
 ]
+
+export const playerFinderColumns = [
+  { title: 'Saves', key: 'saves' },
+  { title: 'Deaths', key: 'deaths' },
+  { title: 'S/D Ratio', key: 'saveDeathRatio' },
+  { title: 'Win Rate', key: 'winRate' },
+  { title: 'Highest Win Streak', key: 'highestWinStreak' },
+] as const
