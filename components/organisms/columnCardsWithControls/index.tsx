@@ -72,6 +72,7 @@ export default function ColumnCardsWithControls({
         hoverable={difficultyFilter === undefined}
         loading={isFetching}
         selectedPlayer={selectedPlayer}
+        sortOrder="asc"
       />
     </PageContainer>
   )

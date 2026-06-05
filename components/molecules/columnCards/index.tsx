@@ -15,6 +15,7 @@ interface Props {
   loading?: boolean
   filter: 'stats' | 'times'
   selectedPlayer?: string
+  sortOrder?: 'asc' | 'desc'
 }
 
 export default function ColumnCards({
@@ -24,10 +25,11 @@ export default function ColumnCards({
   loading,
   filter,
   selectedPlayer,
+  sortOrder = 'desc',
 }: Props) {
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
-    return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=desc${difficultyUrlParam}`
+    return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=${sortOrder}${difficultyUrlParam}`
   }
 
   if (loading && data.length === 0) {
