@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { difficultyNames } from '@/constants'
+import { apiUrl, difficultyNames } from '@/constants'
 import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
@@ -13,7 +13,7 @@ import PlayerFinder from '@/components/molecules/playerFinder'
 import styles from './index.module.css'
 
 interface TableProps<T> {
-  apiBaseUrl: 'times' | 'stats' | 'kibbleStats'
+  apiBaseUrl: 'times' | 'stats' | 'kibble'
   columns: Array<{
     title: string
     key: keyof T
@@ -56,14 +56,14 @@ export default function TableWithControls<T>({
     isFetching,
     error,
   } = useApiQuery<{ pages: number; stats?: T[] }>(
-    `/api/${apiBaseUrl}?${queryString}`,
+    `${apiUrl}/api/PlayerStats/${apiBaseUrl}?${queryString}`,
     undefined,
     { enabled: shouldRefetch },
   )
 
   let formattedData = filteredData ?? data
   // TODO: fix me
-  if (apiBaseUrl === 'kibbleStats' && filteredData?.stats) {
+  if (apiBaseUrl === 'kibble' && filteredData?.stats) {
     formattedData = {
       ...filteredData,
       stats: filteredData?.stats?.map((elem) => {

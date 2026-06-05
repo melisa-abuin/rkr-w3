@@ -8,6 +8,7 @@ import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
+import { apiUrl } from '@/constants'
 
 export default function PlayerFinderWithResult({
   selectedPlayer,
@@ -23,11 +24,13 @@ export default function PlayerFinderWithResult({
 
   const activePlayer = selectedPlayer ?? player
 
-  const { data: fetchedPlayer } = useApiQuery<Player>(
-    `/api/player/${encodeURIComponent(pendingBattleTag ?? '')}`,
+  const { data } = useApiQuery<Player>(
+    `${apiUrl}/api/PlayerStats/stats?battleTag=${encodeURIComponent(pendingBattleTag ?? '')}`,
     undefined,
     { enabled: !!pendingBattleTag },
   )
+
+  const fetchedPlayer = data?.stats[0]
 
   useEffect(() => {
     if (!fetchedPlayer) return

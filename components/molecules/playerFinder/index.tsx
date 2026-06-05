@@ -56,7 +56,6 @@ export default function PlayerFinder({
     battleTag: debouncedQuery,
   })
 
-
   useQueryErrorToast(error, `searching for "${debouncedQuery}"`)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +82,7 @@ export default function PlayerFinder({
   }
 
   const clickableOptionClassName = `${styles.option} ${styles.clickableOption}`
-  console.log(filteredData)
+
   return (
     <div ref={wrapperRef} className={styles.wrapper}>
       <Input

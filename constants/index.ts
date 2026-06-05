@@ -409,6 +409,7 @@ export const statsPageVariants = {
     columns: statsColumns,
     defaultSortKey: 'completedChallenges',
     apiBaseUrl: 'stats',
+    defaultSortOrder: 'desc',
   },
   times: {
     title: 'Time stats',
@@ -416,13 +417,15 @@ export const statsPageVariants = {
     columns: timeAllDiffColumns,
     defaultSortKey: 'roundOne',
     apiBaseUrl: 'times',
+    defaultSortOrder: 'asc',
   },
-  kibbleStats: {
+  kibble: {
     title: 'Kibble stats',
     description: 'Check all the kibble stats for all players',
     columns: kibbleColumns,
     defaultSortKey: 'singleGame',
-    apiBaseUrl: 'kibbleStats',
+    apiBaseUrl: 'kibble',
+    defaultSortOrder: 'desc',
   },
 } as const
 

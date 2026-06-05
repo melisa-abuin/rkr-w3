@@ -48,7 +48,7 @@ export default function Stats({ data, filter }: AllStatsData) {
   const columnsByVariant = {
     stats: statsColumnsWithRender,
     times: timeAllDiffColumnsWithRender,
-    kibbleStats: kibbleColumnsWithRender,
+    kibble: kibbleColumnsWithRender,
   }
 
   const searchParams = useSearchParams()
@@ -102,7 +102,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     setDifficultyFilter(undefined)
     setSortKey({
       key: newPageVariant.defaultSortKey,
-      asc: false,
+      asc: newPageVariant.defaultSortOrder === 'asc',
     })
     setCurrentPage(1)
   }
@@ -149,13 +149,19 @@ export default function Stats({ data, filter }: AllStatsData) {
     setCurrentPage(page)
   }, [])
 
-  const handleSortChange = useCallback((newSortKey: string) => {
-    setHasInteracted(true)
-    setSortKey((prev) => ({
-      key: newSortKey,
-      asc: prev.key === newSortKey ? !prev.asc : false,
-    }))
-  }, [])
+  const handleSortChange = useCallback(
+    (newSortKey: string) => {
+      const currentPageVariant = statsPageVariants[currentApiUrl as VariantKey]
+      const isAscending = currentPageVariant.defaultSortOrder === 'asc'
+
+      setHasInteracted(true)
+      setSortKey((prev) => ({
+        key: newSortKey,
+        asc: prev.key === newSortKey ? !prev.asc : isAscending,
+      }))
+    },
+    [currentApiUrl],
+  )
 
   const handleFilterChange = useCallback((difficulty?: Difficulty) => {
     setHasInteracted(true)
@@ -192,7 +198,7 @@ export default function Stats({ data, filter }: AllStatsData) {
               shouldRefetch: hasInteracted,
             }
 
-            if (apiBaseUrl === 'kibbleStats') {
+            if (apiBaseUrl === 'kibble') {
               return (
                 <TableWithControls<KibbleType>
                   {...commonProps}

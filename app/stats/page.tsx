@@ -1,7 +1,7 @@
 import { Player } from '@/interfaces/player'
 import Error from '@/components/molecules/error'
 import Stats from '@/components/templates/stats'
-import { getBaseUrlFromHeaders } from '@/utils'
+import { apiUrl } from '@/constants'
 
 interface PlayerStatsData {
   error: string | null
@@ -36,9 +36,7 @@ async function fetchData(
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
   const queryString = buildSearchQuery(params)
 
-  const baseUrl = await getBaseUrlFromHeaders()
-
-  const slugUrl = `${baseUrl}/api/${filter || 'stats'}`
+  const slugUrl = `${apiUrl}/api/PlayerStats/${filter || 'stats'}`
   const response = await fetch(`${slugUrl}${queryString}`)
   if (response.status === 200) {
     return {
