@@ -1,15 +1,15 @@
 import { filterByBattleTag, paginateData, sortData } from '..'
 
 interface MockPlayer {
-  battleTag: { name: string }
+  battleTag: string
   score: number
 }
 
 describe('formatDataByQueryParams', () => {
   const mockData: MockPlayer[] = [
-    { battleTag: { name: 'Alpha' }, score: 30 },
-    { battleTag: { name: 'Bravo' }, score: 10 },
-    { battleTag: { name: 'charlie' }, score: 20 },
+    { battleTag: 'Alpha', score: 30 },
+    { battleTag: 'Bravo', score: 10 },
+    { battleTag: 'charlie', score: 20 },
   ]
 
   describe('filterByBattleTag', () => {
@@ -19,7 +19,7 @@ describe('formatDataByQueryParams', () => {
           data: mockData,
           battleTag: 'ALP',
         }),
-      ).toStrictEqual([{ battleTag: { name: 'Alpha' }, score: 30 }])
+      ).toStrictEqual([{ battleTag: 'Alpha', score: 30 }])
     })
 
     it('returns original data when battleTag query is not provided', () => {

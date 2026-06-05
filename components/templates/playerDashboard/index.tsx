@@ -75,8 +75,8 @@ export default function PlayerDashboard({
   }, [data, playerData, showToast])
 
   const handlePlayerSelect = useCallback(
-    (player: Player) => {
-      router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
+    (battleTag: string) => {
+      router.push(`?compareTo=${encodeURIComponent(battleTag)}`)
     },
     [router],
   )

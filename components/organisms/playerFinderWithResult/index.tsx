@@ -24,7 +24,7 @@ export default function PlayerFinderWithResult({
 
   const activePlayer = selectedPlayer ?? player
 
-  const { data } = useApiQuery<Player>(
+  const { data } = useApiQuery<{ stats: Player[] }>(
     `${apiUrl}/api/PlayerStats/stats?battleTag=${encodeURIComponent(pendingBattleTag ?? '')}`,
     undefined,
     { enabled: !!pendingBattleTag },
