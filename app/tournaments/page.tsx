@@ -1,11 +1,9 @@
 import Error from '@/components/molecules/error'
 import Tournaments from '@/components/templates/tournaments'
-import { getBaseUrlFromHeaders } from '@/utils'
+import { apiUrl } from '@/constants'
 
 async function fetchData() {
-  const url = await getBaseUrlFromHeaders()
-
-  const response = await fetch(`${url}/api/tournaments`)
+  const response = await fetch(`${apiUrl}/api/tournaments/full`)
   if (response.status === 200) {
     return {
       data: await response.json(),

@@ -16,14 +16,19 @@ export default function TournamentSummary({ item }: Props) {
   return (
     <CardsContainer title={`${item.tournament.region} region`}>
       {item.players.slice(0, 3).map((player, playerIndex) => (
-        <div key={player.battleTag.tag} className={styles.podium}>
+        <div key={player.battleTag} className={styles.podium}>
           <RowCard
             isSmallPosition
-            aria-label={`Player card for ${player.battleTag.tag}`}
+            aria-label={`Player card for ${player.battleTag}`}
             position={playerIndex + 1}
             variant="highlight"
           >
-            <PlayerTag battleTag={player.battleTag} />
+            <PlayerTag
+              battleTag={{
+                name: player.battleTag?.split('#')[0],
+                tag: player.battleTag,
+              }}
+            />
             <div className={styles.columnsContainer}>
               <Column
                 description="Total Time"
