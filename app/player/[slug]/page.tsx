@@ -2,7 +2,7 @@ import Error from '@/components/molecules/error'
 import PlayerDashboard from '@/components/templates/playerDashboard'
 import { Player } from '@/interfaces/player'
 import { notFound } from 'next/navigation'
-import { getBaseUrlFromHeaders } from '@/utils'
+import { apiUrl } from '@/constants'
 
 interface PlayerStatsData {
   error: string | null
@@ -10,10 +10,8 @@ interface PlayerStatsData {
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
-  const url = await getBaseUrlFromHeaders()
-
   const response = await fetch(
-    `${url}/api/player/${encodeURIComponent(battleTag)}`,
+    `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(battleTag)}`,
     {
       method: 'GET',
       headers: {
@@ -44,7 +42,7 @@ export default async function PlayerPage({
 }) {
   const { slug } = await params
   const { data, error } = await fetchData(slug)
-
+  console.log(data)
   return (
     <main>
       {error ? <Error /> : data && <PlayerDashboard playerData={data} />}

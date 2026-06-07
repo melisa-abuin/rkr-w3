@@ -18,7 +18,6 @@ Below is a list of all available utilities:
 ### 📥 Data Fetching
 
 - `fetchData`
-- `getBaseUrlFromHeaders`
 
 ### 📥 Data download
 
@@ -78,10 +77,6 @@ Below is a list of all available utilities:
 ### 🧼 Key Transforms
 
 - `transformKeysToCamelCase`
-
-### 🌐 URL Helpers
-
-- `getBaseUrlFromHeaders`
 
 ### 🏁 Tournament Helpers
 
