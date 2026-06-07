@@ -1,22 +1,22 @@
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { getBaseUrlFromHeaders } from '@/utils/getBaseUrlFromHeaders'
 import Error from '@/components/molecules/error'
 import CardsContainer from '@/components/atoms/cardsContainer'
 import RowCard from '@/components/molecules/rowCard'
 import AwardDetail from '@/components/molecules/awardDetail'
 import { AwardsData } from '@/interfaces/award'
+import { apiUrl } from '@/constants'
+import { formatAwardsByCategory, RawAwardEntry } from '@/utils/formatGameAwards'
 
 async function fetchData(): Promise<{
   data: AwardsData | null
   error: string | null
 }> {
-  const url = await getBaseUrlFromHeaders()
-
-  const response = await fetch(`${url}/api/awards`)
+  const response = await fetch(`${apiUrl}/api/Awards/stats`)
   if (response.status === 200) {
+    const raw = (await response.json()) as RawAwardEntry[]
     return {
-      data: (await response.json()) as AwardsData,
+      data: formatAwardsByCategory(raw),
       error: null,
     }
   }
@@ -28,7 +28,6 @@ async function fetchData(): Promise<{
 
 export default async function ChallengesPage() {
   const { data, error } = await fetchData()
-
   return (
     <main>
       {error ? (

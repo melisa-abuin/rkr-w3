@@ -2,6 +2,34 @@ import { awardsDescriptions } from '@/constants'
 import { AwardsData } from '@/interfaces/award'
 import { formatKeyToWord } from '../formatKeyToWord'
 
+export interface RawAwardEntry {
+  key: string
+  category: string
+  displayName: string
+  description: string
+  percentage: number
+}
+
+export const formatAwardsByCategory = (
+  entries: RawAwardEntry[],
+): AwardsData => {
+  const grouped = new Map<string, RawAwardEntry[]>()
+  for (const entry of entries) {
+    const bucket = grouped.get(entry.category) ?? []
+    bucket.push(entry)
+    grouped.set(entry.category, bucket)
+  }
+  return Array.from(grouped.entries()).map(([category, awards]) => ({
+    id: category,
+    awards: awards.map((entry) => ({
+      description: entry.description,
+      imagePath: `/awards/${entry.key[0].toLowerCase()}${entry.key.slice(1)}.png`,
+      title: entry.displayName,
+      percentage: entry.percentage,
+    })),
+  }))
+}
+
 export const formatGameAwards = (
   awardsPercentages: Record<string, number> = {},
 ): AwardsData =>
