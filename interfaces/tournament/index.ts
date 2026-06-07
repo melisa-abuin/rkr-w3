@@ -22,14 +22,15 @@ export interface ApiTournament {
 export interface ApiTournaments extends Array<ApiTournament> {}
 
 export interface ApiTournamentPlayer {
-  battletag: string
+  battleTag: string
+  totalTime: number
   games: ApiTournamentGame[]
 }
 
 export interface ApiTournamentGame {
   id: number
   tournament_id: number
-  battletag: string
+  battleTag: string
   game_number: number
   game_uid: string
   team: string
@@ -37,7 +38,7 @@ export interface ApiTournamentGame {
   total_deaths: number
   total_progress: number
   total_saves: number
-  total_time: number
+  totalTime: number
   rounds: ApiTournamentRound[]
 }
 
@@ -73,12 +74,10 @@ export interface Tournament {
 
 export interface Tournaments extends Array<Tournament> {}
 
-export interface TournamentPlayer extends Omit<ApiTournamentPlayer, 'games'> {
+export interface TournamentPlayer
+  extends Omit<ApiTournamentPlayer, 'games' | 'battleTag'> {
   battleTag: BattleTag
-  totalTime: number
   games: TournamentGame[]
 }
 
-export interface TournamentGame extends ApiTournamentGame {
-  totalTime: number
-}
+export type TournamentGame = ApiTournamentGame

@@ -1,8 +1,4 @@
-import {
-  ApiTournaments,
-  Tournament,
-  TournamentGame,
-} from '@/interfaces/tournament'
+import { ApiTournaments, Tournament } from '@/interfaces/tournament'
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
@@ -23,9 +19,8 @@ const getDefaultFastestRounds = (): FastestRounds =>
 /**
  * Normalizes tournament players for UI/API consumption.
  *
- * - Maps each game `total_time` field to camelCase `totalTime`
- * - Computes each player's aggregated `totalTime` across games
- * - Splits `battletag` into `battleTag.name` and `battleTag.tag`
+ * - Computes `fastestRounds` across all players and games
+ * - Splits `battleTag` string into `battleTag.name` and `battleTag.tag`
  * - Sorts players by lowest total time (ascending)
  */
 export const formatTournamentPlayers = (
@@ -34,9 +29,7 @@ export const formatTournamentPlayers = (
   const fastestRounds = getDefaultFastestRounds()
   const players = Array.isArray(item?.players) ? item.players : []
   const playersWithTotalTime = players.map((player) => {
-    const games: TournamentGame[] = []
     player?.games?.forEach((game) => {
-      games.push({ ...game, totalTime: game.total_time })
       game.rounds.forEach((round) => {
         const roundTime = round.round_time
         const roundNumber = round.round_number
@@ -51,8 +44,8 @@ export const formatTournamentPlayers = (
             `round${roundNames[roundNumber - 1]}` as keyof typeof fastestRounds
           ] = {
             player: {
-              name: player.battletag?.split('#')[0] || '',
-              tag: player.battletag || '',
+              name: player.battleTag?.split('#')[0] || '',
+              tag: player.battleTag || '',
             },
             time: roundTime,
           }
@@ -60,18 +53,12 @@ export const formatTournamentPlayers = (
       })
     })
 
-    const totalTime = games.reduce((acc: number, game) => {
-      return acc + game.totalTime
-    }, 0)
-
     return {
       ...player,
       battleTag: {
-        name: player.battletag?.split('#')[0] || '',
-        tag: player.battletag || '',
+        name: player.battleTag?.split('#')[0] || '',
+        tag: player.battleTag || '',
       },
-      games,
-      totalTime,
     }
   })
 

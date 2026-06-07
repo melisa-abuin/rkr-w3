@@ -1,11 +1,10 @@
 import Error from '@/components/molecules/error'
 import TournamentDetail from '@/components/templates/tournamentDetail'
-import { getBaseUrlFromHeaders } from '@/utils'
+import { apiUrl } from '@/constants'
+import { formatTournamentPlayers } from '@/utils'
 
 async function fetchData(id: string) {
-  const url = await getBaseUrlFromHeaders()
-
-  const response = await fetch(`${url}/api/tournamentDetail/${id}`)
+  const response = await fetch(`${apiUrl}/api/tournaments/${id}/full`)
   if (response.status === 200) {
     return {
       data: await response.json(),
@@ -26,8 +25,11 @@ export default async function TournamentsPage({
   const { slug } = await params
 
   const { data, error } = await fetchData(slug)
+  const tournament = data ? formatTournamentPlayers(data) : null
 
   return (
-    <main>{error ? <Error /> : data && <TournamentDetail data={data} />}</main>
+    <main>
+      {error ? <Error /> : tournament && <TournamentDetail data={tournament} />}
+    </main>
   )
 }
