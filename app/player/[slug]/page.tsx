@@ -41,8 +41,8 @@ export default async function PlayerPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const { data, error } = await fetchData(slug)
-  console.log(data)
+  const { data, error } = await fetchData(decodeURIComponent(slug))
+
   return (
     <main>
       {error ? <Error /> : data && <PlayerDashboard playerData={data} />}

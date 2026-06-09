@@ -34,6 +34,7 @@ export default function PlayerDashboard({
 }: {
   playerData: Player
 }) {
+  const currentPlayer = playerData instanceof Array ? playerData[0] : playerData
   const {
     awards,
     battleTag,
@@ -41,8 +42,8 @@ export default function PlayerDashboard({
     lastUploaded,
     completedChallenges,
     mostPlayedColor,
-  } = playerData
-
+  } = currentPlayer
+  console.log(currentPlayer)
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
@@ -94,13 +95,13 @@ export default function PlayerDashboard({
     <>
       <PageContainer>
         <Header
-          battleTag={battleTag.tag}
+          battleTag={battleTag}
           color={mostPlayedColor}
           skin={skins?.selectedSkin}
           title={
             data
-              ? `${battleTag.name} vs ${data.battleTag.name}`
-              : battleTag.name
+              ? `${currentPlayer.battleTag?.split('#')[0]} vs ${data.battleTag?.split('#')[0]}`
+              : currentPlayer.battleTag?.split('#')[0]
           }
         />
         <PlayerFinder
@@ -117,11 +118,11 @@ export default function PlayerDashboard({
             columns={playerColumns}
             comparePlayer={data}
             loading={isFetching}
-            player={playerData}
+            player={currentPlayer}
           />
           <WinStreak
-            current={playerData.winStreak}
-            highest={playerData.highestWinStreak}
+            current={currentPlayer.winStreak}
+            highest={currentPlayer.highestWinStreak}
           />
         </div>
       </PageContainer>
@@ -134,7 +135,7 @@ export default function PlayerDashboard({
               comparePlayer={data}
               difficulty={difficulty}
               loading={isFetching}
-              player={playerData}
+              player={currentPlayer}
               variant="secondary"
             />
             <ColumnsWithComparison
@@ -142,7 +143,7 @@ export default function PlayerDashboard({
               comparePlayer={data}
               difficulty={difficulty}
               loading={isFetching}
-              player={playerData}
+              player={currentPlayer}
               variant="secondary"
             />
           </Collapsible>
@@ -156,7 +157,7 @@ export default function PlayerDashboard({
             comparePlayer={data}
             difficulty="solo"
             loading={isFetching}
-            player={playerData}
+            player={currentPlayer}
             variant="secondary"
           />
         </Collapsible>
@@ -165,8 +166,8 @@ export default function PlayerDashboard({
       {showBesties && (
         <PageContainer marginBottom={24} title="Fastest Besties">
           <Besties
-            battleTag={playerData.battleTag.name}
-            besties={playerData.fastestBesties}
+            battleTag={currentPlayer.battleTag}
+            besties={currentPlayer.fastestBesties}
           />
         </PageContainer>
       )}
@@ -174,12 +175,12 @@ export default function PlayerDashboard({
       <PageContainer marginBottom={24} title="Personal bests">
         <div className={styles.row}>
           <Columns
-            data={formatCompare(playerData, data, kibblesColumns)}
+            data={formatCompare(currentPlayer, data, kibblesColumns)}
             loading={isFetching}
             title="All time"
           />
           <Columns
-            data={formatCompare(playerData, data, personalBestsColumns)}
+            data={formatCompare(currentPlayer, data, personalBestsColumns)}
             loading={isFetching}
             title="Single Game"
           />
@@ -208,7 +209,7 @@ export default function PlayerDashboard({
 
       <PageContainer marginBottom={24}>
         <DownloadModal
-          battletag={playerData.battleTag.tag}
+          battletag={currentPlayer.battleTag}
           date={lastDateUploaded}
         />
       </PageContainer>

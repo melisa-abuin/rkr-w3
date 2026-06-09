@@ -4,16 +4,19 @@ import { Awards as AwardsI } from '@/interfaces/player'
 import styles from './index.module.css'
 import Image from '@/components/atoms/image'
 import Tooltip from '@/components/atoms/tooltip'
+import { formatAwardsByCategory } from '@/utils/formatGameAwards'
 
 interface Props {
   awards: AwardsI[]
 }
 export default function CompletedAwards({ awards }: Props) {
+  const formattedAwards = formatAwardsByCategory(awards)
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
-        {awards.length > 0 ? (
-          awards.map(({ id, awards }) => (
+        {formattedAwards.length > 0 ? (
+          formattedAwards.map(({ id, awards }) => (
             <div key={id} className={styles.sectionContainer}>
               <h3 className={styles.title}>
                 {id}

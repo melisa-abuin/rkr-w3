@@ -306,18 +306,18 @@ export const playerColumns = [
   { title: 'Deaths', key: 'deaths' },
   { title: 'S/D Ratio', key: 'saveDeathRatio' },
   { title: 'Win Rate', key: 'winRate' },
-  { title: 'Highest Save Streak', key: 'saveStreak' },
+  { title: 'Highest Save Streak', key: 'highestSaveStreak' },
 ] as const
 
 export const personalBestsColumns = [
-  { title: 'Kibbles Collected', key: 'singleGame' },
-  { title: 'Saves', key: 'savesSingleGame' },
+  { title: 'Kibbles Collected', key: 'personalBestKibbleCollected' },
+  { title: 'Saves', key: 'personalBestSaves' },
 ] as const
 
 export const kibblesColumns = [
-  { title: 'Kibbles Collected', key: 'allTime' },
-  { title: 'Jackpots', key: 'jackpots' },
-  { title: 'Super Jackpots', key: 'superJackpots' },
+  { title: 'Kibbles Collected', key: 'kibbleCollected' },
+  { title: 'Jackpots', key: 'kibbleJackpots' },
+  { title: 'Super Jackpots', key: 'kibbleSuperJackpots' },
 ] as const
 
 export const playerDifficultyColumns = [
