@@ -12,9 +12,8 @@ import {
   kibblesColumns,
   personalBestsColumns,
   playerColumns,
-  playerDifficultyColumns,
-  playerTimeColumns,
 } from '@/constants'
+import { getPlayerDifficultyColumns, getPlayerTimeColumns } from '@/utils'
 import { useToast } from '@/hooks/useToast'
 import { Player } from '@/interfaces/player'
 import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
@@ -43,7 +42,7 @@ export default function PlayerDashboard({
     completedChallenges,
     mostPlayedColor,
   } = currentPlayer
-  console.log(currentPlayer)
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
@@ -131,7 +130,7 @@ export default function PlayerDashboard({
         <PageContainer key={difficulty} marginBottom={24}>
           <Collapsible title={`${difficulty} stats`}>
             <ColumnsWithComparison
-              columns={playerDifficultyColumns}
+              columns={getPlayerDifficultyColumns(difficulty)}
               comparePlayer={data}
               difficulty={difficulty}
               loading={isFetching}
@@ -139,7 +138,7 @@ export default function PlayerDashboard({
               variant="secondary"
             />
             <ColumnsWithComparison
-              columns={playerTimeColumns}
+              columns={getPlayerTimeColumns(difficulty)}
               comparePlayer={data}
               difficulty={difficulty}
               loading={isFetching}
@@ -153,7 +152,7 @@ export default function PlayerDashboard({
       <PageContainer marginBottom={24}>
         <Collapsible title="Solo Stats">
           <ColumnsWithComparison
-            columns={playerTimeColumns}
+            columns={getPlayerTimeColumns('solo')}
             comparePlayer={data}
             difficulty="solo"
             loading={isFetching}

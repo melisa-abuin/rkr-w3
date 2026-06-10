@@ -142,7 +142,7 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
         gameStats.roundThreeTime = data.RoundThreeTime
         gameStats.roundFourTime = data.RoundFourTime
         gameStats.roundFiveTime = data.RoundFiveTime
-        gameStats.totalTime = data.Time
+        gameStats.time = data.Time
         gameStats.teamMembers = data.TeamMembers
         return gameStats
       },

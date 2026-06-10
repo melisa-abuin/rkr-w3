@@ -1,18 +1,18 @@
+import { playerDifficultyColumns } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
 
-const baseColumns = [
-  { title: 'Fastest Game', key: 'bestGameTimes' },
-  { title: 'Games Played', key: 'Games' },
-  { title: 'Wins', key: 'Wins' },
-] as const
-
-type BaseKey = (typeof baseColumns)[number]['key']
-type PrefixedKey<D extends Difficulty> = `${D}${Capitalize<BaseKey>}`
+type ColumnKey = (typeof playerDifficultyColumns)[number]['key']
+type NonBestGameKey = Exclude<ColumnKey, 'bestGameTimes'>
+type PrefixedKey<D extends Difficulty> =
+  | 'bestGameTimes'
+  | `${D}${Capitalize<NonBestGameKey>}`
 
 export const getPlayerDifficultyColumns = <D extends Difficulty>(
   difficulty: D,
 ): Array<{ title: string; key: PrefixedKey<D> }> =>
-  baseColumns.map(({ title, key }) => ({
+  playerDifficultyColumns.map(({ title, key }) => ({
     title,
-    key: `${difficulty}${key.charAt(0).toUpperCase()}${key.slice(1)}` as PrefixedKey<D>,
+    key: (key === 'bestGameTimes'
+      ? key
+      : `${difficulty}${key.charAt(0).toUpperCase()}${key.slice(1)}`) as PrefixedKey<D>,
   }))

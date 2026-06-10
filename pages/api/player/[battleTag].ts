@@ -7,10 +7,10 @@ import {
   calculateWinRate,
   fetchData,
   calculateCompletedChallenges,
-  calculateBestTimeByDifficulty,
   getFastestBesties,
 } from '@/utils'
 import { Player } from '@/interfaces/player'
+import { GameStats } from '@/interfaces/game'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { blacklistedPlayers, roundNames } from '@/constants'
 
@@ -189,21 +189,63 @@ export default async function handler(req: StatsRequest, res: NextApiResponse) {
     const nightmare = NightmareGameTime?.Time || 0
     const progressive = ProgressiveGameTime?.Time || 0
 
-    playerStats.bestGameTimes = {
-      solo: 0,
-      normal,
-      hard,
-      impossible,
-      nightmare,
-      progressive,
-      best: calculateBestTimeByDifficulty({
-        normal,
-        hard,
-        impossible,
-        nightmare,
-        progressive,
-      }),
-    }
+    playerStats.bestGameTimes = [
+      {
+        difficulty: 'normal',
+        time: normal,
+        roundOneTime: 0,
+        roundTwoTime: 0,
+        roundThreeTime: 0,
+        roundFourTime: 0,
+        roundFiveTime: 0,
+        teamMembers: '',
+        date: '',
+      },
+      {
+        difficulty: 'hard',
+        time: hard,
+        roundOneTime: 0,
+        roundTwoTime: 0,
+        roundThreeTime: 0,
+        roundFourTime: 0,
+        roundFiveTime: 0,
+        teamMembers: '',
+        date: '',
+      },
+      {
+        difficulty: 'impossible',
+        time: impossible,
+        roundOneTime: 0,
+        roundTwoTime: 0,
+        roundThreeTime: 0,
+        roundFourTime: 0,
+        roundFiveTime: 0,
+        teamMembers: '',
+        date: '',
+      },
+      {
+        difficulty: 'nightmare',
+        time: nightmare,
+        roundOneTime: 0,
+        roundTwoTime: 0,
+        roundThreeTime: 0,
+        roundFourTime: 0,
+        roundFiveTime: 0,
+        teamMembers: '',
+        date: '',
+      },
+      {
+        difficulty: 'progressive',
+        time: progressive,
+        roundOneTime: 0,
+        roundTwoTime: 0,
+        roundThreeTime: 0,
+        roundFourTime: 0,
+        roundFiveTime: 0,
+        teamMembers: '',
+        date: '',
+      },
+    ] as GameStats[]
 
     roundNames.forEach((round) => {
       playerStats[`round${round}`] = formatRoundsData(RoundTimes, round)

@@ -1,4 +1,5 @@
 import { Difficulty } from '../difficulty'
+import { GameStats } from '../game'
 
 export interface ApiRounds {
   RoundOneNormal: number
@@ -145,7 +146,7 @@ export interface TotalsPerDifficulty {
 export interface Player {
   awards: Awards[]
   battleTag: BattleTag
-  bestGameTimes: RoundTimes
+  bestGameTimes: GameStats[]
   completedChallenges: Challenges
   deaths: number
   fastestBesties: FastestBesties
