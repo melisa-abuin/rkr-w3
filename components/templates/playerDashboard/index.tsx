@@ -44,7 +44,7 @@ export default function PlayerDashboard({
     completedChallenges,
     mostPlayedColor,
   } = currentPlayer
-  console.log(playerData)
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
@@ -68,7 +68,6 @@ export default function PlayerDashboard({
 
   useEffect(() => {
     if (comparePlayer) {
-      console.log('Comparing', currentPlayer, comparePlayer)
       const outDatedPlayer = playerDataOutdated(currentPlayer, comparePlayer)
       if (outDatedPlayer) {
         showToast(

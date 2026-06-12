@@ -170,17 +170,30 @@ export interface Player {
   mostPlayedColor: PlayerColor
 }
 
-export type Tops = Record<
-  string,
-  {
-    label: string
-    description: string
-    all?: number
-    normal?: number
-    hard?: number
-    impossible?: number
-    progressive?: number
-    solo?: number
-    nightmare?: number
-  }
->
+type RoundRanks = {
+  normal: number
+  hard: number
+  impossible: number
+  nightmare: number
+}
+
+type FastestGameRanks = {
+  normal: number
+  hard: number
+  impossible: number
+}
+
+export type Tops = {
+  saves: number
+  wins: number
+  highestWinStreak: number
+  gamesPlayed: number
+  saveDeathRatio: number
+  kibbles: number
+  roundOne: RoundRanks
+  roundTwo: RoundRanks
+  roundThree: RoundRanks
+  roundFour: RoundRanks
+  roundFive: RoundRanks
+  fastestGames: FastestGameRanks
+}
