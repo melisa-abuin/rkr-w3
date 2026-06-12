@@ -92,15 +92,15 @@ export default function PlayerDashboard({
   }, [router])
 
   const showBesties =
-    playerData.fastestBesties &&
-    (playerData.fastestBesties[3].length > 0 ||
-      playerData.fastestBesties[2].length > 0)
-  // console.log('???', data.battleTag)
+    currentPlayer.fastestBesties &&
+    (currentPlayer.fastestBesties[3].length > 0 ||
+      currentPlayer.fastestBesties[2].length > 0)
+
   return (
     <>
       <PageContainer>
         <Header
-          battleTag={battleTag}
+          battleTag={battleTag.tag}
           color={mostPlayedColor}
           skin={skins?.selectedSkin}
           title={
@@ -200,7 +200,7 @@ export default function PlayerDashboard({
         {comparePlayer ? (
           <Tabs
             titles={[
-              `${battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
+              `${currentPlayer.battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
               `${comparePlayer.battleTag.name} - ${comparePlayer.completedChallenges.general[0]}/${comparePlayer.completedChallenges.general[1]}`,
             ]}
           >
