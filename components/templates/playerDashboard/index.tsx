@@ -8,12 +8,14 @@ import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
+  apiUrl,
   difficultyNames,
   kibblesColumns,
   personalBestsColumns,
   playerColumns,
+  playerDifficultyColumns,
+  playerTimeColumns,
 } from '@/constants'
-import { getPlayerDifficultyColumns, getPlayerTimeColumns } from '@/utils'
 import { useToast } from '@/hooks/useToast'
 import { Player } from '@/interfaces/player'
 import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
@@ -42,7 +44,7 @@ export default function PlayerDashboard({
     completedChallenges,
     mostPlayedColor,
   } = currentPlayer
-
+  console.log(playerData)
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
@@ -51,10 +53,13 @@ export default function PlayerDashboard({
   const lastDateUploaded = formatDateToLocale(lastUploaded)
 
   const { data, isFetching, error } = useApiQuery<Player>(
-    compareTo ? `/api/player/${encodeURIComponent(compareTo)}` : '',
+    compareTo
+      ? `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(compareTo)}`
+      : '',
     undefined,
     { enabled: !!compareTo },
   )
+  const comparePlayer = data ? data[0] : null
 
   useQueryErrorToast(
     error,
@@ -62,8 +67,9 @@ export default function PlayerDashboard({
   )
 
   useEffect(() => {
-    if (data) {
-      const outDatedPlayer = playerDataOutdated(playerData, data)
+    if (comparePlayer) {
+      console.log('Comparing', currentPlayer, comparePlayer)
+      const outDatedPlayer = playerDataOutdated(currentPlayer, comparePlayer)
       if (outDatedPlayer) {
         showToast(
           `It looks like ${outDatedPlayer} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
@@ -72,7 +78,7 @@ export default function PlayerDashboard({
         )
       }
     }
-  }, [data, playerData, showToast])
+  }, [currentPlayer, showToast, comparePlayer])
 
   const handlePlayerSelect = useCallback(
     (battleTag: string) => {
@@ -89,7 +95,7 @@ export default function PlayerDashboard({
     playerData.fastestBesties &&
     (playerData.fastestBesties[3].length > 0 ||
       playerData.fastestBesties[2].length > 0)
-
+  // console.log('???', data.battleTag)
   return (
     <>
       <PageContainer>
@@ -98,9 +104,9 @@ export default function PlayerDashboard({
           color={mostPlayedColor}
           skin={skins?.selectedSkin}
           title={
-            data
-              ? `${currentPlayer.battleTag?.split('#')[0]} vs ${data.battleTag?.split('#')[0]}`
-              : currentPlayer.battleTag?.split('#')[0]
+            comparePlayer
+              ? `${currentPlayer.battleTag?.name} vs ${comparePlayer.battleTag?.name}`
+              : currentPlayer.battleTag?.name
           }
         />
         <PlayerFinder
@@ -115,7 +121,7 @@ export default function PlayerDashboard({
         <div className={styles.row}>
           <ColumnsWithComparison
             columns={playerColumns}
-            comparePlayer={data}
+            comparePlayer={comparePlayer}
             loading={isFetching}
             player={currentPlayer}
           />
@@ -130,16 +136,16 @@ export default function PlayerDashboard({
         <PageContainer key={difficulty} marginBottom={24}>
           <Collapsible title={`${difficulty} stats`}>
             <ColumnsWithComparison
-              columns={getPlayerDifficultyColumns(difficulty)}
-              comparePlayer={data}
+              columns={playerDifficultyColumns}
+              comparePlayer={comparePlayer}
               difficulty={difficulty}
               loading={isFetching}
               player={currentPlayer}
               variant="secondary"
             />
             <ColumnsWithComparison
-              columns={getPlayerTimeColumns(difficulty)}
-              comparePlayer={data}
+              columns={playerTimeColumns}
+              comparePlayer={comparePlayer}
               difficulty={difficulty}
               loading={isFetching}
               player={currentPlayer}
@@ -152,8 +158,8 @@ export default function PlayerDashboard({
       <PageContainer marginBottom={24}>
         <Collapsible title="Solo Stats">
           <ColumnsWithComparison
-            columns={getPlayerTimeColumns('solo')}
-            comparePlayer={data}
+            columns={playerTimeColumns}
+            comparePlayer={comparePlayer}
             difficulty="solo"
             loading={isFetching}
             player={currentPlayer}
@@ -174,12 +180,16 @@ export default function PlayerDashboard({
       <PageContainer marginBottom={24} title="Personal bests">
         <div className={styles.row}>
           <Columns
-            data={formatCompare(currentPlayer, data, kibblesColumns)}
+            data={formatCompare(currentPlayer, comparePlayer, kibblesColumns)}
             loading={isFetching}
             title="All time"
           />
           <Columns
-            data={formatCompare(currentPlayer, data, personalBestsColumns)}
+            data={formatCompare(
+              currentPlayer,
+              comparePlayer,
+              personalBestsColumns,
+            )}
             loading={isFetching}
             title="Single Game"
           />
@@ -187,15 +197,15 @@ export default function PlayerDashboard({
       </PageContainer>
 
       <PageContainer title="Game Awards">
-        {data ? (
+        {comparePlayer ? (
           <Tabs
             titles={[
               `${battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
-              `${data.battleTag.name} - ${data.completedChallenges.general[0]}/${data.completedChallenges.general[1]}`,
+              `${comparePlayer.battleTag.name} - ${comparePlayer.completedChallenges.general[0]}/${comparePlayer.completedChallenges.general[1]}`,
             ]}
           >
             <Awards awards={awards} />
-            <Awards awards={data.awards} />
+            <Awards awards={comparePlayer.awards} />
           </Tabs>
         ) : (
           <Awards awards={awards} />

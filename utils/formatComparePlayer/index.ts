@@ -97,10 +97,16 @@ const formatColumnsDynamic = (
     kibbleSuperJackpots: player.kibbleSuperJackpots,
   }
 
+  const compareKibbleData = {
+    kibbleCollected: comparePlayer?.kibbleCollected,
+    kibbleJackpots: comparePlayer?.kibbleJackpots,
+    kibbleSuperJackpots: comparePlayer?.kibbleSuperJackpots,
+  }
+
   if (key in kibbleData) {
     const value = kibbleData[key as keyof typeof kibbleData] ?? 0
     const compareValue =
-      comparePlayer?.kibbleData[key as keyof typeof kibbleData] ?? 0
+      compareKibbleData[key as keyof typeof compareKibbleData] ?? 0
 
     return {
       description: title,

@@ -322,8 +322,8 @@ export const kibblesColumns = [
 
 export const playerDifficultyColumns = [
   { title: 'Fastest Game', key: 'bestGameTimes' },
-  { title: 'Games Played', key: 'Games' },
-  { title: 'Wins', key: 'Wins' },
+  { title: 'Games Played', key: 'gamesPlayed' },
+  { title: 'Wins', key: 'wins' },
 ] as const
 
 export const playerTimeColumns = [

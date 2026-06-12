@@ -13,7 +13,6 @@ export interface RawAwardEntry {
 export const formatAwardsByCategory = (
   entries: RawAwardEntry[],
 ): AwardsData => {
-  console.log(entries)
   const grouped = new Map<string, RawAwardEntry[]>()
   for (const entry of entries) {
     const bucket = grouped.get(entry.category) ?? []

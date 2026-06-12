@@ -27,7 +27,7 @@ export default function CompletedAwards({ awards }: Props) {
                 {awards.map(
                   ({ id, completed, description, imagePath, title }) => (
                     <Tooltip
-                      key={id}
+                      key={id || 'Award image' + title}
                       ariaLabel="Award details"
                       body={
                         <div className={styles.tooltipContainer}>
@@ -38,7 +38,7 @@ export default function CompletedAwards({ awards }: Props) {
                     >
                       <Image
                         circular
-                        alt={id}
+                        alt={id || 'Award image' + title}
                         colored={completed}
                         fallbackSrc="/awards/fallback.png"
                         src={imagePath}
