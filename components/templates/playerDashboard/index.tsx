@@ -90,11 +90,7 @@ export default function PlayerDashboard({
     router.push('?')
   }, [router])
 
-  const showBesties =
-    currentPlayer.fastestBesties &&
-    (currentPlayer.fastestBesties[3].length > 0 ||
-      currentPlayer.fastestBesties[2].length > 0)
-
+  console.log(currentPlayer)
   return (
     <>
       <PageContainer>
@@ -167,14 +163,9 @@ export default function PlayerDashboard({
         </Collapsible>
       </PageContainer>
 
-      {showBesties && (
-        <PageContainer marginBottom={24} title="Fastest Besties">
-          <Besties
-            battleTag={currentPlayer.battleTag}
-            besties={currentPlayer.fastestBesties}
-          />
-        </PageContainer>
-      )}
+      <PageContainer marginBottom={24} title="Fastest Besties">
+        <Besties battleTag={currentPlayer.battleTag} />
+      </PageContainer>
 
       <PageContainer marginBottom={24} title="Personal bests">
         <div className={styles.row}>

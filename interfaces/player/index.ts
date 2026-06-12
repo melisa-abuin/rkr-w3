@@ -109,6 +109,12 @@ export interface Kibbles {
 
 export type FastestBesties = Record<1 | 2 | 3, string[]>
 
+export interface FastestBestiesData {
+  once: string[]
+  twice: string[]
+  threeOrMore: string[]
+}
+
 export interface RoundTimes {
   best: BestTime
   hard: number

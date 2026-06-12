@@ -25,6 +25,7 @@ export const formatAwardsByCategory = (
       .filter((entry) => entry.status !== -1)
       .map((entry) => ({
         description: entry.description,
+        completed: entry.status === 1,
         imagePath: `/awards/${entry.key[0].toLowerCase()}${entry.key.slice(1)}.png`,
         title: entry.displayName,
         percentage: entry.percentage,

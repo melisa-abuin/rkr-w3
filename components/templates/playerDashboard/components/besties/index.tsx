@@ -1,36 +1,63 @@
 'use client'
 
-import { FastestBesties } from '@/interfaces/player'
+import { BattleTag, FastestBestiesData } from '@/interfaces/player'
 import styles from './index.module.css'
 import Button from '@/components/atoms/button'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import Loader from '@/components/atoms/loader'
+import { apiUrl } from '@/constants'
 
 interface BestiesProps {
-  besties: FastestBesties
-  battleTag: string
+  battleTag: BattleTag
 }
 
-export default function Besties({ battleTag, besties }: BestiesProps) {
-  const sortedBesties = besties[3].concat(besties[2])
+const groups: {
+  key: keyof FastestBestiesData
+  colorName: 'primary' | 'secondary' | 'tertiary'
+}[] = [
+  { key: 'threeOrMore', colorName: 'primary' },
+  { key: 'twice', colorName: 'secondary' },
+  { key: 'once', colorName: 'tertiary' },
+]
+
+export default function Besties({ battleTag }: BestiesProps) {
+  const { data, isFetching, error } = useApiQuery<FastestBestiesData>(
+    `${apiUrl}/api/PlayerStats/fastestbesties/${encodeURIComponent(battleTag.tag)}`,
+  )
+
+  useQueryErrorToast(
+    error,
+    `Couldn't fetch the fastest besties of ${battleTag.name}, please try again later.`,
+  )
+
+  const hasData = data && groups.some(({ key }) => data[key].length > 0)
 
   return (
     <div className={styles.container}>
       <p className={styles.description}>
-        Players with whom <span className={styles.colored}>{battleTag}</span>{' '}
-        has played the fastest games
+        Players with whom{' '}
+        <span className={styles.colored}>{battleTag.name}</span> has played the
+        fastest games
       </p>
-      <div className={styles.wrapper}>
-        {sortedBesties.map((player) => (
-          <Button
-            key={player}
-            small
-            as="a"
-            colorName="tertiary"
-            href={`/player/${encodeURIComponent(player)}`}
-          >
-            {player.split('#')[0]}
-          </Button>
-        ))}
-      </div>
+      {isFetching && <Loader height={28} width={200} />}
+      {hasData && (
+        <div className={styles.wrapper}>
+          {groups.flatMap(({ key, colorName }) =>
+            data[key].map((player) => (
+              <Button
+                key={player}
+                small
+                as="a"
+                colorName={colorName}
+                href={`/player/${encodeURIComponent(player)}`}
+              >
+                {player.split('#')[0]}
+              </Button>
+            )),
+          )}
+        </div>
+      )}
     </div>
   )
 }
