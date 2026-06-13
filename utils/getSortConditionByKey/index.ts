@@ -51,9 +51,11 @@ export const getValueForKey = (
     const arr = elem.bestGameTimes as GameStats[] | undefined
     if (!arr || arr.length === 0) return 0
     if (filter) {
-      return arr.find((g) => g.difficulty.toLowerCase() === filter)?.time ?? 0
+      return (
+        arr.find((g) => g.difficulty.toLowerCase() === filter)?.totalTime ?? 0
+      )
     }
-    const times = arr.map((g) => g.time).filter((t) => t > 0)
+    const times = arr.map((g) => g.totalTime).filter((t) => t > 0)
     return times.length ? Math.min(...times) : 0
   }
 

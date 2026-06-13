@@ -9,7 +9,7 @@ export interface GameStats {
   roundThreeTime: number
   roundFourTime: number
   roundFiveTime: number
-  time: number
+  totalTime: number
 }
 
 export interface ApiGameStats {

@@ -8,7 +8,7 @@ interface CardProps {
   date: string
   difficulty: string
   position: number
-  time: number
+  totalTime: number
   teamMembers: string
   showDifficulty: boolean
 }
@@ -17,7 +17,7 @@ export default function MobileCard({
   date,
   difficulty,
   position,
-  time,
+  totalTime,
   teamMembers,
   showDifficulty,
 }: CardProps) {
@@ -31,10 +31,10 @@ export default function MobileCard({
         <div className={styles.wrapper}>
           <Tooltip
             ariaLabel="Difficulty"
-            body={`${formatSecondsAsTime(time, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
+            body={`${formatSecondsAsTime(totalTime, true)}${showDifficulty ? ` - ${difficulty}` : ''}`}
           >
             <div className={styles.row}>
-              <h4 className={styles.title}>{formatSecondsAsTime(time)}</h4>
+              <h4 className={styles.title}>{formatSecondsAsTime(totalTime)}</h4>
               {showDifficulty && (
                 <Paws
                   color="var(--text-color-secondary)"

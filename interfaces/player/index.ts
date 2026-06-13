@@ -158,7 +158,9 @@ export interface Player {
   fastestBesties: FastestBesties
   gamesPlayed: TotalsPerDifficulty
   highestWinStreak: number
-  kibbles: Kibbles
+  kibbleCollected: number
+  kibbleJackpots: number
+  kibbleSuperJackpots: number
   lastUploaded: string
   roundFive: RoundTimes
   roundFour: RoundTimes
