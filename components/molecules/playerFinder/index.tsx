@@ -20,8 +20,6 @@ interface Props {
   placeholder?: string
 }
 
-type PlayerSearchResponse = [{ battleTag: string }]
-
 export default function PlayerFinder({
   defaultValue = '',
   onChange,
@@ -40,7 +38,7 @@ export default function PlayerFinder({
 
   useOutsideClick(() => setShowOptions(false), wrapperRef)
 
-  const { data, isFetching, error } = useApiQuery<PlayerSearchResponse>(
+  const { data, isFetching, error } = useApiQuery<Array<{ battleTag: string }>>(
     `${apiUrl}/api/Players`,
     debouncedQuery.length > 2 ? { battleTag: debouncedQuery } : undefined,
     {
@@ -51,10 +49,7 @@ export default function PlayerFinder({
     },
   )
 
-  const filteredData = filterByBattleTag({
-    data: data ?? [],
-    battleTag: debouncedQuery,
-  })
+  const filteredData = data ? filterByBattleTag(data, debouncedQuery) : []
 
   useQueryErrorToast(error, `searching for "${debouncedQuery}"`)
 

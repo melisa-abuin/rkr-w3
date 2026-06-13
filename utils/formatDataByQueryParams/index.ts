@@ -1,8 +1,3 @@
-interface FilterByBattleTagParams<T extends { battleTag: string }> {
-  data: T[]
-  battleTag?: string
-}
-
 interface SortDataParams<T, K extends string> {
   data: T[]
   sortKey?: K
@@ -25,19 +20,17 @@ interface PaginateDataParams<T> {
  * @param params.battleTag Search value to match against `battleTag.name`.
  * @returns Filtered dataset or the original data when no search term is provided.
  */
-export const filterByBattleTag = <T extends { battleTag: string }>({
-  data,
-  battleTag,
-}: FilterByBattleTagParams<T>) => {
-  let filteredData = data
-
-  if (battleTag) {
-    filteredData = data.filter(({ battleTag: playerBattleTag }) =>
-      (playerBattleTag || '').toLowerCase().includes(battleTag.toLowerCase()),
-    )
+export const filterByBattleTag = (
+  data: Array<{ battleTag: string }>,
+  battleTag: string,
+) => {
+  if (!battleTag) {
+    return data
   }
 
-  return filteredData
+  return data.filter(({ battleTag: playerBattleTag }) =>
+    (playerBattleTag || '').toLowerCase().includes(battleTag.toLowerCase()),
+  )
 }
 
 /**
