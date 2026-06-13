@@ -14,6 +14,7 @@ export const formatAwardsByCategory = (entries: ApiAward[]): AwardsData => {
     awards: awards
       .filter((entry) => entry.status !== -1)
       .map((entry) => ({
+        id: `${entry.key[0].toLowerCase()}${entry.key.slice(1)}`,
         description: entry.description,
         completed: entry.status === 1,
         imagePath: `/awards/${entry.key[0].toLowerCase()}${entry.key.slice(1)}.png`,
@@ -22,19 +23,6 @@ export const formatAwardsByCategory = (entries: ApiAward[]): AwardsData => {
       })),
   }))
 }
-
-export const formatGameAwards = (
-  awardsPercentages: Record<string, number> = {},
-): AwardsData =>
-  Object.entries(awardsDescriptions).map(([key, category]) => ({
-    id: key,
-    awards: Object.entries(category).map(([awardKey, description]) => ({
-      description,
-      imagePath: `/awards/${awardKey[0].toLowerCase()}${awardKey.slice(1)}.png`,
-      title: formatKeyToWord(awardKey),
-      percentage: awardsPercentages[awardKey] || 0,
-    })),
-  }))
 
 /**
  * Formats raw game awards data into a UI-friendly structure.

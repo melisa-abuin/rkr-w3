@@ -1,13 +1,13 @@
 'use client'
 
-import { Awards as AwardsI } from '@/interfaces/player'
 import styles from './index.module.css'
 import Image from '@/components/atoms/image'
 import Tooltip from '@/components/atoms/tooltip'
 import { formatAwardsByCategory } from '@/utils/formatGameAwards'
+import { ApiAward } from '@/interfaces/award'
 
 interface Props {
-  awards: AwardsI[]
+  awards: ApiAward[]
 }
 export default function CompletedAwards({ awards }: Props) {
   const formattedAwards = formatAwardsByCategory(awards)
@@ -27,7 +27,7 @@ export default function CompletedAwards({ awards }: Props) {
                 {awards.map(
                   ({ id, completed, description, imagePath, title }) => (
                     <Tooltip
-                      key={id || 'Award image' + title}
+                      key={id}
                       ariaLabel="Award details"
                       body={
                         <div className={styles.tooltipContainer}>
@@ -38,7 +38,7 @@ export default function CompletedAwards({ awards }: Props) {
                     >
                       <Image
                         circular
-                        alt={id || 'Award image' + title}
+                        alt={id}
                         colored={completed}
                         fallbackSrc="/awards/fallback.png"
                         src={imagePath}

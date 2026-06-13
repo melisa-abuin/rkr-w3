@@ -8,6 +8,8 @@ export interface ApiAward {
 }
 
 export interface Award {
+  id: string
+  completed: boolean
   description: string
   imagePath: string
   title: string

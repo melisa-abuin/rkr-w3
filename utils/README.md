@@ -33,7 +33,6 @@ Below is a list of all available utilities:
 - `formatComparePlayer`
 - `formatDataByQueryParams`
 - `formatDateToLocale`
-- `formatGameAwards`
 - `formatKeyToWord`
 - `formatPlayerTops`
 - `formatRoundsData`
