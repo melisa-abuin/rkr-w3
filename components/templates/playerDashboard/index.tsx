@@ -90,7 +90,6 @@ export default function PlayerDashboard({
     router.push('?')
   }, [router])
 
-  console.log(currentPlayer)
   return (
     <>
       <PageContainer>

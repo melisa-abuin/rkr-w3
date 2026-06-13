@@ -17,9 +17,9 @@ async function fetchData(): Promise<{
   })
 
   if (response.status === 200) {
-    const raw = (await response.json()) as ApiAward[]
+    const result = (await response.json()) as ApiAward[]
     return {
-      data: formatAwardsByCategory(raw),
+      data: formatAwardsByCategory(result),
       error: null,
     }
   }

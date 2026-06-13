@@ -11,7 +11,7 @@ interface PlayerStatsData {
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
   const response = await fetch(
-    `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(battleTag)}`,
+    `${apiUrl}/api/Players/summary?battleTag=${battleTag}`,
     {
       next: { revalidate: 480 },
     },
@@ -38,7 +38,7 @@ export default async function PlayerPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const { data, error } = await fetchData(decodeURIComponent(slug))
+  const { data, error } = await fetchData(slug)
 
   return (
     <main>
