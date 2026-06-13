@@ -142,6 +142,8 @@ export const blacklistedPlayers = ['Local Player']
 
 export const blizzardLink = 'https://www.blizzard.com/'
 
+export const defaultScoreboardFilter = 'stats'
+
 export const roundDifficultyNames: Difficulty[] = [
   'normal',
   'hard',

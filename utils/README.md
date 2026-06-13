@@ -47,6 +47,7 @@ Below is a list of all available utilities:
 - `filterByBattleTag`
 - `sortData`
 - `paginateData`
+- `buildSearchQuery`
 
 ### 📅 Time Helpers
 

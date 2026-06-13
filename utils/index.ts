@@ -1,3 +1,4 @@
+export * from './buildSearchQuery'
 export * from './calculateBestTimeByDifficulty'
 export * from './calculateCompletedChallenges'
 export * from './calculateExperience'
