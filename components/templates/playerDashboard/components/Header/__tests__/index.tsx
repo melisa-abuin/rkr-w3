@@ -22,13 +22,21 @@ describe('<Header />', () => {
   } as const
 
   const mockedTops = {
-    roundOne: { normal: 0, hard: 0, impossible: 0, label: 'Round One' },
-    saves: { all: 0, label: 'Saves' },
+    roundOne: { normal: 0, hard: 0, impossible: 0, nightmare: 1 },
+    roundTwo: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+    roundThree: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+    roundFour: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+    roundFive: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+    saves: 0,
+    wins: 1,
+    highestWinStreak: 1,
+    gamesPlayed: 1,
+    saveDeathRatio: 1,
+    kibbles: 1,
     fastestGames: {
       normal: 0,
       hard: 0,
       impossible: 0,
-      label: 'Fastest games',
     },
   }
 

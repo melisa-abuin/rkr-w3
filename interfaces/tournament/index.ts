@@ -76,7 +76,7 @@ export interface Tournaments extends Array<Tournament> {}
 
 export interface TournamentPlayer
   extends Omit<ApiTournamentPlayer, 'games' | 'battleTag'> {
-  battleTag: BattleTag
+  battleTag: string
   games: TournamentGame[]
 }
 

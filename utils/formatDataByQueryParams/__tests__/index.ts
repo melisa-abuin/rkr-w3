@@ -1,76 +1,24 @@
-import { filterByBattleTag, paginateData, sortData } from '..'
+import { filterByBattleTag } from '..'
 
 interface MockPlayer {
   battleTag: string
   score: number
 }
 
-describe('formatDataByQueryParams', () => {
+describe('filterByBattleTag', () => {
   const mockData: MockPlayer[] = [
     { battleTag: 'Alpha', score: 30 },
     { battleTag: 'Bravo', score: 10 },
     { battleTag: 'charlie', score: 20 },
   ]
 
-  describe('filterByBattleTag', () => {
-    it('filters data by battleTag name (case-insensitive)', () => {
-      expect(
-        filterByBattleTag({
-          data: mockData,
-          battleTag: 'ALP',
-        }),
-      ).toStrictEqual([{ battleTag: 'Alpha', score: 30 }])
-    })
-
-    it('returns original data when battleTag query is not provided', () => {
-      expect(filterByBattleTag({ data: mockData })).toStrictEqual(mockData)
-    })
+  it('filters data by battleTag name (case-insensitive)', () => {
+    expect(filterByBattleTag(mockData, 'ALP')).toStrictEqual([
+      { battleTag: 'Alpha', score: 30 },
+    ])
   })
 
-  describe('sortData', () => {
-    it('sorts in desc order by default', () => {
-      const sorted = sortData<MockPlayer, 'score'>({
-        data: mockData,
-        sortKey: 'score',
-        getSortCondition: (key, a, b) => a[key] > b[key],
-      })
-
-      expect(sorted.map((player) => player.score)).toStrictEqual([30, 20, 10])
-    })
-
-    it('sorts in asc order when requested', () => {
-      const sorted = sortData<MockPlayer, 'score'>({
-        data: mockData,
-        sortKey: 'score',
-        sortOrder: 'asc',
-        getSortCondition: (key, a, b) => a[key] > b[key],
-      })
-
-      expect(sorted.map((player) => player.score)).toStrictEqual([10, 20, 30])
-    })
-
-    it('returns original data when sortKey is not provided', () => {
-      const sorted = sortData<MockPlayer, 'score'>({
-        data: mockData,
-        getSortCondition: (key, a, b) => a[key] > b[key],
-      })
-
-      expect(sorted).toStrictEqual(mockData)
-    })
-  })
-
-  describe('paginateData', () => {
-    it('returns paginated items and pages count', () => {
-      const response = paginateData({
-        data: mockData,
-        page: 2,
-        pageSize: 2,
-      })
-
-      expect(response).toStrictEqual({
-        stats: [{ battleTag: { name: 'charlie' }, score: 20 }],
-        pages: 2,
-      })
-    })
+  it('returns original data when battleTag query is empty', () => {
+    expect(filterByBattleTag(mockData, '')).toStrictEqual(mockData)
   })
 })

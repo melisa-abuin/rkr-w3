@@ -6,13 +6,6 @@ Below is a list of all available utilities:
 
 ### 📊 Calculations
 
-- `calculateBestTimeByDifficulty`
-- `calculateCompletedChallenges`
-- `calculateExperience`
-- `calculateGold`
-- `calculateSaveDeathRatio`
-- `calculateTotals`
-- `calculateWinRate`
 - `getKibbleRewardMessage`
 - `countZeros`
 - `countTopRounds`
@@ -25,20 +18,11 @@ Below is a list of all available utilities:
 
 - `downloadBlobFile`
 
-### 🏆 Data Analysis
-
-- `findTopPlayersByInsertion`
-- `findTopPlayersByFullSort`
-
 ### 🧩 Data Formatting
 
 - `formatComparePlayer`
-- `formatDataByQueryParams`
 - `formatDateToLocale`
 - `formatKeyToWord`
-- `formatPlayerTops`
-- `formatRoundsData`
-- `formatSaveDataFile`
 - `formatTournamentPlayers`
 - `hexToRgba`
 
@@ -46,13 +30,10 @@ Below is a list of all available utilities:
 
 - `getSortConditionByKey`
 - `filterByBattleTag`
-- `sortData`
-- `paginateData`
 - `buildSearchQuery`
 
 ### 📅 Time Helpers
 
-- `getFastestBesties`
 - `getTimeAgoFromToday`
 
 ### 🧠 Type Guards
@@ -75,10 +56,6 @@ Below is a list of all available utilities:
 ### ⏱ Time Formatting
 
 - `formatSecondsAsTime`
-
-### 🧼 Key Transforms
-
-- `transformKeysToCamelCase`
 
 ### 🏁 Tournament Helpers
 
