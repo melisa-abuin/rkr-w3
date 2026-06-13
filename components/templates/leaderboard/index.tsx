@@ -46,10 +46,6 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
   )
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
 
-  const handleClear = () => {
-    setSelectedPlayer(undefined)
-  }
-
   return (
     <>
       <PageContainer>
@@ -61,7 +57,6 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           <PlayerFinderWithResult
             selectedPlayer={selectedPlayer}
             setSelectedPlayer={setSelectedPlayer}
-            onClear={handleClear}
           />
         </PageContainer>
         <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>

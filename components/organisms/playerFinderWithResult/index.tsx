@@ -10,55 +10,51 @@ import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import { apiUrl } from '@/constants'
 
+interface Props {
+  selectedPlayer?: Player
+  setSelectedPlayer?: (player: Player | undefined) => void
+}
+
 export default function PlayerFinderWithResult({
   selectedPlayer,
   setSelectedPlayer,
-  onClear,
-}: {
-  selectedPlayer?: Player
-  setSelectedPlayer?: (player: Player | undefined) => void
-  onClear?: () => void
-}) {
+}: Props) {
   const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
-  const [pendingBattleTag, setPendingBattleTag] = useState<string | undefined>()
+  const [battleTag, setBattleTag] = useState<string | undefined>()
 
-  const activePlayer = selectedPlayer ?? player
-
-  const { data } = useApiQuery<{ stats: Player[] }>(
-    `${apiUrl}/api/PlayerStats/stats?battleTag=${encodeURIComponent(pendingBattleTag ?? '')}`,
+  const { data } = useApiQuery<Array<Player>>(
+    `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(battleTag ?? '')}`,
     undefined,
-    { enabled: !!pendingBattleTag },
+    { enabled: !!battleTag },
   )
 
-  const fetchedPlayer = data?.stats[0]
-
   useEffect(() => {
-    if (!fetchedPlayer) return
-    setSelectedPlayer
-      ? setSelectedPlayer(fetchedPlayer)
-      : setPlayer(fetchedPlayer)
-    setPendingBattleTag(undefined)
-  }, [fetchedPlayer, setSelectedPlayer])
+    const player = data?.[0]
 
-  const handleSelect = (battleTag: string) => {
-    setPendingBattleTag(battleTag)
-  }
+    if (!player) return
+
+    setSelectedPlayer?.(player)
+    setPlayer(player)
+    setBattleTag(undefined)
+  }, [data, setSelectedPlayer, setPlayer])
 
   const handleClear = () => {
-    onClear ? onClear() : setPlayer(undefined)
+    setBattleTag(undefined)
+    setPlayer(undefined)
+    setSelectedPlayer?.(undefined)
   }
 
   return (
     <>
-      <PlayerFinder onClear={handleClear} onPlayerSelect={handleSelect} />
-      {activePlayer && (
+      <PlayerFinder onClear={handleClear} onPlayerSelect={setBattleTag} />
+      {player && (
         <div className={styles.wrapper}>
           <Columns
             actionColumn={
               <Button
                 as="a"
                 colorName="secondary"
-                href={`/player/${encodeURIComponent(activePlayer.battleTag.tag)}`}
+                href={`/player/${encodeURIComponent(player.battleTag.tag)}`}
                 variant="outline"
               >
                 See player stats
@@ -68,7 +64,7 @@ export default function PlayerFinderWithResult({
               {
                 columns: playerFinderColumns.map((col) => ({
                   description: col.title,
-                  value: activePlayer[col.key],
+                  value: player[col.key],
                 })),
               },
             ]}
