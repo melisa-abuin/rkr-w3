@@ -1,6 +1,6 @@
 import { Difficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
-import { Kibbles, Player } from '@/interfaces/player'
+import { FastestBestiesData, Kibbles, Player } from '@/interfaces/player'
 
 export const awardsDescriptions = {
   Auras: {
@@ -432,6 +432,15 @@ export const statsPageVariants = {
 } as const
 
 // TODO: separate this into a different file
+export const bestiesGroups: {
+  key: keyof FastestBestiesData
+  colorName: 'primary' | 'secondary' | 'tertiary'
+}[] = [
+  { key: 'threeOrMore', colorName: 'primary' },
+  { key: 'twice', colorName: 'secondary' },
+  { key: 'once', colorName: 'tertiary' },
+]
+
 export const formattedMockData: Player[] = [
   {
     awards: [

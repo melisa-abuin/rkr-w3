@@ -14,6 +14,8 @@ Below is a list of all available utilities:
 - `calculateTotals`
 - `calculateWinRate`
 - `getKibbleRewardMessage`
+- `countZeros`
+- `countTopRounds`
 
 ### 📥 Data Fetching
 

@@ -2,13 +2,14 @@
 
 import { Player, Tops } from '@/interfaces/player'
 import styles from './index.module.css'
-import { formatKeyToWord } from '@/utils'
+import { countTopRounds, countZeros, formatKeyToWord } from '@/utils'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useElementInView } from '@/hooks/useElementInView'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Tooltip from '@/components/atoms/tooltip'
 import Loader from '@/components/atoms/loader'
 import ColorBadge from '@/components/atoms/colorBadge'
+import ColorBadgeWithTooltip from '@/components/molecules/colorBadgeWithTooltip'
 import { apiUrl, topStatsConfiguration } from '@/constants'
 
 interface Props {
@@ -16,31 +17,6 @@ interface Props {
   color: Player['mostPlayedColor']
   skin: string
   title: string
-}
-
-const countZeros = (entry: {
-  normal: number
-  hard: number
-  impossible: number
-  nightmare?: number
-}) => {
-  let count = 0
-  if (entry.normal === 0) count++
-  if (entry.hard === 0) count++
-  if (entry.impossible === 0) count++
-  if (entry.nightmare === 0) count++
-  return count
-}
-
-const countTopRounds = (data: Tops) => {
-  const rounds = [
-    data.roundOne,
-    data.roundTwo,
-    data.roundThree,
-    data.roundFour,
-    data.roundFive,
-  ]
-  return rounds.reduce((acc, round) => acc + countZeros(round), 0)
 }
 
 export default function Header({ battleTag, color, skin, title }: Props) {
@@ -107,22 +83,20 @@ export default function Header({ battleTag, color, skin, title }: Props) {
           )}
 
         {topRoundsCount > 0 && (
-          <Tooltip
+          <ColorBadgeWithTooltip
             body={`This player has ${topRoundsCount} of the fastest times for a round.`}
+            colorName="tertiary"
           >
-            <ColorBadge colorName="tertiary">
-              Fastest Kitty x{topRoundsCount}
-            </ColorBadge>
-          </Tooltip>
+            Fastest Kitty x{topRoundsCount}
+          </ColorBadgeWithTooltip>
         )}
         {fastestGamesCount > 0 && (
-          <Tooltip
+          <ColorBadgeWithTooltip
             body={`This player has participated in ${fastestGamesCount} of the fastest games.`}
+            colorName="tertiary"
           >
-            <ColorBadge colorName="tertiary">
-              Fastest Team Kitty x{fastestGamesCount}
-            </ColorBadge>
-          </Tooltip>
+            Fastest Team Kitty x{fastestGamesCount}
+          </ColorBadgeWithTooltip>
         )}
       </div>
     </header>

@@ -6,20 +6,11 @@ import Button from '@/components/atoms/button'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import Loader from '@/components/atoms/loader'
-import { apiUrl } from '@/constants'
+import { apiUrl, bestiesGroups } from '@/constants'
 
 interface BestiesProps {
   battleTag: BattleTag
 }
-
-const groups: {
-  key: keyof FastestBestiesData
-  colorName: 'primary' | 'secondary' | 'tertiary'
-}[] = [
-  { key: 'threeOrMore', colorName: 'primary' },
-  { key: 'twice', colorName: 'secondary' },
-  { key: 'once', colorName: 'tertiary' },
-]
 
 export default function Besties({ battleTag }: BestiesProps) {
   const { data, isFetching, error } = useApiQuery<FastestBestiesData>(
@@ -31,7 +22,7 @@ export default function Besties({ battleTag }: BestiesProps) {
     `Couldn't fetch the fastest besties of ${battleTag.name}, please try again later.`,
   )
 
-  const hasData = data && groups.some(({ key }) => data[key].length > 0)
+  const hasData = data && bestiesGroups.some(({ key }) => data[key].length > 0)
 
   return (
     <div className={styles.container}>
@@ -43,7 +34,7 @@ export default function Besties({ battleTag }: BestiesProps) {
       {isFetching && <Loader height={28} width={200} />}
       {hasData && (
         <div className={styles.wrapper}>
-          {groups.flatMap(({ key, colorName }) =>
+          {bestiesGroups.flatMap(({ key, colorName }) =>
             data[key].map((player) => (
               <Button
                 key={player}
