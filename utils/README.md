@@ -9,6 +9,8 @@ Below is a list of all available utilities:
 - `getKibbleRewardMessage`
 - `countZeros`
 - `countTopRounds`
+- `calculateExperience`
+- `calculateGold`
 
 ### 📥 Data Fetching
 
@@ -25,12 +27,14 @@ Below is a list of all available utilities:
 - `formatKeyToWord`
 - `formatTournamentPlayers`
 - `hexToRgba`
+- `formatGameAwards`
 
 ### 🔢 Sorting & Filtering
 
 - `getSortConditionByKey`
 - `filterByBattleTag`
 - `buildSearchQuery`
+- `formatDataByQueryParams`
 
 ### 📅 Time Helpers
 
@@ -60,3 +64,4 @@ Below is a list of all available utilities:
 ### 🏁 Tournament Helpers
 
 - `formatTournamentPlayers`
+- `groupTournamentsById`
