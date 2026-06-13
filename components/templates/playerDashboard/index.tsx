@@ -206,12 +206,14 @@ export default function PlayerDashboard({
         <Info>Stats last uploaded on: {lastDateUploaded}</Info>
       )}
 
+      {/* 
+      Re enable on #372 after api is updated to generate new file format
       <PageContainer marginBottom={24}>
         <DownloadModal
           battletag={currentPlayer.battleTag}
           date={lastDateUploaded}
         />
-      </PageContainer>
+      </PageContainer> */}
     </>
   )
 }
