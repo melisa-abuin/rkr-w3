@@ -1,3 +1,12 @@
+export interface ApiAward {
+  key: string
+  status: number
+  category: string
+  displayName: string
+  description: string
+  percentage: number
+}
+
 export interface Award {
   description: string
   imagePath: string

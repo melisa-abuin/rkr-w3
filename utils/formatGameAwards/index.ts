@@ -1,19 +1,9 @@
 import { awardsDescriptions } from '@/constants'
-import { AwardsData } from '@/interfaces/award'
+import { ApiAward, AwardsData } from '@/interfaces/award'
 import { formatKeyToWord } from '../formatKeyToWord'
 
-export interface RawAwardEntry {
-  key: string
-  category: string
-  displayName: string
-  description: string
-  percentage: number
-}
-
-export const formatAwardsByCategory = (
-  entries: RawAwardEntry[],
-): AwardsData => {
-  const grouped = new Map<string, RawAwardEntry[]>()
+export const formatAwardsByCategory = (entries: ApiAward[]): AwardsData => {
+  const grouped = new Map<string, ApiAward[]>()
   for (const entry of entries) {
     const bucket = grouped.get(entry.category) ?? []
     bucket.push(entry)

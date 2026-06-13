@@ -13,10 +13,7 @@ async function fetchData(battleTag: string): Promise<PlayerStatsData> {
   const response = await fetch(
     `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(battleTag)}`,
     {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      next: { revalidate: 480 },
     },
   )
 

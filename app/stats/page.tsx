@@ -37,7 +37,10 @@ async function fetchData(
   const queryString = buildSearchQuery(params)
 
   const slugUrl = `${apiUrl}/api/PlayerStats/${filter || 'stats'}`
-  const response = await fetch(`${slugUrl}${queryString}`)
+  const response = await fetch(`${slugUrl}${queryString}`, {
+    next: { revalidate: 480 },
+  })
+
   if (response.status === 200) {
     return {
       data: await response.json(),

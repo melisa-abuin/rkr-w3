@@ -3,7 +3,10 @@ import Tournaments from '@/components/templates/tournaments'
 import { apiUrl } from '@/constants'
 
 async function fetchData() {
-  const response = await fetch(`${apiUrl}/api/tournaments/full`)
+  const response = await fetch(`${apiUrl}/api/tournaments/full`, {
+    next: { revalidate: 480 },
+  })
+
   if (response.status === 200) {
     return {
       data: await response.json(),

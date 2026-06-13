@@ -4,7 +4,10 @@ import { apiUrl } from '@/constants'
 import { formatTournamentPlayers } from '@/utils'
 
 async function fetchData(id: string) {
-  const response = await fetch(`${apiUrl}/api/tournaments/${id}/full`)
+  const response = await fetch(`${apiUrl}/api/tournaments/${id}/full`, {
+    next: { revalidate: 480 },
+  })
+
   if (response.status === 200) {
     return {
       data: await response.json(),
