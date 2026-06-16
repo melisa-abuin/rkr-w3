@@ -38,7 +38,7 @@ export default function Cards({ games, loading, showDifficulty }: Props) {
   if (!games) {
     return null
   }
-  console.log(games)
+
   return (
     <div className={styles.container}>
       {games.slice(0, 5).map((game, index) => (

@@ -13,7 +13,6 @@ interface Props {
 }
 
 export default function TournamentSummary({ item }: Props) {
-  console.log(item)
   return (
     <CardsContainer title={`${item.tournament.region} region`}>
       {item.players.slice(0, 3).map((player, playerIndex) => {

@@ -166,7 +166,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     setDifficultyFilter(difficulty)
     setCurrentPage(1)
   }, [])
-  console.log(data)
+
   return (
     <>
       <PageContainer>
@@ -232,9 +232,9 @@ export default function Stats({ data, filter }: AllStatsData) {
                   renderedColumns as { title: string; key: keyof Player }[]
                 }
                 data={{
-                    pages: data.pages,
-                    stats: data.stats as Player[] | undefined,
-                  }}
+                  pages: data.pages,
+                  stats: data.stats as Player[] | undefined,
+                }}
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}
                 sortKey={

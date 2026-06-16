@@ -6,6 +6,7 @@ import sys
 IGNORED_PATHS = {
   "components/molecules/table/components/tableData/index.tsx",
   "components/molecules/table/components/tableData",
+  "components/molecules/downloadModal",
 }
 
 def get_paths(directory):

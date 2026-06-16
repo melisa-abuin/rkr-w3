@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function TournamentSummary({ item }: Props) {
-  console.log(item)
   return (
     <div className={styles.container}>
       {item.players.map((player, playerIndex) => {
