@@ -1,7 +1,13 @@
 import { Difficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
 import { KibbleStats } from '@/interfaces/leaderboard'
-import { FastestBestiesData, Player, Tops } from '@/interfaces/player'
+import {
+  BattleTag,
+  FastestBestiesData,
+  Kibbles,
+  Player,
+  Tops,
+} from '@/interfaces/player'
 
 export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
@@ -225,7 +231,7 @@ export const kibbleColumns = [
   { title: 'All time', key: 'allTime' },
   { title: 'Jackpots', key: 'jackpots' },
   { title: 'Super Jackpots', key: 'superJackpots' },
-] satisfies { title: string; key: keyof KibbleStats }[]
+] satisfies { title: string; key: 'battleTag' | keyof Kibbles }[]
 
 export const tournamentAwards = [
   'TurquoiseNitro',
@@ -312,23 +318,20 @@ export const formattedMockData: Player[] = [
   {
     awards: [
       {
-        id: 'event-2025',
-        awards: [
-          {
-            id: 'award1',
-            completed: true,
-            description: 'Completed 100 games',
-            imagePath: '/images/awards/100_games.png',
-            title: 'Veteran Player',
-          },
-          {
-            id: 'award2',
-            completed: false,
-            description: 'Win without dying',
-            imagePath: '/images/awards/flawless.png',
-            title: 'Flawless Victory',
-          },
-        ],
+        key: 'award1',
+        status: 1,
+        description: 'Completed 100 games',
+        displayName: 'Veteran Player',
+        category: 'event-2025',
+        percentage: 100,
+      },
+      {
+        key: 'award2',
+        status: 1,
+        description: 'Win without dying',
+        displayName: 'Flawless Victory',
+        category: 'event-2025',
+        percentage: 100,
       },
     ],
     battleTag: {
@@ -503,23 +506,20 @@ export const formattedMockData: Player[] = [
   {
     awards: [
       {
-        id: 'event-2025',
-        awards: [
-          {
-            id: 'award3',
-            completed: true,
-            description: 'Saved 300 teammates',
-            imagePath: '/images/awards/lifesaver.png',
-            title: 'Lifesaver',
-          },
-          {
-            id: 'award4',
-            completed: true,
-            description: 'Win 10 games in a row',
-            imagePath: '/images/awards/streak_master.png',
-            title: 'Streak Master',
-          },
-        ],
+        key: 'award1',
+        status: 1,
+        description: 'Completed 100 games',
+        displayName: 'Veteran Player',
+        category: 'event-2025',
+        percentage: 100,
+      },
+      {
+        key: 'award2',
+        status: 1,
+        description: 'Win without dying',
+        displayName: 'Flawless Victory',
+        category: 'event-2025',
+        percentage: 100,
       },
     ],
     battleTag: {
