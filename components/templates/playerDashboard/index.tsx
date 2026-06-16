@@ -3,7 +3,6 @@
 import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Awards from '@/components/molecules/completedAwards'
-import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
@@ -52,14 +51,14 @@ export default function PlayerDashboard({
 
   const lastDateUploaded = formatDateToLocale(lastUploaded)
 
-  const { data, isFetching, error } = useApiQuery<Player>(
+  const { data, isFetching, error } = useApiQuery<Player[]>(
     compareTo
       ? `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(compareTo)}`
       : '',
     undefined,
     { enabled: !!compareTo },
   )
-  const comparePlayer = data ? data[0] : null
+  const comparePlayer = data ? data[0] : undefined
 
   useQueryErrorToast(
     error,
@@ -194,7 +193,7 @@ export default function PlayerDashboard({
             ]}
           >
             <Awards awards={awards} />
-            <Awards awards={comparePlayer.awards} />
+            <Awards awards={comparePlayer?.awards} />
           </Tabs>
         ) : (
           <Awards awards={awards} />

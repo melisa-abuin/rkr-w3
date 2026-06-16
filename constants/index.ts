@@ -1,140 +1,7 @@
 import { Difficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
-import { FastestBestiesData, Kibbles, Player } from '@/interfaces/player'
-
-export const awardsDescriptions = {
-  Auras: {
-    ButterflyAura:
-      'Obtained by beating the Round 4 nitro on Impossible with 5 or less deaths',
-    ChainedHardAura: 'Description not available',
-    ChainedImpossibleAura: 'Description not available',
-    ChainedNightmareAura: 'Description not available',
-    ChainedNormalAura: 'Description not available',
-    FreezeAura:
-      'Using the Frostbite Ring, collectively freeze a total of 50 wolves in a single game and win the game on Normal+ difficulty.',
-    ManaAura: 'Obtained by getting 20 Normal+ wins',
-    SpecialAura: 'Obtained by getting 5 Hard+ wins',
-    SpectacularAura: 'Obtained by getting 30 Normal+ wins',
-    StarlightAura: 'Obtained by playing at least 65 Normal+ games',
-  },
-  Deathless: {
-    HardDeathless1: 'Description not available',
-    HardDeathless2: 'Description not available',
-    HardDeathless3: 'Description not available',
-    HardDeathless4: 'Description not available',
-    HardDeathless5: 'Description not available',
-    HardTeamDeathless:
-      'Obtained by completeing the team deathless challenge on Hard+ difficulty',
-    ImpossibleDeathless1: 'Description not available',
-    ImpossibleDeathless2: 'Description not available',
-    ImpossibleDeathless3: 'Description not available',
-    ImpossibleDeathless4: 'Description not available',
-    ImpossibleDeathless5: 'Description not available',
-    ImpossibleTeamDeathless:
-      'Obtained by completeing the team deathless challenge on Impossible+ difficulty',
-    NormalDeathless1:
-      'Obtained by reaching all 14 safezones on Normal+ for round 1 without dying',
-    NormalDeathless2:
-      'Obtained by reaching all 14 safezones on Normal+ for round 2 without dying',
-    NormalDeathless3:
-      'Obtained by reaching all 14 safezones on Normal+ for round 3 without dying',
-    NormalDeathless4:
-      'Obtained by reaching 10 safezones on Normal+ for round 4 without dying',
-    NormalDeathless5:
-      'Obtained by reaching 6 safezones on Normal+ for round 5 without dying',
-    NormalTeamDeathless:
-      'Obtained by completeing the team deathless challenge on Normal+ difficulty',
-  },
-  Hats: {
-    Bandana: 'Obtained by reaching 200 saves',
-    ChefHat: 'Obtained by reaching 300 saves',
-    PirateHat: 'Obtained by reaching 250 saves',
-    SamuraiHelm: 'Obtained by reaching 400 saves',
-    SantaHat: 'Obtained by reaching 800 saves',
-    TikiMask: 'Obtained by reaching 350 saves',
-  },
-  Nitros: {
-    AzureLight: 'Obtained by beating the nitro timer on Round 2 Impossible+.',
-    CrimsonLight: 'Obtained by beating the nitro timer on Round 3 Impossible+.',
-    DivineLight:
-      'Obtained by beating the nitro timer for ALL rounds in a single game OR Round 1 Impossible+.',
-    EmeraldLight: 'Obtained by beating the nitro timer on Round 4 Impossible+.',
-    Nitro: 'Obtained by beating the Round 1 nitro timer',
-    NitroBlue: 'Obtained by beating the Round 2 nitro timer',
-    NitroGreen: 'Obtained by beating the Round 4 nitro timer',
-    NitroPurple: 'Obtained by beating the Round 5 nitro timer',
-    NitroRed: 'Obtained by beating the Round 3 nitro timer',
-    PatrioticLight:
-      'Obtained by reaching the end for Round 5 on Impossible difficulty in under 16 minutes and 35 seconds of total game time.',
-    VioletLight: 'Obtained by beating the nitro timer on Round 5 Impossible+.',
-  },
-  Skins: {
-    AncientKitty: 'Obtained by getting 40 Normal+ wins',
-    AstralKitty: 'Obtained by playing at least 55 Normal+ games',
-    HighelfKitty: 'Obtained by playing at least 40 Normal+ games',
-    HuntressKitty: 'Obtained by winning the kibble collection event.',
-    KibbleSkin: 'Description not available',
-    SatyrKitty: 'Obtained by getting 25 Normal+ wins',
-    UndeadKitty: 'Obtained by getting 30 Normal+ wins',
-    ZandalariKitty:
-      'Obtained by getting R4 Nitro then winning the game on Hard+ difficulty',
-  },
-  Tournament: {
-    LightningSpeed: 'Description not available',
-    PenguinSkin: 'Solo tournament',
-    TurquoiseNitro: 'Solo tournament',
-    TurquoiseWings: 'Solo tournament',
-    VioletAura: 'Team tournament',
-    VioletWings: 'Team Tournament',
-  },
-  Trails: {
-    BlueFire:
-      'Obtained by winning the game on Normal+ with less than 25 total deaths.',
-    BlueLightning: 'Obtained by reaching 2000 saves',
-    GreenLightning:
-      'Obtained by finishing a round with a save streak of 10 and 0 deaths.',
-    PinkFire: 'Obtained by winning a Normal+ game with a 3:1 ratio or better',
-    PurpleFire: 'Obtained by beating round 2 on impossible with 0 deaths',
-    PurpleLightning: 'Obtained by getting 175 saves within one game.',
-    RedLightning: 'Obtained by reaching a save streak of 15 without dying.',
-    SnowTrail2023:
-      'Obtained by playing this map during the Christmas holidays :)',
-    TurquoiseFire:
-      'Obtained by beating round 5 on Normal+ with 0 or less round deaths',
-    WhiteFire:
-      'Obtained by beating round 3 nitro on Normal+ with 3 or less deaths.',
-    YellowLightning: 'Obtained by getting 6 saves within 3 seconds.',
-  },
-  Windwalks: {
-    WWBlood: 'Obtained by completing the Blood Vial easter egg',
-    WWBlue: 'Obtained by completing the Urn of a Broken Soul easter egg',
-    WWDivine: 'Obtained by reaching the limit... only to retrace your journey.',
-    WWFire: 'Obtained by completing the Crystal of Fire easter egg',
-    WWNecro: 'Obtained by winning the game in under 25 mins',
-    WWSwift: 'Obtained by completing the Cat Figurine easter egg',
-    WWViolet: 'Obtainer by... ???',
-  },
-  Wings: {
-    ArchangelWings: 'Obtained by reaching 425 saves',
-    ChaosWings: 'Obtained by reaching 450 saves',
-    CosmicWings: 'Obtained by reaching 550 saves',
-    DivinityTendrils:
-      'Obtained by getting 4 revives using your ultimate`s AoE effect.',
-    FairyWings: 'Obtained by reaching 275 saves',
-    GreenTendrils: 'Obtained by purchasing from the shop.',
-    NatureWings: 'Obtained by reaching 750 saves',
-    NightmareWings: 'Obtained by reaching 325 saves',
-    PatrioticTendrils: 'Obtained by reaching a save streak of 50 without dying',
-    PhoenixWings: 'Obtained by reaching 375 saves',
-    PinkWings: 'Obtained by reaching 600 saves',
-    RedTendrils: 'Obtained by returning Fieryfox his missing shoe.',
-    SnowWings2023:
-      'Obtained by playing this map during the Christmas holidays :)',
-    VoidWings: 'Obtained by reaching 500 saves',
-    WhiteTendrils:
-      'Obtained by simply winning a game on Impossible difficulty.',
-  },
-} as Record<string, Record<string, string>>
+import { KibbleStats } from '@/interfaces/leaderboard'
+import { FastestBestiesData, Player, Tops } from '@/interfaces/player'
 
 export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
@@ -346,7 +213,7 @@ export const timeAllDiffColumns = [
 ] satisfies { title: string; key: keyof Player }[]
 
 export const bestGameTimesColumns = [
-  { title: 'Time', key: 'time' },
+  { title: 'Time', key: 'totalTime' },
   { title: 'Players', key: 'teamMembers' },
   { title: 'Difficulty', key: 'difficulty' },
   { title: 'Date', key: 'date' },
@@ -358,7 +225,7 @@ export const kibbleColumns = [
   { title: 'All time', key: 'allTime' },
   { title: 'Jackpots', key: 'jackpots' },
   { title: 'Super Jackpots', key: 'superJackpots' },
-] satisfies { title: string; key: keyof Kibbles | 'battleTag' }[]
+] satisfies { title: string; key: keyof KibbleStats }[]
 
 export const tournamentAwards = [
   'TurquoiseNitro',
@@ -399,7 +266,7 @@ export const topStatsConfiguration = [
     description: 'This player has the most kibbles collected.',
   },
 ] satisfies Array<{
-  key: keyof Player
+  key: keyof Tops
   description: string
   label: string
 }>
@@ -471,7 +338,7 @@ export const formattedMockData: Player[] = [
     bestGameTimes: [
       {
         difficulty: 'normal',
-        time: 500,
+        totalTime: 500,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -482,7 +349,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'hard',
-        time: 400,
+        totalTime: 400,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -493,7 +360,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'impossible',
-        time: 320,
+        totalTime: 320,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -504,7 +371,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'solo',
-        time: 380,
+        totalTime: 380,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -515,7 +382,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'nightmare',
-        time: 360,
+        totalTime: 360,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -526,7 +393,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'progressive',
-        time: 340,
+        totalTime: 340,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -555,12 +422,10 @@ export const formattedMockData: Player[] = [
       progressive: 10,
     },
     highestWinStreak: 14,
-    kibbles: {
-      allTime: 10500,
-      singleGame: 420,
-      jackpots: 12,
-      superJackpots: 2,
-    },
+    kibbleCollected: 10500,
+    kibbleJackpots: 12,
+    kibbleSuperJackpots: 2,
+    personalBestKibbleCollected: 420,
     lastUploaded: '2025-06-03T14:52:00Z',
     roundFive: {
       best: { time: 500, difficulty: 'hard' },
@@ -664,7 +529,7 @@ export const formattedMockData: Player[] = [
     bestGameTimes: [
       {
         difficulty: 'normal',
-        time: 420,
+        totalTime: 420,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -675,7 +540,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'hard',
-        time: 295,
+        totalTime: 295,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -686,7 +551,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'impossible',
-        time: 360,
+        totalTime: 360,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -697,7 +562,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'solo',
-        time: 305,
+        totalTime: 305,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -708,7 +573,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'nightmare',
-        time: 310,
+        totalTime: 310,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -719,7 +584,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'progressive',
-        time: 330,
+        totalTime: 330,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -748,12 +613,10 @@ export const formattedMockData: Player[] = [
       progressive: 15,
     },
     highestWinStreak: 10,
-    kibbles: {
-      allTime: 8700,
-      singleGame: 380,
-      jackpots: 9,
-      superJackpots: 3,
-    },
+    kibbleCollected: 8700,
+    kibbleJackpots: 9,
+    kibbleSuperJackpots: 3,
+    personalBestKibbleCollected: 380,
     lastUploaded: '2025-06-02T18:30:00Z',
     roundFive: {
       best: { time: 490, difficulty: 'impossible' },
@@ -841,7 +704,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    time: 500.23,
+    totalTime: 500.23,
   },
   {
     difficulty: 'normal',
@@ -852,7 +715,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    time: 500.23,
+    totalTime: 500.23,
   },
   {
     difficulty: 'impossible',
@@ -863,7 +726,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    time: 500.23,
+    totalTime: 500.23,
   },
   {
     difficulty: 'hard',
@@ -874,7 +737,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    time: 500.23,
+    totalTime: 500.23,
   },
   {
     difficulty: 'normal',
@@ -885,7 +748,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    time: 500.23,
+    totalTime: 500.23,
   },
   {
     difficulty: 'hard',
@@ -897,6 +760,6 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    time: 500.23,
+    totalTime: 500.23,
   },
 ]

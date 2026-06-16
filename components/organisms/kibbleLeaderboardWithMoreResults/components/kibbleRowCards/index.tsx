@@ -1,13 +1,14 @@
 import RowCard from '@/components/molecules/rowCard'
 import rowCardStyles from '@/components/molecules/rowCard/index.module.css'
 import { kibbleLeaderboardColumns } from '@/constants'
-import { Kibbles, Player } from '@/interfaces/player'
+import { Kibbles } from '@/interfaces/player'
 import Column from './components/column'
 import LoadingCards from './components/loadingCards'
 import PlayerTag from '@/components/molecules/playerTag'
+import { KibbleLeaderboard } from '@/interfaces/leaderboard'
 
 interface Props {
-  data?: Player[]
+  data?: KibbleLeaderboard[]
   loading: boolean
 }
 

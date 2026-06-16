@@ -1,3 +1,4 @@
+import { ApiAward } from '../award'
 import { Difficulty } from '../difficulty'
 import { GameStats } from '../game'
 
@@ -100,13 +101,6 @@ export type PlayerColor =
   | 'peanut'
   | null
 
-export interface Kibbles {
-  allTime: number
-  singleGame: number
-  jackpots: number
-  superJackpots: number
-}
-
 export type FastestBesties = Record<1 | 2 | 3, string[]>
 
 export interface FastestBestiesData {
@@ -149,8 +143,15 @@ export interface TotalsPerDifficulty {
   progressive: number
 }
 
+export interface Kibbles {
+  allTime: number
+  singleGame: number
+  jackpots: number
+  superJackpots: number
+}
+
 export interface Player {
-  awards: Awards[]
+  awards: ApiAward[]
   battleTag: BattleTag
   bestGameTimes: GameStats[]
   completedChallenges: Challenges
@@ -161,6 +162,7 @@ export interface Player {
   kibbleCollected: number
   kibbleJackpots: number
   kibbleSuperJackpots: number
+  personalBestKibbleCollected: number
   lastUploaded: string
   roundFive: RoundTimes
   roundFour: RoundTimes
