@@ -1,13 +1,6 @@
 import { Difficulty } from '@/interfaces/difficulty'
 import { GameStats } from '@/interfaces/game'
-import { KibbleStats } from '@/interfaces/leaderboard'
-import {
-  BattleTag,
-  FastestBestiesData,
-  Kibbles,
-  Player,
-  Tops,
-} from '@/interfaces/player'
+import { FastestBestiesData, Kibbles, Player, Tops } from '@/interfaces/player'
 
 export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
