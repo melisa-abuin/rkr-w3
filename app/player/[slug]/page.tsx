@@ -6,7 +6,7 @@ import { apiUrl } from '@/constants'
 
 interface PlayerStatsData {
   error: string | null
-  data: Player | null
+  data: Player[] | null
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
@@ -42,7 +42,7 @@ export default async function PlayerPage({
 
   return (
     <main>
-      {error ? <Error /> : data && <PlayerDashboard playerData={data} />}
+      {error ? <Error /> : data && <PlayerDashboard playerData={data[0]} />}
     </main>
   )
 }

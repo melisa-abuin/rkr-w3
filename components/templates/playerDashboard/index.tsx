@@ -30,11 +30,10 @@ import Besties from './components/besties'
 import Columns from '@/components/molecules/columns'
 
 export default function PlayerDashboard({
-  playerData,
+  currentPlayer,
 }: {
-  playerData: Player
+  currentPlayer: Player
 }) {
-  const currentPlayer = playerData instanceof Array ? playerData[0] : playerData
   const {
     awards,
     battleTag,
@@ -205,7 +204,7 @@ export default function PlayerDashboard({
       )}
 
       {/* 
-      Re enable on #372 after api is updated to generate new file format
+      Re enable on issue 372 after api is updated to generate new file format
       <PageContainer marginBottom={24}>
         <DownloadModal
           battletag={currentPlayer.battleTag}
