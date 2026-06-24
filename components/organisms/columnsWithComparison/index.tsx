@@ -4,7 +4,7 @@ import { Player } from '@/interfaces/player'
 import { formatComparePlayer } from '@/utils'
 
 interface Props {
-  columns: Readonly<Array<{ title: string; key: keyof Player }>>
+  columns: Readonly<Array<{ title: string; key: string }>>
   loading: boolean
   player: Player
   comparePlayer?: Player

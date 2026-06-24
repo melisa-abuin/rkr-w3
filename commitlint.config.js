@@ -4,7 +4,17 @@ module.exports = {
     'type-enum': [
       2,
       'always',
-      ['feature', 'feat', 'fix', 'refactor', 'deps', 'docs', 'test'],
+      [
+        'feature',
+        'feat',
+        'fix',
+        'refactor',
+        'deps',
+        'docs',
+        'test',
+        'chore',
+        'ci',
+      ],
     ],
     'subject-case': [0],
     'type-empty': [0],
@@ -17,7 +27,7 @@ module.exports = {
       rules: {
         'custom-rule': ({ header }) => {
           const issuePattern =
-            /^(feature|feat|fix|refactor|deps|docs|test)[\s]+#[0-9]+:[\s]+.+$/
+            /^(feature|feat|fix|refactor|deps|docs|test|chore|ci)[\s]+#[0-9]+:[\s]+.+$/
           return [
             issuePattern.test(header),
             'Commit message should match "<type> #<issue-number>: <subject>" format. E.g., "feature #5: add new feature"',

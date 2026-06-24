@@ -4,14 +4,12 @@ export interface GameStats {
   difficulty: Difficulty
   date: string
   teamMembers: string
-  times: {
-    roundFive: number
-    roundFour: number
-    roundOne: number
-    roundThree: number
-    roundTwo: number
-    total: number
-  }
+  roundOneTime: number
+  roundTwoTime: number
+  roundThreeTime: number
+  roundFourTime: number
+  roundFiveTime: number
+  time: number
 }
 
 export interface ApiGameStats {

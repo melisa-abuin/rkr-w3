@@ -3,11 +3,11 @@
 import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Awards from '@/components/molecules/completedAwards'
-import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
+  apiUrl,
   difficultyNames,
   kibblesColumns,
   personalBestsColumns,
@@ -30,9 +30,9 @@ import Besties from './components/besties'
 import Columns from '@/components/molecules/columns'
 
 export default function PlayerDashboard({
-  playerData,
+  currentPlayer,
 }: {
-  playerData: Player
+  currentPlayer: Player
 }) {
   const {
     awards,
@@ -41,7 +41,7 @@ export default function PlayerDashboard({
     lastUploaded,
     completedChallenges,
     mostPlayedColor,
-  } = playerData
+  } = currentPlayer
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -50,11 +50,14 @@ export default function PlayerDashboard({
 
   const lastDateUploaded = formatDateToLocale(lastUploaded)
 
-  const { data, isFetching, error } = useApiQuery<Player>(
-    compareTo ? `/api/player/${encodeURIComponent(compareTo)}` : '',
+  const { data, isFetching, error } = useApiQuery<Player[]>(
+    compareTo
+      ? `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(compareTo)}`
+      : '',
     undefined,
     { enabled: !!compareTo },
   )
+  const comparePlayer = data ? data[0] : undefined
 
   useQueryErrorToast(
     error,
@@ -62,8 +65,8 @@ export default function PlayerDashboard({
   )
 
   useEffect(() => {
-    if (data) {
-      const outDatedPlayer = playerDataOutdated(playerData, data)
+    if (comparePlayer) {
+      const outDatedPlayer = playerDataOutdated(currentPlayer, comparePlayer)
       if (outDatedPlayer) {
         showToast(
           `It looks like ${outDatedPlayer} hasn't uploaded their stats for a long time. It's likely that their stats are outdated.`,
@@ -72,11 +75,11 @@ export default function PlayerDashboard({
         )
       }
     }
-  }, [data, playerData, showToast])
+  }, [currentPlayer, showToast, comparePlayer])
 
   const handlePlayerSelect = useCallback(
-    (player: Player) => {
-      router.push(`?compareTo=${encodeURIComponent(player.battleTag.tag)}`)
+    (battleTag: string) => {
+      router.push(`?compareTo=${encodeURIComponent(battleTag)}`)
     },
     [router],
   )
@@ -84,11 +87,6 @@ export default function PlayerDashboard({
   const handleClear = useCallback(() => {
     router.push('?')
   }, [router])
-
-  const showBesties =
-    playerData.fastestBesties &&
-    (playerData.fastestBesties[3].length > 0 ||
-      playerData.fastestBesties[2].length > 0)
 
   return (
     <>
@@ -98,9 +96,9 @@ export default function PlayerDashboard({
           color={mostPlayedColor}
           skin={skins?.selectedSkin}
           title={
-            data
-              ? `${battleTag.name} vs ${data.battleTag.name}`
-              : battleTag.name
+            comparePlayer
+              ? `${currentPlayer.battleTag?.name} vs ${comparePlayer.battleTag?.name}`
+              : currentPlayer.battleTag?.name
           }
         />
         <PlayerFinder
@@ -115,13 +113,13 @@ export default function PlayerDashboard({
         <div className={styles.row}>
           <ColumnsWithComparison
             columns={playerColumns}
-            comparePlayer={data}
+            comparePlayer={comparePlayer}
             loading={isFetching}
-            player={playerData}
+            player={currentPlayer}
           />
           <WinStreak
-            current={playerData.winStreak}
-            highest={playerData.highestWinStreak}
+            current={currentPlayer.winStreak}
+            highest={currentPlayer.highestWinStreak}
           />
         </div>
       </PageContainer>
@@ -131,18 +129,18 @@ export default function PlayerDashboard({
           <Collapsible title={`${difficulty} stats`}>
             <ColumnsWithComparison
               columns={playerDifficultyColumns}
-              comparePlayer={data}
+              comparePlayer={comparePlayer}
               difficulty={difficulty}
               loading={isFetching}
-              player={playerData}
+              player={currentPlayer}
               variant="secondary"
             />
             <ColumnsWithComparison
               columns={playerTimeColumns}
-              comparePlayer={data}
+              comparePlayer={comparePlayer}
               difficulty={difficulty}
               loading={isFetching}
-              player={playerData}
+              player={currentPlayer}
               variant="secondary"
             />
           </Collapsible>
@@ -153,49 +151,48 @@ export default function PlayerDashboard({
         <Collapsible title="Solo Stats">
           <ColumnsWithComparison
             columns={playerTimeColumns}
-            comparePlayer={data}
+            comparePlayer={comparePlayer}
             difficulty="solo"
             loading={isFetching}
-            player={playerData}
+            player={currentPlayer}
             variant="secondary"
           />
         </Collapsible>
       </PageContainer>
 
-      {showBesties && (
-        <PageContainer marginBottom={24} title="Fastest Besties">
-          <Besties
-            battleTag={playerData.battleTag.name}
-            besties={playerData.fastestBesties}
-          />
-        </PageContainer>
-      )}
+      <PageContainer marginBottom={24} title="Fastest Besties">
+        <Besties battleTag={currentPlayer.battleTag} />
+      </PageContainer>
 
       <PageContainer marginBottom={24} title="Personal bests">
         <div className={styles.row}>
           <Columns
-            data={formatCompare(playerData, data, kibblesColumns)}
+            data={formatCompare(currentPlayer, comparePlayer, kibblesColumns)}
             loading={isFetching}
             title="All time"
           />
           <Columns
-            data={formatCompare(playerData, data, personalBestsColumns)}
+            data={formatCompare(
+              currentPlayer,
+              comparePlayer,
+              personalBestsColumns,
+            )}
             loading={isFetching}
             title="Single Game"
           />
         </div>
       </PageContainer>
 
-      <PageContainer title="Game Awards">
-        {data ? (
+      <PageContainer marginBottom={24} title="Game Awards">
+        {comparePlayer ? (
           <Tabs
             titles={[
-              `${battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
-              `${data.battleTag.name} - ${data.completedChallenges.general[0]}/${data.completedChallenges.general[1]}`,
+              `${currentPlayer.battleTag.name} - ${completedChallenges.general[0]}/${completedChallenges.general[1]}`,
+              `${comparePlayer.battleTag.name} - ${comparePlayer.completedChallenges.general[0]}/${comparePlayer.completedChallenges.general[1]}`,
             ]}
           >
             <Awards awards={awards} />
-            <Awards awards={data.awards} />
+            <Awards awards={comparePlayer?.awards} />
           </Tabs>
         ) : (
           <Awards awards={awards} />
@@ -206,12 +203,14 @@ export default function PlayerDashboard({
         <Info>Stats last uploaded on: {lastDateUploaded}</Info>
       )}
 
+      {/* 
+      Re enable on issue 372 after api is updated to generate new file format
       <PageContainer marginBottom={24}>
         <DownloadModal
-          battletag={playerData.battleTag.tag}
+          battletag={currentPlayer.battleTag}
           date={lastDateUploaded}
         />
-      </PageContainer>
+      </PageContainer> */}
     </>
   )
 }

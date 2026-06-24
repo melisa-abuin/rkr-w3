@@ -1,4 +1,6 @@
+import { ApiAward } from '../award'
 import { Difficulty } from '../difficulty'
+import { GameStats } from '../game'
 
 export interface ApiRounds {
   RoundOneNormal: number
@@ -99,14 +101,13 @@ export type PlayerColor =
   | 'peanut'
   | null
 
-export interface Kibbles {
-  allTime: number
-  singleGame: number
-  jackpots: number
-  superJackpots: number
-}
-
 export type FastestBesties = Record<1 | 2 | 3, string[]>
+
+export interface FastestBestiesData {
+  once: string[]
+  twice: string[]
+  threeOrMore: string[]
+}
 
 export interface RoundTimes {
   best: BestTime
@@ -142,16 +143,26 @@ export interface TotalsPerDifficulty {
   progressive: number
 }
 
+export interface Kibbles {
+  allTime: number
+  singleGame: number
+  jackpots: number
+  superJackpots: number
+}
+
 export interface Player {
-  awards: Awards[]
+  awards: ApiAward[]
   battleTag: BattleTag
-  bestGameTimes: RoundTimes
+  bestGameTimes: GameStats[]
   completedChallenges: Challenges
   deaths: number
   fastestBesties: FastestBesties
   gamesPlayed: TotalsPerDifficulty
   highestWinStreak: number
-  kibbles: Kibbles
+  kibbleCollected: number
+  kibbleJackpots: number
+  kibbleSuperJackpots: number
+  personalBestKibbleCollected: number
   lastUploaded: string
   roundFive: RoundTimes
   roundFour: RoundTimes
@@ -169,17 +180,30 @@ export interface Player {
   mostPlayedColor: PlayerColor
 }
 
-export type Tops = Record<
-  string,
-  {
-    label: string
-    description: string
-    all?: number
-    normal?: number
-    hard?: number
-    impossible?: number
-    progressive?: number
-    solo?: number
-    nightmare?: number
-  }
->
+type RoundRanks = {
+  normal: number
+  hard: number
+  impossible: number
+  nightmare: number
+}
+
+type FastestGameRanks = {
+  normal: number
+  hard: number
+  impossible: number
+}
+
+export type Tops = {
+  saves: number
+  wins: number
+  highestWinStreak: number
+  gamesPlayed: number
+  saveDeathRatio: number
+  kibbles: number
+  roundOne: RoundRanks
+  roundTwo: RoundRanks
+  roundThree: RoundRanks
+  roundFour: RoundRanks
+  roundFive: RoundRanks
+  fastestGames: FastestGameRanks
+}

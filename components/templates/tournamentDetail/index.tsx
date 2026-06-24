@@ -13,6 +13,7 @@ interface Props {
 
 export default function Tournaments({ data }: Props) {
   const { tournament, fastestRounds } = data
+
   return (
     <>
       <PageHeader

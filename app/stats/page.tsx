@@ -1,7 +1,8 @@
 import { Player } from '@/interfaces/player'
 import Error from '@/components/molecules/error'
 import Stats from '@/components/templates/stats'
-import { getBaseUrlFromHeaders } from '@/utils'
+import { apiUrl, defaultScoreboardFilter } from '@/constants'
+import { buildSearchQuery } from '@/utils'
 
 interface PlayerStatsData {
   error: string | null
@@ -10,36 +11,17 @@ interface PlayerStatsData {
 
 type SearchParams = Record<string, string | string[] | undefined>
 
-function buildSearchQuery(searchParams: SearchParams): string {
-  const query = new URLSearchParams()
+async function fetchData(
+  filter: string | undefined,
+  params: SearchParams,
+): Promise<PlayerStatsData> {
+  const queryString = buildSearchQuery(params)
+  const slugUrl = `${apiUrl}/api/PlayerStats/${filter || defaultScoreboardFilter}`
 
-  Object.entries(searchParams).forEach(([key, value]) => {
-    if (value === undefined || key === 'filter') return
-
-    if (Array.isArray(value)) {
-      value.forEach((item) => query.append(key, item))
-      return
-    }
-
-    query.set(key, value)
+  const response = await fetch(`${slugUrl}${queryString}`, {
+    next: { revalidate: 480 },
   })
 
-  const queryString = query.toString()
-  return queryString ? `?${queryString}` : ''
-}
-
-async function fetchData(
-  searchParams?: Promise<SearchParams>,
-): Promise<PlayerStatsData> {
-  const params = (await searchParams) ?? {}
-  const filterParam = params.filter
-  const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
-  const queryString = buildSearchQuery(params)
-
-  const baseUrl = await getBaseUrlFromHeaders()
-
-  const slugUrl = `${baseUrl}/api/${filter || 'stats'}`
-  const response = await fetch(`${slugUrl}${queryString}`)
   if (response.status === 200) {
     return {
       data: await response.json(),
@@ -60,17 +42,21 @@ interface PageProps {
 }
 
 export default async function StatsPage({ searchParams }: PageProps) {
-  const { data, error } = await fetchData(searchParams)
   const params = (await searchParams) ?? {}
   const filterParam = params.filter
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
+
+  const { data, error } = await fetchData(filter, params)
 
   return (
     <main>
       {error ? (
         <Error />
       ) : (
-        <Stats data={data} filter={filter?.toString() || 'stats'} />
+        <Stats
+          data={data}
+          filter={filter?.toString() || defaultScoreboardFilter}
+        />
       )}
     </main>
   )

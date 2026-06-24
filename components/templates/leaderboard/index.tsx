@@ -2,7 +2,7 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { routes } from '@/constants'
+import { apiUrl, routes } from '@/constants'
 import { Player } from '@/interfaces/player'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -33,7 +33,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     stats: Player[]
     page: number
   }>(
-    '/api/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5',
+    `${apiUrl}/api/PlayerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`,
     undefined,
     {
       enabled: true,
@@ -44,12 +44,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     error,
     `Couldn't fetch the top five stats, please try again later.`,
   )
-
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
-
-  const handleClear = () => {
-    setSelectedPlayer(undefined)
-  }
 
   return (
     <>
@@ -62,7 +57,6 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
           <PlayerFinderWithResult
             selectedPlayer={selectedPlayer}
             setSelectedPlayer={setSelectedPlayer}
-            onClear={handleClear}
           />
         </PageContainer>
         <Tabs titles={['General', 'Best Game Times', 'Kibbles']}>

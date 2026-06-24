@@ -1,12 +1,11 @@
 import TextWithIcon from '@/components/atoms/textWithIcon'
 import styles from './index.module.css'
 import RowCard from '@/components/molecules/rowCard'
-import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
+import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import Button from '@/components/atoms/button'
 import Tooltip from '@/components/atoms/tooltip'
-import { GameStats } from '@/interfaces/game'
-import { useState } from 'react'
+import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import { Chevron } from '@/components/icons/chevron'
 
 interface DesktopCardProps {
@@ -15,7 +14,12 @@ interface DesktopCardProps {
   position: number
   showDifficulty: boolean
   teamMembers: string
-  times: GameStats['times']
+  roundOneTime: number
+  roundTwoTime: number
+  roundThreeTime: number
+  roundFourTime: number
+  roundFiveTime: number
+  time: number
 }
 
 export default function DesktopCard({
@@ -24,7 +28,12 @@ export default function DesktopCard({
   position,
   showDifficulty,
   teamMembers,
-  times,
+  roundOneTime,
+  roundTwoTime,
+  roundThreeTime,
+  roundFourTime,
+  roundFiveTime,
+  time,
 }: DesktopCardProps) {
   const matchDate = formatDateToLocale(date)
   const members = teamMembers.split(', ')
@@ -37,12 +46,12 @@ export default function DesktopCard({
           <div className={styles.row}>
             <div className={styles.info}>
               <div className={styles.wrapper}>
-                <Tooltip body={formatSecondsAsTime(times.total, true)}>
+                <Tooltip body={formatSecondsAsTime(time, true)}>
                   <TextWithIcon colorName="tertiary" iconName="clock">
-                    {formatSecondsAsTime(times.total, showRoundTimes)}
+                    {formatSecondsAsTime(time, showRoundTimes)}
                   </TextWithIcon>
                 </Tooltip>
-                {!!times.roundOne && (
+                {!!roundOneTime && (
                   <button
                     className={styles.iconButton}
                     onClick={() => setShowRoundTimes((prev) => !prev)}
@@ -57,14 +66,14 @@ export default function DesktopCard({
                 )}
               </div>
 
-              {showRoundTimes && times.roundOne && (
+              {showRoundTimes && roundOneTime && (
                 <div className={styles.wrapper}>
                   <small>Round times:</small>
-                  <small>{formatSecondsAsTime(times.roundOne)}</small>
-                  <small>{formatSecondsAsTime(times.roundTwo)}</small>
-                  <small>{formatSecondsAsTime(times.roundThree)}</small>
-                  <small>{formatSecondsAsTime(times.roundFour)}</small>
-                  <small>{formatSecondsAsTime(times.roundFive)}</small>
+                  <small>{formatSecondsAsTime(roundOneTime)}</small>
+                  <small>{formatSecondsAsTime(roundTwoTime)}</small>
+                  <small>{formatSecondsAsTime(roundThreeTime)}</small>
+                  <small>{formatSecondsAsTime(roundFourTime)}</small>
+                  <small>{formatSecondsAsTime(roundFiveTime)}</small>
                 </div>
               )}
               {showDifficulty && (

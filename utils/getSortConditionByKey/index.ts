@@ -1,5 +1,6 @@
-import { Player, SaveStreak } from '@/interfaces/player'
-import { isTimeKey } from '../checkKeyType'
+import { Player, RoundTimes, SaveStreak } from '@/interfaces/player'
+import { GameStats } from '@/interfaces/game'
+import { isTimeKey, isTimeKeyWithDiff } from '../checkKeyType'
 import { Difficulty } from '@/interfaces/difficulty'
 
 type DifficultyFilter = Difficulty | undefined
@@ -26,7 +27,7 @@ const getValueForSaveStreak = (saveStreak: SaveStreak) => {
 }
 
 export const getValueForKey = (
-  key: keyof Partial<Player>,
+  key: string,
   elem: Partial<Player>,
   filter?: DifficultyFilter,
 ) => {
@@ -38,23 +39,35 @@ export const getValueForKey = (
     return elem.saveStreak ? getValueForSaveStreak(elem.saveStreak) : 0
   }
 
-  if (key === 'kibbles') {
-    return elem.kibbles?.singleGame
-  }
-
   if (key === 'completedChallenges') {
     return elem.completedChallenges?.general?.[0]
   }
 
+  if (key === 'bestGameTimes') {
+    const arr = elem.bestGameTimes as GameStats[] | undefined
+    if (!arr || arr.length === 0) return 0
+    if (filter) {
+      return arr.find((g) => g.difficulty.toLowerCase() === filter)?.time ?? 0
+    }
+    const times = arr.map((g) => g.time).filter((t) => t > 0)
+    return times.length ? Math.min(...times) : 0
+  }
+
   if (isTimeKey(key)) {
-    return filter ? elem[key]?.[filter] : elem[key]?.best?.time
+    const roundData = elem[key as keyof Player] as RoundTimes | undefined
+    return filter ? roundData?.[filter] : roundData?.best?.time
+  }
+
+  if (filter && isTimeKeyWithDiff(key, filter)) {
+    const roundData = elem[key as keyof Player] as RoundTimes | undefined
+    return roundData
   }
 
   if (key === 'battleTag') {
     return elem.battleTag?.name.toLocaleLowerCase() || ''
   }
 
-  return elem[key]
+  return (elem as Partial<Record<string, unknown>>)[key]
 }
 
 /**
@@ -71,7 +84,7 @@ export const getValueForKey = (
  * @returns comparison between two player stats elements based on the corresponding condition
  */
 export const getSortConditionByKey = (
-  key: keyof Partial<Player>,
+  key: string,
   elem: Partial<Player>,
   elem2: Partial<Player>,
   filter?: DifficultyFilter,
@@ -85,7 +98,7 @@ export const getSortConditionByKey = (
   if (typeof secondElement !== 'string' && typeof secondElement !== 'number')
     return true
 
-  if (isTimeKey(key)) {
+  if (isTimeKey(key) || (filter && isTimeKeyWithDiff(key, filter))) {
     // For round (time) keys the sort is done in the opposite direction since lower times are faster
     // But we send the 0:00 times to the end because it means that they didn't finish the round
     if (firstElement === 0 || secondElement === 0) {

@@ -6,6 +6,7 @@ import sys
 IGNORED_PATHS = {
   "components/molecules/table/components/tableData/index.tsx",
   "components/molecules/table/components/tableData",
+  "components/molecules/downloadModal",
 }
 
 def get_paths(directory):
@@ -42,8 +43,10 @@ def make_regex_for_paths(paths):
     for path in paths:
       escaped_path = path.replace("\\", "/")
       escaped_path = escaped_path.replace(".", r"\.")
-      regex_pattern = rf"import\s+.*\s+from\s+['\"]{escaped_path}['\"]"
-      regex_list.append(regex_pattern)
+      quote = r"['\"]"
+      static_pattern = r"import\s+.*\s+from\s+" + quote + escaped_path + quote
+      dynamic_pattern = r"import\(" + quote + escaped_path + quote + r"\)"
+      regex_list.append(f"({static_pattern}|{dynamic_pattern})")
     return regex_list
   
   

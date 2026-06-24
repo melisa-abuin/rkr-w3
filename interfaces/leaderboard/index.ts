@@ -1,4 +1,4 @@
-import { BattleTag, BestTime } from '../player'
+import { BattleTag, BestTime, Kibbles, Skins } from '../player'
 
 interface Data {
   player: BattleTag
@@ -9,4 +9,15 @@ export interface LeaderboardCategories {
   category: string
   data: Data[]
   key: string
+}
+
+export interface KibbleLeaderboard {
+  battleTag: BattleTag
+  skins: Skins
+  kibbles: Kibbles
+}
+
+export interface KibbleStats {
+  battleTag: BattleTag
+  kibbles: Kibbles
 }

@@ -3,50 +3,58 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
+import { playerFinderColumns } from '@/constants/tableColumns'
+import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './index.module.css'
+import { apiUrl } from '@/constants'
 
-export const columns = [
-  { title: 'Saves', key: 'saves' },
-  { title: 'Deaths', key: 'deaths' },
-  { title: 'S/D Ratio', key: 'saveDeathRatio' },
-  { title: 'Win Rate', key: 'winRate' },
-  { title: 'Highest Win Streak', key: 'highestWinStreak' },
-] as const
+interface Props {
+  selectedPlayer?: Player
+  setSelectedPlayer?: (player: Player | undefined) => void
+}
 
 export default function PlayerFinderWithResult({
   selectedPlayer,
   setSelectedPlayer,
-  onClear,
-}: {
-  selectedPlayer?: Player
-  setSelectedPlayer?: (player: Player | undefined) => void
-  onClear?: () => void
-}) {
+}: Props) {
   const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
+  const [battleTag, setBattleTag] = useState<string | undefined>()
 
-  const activePlayer = selectedPlayer ?? player
+  const { data } = useApiQuery<Array<Player>>(
+    `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(battleTag ?? '')}`,
+    undefined,
+    { enabled: !!battleTag },
+  )
 
-  const handleSelect = (p: Player | undefined) => {
-    setSelectedPlayer ? setSelectedPlayer(p) : setPlayer(p)
-  }
+  useEffect(() => {
+    const player = data?.[0]
+
+    if (!player) return
+
+    setSelectedPlayer?.(player)
+    setPlayer(player)
+    setBattleTag(undefined)
+  }, [data, setSelectedPlayer, setPlayer])
 
   const handleClear = () => {
-    onClear ? onClear() : setPlayer(undefined)
+    setBattleTag(undefined)
+    setPlayer(undefined)
+    setSelectedPlayer?.(undefined)
   }
 
   return (
     <>
-      <PlayerFinder onClear={handleClear} onPlayerSelect={handleSelect} />
-      {activePlayer && (
+      <PlayerFinder onClear={handleClear} onPlayerSelect={setBattleTag} />
+      {player && (
         <div className={styles.wrapper}>
           <Columns
             actionColumn={
               <Button
                 as="a"
                 colorName="secondary"
-                href={`/player/${encodeURIComponent(activePlayer.battleTag.tag)}`}
+                href={`/player/${encodeURIComponent(player.battleTag.tag)}`}
                 variant="outline"
               >
                 See player stats
@@ -54,9 +62,9 @@ export default function PlayerFinderWithResult({
             }
             data={[
               {
-                columns: columns.map((col) => ({
+                columns: playerFinderColumns.map((col) => ({
                   description: col.title,
-                  value: activePlayer[col.key],
+                  value: player[col.key],
                 })),
               },
             ]}

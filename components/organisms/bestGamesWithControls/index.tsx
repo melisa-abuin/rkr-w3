@@ -3,7 +3,7 @@
 import styles from './index.module.css'
 import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
-import { difficultyNames } from '@/constants'
+import { apiUrl, difficultyNames } from '@/constants'
 import Cards from './components/cards'
 import { GamesStats } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
@@ -19,8 +19,8 @@ export default function BestGamesWithControls() {
 
   const { data, isFetching, error } = useApiQuery<GamesStats>(
     difficultyFilter
-      ? `/api/gameTimes?difficulty=${difficultyFilter}`
-      : '/api/gameTimes',
+      ? `${apiUrl}/api/BestGameTimes/top?count=20&difficulty=${difficultyFilter}`
+      : `${apiUrl}/api/BestGameTimes/top?count=20`,
     undefined,
     {
       enabled: true,
@@ -36,10 +36,9 @@ export default function BestGamesWithControls() {
     setDifficultyFilter(difficulty)
   }
 
-  const columns =
-    !!difficultyFilter
-      ? bestGameTimesColumnsWithRender.filter(({ key }) => key !== 'difficulty')
-      : bestGameTimesColumnsWithRender
+  const columns = !!difficultyFilter
+    ? bestGameTimesColumnsWithRender.filter(({ key }) => key !== 'difficulty')
+    : bestGameTimesColumnsWithRender
 
   return (
     <>

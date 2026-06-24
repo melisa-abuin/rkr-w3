@@ -2,7 +2,7 @@ import { Player } from '@/interfaces/player'
 import { formatSecondsAsTime } from '../formatSecondsAsTime'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
 import { Difficulty } from '@/interfaces/difficulty'
-import { isTimeKey } from '../checkKeyType'
+import { isTimeKey, isTimeKeyWithDiff } from '../checkKeyType'
 import { isRoundDifficultyAvailable } from '../isRoundDifficultyAvailable'
 
 /**
@@ -13,16 +13,18 @@ import { isRoundDifficultyAvailable } from '../isRoundDifficultyAvailable'
  * comparison player.
  */
 const formatColumns = (
-  column: { title: string; key: keyof Player },
+  column: { title: string; key: string },
   difficulty: Difficulty | undefined,
   player: Player,
   comparePlayer: Player | undefined,
 ) => {
   const valueForKey = getValueForKey(column.key, player, difficulty) as number
 
-  const value = isTimeKey(column.key)
-    ? formatSecondsAsTime(valueForKey)
-    : valueForKey
+  const value =
+    isTimeKey(column.key) ||
+    (difficulty && isTimeKeyWithDiff(column.key, difficulty))
+      ? formatSecondsAsTime(valueForKey)
+      : valueForKey
 
   const highlight = comparePlayer
     ? getSortConditionByKey(column.key, player, comparePlayer, difficulty)
@@ -50,7 +52,7 @@ const formatColumns = (
 export const formatComparePlayer = (
   player: Player,
   comparePlayer: Player | undefined,
-  columns: Readonly<Array<{ title: string; key: keyof Player }>>,
+  columns: Readonly<Array<{ title: string; key: string }>>,
   difficulty: Difficulty | undefined,
 ) => {
   const result = []
@@ -89,18 +91,6 @@ const formatColumnsDynamic = (
   comparePlayer: Player | undefined,
 ) => {
   const { key, title } = column
-
-  if (key in player.kibbles) {
-    const value = player.kibbles[key as keyof Player['kibbles']] ?? 0
-    const compareValue =
-      comparePlayer?.kibbles[key as keyof Player['kibbles']] ?? 0
-
-    return {
-      description: title,
-      value,
-      highlight: compareValue ? value > compareValue : false,
-    }
-  }
 
   const value = player[key as keyof Player] ?? 0
   const compareValue = comparePlayer?.[key as keyof Player] ?? 0

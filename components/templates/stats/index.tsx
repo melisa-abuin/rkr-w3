@@ -4,7 +4,7 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import HelpInfo from '@/components/molecules/helpInfo'
 import Tabs from '@/components/atoms/tabs'
-import { BattleTag, Kibbles, Player } from '@/interfaces/player'
+import { Player } from '@/interfaces/player'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import { statsPageVariants } from '@/constants'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -13,12 +13,14 @@ import { Difficulty } from '@/interfaces/difficulty'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import {
   kibbleColumnsWithRender,
+  KibbleRow,
   statsColumnsWithRender,
   timeAllDiffColumnsWithRender,
 } from '@/constants/tableColumns'
+import { KibbleStats } from '@/interfaces/leaderboard'
 
 interface AllStatsData {
-  data: { pages: number; stats?: Player[] }
+  data: { pages: number; stats?: Player[] | KibbleStats[] }
   filter: string
 }
 
@@ -37,10 +39,6 @@ const getSortValue = (
 
 type VariantKey = keyof typeof statsPageVariants
 
-type KibbleType = Kibbles & {
-  battleTag: BattleTag
-}
-
 const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
@@ -48,7 +46,7 @@ export default function Stats({ data, filter }: AllStatsData) {
   const columnsByVariant = {
     stats: statsColumnsWithRender,
     times: timeAllDiffColumnsWithRender,
-    kibbleStats: kibbleColumnsWithRender,
+    kibble: kibbleColumnsWithRender,
   }
 
   const searchParams = useSearchParams()
@@ -102,7 +100,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     setDifficultyFilter(undefined)
     setSortKey({
       key: newPageVariant.defaultSortKey,
-      asc: false,
+      asc: newPageVariant.defaultSortOrder === 'asc',
     })
     setCurrentPage(1)
   }
@@ -149,13 +147,19 @@ export default function Stats({ data, filter }: AllStatsData) {
     setCurrentPage(page)
   }, [])
 
-  const handleSortChange = useCallback((newSortKey: string) => {
-    setHasInteracted(true)
-    setSortKey((prev) => ({
-      key: newSortKey,
-      asc: prev.key === newSortKey ? !prev.asc : false,
-    }))
-  }, [])
+  const handleSortChange = useCallback(
+    (newSortKey: string) => {
+      const currentPageVariant = statsPageVariants[currentApiUrl as VariantKey]
+      const isAscending = currentPageVariant.defaultSortOrder === 'asc'
+
+      setHasInteracted(true)
+      setSortKey((prev) => ({
+        key: newSortKey,
+        asc: prev.key === newSortKey ? !prev.asc : isAscending,
+      }))
+    },
+    [currentApiUrl],
+  )
 
   const handleFilterChange = useCallback((difficulty?: Difficulty) => {
     setHasInteracted(true)
@@ -192,27 +196,29 @@ export default function Stats({ data, filter }: AllStatsData) {
               shouldRefetch: hasInteracted,
             }
 
-            if (apiBaseUrl === 'kibbleStats') {
+            if (apiBaseUrl === 'kibble') {
               return (
-                <TableWithControls<KibbleType>
+                <TableWithControls<KibbleRow>
                   {...commonProps}
                   key={apiBaseUrl}
                   columns={
                     renderedColumns as {
                       title: string
-                      key: keyof KibbleType
+                      key: keyof KibbleRow
                     }[]
                   }
                   data={{
                     ...data,
-                    stats: data.stats?.map((elem) => ({
-                      battleTag: elem.battleTag,
-                      ...elem.kibbles,
-                    })),
+                    stats: (data as { stats?: KibbleStats[] }).stats?.map(
+                      (elem) => ({
+                        battleTag: elem.battleTag,
+                        ...elem.kibbles,
+                      }),
+                    ),
                   }}
                   sortKey={
                     (getSortValue(columns, sortKey.key) ||
-                      defaultSortKey) as keyof KibbleType
+                      defaultSortKey) as keyof KibbleRow
                   }
                 />
               )
@@ -225,7 +231,10 @@ export default function Stats({ data, filter }: AllStatsData) {
                 columns={
                   renderedColumns as { title: string; key: keyof Player }[]
                 }
-                data={data}
+                data={{
+                  pages: data.pages,
+                  stats: data.stats as Player[] | undefined,
+                }}
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}
                 sortKey={

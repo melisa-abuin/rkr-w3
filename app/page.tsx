@@ -4,7 +4,9 @@ import Home from '@/components/templates/home'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {
-    const response = await fetch(discordData)
+    const response = await fetch(discordData, {
+      next: { revalidate: 480 },
+    })
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
