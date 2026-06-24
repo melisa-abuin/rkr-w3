@@ -25,7 +25,18 @@ const formatColumns = (
     (difficulty && isTimeKeyWithDiff(column.key, difficulty))
       ? formatSecondsAsTime(valueForKey)
       : valueForKey
-
+  console.log(
+    'value',
+    value,
+    'valueForKey',
+    valueForKey,
+    'key',
+    column.key,
+    'difficulty',
+    difficulty,
+    'player',
+    player.battleTag.name,
+  )
   const highlight = comparePlayer
     ? getSortConditionByKey(column.key, player, comparePlayer, difficulty)
     : false

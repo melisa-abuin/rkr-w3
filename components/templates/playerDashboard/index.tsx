@@ -42,7 +42,7 @@ export default function PlayerDashboard({
     completedChallenges,
     mostPlayedColor,
   } = currentPlayer
-
+  console.log(currentPlayer)
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
@@ -183,7 +183,7 @@ export default function PlayerDashboard({
         </div>
       </PageContainer>
 
-      <PageContainer title="Game Awards">
+      <PageContainer marginBottom={24} title="Game Awards">
         {comparePlayer ? (
           <Tabs
             titles={[

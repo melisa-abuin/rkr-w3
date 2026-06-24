@@ -212,7 +212,7 @@ export const timeAllDiffColumns = [
 ] satisfies { title: string; key: keyof Player }[]
 
 export const bestGameTimesColumns = [
-  { title: 'Time', key: 'totalTime' },
+  { title: 'Time', key: 'time' },
   { title: 'Players', key: 'teamMembers' },
   { title: 'Difficulty', key: 'difficulty' },
   { title: 'Date', key: 'date' },
@@ -334,7 +334,7 @@ export const formattedMockData: Player[] = [
     bestGameTimes: [
       {
         difficulty: 'normal',
-        totalTime: 500,
+        time: 500,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -345,7 +345,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'hard',
-        totalTime: 400,
+        time: 400,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -356,7 +356,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'impossible',
-        totalTime: 320,
+        time: 320,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -367,7 +367,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'solo',
-        totalTime: 380,
+        time: 380,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -378,7 +378,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'nightmare',
-        totalTime: 360,
+        time: 360,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -389,7 +389,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'progressive',
-        totalTime: 340,
+        time: 340,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -522,7 +522,7 @@ export const formattedMockData: Player[] = [
     bestGameTimes: [
       {
         difficulty: 'normal',
-        totalTime: 420,
+        time: 420,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -533,7 +533,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'hard',
-        totalTime: 295,
+        time: 295,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -544,7 +544,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'impossible',
-        totalTime: 360,
+        time: 360,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -555,7 +555,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'solo',
-        totalTime: 305,
+        time: 305,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -566,7 +566,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'nightmare',
-        totalTime: 310,
+        time: 310,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -577,7 +577,7 @@ export const formattedMockData: Player[] = [
       },
       {
         difficulty: 'progressive',
-        totalTime: 330,
+        time: 330,
         roundOneTime: 0,
         roundTwoTime: 0,
         roundThreeTime: 0,
@@ -697,7 +697,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    totalTime: 500.23,
+    time: 500.23,
   },
   {
     difficulty: 'normal',
@@ -708,7 +708,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    totalTime: 500.23,
+    time: 500.23,
   },
   {
     difficulty: 'impossible',
@@ -719,7 +719,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    totalTime: 500.23,
+    time: 500.23,
   },
   {
     difficulty: 'hard',
@@ -730,7 +730,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    totalTime: 500.23,
+    time: 500.23,
   },
   {
     difficulty: 'normal',
@@ -741,7 +741,7 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    totalTime: 500.23,
+    time: 500.23,
   },
   {
     difficulty: 'hard',
@@ -753,6 +753,6 @@ export const mockParsedGameStats: GameStats[] = [
     roundThreeTime: 222.11,
     roundFourTime: 133.11,
     roundFiveTime: 123.02,
-    totalTime: 500.23,
+    time: 500.23,
   },
 ]

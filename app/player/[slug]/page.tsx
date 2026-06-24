@@ -42,7 +42,7 @@ export default async function PlayerPage({
 
   return (
     <main>
-      {error ? <Error /> : data && <PlayerDashboard playerData={data[0]} />}
+      {error ? <Error /> : data && <PlayerDashboard currentPlayer={data[0]} />}
     </main>
   )
 }
