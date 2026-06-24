@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Difficulty } from '@/interfaces/difficulty'
 import { apiUrl, difficultyNames } from '@/constants'
 import Cards from './components/cards'
-import { GamesStats } from '@/interfaces/game'
+import { BestGameTimes } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
 import Table from '@/components/molecules/table'
 import { useApiQuery } from '@/hooks/useApiQuery'
@@ -17,7 +17,7 @@ export default function BestGamesWithControls() {
     Difficulty | undefined
   >()
 
-  const { data, isFetching, error } = useApiQuery<GamesStats>(
+  const { data, isFetching, error } = useApiQuery<BestGameTimes>(
     difficultyFilter
       ? `${apiUrl}/api/BestGameTimes/top?count=20&difficulty=${difficultyFilter}`
       : `${apiUrl}/api/BestGameTimes/top?count=20`,

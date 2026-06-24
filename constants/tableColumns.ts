@@ -1,5 +1,5 @@
 import { Difficulty } from '@/interfaces/difficulty'
-import { GameStats } from '@/interfaces/game'
+import { BestGameTime } from '@/interfaces/game'
 import { BattleTag, Kibbles, Player } from '@/interfaces/player'
 import { ReactNode } from 'react'
 import {
@@ -112,11 +112,11 @@ export const kibbleColumnsWithRender: Column<KibbleRow>[] = [
   { title: 'Super Jackpots', key: 'superJackpots' },
 ]
 
-export const bestGameTimesColumnsWithRender: Column<GameStats>[] = [
+export const bestGameTimesColumnsWithRender: Column<BestGameTime>[] = [
   {
     title: 'Time',
-    key: 'time',
-    render: (game) => renderTimes(game.time),
+    key: 'totalTime',
+    render: (game) => renderTimes(game.totalTime),
   },
   {
     title: 'Players',
