@@ -3,12 +3,12 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
+import { apiUrl } from '@/constants'
 import { playerFinderColumns } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { apiUrl } from '@/constants'
 
 interface Props {
   selectedPlayer?: Player
@@ -34,6 +34,7 @@ export default function PlayerFinderWithResult({
     if (!player) return
 
     setSelectedPlayer?.(player)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPlayer(player)
     setBattleTag(undefined)
   }, [data, setSelectedPlayer, setPlayer])

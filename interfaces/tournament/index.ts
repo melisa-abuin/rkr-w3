@@ -19,7 +19,7 @@ export interface ApiTournament {
   players: ApiTournamentPlayer[]
 }
 
-export interface ApiTournaments extends Array<ApiTournament> {}
+export type ApiTournaments = Array<ApiTournament>
 
 export interface ApiTournamentPlayer {
   battleTag: string
@@ -72,10 +72,12 @@ export interface Tournament {
   players: TournamentPlayer[]
 }
 
-export interface Tournaments extends Array<Tournament> {}
+export type Tournaments = Array<Tournament>
 
-export interface TournamentPlayer
-  extends Omit<ApiTournamentPlayer, 'games' | 'battleTag'> {
+export interface TournamentPlayer extends Omit<
+  ApiTournamentPlayer,
+  'games' | 'battleTag'
+> {
   battleTag: BattleTag | string
   games: TournamentGame[]
 }

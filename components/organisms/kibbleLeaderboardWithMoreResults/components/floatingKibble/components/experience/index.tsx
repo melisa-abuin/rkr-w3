@@ -24,6 +24,7 @@ export default function Experience({ expGained = 0 }: Props) {
 
     if (leveledUp) {
       // Step 1: Animate to 100%
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setBarPercentage(100)
 
       // Step 2: Jump to 0 without animation

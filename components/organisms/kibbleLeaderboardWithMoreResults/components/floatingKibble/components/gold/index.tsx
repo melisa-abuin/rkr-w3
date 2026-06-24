@@ -1,7 +1,7 @@
+import { Coins } from '@/components/icons/coins'
 import { getStoredGold, saveGold } from '@/utils'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { Coins } from '@/components/icons/coins'
 
 interface Props {
   goldGained?: number
@@ -13,6 +13,7 @@ export default function Gold({ goldGained = 0 }: Props) {
   useEffect(() => {
     const newGold = getStoredGold() + goldGained
     saveGold(newGold)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentGold(newGold)
   }, [goldGained])
 

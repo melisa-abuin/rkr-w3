@@ -1,8 +1,8 @@
 'use client'
 
 import { Cross } from '@/components/icons/cross'
-import styles from './index.module.css'
 import { useEffect, useState } from 'react'
+import styles from './index.module.css'
 
 // Change this key to update the announcement
 const announcementKey = 'announcement-2025-08-09'
@@ -13,6 +13,7 @@ export default function Announcement() {
 
   useEffect(() => {
     const dismissed = localStorage.getItem(announcementKey)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisible(!dismissed)
   }, [])
 

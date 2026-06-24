@@ -1,0 +1,26 @@
+const nextCoreWebVitals = require('eslint-config-next/core-web-vitals')
+const nextTypescript = require('eslint-config-next/typescript')
+
+/** @type {import('eslint').Linter.Config[]} */
+module.exports = [
+  { ignores: ['eslint.config.js', 'jest.config.js'] },
+  ...nextCoreWebVitals,
+  ...nextTypescript,
+  {
+    settings: {
+      react: {
+        version: '19',
+      },
+    },
+    rules: {
+      'react/jsx-sort-props': [
+        'warn',
+        {
+          callbacksLast: true,
+          shorthandFirst: true,
+          reservedFirst: true,
+        },
+      ],
+    },
+  },
+]

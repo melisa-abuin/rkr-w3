@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from './not-found.module.css'
 
 export default function Loading() {
@@ -15,9 +16,9 @@ export default function Loading() {
       <h1>Oops!</h1>
       <p>We can&apos;t seem to find the page you are looking for.</p>
       <br />
-      <a className={styles.link} href="/">
+      <Link className={styles.link} href="/">
         Go Back Home
-      </a>
+      </Link>
     </div>
   )
 }

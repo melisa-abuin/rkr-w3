@@ -1,4 +1,4 @@
-import React from 'react'
+import { useId } from 'react'
 
 interface Boltrops {
   internalColor?: string
@@ -15,7 +15,7 @@ export const Bolt = ({
   flipped = false,
   width = 100,
 }: Boltrops) => {
-  const id = Math.random()
+  const id = useId()
 
   return (
     <svg
