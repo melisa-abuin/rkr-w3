@@ -33,16 +33,10 @@ export const formatTournamentPlayers = (
       game.rounds.forEach((round) => {
         const roundTime = round.round_time
         const roundNumber = round.round_number
-
-        if (
-          roundTime <
-          fastestRounds[
-            `round${roundNames[roundNumber - 1]}` as keyof typeof fastestRounds
-          ]?.time
-        ) {
-          fastestRounds[
-            `round${roundNames[roundNumber - 1]}` as keyof typeof fastestRounds
-          ] = {
+        const roundKey =
+          `round${roundNames[roundNumber - 1]}` as keyof typeof fastestRounds
+        if (roundTime < fastestRounds[roundKey]?.time && roundTime > 0) {
+          fastestRounds[roundKey] = {
             player: {
               name: player.battleTag?.split('#')[0] || '',
               tag: player.battleTag || '',

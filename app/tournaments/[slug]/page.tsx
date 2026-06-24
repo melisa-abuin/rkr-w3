@@ -26,8 +26,8 @@ export default async function TournamentsPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-
   const { data, error } = await fetchData(slug)
+
   const tournament = data ? formatTournamentPlayers(data) : null
 
   return (

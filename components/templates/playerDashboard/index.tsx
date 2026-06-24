@@ -42,7 +42,7 @@ export default function PlayerDashboard({
     completedChallenges,
     mostPlayedColor,
   } = currentPlayer
-  console.log(currentPlayer)
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const compareTo = searchParams?.get('compareTo')
