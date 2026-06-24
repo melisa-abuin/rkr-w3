@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PlayerFinder from '..'
 import { useApiQuery } from '@/hooks/useApiQuery'
-import { Player } from '@/interfaces/player'
 
 jest.mock('@/hooks/useApiQuery')
 jest.mock('@/hooks/useQueryErrorToast')
@@ -15,13 +14,6 @@ jest.mock('@/hooks/useOutsideClick', () => ({
 
 const mockUseApiQuery = useApiQuery as jest.Mock
 
-const playerMock = {
-  battleTag: {
-    name: 'Alpha',
-    tag: 'Alpha#1234',
-  },
-} as Player
-
 describe('PlayerFinder', () => {
   const onClear = jest.fn()
   const onPlayerSelect = jest.fn()
@@ -31,9 +23,9 @@ describe('PlayerFinder', () => {
     mockUseApiQuery.mockImplementation((_url, params) => ({
       data:
         params?.battleTag === 'zzz'
-          ? { stats: [] }
+          ? []
           : params?.battleTag
-            ? { stats: [playerMock] }
+            ? [{ battleTag: 'Alpha#1234' }]
             : undefined,
       isFetching: false,
       error: null,
@@ -75,7 +67,7 @@ describe('PlayerFinder', () => {
     const option = await screen.findByText('Alpha#1234')
     await user.click(option)
 
-    expect(onPlayerSelect).toHaveBeenCalledWith(playerMock)
+    expect(onPlayerSelect).toHaveBeenCalledWith('Alpha#1234')
     expect(screen.getByDisplayValue('Alpha#1234')).toBeInTheDocument()
     expect(screen.queryByText('Alpha#1234')).not.toBeInTheDocument()
   })
