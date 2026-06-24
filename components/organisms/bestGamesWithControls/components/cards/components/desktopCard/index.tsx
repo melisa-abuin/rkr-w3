@@ -19,7 +19,7 @@ interface DesktopCardProps {
   roundThreeTime: number
   roundFourTime: number
   roundFiveTime: number
-  time: number
+  totalTime: number
 }
 
 export default function DesktopCard({
@@ -33,7 +33,7 @@ export default function DesktopCard({
   roundThreeTime,
   roundFourTime,
   roundFiveTime,
-  time,
+  totalTime,
 }: DesktopCardProps) {
   const matchDate = formatDateToLocale(date)
   const members = teamMembers.split(', ')
@@ -46,9 +46,9 @@ export default function DesktopCard({
           <div className={styles.row}>
             <div className={styles.info}>
               <div className={styles.wrapper}>
-                <Tooltip body={formatSecondsAsTime(time, true)}>
+                <Tooltip body={formatSecondsAsTime(totalTime, true)}>
                   <TextWithIcon colorName="tertiary" iconName="clock">
-                    {formatSecondsAsTime(time, showRoundTimes)}
+                    {formatSecondsAsTime(totalTime, showRoundTimes)}
                   </TextWithIcon>
                 </Tooltip>
                 {!!roundOneTime && (

@@ -12,6 +12,20 @@ export interface GameStats {
   time: number
 }
 
+export interface BestGameTime {
+  difficulty: Difficulty
+  date: string
+  teamMembers: string
+  roundOneTime: number
+  roundTwoTime: number
+  roundThreeTime: number
+  roundFourTime: number
+  roundFiveTime: number
+  totalTime: number
+}
+
+export type BestGameTimes = BestGameTime[]
+
 export interface ApiGameStats {
   GameDate: string
   Difficulty: Difficulty
