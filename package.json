@@ -23,6 +23,10 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
+  "resolutions": {
+    "postcss": "8.4.31",
+    "js-yaml": "^3.13.1"
+  },
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
     "@commitlint/config-conventional": "^21.1.0",
