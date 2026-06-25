@@ -3,12 +3,12 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
+import { apiUrl } from '@/constants'
 import { playerFinderColumns } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { apiUrl } from '@/constants'
 
 interface Props {
   selectedPlayer?: Player

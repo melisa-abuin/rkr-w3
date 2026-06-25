@@ -1,7 +1,7 @@
+import { Coins } from '@/components/icons/coins'
 import { getStoredGold, saveGold } from '@/utils'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { Coins } from '@/components/icons/coins'
 
 interface Props {
   goldGained?: number

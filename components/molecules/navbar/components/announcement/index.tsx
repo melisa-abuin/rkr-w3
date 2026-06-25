@@ -1,8 +1,8 @@
 'use client'
 
 import { Cross } from '@/components/icons/cross'
-import styles from './index.module.css'
 import { useEffect, useState } from 'react'
+import styles from './index.module.css'
 
 // Change this key to update the announcement
 const announcementKey = 'announcement-2025-08-09'

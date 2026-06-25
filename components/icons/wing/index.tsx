@@ -1,4 +1,4 @@
-import React from 'react'
+import { useId } from 'react'
 
 interface WingProps {
   internalColor?: string
@@ -15,7 +15,8 @@ export const Wing = ({
   flipped = false,
   width = 100,
 }: WingProps) => {
-  const id = Math.random()
+  const id = useId()
+
   return (
     <svg
       fill="none"
