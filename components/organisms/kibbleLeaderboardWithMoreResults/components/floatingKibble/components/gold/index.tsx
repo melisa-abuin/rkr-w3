@@ -13,7 +13,6 @@ export default function Gold({ goldGained = 0 }: Props) {
   useEffect(() => {
     const newGold = getStoredGold() + goldGained
     saveGold(newGold)
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentGold(newGold)
   }, [goldGained])
 

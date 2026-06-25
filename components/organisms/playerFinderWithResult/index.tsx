@@ -34,7 +34,6 @@ export default function PlayerFinderWithResult({
     if (!player) return
 
     setSelectedPlayer?.(player)
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPlayer(player)
     setBattleTag(undefined)
   }, [data, setSelectedPlayer, setPlayer])

@@ -13,6 +13,7 @@ module.exports = [
       },
     },
     rules: {
+      'react-hooks/set-state-in-effect': 'off',
       'react/jsx-sort-props': [
         'warn',
         {

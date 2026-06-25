@@ -10,7 +10,6 @@ export const usePrefersDarkMode = () => {
   useEffect(() => {
     const mediaQuery = window.matchMedia(darkThemeSelector)
 
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPrefersDarkMode(mediaQuery.matches)
 
     const handleThemeChange = (event: MediaQueryListEvent) => {

@@ -1,21 +1,17 @@
 'use client'
 
 import { Cross } from '@/components/icons/cross'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './index.module.css'
 
 // Change this key to update the announcement
-const announcementKey = 'announcement-2025-08-09'
-const isActiveAnnouncement = false
+const announcementKey = 'announcement-2025-08-19'
+const isActiveAnnouncement = true
 
 export default function Announcement() {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const dismissed = localStorage.getItem(announcementKey)
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setVisible(!dismissed)
-  }, [])
+  const [visible, setVisible] = useState(
+    localStorage.getItem(announcementKey) ? false : true,
+  )
 
   const handleClose = () => {
     localStorage.setItem(announcementKey, 'dismissed')
