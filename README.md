@@ -17,12 +17,6 @@ First of all install the packages using:
 yarn
 ```
 
-Then check that you have correctly set the environmental variables:
-
-1. Create a .env.local file
-2. Add the variables **API_URL** and **ENVIRONMENT**
-3. Set ENVIRONMENT to `production` to call the production API's or to `development` to use the mocked data
-
 For running the server:
 
 ```bash
