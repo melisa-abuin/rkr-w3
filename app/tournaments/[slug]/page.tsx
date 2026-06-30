@@ -1,10 +1,10 @@
 import Error from '@/components/molecules/error'
 import TournamentDetail from '@/components/templates/tournamentDetail'
-import { apiUrl } from '@/constants'
+import { tournamentsBase } from '@/constants'
 import { formatTournamentPlayers } from '@/utils'
 
 async function fetchData(id: string) {
-  const response = await fetch(`${apiUrl}/api/tournaments/${id}/full`, {
+  const response = await fetch(`${tournamentsBase}/${id}/full`, {
     next: { revalidate: 480 },
   })
 
