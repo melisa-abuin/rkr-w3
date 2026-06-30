@@ -1,0 +1,40 @@
+.card {
+  align-items: center;
+  background-color: var(--background-quaternary);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--background-highlight-tertiary);
+  margin: 0;
+  width: 100%;
+}
+
+.label {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.subLabel {
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
