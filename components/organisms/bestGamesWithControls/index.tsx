@@ -1,16 +1,16 @@
 'use client'
 
-import styles from './index.module.css'
-import { useState } from 'react'
-import { Difficulty } from '@/interfaces/difficulty'
-import { apiUrl, difficultyNames } from '@/constants'
-import Cards from './components/cards'
-import { BestGameTimes } from '@/interfaces/game'
 import Badges from '@/components/molecules/badges'
 import Table from '@/components/molecules/table'
+import { bestGameTimesTop, difficultyNames } from '@/constants'
+import { bestGameTimesColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import { bestGameTimesColumnsWithRender } from '@/constants/tableColumns'
+import { Difficulty } from '@/interfaces/difficulty'
+import { BestGameTimes } from '@/interfaces/game'
+import { useState } from 'react'
+import Cards from './components/cards'
+import styles from './index.module.css'
 
 export default function BestGamesWithControls() {
   const [difficultyFilter, setDifficultyFilter] = useState<
@@ -19,8 +19,8 @@ export default function BestGamesWithControls() {
 
   const { data, isFetching, error } = useApiQuery<BestGameTimes>(
     difficultyFilter
-      ? `${apiUrl}/api/BestGameTimes/top?count=20&difficulty=${difficultyFilter}`
-      : `${apiUrl}/api/BestGameTimes/top?count=20`,
+      ? `${bestGameTimesTop}&difficulty=${difficultyFilter}`
+      : bestGameTimesTop,
     undefined,
     {
       enabled: true,

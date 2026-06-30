@@ -1,23 +1,23 @@
 'use client'
 
+import Button from '@/components/atoms/button'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { apiUrl, routes } from '@/constants'
-import { Player } from '@/interfaces/player'
-import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
-import ColumnCards from '@/components/molecules/columnCards'
-import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
-import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
-import Table from '@/components/molecules/table'
-import HelpInfo from '@/components/molecules/helpInfo'
-import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import Tabs from '@/components/atoms/tabs'
+import ColumnCards from '@/components/molecules/columnCards'
+import HelpInfo from '@/components/molecules/helpInfo'
+import Table from '@/components/molecules/table'
+import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
+import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
-import Button from '@/components/atoms/button'
+import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
+import { playerStatsDefault, routes } from '@/constants'
+import { statsColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { Player } from '@/interfaces/player'
 import { useState } from 'react'
-import { statsColumnsWithRender } from '@/constants/tableColumns'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -32,13 +32,9 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
   } = useApiQuery<{
     stats: Player[]
     page: number
-  }>(
-    `${apiUrl}/api/PlayerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`,
-    undefined,
-    {
-      enabled: true,
-    },
-  )
+  }>(playerStatsDefault, undefined, {
+    enabled: true,
+  })
 
   useQueryErrorToast(
     error,

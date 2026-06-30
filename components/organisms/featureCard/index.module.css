@@ -1,0 +1,26 @@
+.wrapper {
+  background: linear-gradient(
+    to bottom right,
+    var(--background-quaternary),
+    var(--color-primary)
+  );
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  width: 100%;
+}
+
+.title {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  margin: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}

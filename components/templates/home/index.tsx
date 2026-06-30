@@ -1,10 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-import styles from './index.module.css'
+import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import { discordJoinLink } from '@/constants'
 import { DiscordData } from '@/interfaces/discord'
-import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
+import Image from 'next/image'
+import FeaturedContent from './components/featuredContent'
+import styles from './index.module.css'
 
 interface Props {
   discordData: DiscordData
@@ -13,9 +14,11 @@ interface Props {
 export default function Home({ discordData }: Props) {
   const { data, error } = discordData
   return (
-    <section className={styles.bannerContainer}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Run Kitty Run</h1>
+    <div className={styles.bannerContainer}>
+      <section aria-labelledby="home-title" className={styles.container}>
+        <h1 className={styles.title} id="home-title">
+          Run Kitty Run
+        </h1>
         <p className={styles.info}>
           <span className={styles.subtitle}>
             The famous Warcraft 3 custom map
@@ -54,7 +57,8 @@ export default function Home({ discordData }: Props) {
             {error && <>There was an issue while fetching discord data</>}
           </small>
         )}
-      </div>
-    </section>
+        <FeaturedContent />
+      </section>
+    </div>
   )
 }

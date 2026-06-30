@@ -1,11 +1,6 @@
 .bannerContainer {
   align-items: center;
-  background: linear-gradient(
-    66deg,
-    var(--color-tertiary) 0%,
-    var(--color-tertiary) 35%,
-    var(--color-secondary) 100%
-  );
+  background: var(--background-primary);
   color: var(--text-color-white);
   display: flex;
   height: 100vh;
@@ -22,11 +17,13 @@
 }
 
 .title {
+  color: var(--text-color-primary);
   font-size: var(--font-size-xl);
   margin-bottom: 1rem;
 }
 
 .info {
+  color: var(--text-color-primary);
   display: flex;
   flex-direction: column;
   font-size: var(--font-size-xs-sm);
@@ -51,6 +48,7 @@
 }
 
 .discordDetail {
+  color: var(--text-color-primary);
   display: inline;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
