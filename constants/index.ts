@@ -17,8 +17,6 @@ export const playerStatsFastestBesties = `${apiUrl}/api/playerStats/fastestBesti
 export const bestGameTimesTop = `${apiUrl}/api/bestGameTimes/top?count=20`
 export const playerStatsDefault = `${apiUrl}/api/playerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`
 
-export const blacklistedPlayers = ['Local Player']
-
 export const blizzardLink = 'https://www.blizzard.com/'
 
 export const defaultScoreboardFilter = 'stats'
