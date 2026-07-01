@@ -13,11 +13,13 @@ import styles from './index.module.css'
 interface Props {
   selectedPlayer?: Player
   setSelectedPlayer?: (player: Player | undefined) => void
+  placeholder?: string
 }
 
 export default function PlayerFinderWithResult({
   selectedPlayer,
   setSelectedPlayer,
+  placeholder,
 }: Props) {
   const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
   const [battleTag, setBattleTag] = useState<string | undefined>()
@@ -46,7 +48,11 @@ export default function PlayerFinderWithResult({
 
   return (
     <>
-      <PlayerFinder onClear={handleClear} onPlayerSelect={setBattleTag} />
+      <PlayerFinder
+        placeholder={placeholder}
+        onClear={handleClear}
+        onPlayerSelect={setBattleTag}
+      />
       {player && (
         <div className={styles.wrapper}>
           <Columns

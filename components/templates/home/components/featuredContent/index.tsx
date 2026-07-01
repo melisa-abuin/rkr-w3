@@ -36,19 +36,21 @@ export default function FeaturedContent() {
   )
 
   return (
-    <div className={styles.grid}>
-      <FeatureCard
-        items={playerItems}
-        linkHref="/leaderboard"
-        linkLabel="View leaderboard"
-        title="Featured players"
-      />
-      <FeatureCard
-        items={challengeItems}
-        linkHref="/tournaments"
-        linkLabel="View all challenges"
-        title="Featured challenges"
-      />
+    <div className={styles.wrapper}>
+      <div className={styles.grid}>
+        <FeatureCard
+          items={playerItems}
+          linkHref="/leaderboard"
+          linkLabel="View leaderboard"
+          title="Featured players"
+        />
+        <FeatureCard
+          items={challengeItems}
+          linkHref="/tournaments"
+          linkLabel="View all challenges"
+          title="Featured challenges"
+        />
+      </div>
     </div>
   )
 }

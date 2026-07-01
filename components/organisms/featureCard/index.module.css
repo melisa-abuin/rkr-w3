@@ -1,13 +1,9 @@
 .wrapper {
-  background: linear-gradient(
-    to bottom right,
-    var(--background-quaternary),
-    var(--color-primary)
-  );
+  background: var(--background-highlight-secondary);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   padding: 16px;
   width: 100%;
 }
@@ -22,5 +18,5 @@
 .body {
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 8px;
 }

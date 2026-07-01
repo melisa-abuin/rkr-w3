@@ -1,18 +1,15 @@
 'use client'
-import { usePathname } from 'next/navigation'
-import styles from './index.module.css'
-import Image from 'next/image'
-import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
-import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
-import { useState } from 'react'
-import { routes } from '@/constants'
 import Link from '@/components/atoms/link'
+import { routes } from '@/constants'
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+import styles from './index.module.css'
 
 export default function MobileNavbar() {
   const pathname = usePathname()
-  const [isAtTopPage] = useIsScrollAtTop()
   const prefersDarkMode = usePrefersDarkMode()
-  const shouldShowTransparentNav = isAtTopPage && pathname === '/'
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   if (!isMenuOpen) {
@@ -23,9 +20,7 @@ export default function MobileNavbar() {
           className={styles.hamburger}
           height={25}
           src={
-            shouldShowTransparentNav || prefersDarkMode
-              ? '/hamburger-white.png'
-              : '/hamburger-black.png'
+            prefersDarkMode ? '/hamburger-white.png' : '/hamburger-black.png'
           }
           width={25}
           onClick={() => setIsMenuOpen((prev) => !prev)}
