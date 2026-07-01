@@ -20,7 +20,7 @@ export default function FeaturedContent() {
   const { data: featured } = useApiQuery<FeaturedContentData>('/api/featured')
 
   const playerItems: FeatureCardItem[] = (featured?.players ?? []).map((p) => ({
-    imageSrc: formatPlayerImageSrc(p.skins?.selectedSkin),
+    imageSrc: formatPlayerImageSrc(p.selectedSkin),
     imageFallbackSrc: '/potm.png',
     label: p.battleTag.name,
     subLabel: formatSecondsAsTime(p.roundFive?.best?.time),

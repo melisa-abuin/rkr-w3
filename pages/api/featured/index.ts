@@ -1,6 +1,6 @@
 import { awardsStats, playersLeaderboard, playersSummary } from '@/constants'
 import { ApiAward } from '@/interfaces/award'
-import { FeaturedContent } from '@/interfaces/featured'
+import { FeaturedContent, FeaturedPlayer } from '@/interfaces/featured'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { BattleTag, Player } from '@/interfaces/player'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -12,8 +12,25 @@ interface LeaderboardResponse {
   times: LeaderboardCategories[]
 }
 
-function pickRandom<T>(arr: T[], count: number): T[] {
-  return [...arr].sort(() => Math.random() - 0.5).slice(0, count)
+function getWeekSeed(): number {
+  return Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))
+}
+
+function seededRandom(seed: number): () => number {
+  let s = seed >>> 0
+  return (): number => {
+    s = (Math.imul(1664525, s) + 1013904223) >>> 0
+    return s / 4294967296
+  }
+}
+
+function pickWithSeed<T>(arr: T[], count: number, seed: number): T[] {
+  const rand = seededRandom(seed)
+  return [...arr]
+    .map((item) => ({ item, r: rand() }))
+    .sort((a, b) => a.r - b.r)
+    .slice(0, count)
+    .map(({ item }) => item)
 }
 
 export default async function handler(
@@ -41,8 +58,9 @@ export default async function handler(
       return res.status(404).json({ error: 'No data available' })
     }
 
-    const challenges = pickRandom(awards, FEATURED_COUNT)
-    const selectedTags = pickRandom(battleTags, FEATURED_COUNT)
+    const weekSeed = getWeekSeed()
+    const challenges = pickWithSeed(awards, FEATURED_COUNT, weekSeed)
+    const selectedTags = pickWithSeed(battleTags, FEATURED_COUNT, weekSeed + 1)
 
     const summaryResults = await Promise.allSettled(
       selectedTags.map((tag) =>
@@ -54,7 +72,7 @@ export default async function handler(
       ),
     )
 
-    const players = summaryResults
+    const players: FeaturedPlayer[] = summaryResults
       .filter(
         (r): r is PromiseFulfilledResult<Player[]> =>
           r.status === 'fulfilled' && r.value.length > 0,

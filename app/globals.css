@@ -46,3 +46,45 @@ main {
 * {
   box-sizing: border-box;
 }
+
+.not-found-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100vh;
+  color: #6b6565;
+}
+
+.not-found-link {
+  background-color: inherit;
+  border: 1px solid #b24141;
+  border-radius: 3px;
+  color: #b24141;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-align: center;
+  width: fit-content;
+}
+
+.not-found-link:hover {
+  background-color: #b24141;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .not-found-wrapper {
+    padding: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .not-found-wrapper {
+    color: #9c9a9a;
+  }
+
+  .not-found-link:hover {
+    color: #e6edf3;
+  }
+}

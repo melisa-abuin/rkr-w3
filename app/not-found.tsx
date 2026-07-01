@@ -1,10 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import styles from './not-found.module.css'
 
-export default function Loading() {
+export default function NotFound() {
   return (
-    <div className={styles.wrapper}>
+    <div className="not-found-wrapper">
       <Image
         priority
         alt="loading-icon"
@@ -16,7 +15,7 @@ export default function Loading() {
       <h1>Oops!</h1>
       <p>We can&apos;t seem to find the page you are looking for.</p>
       <br />
-      <Link className={styles.link} href="/">
+      <Link className="not-found-link" href="/">
         Go Back Home
       </Link>
     </div>
