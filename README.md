@@ -40,5 +40,3 @@ We welcome contributions from the community! To contribute to the development of
    For example:  
    `"feature #5: add new feature"`
 5. Open a **pull request** (PR) from your branch to the main repository, linking it to the related issue.
-
-Please make sure all PRs are tested, adhere to the commit conventions, and are related to an issue
