@@ -4,7 +4,7 @@ import PageHeader from '@/components/atoms/pageHeader'
 import AwardDetail from '@/components/molecules/awardDetail'
 import Error from '@/components/molecules/error'
 import RowCard from '@/components/molecules/rowCard'
-import { awardsStats } from '@/constants'
+import { awardsStatsApi } from '@/constants'
 import { ApiAward, AwardsData } from '@/interfaces/award'
 import { formatAwardsByCategory } from '@/utils/formatGameAwards'
 
@@ -12,7 +12,7 @@ async function fetchData(): Promise<{
   data: AwardsData | null
   error: string | null
 }> {
-  const response = await fetch(awardsStats, {
+  const response = await fetch(awardsStatsApi, {
     next: { revalidate: 480 },
   })
 

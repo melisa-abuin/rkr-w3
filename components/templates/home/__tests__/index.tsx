@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react'
-import Home from '..'
 import { discordJoinLink } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
+import { render, screen } from '@testing-library/react'
+import Home from '..'
 
 const discordDataMock = {
   data: {
@@ -35,7 +35,7 @@ describe('Home', () => {
 
     expect(screen.getByText('Run Kitty Run')).toBeInTheDocument()
     expect(
-      screen.getByText(/The famous Warcraft 3 custom map/i),
+      screen.getByText(/The statistics for the custom map from Warcraft 3/i),
     ).toBeInTheDocument()
   })
 

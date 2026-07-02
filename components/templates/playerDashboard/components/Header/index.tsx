@@ -4,7 +4,7 @@ import ColorBadge from '@/components/atoms/colorBadge'
 import Loader from '@/components/atoms/loader'
 import Tooltip from '@/components/atoms/tooltip'
 import ColorBadgeWithTooltip from '@/components/molecules/colorBadgeWithTooltip'
-import { players, topStatsConfiguration } from '@/constants'
+import { playersApi, topStatsConfiguration } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useElementInView } from '@/hooks/useElementInView'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -24,7 +24,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
   const showFloatingTitle = !isElementInView
 
   const { data, isFetching, error } = useApiQuery<Tops>(
-    `${players}/${encodeURIComponent(battleTag)}/tops`,
+    `${playersApi}/${encodeURIComponent(battleTag)}/tops`,
     undefined,
     { enabled: true },
   )

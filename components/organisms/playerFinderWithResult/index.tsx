@@ -3,7 +3,7 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { playersSummary } from '@/constants'
+import { playersSummaryApi } from '@/constants'
 import { playerFinderColumns } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
@@ -25,7 +25,7 @@ export default function PlayerFinderWithResult({
   const [battleTag, setBattleTag] = useState<string | undefined>()
 
   const { data } = useApiQuery<Array<Player>>(
-    `${playersSummary}?battleTag=${encodeURIComponent(battleTag ?? '')}`,
+    `${playersSummaryApi}?battleTag=${encodeURIComponent(battleTag ?? '')}`,
     undefined,
     { enabled: !!battleTag },
   )

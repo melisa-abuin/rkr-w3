@@ -15,7 +15,7 @@ import {
   personalBestsColumns,
   playerColumns,
   playerDifficultyColumns,
-  playersSummary,
+  playersSummaryApi,
   playerTimeColumns,
 } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
@@ -52,7 +52,7 @@ export default function PlayerDashboard({
 
   const { data, isFetching, error } = useApiQuery<Player[]>(
     compareTo
-      ? `${playersSummary}?battleTag=${encodeURIComponent(compareTo)}`
+      ? `${playersSummaryApi}?battleTag=${encodeURIComponent(compareTo)}`
       : '',
     undefined,
     { enabled: !!compareTo },

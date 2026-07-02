@@ -1,4 +1,4 @@
-import { apiUrl, mockParsedGameStats } from '@/constants'
+import { bestGameTimesTopApi, mockParsedGameStats } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -70,9 +70,7 @@ describe('BestGamesWithControls', () => {
 
     await waitFor(() => {
       expect(mockUseApiQuery).toHaveBeenCalledWith(
-        expect.stringContaining(
-          `${apiUrl}/api/bestGameTimes/top?count=20&difficulty=normal`,
-        ),
+        expect.stringContaining(`${bestGameTimesTopApi}&difficulty=normal`),
         undefined,
         expect.objectContaining({ enabled: true }),
       )

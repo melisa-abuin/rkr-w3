@@ -173,7 +173,6 @@ export interface Player {
   saves: number
   savesSingleGame: number
   saveStreak: SaveStreak
-  selectedSkin: string
   skins: Skins
   winRate: string
   wins: TotalsPerDifficulty

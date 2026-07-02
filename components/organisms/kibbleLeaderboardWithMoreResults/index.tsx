@@ -1,7 +1,7 @@
 'use client'
 
 import Table from '@/components/molecules/table'
-import { playerStatsKibbleLeaderboard } from '@/constants'
+import { playerStatsKibbleLeaderboardApi } from '@/constants'
 import { kibbleColumnsWithRender, KibbleRow } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -15,7 +15,7 @@ const FloatingKibble = dynamic(() => import('./components/floatingKibble'), {
 
 export default function KibbleLeaderboardWithMoreResults() {
   const { data, isFetching, error } = useApiQuery<KibbleLeaderboard[]>(
-    playerStatsKibbleLeaderboard,
+    playerStatsKibbleLeaderboardApi,
     undefined,
     {
       enabled: true,

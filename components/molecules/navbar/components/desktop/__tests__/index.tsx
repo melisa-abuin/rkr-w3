@@ -17,7 +17,7 @@ describe('DesktopNavbar', () => {
   })
 
   it('renders all navigation links', () => {
-    render(<DesktopNavbar hasTransparentStyle />)
+    render(<DesktopNavbar />)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('Leaderboard')).toBeInTheDocument()
@@ -26,7 +26,7 @@ describe('DesktopNavbar', () => {
   it('applies the selected style to the current page link', () => {
     mockUsePathname.mockReturnValue('/leaderboard')
 
-    render(<DesktopNavbar hasTransparentStyle={false} />)
+    render(<DesktopNavbar />)
 
     const challengesLink = screen.getByText('Leaderboard')
 

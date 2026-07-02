@@ -54,14 +54,14 @@ main {
   align-items: center;
   gap: 10px;
   height: 100vh;
-  color: #6b6565;
+  color: var(--text-color-secondary);
 }
 
 .not-found-link {
   background-color: inherit;
-  border: 1px solid #b24141;
+  border: 1px solid var(--color-primary);
   border-radius: 3px;
-  color: #b24141;
+  color: var(--color-primary);
   padding: 8px 16px;
   text-decoration: none;
   text-align: center;
@@ -69,22 +69,12 @@ main {
 }
 
 .not-found-link:hover {
-  background-color: #b24141;
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: var(--text-color-white);
 }
 
 @media (max-width: 768px) {
   .not-found-wrapper {
     padding: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .not-found-wrapper {
-    color: #9c9a9a;
-  }
-
-  .not-found-link:hover {
-    color: #e6edf3;
   }
 }

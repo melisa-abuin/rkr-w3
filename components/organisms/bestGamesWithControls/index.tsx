@@ -2,7 +2,7 @@
 
 import Badges from '@/components/molecules/badges'
 import Table from '@/components/molecules/table'
-import { bestGameTimesTop, difficultyNames } from '@/constants'
+import { bestGameTimesTopApi, difficultyNames } from '@/constants'
 import { bestGameTimesColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -19,8 +19,8 @@ export default function BestGamesWithControls() {
 
   const { data, isFetching, error } = useApiQuery<BestGameTimes>(
     difficultyFilter
-      ? `${bestGameTimesTop}&difficulty=${difficultyFilter}`
-      : bestGameTimesTop,
+      ? `${bestGameTimesTopApi}&difficulty=${difficultyFilter}`
+      : bestGameTimesTopApi,
     undefined,
     {
       enabled: true,

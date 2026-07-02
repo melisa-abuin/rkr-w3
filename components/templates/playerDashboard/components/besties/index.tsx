@@ -2,7 +2,7 @@
 
 import Button from '@/components/atoms/button'
 import Loader from '@/components/atoms/loader'
-import { bestiesGroups, playerStatsFastestBesties } from '@/constants'
+import { bestiesGroups, playerStatsFastestBestiesApi } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { BattleTag, FastestBestiesData } from '@/interfaces/player'
@@ -14,7 +14,7 @@ interface BestiesProps {
 
 export default function Besties({ battleTag }: BestiesProps) {
   const { data, isFetching, error } = useApiQuery<FastestBestiesData>(
-    `${playerStatsFastestBesties}/${encodeURIComponent(battleTag.tag)}`,
+    `${playerStatsFastestBestiesApi}/${encodeURIComponent(battleTag.tag)}`,
   )
 
   useQueryErrorToast(

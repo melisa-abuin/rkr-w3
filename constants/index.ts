@@ -4,18 +4,18 @@ import { FastestBestiesData, Kibbles, Player, Tops } from '@/interfaces/player'
 
 export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
-export const awardsStats = `${apiUrl}/api/awards/stats`
-export const playersLeaderboard = `${apiUrl}/api/players/leaderboard`
-export const players = `${apiUrl}/api/players`
-export const playersSummary = `${apiUrl}/api/players/summary`
-export const playersTimeLeaderboard = `${apiUrl}/api/players/timeLeaderboard`
-export const tournamentsFull = `${apiUrl}/api/tournaments/full`
-export const tournamentsBase = `${apiUrl}/api/tournaments`
-export const playerStats = `${apiUrl}/api/playerStats`
-export const playerStatsKibbleLeaderboard = `${apiUrl}/api/playerStats/kibbleLeaderboard`
-export const playerStatsFastestBesties = `${apiUrl}/api/playerStats/fastestBesties`
-export const bestGameTimesTop = `${apiUrl}/api/bestGameTimes/top?count=20`
-export const playerStatsDefault = `${apiUrl}/api/playerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`
+export const awardsStatsApi = `${apiUrl}/api/awards/stats`
+export const playersLeaderboardApi = `${apiUrl}/api/players/leaderboard`
+export const playersApi = `${apiUrl}/api/players`
+export const playersSummaryApi = `${apiUrl}/api/players/summary`
+export const playersTimeLeaderboardApi = `${apiUrl}/api/players/timeLeaderboard`
+export const tournamentsFullApi = `${apiUrl}/api/tournaments/full`
+export const tournamentsBaseApi = `${apiUrl}/api/tournaments`
+export const playerStatsApi = `${apiUrl}/api/playerStats`
+export const playerStatsKibbleLeaderboardApi = `${apiUrl}/api/playerStats/kibbleLeaderboard`
+export const playerStatsFastestBestiesApi = `${apiUrl}/api/playerStats/fastestBesties`
+export const bestGameTimesTopApi = `${apiUrl}/api/bestGameTimes/top?count=20`
+export const playerStatsDefaultApi = `${apiUrl}/api/playerStats/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc&pageSize=5`
 
 export const blizzardLink = 'https://www.blizzard.com/'
 

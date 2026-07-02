@@ -1,6 +1,6 @@
 import Error from '@/components/molecules/error'
 import LeaderboardTemplate from '@/components/templates/leaderboard'
-import { playersLeaderboard } from '@/constants'
+import { playersLeaderboardApi } from '@/constants'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 
 interface PlayerStatsData {
@@ -12,7 +12,7 @@ interface PlayerStatsData {
 }
 
 async function fetchData(): Promise<PlayerStatsData> {
-  const response = await fetch(playersLeaderboard, {
+  const response = await fetch(playersLeaderboardApi, {
     next: { revalidate: 480 },
   })
 

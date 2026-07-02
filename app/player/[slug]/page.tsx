@@ -1,6 +1,6 @@
 import Error from '@/components/molecules/error'
 import PlayerDashboard from '@/components/templates/playerDashboard'
-import { playersSummary } from '@/constants'
+import { playersSummaryApi } from '@/constants'
 import { Player } from '@/interfaces/player'
 import { notFound } from 'next/navigation'
 
@@ -10,7 +10,7 @@ interface PlayerStatsData {
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {
-  const response = await fetch(`${playersSummary}?battleTag=${battleTag}`, {
+  const response = await fetch(`${playersSummaryApi}?battleTag=${battleTag}`, {
     next: { revalidate: 480 },
   })
 

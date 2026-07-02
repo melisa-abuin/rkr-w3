@@ -11,7 +11,7 @@ import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
-import { playerStatsDefault, routes } from '@/constants'
+import { playerStatsDefaultApi, routes } from '@/constants'
 import { statsColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -32,7 +32,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
   } = useApiQuery<{
     stats: Player[]
     page: number
-  }>(playerStatsDefault, undefined, {
+  }>(playerStatsDefaultApi, undefined, {
     enabled: true,
   })
 

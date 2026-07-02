@@ -4,7 +4,7 @@ import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import Table from '@/components/molecules/table'
-import { difficultyNames, playerStats } from '@/constants'
+import { difficultyNames, playerStatsApi } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -56,7 +56,7 @@ export default function TableWithControls<T>({
     isFetching,
     error,
   } = useApiQuery<{ pages: number; stats?: T[] }>(
-    `${playerStats}/${apiBaseUrl}?${queryString}`,
+    `${playerStatsApi}/${apiBaseUrl}?${queryString}`,
     undefined,
     { enabled: shouldRefetch },
   )

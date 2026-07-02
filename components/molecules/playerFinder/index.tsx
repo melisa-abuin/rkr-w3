@@ -2,7 +2,7 @@
 
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
-import { players } from '@/constants'
+import { playersApi } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
@@ -39,7 +39,7 @@ export default function PlayerFinder({
   useOutsideClick(() => setShowOptions(false), wrapperRef)
 
   const { data, isFetching, error } = useApiQuery<Array<{ battleTag: string }>>(
-    players,
+    playersApi,
     debouncedQuery.length > 2 ? { battleTag: debouncedQuery } : undefined,
     {
       enabled:

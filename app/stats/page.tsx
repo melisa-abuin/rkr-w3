@@ -1,6 +1,6 @@
 import Error from '@/components/molecules/error'
 import Stats from '@/components/templates/stats'
-import { defaultScoreboardFilter, playerStats } from '@/constants'
+import { defaultScoreboardFilter, playerStatsApi } from '@/constants'
 import { Player } from '@/interfaces/player'
 import { buildSearchQuery } from '@/utils'
 
@@ -16,7 +16,7 @@ async function fetchData(
   params: SearchParams,
 ): Promise<PlayerStatsData> {
   const queryString = buildSearchQuery(params)
-  const slugUrl = `${playerStats}/${filter || defaultScoreboardFilter}`
+  const slugUrl = `${playerStatsApi}/${filter || defaultScoreboardFilter}`
 
   const response = await fetch(`${slugUrl}${queryString}`, {
     next: { revalidate: 480 },

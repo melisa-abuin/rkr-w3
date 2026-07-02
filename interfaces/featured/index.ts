@@ -1,13 +1,11 @@
-import { ApiAward } from '../award'
-import { BattleTag, RoundTimes } from '../player'
-
-export interface FeaturedPlayer {
-  battleTag: BattleTag
-  roundFive: RoundTimes
-  selectedSkin: string | undefined
+export interface FeaturedItem {
+  imageSrc: string
+  imageFallbackSrc: string
+  label: string
+  subLabel?: string
 }
 
 export interface FeaturedContent {
-  challenges: ApiAward[]
-  players: FeaturedPlayer[]
+  players: FeaturedItem[]
+  challenges: FeaturedItem[]
 }

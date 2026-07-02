@@ -3,7 +3,7 @@
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
-import { playersTimeLeaderboard, roundDifficultyNames } from '@/constants'
+import { playersTimeLeaderboardApi, roundDifficultyNames } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
@@ -35,7 +35,7 @@ export default function ColumnCardsWithControls({
     isFetching,
     error,
   } = useApiQuery<LeaderBoardData>(
-    `${playersTimeLeaderboard}?difficulty=${difficultyFilter}`,
+    `${playersTimeLeaderboardApi}?difficulty=${difficultyFilter}`,
     undefined,
     {
       enabled: !!difficultyFilter,
