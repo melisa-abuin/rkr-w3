@@ -3,7 +3,7 @@
 import Button from '@/components/atoms/button'
 import Columns from '@/components/molecules/columns'
 import PlayerFinder from '@/components/molecules/playerFinder'
-import { apiUrl } from '@/constants'
+import { playersSummaryApi } from '@/constants'
 import { playerFinderColumns } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { Player } from '@/interfaces/player'
@@ -13,17 +13,19 @@ import styles from './index.module.css'
 interface Props {
   selectedPlayer?: Player
   setSelectedPlayer?: (player: Player | undefined) => void
+  placeholder?: string
 }
 
 export default function PlayerFinderWithResult({
   selectedPlayer,
   setSelectedPlayer,
+  placeholder,
 }: Props) {
   const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
   const [battleTag, setBattleTag] = useState<string | undefined>()
 
   const { data } = useApiQuery<Array<Player>>(
-    `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(battleTag ?? '')}`,
+    `${playersSummaryApi}?battleTag=${encodeURIComponent(battleTag ?? '')}`,
     undefined,
     { enabled: !!battleTag },
   )
@@ -46,7 +48,11 @@ export default function PlayerFinderWithResult({
 
   return (
     <>
-      <PlayerFinder onClear={handleClear} onPlayerSelect={setBattleTag} />
+      <PlayerFinder
+        placeholder={placeholder}
+        onClear={handleClear}
+        onPlayerSelect={setBattleTag}
+      />
       {player && (
         <div className={styles.wrapper}>
           <Columns

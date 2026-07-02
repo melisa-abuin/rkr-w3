@@ -1,56 +1,32 @@
 # Run Kitty Run - Warcraft 3 Custom Map
 
-A web application built to help _Run Kitty Run_ players join the community Discord server and stay connected. _Run Kitty Run_ is a popular custom map for Warcraft 3 where players work together to guide their kitties through dangerous mazes filled with wolves. This website is designed to support the player base by providing resources and a place to connect.
+Statistics dashboard for _Run Kitty Run_, a Warcraft 3 custom map. Tracks player stats, leaderboards, tournaments, and challenges.
 
 ## Tech stack
 
-- [Typescript](https://www.typescriptlang.org/) as the programming language
-- [React](https://reactjs.org/) as the library for the components
-- [Jest](https://jestjs.io/) as the unit tests framework
-- [Next](https://nextjs.org/) as the web development framework
+- [Next.js](https://nextjs.org/) — framework
+- [React 19](https://react.dev/) — UI
+- [TypeScript](https://www.typescriptlang.org/) — language
+- [TanStack Query](https://tanstack.com/query) — data fetching
+- [Jest](https://jestjs.io/) — testing
 
-## Setting up and running the app in local environments
-
-First of all install the packages using:
-
-```bash
-yarn
-```
-
-Then check that you have correctly set the environmental variables:
-
-1. Create a .env.local file
-2. Add the variables **API_URL** and **ENVIRONMENT**
-3. Set ENVIRONMENT to `production` to call the production API's or to `development` to use the mocked data
-
-For running the server:
+## Setup
 
 ```bash
-yarn dev
+yarn        # install dependencies
+yarn dev    # start dev server at http://localhost:3000
 ```
 
-For statically build the app run:
+## Commands
 
-```bash
-yarn build
-yarn start
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Testing
-
-For running the unit tests you can run
-
-```bash
-yarn test
-```
-
-And finally for checking the types you can run
-
-```bash
-yarn typecheck
-```
+| Command          | Description                |
+| ---------------- | -------------------------- |
+| `yarn dev`       | Start development server   |
+| `yarn build`     | Build for production       |
+| `yarn start`     | Serve the production build |
+| `yarn test`      | Run unit tests             |
+| `yarn typecheck` | Type-check with TypeScript |
+| `yarn lint`      | Lint with ESLint           |
 
 ## Contributing
 
@@ -64,5 +40,3 @@ We welcome contributions from the community! To contribute to the development of
    For example:  
    `"feature #5: add new feature"`
 5. Open a **pull request** (PR) from your branch to the main repository, linking it to the related issue.
-
-Please make sure all PRs are tested, adhere to the commit conventions, and are related to an issue. Happy coding!

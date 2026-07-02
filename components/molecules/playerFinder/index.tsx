@@ -2,15 +2,15 @@
 
 import Input from '@/components/atoms/input'
 import { Search } from '@/components/icons/search'
+import { playersApi } from '@/constants'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { filterByBattleTag } from '@/utils/formatDataByQueryParams'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import styles from './index.module.css'
-import { useApiQuery } from '@/hooks/useApiQuery'
-import { useDebouncedValue } from '@/hooks/useDebouncedValue'
-import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import { useOutsideClick } from '@/hooks/useOutsideClick'
-import { apiUrl } from '@/constants'
-import { filterByBattleTag } from '@/utils/formatDataByQueryParams'
 
 interface Props {
   defaultValue?: string
@@ -39,7 +39,7 @@ export default function PlayerFinder({
   useOutsideClick(() => setShowOptions(false), wrapperRef)
 
   const { data, isFetching, error } = useApiQuery<Array<{ battleTag: string }>>(
-    `${apiUrl}/api/Players`,
+    playersApi,
     debouncedQuery.length > 2 ? { battleTag: debouncedQuery } : undefined,
     {
       enabled:

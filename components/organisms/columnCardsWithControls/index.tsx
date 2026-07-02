@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
-import { Difficulty } from '@/interfaces/difficulty'
-import { apiUrl, roundDifficultyNames } from '@/constants'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
-import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { playersTimeLeaderboardApi, roundDifficultyNames } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { Difficulty } from '@/interfaces/difficulty'
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { useState } from 'react'
 import styles from './index.module.css'
 
 type LeaderBoardData = LeaderboardCategories[]
@@ -35,7 +35,7 @@ export default function ColumnCardsWithControls({
     isFetching,
     error,
   } = useApiQuery<LeaderBoardData>(
-    `${apiUrl}/api/Players/timeleaderboard?difficulty=${difficultyFilter}`,
+    `${playersTimeLeaderboardApi}?difficulty=${difficultyFilter}`,
     undefined,
     {
       enabled: !!difficultyFilter,

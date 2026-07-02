@@ -1,15 +1,15 @@
 'use client'
 
-import { ReactNode } from 'react'
-import { apiUrl, difficultyNames } from '@/constants'
-import Table from '@/components/molecules/table'
 import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
+import PlayerFinder from '@/components/molecules/playerFinder'
+import Table from '@/components/molecules/table'
+import { difficultyNames, playerStatsApi } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
 import { BattleTag, Kibbles } from '@/interfaces/player'
-import PlayerFinder from '@/components/molecules/playerFinder'
+import { ReactNode } from 'react'
 import styles from './index.module.css'
 
 interface TableProps<T> {
@@ -56,7 +56,7 @@ export default function TableWithControls<T>({
     isFetching,
     error,
   } = useApiQuery<{ pages: number; stats?: T[] }>(
-    `${apiUrl}/api/PlayerStats/${apiBaseUrl}?${queryString}`,
+    `${playerStatsApi}/${apiBaseUrl}?${queryString}`,
     undefined,
     { enabled: shouldRefetch },
   )
