@@ -1,0 +1,9 @@
+.hideOnMobile {
+  display: contents;
+}
+
+@media (max-width: 480px) {
+  .hideOnMobile {
+    display: none;
+  }
+}

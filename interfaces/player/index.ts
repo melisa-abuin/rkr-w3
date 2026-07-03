@@ -180,6 +180,10 @@ export interface Player {
   mostPlayedColor: PlayerColor
 }
 
+export interface PlayerSummary extends Player {
+  selectedSkin: string
+}
+
 type RoundRanks = {
   normal: number
   hard: number

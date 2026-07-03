@@ -46,3 +46,35 @@ main {
 * {
   box-sizing: border-box;
 }
+
+.not-found-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100vh;
+  color: var(--text-color-secondary);
+}
+
+.not-found-link {
+  background-color: inherit;
+  border: 1px solid var(--color-primary);
+  border-radius: 3px;
+  color: var(--color-primary);
+  padding: 8px 16px;
+  text-decoration: none;
+  text-align: center;
+  width: fit-content;
+}
+
+.not-found-link:hover {
+  background-color: var(--color-primary);
+  color: var(--text-color-white);
+}
+
+@media (max-width: 768px) {
+  .not-found-wrapper {
+    padding: 16px;
+  }
+}

@@ -1,18 +1,18 @@
+import CardsContainer from '@/components/atoms/cardsContainer'
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import Error from '@/components/molecules/error'
-import CardsContainer from '@/components/atoms/cardsContainer'
-import RowCard from '@/components/molecules/rowCard'
 import AwardDetail from '@/components/molecules/awardDetail'
+import Error from '@/components/molecules/error'
+import RowCard from '@/components/molecules/rowCard'
+import { awardsStatsApi } from '@/constants'
 import { ApiAward, AwardsData } from '@/interfaces/award'
-import { apiUrl } from '@/constants'
 import { formatAwardsByCategory } from '@/utils/formatGameAwards'
 
 async function fetchData(): Promise<{
   data: AwardsData | null
   error: string | null
 }> {
-  const response = await fetch(`${apiUrl}/api/Awards/stats`, {
+  const response = await fetch(awardsStatsApi, {
     next: { revalidate: 480 },
   })
 

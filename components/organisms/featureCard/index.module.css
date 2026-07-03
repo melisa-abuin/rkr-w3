@@ -1,0 +1,22 @@
+.wrapper {
+  background: var(--background-highlight-secondary);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  width: 100%;
+}
+
+.title {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  margin: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}

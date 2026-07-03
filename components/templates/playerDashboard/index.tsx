@@ -1,33 +1,33 @@
 'use client'
 
+import Collapsible from '@/components/atoms/collapsible'
 import Info from '@/components/atoms/info'
 import { PageContainer } from '@/components/atoms/pageContainer'
+import Tabs from '@/components/atoms/tabs'
+import Columns from '@/components/molecules/columns'
 import Awards from '@/components/molecules/completedAwards'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
 import {
-  apiUrl,
   difficultyNames,
   kibblesColumns,
   personalBestsColumns,
   playerColumns,
   playerDifficultyColumns,
+  playersSummaryApi,
   playerTimeColumns,
 } from '@/constants'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { useToast } from '@/hooks/useToast'
 import { Player } from '@/interfaces/player'
 import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
-import styles from './index.module.css'
-import Tabs from '@/components/atoms/tabs'
-import { useApiQuery } from '@/hooks/useApiQuery'
-import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import Header from './components/Header'
-import Collapsible from '@/components/atoms/collapsible'
 import Besties from './components/besties'
-import Columns from '@/components/molecules/columns'
+import Header from './components/Header'
+import styles from './index.module.css'
 
 export default function PlayerDashboard({
   currentPlayer,
@@ -52,7 +52,7 @@ export default function PlayerDashboard({
 
   const { data, isFetching, error } = useApiQuery<Player[]>(
     compareTo
-      ? `${apiUrl}/api/Players/summary?battleTag=${encodeURIComponent(compareTo)}`
+      ? `${playersSummaryApi}?battleTag=${encodeURIComponent(compareTo)}`
       : '',
     undefined,
     { enabled: !!compareTo },

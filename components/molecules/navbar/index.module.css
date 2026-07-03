@@ -1,4 +1,6 @@
 .styledNav {
+  background: var(--background-primary);
+  box-shadow: 0 4px 6px var(--shadow-primary);
   align-items: center;
   box-sizing: border-box;
   display: flex;
@@ -9,16 +11,6 @@
   top: 0;
   width: 100%;
   z-index: 3;
-}
-
-.defaultNav {
-  background: var(--background-primary);
-  box-shadow: 0 4px 6px var(--shadow-primary);
-}
-
-.transparentNav {
-  background: transparent;
-  box-shadow: none;
 }
 
 .container {

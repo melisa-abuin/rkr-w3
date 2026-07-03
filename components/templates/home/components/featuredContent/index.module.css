@@ -1,0 +1,23 @@
+.wrapper {
+  background-color: var(--background-highlight-tertiary);
+  display: flex;
+  justify-content: center;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1000px;
+  padding-bottom: 64px;
+  padding-top: 64px;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

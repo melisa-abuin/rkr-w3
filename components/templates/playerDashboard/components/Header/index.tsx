@@ -1,16 +1,16 @@
 'use client'
 
-import { Player, Tops } from '@/interfaces/player'
-import styles from './index.module.css'
-import { countTopRounds, countZeros, formatKeyToWord } from '@/utils'
+import ColorBadge from '@/components/atoms/colorBadge'
+import Loader from '@/components/atoms/loader'
+import Tooltip from '@/components/atoms/tooltip'
+import ColorBadgeWithTooltip from '@/components/molecules/colorBadgeWithTooltip'
+import { playersApi, topStatsConfiguration } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useElementInView } from '@/hooks/useElementInView'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import Tooltip from '@/components/atoms/tooltip'
-import Loader from '@/components/atoms/loader'
-import ColorBadge from '@/components/atoms/colorBadge'
-import ColorBadgeWithTooltip from '@/components/molecules/colorBadgeWithTooltip'
-import { apiUrl, topStatsConfiguration } from '@/constants'
+import { Player, Tops } from '@/interfaces/player'
+import { countTopRounds, countZeros, formatKeyToWord } from '@/utils'
+import styles from './index.module.css'
 
 interface Props {
   battleTag: string
@@ -24,7 +24,7 @@ export default function Header({ battleTag, color, skin, title }: Props) {
   const showFloatingTitle = !isElementInView
 
   const { data, isFetching, error } = useApiQuery<Tops>(
-    `${apiUrl}/api/Players/${encodeURIComponent(battleTag)}/tops`,
+    `${playersApi}/${encodeURIComponent(battleTag)}/tops`,
     undefined,
     { enabled: true },
   )
