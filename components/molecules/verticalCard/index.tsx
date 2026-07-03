@@ -1,19 +1,21 @@
 import Image from '@/components/atoms/image'
+import LoaderCard from './components/loaderCard'
 import styles from './index.module.css'
 
-interface Props {
-  imageSrc: string
-  imageFallbackSrc: string
-  label: string
-  subLabel?: string
-}
+type Props =
+  | { loading: true }
+  | {
+      loading?: false
+      imageSrc: string
+      imageFallbackSrc: string
+      label: string
+      subLabel?: string
+    }
 
-export default function VerticalCard({
-  imageSrc,
-  imageFallbackSrc,
-  label,
-  subLabel,
-}: Props) {
+export default function VerticalCard(props: Props) {
+  if (props.loading) return <LoaderCard />
+
+  const { imageSrc, imageFallbackSrc, label, subLabel } = props
   return (
     <div className={styles.card}>
       <Image

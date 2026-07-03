@@ -14,6 +14,7 @@ interface Props {
   linkHref: string
   linkLabel: string
   items: FeatureCardItem[]
+  loading?: boolean
 }
 
 export default function FeatureCard({
@@ -21,14 +22,15 @@ export default function FeatureCard({
   linkHref,
   linkLabel,
   items,
+  loading,
 }: Props) {
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>{title}</h2>
       <div className={styles.body}>
-        {items.map((item) => (
-          <VerticalCard key={item.label} {...item} />
-        ))}
+        {loading
+          ? [...Array(3)].map((_, i) => <VerticalCard key={i} loading />)
+          : items.map((item) => <VerticalCard key={item.label} {...item} />)}
       </div>
       <Link href={linkHref}>{linkLabel}</Link>
     </div>

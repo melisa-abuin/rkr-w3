@@ -12,8 +12,21 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 const FEATURED_COUNT = 3
 
-function pickRandom<T>(arr: T[], count: number): T[] {
-  return [...arr].sort(() => Math.random() - 0.5).slice(0, count)
+function weekSeed(): number {
+  return Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000))
+}
+
+function pickWeekly<T>(arr: T[], count: number, offset = 0): T[] {
+  let s = (weekSeed() + offset) >>> 0
+  const next = () => {
+    s = (Math.imul(1664525, s) + 1013904223) >>> 0
+    return s
+  }
+  return [...arr]
+    .map((item) => ({ item, r: next() }))
+    .sort((a, b) => a.r - b.r)
+    .slice(0, count)
+    .map(({ item }) => item)
 }
 
 interface LeaderboardResponse {
@@ -66,8 +79,8 @@ export default async function handler(
       return res.status(404).json({ error: 'No data available' })
     }
 
-    const selectedChallenges = pickRandom(awards, FEATURED_COUNT)
-    const selectedTags = pickRandom(battleTags, FEATURED_COUNT)
+    const selectedChallenges = pickWeekly(awards, FEATURED_COUNT)
+    const selectedTags = pickWeekly(battleTags, FEATURED_COUNT, 1)
 
     const players: FeaturedItem[] = (
       await Promise.allSettled(
@@ -95,6 +108,10 @@ export default async function handler(
       challenges: selectedChallenges.map(toChallengeItem),
     }
 
+    res.setHeader(
+      'Cache-Control',
+      's-maxage=604800, stale-while-revalidate=86400',
+    )
     return res.status(200).json(featured)
   } catch {
     return res.status(500).json({ error: 'Internal server error' })
