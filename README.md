@@ -1,4 +1,10 @@
-# Run Kitty Run - Warcraft 3 Custom Map
+<div align="center">
+
+<img src="public/rkr-icon-primary-x64.png" alt="Run Kitty Run logo" />
+
+# Run Kitty Run - Warcraft 3 Custom Map Statistics
+
+</div>
 
 Statistics dashboard for _Run Kitty Run_, a Warcraft 3 custom map. Tracks player stats, leaderboards, tournaments, and challenges.
 
