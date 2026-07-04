@@ -1,5 +1,6 @@
-import { formattedMockData, outdatedPlayerDaysThreshold } from '@/constants'
+import { outdatedPlayerDaysThreshold } from '@/constants'
 import { Player } from '@/interfaces/player'
+import { mockPlayers as formattedMockData } from '@/mocks/data/playerStats'
 import { playerDataOutdated } from '..'
 
 const now = new Date()

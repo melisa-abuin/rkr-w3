@@ -1,5 +1,5 @@
-import { formattedMockData } from '@/constants'
 import { Player } from '@/interfaces/player'
+import { mockPlayers as formattedMockData } from '@/mocks/data/playerStats'
 import { formatComparePlayer } from '..'
 
 describe('formatComparePlayer', () => {

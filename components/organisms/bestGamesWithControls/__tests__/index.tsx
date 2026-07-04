@@ -1,6 +1,7 @@
-import { bestGameTimesTopApi, mockParsedGameStats } from '@/constants'
+import { bestGameTimesTopApi } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { mockBestGameTimes as mockParsedGameStats } from '@/mocks/data/bestGameTimes'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import BestGamesWithControls from '..'
 
