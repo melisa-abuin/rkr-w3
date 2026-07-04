@@ -20,7 +20,7 @@ describe('BestGamesWithControls', () => {
       data: undefined,
       isFetching: true,
       error: null,
-    })
+    } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<BestGamesWithControls />)
 
@@ -32,7 +32,7 @@ describe('BestGamesWithControls', () => {
       data: mockParsedGameStats,
       isFetching: false,
       error: null,
-    })
+    } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<BestGamesWithControls />)
 
@@ -46,7 +46,7 @@ describe('BestGamesWithControls', () => {
       data: [],
       isFetching: false,
       error,
-    })
+    } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<BestGamesWithControls />)
 
@@ -61,7 +61,7 @@ describe('BestGamesWithControls', () => {
       data: mockParsedGameStats,
       isFetching: false,
       error: null,
-    })
+    } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<BestGamesWithControls />)
 

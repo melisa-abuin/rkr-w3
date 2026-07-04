@@ -52,7 +52,7 @@ describe('<Header />', () => {
       data: mockedTops,
       isFetching: false,
       error: null,
-    })
+      } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<Header {...defaultProps} />)
     expect(screen.getByText('Test Title')).toBeInTheDocument()
@@ -63,7 +63,7 @@ describe('<Header />', () => {
       data: mockedTops,
       isFetching: false,
       error: null,
-    })
+      } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<Header {...defaultProps} />)
     expect(screen.getByText('Formatted HuntresKitty')).toBeInTheDocument()
@@ -74,7 +74,7 @@ describe('<Header />', () => {
       data: mockedTops,
       isFetching: false,
       error: null,
-    })
+      } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<Header {...defaultProps} />)
     expect(screen.getByText('red kitty')).toBeInTheDocument()
@@ -85,7 +85,7 @@ describe('<Header />', () => {
       data: mockedTops,
       isFetching: false,
       error: null,
-    })
+      } as unknown as ReturnType<typeof useApiQuery>)
 
     render(<Header {...defaultProps} skin="" />)
     expect(screen.queryByText(/Formatted/)).not.toBeInTheDocument()
@@ -96,7 +96,7 @@ describe('<Header />', () => {
       data: mockedTops,
       isFetching: false,
       error: null,
-    })
+      } as unknown as ReturnType<typeof useApiQuery>)
     render(<Header {...defaultProps} color={null} />)
     expect(screen.queryByText(/^red kitty$/)).not.toBeInTheDocument()
   })

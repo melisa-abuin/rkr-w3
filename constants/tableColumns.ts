@@ -1,7 +1,3 @@
-import { Difficulty } from '@/interfaces/difficulty'
-import { BestGameTime } from '@/interfaces/game'
-import { BattleTag, Kibbles, Player } from '@/interfaces/player'
-import { ReactNode } from 'react'
 import {
   renderBattleTag,
   renderCompletedChallenges,
@@ -14,6 +10,10 @@ import {
   renderTimes,
   renderTotalsPerDifficultyTooltip,
 } from '@/components/molecules/table/components/tableData'
+import { Difficulty } from '@/interfaces/difficulty'
+import { BestGameTimeFormatted } from '@/interfaces/game'
+import { BattleTag, Kibbles, Player } from '@/interfaces/player'
+import { ReactNode } from 'react'
 
 type Column<T> = {
   title: string
@@ -112,7 +112,7 @@ export const kibbleColumnsWithRender: Column<KibbleRow>[] = [
   { title: 'Super Jackpots', key: 'superJackpots' },
 ]
 
-export const bestGameTimesColumnsWithRender: Column<BestGameTime>[] = [
+export const bestGameTimesColumnsWithRender: Column<BestGameTimeFormatted>[] = [
   {
     title: 'Time',
     key: 'totalTime',

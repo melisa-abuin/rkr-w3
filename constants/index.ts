@@ -1,5 +1,5 @@
 import { Difficulty } from '@/interfaces/difficulty'
-import { BestGameTime } from '@/interfaces/game'
+import { BestGameTimeFormatted } from '@/interfaces/game'
 import { FastestBestiesData, Kibbles, Player, Tops } from '@/interfaces/player'
 
 export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
@@ -227,7 +227,7 @@ export const bestGameTimesColumns = [
   { title: 'Players', key: 'teamMembers' },
   { title: 'Difficulty', key: 'difficulty' },
   { title: 'Date', key: 'date' },
-] satisfies { title: string; key: keyof BestGameTime }[]
+] satisfies { title: string; key: keyof BestGameTimeFormatted }[]
 
 export const kibbleColumns = [
   { title: 'Player', key: 'battleTag' },
@@ -697,7 +697,7 @@ export const formattedMockData: Player[] = [
   },
 ]
 
-export const mockParsedGameStats: BestGameTime[] = [
+export const mockParsedGameStats: BestGameTimeFormatted[] = [
   {
     difficulty: 'hard',
     date: '2025-03-08 21:49:56',

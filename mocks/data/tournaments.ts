@@ -1,3 +1,3 @@
-import { ApiTournament } from '@/interfaces/tournament'
+import { Tournament } from '@/interfaces/tournament'
 
-export const mockTournaments: ApiTournament[] = []
+export const mockTournaments: Tournament[] = []

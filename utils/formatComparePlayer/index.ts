@@ -1,8 +1,8 @@
+import { Difficulty } from '@/interfaces/difficulty'
 import { Player } from '@/interfaces/player'
+import { isTimeKey, isTimeKeyWithDiff } from '../checkKeyType'
 import { formatSecondsAsTime } from '../formatSecondsAsTime'
 import { getSortConditionByKey, getValueForKey } from '../getSortConditionByKey'
-import { Difficulty } from '@/interfaces/difficulty'
-import { isTimeKey, isTimeKeyWithDiff } from '../checkKeyType'
 import { isRoundDifficultyAvailable } from '../isRoundDifficultyAvailable'
 
 /**

@@ -1,6 +1,13 @@
 import { Difficulty } from '../difficulty'
 
 export interface GameStats {
+  GameDate: string
+  Difficulty: Difficulty
+  Data: string
+  Invalid: number
+}
+
+export interface GameStatsFormatted {
   difficulty: Difficulty
   date: string
   teamMembers: string
@@ -12,7 +19,7 @@ export interface GameStats {
   time: number
 }
 
-export interface BestGameTime {
+export interface BestGameTimeFormatted {
   difficulty: Difficulty
   date: string
   teamMembers: string
@@ -24,12 +31,4 @@ export interface BestGameTime {
   totalTime: number
 }
 
-export type BestGameTimes = BestGameTime[]
-
-export interface ApiGameStats {
-  GameDate: string
-  Difficulty: Difficulty
-  Data: string
-  Invalid: number
-}
-export type GamesStats = GameStats[]
+export type BestGameTimesFormatted = BestGameTimeFormatted[]

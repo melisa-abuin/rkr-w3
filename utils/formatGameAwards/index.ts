@@ -1,7 +1,9 @@
-import { ApiAward, AwardsData } from '@/interfaces/award'
+import { Award, AwardsDataFormatted } from '@/interfaces/award'
 
-export const formatAwardsByCategory = (entries: ApiAward[]): AwardsData => {
-  const grouped = new Map<string, ApiAward[]>()
+export const formatAwardsByCategory = (
+  entries: Award[],
+): AwardsDataFormatted => {
+  const grouped = new Map<string, Award[]>()
   for (const entry of entries) {
     const bucket = grouped.get(entry.category) ?? []
     bucket.push(entry)

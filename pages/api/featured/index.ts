@@ -3,7 +3,7 @@ import {
   playersLeaderboardApi,
   playersSummaryApi,
 } from '@/constants'
-import { ApiAward } from '@/interfaces/award'
+import { Award } from '@/interfaces/award'
 import { FeaturedContent, FeaturedItem } from '@/interfaces/featured'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { BattleTag, PlayerSummary } from '@/interfaces/player'
@@ -43,7 +43,7 @@ const toPlayerItem = (p: PlayerSummary): FeaturedItem => ({
   subLabel: formatSecondsAsTime(p.roundFive?.best?.time),
 })
 
-const toChallengeItem = (c: ApiAward): FeaturedItem => ({
+const toChallengeItem = (c: Award): FeaturedItem => ({
   imageSrc: `/awards/${c.key[0].toLowerCase()}${c.key.slice(1)}.png`,
   imageFallbackSrc: '/awards/fallback.png',
   label: c.displayName,
@@ -64,7 +64,7 @@ export default async function handler(
       return res.status(502).json({ error: 'Failed to fetch featured data' })
     }
 
-    const awards: ApiAward[] = await awardsRes.json()
+    const awards: Award[] = await awardsRes.json()
     const leaderboard: LeaderboardResponse = await leaderboardRes.json()
 
     const allTags = leaderboard.stats.flatMap((category) =>

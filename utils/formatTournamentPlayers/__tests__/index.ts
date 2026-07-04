@@ -1,9 +1,7 @@
+import { Tournament } from '@/interfaces/tournament'
 import { formatTournamentPlayers } from '..'
-import { ApiTournament } from '@/interfaces/tournament'
 
-const makeTournament = (
-  overrides: Partial<ApiTournament> = {},
-): ApiTournament => ({
+const makeTournament = (overrides: Partial<Tournament> = {}): Tournament => ({
   tournament: {
     id: 1,
     tournament_id: 'T1',

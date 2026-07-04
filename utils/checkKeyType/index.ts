@@ -1,5 +1,5 @@
-import { Player } from '@/interfaces/player'
 import { Difficulty } from '@/interfaces/difficulty'
+import { Player } from '@/interfaces/player'
 
 export const roundKeys = [
   'roundOne',

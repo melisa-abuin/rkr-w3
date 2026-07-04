@@ -23,7 +23,7 @@ describe('Home', () => {
       data: undefined,
       isFetching: true,
       error: null,
-    })
+    } as unknown as ReturnType<typeof useApiQuery>)
   })
 
   afterEach(() => {

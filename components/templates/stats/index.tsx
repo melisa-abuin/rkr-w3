@@ -2,22 +2,22 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import HelpInfo from '@/components/molecules/helpInfo'
 import Tabs from '@/components/atoms/tabs'
-import { Player } from '@/interfaces/player'
+import HelpInfo from '@/components/molecules/helpInfo'
 import TableWithControls from '@/components/organisms/tableWithControls'
 import { statsPageVariants } from '@/constants'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { Difficulty } from '@/interfaces/difficulty'
-import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import {
   kibbleColumnsWithRender,
   KibbleRow,
   statsColumnsWithRender,
   timeAllDiffColumnsWithRender,
 } from '@/constants/tableColumns'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { Difficulty } from '@/interfaces/difficulty'
 import { KibbleStats } from '@/interfaces/leaderboard'
+import { Player } from '@/interfaces/player'
+import { useSearchParams } from 'next/navigation'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface AllStatsData {
   data: { pages: number; stats?: Player[] | KibbleStats[] }
@@ -229,7 +229,10 @@ export default function Stats({ data, filter }: AllStatsData) {
                 {...commonProps}
                 key={apiBaseUrl}
                 columns={
-                  renderedColumns as { title: string; key: keyof Player }[]
+                  renderedColumns as {
+                    title: string
+                    key: keyof Player
+                  }[]
                 }
                 data={{
                   pages: data.pages,

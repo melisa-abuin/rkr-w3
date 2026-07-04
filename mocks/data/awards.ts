@@ -1,6 +1,6 @@
-import { ApiAward } from '@/interfaces/award'
+import { Award } from '@/interfaces/award'
 
-export const mockAwardsStats: ApiAward[] = [
+export const mockAwardsStats: Award[] = [
   {
     key: 'ButterflyAura',
     status: 1,

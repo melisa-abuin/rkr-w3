@@ -15,7 +15,7 @@ const mockUseIsScrollAtTop = vi.mocked(useIsScrollAtTop)
 
 describe('MobileNavbar', () => {
   beforeEach(() => {
-    mockUseIsScrollAtTop.mockReturnValue([true])
+    mockUseIsScrollAtTop.mockReturnValue([true, vi.fn()])
   })
 
   afterEach(() => {

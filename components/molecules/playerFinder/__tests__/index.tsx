@@ -20,16 +20,19 @@ describe('PlayerFinder', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseApiQuery.mockImplementation((_url, params) => ({
-      data:
-        params?.battleTag === 'zzz'
-          ? []
-          : params?.battleTag
-            ? [{ battleTag: 'Alpha#1234' }]
-            : undefined,
-      isFetching: false,
-      error: null,
-    }))
+    mockUseApiQuery.mockImplementation(
+      (_url, params) =>
+        ({
+          data:
+            params?.battleTag === 'zzz'
+              ? []
+              : params?.battleTag
+                ? [{ battleTag: 'Alpha#1234' }]
+                : undefined,
+          isFetching: false,
+          error: null,
+        }) as unknown as ReturnType<typeof useApiQuery>,
+    )
   })
 
   it('renders with the default placeholder', () => {

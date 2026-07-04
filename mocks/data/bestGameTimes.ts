@@ -1,3 +1,3 @@
-import { BestGameTime } from '@/interfaces/game'
+import { BestGameTimeFormatted } from '@/interfaces/game'
 
-export const mockBestGameTimes: BestGameTime[] = []
+export const mockBestGameTimes: BestGameTimeFormatted[] = []
