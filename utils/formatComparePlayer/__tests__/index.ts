@@ -6,7 +6,7 @@ describe('formatComparePlayer', () => {
   const mockedPlayers: Player[] = [...formattedMockData]
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('formats data correctly', () => {

@@ -3,7 +3,7 @@ import ColorBadge from '..'
 
 describe('ColorBadge', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   it('renders children', () => {

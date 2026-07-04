@@ -4,15 +4,15 @@ import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import BestGamesWithControls from '..'
 
-jest.mock('@/hooks/useApiQuery')
-jest.mock('@/hooks/useQueryErrorToast')
+vi.mock('@/hooks/useApiQuery')
+vi.mock('@/hooks/useQueryErrorToast')
 
-const mockUseApiQuery = useApiQuery as jest.Mock
-const mockUseQueryErrorToast = useQueryErrorToast as jest.Mock
+const mockUseApiQuery = vi.mocked(useApiQuery)
+const mockUseQueryErrorToast = vi.mocked(useQueryErrorToast)
 
 describe('BestGamesWithControls', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders loading state initially', () => {

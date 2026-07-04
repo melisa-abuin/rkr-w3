@@ -17,30 +17,30 @@ const HookHarness = ({ offsetTop = 0 }: { offsetTop?: number }) => {
 
 describe('useElementInView', () => {
   const originalIntersectionObserver = global.IntersectionObserver
-  let observeMock: jest.Mock
-  let disconnectMock: jest.Mock
+  let observeMock: ReturnType<typeof vi.fn>
+  let disconnectMock: ReturnType<typeof vi.fn>
   let intersectionCallback: IntersectionObserverCallback
   let observerOptions: IntersectionObserverInit | undefined
 
   beforeEach(() => {
-    observeMock = jest.fn()
-    disconnectMock = jest.fn()
+    observeMock = vi.fn()
+    disconnectMock = vi.fn()
 
-    global.IntersectionObserver = jest
+    global.IntersectionObserver = vi
       .fn()
       .mockImplementation(
-        (
+        function (
           cb: IntersectionObserverCallback,
           options?: IntersectionObserverInit,
-        ) => {
+        ) {
           intersectionCallback = cb
           observerOptions = options
 
           return {
             observe: observeMock,
             disconnect: disconnectMock,
-            unobserve: jest.fn(),
-            takeRecords: jest.fn(() => []),
+            unobserve: vi.fn(),
+            takeRecords: vi.fn(() => []),
             root: null,
             rootMargin: options?.rootMargin || '0px',
             thresholds: Array.isArray(options?.threshold)
@@ -53,7 +53,7 @@ describe('useElementInView', () => {
 
   afterEach(() => {
     global.IntersectionObserver = originalIntersectionObserver
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('should start as in view and observe the element', () => {

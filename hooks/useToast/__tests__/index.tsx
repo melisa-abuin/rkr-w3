@@ -19,11 +19,11 @@ const TestComponent = () => {
 
 describe('ToastProvider', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
+    vi.useFakeTimers()
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('renders children', async () => {
@@ -47,14 +47,14 @@ describe('ToastProvider', () => {
     expect(screen.getByText('Test error')).toBeInTheDocument()
 
     act(() => {
-      jest.advanceTimersByTime(2000)
+      vi.advanceTimersByTime(2000)
     })
 
     expect(screen.queryByText('Test error')).not.toBeInTheDocument()
   })
 
   it('removes toast messages after clicking on toast', async () => {
-    jest.useRealTimers()
+    vi.useRealTimers()
 
     render(
       <ToastProvider>
@@ -71,7 +71,7 @@ describe('ToastProvider', () => {
   })
 
   it('shows waning message when specified', async () => {
-    jest.useRealTimers()
+    vi.useRealTimers()
 
     render(
       <ToastProvider>

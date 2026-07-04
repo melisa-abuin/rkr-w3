@@ -3,23 +3,23 @@ import userEvent from '@testing-library/user-event'
 import PlayerFinder from '..'
 import { useApiQuery } from '@/hooks/useApiQuery'
 
-jest.mock('@/hooks/useApiQuery')
-jest.mock('@/hooks/useQueryErrorToast')
-jest.mock('@/hooks/useDebouncedValue', () => ({
-  useDebouncedValue: jest.fn((value: string) => value),
+vi.mock('@/hooks/useApiQuery')
+vi.mock('@/hooks/useQueryErrorToast')
+vi.mock('@/hooks/useDebouncedValue', () => ({
+  useDebouncedValue: vi.fn((value: string) => value),
 }))
-jest.mock('@/hooks/useOutsideClick', () => ({
-  useOutsideClick: jest.fn(),
+vi.mock('@/hooks/useOutsideClick', () => ({
+  useOutsideClick: vi.fn(),
 }))
 
-const mockUseApiQuery = useApiQuery as jest.Mock
+const mockUseApiQuery = vi.mocked(useApiQuery)
 
 describe('PlayerFinder', () => {
-  const onClear = jest.fn()
-  const onPlayerSelect = jest.fn()
+  const onClear = vi.fn()
+  const onPlayerSelect = vi.fn()
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     mockUseApiQuery.mockImplementation((_url, params) => ({
       data:
         params?.battleTag === 'zzz'
@@ -40,7 +40,7 @@ describe('PlayerFinder', () => {
 
   it('calls custom onChange when provided', async () => {
     const user = userEvent.setup()
-    const onChange = jest.fn()
+    const onChange = vi.fn()
 
     render(
       <PlayerFinder

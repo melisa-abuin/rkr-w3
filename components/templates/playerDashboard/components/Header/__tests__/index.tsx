@@ -2,16 +2,19 @@ import { render, screen } from '@testing-library/react'
 import Header from '..'
 import { useApiQuery } from '@/hooks/useApiQuery'
 
-jest.mock('@/hooks/useApiQuery')
-jest.mock('@/hooks/useQueryErrorToast')
+vi.mock('@/hooks/useApiQuery')
+vi.mock('@/hooks/useQueryErrorToast')
 
-const mockUseApiQuery = useApiQuery as jest.Mock
+const mockUseApiQuery = vi.mocked(useApiQuery)
 
-jest.mock('@/utils', () => ({
-  ...jest.requireActual('@/utils'),
-  formatKeyToWord: jest.fn((key) => `Formatted ${key}`),
-  hexToRgba: jest.fn((hex, alpha) => `rgba-from-${hex}-alpha-${alpha}`),
-}))
+vi.mock('@/utils', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/utils')>()
+  return {
+    ...actual,
+    formatKeyToWord: vi.fn((key) => `Formatted ${key}`),
+    hexToRgba: vi.fn((hex, alpha) => `rgba-from-${hex}-alpha-${alpha}`),
+  }
+})
 
 describe('<Header />', () => {
   const defaultProps = {
@@ -41,7 +44,7 @@ describe('<Header />', () => {
   }
 
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders the title', () => {

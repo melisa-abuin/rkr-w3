@@ -7,9 +7,9 @@ interface ImageProps {
   alt: string
   onError: () => void
 }
-jest.mock('next/image', () => ({
+vi.mock('next/image', () => ({
   __esModule: true,
-  default: jest.fn(({ src, alt, onError }: ImageProps) => (
+  default: vi.fn(({ src, alt, onError }: ImageProps) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img alt={alt} src={src} onError={onError} />
   )),

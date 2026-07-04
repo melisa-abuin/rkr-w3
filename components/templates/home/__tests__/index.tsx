@@ -12,10 +12,10 @@ const discordDataMock = {
   loading: false,
 }
 
-jest.mock('@/hooks/useApiQuery')
-jest.mock('@/hooks/useQueryErrorToast')
+vi.mock('@/hooks/useApiQuery')
+vi.mock('@/hooks/useQueryErrorToast')
 
-const mockUseApiQuery = useApiQuery as jest.Mock
+const mockUseApiQuery = vi.mocked(useApiQuery)
 
 describe('Home', () => {
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('Home', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders the title and description', () => {

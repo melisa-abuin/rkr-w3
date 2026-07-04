@@ -9,7 +9,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 describe('useDownloadStats', () => {
   it('calls the API and returns a blob', async () => {
     const fakeBlob = new Blob(['test content'], { type: 'text/plain' })
-    global.fetch = jest.fn().mockResolvedValue({
+    global.fetch = vi.fn().mockResolvedValue({
       ok: true,
       blob: () => Promise.resolve(fakeBlob),
     })
@@ -29,7 +29,7 @@ describe('useDownloadStats', () => {
   })
 
   it('handles errors', async () => {
-    global.fetch = jest.fn().mockResolvedValue({
+    global.fetch = vi.fn().mockResolvedValue({
       ok: false,
       status: 500,
     })
