@@ -1,7 +1,7 @@
+import { useApiQuery } from '@/hooks/useApiQuery'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PlayerFinder from '..'
-import { useApiQuery } from '@/hooks/useApiQuery'
 
 vi.mock('@/hooks/useApiQuery')
 vi.mock('@/hooks/useQueryErrorToast')

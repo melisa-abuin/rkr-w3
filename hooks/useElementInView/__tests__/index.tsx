@@ -26,29 +26,25 @@ describe('useElementInView', () => {
     observeMock = vi.fn()
     disconnectMock = vi.fn()
 
-    global.IntersectionObserver = vi
-      .fn()
-      .mockImplementation(
-        function (
-          cb: IntersectionObserverCallback,
-          options?: IntersectionObserverInit,
-        ) {
-          intersectionCallback = cb
-          observerOptions = options
+    global.IntersectionObserver = vi.fn().mockImplementation(function (
+      cb: IntersectionObserverCallback,
+      options?: IntersectionObserverInit,
+    ) {
+      intersectionCallback = cb
+      observerOptions = options
 
-          return {
-            observe: observeMock,
-            disconnect: disconnectMock,
-            unobserve: vi.fn(),
-            takeRecords: vi.fn(() => []),
-            root: null,
-            rootMargin: options?.rootMargin || '0px',
-            thresholds: Array.isArray(options?.threshold)
-              ? options.threshold
-              : [options?.threshold || 0],
-          }
-        },
-      ) as unknown as typeof IntersectionObserver
+      return {
+        observe: observeMock,
+        disconnect: disconnectMock,
+        unobserve: vi.fn(),
+        takeRecords: vi.fn(() => []),
+        root: null,
+        rootMargin: options?.rootMargin || '0px',
+        thresholds: Array.isArray(options?.threshold)
+          ? options.threshold
+          : [options?.threshold || 0],
+      }
+    }) as unknown as typeof IntersectionObserver
   })
 
   afterEach(() => {

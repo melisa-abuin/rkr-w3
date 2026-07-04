@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react'
 import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
-import MobileNavbar from '..'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import MobileNavbar from '..'
 
 vi.mock('next/navigation', () => ({
   usePathname: vi.fn(),

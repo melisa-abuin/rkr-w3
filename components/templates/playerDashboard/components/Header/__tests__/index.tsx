@@ -1,6 +1,6 @@
+import { useApiQuery } from '@/hooks/useApiQuery'
 import { render, screen } from '@testing-library/react'
 import Header from '..'
-import { useApiQuery } from '@/hooks/useApiQuery'
 
 vi.mock('@/hooks/useApiQuery')
 vi.mock('@/hooks/useQueryErrorToast')
