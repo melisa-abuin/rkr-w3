@@ -1,12 +1,8 @@
-import { useApiQuery } from '@/hooks/useApiQuery'
-import { mockTops } from '@/mocks/data/playerStats'
-import { render, screen } from '@testing-library/react'
+import { renderWithClient } from '@/mocks/testUtils'
+import { screen } from '@testing-library/react'
 import Header from '..'
 
-vi.mock('@/hooks/useApiQuery')
 vi.mock('@/hooks/useQueryErrorToast')
-
-const mockUseApiQuery = vi.mocked(useApiQuery)
 
 vi.mock('@/utils', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/utils')>()
@@ -29,57 +25,32 @@ describe('<Header />', () => {
     vi.clearAllMocks()
   })
 
-  it('renders the title', () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockTops,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<Header {...defaultProps} />)
-    expect(screen.getByText('Test Title')).toBeInTheDocument()
+  it('renders the title', async () => {
+    renderWithClient(<Header {...defaultProps} />)
+    expect(await screen.findByText('Test Title')).toBeInTheDocument()
   })
 
-  it('renders the formatted skin badge', () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockTops,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<Header {...defaultProps} />)
-    expect(screen.getByText('Formatted HuntresKitty')).toBeInTheDocument()
+  it('renders the formatted skin badge', async () => {
+    renderWithClient(<Header {...defaultProps} />)
+    expect(
+      await screen.findByText('Formatted HuntresKitty'),
+    ).toBeInTheDocument()
   })
 
-  it('renders the color badge with correct text and style', () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockTops,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<Header {...defaultProps} />)
-    expect(screen.getByText('red kitty')).toBeInTheDocument()
+  it('renders the color badge with correct text and style', async () => {
+    renderWithClient(<Header {...defaultProps} />)
+    expect(await screen.findByText('red kitty')).toBeInTheDocument()
   })
 
-  it('does not render skin badge if skin is not provided', () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockTops,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<Header {...defaultProps} skin="" />)
+  it('does not render skin badge if skin is not provided', async () => {
+    renderWithClient(<Header {...defaultProps} skin="" />)
+    await screen.findByText('Test Title')
     expect(screen.queryByText(/Formatted/)).not.toBeInTheDocument()
   })
 
-  it('does not render color badge if color is not provided', () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockTops,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-    render(<Header {...defaultProps} color={null} />)
+  it('does not render color badge if color is not provided', async () => {
+    renderWithClient(<Header {...defaultProps} color={null} />)
+    await screen.findByText('Test Title')
     expect(screen.queryByText(/^red kitty$/)).not.toBeInTheDocument()
   })
 })

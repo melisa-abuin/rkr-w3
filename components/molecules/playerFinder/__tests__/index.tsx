@@ -1,10 +1,12 @@
-import { useApiQuery } from '@/hooks/useApiQuery'
+import { playersApi } from '@/constants'
 import { mockPlayerSearchResults } from '@/mocks/data/players'
-import { render, screen } from '@testing-library/react'
+import { server } from '@/mocks/server'
+import { renderWithClient } from '@/mocks/testUtils'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { http, HttpResponse } from 'msw'
 import PlayerFinder from '..'
 
-vi.mock('@/hooks/useApiQuery')
 vi.mock('@/hooks/useQueryErrorToast')
 vi.mock('@/hooks/useDebouncedValue', () => ({
   useDebouncedValue: vi.fn((value: string) => value),
@@ -13,31 +15,21 @@ vi.mock('@/hooks/useOutsideClick', () => ({
   useOutsideClick: vi.fn(),
 }))
 
-const mockUseApiQuery = vi.mocked(useApiQuery)
-
 describe('PlayerFinder', () => {
   const onClear = vi.fn()
   const onPlayerSelect = vi.fn()
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockUseApiQuery.mockImplementation(
-      (_url, params) =>
-        ({
-          data:
-            params?.battleTag === 'zzz'
-              ? []
-              : params?.battleTag
-                ? mockPlayerSearchResults
-                : undefined,
-          isFetching: false,
-          error: null,
-        }) as unknown as ReturnType<typeof useApiQuery>,
+    server.use(
+      http.get(playersApi, () => HttpResponse.json(mockPlayerSearchResults)),
     )
   })
 
   it('renders with the default placeholder', () => {
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     expect(screen.getByPlaceholderText('Search a player')).toBeInTheDocument()
   })
@@ -46,7 +38,7 @@ describe('PlayerFinder', () => {
     const user = userEvent.setup()
     const onChange = vi.fn()
 
-    render(
+    renderWithClient(
       <PlayerFinder
         onChange={onChange}
         onClear={onClear}
@@ -62,7 +54,9 @@ describe('PlayerFinder', () => {
   it('shows options and selects a player', async () => {
     const user = userEvent.setup()
 
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     const input = screen.getByRole('textbox')
     await user.click(input)
@@ -79,7 +73,9 @@ describe('PlayerFinder', () => {
   it('shows no results for an empty response', async () => {
     const user = userEvent.setup()
 
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     const input = screen.getByRole('textbox')
     await user.click(input)
@@ -91,7 +87,9 @@ describe('PlayerFinder', () => {
   it('clears the query and calls onClear', async () => {
     const user = userEvent.setup()
 
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     const input = screen.getByRole('textbox')
     await user.type(input, 'alpha')

@@ -1,15 +1,16 @@
 import { bestGameTimesTopApi } from '@/constants'
-import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { mockBestGameTimes as mockParsedGameStats } from '@/mocks/data/bestGameTimes'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { server } from '@/mocks/server'
+import { renderWithClient } from '@/mocks/testUtils'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
+import { http, HttpResponse } from 'msw'
 import BestGamesWithControls from '..'
 
-vi.mock('@/hooks/useApiQuery')
 vi.mock('@/hooks/useQueryErrorToast')
 
-const mockUseApiQuery = vi.mocked(useApiQuery)
 const mockUseQueryErrorToast = vi.mocked(useQueryErrorToast)
+const bestGameTimesTopPath = bestGameTimesTopApi.split('?')[0]
 
 describe('BestGamesWithControls', () => {
   beforeEach(() => {
@@ -17,64 +18,52 @@ describe('BestGamesWithControls', () => {
   })
 
   it('renders loading state initially', () => {
-    mockUseApiQuery.mockReturnValue({
-      data: undefined,
-      isFetching: true,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<BestGamesWithControls />)
+    renderWithClient(<BestGamesWithControls />)
 
     expect(screen.getAllByRole('progressbar')).not.toHaveLength(0)
   })
 
   it('renders data when loaded', async () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockParsedGameStats,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<BestGamesWithControls />)
+    renderWithClient(<BestGamesWithControls />)
 
     expect(await screen.findAllByText('Matt')).not.toHaveLength(0)
     expect(screen.getAllByText(/normal/i).length).toBeGreaterThan(0)
   })
 
-  it('calls useQueryErrorToast on error', () => {
-    const error = new Error('Test error')
-    mockUseApiQuery.mockReturnValue({
-      data: [],
-      isFetching: false,
-      error,
-    } as unknown as ReturnType<typeof useApiQuery>)
-
-    render(<BestGamesWithControls />)
-
-    expect(mockUseQueryErrorToast).toHaveBeenCalledWith(
-      error,
-      expect.stringContaining("Couldn't load best game times"),
+  it('calls useQueryErrorToast on error', async () => {
+    server.use(
+      http.get(
+        bestGameTimesTopPath,
+        () => new HttpResponse(null, { status: 500 }),
+      ),
     )
+
+    renderWithClient(<BestGamesWithControls />)
+
+    await waitFor(() => {
+      expect(mockUseQueryErrorToast).toHaveBeenCalledWith(
+        expect.any(Error),
+        expect.stringContaining("Couldn't load best game times"),
+      )
+    })
   })
 
   it('filters by difficulty when a badge is clicked', async () => {
-    mockUseApiQuery.mockReturnValue({
-      data: mockParsedGameStats,
-      isFetching: false,
-      error: null,
-    } as unknown as ReturnType<typeof useApiQuery>)
+    let lastRequestUrl = ''
+    server.use(
+      http.get(bestGameTimesTopPath, ({ request }) => {
+        lastRequestUrl = request.url
+        return HttpResponse.json(mockParsedGameStats)
+      }),
+    )
 
-    render(<BestGamesWithControls />)
+    renderWithClient(<BestGamesWithControls />)
+    await screen.findAllByText('Matt')
 
-    const badge = screen.getByRole('button', { name: /normal/i })
-    fireEvent.click(badge)
+    fireEvent.click(screen.getByRole('button', { name: /normal/i }))
 
     await waitFor(() => {
-      expect(mockUseApiQuery).toHaveBeenCalledWith(
-        expect.stringContaining(`${bestGameTimesTopApi}&difficulty=normal`),
-        undefined,
-        expect.objectContaining({ enabled: true }),
-      )
+      expect(lastRequestUrl).toContain('difficulty=normal')
     })
   })
 })
