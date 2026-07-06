@@ -1,4 +1,5 @@
 import { useApiQuery } from '@/hooks/useApiQuery'
+import { mockPlayerSearchResults } from '@/mocks/data/players'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import PlayerFinder from '..'
@@ -27,7 +28,7 @@ describe('PlayerFinder', () => {
             params?.battleTag === 'zzz'
               ? []
               : params?.battleTag
-                ? [{ battleTag: 'Alpha#1234' }]
+                ? mockPlayerSearchResults
                 : undefined,
           isFetching: false,
           error: null,

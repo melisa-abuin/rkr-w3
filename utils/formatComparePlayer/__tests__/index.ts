@@ -1,62 +1,53 @@
-import { Player } from '@/interfaces/player'
 import { mockPlayers as formattedMockData } from '@/mocks/data/playerStats'
 import { formatComparePlayer } from '..'
 
 describe('formatComparePlayer', () => {
-  const mockedPlayers: Player[] = [...formattedMockData]
+  const [player0, player1] = formattedMockData
+
+  const savesColumn = [{ title: 'Saves', key: 'saves' }] as const
+  const roundOneColumn = [{ title: 'Round One', key: 'roundOne' }] as const
+  const roundFiveColumn = [{ title: 'Round Five', key: 'roundFive' }] as const
 
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
   it('formats data correctly', () => {
-    const testColumns = [{ title: 'Saves', key: 'saves' }] as const
-
     const result = formatComparePlayer(
-      {
-        ...mockedPlayers[0],
-      },
-      {
-        ...mockedPlayers[1],
-      },
-      testColumns,
+      { ...player0 },
+      { ...player1 },
+      savesColumn,
       undefined,
     )
     expect(result).toHaveLength(2)
   })
 
   it('matches the expected shape when comparing two players', () => {
-    const testColumns = [{ title: 'Saves', key: 'saves' }] as const
-
     const result = formatComparePlayer(
-      {
-        ...mockedPlayers[0],
-      },
-      {
-        ...mockedPlayers[1],
-      },
-      testColumns,
+      { ...player0 },
+      { ...player1 },
+      savesColumn,
       undefined,
     )
 
     expect(result).toStrictEqual([
       {
-        title: 'Pablo',
+        title: player0.battleTag.name,
         columns: [
           {
             description: 'Saves',
             highlight: true,
-            value: 305,
+            value: player0.saves,
           },
         ],
       },
       {
-        title: 'Gonza',
+        title: player1.battleTag.name,
         columns: [
           {
             description: 'Saves',
             highlight: false,
-            value: 280,
+            value: player1.saves,
           },
         ],
       },
@@ -64,14 +55,10 @@ describe('formatComparePlayer', () => {
   })
 
   it('matches the expected shape when there`s only one player', () => {
-    const testColumns = [{ title: 'Saves', key: 'saves' }] as const
-
     const result = formatComparePlayer(
-      {
-        ...mockedPlayers[0],
-      },
+      { ...player0 },
       undefined,
-      testColumns,
+      savesColumn,
       undefined,
     )
     expect(result).toStrictEqual([
@@ -81,7 +68,7 @@ describe('formatComparePlayer', () => {
           {
             description: 'Saves',
             highlight: false,
-            value: 305,
+            value: player0.saves,
           },
         ],
       },
@@ -89,22 +76,16 @@ describe('formatComparePlayer', () => {
   })
 
   it('highlights the fastest time', () => {
-    const testColumns = [{ title: 'Round One', key: 'roundOne' }] as const
-
     const result = formatComparePlayer(
-      {
-        ...mockedPlayers[0],
-      },
-      {
-        ...mockedPlayers[1],
-      },
-      testColumns,
+      { ...player0 },
+      { ...player1 },
+      roundOneColumn,
       undefined,
     )
 
     expect(result).toStrictEqual([
       {
-        title: 'Pablo',
+        title: player0.battleTag.name,
         columns: [
           {
             description: 'Round One',
@@ -114,7 +95,7 @@ describe('formatComparePlayer', () => {
         ],
       },
       {
-        title: 'Gonza',
+        title: player1.battleTag.name,
         columns: [
           {
             description: 'Round One',
@@ -127,22 +108,16 @@ describe('formatComparePlayer', () => {
   })
 
   it('highlights the fastest time when difficulty is passed as param', () => {
-    const testColumns = [{ title: 'Round Five', key: 'roundFive' }] as const
-
     const result = formatComparePlayer(
-      {
-        ...mockedPlayers[0],
-      },
-      {
-        ...mockedPlayers[1],
-      },
-      testColumns,
+      { ...player0 },
+      { ...player1 },
+      roundFiveColumn,
       'hard',
     )
 
     expect(result).toStrictEqual([
       {
-        title: 'Pablo',
+        title: player0.battleTag.name,
         columns: [
           {
             description: 'Round Five',
@@ -152,7 +127,7 @@ describe('formatComparePlayer', () => {
         ],
       },
       {
-        title: 'Gonza',
+        title: player1.battleTag.name,
         columns: [
           {
             description: 'Round Five',
@@ -165,7 +140,7 @@ describe('formatComparePlayer', () => {
   })
 
   it('filters out unavailable rounds for progressive difficulty', () => {
-    const testColumns = [
+    const allColumns = [
       { title: 'Round One', key: 'roundOne' },
       { title: 'Round Four', key: 'roundFour' },
       { title: 'Round Five', key: 'roundFive' },
@@ -173,13 +148,9 @@ describe('formatComparePlayer', () => {
     ] as const
 
     const result = formatComparePlayer(
-      {
-        ...mockedPlayers[0],
-      },
-      {
-        ...mockedPlayers[1],
-      },
-      testColumns,
+      { ...player0 },
+      { ...player1 },
+      allColumns,
       'progressive',
     )
 

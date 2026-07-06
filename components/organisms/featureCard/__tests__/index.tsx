@@ -1,5 +1,6 @@
+import { mockFeatureCardItems } from '@/mocks/data/featureCard'
 import { render, screen } from '@testing-library/react'
-import FeatureCard, { FeatureCardItem } from '..'
+import FeatureCard from '..'
 
 interface ImageProps {
   src: string
@@ -16,25 +17,7 @@ vi.mock('next/image', () => ({
 }))
 
 describe('FeatureCard', () => {
-  const items: FeatureCardItem[] = [
-    {
-      imageSrc: '/awards/a.png',
-      imageFallbackSrc: '/awards/fallback.png',
-      label: 'Alpha',
-      subLabel: '1:00:00',
-    },
-    {
-      imageSrc: '/awards/b.png',
-      imageFallbackSrc: '/awards/fallback.png',
-      label: 'Beta',
-    },
-    {
-      imageSrc: '/awards/c.png',
-      imageFallbackSrc: '/awards/fallback.png',
-      label: 'Gamma',
-      subLabel: '2:00:00',
-    },
-  ]
+  const items = mockFeatureCardItems
 
   const defaultProps = {
     title: 'Featured players',
