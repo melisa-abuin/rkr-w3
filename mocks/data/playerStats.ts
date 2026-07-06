@@ -1,6 +1,6 @@
 import { Award } from '@/interfaces/award'
 import { KibbleLeaderboard } from '@/interfaces/leaderboard'
-import { FastestBestiesData, Player } from '@/interfaces/player'
+import { FastestBestiesData, Player, Tops } from '@/interfaces/player'
 
 export const mockPlayers: Player[] = [
   {
@@ -376,4 +376,19 @@ export const mockFastestBesties: FastestBestiesData = {
   once: [],
   twice: [],
   threeOrMore: [],
+}
+
+export const mockTops: Tops = {
+  roundOne: { normal: 0, hard: 0, impossible: 0, nightmare: 1 },
+  roundTwo: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+  roundThree: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+  roundFour: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+  roundFive: { normal: 1, hard: 1, impossible: 1, nightmare: 1 },
+  saves: 0,
+  wins: 1,
+  highestWinStreak: 1,
+  gamesPlayed: 1,
+  saveDeathRatio: 1,
+  kibbles: 1,
+  fastestGames: { normal: 0, hard: 0, impossible: 0 },
 }

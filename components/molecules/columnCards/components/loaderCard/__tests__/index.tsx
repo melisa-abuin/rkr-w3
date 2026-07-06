@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import LoaderCard from '..'
 
 describe('LoaderCard', () => {
-  it('renders  5 rows', () => {
+  it('renders 5 rows', () => {
     render(<LoaderCard />)
 
     const rows = screen.getAllByRole('row')

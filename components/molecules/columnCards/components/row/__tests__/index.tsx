@@ -1,17 +1,9 @@
+import { mockPlayers } from '@/mocks/data/playerStats'
 import { render, screen } from '@testing-library/react'
 import Row from '..'
-import { BestTime } from '@/interfaces/player'
-import { BattleTag } from '@/interfaces/player'
 
-const player: BattleTag = {
-  name: 'PlayerOne',
-  tag: 'player#1234',
-}
-
-const bestTime: BestTime = {
-  time: 150,
-  difficulty: 'normal',
-}
+const player = mockPlayers[0].battleTag
+const bestTime = mockPlayers[0].roundOne.best
 
 describe('Row', () => {
   it('renders empty cells if player or data is missing', () => {
@@ -34,13 +26,13 @@ describe('Row', () => {
       </table>,
     )
 
-    expect(screen.getByText('PlayerOne')).toBeInTheDocument()
-    expect(screen.getByText('02:30')).toBeInTheDocument()
+    expect(screen.getByText('Pablo')).toBeInTheDocument()
+    expect(screen.getByText('03:20')).toBeInTheDocument()
     expect(screen.getByText('normal')).toBeInTheDocument()
 
     const links = screen.getAllByRole('link')
     links.forEach((link) =>
-      expect(link).toHaveAttribute('href', '/player/player%231234'),
+      expect(link).toHaveAttribute('href', '/player/Pablo%231234'),
     )
   })
 
@@ -53,7 +45,7 @@ describe('Row', () => {
       </table>,
     )
 
-    expect(screen.getByText('PlayerOne')).toBeInTheDocument()
+    expect(screen.getByText('Pablo')).toBeInTheDocument()
     expect(screen.getByText('999')).toBeInTheDocument()
   })
 
