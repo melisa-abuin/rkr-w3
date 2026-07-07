@@ -1,4 +1,5 @@
 'use client'
+import ColorBadge from '@/components/atoms/colorBadge'
 import Link from '@/components/atoms/link'
 import { routes } from '@/constants'
 import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
@@ -57,6 +58,11 @@ export default function MobileNavbar() {
               >
                 {route.label}
               </Link>
+              {route.isNew && (
+                <ColorBadge colorName="primary" small>
+                  New
+                </ColorBadge>
+              )}
             </li>
           ))}
         </ul>

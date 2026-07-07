@@ -1,12 +1,12 @@
 import Error from '@/components/molecules/error'
 import PlayerDashboard from '@/components/templates/playerDashboard'
 import { playersSummaryApi } from '@/constants'
-import { Player } from '@/interfaces/player'
+import { PlayerSummary } from '@/interfaces/player'
 import { notFound } from 'next/navigation'
 
 interface PlayerStatsData {
   error: string | null
-  data: Player[] | null
+  data: PlayerSummary[] | null
 }
 
 async function fetchData(battleTag: string): Promise<PlayerStatsData> {

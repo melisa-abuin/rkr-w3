@@ -11,7 +11,7 @@ import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
-import { playerStatsDefaultApi, routes } from '@/constants'
+import { playerStatsDefaultApi } from '@/constants'
 import { statsColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
@@ -98,7 +98,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
               <Button
                 as="a"
                 colorName="primary"
-                href={routes.scoreboard.url}
+                href="/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc"
                 variant="outline"
               >
                 View all stats

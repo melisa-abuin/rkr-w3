@@ -1,5 +1,6 @@
 'use client'
 
+import ColorBadge from '@/components/atoms/colorBadge'
 import { routes } from '@/constants'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -24,6 +25,13 @@ export default function DesktopNavbar() {
             target={route.target}
           >
             {route.label}
+            {route.isNew && (
+              <span className={styles.newBadge}>
+                <ColorBadge small colorName="red">
+                  New
+                </ColorBadge>
+              </span>
+            )}
           </Link>
         </li>
       ))}

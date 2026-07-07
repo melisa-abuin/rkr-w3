@@ -39,6 +39,9 @@
 }
 
 .navLink {
+  align-items: center;
+  display: flex;
+  gap: 8px;
   padding: 16px 18px;
 }
 

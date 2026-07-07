@@ -36,4 +36,12 @@ describe('MobileNavbar', () => {
     await userEvent.click(screen.getByLabelText('Close modal'))
     expect(screen.queryByText('Home')).not.toBeInTheDocument()
   })
+
+  it('renders a "New" badge for routes marked as isNew after opening menu', async () => {
+    render(<MobileNavbar />)
+
+    await userEvent.click(screen.getByAltText('hamburger menu'))
+
+    expect(screen.getByText('New')).toBeInTheDocument()
+  })
 })

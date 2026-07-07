@@ -128,36 +128,42 @@ export const routes = {
     pathname: '/',
     url: '/',
     target: '_self',
+    isNew: false,
   },
   leaderboard: {
     label: 'Leaderboard',
     pathname: '/leaderboard',
     url: '/leaderboard',
     target: '_self',
+    isNew: false,
   },
-  scoreboard: {
-    label: 'Scoreboard',
-    pathname: '/stats',
-    url: '/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc',
+  seasons: {
+    label: 'Seasons',
+    pathname: '/seasons',
+    url: '/seasons',
     target: '_self',
+    isNew: true,
   },
   tournaments: {
     label: 'Tournaments',
     pathname: '/tournaments',
     url: '/tournaments',
     target: '_self',
+    isNew: false,
   },
   challenges: {
     label: 'Challenges',
     pathname: '/challenges',
     url: '/challenges',
     target: '_self',
+    isNew: false,
   },
   guide: {
     label: 'Guide',
     pathname: '/guide',
     url: '/guide',
     target: '_self',
+    isNew: false,
   },
   download: {
     label: 'Download',
@@ -165,6 +171,7 @@ export const routes = {
       'https://discord.com/channels/873715731873804298/1122346045968498738',
     url: 'https://discord.com/channels/873715731873804298/1122346045968498738',
     target: '_blank',
+    isNew: false,
   },
 } as const
 
