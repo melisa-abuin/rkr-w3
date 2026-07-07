@@ -24,6 +24,7 @@ Below is a list of all available utilities:
 
 - `formatComparePlayer`
 - `formatDateToLocale`
+- `formatFeaturedContent`
 - `formatKeyToWord`
 - `formatTournamentPlayers`
 - `hexToRgba`
