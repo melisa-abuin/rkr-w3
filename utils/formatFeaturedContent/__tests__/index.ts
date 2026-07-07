@@ -54,7 +54,9 @@ describe('formatFeaturedContent', () => {
 
   it('derives player imageSrc from selectedSkin with lowercase first character', () => {
     const result = formatFeaturedContent({
-      players: [{ battleTag: 'Test', selectedSkin: 'SpecialSkin', fastestTime: 60 }],
+      players: [
+        { battleTag: 'Test', selectedSkin: 'SpecialSkin', fastestTime: 60 },
+      ],
       challenges: [],
     })
 
@@ -64,7 +66,13 @@ describe('formatFeaturedContent', () => {
   it('derives challenge imageSrc from awardKey with lowercase first character', () => {
     const result = formatFeaturedContent({
       players: [],
-      challenges: [{ awardName: 'Some Award', awardKey: 'MyAwardKey', completionPercentage: 50 }],
+      challenges: [
+        {
+          awardName: 'Some Award',
+          awardKey: 'MyAwardKey',
+          completionPercentage: 50,
+        },
+      ],
     })
 
     expect(result.challenges[0].imageSrc).toBe('/awards/myAwardKey.png')
