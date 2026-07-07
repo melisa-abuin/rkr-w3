@@ -4,6 +4,7 @@ import { FastestBestiesData, Player, Tops } from '@/interfaces/player'
 
 export const mockPlayers: Player[] = [
   {
+    id: 'mock-player-id-1',
     awards: [
       {
         key: 'award1',
@@ -182,6 +183,7 @@ export const mockPlayers: Player[] = [
     mostPlayedColor: 'purple',
   },
   {
+    id: 'mock-player-id-2',
     awards: [
       {
         key: 'award1',

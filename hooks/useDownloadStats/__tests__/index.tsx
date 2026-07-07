@@ -1,6 +1,7 @@
+import { apiUrl } from '@/constants'
+import { QueryProvider } from '@/hooks/useQuery'
 import { renderHook, waitFor } from '@testing-library/react'
 import { useDownloadStats } from '..'
-import { QueryProvider } from '@/hooks/useQuery'
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryProvider>{children}</QueryProvider>
@@ -8,10 +9,9 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => (
 
 describe('useDownloadStats', () => {
   it('calls the API and returns a blob', async () => {
-    const fakeBlob = new Blob(['test content'], { type: 'text/plain' })
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
-      blob: () => Promise.resolve(fakeBlob),
+      text: () => Promise.resolve('{"some":"savedata"}'),
     })
 
     const { result } = renderHook(() => useDownloadStats(), {
@@ -22,9 +22,7 @@ describe('useDownloadStats', () => {
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true)
-      expect(fetch).toHaveBeenCalledWith(
-        '/api/downloadPlayerStats/Player%231234',
-      )
+      expect(fetch).toHaveBeenCalledWith(`${apiUrl}/api/RawJson/Player%231234`)
     })
   })
 

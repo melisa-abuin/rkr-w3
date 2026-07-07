@@ -1,19 +1,20 @@
-import React, { useState } from 'react'
-import Modal from '@/components/atoms/modal'
 import Button from '@/components/atoms/button'
-import Image from 'next/image'
-import styles from './index.module.css'
+import Modal from '@/components/atoms/modal'
+import { useDownloadStats } from '@/hooks/useDownloadStats'
 import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import { useToast } from '@/hooks/useToast'
-import { useDownloadStats } from '@/hooks/useDownloadStats'
 import { downloadBlobFile } from '@/utils/downloadBlobFile'
+import Image from 'next/image'
+import { useState } from 'react'
+import styles from './index.module.css'
 
 interface Props {
+  playerId: string
   battletag: string
   date: string
 }
 
-export default function DownloadModal({ battletag, date }: Props) {
+export default function DownloadModal({ playerId, battletag, date }: Props) {
   const prefersDarkMode = usePrefersDarkMode()
   const { showToast } = useToast()
 
@@ -22,7 +23,7 @@ export default function DownloadModal({ battletag, date }: Props) {
   const { mutate, isPending } = useDownloadStats()
 
   const handleDownload = () => {
-    mutate(battletag, {
+    mutate(playerId, {
       onSuccess: (blob) => {
         downloadBlobFile(blob, `${battletag}.txt`)
         setIsModalOpen(false)

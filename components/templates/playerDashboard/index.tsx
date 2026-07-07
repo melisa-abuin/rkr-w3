@@ -6,6 +6,7 @@ import { PageContainer } from '@/components/atoms/pageContainer'
 import Tabs from '@/components/atoms/tabs'
 import Columns from '@/components/molecules/columns'
 import Awards from '@/components/molecules/completedAwards'
+import DownloadModal from '@/components/molecules/downloadModal'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import WinStreak from '@/components/molecules/winStreak'
 import ColumnsWithComparison from '@/components/organisms/columnsWithComparison'
@@ -203,14 +204,13 @@ export default function PlayerDashboard({
         <Info>Stats last uploaded on: {lastDateUploaded}</Info>
       )}
 
-      {/* 
-      Re enable on issue 372 after api is updated to generate new file format
       <PageContainer marginBottom={24}>
         <DownloadModal
-          battletag={currentPlayer.battleTag}
+          battletag={currentPlayer.battleTag.tag}
           date={lastDateUploaded}
+          playerId={currentPlayer.id}
         />
-      </PageContainer> */}
+      </PageContainer>
     </>
   )
 }
