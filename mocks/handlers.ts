@@ -1,6 +1,7 @@
 import {
   awardsStatsApi,
   bestGameTimesTopApi,
+  featuredApi,
   playersApi,
   playersLeaderboardApi,
   playersSummaryApi,
@@ -14,12 +15,14 @@ import {
 import { http, HttpResponse } from 'msw'
 import { mockAwardsStats } from './data/awards'
 import { mockBestGameTimes } from './data/bestGameTimes'
+import { mockFeaturedApiResponse } from './data/featured'
 import { mockLeaderboard } from './data/leaderboard'
 import { mockApiData } from './data/players'
 import {
   mockFastestBesties,
   mockKibbleLeaderboard,
   mockPlayerStats,
+  mockTops,
 } from './data/playerStats'
 import { mockPlayerSummary } from './data/playerSummary'
 import { mockTournaments } from './data/tournaments'
@@ -54,4 +57,10 @@ export const handlers = [
 
   // Best game times
   http.get(bestGameTimesTopPath, () => HttpResponse.json(mockBestGameTimes)),
+
+  // Player tops (used by playerDashboard Header)
+  http.get(`${playersApi}/:battleTag/tops`, () => HttpResponse.json(mockTops)),
+
+  // Featured content
+  http.get(featuredApi, () => HttpResponse.json(mockFeaturedApiResponse)),
 ]

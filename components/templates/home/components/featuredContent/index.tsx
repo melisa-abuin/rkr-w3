@@ -1,16 +1,20 @@
 'use client'
 
 import FeatureCard from '@/components/organisms/featureCard'
+import { featuredApi } from '@/constants'
 import { useApiQuery } from '@/hooks/useApiQuery'
-import { FeaturedContent as FeaturedContentData } from '@/interfaces/featured'
+import { FeaturedApiResponse } from '@/interfaces/featured'
+import { formatFeaturedContent } from '@/utils/formatFeaturedContent'
 import styles from './index.module.css'
 
 export default function FeaturedContent() {
-  const { data: featured, isLoading } = useApiQuery<FeaturedContentData>(
-    '/api/featured',
+  const { data, isLoading } = useApiQuery<FeaturedApiResponse>(
+    featuredApi,
     undefined,
     { staleTime: 7 * 24 * 60 * 60 * 1000 },
   )
+
+  const featured = data ? formatFeaturedContent(data) : undefined
 
   return (
     <div className={styles.wrapper}>
