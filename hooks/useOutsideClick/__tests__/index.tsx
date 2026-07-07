@@ -19,7 +19,7 @@ describe('useOutsideClick', () => {
   }
 
   it('should call callback when clicking outside the element', () => {
-    const callback = jest.fn()
+    const callback = vi.fn()
     const { getByText } = render(<TestComponent onOutsideClick={callback} />)
 
     fireEvent.mouseDown(getByText('Outside'))
@@ -28,7 +28,7 @@ describe('useOutsideClick', () => {
   })
 
   it('should not call callback when clicking inside the element', () => {
-    const callback = jest.fn()
+    const callback = vi.fn()
     const { getByText } = render(<TestComponent onOutsideClick={callback} />)
 
     fireEvent.mouseDown(getByText('Inside'))

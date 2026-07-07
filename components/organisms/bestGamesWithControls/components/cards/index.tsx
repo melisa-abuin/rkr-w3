@@ -1,14 +1,14 @@
 'use client'
 
-import styles from './index.module.css'
-import MobileCard from './components/mobileCard'
+import { BestGameTimesFormatted } from '@/interfaces/game'
 import DesktopCard from './components/desktopCard'
-import { BestGameTimes } from '@/interfaces/game'
-import LoaderMobileCard from './components/loaderMobileCard'
 import LoaderDesktopCard from './components/loaderDesktopCard'
+import LoaderMobileCard from './components/loaderMobileCard'
+import MobileCard from './components/mobileCard'
+import styles from './index.module.css'
 
 interface Props {
-  games: BestGameTimes
+  games: BestGameTimesFormatted
   loading: boolean
   showDifficulty: boolean
 }

@@ -1,15 +1,15 @@
 'use client'
 
+import CardsContainer from '@/components/atoms/cardsContainer'
+import PlayerTag from '@/components/molecules/playerTag'
 import RowCard from '@/components/molecules/rowCard'
-import { ApiTournament } from '@/interfaces/tournament'
+import { Tournament } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
 import Column from './components/column'
 import styles from './index.module.css'
-import PlayerTag from '@/components/molecules/playerTag'
-import CardsContainer from '@/components/atoms/cardsContainer'
 
 interface Props {
-  item: ApiTournament
+  item: Tournament
 }
 
 export default function TournamentSummary({ item }: Props) {

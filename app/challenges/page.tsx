@@ -5,11 +5,11 @@ import AwardDetail from '@/components/molecules/awardDetail'
 import Error from '@/components/molecules/error'
 import RowCard from '@/components/molecules/rowCard'
 import { awardsStatsApi } from '@/constants'
-import { ApiAward, AwardsData } from '@/interfaces/award'
+import { Award, AwardsDataFormatted } from '@/interfaces/award'
 import { formatAwardsByCategory } from '@/utils/formatGameAwards'
 
 async function fetchData(): Promise<{
-  data: AwardsData | null
+  data: AwardsDataFormatted | null
   error: string | null
 }> {
   const response = await fetch(awardsStatsApi, {
@@ -17,7 +17,7 @@ async function fetchData(): Promise<{
   })
 
   if (response.status === 200) {
-    const result = (await response.json()) as ApiAward[]
+    const result = (await response.json()) as Award[]
     return {
       data: formatAwardsByCategory(result),
       error: null,

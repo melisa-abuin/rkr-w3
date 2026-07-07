@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react'
+import { usePathname } from 'next/navigation'
 import DesktopNavbar from '..'
 
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(),
+vi.mock('next/navigation', () => ({
+  usePathname: vi.fn(),
 }))
 
-const mockUsePathname = jest.requireMock('next/navigation').usePathname
+const mockUsePathname = vi.mocked(usePathname)
 
 describe('DesktopNavbar', () => {
   beforeEach(() => {
@@ -13,7 +14,7 @@ describe('DesktopNavbar', () => {
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders all navigation links', () => {

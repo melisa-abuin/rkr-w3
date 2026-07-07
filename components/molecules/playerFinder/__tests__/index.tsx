@@ -1,48 +1,44 @@
-import { render, screen } from '@testing-library/react'
+import { playersApi } from '@/constants'
+import { mockPlayerSearchResults } from '@/mocks/data/players'
+import { server } from '@/mocks/server'
+import { renderWithClient } from '@/mocks/testUtils'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { http, HttpResponse } from 'msw'
 import PlayerFinder from '..'
-import { useApiQuery } from '@/hooks/useApiQuery'
 
-jest.mock('@/hooks/useApiQuery')
-jest.mock('@/hooks/useQueryErrorToast')
-jest.mock('@/hooks/useDebouncedValue', () => ({
-  useDebouncedValue: jest.fn((value: string) => value),
+vi.mock('@/hooks/useQueryErrorToast')
+vi.mock('@/hooks/useDebouncedValue', () => ({
+  useDebouncedValue: vi.fn((value: string) => value),
 }))
-jest.mock('@/hooks/useOutsideClick', () => ({
-  useOutsideClick: jest.fn(),
+vi.mock('@/hooks/useOutsideClick', () => ({
+  useOutsideClick: vi.fn(),
 }))
-
-const mockUseApiQuery = useApiQuery as jest.Mock
 
 describe('PlayerFinder', () => {
-  const onClear = jest.fn()
-  const onPlayerSelect = jest.fn()
+  const onClear = vi.fn()
+  const onPlayerSelect = vi.fn()
 
   beforeEach(() => {
-    jest.clearAllMocks()
-    mockUseApiQuery.mockImplementation((_url, params) => ({
-      data:
-        params?.battleTag === 'zzz'
-          ? []
-          : params?.battleTag
-            ? [{ battleTag: 'Alpha#1234' }]
-            : undefined,
-      isFetching: false,
-      error: null,
-    }))
+    vi.clearAllMocks()
+    server.use(
+      http.get(playersApi, () => HttpResponse.json(mockPlayerSearchResults)),
+    )
   })
 
   it('renders with the default placeholder', () => {
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     expect(screen.getByPlaceholderText('Search a player')).toBeInTheDocument()
   })
 
   it('calls custom onChange when provided', async () => {
     const user = userEvent.setup()
-    const onChange = jest.fn()
+    const onChange = vi.fn()
 
-    render(
+    renderWithClient(
       <PlayerFinder
         onChange={onChange}
         onClear={onClear}
@@ -58,7 +54,9 @@ describe('PlayerFinder', () => {
   it('shows options and selects a player', async () => {
     const user = userEvent.setup()
 
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     const input = screen.getByRole('textbox')
     await user.click(input)
@@ -75,7 +73,9 @@ describe('PlayerFinder', () => {
   it('shows no results for an empty response', async () => {
     const user = userEvent.setup()
 
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     const input = screen.getByRole('textbox')
     await user.click(input)
@@ -87,7 +87,9 @@ describe('PlayerFinder', () => {
   it('clears the query and calls onClear', async () => {
     const user = userEvent.setup()
 
-    render(<PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />)
+    renderWithClient(
+      <PlayerFinder onClear={onClear} onPlayerSelect={onPlayerSelect} />,
+    )
 
     const input = screen.getByRole('textbox')
     await user.type(input, 'alpha')

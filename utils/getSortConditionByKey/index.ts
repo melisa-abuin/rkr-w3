@@ -1,7 +1,7 @@
-import { Player, RoundTimes, SaveStreak } from '@/interfaces/player'
-import { GameStats } from '@/interfaces/game'
-import { isTimeKey, isTimeKeyWithDiff } from '../checkKeyType'
 import { Difficulty } from '@/interfaces/difficulty'
+import { GameStatsFormatted } from '@/interfaces/game'
+import { Player, RoundTimes, SaveStreak } from '@/interfaces/player'
+import { isTimeKey, isTimeKeyWithDiff } from '../checkKeyType'
 
 type DifficultyFilter = Difficulty | undefined
 
@@ -44,7 +44,7 @@ export const getValueForKey = (
   }
 
   if (key === 'bestGameTimes') {
-    const arr = elem.bestGameTimes as GameStats[] | undefined
+    const arr = elem.bestGameTimes as GameStatsFormatted[] | undefined
     if (!arr || arr.length === 0) return 0
     if (filter) {
       return arr.find((g) => g.difficulty.toLowerCase() === filter)?.time ?? 0

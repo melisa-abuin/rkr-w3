@@ -4,7 +4,7 @@ import Badges from '..'
 import { difficultyNames } from '@/constants'
 
 describe('Badges', () => {
-  const mockOnClick = jest.fn()
+  const mockOnClick = vi.fn()
   const selected = 'normal'
 
   it('renders all options as badges', () => {

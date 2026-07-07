@@ -2,10 +2,10 @@
 
 import { PageContainer } from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { Tournament as TournamentInterface } from '@/interfaces/tournament'
+import Columns from '@/components/molecules/columns'
+import { TournamentFormatted as TournamentInterface } from '@/interfaces/tournament'
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import TournamentSummary from './components/tournamentSummary'
-import Columns from '@/components/molecules/columns'
 
 interface Props {
   data: TournamentInterface

@@ -1,11 +1,11 @@
 import { renderHook, act } from '@testing-library/react'
 import { useDebouncedValue } from '..'
 
-jest.useFakeTimers()
+vi.useFakeTimers()
 
 describe('useDebouncedValue', () => {
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   it('should return initial value immediately', () => {
@@ -25,7 +25,7 @@ describe('useDebouncedValue', () => {
     expect(result.current).toBe('a')
 
     act(() => {
-      jest.advanceTimersByTime(300)
+      vi.advanceTimersByTime(300)
     })
 
     expect(result.current).toBe('b')

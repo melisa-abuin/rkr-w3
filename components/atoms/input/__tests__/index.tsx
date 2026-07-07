@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event'
 import Input from '..'
 
 describe('Input Component', () => {
-  const mockOnChange = jest.fn()
-  const mockOnCrossClick = jest.fn()
+  const mockOnChange = vi.fn()
+  const mockOnCrossClick = vi.fn()
 
   it('renders correctly with required props', () => {
     render(
@@ -93,7 +93,7 @@ describe('Input Component', () => {
   })
 
   it('calls onFocus when input gets focus', async () => {
-    const onFocus = jest.fn()
+    const onFocus = vi.fn()
     const user = userEvent.setup()
 
     render(

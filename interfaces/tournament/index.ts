@@ -5,7 +5,7 @@ interface FastestRound {
   time: number
 }
 
-export interface ApiTournament {
+export interface Tournament {
   tournament: {
     id: number
     tournament_id: string
@@ -16,18 +16,18 @@ export interface ApiTournament {
     admin_approved: number
     tournament_group_id: number | null
   }
-  players: ApiTournamentPlayer[]
+  players: TournamentPlayer[]
 }
 
-export type ApiTournaments = Array<ApiTournament>
+export type Tournaments = Array<Tournament>
 
-export interface ApiTournamentPlayer {
+export interface TournamentPlayer {
   battleTag: string
   totalTime: number
-  games: ApiTournamentGame[]
+  games: TournamentGame[]
 }
 
-export interface ApiTournamentGame {
+export interface TournamentGame {
   id: number
   tournament_id: number
   battleTag: string
@@ -39,10 +39,10 @@ export interface ApiTournamentGame {
   total_progress: number
   total_saves: number
   totalTime: number
-  rounds: ApiTournamentRound[]
+  rounds: TournamentRound[]
 }
 
-export interface ApiTournamentRound {
+export interface TournamentRound {
   id: number
   game_id: number
   round_number: number
@@ -53,7 +53,7 @@ export interface ApiTournamentRound {
   saves: number
 }
 
-export interface Tournament {
+export interface TournamentFormatted {
   tournament: {
     id: number
     region: string
@@ -69,17 +69,13 @@ export interface Tournament {
     roundFour: FastestRound
     roundFive: FastestRound
   }
-  players: TournamentPlayer[]
+  players: TournamentPlayerFormatted[]
 }
 
-export type Tournaments = Array<Tournament>
-
-export interface TournamentPlayer extends Omit<
-  ApiTournamentPlayer,
+export interface TournamentPlayerFormatted extends Omit<
+  TournamentPlayer,
   'games' | 'battleTag'
 > {
   battleTag: BattleTag | string
   games: TournamentGame[]
 }
-
-export type TournamentGame = ApiTournamentGame

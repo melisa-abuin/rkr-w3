@@ -1,63 +1,6 @@
-import { ApiAward } from '../award'
+import { Award } from '../award'
 import { Difficulty } from '../difficulty'
-import { GameStats } from '../game'
-
-export interface ApiRounds {
-  RoundOneNormal: number
-  RoundTwoNormal: number
-  RoundThreeNormal: number
-  RoundFourNormal: number
-  RoundFiveNormal: number
-  RoundOneHard: number
-  RoundTwoHard: number
-  RoundThreeHard: number
-  RoundFourHard: number
-  RoundFiveHard: number
-  RoundOneImpossible: number
-  RoundTwoImpossible: number
-  RoundThreeImpossible: number
-  RoundFourImpossible: number
-  RoundFiveImpossible: number
-  RoundOneSolo: number
-  RoundTwoSolo: number
-  RoundThreeSolo: number
-  RoundFourSolo: number
-  RoundFiveSolo: number
-  RoundOneNightmare: number
-  RoundTwoNightmare: number
-  RoundThreeNightmare: number
-  RoundFourNightmare: number
-  RoundFiveNightmare: number
-  RoundOneProgressive?: number
-  RoundTwoProgressive?: number
-  RoundThreeProgressive?: number
-  // Round 4 and 5 progressive time is always 0, but we want to keep it in the interface for consistency
-  RoundFourProgressive?: 0
-  RoundFiveProgressive?: 0
-}
-
-export interface ApiPlayerStats {
-  battletag: string
-  'Save Data': string
-}
-
-/* Player after formnatting */
-export interface Award {
-  id: string
-  completed: boolean
-  description: string
-  imagePath: string
-  title: string
-}
-
-export interface Awards {
-  id: string
-  awards: Award[]
-}
-
-export interface AwardsPercentages {
-  [awardKey: string]: number
-}
+import { GameStatsFormatted } from '../game'
 
 export interface BestTime {
   time: number
@@ -151,9 +94,9 @@ export interface Kibbles {
 }
 
 export interface Player {
-  awards: ApiAward[]
+  awards: Award[]
   battleTag: BattleTag
-  bestGameTimes: GameStats[]
+  bestGameTimes: GameStatsFormatted[]
   completedChallenges: Challenges
   deaths: number
   fastestBesties: FastestBesties
@@ -184,20 +127,20 @@ export interface PlayerSummary extends Player {
   selectedSkin: string
 }
 
-type RoundRanks = {
+interface RoundRanks {
   normal: number
   hard: number
   impossible: number
   nightmare: number
 }
 
-type FastestGameRanks = {
+interface FastestGameRanks {
   normal: number
   hard: number
   impossible: number
 }
 
-export type Tops = {
+export interface Tops {
   saves: number
   wins: number
   highestWinStreak: number

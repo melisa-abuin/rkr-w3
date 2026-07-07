@@ -3,7 +3,7 @@ import Toast from '..'
 import { ToastVariant } from '@/interfaces/toast'
 
 describe('Toast', () => {
-  const mockOnClick = jest.fn()
+  const mockOnClick = vi.fn()
   const defaultProps = {
     index: 0,
     message: 'Test message',

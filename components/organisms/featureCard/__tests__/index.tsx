@@ -1,5 +1,6 @@
+import { mockFeatureCardItems } from '@/mocks/data/featureCard'
 import { render, screen } from '@testing-library/react'
-import FeatureCard, { FeatureCardItem } from '..'
+import FeatureCard from '..'
 
 interface ImageProps {
   src: string
@@ -7,34 +8,16 @@ interface ImageProps {
   onError: () => void
 }
 
-jest.mock('next/image', () => ({
+vi.mock('next/image', () => ({
   __esModule: true,
-  default: jest.fn(({ src, alt, onError }: ImageProps) => (
+  default: vi.fn(({ src, alt, onError }: ImageProps) => (
     // eslint-disable-next-line @next/next/no-img-element
     <img alt={alt} src={src} onError={onError} />
   )),
 }))
 
 describe('FeatureCard', () => {
-  const items: FeatureCardItem[] = [
-    {
-      imageSrc: '/awards/a.png',
-      imageFallbackSrc: '/awards/fallback.png',
-      label: 'Alpha',
-      subLabel: '1:00:00',
-    },
-    {
-      imageSrc: '/awards/b.png',
-      imageFallbackSrc: '/awards/fallback.png',
-      label: 'Beta',
-    },
-    {
-      imageSrc: '/awards/c.png',
-      imageFallbackSrc: '/awards/fallback.png',
-      label: 'Gamma',
-      subLabel: '2:00:00',
-    },
-  ]
+  const items = mockFeatureCardItems
 
   const defaultProps = {
     title: 'Featured players',

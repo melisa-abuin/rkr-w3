@@ -1,4 +1,4 @@
-import { formattedMockData } from '@/constants'
+import { mockPlayers as formattedMockData } from '@/mocks/data/playerStats'
 import { getSortConditionByKey } from '..'
 
 describe('getSortConditionByKey', () => {

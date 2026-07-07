@@ -1,13 +1,13 @@
 'use client'
 
-import styles from './index.module.css'
 import Image from '@/components/atoms/image'
 import Tooltip from '@/components/atoms/tooltip'
+import { Award } from '@/interfaces/award'
 import { formatAwardsByCategory } from '@/utils/formatGameAwards'
-import { ApiAward } from '@/interfaces/award'
+import styles from './index.module.css'
 
 interface Props {
-  awards: ApiAward[]
+  awards: Award[]
 }
 export default function CompletedAwards({ awards }: Props) {
   const formattedAwards = formatAwardsByCategory(awards)

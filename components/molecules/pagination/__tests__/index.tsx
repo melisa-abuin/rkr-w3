@@ -3,10 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import Pagination from '..'
 
 describe('Pagination Component', () => {
-  const onPageChangeMock = jest.fn()
+  const onPageChangeMock = vi.fn()
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('should render the correct number of page buttons', () => {

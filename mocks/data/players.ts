@@ -971,3 +971,5 @@ export const mockGameApiData = [
     }),
   },
 ]
+
+export const mockPlayerSearchResults = [{ battleTag: 'Alpha#1234' }]

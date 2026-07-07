@@ -1,4 +1,4 @@
-export interface ApiAward {
+export interface Award {
   key: string
   status: number
   category: string
@@ -7,7 +7,7 @@ export interface ApiAward {
   percentage: number
 }
 
-export interface Award {
+export interface AwardFormatted {
   id: string
   completed: boolean
   description: string
@@ -16,9 +16,9 @@ export interface Award {
   percentage: number
 }
 
-export interface AwardCategory {
+export interface AwardCategoryFormatted {
   id: string
-  awards: Award[]
+  awards: AwardFormatted[]
 }
 
-export type AwardsData = AwardCategory[]
+export type AwardsDataFormatted = AwardCategoryFormatted[]

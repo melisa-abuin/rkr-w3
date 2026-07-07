@@ -1,14 +1,10 @@
+import { mockColumns } from '@/mocks/data/columns'
 import { render, screen } from '@testing-library/react'
 import Columns from '..'
 
 describe('Columns Component', () => {
   it('renders columns correctly', () => {
-    const columns = [
-      { description: 'Wins', value: 10 },
-      { description: 'Losses', value: 5 },
-    ]
-
-    render(<Columns data={[{ columns }]} />)
+    render(<Columns data={[{ columns: mockColumns }]} />)
 
     expect(screen.getByText('Wins')).toBeInTheDocument()
     expect(screen.getByText('10')).toBeInTheDocument()

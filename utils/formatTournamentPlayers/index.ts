@@ -1,8 +1,8 @@
-import { ApiTournaments, Tournament } from '@/interfaces/tournament'
+import { TournamentFormatted, Tournaments } from '@/interfaces/tournament'
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-type FastestRounds = Tournament['fastestRounds']
+type FastestRounds = TournamentFormatted['fastestRounds']
 
 const getDefaultFastestRound = (): FastestRounds['roundOne'] => ({
   player: { name: '', tag: '' },
@@ -24,8 +24,8 @@ const getDefaultFastestRounds = (): FastestRounds =>
  * - Sorts players by lowest total time (ascending)
  */
 export const formatTournamentPlayers = (
-  item: ApiTournaments[number],
-): Tournament => {
+  item: Tournaments[number],
+): TournamentFormatted => {
   const fastestRounds = getDefaultFastestRounds()
   const players = Array.isArray(item?.players) ? item.players : []
   const playersWithTotalTime = players.map((player) => {

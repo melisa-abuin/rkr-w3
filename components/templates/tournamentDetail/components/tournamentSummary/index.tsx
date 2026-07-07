@@ -1,14 +1,14 @@
 'use client'
 
+import PlayerTag from '@/components/molecules/playerTag'
 import RowCard from '@/components/molecules/rowCard'
-import { Tournament } from '@/interfaces/tournament'
+import { TournamentFormatted } from '@/interfaces/tournament'
 import { formatSecondsAsTime } from '@/utils'
 import Column from './components/column'
 import styles from './index.module.css'
-import PlayerTag from '@/components/molecules/playerTag'
 
 interface Props {
-  item: Tournament
+  item: TournamentFormatted
 }
 
 export default function TournamentSummary({ item }: Props) {

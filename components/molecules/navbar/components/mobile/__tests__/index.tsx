@@ -1,26 +1,25 @@
+import { useIsScrollAtTop } from '@/hooks/useIsScrollAtTop'
 import { render, screen } from '@testing-library/react'
-import MobileNavbar from '..'
 import userEvent from '@testing-library/user-event'
+import MobileNavbar from '..'
 
-jest.mock('next/navigation', () => ({
-  usePathname: jest.fn(),
+vi.mock('next/navigation', () => ({
+  usePathname: vi.fn(),
 }))
 
-jest.mock('@/hooks/useIsScrollAtTop', () => ({
-  useIsScrollAtTop: jest.fn(),
+vi.mock('@/hooks/useIsScrollAtTop', () => ({
+  useIsScrollAtTop: vi.fn(),
 }))
 
-const mockUseIsScrollAtTop = jest.requireMock(
-  '@/hooks/useIsScrollAtTop',
-).useIsScrollAtTop
+const mockUseIsScrollAtTop = vi.mocked(useIsScrollAtTop)
 
 describe('MobileNavbar', () => {
   beforeEach(() => {
-    mockUseIsScrollAtTop.mockReturnValue([true])
+    mockUseIsScrollAtTop.mockReturnValue([true, vi.fn()])
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('renders the hamburger menu icon and opens the menu', async () => {

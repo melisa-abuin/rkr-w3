@@ -7,7 +7,7 @@ import { bestGameTimesColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { Difficulty } from '@/interfaces/difficulty'
-import { BestGameTimes } from '@/interfaces/game'
+import { BestGameTimesFormatted } from '@/interfaces/game'
 import { useState } from 'react'
 import Cards from './components/cards'
 import styles from './index.module.css'
@@ -17,7 +17,7 @@ export default function BestGamesWithControls() {
     Difficulty | undefined
   >()
 
-  const { data, isFetching, error } = useApiQuery<BestGameTimes>(
+  const { data, isFetching, error } = useApiQuery<BestGameTimesFormatted>(
     difficultyFilter
       ? `${bestGameTimesTopApi}&difficulty=${difficultyFilter}`
       : bestGameTimesTopApi,

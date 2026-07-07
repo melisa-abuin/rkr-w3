@@ -5,7 +5,7 @@ import Modal from '..'
 describe('Modal Component', () => {
   it('does not render when isOpen is false', () => {
     const { container } = render(
-      <Modal isOpen={false} onClose={jest.fn()}>
+      <Modal isOpen={false} onClose={vi.fn()}>
         Modal Content
       </Modal>,
     )
@@ -14,7 +14,7 @@ describe('Modal Component', () => {
 
   it('renders when isOpen is true', () => {
     render(
-      <Modal isOpen={true} onClose={jest.fn()}>
+      <Modal isOpen={true} onClose={vi.fn()}>
         Modal Content
       </Modal>,
     )
@@ -23,7 +23,7 @@ describe('Modal Component', () => {
 
   it('renders title when provided', () => {
     render(
-      <Modal isOpen={true} title="Test Title" onClose={jest.fn()}>
+      <Modal isOpen={true} title="Test Title" onClose={vi.fn()}>
         Modal Content
       </Modal>,
     )
@@ -31,7 +31,7 @@ describe('Modal Component', () => {
   })
 
   it('calls onClose when close button is clicked', async () => {
-    const onClose = jest.fn()
+    const onClose = vi.fn()
     render(
       <Modal isOpen={true} onClose={onClose}>
         Modal Content
