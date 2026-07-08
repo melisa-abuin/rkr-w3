@@ -23,6 +23,7 @@ Below is a list of all available utilities:
 ### 🧩 Data Formatting
 
 - `formatComparePlayer`
+- `formatSaveDataFile`
 - `formatDateToLocale`
 - `formatFeaturedContent`
 - `formatKeyToWord`
