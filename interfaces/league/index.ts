@@ -1,4 +1,6 @@
 import { Difficulty } from '../difficulty'
+import { LeaderboardCategories } from '../leaderboard'
+import { BattleTag } from '../player'
 
 export interface LeagueSeason {
   id: number
@@ -11,12 +13,12 @@ export interface LeagueSeason {
 export type LeagueSeasonsApiResponse = LeagueSeason[]
 
 interface LeagueStatEntry {
-  battleTag: string
+  battleTag: BattleTag
   data: number
 }
 
 interface LeagueTimeEntry {
-  battleTag: string
+  battleTag: BattleTag
   time: number
   difficulty: Difficulty
 }
@@ -34,6 +36,6 @@ export interface LeagueTimeCategory {
 }
 
 export interface LeagueLeaderboardApiResponse {
-  stats: LeagueStatCategory[]
-  times: LeagueTimeCategory[]
+  stats: LeaderboardCategories[]
+  times: LeaderboardCategories[]
 }

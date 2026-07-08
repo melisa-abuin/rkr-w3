@@ -78,17 +78,30 @@ export default async function SeasonsPage() {
       {error ? (
         <Error />
       ) : (
-        <PageContainer>
+        <PageContainer withPadding={false}>
           <PageHeader description="" title="Leagues" />
-          <PageContainer title={data.currentSeason.seasonData.leagueId}>
+          <PageContainer
+            title={data.currentSeason.seasonData.leagueId}
+            withPadding={false}
+          >
             <PageContainer
               ariaLabelledby="columns-score-title"
-              title="hehehe"
+              title="Best Scores"
               withPadding={false}
             >
               <ColumnCards
                 data={data.currentSeason.leaderboard.stats}
                 filter="stats"
+              />
+            </PageContainer>
+            <PageContainer
+              ariaLabelledby="columns-time-title"
+              title="Best Times"
+              withPadding={false}
+            >
+              <ColumnCards
+                data={data.currentSeason.leaderboard.times}
+                filter="times"
               />
             </PageContainer>
           </PageContainer>
