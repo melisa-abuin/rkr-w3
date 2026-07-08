@@ -8,6 +8,7 @@ import {
   LeagueSeason,
   LeagueSeasonsApiResponse,
 } from '@/interfaces/league'
+import { getDaysUntil } from '@/utils'
 
 interface LewaguesData {
   error: string | null
@@ -79,11 +80,14 @@ export default async function SeasonsPage() {
         <Error />
       ) : (
         <PageContainer withPadding={false}>
-          <PageHeader description="" title="Leagues" />
+          <PageHeader description="" title="Seasons" />
           <PageContainer
             title={data.currentSeason.seasonData.leagueId}
             withPadding={false}
           >
+            <p>
+              Ends in {getDaysUntil(data.currentSeason.seasonData.endDate)} days
+            </p>
             <PageContainer
               ariaLabelledby="columns-score-title"
               title="Best Scores"

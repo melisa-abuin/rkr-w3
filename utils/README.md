@@ -39,6 +39,7 @@ Below is a list of all available utilities:
 
 ### 📅 Time Helpers
 
+- `getDaysUntil`
 - `getTimeAgoFromToday`
 
 ### 🧠 Type Guards
