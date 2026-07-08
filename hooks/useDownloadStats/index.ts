@@ -13,8 +13,8 @@ export const useDownloadStats = () =>
         throw new Error(`Download failed: ${response.status}`)
       }
 
-      const rawData = await response.text()
-      const formatted = formatSaveDataFile(rawData)
+      const json = await response.json()
+      const formatted = formatSaveDataFile(JSON.stringify(json.raw_Json))
       return new Blob([formatted], { type: 'text/plain' })
     },
   })

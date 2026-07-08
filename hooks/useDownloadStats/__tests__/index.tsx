@@ -11,7 +11,7 @@ describe('useDownloadStats', () => {
   it('calls the API and returns a blob', async () => {
     global.fetch = vi.fn().mockResolvedValue({
       ok: true,
-      text: () => Promise.resolve('{"some":"savedata"}'),
+      json: () => Promise.resolve({ raw_Json: { some: 'savedata' } }),
     })
 
     const { result } = renderHook(() => useDownloadStats(), {
