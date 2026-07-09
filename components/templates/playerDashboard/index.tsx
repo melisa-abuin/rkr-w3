@@ -21,7 +21,7 @@ import {
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { useToast } from '@/hooks/useToast'
-import { Player } from '@/interfaces/player'
+import { Player, PlayerSummary } from '@/interfaces/player'
 import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
@@ -32,12 +32,11 @@ import styles from './index.module.css'
 export default function PlayerDashboard({
   currentPlayer,
 }: {
-  currentPlayer: Player
+  currentPlayer: PlayerSummary
 }) {
   const {
     awards,
     battleTag,
-    skins,
     lastUploaded,
     completedChallenges,
     mostPlayedColor,
@@ -94,7 +93,7 @@ export default function PlayerDashboard({
         <Header
           battleTag={battleTag.tag}
           color={mostPlayedColor}
-          skin={skins?.selectedSkin}
+          skin={currentPlayer?.selectedSkin}
           title={
             comparePlayer
               ? `${currentPlayer.battleTag?.name} vs ${comparePlayer.battleTag?.name}`

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import styles from './index.module.css'
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
   children: ReactNode
   marginBottom?: number
   marginTop?: number
+  subtitle?: string
   title?: string
   withPadding?: boolean
 }
@@ -22,6 +23,7 @@ export const PageContainer = ({
   marginBottom = 0,
   marginTop = 0,
   withPadding = true,
+  subtitle,
   title,
 }: Props) => {
   const OuterElement = as
@@ -46,6 +48,9 @@ export const PageContainer = ({
           >
             {title}
           </h2>
+        )}
+        {subtitle && (
+          <p className={`${styles.subtitle} ${titleAlignClass}`}>{subtitle}</p>
         )}
         {children}
       </div>

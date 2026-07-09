@@ -15,6 +15,9 @@ export const playerStatsDefaultApi = `${apiUrl}/api/playerStats/stats?filter=sta
 export const playerStatsFastestBestiesApi = `${apiUrl}/api/playerStats/fastestBesties`
 export const playerStatsKibbleLeaderboardApi = `${apiUrl}/api/playerStats/kibbleLeaderboard`
 export const playersTimeLeaderboardApi = `${apiUrl}/api/players/timeLeaderboard`
+export const seasonsApi = `${apiUrl}/api/league/seasons`
+export const seasonScoreboardApi = (seasonId: number) =>
+  `${apiUrl}/api/league/seasons/${seasonId}/scoreboard`
 export const tournamentsBaseApi = `${apiUrl}/api/tournaments`
 export const tournamentsFullApi = `${apiUrl}/api/tournaments/full`
 
@@ -128,36 +131,42 @@ export const routes = {
     pathname: '/',
     url: '/',
     target: '_self',
+    isNew: false,
   },
   leaderboard: {
     label: 'Leaderboard',
     pathname: '/leaderboard',
     url: '/leaderboard',
     target: '_self',
+    isNew: false,
   },
-  scoreboard: {
-    label: 'Scoreboard',
-    pathname: '/stats',
-    url: '/stats?filter=stats&page=1&sortKey=completedChallenges&sortOrder=desc',
-    target: '_self',
-  },
+  // seasons: {
+  //   label: 'Seasons',
+  //   pathname: '/seasons',
+  //   url: '/seasons',
+  //   target: '_self',
+  //   isNew: true,
+  // },
   tournaments: {
     label: 'Tournaments',
     pathname: '/tournaments',
     url: '/tournaments',
     target: '_self',
+    isNew: false,
   },
   challenges: {
     label: 'Challenges',
     pathname: '/challenges',
     url: '/challenges',
     target: '_self',
+    isNew: false,
   },
   guide: {
     label: 'Guide',
     pathname: '/guide',
     url: '/guide',
     target: '_self',
+    isNew: false,
   },
   download: {
     label: 'Download',
@@ -165,6 +174,7 @@ export const routes = {
       'https://discord.com/channels/873715731873804298/1122346045968498738',
     url: 'https://discord.com/channels/873715731873804298/1122346045968498738',
     target: '_blank',
+    isNew: false,
   },
 } as const
 

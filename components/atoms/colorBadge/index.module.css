@@ -5,6 +5,11 @@
   text-transform: capitalize;
 }
 
+.small {
+  border-radius: 30px;
+  padding: 2px 6px;
+}
+
 .colorPrimary {
   background-color: var(--badge-primary-background);
   color: var(--badge-primary-color);

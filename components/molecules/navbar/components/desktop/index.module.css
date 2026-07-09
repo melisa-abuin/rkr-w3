@@ -9,6 +9,9 @@
   position: relative;
 }
 
+.newBadge {
+  margin-left: 4px;
+}
 .navLinkAnchor {
   display: block;
   font-size: var(--font-size-xs-sm);

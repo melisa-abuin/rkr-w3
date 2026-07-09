@@ -1,13 +1,26 @@
 'use client'
 
-import NextImage from 'next/image'
-import { ImageProps } from 'next/image'
+import NextImage, { ImageProps } from 'next/image'
 import { useState } from 'react'
 import styles from './index.module.css'
+
+type ColorName =
+  | 'black'
+  | 'brandPrimary'
+  | 'brandSecondary'
+  | 'green'
+  | 'highlight'
+  | 'primary'
+  | 'secondary'
+  | 'teal'
+  | 'tertiary'
+  | 'white'
+  | 'yellow'
 
 interface Props extends ImageProps {
   colored: boolean
   circular?: boolean
+  colorName?: ColorName
   fallbackSrc: string
 }
 
@@ -15,6 +28,7 @@ export default function Image({
   alt,
   circular = false,
   colored = true,
+  colorName = 'primary',
   fallbackSrc,
   src,
   ...rest
@@ -22,7 +36,7 @@ export default function Image({
   const [imgSrc, setImgSrc] = useState(src)
   const circularClass = circular ? styles.circular : styles.notCircular
   const coloredClass = colored ? styles.colored : styles.grayscale
-  const className = `${styles.image} ${circularClass} ${coloredClass}`
+  const className = `${styles.image} ${circularClass} ${coloredClass} ${styles[colorName]}`
 
   return (
     <NextImage

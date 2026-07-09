@@ -1,12 +1,13 @@
 'use client'
 
-import React, { ReactNode } from 'react'
-import styles from './index.module.css'
 import { BadgeColor } from '@/interfaces/theme'
+import { ReactNode } from 'react'
+import styles from './index.module.css'
 
 interface ColorBadgeProps {
   children: ReactNode
   colorName?: BadgeColor | null
+  small?: boolean
 }
 
 const colorVariants: Record<BadgeColor, string> = {
@@ -41,6 +42,7 @@ const colorVariants: Record<BadgeColor, string> = {
 export default function ColorBadge({
   children,
   colorName = 'red',
+  small,
 }: ColorBadgeProps) {
   if (!colorName) {
     return null
@@ -49,7 +51,11 @@ export default function ColorBadge({
   const colorClass = colorVariants[colorName]
 
   return (
-    <span className={`${styles.badge} ${colorClass || styles.colorRed}`}>
+    <span
+      className={`${styles.badge} ${colorClass || styles.colorRed} ${
+        small ? styles.small : ''
+      }`}
+    >
       {children}
     </span>
   )
