@@ -1,12 +1,12 @@
 'use client'
 
-import styles from './index.module.css'
-import LoaderCard from './components/loaderCard'
-import { LeaderboardCategories } from '@/interfaces/leaderboard'
-import Row from './components/row'
 import Link from '@/components/atoms/link'
-import { isRoundDifficultyAvailable } from '@/utils/isRoundDifficultyAvailable'
 import { Difficulty } from '@/interfaces/difficulty'
+import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { isRoundDifficultyAvailable } from '@/utils/isRoundDifficultyAvailable'
+import LoaderCard from './components/loaderCard'
+import Row from './components/row'
+import styles from './index.module.css'
 
 interface Props {
   data?: LeaderboardCategories[]
@@ -15,6 +15,7 @@ interface Props {
   loading?: boolean
   filter: 'stats' | 'times'
   selectedPlayer?: string
+  withViewAll?: boolean
   sortOrder?: 'asc' | 'desc'
 }
 
@@ -25,6 +26,7 @@ export default function ColumnCards({
   loading,
   filter,
   selectedPlayer,
+  withViewAll = true,
   sortOrder = 'desc',
 }: Props) {
   const getViewAllHref = (key: string) => {
@@ -60,11 +62,13 @@ export default function ColumnCards({
                   ))}
               </tbody>
             </table>
-            <div className={styles.footer}>
-              <Link color="secondary" href={getViewAllHref(key)}>
-                View all
-              </Link>
-            </div>
+            {withViewAll && (
+              <div className={styles.footer}>
+                <Link color="secondary" href={getViewAllHref(key)}>
+                  View all
+                </Link>
+              </div>
+            )}
           </div>
         ))}
     </div>

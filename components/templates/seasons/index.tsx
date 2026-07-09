@@ -21,10 +21,14 @@ export default function SeasonsTemplate({
   seasonData,
 }: Props) {
   return (
-    <PageContainer marginBottom={24} withPadding={false}>
-      <PageHeader description="" title="Seasons" />
+    <PageContainer marginBottom={24}>
+      <PageHeader
+        description="Seasons are time-limited competitive periods where players earn league points and climb the rankings. Top players will appear on the podium."
+        title="Seasons"
+      />
       <PageContainer
-        title={`${seasonData.leagueId} (Ends in ${getDaysUntil(seasonData.endDate)} days)`}
+        subtitle={`Ends in ${getDaysUntil(seasonData.endDate)} days`}
+        title={seasonData.leagueId}
         withPadding={false}
       >
         <Podium podium={podium} />
@@ -33,14 +37,22 @@ export default function SeasonsTemplate({
           title="Best Scores"
           withPadding={false}
         >
-          <ColumnCards data={leaderboard.stats} filter="stats" />
+          <ColumnCards
+            data={leaderboard.stats}
+            filter="stats"
+            withViewAll={false}
+          />
         </PageContainer>
         <PageContainer
           ariaLabelledby="columns-time-title"
           title="Best Times"
           withPadding={false}
         >
-          <ColumnCards data={leaderboard.times} filter="times" />
+          <ColumnCards
+            data={leaderboard.times}
+            filter="times"
+            withViewAll={false}
+          />
         </PageContainer>
       </PageContainer>
     </PageContainer>

@@ -19,7 +19,7 @@ export default function Tournaments({ data }: Props) {
     <>
       <PageContainer>
         <PageHeader
-          description="tournaments are events organized by the community everyone is welcome to participate"
+          description="Community-organized competitive events, open to everyone. Join a tournament and test your skills!"
           title="Tournaments"
         />
       </PageContainer>

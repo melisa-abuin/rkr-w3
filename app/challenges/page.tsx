@@ -38,7 +38,10 @@ export default async function ChallengesPage() {
       ) : (
         data && (
           <PageContainer>
-            <PageHeader description="" title="Challenges" />
+            <PageHeader
+              description="In-game challenges players can complete to earn rewards and prove their skills."
+              title="Challenges"
+            />
             {data.map((award) => {
               return (
                 <PageContainer

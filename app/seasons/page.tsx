@@ -39,7 +39,7 @@ async function fetchData(): Promise<LewaguesData> {
       ) ?? seasons[0]
 
     const [leaderboardResponse, scoreboardResponse] = await Promise.all([
-      fetch(`${seasonsApi}/${currentSeason.id}/leaderboard?difficulty=normal`, {
+      fetch(`${seasonsApi}/${currentSeason.id}/leaderboard`, {
         next: { revalidate: 480 },
       }),
       fetch(seasonScoreboardApi(currentSeason.id), {
