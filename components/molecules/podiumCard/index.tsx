@@ -15,6 +15,9 @@ interface Props {
   position: 1 | 2 | 3
 }
 
+const skinToImagePath = (skin: string): string =>
+  `/awards/${skin[0].toLowerCase()}${skin.slice(1)}.png`
+
 export default function PodiumCard({ entry, position }: Props) {
   const color = positionColorMap[position]
 
@@ -28,11 +31,15 @@ export default function PodiumCard({ entry, position }: Props) {
         <Image
           circular
           colored
-          colorName={color}
           alt={entry.player.name}
+          colorName={color}
           fallbackSrc="/potm.png"
           height={64}
-          src="/potm.png"
+          src={
+            entry.selectedData?.selectedSkin
+              ? skinToImagePath(entry.selectedData.selectedSkin)
+              : '/potm.png'
+          }
           width={64}
         />
         <p className={styles.name}>{entry.player.name}</p>

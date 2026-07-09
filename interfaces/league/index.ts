@@ -61,6 +61,15 @@ export interface LeagueScoreboardEntry {
   }
   leagueScore: number
   breakdown: LeagueScoreboardBreakdown
+  selectedData: {
+    playerId: number
+    selectedAura: string
+    selectedHat: string
+    selectedSkin: string
+    selectedTrail: string
+    selectedWindwalk: string
+    selectedWings: string
+  }
 }
 
 export type LeagueScoreboardApiResponse = LeagueScoreboardEntry[]

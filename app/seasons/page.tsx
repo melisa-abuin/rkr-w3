@@ -84,7 +84,7 @@ async function fetchData(): Promise<LewaguesData> {
 
 export default async function SeasonsPage() {
   const { data, error } = await fetchData()
-  console.log('data', data)
+
   return (
     <main>
       {error ? (
