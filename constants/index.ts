@@ -140,13 +140,13 @@ export const routes = {
     target: '_self',
     isNew: false,
   },
-  // seasons: {
-  //   label: 'Seasons',
-  //   pathname: '/seasons',
-  //   url: '/seasons',
-  //   target: '_self',
-  //   isNew: true,
-  // },
+  seasons: {
+    label: 'Seasons',
+    pathname: '/seasons',
+    url: '/seasons',
+    target: '_self',
+    isNew: true,
+  },
   tournaments: {
     label: 'Tournaments',
     pathname: '/tournaments',
