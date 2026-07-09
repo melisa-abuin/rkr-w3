@@ -9,7 +9,7 @@ import {
   LeagueSeasonsApiResponse,
 } from '@/interfaces/league'
 
-interface LewaguesData {
+interface SeasonsData {
   error: string | null
   data: {
     seasons: LeagueSeasonsApiResponse
@@ -21,7 +21,7 @@ interface LewaguesData {
   }
 }
 
-async function fetchData(): Promise<LewaguesData> {
+async function fetchData(): Promise<SeasonsData> {
   const response = await fetch(seasonsApi, {
     next: { revalidate: 480 },
   })
@@ -37,6 +37,20 @@ async function fetchData(): Promise<LewaguesData> {
           now >= new Date(season.startDate).getTime() &&
           now <= new Date(season.endDate).getTime(),
       ) ?? seasons[0]
+
+    if (!currentSeason) {
+      return {
+        data: {
+          seasons: [],
+          currentSeason: {
+            seasonData: {} as LeagueSeason,
+            leaderboard: { stats: [], times: [] },
+            podium: [],
+          },
+        },
+        error: 'Something went wrong',
+      }
+    }
 
     const [leaderboardResponse, scoreboardResponse] = await Promise.all([
       fetch(`${seasonsApi}/${currentSeason.id}/leaderboard`, {
