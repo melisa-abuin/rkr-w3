@@ -1,7 +1,9 @@
 .podium {
+  --podium-base-height: 270px;
   align-items: flex-end;
   display: flex;
   flex-direction: row;
+  padding-top: 16px;
   gap: 8px;
   justify-content: center;
   width: 100%;
@@ -14,22 +16,27 @@
 }
 
 @media (max-width: 480px) {
+  .podium {
+    --podium-base-height: 180px;
+  }
+
   .slot {
-    flex: 1;
+    flex: 0 0 30%;
+    width: 30%;
   }
 }
 
 .first {
   order: 2;
-  margin-bottom: 48px;
+  height: var(--podium-base-height);
 }
 
 .second {
   order: 1;
-  margin-bottom: 24px;
+  height: calc(var(--podium-base-height) * 0.9);
 }
 
 .third {
   order: 3;
-  /* lowest — no extra offset */
+  height: calc(var(--podium-base-height) * 0.8);
 }
