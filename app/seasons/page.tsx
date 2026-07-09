@@ -1,14 +1,13 @@
-import { PageContainer } from '@/components/atoms/pageContainer'
-import PageHeader from '@/components/atoms/pageHeader'
-import ColumnCards from '@/components/molecules/columnCards'
 import Error from '@/components/molecules/error'
-import { seasonsApi } from '@/constants'
+import SeasonsTemplate from '@/components/templates/seasons'
+import { seasonScoreboardApi, seasonsApi } from '@/constants'
 import {
   LeagueLeaderboardApiResponse,
+  LeagueScoreboardApiResponse,
+  LeagueScoreboardEntry,
   LeagueSeason,
   LeagueSeasonsApiResponse,
 } from '@/interfaces/league'
-import { getDaysUntil } from '@/utils'
 
 interface LewaguesData {
   error: string | null
@@ -17,6 +16,7 @@ interface LewaguesData {
     currentSeason: {
       seasonData: LeagueSeason
       leaderboard: LeagueLeaderboardApiResponse
+      podium: LeagueScoreboardEntry[]
     }
   }
 }
@@ -38,15 +38,24 @@ async function fetchData(): Promise<LewaguesData> {
           now <= new Date(season.endDate).getTime(),
       ) ?? seasons[0]
 
-    const leaderboardResponse = await fetch(
-      `${seasonsApi}/${currentSeason.id}/leaderboard?difficulty=normal`,
-      { next: { revalidate: 480 } },
-    )
+    const [leaderboardResponse, scoreboardResponse] = await Promise.all([
+      fetch(`${seasonsApi}/${currentSeason.id}/leaderboard?difficulty=normal`, {
+        next: { revalidate: 480 },
+      }),
+      fetch(seasonScoreboardApi(currentSeason.id), {
+        next: { revalidate: 480 },
+      }),
+    ])
 
     const leaderboard: LeagueLeaderboardApiResponse =
       leaderboardResponse.status === 200
         ? await leaderboardResponse.json()
         : { stats: [], times: [] }
+
+    const scoreboard: LeagueScoreboardApiResponse =
+      scoreboardResponse.status === 200 ? await scoreboardResponse.json() : []
+
+    const podium = scoreboard.slice(0, 3)
 
     return {
       data: {
@@ -54,6 +63,7 @@ async function fetchData(): Promise<LewaguesData> {
         currentSeason: {
           seasonData: currentSeason,
           leaderboard,
+          podium,
         },
       },
       error: null,
@@ -65,6 +75,7 @@ async function fetchData(): Promise<LewaguesData> {
       currentSeason: {
         seasonData: {} as LeagueSeason,
         leaderboard: { stats: [], times: [] },
+        podium: [],
       },
     },
     error: 'Something went wrong',
@@ -79,37 +90,11 @@ export default async function SeasonsPage() {
       {error ? (
         <Error />
       ) : (
-        <PageContainer withPadding={false}>
-          <PageHeader description="" title="Seasons" />
-          <PageContainer
-            title={data.currentSeason.seasonData.leagueId}
-            withPadding={false}
-          >
-            <p>
-              Ends in {getDaysUntil(data.currentSeason.seasonData.endDate)} days
-            </p>
-            <PageContainer
-              ariaLabelledby="columns-score-title"
-              title="Best Scores"
-              withPadding={false}
-            >
-              <ColumnCards
-                data={data.currentSeason.leaderboard.stats}
-                filter="stats"
-              />
-            </PageContainer>
-            <PageContainer
-              ariaLabelledby="columns-time-title"
-              title="Best Times"
-              withPadding={false}
-            >
-              <ColumnCards
-                data={data.currentSeason.leaderboard.times}
-                filter="times"
-              />
-            </PageContainer>
-          </PageContainer>
-        </PageContainer>
+        <SeasonsTemplate
+          leaderboard={data.currentSeason.leaderboard}
+          podium={data.currentSeason.podium}
+          seasonData={data.currentSeason.seasonData}
+        />
       )}
     </main>
   )

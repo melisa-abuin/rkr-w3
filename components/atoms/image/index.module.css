@@ -3,6 +3,22 @@
   cursor: pointer;
 }
 
+.primary {
+  border-color: var(--color-primary);
+}
+
+.teal {
+  border-color: var(--color-teal);
+}
+
+.green {
+  border-color: var(--color-green);
+}
+
+.yellow {
+  border-color: var(--color-yellow);
+}
+
 .circular {
   border-radius: 50%;
 }

@@ -86,7 +86,7 @@ export default function PlayerDashboard({
   const handleClear = useCallback(() => {
     router.push('?')
   }, [router])
-  console.log('currentPlayer', currentPlayer)
+
   return (
     <>
       <PageContainer>
