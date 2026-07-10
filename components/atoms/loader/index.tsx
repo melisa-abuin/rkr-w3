@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface LoaderProps {
   height?: number | string
   variant?: 'primary' | 'secondary'
   width?: number | string
@@ -11,7 +11,7 @@ export default function Loader({
   height = 'auto',
   variant = 'primary',
   width = 'auto',
-}: Props) {
+}: LoaderProps) {
   const className = `${styles.background} ${styles[variant]}`
   const style = {
     height: typeof height === 'number' ? `${height}px` : height,

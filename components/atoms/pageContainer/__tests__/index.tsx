@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { PageContainer } from '..'
+import PageContainer from '..'
 
 describe('PageContainer', () => {
   it('renders children correctly', () => {

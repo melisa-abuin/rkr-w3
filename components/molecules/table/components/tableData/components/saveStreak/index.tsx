@@ -3,7 +3,7 @@ import { Wing } from '@/components/icons/wing'
 import { SaveStreak as SaveStreakI } from '@/interfaces/player'
 import styles from './index.module.css'
 
-interface Props {
+interface SaveStreakProps {
   data: SaveStreakI
 }
 
@@ -44,7 +44,7 @@ const SaveStreakIcon = ({
   return null
 }
 
-export default function SaveStreak({ data }: Props) {
+export default function SaveStreak({ data }: SaveStreakProps) {
   const { highestScore, redLightning, patrioticTendrils } = data
 
   const saveStreakToShow = () => {

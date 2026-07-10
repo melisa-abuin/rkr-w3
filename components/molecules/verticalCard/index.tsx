@@ -2,7 +2,7 @@ import Image from '@/components/atoms/image'
 import LoaderCard from './components/loaderCard'
 import styles from './index.module.css'
 
-type Props =
+type VerticalCardProps =
   | { loading: true }
   | {
       loading?: false
@@ -12,7 +12,7 @@ type Props =
       subLabel?: string
     }
 
-export default function VerticalCard(props: Props) {
+export default function VerticalCard(props: VerticalCardProps) {
   if (props.loading) return <LoaderCard />
 
   const { imageSrc, imageFallbackSrc, label, subLabel } = props

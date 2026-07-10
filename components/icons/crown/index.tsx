@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface CrownProps {
   fill?: string
   width?: number

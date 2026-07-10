@@ -10,7 +10,7 @@ import { Player } from '@/interfaces/player'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface PlayerFinderWithResultProps {
   selectedPlayer?: Player
   setSelectedPlayer?: (player: Player | undefined) => void
   placeholder?: string
@@ -20,7 +20,7 @@ export default function PlayerFinderWithResult({
   selectedPlayer,
   setSelectedPlayer,
   placeholder,
-}: Props) {
+}: PlayerFinderWithResultProps) {
   const [player, setPlayer] = useState<Player | undefined>(selectedPlayer)
   const [battleTag, setBattleTag] = useState<string | undefined>()
 

@@ -7,11 +7,11 @@ import { formatSecondsAsTime } from '@/utils'
 import Column from './components/column'
 import styles from './index.module.css'
 
-interface Props {
+interface TournamentSummaryProps {
   item: TournamentFormatted
 }
 
-export default function TournamentSummary({ item }: Props) {
+export default function TournamentSummary({ item }: TournamentSummaryProps) {
   return (
     <div className={styles.container}>
       {item.players.map((player, playerIndex) => {

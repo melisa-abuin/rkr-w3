@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface MinusProps {
   fill?: string
   width?: number

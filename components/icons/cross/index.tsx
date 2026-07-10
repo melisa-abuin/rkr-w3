@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface CrossProps {
   fill?: string
   width?: number

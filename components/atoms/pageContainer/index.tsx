@@ -3,7 +3,7 @@
 import { ReactNode } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface PageContainerProps {
   align?: 'center' | 'left'
   ariaLabelledby?: string
   as?: 'section' | 'div'
@@ -15,7 +15,7 @@ interface Props {
   withPadding?: boolean
 }
 
-export const PageContainer = ({
+export default function PageContainer({
   align = 'left',
   ariaLabelledby,
   as = 'section',
@@ -25,7 +25,7 @@ export const PageContainer = ({
   withPadding = true,
   subtitle,
   title,
-}: Props) => {
+}: PageContainerProps) {
   const OuterElement = as
   const titleAlignClass =
     align === 'center' ? styles.titleCenter : styles.titleLeft

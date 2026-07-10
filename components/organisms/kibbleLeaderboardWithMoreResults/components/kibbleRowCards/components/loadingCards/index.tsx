@@ -3,12 +3,12 @@ import RowCard from '@/components/molecules/rowCard'
 import rowCardStyles from '@/components/molecules/rowCard/index.module.css'
 import styles from './index.module.css'
 
-interface Props {
+interface LoadingCardsProps {
   rows?: number
   columns: number
 }
 
-export default function LoadingCards({ rows = 5, columns }: Props) {
+export default function LoadingCards({ rows = 5, columns }: LoadingCardsProps) {
   return (
     <div className={rowCardStyles.container}>
       {[...Array(rows)].map((_, rowIndex) => (

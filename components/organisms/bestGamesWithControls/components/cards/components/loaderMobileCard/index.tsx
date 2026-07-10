@@ -1,13 +1,16 @@
-import styles from '../mobileCard/index.module.css'
 import Loader from '@/components/atoms/loader'
 import PositionNumber from '@/components/atoms/positionNumber'
+import styles from '../mobileCard/index.module.css'
 
-interface Props {
+interface LoaderMobileCardProps {
   position: number
   showDifficulty: boolean
 }
 
-export default function LoaderMobileCard({ position, showDifficulty }: Props) {
+export default function LoaderMobileCard({
+  position,
+  showDifficulty,
+}: LoaderMobileCardProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

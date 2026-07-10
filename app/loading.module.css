@@ -5,18 +5,12 @@
   align-items: center;
   gap: 10px;
   height: 100vh;
-  color: #6b6565;
+  color: var(--text-color-secondary);
 }
 
 @media (max-width: 768px) {
   .wrapper {
     padding: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .wrapper {
-    color: #9c9a9a;
   }
 }
 

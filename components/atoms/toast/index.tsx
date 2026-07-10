@@ -4,7 +4,7 @@ import { Cross } from '@/components/icons/cross'
 import { ToastVariant } from '@/interfaces/toast'
 import styles from './index.module.css'
 
-type Props = {
+type ToastProps = {
   index: number
   message: string
   onClick: () => void
@@ -16,7 +16,7 @@ export default function Toast({
   message,
   onClick,
   variant = 'error',
-}: Props) {
+}: ToastProps) {
   const containerClassName = `${styles.container} ${styles[variant]}`
 
   return (

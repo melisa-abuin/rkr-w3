@@ -1,17 +1,17 @@
-import React, { ReactNode } from 'react'
-import styles from './index.module.css'
-import TextWithIcon from '@/components/atoms/textWithIcon'
-import { Difficulty } from '@/interfaces/difficulty'
-import { formatSecondsAsTime } from '@/utils'
-import TooltipComponent from '@/components/atoms/tooltip'
-import { BestTime } from '@/interfaces/player'
 import Paws from '@/components/atoms/paws'
+import TextWithIcon from '@/components/atoms/textWithIcon'
+import TooltipComponent from '@/components/atoms/tooltip'
+import { Difficulty } from '@/interfaces/difficulty'
+import { BestTime } from '@/interfaces/player'
+import { formatSecondsAsTime } from '@/utils'
+import { ReactNode } from 'react'
+import styles from './index.module.css'
 
 const getObjectKeys = Object.keys as <T extends object>(
   obj: T,
 ) => Array<keyof T>
 
-interface Props {
+interface TooltipProps {
   data: {
     hard: number | string
     impossible: number | string
@@ -29,7 +29,7 @@ export default function Tooltip({
   best,
   children,
   difficulty = undefined,
-}: Props) {
+}: TooltipProps) {
   if (!data) {
     return <>{children}</>
   }

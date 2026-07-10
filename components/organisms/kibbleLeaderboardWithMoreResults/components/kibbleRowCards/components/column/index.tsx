@@ -1,6 +1,6 @@
 import styles from './index.module.css'
 
-interface Props {
+interface ColumnProps {
   value: number
   description: string
   hideOnMobile?: boolean
@@ -10,7 +10,7 @@ export default function Column({
   value,
   description,
   hideOnMobile = false,
-}: Props) {
+}: ColumnProps) {
   const className = `${styles.container} ${
     hideOnMobile ? styles.containerHiddenOnMobile : ''
   }`

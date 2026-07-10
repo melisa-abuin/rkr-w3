@@ -19,7 +19,7 @@
 
 .line {
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--background-secondary);
   height: 0;
   width: 100%;
 }

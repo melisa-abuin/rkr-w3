@@ -1,13 +1,15 @@
+'use client'
+
 import { Coins } from '@/components/icons/coins'
 import { getStoredGold, saveGold } from '@/utils'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface GoldProps {
   goldGained?: number
 }
 
-export default function Gold({ goldGained = 0 }: Props) {
+export default function Gold({ goldGained = 0 }: GoldProps) {
   const [currentGold, setCurrentGold] = useState<number>(() => getStoredGold())
 
   useEffect(() => {

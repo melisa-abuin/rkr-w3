@@ -1,13 +1,13 @@
+import Home from '@/components/templates/home'
 import { discordData } from '@/constants'
 import { DiscordData as DiscordType } from '@/interfaces/discord'
-import Home from '@/components/templates/home'
 
 async function getDiscordData(): Promise<DiscordType> {
   try {
     const response = await fetch(discordData, {
       next: { revalidate: 480 },
     })
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
     const data = await response.json()

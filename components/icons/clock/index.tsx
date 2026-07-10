@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface ClockProps {
   fill?: string
   width?: number

@@ -2,7 +2,7 @@
 
 import Collapsible from '@/components/atoms/collapsible'
 import Info from '@/components/atoms/info'
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import Tabs from '@/components/atoms/tabs'
 import Columns from '@/components/molecules/columns'
 import Awards from '@/components/molecules/completedAwards'
@@ -27,7 +27,7 @@ import { formatCompare, formatDateToLocale, playerDataOutdated } from '@/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect } from 'react'
 import Besties from './components/besties'
-import Header from './components/Header'
+import Header from './components/header'
 import styles from './index.module.css'
 
 export default function PlayerDashboard({

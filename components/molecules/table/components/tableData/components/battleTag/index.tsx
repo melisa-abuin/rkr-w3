@@ -1,6 +1,5 @@
-import React from 'react'
-import { BattleTag as BattleTagI } from '@/interfaces/player'
 import Link from '@/components/atoms/link'
+import { BattleTag as BattleTagI } from '@/interfaces/player'
 import styles from './index.module.css'
 
 /*
@@ -10,11 +9,11 @@ interface k {
   data: unknown
 }
 
-interface Props extends k {
+interface BattleTagProps extends k {
   data: BattleTagI
 }
 
-export default function BattleTag({ data }: Props) {
+export default function BattleTag({ data }: BattleTagProps) {
   const { name, tag } = data
 
   return (

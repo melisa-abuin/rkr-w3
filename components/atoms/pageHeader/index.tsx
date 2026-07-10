@@ -2,7 +2,7 @@
 
 import styles from './index.module.css'
 
-interface Props {
+interface PageHeaderProps {
   align?: 'center' | 'flex-start'
   description: string
   title: string
@@ -12,7 +12,7 @@ export default function PageHeader({
   align = 'center',
   description,
   title,
-}: Props) {
+}: PageHeaderProps) {
   return (
     <header
       className={`${styles.header} ${align === 'center' ? styles.headerCenter : styles.headerStart}`}

@@ -16,12 +16,12 @@ argument-hint: 'Component name and optionally the atomic layer (atom/molecule/or
 
 Choose the layer based on what the component does:
 
-| Layer | Rule | Can import from |
-|-------|------|-----------------|
-| `atoms` | Generic, reusable, no business logic | nothing inside `components/` |
-| `molecules` | Built from atoms + local logic | `atoms` only (via `@/components/atoms/...`) |
-| `organisms` | Larger sections, compose molecules + atoms | `atoms`, `molecules` |
-| `templates` | Full page-level sections | `atoms`, `molecules`, `organisms` |
+| Layer       | Rule                                       | Can import from                             |
+| ----------- | ------------------------------------------ | ------------------------------------------- |
+| `atoms`     | Generic, reusable, no business logic       | nothing inside `components/`                |
+| `molecules` | Built from atoms + local logic             | `atoms` only (via `@/components/atoms/...`) |
+| `organisms` | Larger sections, compose molecules + atoms | `atoms`, `molecules`                        |
+| `templates` | Full page-level sections                   | `atoms`, `molecules`, `organisms`           |
 
 **Key constraint**: never use `../` to cross layer boundaries. Always use the `@/components/<layer>/` alias.
 
@@ -55,9 +55,11 @@ components/<layer>/<component-name>/
    - Keep all styles scoped to this file.
 
 5. **Validate import rules** by running the atomic structure check from the `scripts/` folder:
+
    ```
    cd scripts && python atomicStructureCheck.py
    ```
+
    Fix any reported forbidden imports before finishing.
 
 6. **Run quality checks**:
@@ -68,9 +70,9 @@ components/<layer>/<component-name>/
 
 ## Import Rule Reference
 
-| In this layer | Forbidden imports |
-|---------------|-------------------|
-| atoms | Any `@/components/...`, any `../` |
-| molecules | `molecules`, `organisms`, `templates`; `../../atoms/...` (use `@/components/atoms/...` instead) |
-| organisms | `organisms`, `templates`; `../../molecules/...`, `../../atoms/...` |
-| templates | `templates`; cross-layer relative paths |
+| In this layer | Forbidden imports                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------- |
+| atoms         | Any `@/components/...`, any `../`                                                               |
+| molecules     | `molecules`, `organisms`, `templates`; `../../atoms/...` (use `@/components/atoms/...` instead) |
+| organisms     | `organisms`, `templates`; `../../molecules/...`, `../../atoms/...`                              |
+| templates     | `templates`; cross-layer relative paths                                                         |

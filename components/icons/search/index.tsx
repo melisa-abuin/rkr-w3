@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface SearchProps {
   fill?: string
   width?: number

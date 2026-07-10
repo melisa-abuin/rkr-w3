@@ -1,11 +1,11 @@
+import { Clock } from '@/components/icons/clock'
+import { Crown } from '@/components/icons/crown'
+import { Flame } from '@/components/icons/flame'
+import { Information } from '@/components/icons/information'
+import { Paw } from '@/components/icons/paw'
+import { Winner } from '@/components/icons/winner'
 import type { ReactNode } from 'react'
 import styles from './index.module.css'
-import { Crown } from '@/components/icons/crown'
-import { Winner } from '@/components/icons/winner'
-import { Flame } from '@/components/icons/flame'
-import { Clock } from '@/components/icons/clock'
-import { Paw } from '@/components/icons/paw'
-import { Information } from '@/components/icons/information'
 
 type ColorName =
   | 'black'
@@ -20,7 +20,7 @@ type ColorName =
   | 'white'
   | 'yellow'
 
-interface Props {
+interface TextWithIconProps {
   children: ReactNode
   colorName?: ColorName
   iconName?:
@@ -50,7 +50,7 @@ export default function TextWithIcon({
   iconName,
   iconSize = 20,
   large = false,
-}: Props) {
+}: TextWithIconProps) {
   const Icon = iconName && icons[iconName]
   const className = `${styles.text} ${styles[colorName]} ${
     large ? styles.large : styles.small

@@ -1,7 +1,6 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Tooltip from '..'
 import userEvent from '@testing-library/user-event'
+import Tooltip from '..'
 
 describe('Tooltip', () => {
   const tooltipText = 'This is a tooltip'

@@ -1,6 +1,6 @@
 'use client'
 
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Tabs from '@/components/atoms/tabs'
 import HelpInfo from '@/components/molecules/helpInfo'

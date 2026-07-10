@@ -1,5 +1,5 @@
-import Link from '@/components/atoms/link'
 import Image from '@/components/atoms/image'
+import Link from '@/components/atoms/link'
 import { BattleTag as BattleTagI, Skins } from '@/interfaces/player'
 import styles from './index.module.css'
 
@@ -8,12 +8,12 @@ const formatSkinName = (skin: Skins) => {
   return `/awards/${skin.selectedSkin[0].toLowerCase()}${skin.selectedSkin.slice(1)}.png`
 }
 
-interface Props {
+interface PlayerTagProps {
   battleTag: BattleTagI
   skins?: Skins | null
 }
 
-export default function PlayerTag({ battleTag, skins = null }: Props) {
+export default function PlayerTag({ battleTag, skins = null }: PlayerTagProps) {
   return (
     <div className={styles.container}>
       {skins && (

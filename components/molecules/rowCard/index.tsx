@@ -1,10 +1,10 @@
+import PositionNumber from '@/components/atoms/positionNumber'
 import { ReactNode } from 'react'
 import styles from './index.module.css'
-import PositionNumber from '@/components/atoms/positionNumber'
 
 export type RowCardVariant = 'default' | 'highlight'
 
-interface Props {
+interface RowCardProps {
   position?: number
   ariaLabel?: string
   className?: string
@@ -20,7 +20,7 @@ export default function RowCard({
   variant = 'default',
   isSmallPosition = false,
   children,
-}: Props) {
+}: RowCardProps) {
   const cardClassName = `${styles.card} ${
     variant === 'highlight' ? styles.cardHighlight : ''
   } ${className || ''}`

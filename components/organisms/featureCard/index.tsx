@@ -9,7 +9,7 @@ export interface FeatureCardItem {
   subLabel?: string
 }
 
-interface Props {
+interface FeatureCardProps {
   title: string
   linkHref: string
   linkLabel: string
@@ -23,7 +23,7 @@ export default function FeatureCard({
   linkLabel,
   items,
   loading,
-}: Props) {
+}: FeatureCardProps) {
   return (
     <div className={styles.wrapper}>
       <h2 className={styles.title}>{title}</h2>

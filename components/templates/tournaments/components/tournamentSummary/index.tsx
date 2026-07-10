@@ -8,11 +8,11 @@ import { formatSecondsAsTime } from '@/utils'
 import Column from './components/column'
 import styles from './index.module.css'
 
-interface Props {
+interface TournamentSummaryProps {
   item: Tournament
 }
 
-export default function TournamentSummary({ item }: Props) {
+export default function TournamentSummary({ item }: TournamentSummaryProps) {
   return (
     <CardsContainer title={`${item.tournament.region} region`}>
       {item.players.slice(0, 3).map((player, playerIndex) => {

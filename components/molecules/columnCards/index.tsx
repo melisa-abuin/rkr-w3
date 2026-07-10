@@ -8,7 +8,7 @@ import LoaderCard from './components/loaderCard'
 import Row from './components/row'
 import styles from './index.module.css'
 
-interface Props {
+interface ColumnCardsProps {
   data?: LeaderboardCategories[]
   difficulty?: Difficulty | undefined
   hoverable?: boolean
@@ -28,7 +28,7 @@ export default function ColumnCards({
   selectedPlayer,
   withViewAll = true,
   sortOrder = 'desc',
-}: Props) {
+}: ColumnCardsProps) {
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
     return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=${sortOrder}${difficultyUrlParam}`

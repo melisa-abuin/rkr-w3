@@ -63,11 +63,13 @@ module.exports = [
                 '@/components/organisms/**',
                 '@/components/templates/**',
               ],
-              message: 'Molecules cannot import from the same or higher layers.',
+              message:
+                'Molecules cannot import from the same or higher layers.',
             },
             {
               group: ['@/components/*/*/components/**'],
-              message: 'Molecules cannot import internal subcomponents of other components.',
+              message:
+                'Molecules cannot import internal subcomponents of other components.',
             },
             {
               group: ['../../atoms/**'],
@@ -86,19 +88,19 @@ module.exports = [
         {
           patterns: [
             {
-              group: [
-                '@/components/organisms/**',
-                '@/components/templates/**',
-              ],
-              message: 'Organisms cannot import from the same or higher layers.',
+              group: ['@/components/organisms/**', '@/components/templates/**'],
+              message:
+                'Organisms cannot import from the same or higher layers.',
             },
             {
               group: ['@/components/*/*/components/**'],
-              message: 'Organisms cannot import internal subcomponents of other components.',
+              message:
+                'Organisms cannot import internal subcomponents of other components.',
             },
             {
               group: ['../../molecules/**', '../../atoms/**'],
-              message: 'Organisms must use the @/ alias to import atoms and molecules.',
+              message:
+                'Organisms must use the @/ alias to import atoms and molecules.',
             },
           ],
         },

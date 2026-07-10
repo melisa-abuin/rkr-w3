@@ -1,9 +1,8 @@
-import React from 'react'
+import TextWithIcon from '@/components/atoms/textWithIcon'
 import { Challenges as ChallengesT } from '@/interfaces/player'
 import styles from './index.module.css'
-import TextWithIcon from '@/components/atoms/textWithIcon'
 
-interface Props {
+interface ChallengesDataProps {
   data: ChallengesT
 }
 
@@ -49,7 +48,7 @@ const GeneralChallenges = ({ challenges }: ChallengesProps) => {
   )
 }
 
-export default function Challenges({ data }: Props) {
+export default function Challenges({ data }: ChallengesDataProps) {
   const { general, tournament } = data
   const [completedChallenges, totalChallenges] = tournament
 

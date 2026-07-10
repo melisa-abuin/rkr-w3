@@ -1,9 +1,9 @@
-import { formatSecondsAsTime } from '@/utils'
-import { BattleTag, BestTime } from '@/interfaces/player'
 import Link from '@/components/atoms/link'
+import { BattleTag, BestTime } from '@/interfaces/player'
+import { formatSecondsAsTime } from '@/utils'
 import styles from './index.module.css'
 
-interface Props {
+interface RowProps {
   player?: BattleTag
   hoverable: boolean
   data?: number | BestTime
@@ -19,7 +19,7 @@ const isBestTime = (data: number | BestTime): data is BestTime => {
   )
 }
 
-export default function Row({ player, data, hoverable, isSelected }: Props) {
+export default function Row({ player, data, hoverable, isSelected }: RowProps) {
   const isEmptyRow = !player || data === undefined || data === null
   const isHoverableRow = hoverable && !isEmptyRow && isBestTime(data)
   const rowClassName = [

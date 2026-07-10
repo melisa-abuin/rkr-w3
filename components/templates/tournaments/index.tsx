@@ -1,7 +1,7 @@
 'use client'
 
 import Button from '@/components/atoms/button'
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import { Tournament } from '@/interfaces/tournament'
 import { formatDateToLocale, groupTournamentsByGroupId } from '@/utils'
@@ -9,11 +9,11 @@ import { Fragment } from 'react/jsx-runtime'
 import TournamentSummary from './components/tournamentSummary'
 import styles from './index.module.css'
 
-interface Props {
+interface TournamentsProps {
   data: Tournament[]
 }
 
-export default function Tournaments({ data }: Props) {
+export default function Tournaments({ data }: TournamentsProps) {
   const groups = groupTournamentsByGroupId(data)
   return (
     <>

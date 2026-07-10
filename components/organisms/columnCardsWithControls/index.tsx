@@ -1,6 +1,6 @@
 'use client'
 
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import Badges from '@/components/molecules/badges'
 import ColumnCards from '@/components/molecules/columnCards'
 import { playersTimeLeaderboardApi, roundDifficultyNames } from '@/constants'
@@ -13,7 +13,7 @@ import styles from './index.module.css'
 
 type LeaderBoardData = LeaderboardCategories[]
 
-interface Props {
+interface ColumnCardsWithControlsProps {
   data?: LeaderBoardData
   title: string
   filter: 'stats' | 'times'
@@ -25,7 +25,7 @@ export default function ColumnCardsWithControls({
   filter,
   title,
   selectedPlayer,
-}: Props) {
+}: ColumnCardsWithControlsProps) {
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >()
