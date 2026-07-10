@@ -14,7 +14,7 @@ export const useDownloadStats = () =>
       }
 
       const json = await response.json()
-      const formatted = formatSaveDataFile(JSON.stringify(json.raw_Json))
+      const formatted = formatSaveDataFile(JSON.stringify(json[0].raw_Json))
       return new Blob([formatted], { type: 'text/plain' })
     },
   })
