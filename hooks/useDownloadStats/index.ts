@@ -1,16 +1,20 @@
+import { apiUrl } from '@/constants'
+import { formatSaveDataFile } from '@/utils'
 import { useMutation } from '@tanstack/react-query'
 
 export const useDownloadStats = () =>
   useMutation({
-    mutationFn: async (battletag: string) => {
+    mutationFn: async (playerId: string) => {
       const response = await fetch(
-        `/api/downloadPlayerStats/${encodeURIComponent(battletag)}`,
+        `${apiUrl}/api/RawJson/${encodeURIComponent(playerId)}`,
       )
 
       if (!response.ok) {
         throw new Error(`Download failed: ${response.status}`)
       }
 
-      return await response.blob()
+      const json = await response.json()
+      const formatted = formatSaveDataFile(JSON.stringify(json[0].raw_Json))
+      return new Blob([formatted], { type: 'text/plain' })
     },
   })

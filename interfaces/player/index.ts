@@ -94,6 +94,7 @@ export interface Kibbles {
 }
 
 export interface Player {
+  id: string
   awards: Award[]
   battleTag: BattleTag
   bestGameTimes: GameStatsFormatted[]
