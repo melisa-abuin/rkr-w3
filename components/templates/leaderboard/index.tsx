@@ -16,6 +16,7 @@ import { statsColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import { components } from '@/interfaces/api'
 import { Player } from '@/interfaces/player'
 import { useState } from 'react'
 
@@ -29,12 +30,13 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     data: statsData,
     isFetching,
     error,
-  } = useApiQuery<{
-    stats: Player[]
-    page: number
-  }>(playerStatsDefaultApi, undefined, {
-    enabled: true,
-  })
+  } = useApiQuery<components['schemas']['StatsRowDTOPagedResponseDTO']>(
+    playerStatsDefaultApi,
+    undefined,
+    {
+      enabled: true,
+    },
+  )
 
   useQueryErrorToast(
     error,

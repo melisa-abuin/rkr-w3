@@ -12,7 +12,15 @@ import {
 } from '@/components/molecules/table/components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { BestGameTimeFormatted } from '@/interfaces/game'
-import { BattleTag, Kibbles, Player } from '@/interfaces/player'
+import {
+  BattleTag,
+  Challenges,
+  Kibbles,
+  Player,
+  SaveStreak,
+  TotalsPerDifficulty,
+} from '@/interfaces/player'
+import { components } from '@/interfaces/api'
 import { ReactNode } from 'react'
 
 type Column<T> = {
@@ -25,39 +33,49 @@ export type KibbleRow = Kibbles & {
   battleTag: BattleTag
 }
 
-export const statsColumnsWithRender: Column<Player>[] = [
+export type StatsRow = components['schemas']['StatsRowDTO']
+
+export const statsColumnsWithRender: Column<StatsRow>[] = [
   {
     title: 'Player',
     key: 'battleTag',
-    render: (player) => renderBattleTag(player.battleTag),
+    render: (player) =>
+      renderBattleTag(player.battleTag as BattleTag),
   },
   {
     title: 'Completed Challenges',
     key: 'completedChallenges',
-    render: (player) => renderCompletedChallenges(player.completedChallenges),
+    render: (player) =>
+      renderCompletedChallenges(player.completedChallenges as Challenges),
   },
   { title: 'Saves', key: 'saves' },
   {
     title: 'S/D Ratio',
     key: 'saveDeathRatio',
-    render: (player) => renderSaveDeathRatio(player.saveDeathRatio),
+    render: (player) => renderSaveDeathRatio(player.saveDeathRatio ?? 0),
   },
   {
     title: 'Games Played',
     key: 'gamesPlayed',
     render: (player, difficultyFilter) =>
-      renderTotalsPerDifficultyTooltip(player.gamesPlayed, difficultyFilter),
+      renderTotalsPerDifficultyTooltip(
+        player.gamesPlayed as TotalsPerDifficulty,
+        difficultyFilter,
+      ),
   },
   {
     title: 'Wins',
     key: 'wins',
     render: (player, difficultyFilter) =>
-      renderTotalsPerDifficultyTooltip(player.wins, difficultyFilter),
+      renderTotalsPerDifficultyTooltip(
+        player.wins as TotalsPerDifficulty,
+        difficultyFilter,
+      ),
   },
   {
     title: 'Highest Save Streak',
     key: 'saveStreak',
-    render: (player) => renderSaveStreak(player.saveStreak),
+    render: (player) => renderSaveStreak(player.saveStreak as SaveStreak),
   },
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ]

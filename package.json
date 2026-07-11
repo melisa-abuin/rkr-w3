@@ -6,6 +6,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "generate:api-types": "node --experimental-strip-types scripts/generate-api-types.mts",
     "lint": "eslint .",
     "postbuild": "next-sitemap",
     "prepare": "husky",
@@ -23,8 +24,7 @@
     "react-dom": "^19.2.7"
   },
   "resolutions": {
-    "postcss": "8.4.31",
-    "js-yaml": "^3.13.1"
+    "postcss": "8.4.31"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.1.0",
@@ -44,6 +44,7 @@
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "msw": "^2.14.6",
+    "openapi-typescript": "7",
     "prettier": "^3.8.4",
     "prettier-eslint": "^17.1.1",
     "typescript": "^6.0.3",
