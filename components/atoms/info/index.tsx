@@ -1,14 +1,14 @@
 'use client'
 
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface InfoProps {
   children: ReactNode
   as?: 'p' | 'ul'
 }
 
-export default function Info({ children, as = 'p' }: Props) {
+export default function Info({ children, as = 'p' }: InfoProps) {
   const Element = as
 
   return (

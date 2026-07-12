@@ -25,7 +25,7 @@ type ButtonAsAnchorProps = CommonProps &
     as: 'a'
   }
 
-type Props = ButtonAsAnchorProps | ButtonAsButtonProps
+type ButtonProps = ButtonAsAnchorProps | ButtonAsButtonProps
 
 export default function Button({
   as = 'button',
@@ -35,7 +35,7 @@ export default function Button({
   small = false,
   variant = 'solid',
   ...props
-}: Props) {
+}: ButtonProps) {
   const colorVariants: Record<NonNullable<CommonProps['colorName']>, string> = {
     primary: styles.primary,
     secondary: styles.secondary,

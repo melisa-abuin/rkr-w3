@@ -1,13 +1,16 @@
+import Loader from '@/components/atoms/loader'
 import RowCard from '@/components/molecules/rowCard'
 import styles from '../desktopCard/index.module.css'
-import Loader from '@/components/atoms/loader'
 
-interface Props {
+interface LoaderDesktopCardProps {
   position: number
   showDifficulty: boolean
 }
 
-export default function LoaderDesktopCard({ position, showDifficulty }: Props) {
+export default function LoaderDesktopCard({
+  position,
+  showDifficulty,
+}: LoaderDesktopCardProps) {
   return (
     <div className={styles.desktopOnly}>
       <RowCard position={position}>

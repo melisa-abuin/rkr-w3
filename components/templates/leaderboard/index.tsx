@@ -1,7 +1,7 @@
 'use client'
 
 import Button from '@/components/atoms/button'
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Tabs from '@/components/atoms/tabs'
 import ColumnCards from '@/components/molecules/columnCards'

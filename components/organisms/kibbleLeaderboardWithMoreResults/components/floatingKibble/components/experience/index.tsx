@@ -1,12 +1,14 @@
+'use client'
+
 import { getLevelInfo, getStoredExp, LevelInfo, saveExp } from '@/utils'
 import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface ExperienceProps {
   expGained?: number
 }
 
-export default function Experience({ expGained = 0 }: Props) {
+export default function Experience({ expGained = 0 }: ExperienceProps) {
   const [levelInfo, setLevelInfo] = useState<LevelInfo>(() =>
     getLevelInfo(getStoredExp()),
   )

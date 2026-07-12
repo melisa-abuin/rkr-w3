@@ -1,7 +1,9 @@
+'use client'
+
+import { Minus } from '@/components/icons/minus'
+import { Plus } from '@/components/icons/plus'
 import { ReactNode, useState } from 'react'
 import styles from './index.module.css'
-import { Plus } from '@/components/icons/plus'
-import { Minus } from '@/components/icons/minus'
 
 interface CollapsibleProps {
   children?: ReactNode

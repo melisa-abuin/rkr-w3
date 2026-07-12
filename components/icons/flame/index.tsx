@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface FlameProps {
   fill?: string
   width?: number

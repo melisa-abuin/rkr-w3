@@ -1,10 +1,10 @@
 'use client'
 
-import React, { ReactNode } from 'react'
 import NextLink from 'next/link'
+import { ReactNode } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface LinkProps {
   children: ReactNode
   color?: string
   download?: string
@@ -22,7 +22,7 @@ export default function Link({
   onClick,
   rel,
   target = '_self',
-}: Props) {
+}: LinkProps) {
   const colorVariants: Record<string, string> = {
     black: styles.colorBlack,
     brandPrimary: styles.colorBrandPrimary,

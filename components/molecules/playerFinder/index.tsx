@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface PlayerFinderProps {
   defaultValue?: string
   onChange?: (value: string) => void
   onClear: () => void
@@ -26,7 +26,7 @@ export default function PlayerFinder({
   onClear,
   onPlayerSelect,
   placeholder = 'Search a player',
-}: Props) {
+}: PlayerFinderProps) {
   const [query, setQuery] = useState(defaultValue)
   const [selectedPlayer, setSelectedPlayer] = useState('')
   const [showOptions, setShowOptions] = useState(false)

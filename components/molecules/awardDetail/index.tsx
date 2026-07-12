@@ -2,7 +2,7 @@ import Image from '@/components/atoms/image'
 import { getMatchedThreshold } from '@/utils'
 import styles from './index.module.css'
 
-interface Props {
+interface AwardDetailProps {
   title: string
   description: string
   imagePath: string
@@ -14,7 +14,7 @@ export default function AwardDetail({
   description,
   imagePath,
   percentage,
-}: Props) {
+}: AwardDetailProps) {
   const colorByPercentage: Record<number, string> = {
     5: styles.percentageValueTeal,
     10: styles.percentageValueGreen,

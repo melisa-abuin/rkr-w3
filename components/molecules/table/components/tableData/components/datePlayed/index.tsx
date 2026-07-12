@@ -1,10 +1,9 @@
 import { getTimeAgoFromToday } from '@/utils'
-import React from 'react'
 
-interface Props {
+interface DatePlayedProps {
   data: string
 }
 
-export default function DatePlayed({ data }: Props) {
+export default function DatePlayed({ data }: DatePlayedProps) {
   return <div>{getTimeAgoFromToday(data)}</div>
 }

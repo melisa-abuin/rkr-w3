@@ -1,6 +1,6 @@
-import Step from '@/components/atoms/step'
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
+import Step from '@/components/atoms/step'
 import { discordGuideSteps } from '@/constants'
 
 export default async function GuidePage() {

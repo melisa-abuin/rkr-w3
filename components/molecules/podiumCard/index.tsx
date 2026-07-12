@@ -10,7 +10,7 @@ const positionColorMap: Record<1 | 2 | 3, PositionColor> = {
   3: 'yellow',
 }
 
-interface Props {
+interface PodiumCardProps {
   entry: LeagueScoreboardEntry
   position: 1 | 2 | 3
 }
@@ -18,7 +18,7 @@ interface Props {
 const skinToImagePath = (skin: string): string =>
   `/awards/${skin[0].toLowerCase()}${skin.slice(1)}.png`
 
-export default function PodiumCard({ entry, position }: Props) {
+export default function PodiumCard({ entry, position }: PodiumCardProps) {
   const color = positionColorMap[position]
 
   return (

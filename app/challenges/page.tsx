@@ -1,5 +1,5 @@
 import CardsContainer from '@/components/atoms/cardsContainer'
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import AwardDetail from '@/components/molecules/awardDetail'
 import Error from '@/components/molecules/error'

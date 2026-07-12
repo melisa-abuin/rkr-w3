@@ -3,7 +3,7 @@ import { Difficulty } from '@/interfaces/difficulty'
 import { Player } from '@/interfaces/player'
 import { formatComparePlayer } from '@/utils'
 
-interface Props {
+interface ColumnsWithComparisonProps {
   columns: Readonly<Array<{ title: string; key: string }>>
   loading: boolean
   player: Player
@@ -19,7 +19,7 @@ export default function ColumnsWithComparison({
   player,
   difficulty = undefined,
   variant = 'primary',
-}: Props) {
+}: ColumnsWithComparisonProps) {
   return (
     <Columns
       data={formatComparePlayer(player, comparePlayer, columns, difficulty)}

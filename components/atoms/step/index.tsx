@@ -1,10 +1,10 @@
 'use client'
 
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import Image from 'next/image'
 import styles from './index.module.css'
-import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 
-interface Props {
+interface StepProps {
   imageSrcSet?: {
     dark: string
     light: string
@@ -13,7 +13,7 @@ interface Props {
   text: string
 }
 
-export default function Step({ imageSrcSet, stepTitle, text }: Props) {
+export default function Step({ imageSrcSet, stepTitle, text }: StepProps) {
   const prefersDarkMode = usePrefersDarkMode()
 
   //TODO: use srcSet images for mobile devices

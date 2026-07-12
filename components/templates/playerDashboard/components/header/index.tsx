@@ -12,14 +12,14 @@ import { Player, Tops } from '@/interfaces/player'
 import { countTopRounds, countZeros, formatKeyToWord } from '@/utils'
 import styles from './index.module.css'
 
-interface Props {
+interface HeaderProps {
   battleTag: string
   color: Player['mostPlayedColor']
   skin: string
   title: string
 }
 
-export default function Header({ battleTag, color, skin, title }: Props) {
+export default function Header({ battleTag, color, skin, title }: HeaderProps) {
   const { isElementInView, elementRef } = useElementInView(90)
   const showFloatingTitle = !isElementInView
 

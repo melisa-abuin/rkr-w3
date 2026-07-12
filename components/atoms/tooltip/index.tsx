@@ -2,13 +2,13 @@
 import React, { ReactNode, useState } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface TooltipProps {
   ariaLabel?: string
   body: ReactNode
   children: ReactNode
 }
 
-export default function Tooltip({ ariaLabel, body, children }: Props) {
+export default function Tooltip({ ariaLabel, body, children }: TooltipProps) {
   const [coords, setCoords] = useState({ x: 0, y: 0 })
   const [showTooltip, setShowTooltip] = useState(false)
 

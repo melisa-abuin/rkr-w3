@@ -1,12 +1,11 @@
 import styles from './index.module.css'
-import React from 'react'
 
-interface Props {
+interface ColumnProps {
   value: number | string
   description: string
 }
 
-export default function Column({ value, description }: Props) {
+export default function Column({ value, description }: ColumnProps) {
   return (
     <div className={styles.container}>
       <p className={styles.title}>{value || 0}</p>

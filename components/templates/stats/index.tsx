@@ -1,6 +1,6 @@
 'use client'
 
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Tabs from '@/components/atoms/tabs'
 import HelpInfo from '@/components/molecules/helpInfo'
@@ -56,7 +56,7 @@ export default function Stats({ data, filter }: AllStatsData) {
   const initialFilter = searchParams?.get('difficulty') as
     | Difficulty
     | undefined
-  const initialSortKey = (searchParams?.get('sortKey') as string) || ''
+  const initialSortKey = searchParams?.get('sortKey') || ''
   const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
   const initialPlayer = searchParams?.get('battleTag') || ''
 
@@ -184,7 +184,6 @@ export default function Stats({ data, filter }: AllStatsData) {
           onTabChange={onTabChange}
         >
           {variantValues.map(({ columns, defaultSortKey, apiBaseUrl }) => {
-            const renderedColumns = columnsByVariant[apiBaseUrl as VariantKey]
             const commonProps = {
               apiBaseUrl,
               currentPage,
@@ -201,12 +200,7 @@ export default function Stats({ data, filter }: AllStatsData) {
                 <TableWithControls<KibbleRow>
                   {...commonProps}
                   key={apiBaseUrl}
-                  columns={
-                    renderedColumns as {
-                      title: string
-                      key: keyof KibbleRow
-                    }[]
-                  }
+                  columns={columnsByVariant.kibble}
                   data={{
                     ...data,
                     stats: (data as { stats?: KibbleStats[] }).stats?.map(
@@ -228,12 +222,7 @@ export default function Stats({ data, filter }: AllStatsData) {
               <TableWithControls<Player>
                 {...commonProps}
                 key={apiBaseUrl}
-                columns={
-                  renderedColumns as {
-                    title: string
-                    key: keyof Player
-                  }[]
-                }
+                columns={columnsByVariant[apiBaseUrl]}
                 data={{
                   pages: data.pages,
                   stats: data.stats as Player[] | undefined,

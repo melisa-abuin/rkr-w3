@@ -1,17 +1,17 @@
 'use client'
 
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Columns from '@/components/molecules/columns'
 import { TournamentFormatted as TournamentInterface } from '@/interfaces/tournament'
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import TournamentSummary from './components/tournamentSummary'
 
-interface Props {
+interface TournamentsProps {
   data: TournamentInterface
 }
 
-export default function Tournaments({ data }: Props) {
+export default function Tournaments({ data }: TournamentsProps) {
   const { tournament, fastestRounds } = data
 
   return (

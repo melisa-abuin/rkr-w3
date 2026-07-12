@@ -1,7 +1,7 @@
 import Button from '@/components/atoms/button'
 import styles from './index.module.css'
 
-interface Props<T extends string> {
+interface BadgesProps<T extends string> {
   onClick: (option: T | undefined) => void
   options: T[]
   selected: T | undefined
@@ -11,7 +11,7 @@ export default function Badges<T extends string>({
   onClick,
   options,
   selected,
-}: Props<T>) {
+}: BadgesProps<T>) {
   return (
     <div className={styles.outerContainer}>
       <div className={styles.innerContainer}>

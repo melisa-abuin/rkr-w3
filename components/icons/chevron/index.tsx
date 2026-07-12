@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface ChevronProps {
   fill?: string
   height?: number

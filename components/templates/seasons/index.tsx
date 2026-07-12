@@ -1,4 +1,4 @@
-import { PageContainer } from '@/components/atoms/pageContainer'
+import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import ColumnCards from '@/components/molecules/columnCards'
 import Podium from '@/components/organisms/podium'
@@ -9,7 +9,7 @@ import {
 } from '@/interfaces/league'
 import { getDaysUntil } from '@/utils'
 
-interface Props {
+interface SeasonsTemplateProps {
   seasonData: LeagueSeason
   leaderboard: LeagueLeaderboardApiResponse
   podium: LeagueScoreboardEntry[]
@@ -19,7 +19,7 @@ export default function SeasonsTemplate({
   leaderboard,
   podium,
   seasonData,
-}: Props) {
+}: SeasonsTemplateProps) {
   return (
     <PageContainer marginBottom={24}>
       <PageHeader

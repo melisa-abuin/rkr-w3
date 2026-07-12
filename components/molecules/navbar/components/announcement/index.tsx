@@ -45,7 +45,7 @@ export default function Announcement() {
           type="button"
           onClick={handleClose}
         >
-          <Cross fill="#fff" height={16} width={16} />
+          <Cross fill="currentColor" height={16} width={16} />
         </button>
       </div>
     </>

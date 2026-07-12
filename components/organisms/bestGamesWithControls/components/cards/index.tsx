@@ -7,13 +7,13 @@ import LoaderMobileCard from './components/loaderMobileCard'
 import MobileCard from './components/mobileCard'
 import styles from './index.module.css'
 
-interface Props {
+interface CardsProps {
   games: BestGameTimesFormatted
   loading: boolean
   showDifficulty: boolean
 }
 
-export default function Cards({ games, loading, showDifficulty }: Props) {
+export default function Cards({ games, loading, showDifficulty }: CardsProps) {
   if (loading) {
     return (
       <div className={styles.container}>

@@ -7,11 +7,11 @@ import { DiscordData } from '@/interfaces/discord'
 import Image from 'next/image'
 import styles from './index.module.css'
 
-interface Props {
+interface HeroBannerProps {
   discordData: DiscordData
 }
 
-export default function HeroBanner({ discordData }: Props) {
+export default function HeroBanner({ discordData }: HeroBannerProps) {
   const { data, error } = discordData
   const placeholder = useTypewriter('Search a player...')
 

@@ -1,10 +1,10 @@
 'use client'
 
+import { Cross } from '@/components/icons/cross'
 import type { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react'
 import styles from './index.module.css'
-import { Cross } from '@/components/icons/cross'
 
-type Props = {
+type InputProps = {
   id: string
   leftIcon?: ReactNode
   name: string
@@ -24,7 +24,7 @@ export default function Input({
   onFocus,
   placeholder,
   value,
-}: Props) {
+}: InputProps) {
   return (
     <div className={styles.wrapper}>
       {leftIcon}

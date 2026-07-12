@@ -1,12 +1,12 @@
 'use client'
 
-import React, { ReactNode } from 'react'
-import styles from './index.module.css'
-import LoaderTable from './components/loader'
 import { Difficulty } from '@/interfaces/difficulty'
 import { isRoundDifficultyAvailable } from '@/utils'
+import { ReactNode } from 'react'
+import LoaderTable from './components/loader'
+import styles from './index.module.css'
 
-interface Props<T> {
+interface TableProps<T> {
   columns: Array<{
     title: string
     key: keyof T
@@ -34,7 +34,7 @@ export default function Table<T>({
   onTableSort,
   pageSize = 5,
   title,
-}: Props<T>) {
+}: TableProps<T>) {
   const onTableHeadClick = (columnKey: keyof T) => {
     if (!onTableSort) {
       return

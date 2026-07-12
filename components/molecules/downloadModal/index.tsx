@@ -8,13 +8,17 @@ import Image from 'next/image'
 import { useState } from 'react'
 import styles from './index.module.css'
 
-interface Props {
+interface DownloadModalProps {
   playerId: string
   battletag: string
   date: string
 }
 
-export default function DownloadModal({ playerId, battletag, date }: Props) {
+export default function DownloadModal({
+  playerId,
+  battletag,
+  date,
+}: DownloadModalProps) {
   const prefersDarkMode = usePrefersDarkMode()
   const { showToast } = useToast()
 

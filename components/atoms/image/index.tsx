@@ -17,7 +17,7 @@ type ColorName =
   | 'white'
   | 'yellow'
 
-interface Props extends ImageProps {
+interface CustomImageProps extends ImageProps {
   colored: boolean
   circular?: boolean
   colorName?: ColorName
@@ -32,7 +32,7 @@ export default function Image({
   fallbackSrc,
   src,
   ...rest
-}: Props) {
+}: CustomImageProps) {
   const [imgSrc, setImgSrc] = useState(src)
   const circularClass = circular ? styles.circular : styles.notCircular
   const coloredClass = colored ? styles.colored : styles.grayscale

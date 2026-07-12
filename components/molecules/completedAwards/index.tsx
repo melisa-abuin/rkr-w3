@@ -6,10 +6,10 @@ import { Award } from '@/interfaces/award'
 import { formatAwardsByCategory } from '@/utils/formatGameAwards'
 import styles from './index.module.css'
 
-interface Props {
+interface CompletedAwardsProps {
   awards: Award[]
 }
-export default function CompletedAwards({ awards }: Props) {
+export default function CompletedAwards({ awards }: CompletedAwardsProps) {
   const formattedAwards = formatAwardsByCategory(awards)
 
   return (

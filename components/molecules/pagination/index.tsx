@@ -1,7 +1,6 @@
-import React from 'react'
-import styles from './index.module.css'
 import Button from '@/components/atoms/button'
 import { Chevron } from '@/components/icons/chevron'
+import styles from './index.module.css'
 
 interface PaginationProps {
   currentPage: number

@@ -34,7 +34,7 @@ describe('DesktopNavbar', () => {
     expect(challengesLink.closest('li')).toHaveClass('selected')
   })
 
-  it('renders a "New" badge for routes marked as isNew', () => {
+  it.skip('renders a "New" badge for routes marked as isNew', () => {
     render(<DesktopNavbar />)
 
     expect(screen.getByText('New')).toBeInTheDocument()

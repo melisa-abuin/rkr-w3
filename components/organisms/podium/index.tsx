@@ -2,11 +2,11 @@ import PodiumCard from '@/components/molecules/podiumCard'
 import { LeagueScoreboardEntry } from '@/interfaces/league'
 import styles from './index.module.css'
 
-interface Props {
+interface PodiumProps {
   podium: LeagueScoreboardEntry[]
 }
 
-export default function Podium({ podium }: Props) {
+export default function Podium({ podium }: PodiumProps) {
   const [first, second, third] = podium
 
   return (

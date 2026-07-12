@@ -36,6 +36,7 @@ utils/<utility-name>/
    - Use strict TypeScript — no `any`.
 
    Example:
+
    ```ts
    /**
     * Short description of what the function does.
@@ -54,6 +55,7 @@ utils/<utility-name>/
    - Use `describe` + `it` blocks with descriptive labels.
 
    Example:
+
    ```ts
    import { myUtility } from '..'
 
@@ -67,6 +69,7 @@ utils/<utility-name>/
 5. **Update `utils/README.md`** by adding the new function name under the appropriate category. This is **required** — the `scripts/utilPresentInDocumentationCheck.py` script will flag it as missing otherwise.
 
 6. **Validate documentation coverage**:
+
    ```
    cd scripts && python utilPresentInDocumentationCheck.py
    ```
@@ -82,19 +85,19 @@ utils/<utility-name>/
 
 Place the new entry under the most fitting section in `utils/README.md`:
 
-| Section | Examples |
-|---------|---------|
-| Calculations | score, rate, ratio, gold, XP |
-| Data Fetching | fetch wrappers |
-| Data Download | blob/file helpers |
-| Data Analysis | top players, rankings |
-| Data Formatting | formatters, transformers |
-| Sorting & Filtering | sort, filter, paginate |
-| Time Helpers | time comparison, age |
-| Type Guards | `is*`, `check*` functions |
-| Messaging Helpers | score messages, thresholds |
-| Data Validation | outdated checks, blacklists |
-| Time Formatting | seconds → human-readable |
-| Key Transforms | camelCase, key mapping |
+| Section             | Examples                     |
+| ------------------- | ---------------------------- |
+| Calculations        | score, rate, ratio, gold, XP |
+| Data Fetching       | fetch wrappers               |
+| Data Download       | blob/file helpers            |
+| Data Analysis       | top players, rankings        |
+| Data Formatting     | formatters, transformers     |
+| Sorting & Filtering | sort, filter, paginate       |
+| Time Helpers        | time comparison, age         |
+| Type Guards         | `is*`, `check*` functions    |
+| Messaging Helpers   | score messages, thresholds   |
+| Data Validation     | outdated checks, blacklists  |
+| Time Formatting     | seconds → human-readable     |
+| Key Transforms      | camelCase, key mapping       |
 
 If none fits, add a new section following the existing emoji + heading pattern.

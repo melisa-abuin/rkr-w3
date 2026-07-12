@@ -1,12 +1,12 @@
 import LoaderSkeleton from '@/components/atoms/loader'
 import styles from './index.module.css'
 
-interface Props {
+interface TableLoaderProps {
   columns: number
   rows: number
 }
 
-export default function Loader({ columns, rows }: Props) {
+export default function Loader({ columns, rows }: TableLoaderProps) {
   return (
     <tbody>
       {[...Array(rows)].map((_, rowIndex) => (

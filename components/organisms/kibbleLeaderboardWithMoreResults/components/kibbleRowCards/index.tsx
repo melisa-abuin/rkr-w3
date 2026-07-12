@@ -1,18 +1,21 @@
+import PlayerTag from '@/components/molecules/playerTag'
 import RowCard from '@/components/molecules/rowCard'
 import rowCardStyles from '@/components/molecules/rowCard/index.module.css'
 import { kibbleLeaderboardColumns } from '@/constants'
+import { KibbleLeaderboard } from '@/interfaces/leaderboard'
 import { Kibbles } from '@/interfaces/player'
 import Column from './components/column'
 import LoadingCards from './components/loadingCards'
-import PlayerTag from '@/components/molecules/playerTag'
-import { KibbleLeaderboard } from '@/interfaces/leaderboard'
 
-interface Props {
+interface KibbleRowCardsProps {
   data?: KibbleLeaderboard[]
   loading: boolean
 }
 
-export default function KibbleRowCards({ data = [], loading }: Props) {
+export default function KibbleRowCards({
+  data = [],
+  loading,
+}: KibbleRowCardsProps) {
   if (loading) {
     return <LoadingCards columns={kibbleLeaderboardColumns.length} />
   }

@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface CoinsProps {
   fill?: string
   width?: number

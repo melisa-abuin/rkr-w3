@@ -1,12 +1,14 @@
-import TextWithIcon from '@/components/atoms/textWithIcon'
-import styles from './index.module.css'
-import RowCard from '@/components/molecules/rowCard'
-import { useState } from 'react'
-import { Difficulty } from '@/interfaces/difficulty'
+'use client'
+
 import Button from '@/components/atoms/button'
+import TextWithIcon from '@/components/atoms/textWithIcon'
 import Tooltip from '@/components/atoms/tooltip'
-import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
 import { Chevron } from '@/components/icons/chevron'
+import RowCard from '@/components/molecules/rowCard'
+import { Difficulty } from '@/interfaces/difficulty'
+import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
+import { useState } from 'react'
+import styles from './index.module.css'
 
 interface DesktopCardProps {
   date: string
