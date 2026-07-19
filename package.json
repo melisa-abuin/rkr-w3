@@ -10,6 +10,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:web": "turbo dev --filter=web",
+    "dev:admin": "turbo dev --filter=admin",
     "format": "prettier --write .",
     "lint": "turbo lint",
     "prepare": "husky",
