@@ -3,6 +3,9 @@ import os
 import re
 import sys
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DLS_SRC   = os.path.join(REPO_ROOT, "packages", "dls", "src")
+
 IGNORED_PATHS = {
   "components/molecules/table/components/tableData/index.tsx",
   "components/molecules/table/components/tableData",
@@ -17,7 +20,7 @@ def get_paths(directory):
       if name not in black_listed_folders and not files:
         folder_path = os.path.join(root, name)
         normalized_folder_path = folder_path.replace("\\", "/")
-        relative_folder_path = os.path.relpath(normalized_folder_path, os.path.abspath("..")).replace("\\", "/")
+        relative_folder_path = os.path.relpath(normalized_folder_path, REPO_ROOT).replace("\\", "/")
         index_file_path = f"{relative_folder_path}/index.tsx"
 
         if relative_folder_path in IGNORED_PATHS or index_file_path in IGNORED_PATHS:
@@ -70,7 +73,7 @@ def find_matching_patterns(file_path, patterns):
 
 def find_imports(patterns, paths):
   mutable_patterns = patterns
-  for folder_path, root, files in os.walk(os.path.abspath("..")):
+  for folder_path, root, files in os.walk(REPO_ROOT):
     for file in files:
         if file.endswith(".tsx") and "__test__" not in root:
           file_path = os.path.join(folder_path, file)
@@ -89,7 +92,7 @@ def find_imports(patterns, paths):
 
 def main():
   print("Scanning...")
-  directory_path = os.path.abspath("../components")
+  directory_path = os.path.join(DLS_SRC, "components")
   paths = get_paths(directory_path)
   regexs = make_regex_for_paths(paths)
   find_imports(regexs, paths)

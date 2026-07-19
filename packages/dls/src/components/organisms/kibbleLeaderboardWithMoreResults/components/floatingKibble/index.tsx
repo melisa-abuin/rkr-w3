@@ -1,6 +1,6 @@
 'use client'
 
-import animationData from '@/public/animations/spark.json'
+import animationData from '@/assets/animations/spark.json'
 import { getKibbleRewardMessage, Reward } from '@/utils'
 import Lottie from 'lottie-react'
 import Image from 'next/image'

@@ -12,12 +12,23 @@ import os
 import re
 import sys
 
-SEARCH_DIRS = ["app", "components", "hooks", "pages", "constants"]
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WEB_APP   = os.path.join(REPO_ROOT, "apps", "web")
+DLS_SRC   = os.path.join(REPO_ROOT, "packages", "dls", "src")
+
+# Absolute paths of all source directories to scan across workspaces
+SEARCH_DIRS = [
+    os.path.join(WEB_APP, "app"),
+    os.path.join(WEB_APP, "pages"),
+    os.path.join(DLS_SRC, "components"),
+    os.path.join(DLS_SRC, "hooks"),
+    os.path.join(DLS_SRC, "constants"),
+]
 
 
 def get_util_entries():
     """Return a list of (folder_name, [exported_names]) for every util."""
-    utils_path = os.path.abspath("../utils")
+    utils_path = os.path.join(DLS_SRC, "utils")
     entries = []
     for folder_name in sorted(os.listdir(utils_path)):
         folder_path = os.path.join(utils_path, folder_name)
@@ -71,10 +82,8 @@ def make_patterns(folder_name, exported_names):
 
 def collect_source_files():
     """Walk SEARCH_DIRS and return all .ts/.tsx files, skipping test folders."""
-    root = os.path.abspath("..")
     files = []
-    for search_dir in SEARCH_DIRS:
-        dir_path = os.path.join(root, search_dir)
+    for dir_path in SEARCH_DIRS:
         if not os.path.isdir(dir_path):
             continue
         for folder_path, _dirs, dir_files in os.walk(dir_path):

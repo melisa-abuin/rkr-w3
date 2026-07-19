@@ -4,8 +4,12 @@ import re
 import sys
 import argparse
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WEB_APP   = os.path.join(REPO_ROOT, "apps", "web")
+DLS_SRC   = os.path.join(REPO_ROOT, "packages", "dls", "src")
+
 def get_resources_relative_paths():
-  base_path = os.path.abspath("../public")
+  base_path = os.path.join(WEB_APP, "public")
   resources_relative_paths = []
   for folder_path, _, files in os.walk(base_path):
     # Skip the public/awards folder since their are access dinamically
@@ -40,7 +44,7 @@ def find_matching_patterns(file_path, forbidden_substrings):
 
 def find_imports(resources):
   mutable_resources = resources
-  for folder_path, root, files in os.walk(os.path.abspath("..")):
+  for folder_path, root, files in os.walk(REPO_ROOT):
     for file in files:
         if (file.endswith(".tsx") or file.endswith(".ts")) and "__test__" not in root:
           file_path = os.path.join(folder_path, file)
@@ -65,7 +69,7 @@ def safe_remove(list, object):
     return
 
 def deleteUnusedResources(resources):
-  base_path = os.path.abspath("../public")
+  base_path = os.path.join(WEB_APP, "public")
   for resource in resources:
     fixed_path = resource.replace("/", os.sep)
     full_path = os.path.join(base_path, fixed_path)
