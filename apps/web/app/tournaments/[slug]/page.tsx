@@ -1,7 +1,7 @@
-import Error from '@/components/molecules/error'
-import TournamentDetail from '@/components/templates/tournamentDetail'
-import { tournamentsBaseApi } from '@/constants'
-import { formatTournamentPlayers } from '@/utils'
+import Error from '@rkr/dls/components/molecules/error'
+import TournamentDetail from '@rkr/dls/components/templates/tournamentDetail'
+import { tournamentsBaseApi } from '@rkr/dls/constants'
+import { formatTournamentPlayers } from '@rkr/dls/utils'
 
 async function fetchData(id: string) {
   const response = await fetch(`${tournamentsBaseApi}/${id}/full`, {

@@ -1,13 +1,13 @@
-import Error from '@/components/molecules/error'
-import SeasonsTemplate from '@/components/templates/seasons'
-import { seasonScoreboardApi, seasonsApi } from '@/constants'
+import Error from '@rkr/dls/components/molecules/error'
+import SeasonsTemplate from '@rkr/dls/components/templates/seasons'
+import { seasonScoreboardApi, seasonsApi } from '@rkr/dls/constants'
 import {
   LeagueLeaderboardApiResponse,
   LeagueScoreboardApiResponse,
   LeagueScoreboardEntry,
   LeagueSeason,
   LeagueSeasonsApiResponse,
-} from '@/interfaces/league'
+} from '@rkr/dls/interfaces/league'
 
 interface SeasonsData {
   error: string | null

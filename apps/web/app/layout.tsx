@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
-import Footer from '@/components/molecules/footer'
-import Navbar from '@/components/molecules/navbar'
+import Footer from '@rkr/dls/components/molecules/footer'
+import Navbar from '@rkr/dls/components/molecules/navbar'
 import './globals.css'
 import '../theme/light.css'
 import '../theme/dark.css'
 import { Inter } from 'next/font/google'
-import { QueryProvider } from '@/hooks/useQuery'
-import { ToastProvider } from '@/hooks/useToast'
+import { QueryProvider } from '@rkr/dls/hooks/useQuery'
+import { ToastProvider } from '@rkr/dls/hooks/useToast'
 
 const inter = Inter({
   subsets: ['latin'],

@@ -1,5 +1,5 @@
+import { server } from '@rkr/dls/mocks/server'
 import '@testing-library/jest-dom'
-import { server } from '../../packages/dls/src/mocks/server'
 
 beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }))
 afterEach(() => server.resetHandlers())

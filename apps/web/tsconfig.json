@@ -18,6 +18,7 @@
       }
     ],
     "paths": {
+      "@rkr/dls/*": ["../../packages/dls/src/*"],
       "@/assets/*": ["../../packages/dls/src/assets/*"],
       "@/components/*": ["../../packages/dls/src/components/*"],
       "@/constants": ["../../packages/dls/src/constants/index.ts"],
@@ -37,9 +38,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "../../packages/dls/src/**/*.ts",
-    "../../packages/dls/src/**/*.tsx"
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

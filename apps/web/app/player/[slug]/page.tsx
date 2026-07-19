@@ -1,7 +1,7 @@
-import Error from '@/components/molecules/error'
-import PlayerDashboard from '@/components/templates/playerDashboard'
-import { playersSummaryApi } from '@/constants'
-import { PlayerSummary } from '@/interfaces/player'
+import Error from '@rkr/dls/components/molecules/error'
+import PlayerDashboard from '@rkr/dls/components/templates/playerDashboard'
+import { playersSummaryApi } from '@rkr/dls/constants'
+import { PlayerSummary } from '@rkr/dls/interfaces/player'
 import { notFound } from 'next/navigation'
 
 interface PlayerStatsData {

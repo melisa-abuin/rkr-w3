@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      '@/assets': resolve(__dirname, '../../packages/dls/src/assets'),
       '@/components': resolve(__dirname, '../../packages/dls/src/components'),
       '@/constants': resolve(__dirname, '../../packages/dls/src/constants'),
       '@/hooks': resolve(__dirname, '../../packages/dls/src/hooks'),

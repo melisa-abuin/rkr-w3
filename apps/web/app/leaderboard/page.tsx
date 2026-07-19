@@ -1,7 +1,7 @@
-import Error from '@/components/molecules/error'
-import LeaderboardTemplate from '@/components/templates/leaderboard'
-import { playersLeaderboardApi } from '@/constants'
-import { LeaderboardCategories } from '@/interfaces/leaderboard'
+import Error from '@rkr/dls/components/molecules/error'
+import LeaderboardTemplate from '@rkr/dls/components/templates/leaderboard'
+import { playersLeaderboardApi } from '@rkr/dls/constants'
+import { LeaderboardCategories } from '@rkr/dls/interfaces/leaderboard'
 
 interface PlayerStatsData {
   error: string | null

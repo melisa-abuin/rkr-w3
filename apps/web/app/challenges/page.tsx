@@ -1,12 +1,12 @@
-import CardsContainer from '@/components/atoms/cardsContainer'
-import PageContainer from '@/components/atoms/pageContainer'
-import PageHeader from '@/components/atoms/pageHeader'
-import AwardDetail from '@/components/molecules/awardDetail'
-import Error from '@/components/molecules/error'
-import RowCard from '@/components/molecules/rowCard'
-import { awardsStatsApi } from '@/constants'
-import { Award, AwardsDataFormatted } from '@/interfaces/award'
-import { formatAwardsByCategory } from '@/utils/formatGameAwards'
+import CardsContainer from '@rkr/dls/components/atoms/cardsContainer'
+import PageContainer from '@rkr/dls/components/atoms/pageContainer'
+import PageHeader from '@rkr/dls/components/atoms/pageHeader'
+import AwardDetail from '@rkr/dls/components/molecules/awardDetail'
+import Error from '@rkr/dls/components/molecules/error'
+import RowCard from '@rkr/dls/components/molecules/rowCard'
+import { awardsStatsApi } from '@rkr/dls/constants'
+import { Award, AwardsDataFormatted } from '@rkr/dls/interfaces/award'
+import { formatAwardsByCategory } from '@rkr/dls/utils/formatGameAwards'
 
 async function fetchData(): Promise<{
   data: AwardsDataFormatted | null

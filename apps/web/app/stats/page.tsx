@@ -1,8 +1,8 @@
-import Error from '@/components/molecules/error'
-import Stats from '@/components/templates/stats'
-import { defaultScoreboardFilter, playerStatsApi } from '@/constants'
-import { Player } from '@/interfaces/player'
-import { buildSearchQuery } from '@/utils'
+import Error from '@rkr/dls/components/molecules/error'
+import Stats from '@rkr/dls/components/templates/stats'
+import { defaultScoreboardFilter, playerStatsApi } from '@rkr/dls/constants'
+import { Player } from '@rkr/dls/interfaces/player'
+import { buildSearchQuery } from '@rkr/dls/utils'
 
 interface PlayerStatsData {
   error: string | null
