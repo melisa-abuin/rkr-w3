@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
+import json
 import os
 import re
 import sys
 
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DLS_SRC   = os.path.join(REPO_ROOT, "packages", "dls", "src")
+REPO_ROOT        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DLS_SRC          = os.path.join(REPO_ROOT, "packages", "dls", "src")
+DLS_PACKAGE_JSON = os.path.join(REPO_ROOT, "packages", "dls", "package.json")
+
+def get_dls_package_name():
+  with open(DLS_PACKAGE_JSON, "r") as f:
+    return json.load(f)["name"]
 
 IGNORED_PATHS = {
   "components/molecules/table/components/tableData/index.tsx",
@@ -40,32 +46,50 @@ def make_relative_if_needed(path_lists):
     pattern = r"^(.*?/components/.*/components/)"
     return [re.sub(pattern, "./components/", path, count=1) for path in normalized]
 
-def make_regex_for_paths(paths):
+def make_regex_for_paths(paths, package_name):
     regex_list = []
-      
+
     for path in paths:
-      escaped_path = path.replace("\\", "/")
-      escaped_path = escaped_path.replace(".", r"\.")
+      escaped_path = path.replace("\\", "/").replace(".", r"\.")
       quote = r"['\"]"
       static_pattern = r"import\s+.*\s+from\s+" + quote + escaped_path + quote
       dynamic_pattern = r"import\(" + quote + escaped_path + quote + r"\)"
-      regex_list.append(f"({static_pattern}|{dynamic_pattern})")
+      internal_pattern = f"({static_pattern}|{dynamic_pattern})"
+
+      if path.startswith("@/"):
+        # Also match package-name based imports used by apps (e.g., @rkr/dls/components/...)
+        pkg_path = path.replace("@/", f"{package_name}/", 1).replace(".", r"\.")
+        pkg_static = r"import\s+.*\s+from\s+" + quote + pkg_path + quote
+        pkg_dynamic = r"import\(" + quote + pkg_path + quote + r"\)"
+        pkg_pattern = f"({pkg_static}|{pkg_dynamic})"
+        regex_list.append(f"({internal_pattern}|{pkg_pattern})")
+      elif path.startswith("./components/"):
+        # Nested sub-component — also match the full alias form:
+        # e.g. @/components/<parent>/components/<name>
+        component_name = path[len("./components/"):].replace(".", r"\.")
+        alias_path = r"@/components/.+/components/" + component_name
+        alias_static = r"import\s+.*\s+from\s+" + quote + alias_path + quote
+        alias_dynamic = r"import\(" + quote + alias_path + quote + r"\)"
+        alias_pattern = f"({alias_static}|{alias_dynamic})"
+        regex_list.append(f"({internal_pattern}|{alias_pattern})")
+      else:
+        regex_list.append(internal_pattern)
+
     return regex_list
   
   
 def find_matching_patterns(file_path, patterns):
     try:
         with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-            lines = f.readlines()
+            content = f.read()
             matches = []
-            for line in lines:
-              for pattern in patterns:
-                if re.search(pattern, line):
+            for pattern in patterns:
+              if re.search(pattern, content, re.DOTALL):
+                matches.append(pattern)
+              elif "./components" in pattern:
+                alternative_pattern = pattern.replace("./components", "..")
+                if re.search(alternative_pattern, content, re.DOTALL):
                   matches.append(pattern)
-                elif "./components" in pattern:
-                  alternative_pattern = pattern.replace("./components", "..")
-                  if re.search(alternative_pattern, line):
-                    matches.append(pattern)
             return matches
     except Exception as e:
         print(f"\033[91m Error reading {file_path}: {e} \033[0m")
@@ -75,7 +99,7 @@ def find_imports(patterns, paths):
   mutable_patterns = patterns
   for folder_path, root, files in os.walk(REPO_ROOT):
     for file in files:
-        if file.endswith(".tsx") and "__test__" not in root:
+        if (file.endswith(".tsx") or file.endswith(".ts")) and "__test__" not in root:
           file_path = os.path.join(folder_path, file)
           matches = find_matching_patterns(file_path, mutable_patterns)
           remaining_patterns = [pattern for pattern in mutable_patterns if pattern not in matches]
@@ -92,9 +116,10 @@ def find_imports(patterns, paths):
 
 def main():
   print("Scanning...")
+  package_name = get_dls_package_name()
   directory_path = os.path.join(DLS_SRC, "components")
   paths = get_paths(directory_path)
-  regexs = make_regex_for_paths(paths)
+  regexs = make_regex_for_paths(paths, package_name)
   find_imports(regexs, paths)
 
 if __name__ == "__main__":
