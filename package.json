@@ -17,7 +17,7 @@
     "prepare": "husky",
     "start": "turbo start",
     "test": "turbo test",
-    "typecheck": "turbo typecheck"
+    "tsc": "turbo typecheck"
   },
   "resolutions": {
     "postcss": "8.4.31",

@@ -42,7 +42,7 @@
 Before finishing changes, run:
 
 - yarn lint
-- yarn typecheck
+- yarn tsc
 - yarn test (or focused tests for touched code)
 
 ## Contribution Notes

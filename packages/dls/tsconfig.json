@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "target": "ES2017",
+    "types": ["next"],
     "paths": {
       "@/assets/*": ["./src/assets/*"],
       "@/components/*": ["./src/components/*"],
@@ -23,6 +24,6 @@
       "@/utils/*": ["./src/utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/css.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules", "**/__tests__/**"]
 }
