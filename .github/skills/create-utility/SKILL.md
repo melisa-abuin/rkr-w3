@@ -77,7 +77,7 @@ utils/<utility-name>/
 7. **Run quality checks**:
    ```
    yarn lint
-   yarn typecheck
+   yarn tsc
    yarn test utils/<utility-name>
    ```
 

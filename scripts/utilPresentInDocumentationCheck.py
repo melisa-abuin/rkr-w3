@@ -2,9 +2,12 @@
 import os
 import sys
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DLS_SRC   = os.path.join(REPO_ROOT, "packages", "dls", "src")
+
 def scan_utils_folder():
-    utils_path = os.path.abspath("../utils")
-    readme_path = os.path.abspath("../utils/README.md")
+    utils_path = os.path.join(DLS_SRC, "utils")
+    readme_path = os.path.join(DLS_SRC, "utils", "README.md")
 
     if not os.path.exists(readme_path):
         print(f"\033[91m README.md not found at {readme_path} \033[0m")

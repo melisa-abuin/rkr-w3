@@ -1,0 +1,45 @@
+import Error from '@rkr/dls/components/molecules/error'
+import PlayerDashboard from '@rkr/dls/components/templates/playerDashboard'
+import { playersSummaryApi } from '@rkr/dls/constants'
+import { PlayerSummary } from '@rkr/dls/interfaces/player'
+import { notFound } from 'next/navigation'
+
+interface PlayerStatsData {
+  error: string | null
+  data: PlayerSummary[] | null
+}
+
+async function fetchData(battleTag: string): Promise<PlayerStatsData> {
+  const response = await fetch(`${playersSummaryApi}?battleTag=${battleTag}`, {
+    next: { revalidate: 480 },
+  })
+
+  if (response.status === 200) {
+    return {
+      data: await response.json(),
+      error: null,
+    }
+  } else if (response.status === 404) {
+    notFound()
+  }
+
+  return {
+    data: null,
+    error: 'Something went wrong',
+  }
+}
+
+export default async function PlayerPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const { data, error } = await fetchData(slug)
+
+  return (
+    <main>
+      {error ? <Error /> : data && <PlayerDashboard currentPlayer={data[0]} />}
+    </main>
+  )
+}

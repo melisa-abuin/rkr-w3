@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/rkr-icon-primary-x64.png" alt="Run Kitty Run logo" />
+<img src="apps/web/public/rkr-icon-primary-x64.png" alt="Run Kitty Run logo" />
 
 # Run Kitty Run - Warcraft 3 Custom Map Statistics
 
@@ -8,31 +8,45 @@
 
 Statistics dashboard for _Run Kitty Run_, a Warcraft 3 custom map. Tracks player stats, leaderboards, tournaments, and challenges.
 
+## Monorepo structure
+
+```
+rkr-w3/
+├── apps/
+│   ├── web/      # Next.js statistics dashboard
+│   └── admin/    # Admin app (in development)
+├── packages/
+│   └── dls/      # Design language system — components, hooks, utils, constants, interfaces
+└── scripts/      # CI/analysis scripts (Python)
+```
+
 ## Tech stack
 
+- [Turborepo](https://turbo.build/) — monorepo build system
 - [Next.js](https://nextjs.org/) — framework
 - [React 19](https://react.dev/) — UI
 - [TypeScript](https://www.typescriptlang.org/) — language
 - [TanStack Query](https://tanstack.com/query) — data fetching
-- [Jest](https://jestjs.io/) — testing
+- [Vitest](https://vitest.dev/) — testing
 
 ## Setup
 
 ```bash
-yarn        # install dependencies
-yarn dev    # start dev server at http://localhost:3000
+yarn          # install all workspace dependencies
+yarn dev:web  # start the web app at http://localhost:3000
 ```
 
 ## Commands
 
-| Command          | Description                |
-| ---------------- | -------------------------- |
-| `yarn dev`       | Start development server   |
-| `yarn build`     | Build for production       |
-| `yarn start`     | Serve the production build |
-| `yarn test`      | Run unit tests             |
-| `yarn typecheck` | Type-check with TypeScript |
-| `yarn lint`      | Lint with ESLint           |
+| Command          | Description              |
+| ---------------- | ------------------------ |
+| `yarn dev`       | Start all apps           |
+| `yarn dev:web`   | Start the web app only   |
+| `yarn dev:admin` | Start the admin app only |
+| `yarn build`     | Build all apps           |
+| `yarn test`      | Run all tests            |
+| `yarn typecheck` | Type-check all packages  |
+| `yarn lint`      | Lint all packages        |
 
 ## Contributing
 

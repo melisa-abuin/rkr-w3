@@ -65,7 +65,7 @@ components/<layer>/<component-name>/
 6. **Run quality checks**:
    ```
    yarn lint
-   yarn typecheck
+   yarn tsc
    ```
 
 ## Import Rule Reference
