@@ -11,9 +11,10 @@ import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
-import { playerStatsDefaultApi } from '@/constants'
+import { playerStatsDefaultApi, playersTimeLeaderboardApi } from '@/constants'
 import { statsColumnsWithRender } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
+import { useDifficultyFilter } from '@/hooks/useDifficultyFilter'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { Player } from '@/interfaces/player'
@@ -41,6 +42,13 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
     `Couldn't fetch the top five stats, please try again later.`,
   )
   const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>()
+
+  const {
+    difficultyFilter,
+    filteredData: timesFilteredData,
+    isFetching: isTimesFilterFetching,
+    onFilterClick,
+  } = useDifficultyFilter<LeaderboardCategories[]>(playersTimeLeaderboardApi)
 
   return (
     <>
@@ -71,9 +79,13 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
 
             <ColumnCardsWithControls
               data={data?.times}
+              difficultyFilter={difficultyFilter}
               filter="times"
+              filteredData={timesFilteredData}
+              isFetching={isTimesFilterFetching}
               selectedPlayer={selectedPlayer?.battleTag.tag}
               title="Best times"
+              onFilterClick={onFilterClick}
             />
 
             <PageContainer
