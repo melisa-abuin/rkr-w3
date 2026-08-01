@@ -1,10 +1,8 @@
 import Button from '@/components/atoms/button'
 import Modal from '@/components/atoms/modal'
 import { useDownloadStats } from '@/hooks/useDownloadStats'
-import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import { useToast } from '@/hooks/useToast'
 import { downloadBlobFile } from '@/utils/downloadBlobFile'
-import Image from 'next/image'
 import { useState } from 'react'
 import styles from './index.module.css'
 
@@ -19,9 +17,7 @@ export default function DownloadModal({
   battletag,
   date,
 }: DownloadModalProps) {
-  const prefersDarkMode = usePrefersDarkMode()
   const { showToast } = useToast()
-
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { mutate, isPending } = useDownloadStats()
@@ -69,19 +65,8 @@ export default function DownloadModal({
             <Button variant="outline" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={handleDownload}>
-              {isPending ? (
-                <Image
-                  alt="loading"
-                  height={16}
-                  src={
-                    prefersDarkMode ? '/loading-dark.gif' : '/loading-light.gif'
-                  }
-                  width={16}
-                />
-              ) : (
-                'Proceed'
-              )}
+            <Button loading={isPending} onClick={handleDownload}>
+              Proceed
             </Button>
           </div>
         </div>

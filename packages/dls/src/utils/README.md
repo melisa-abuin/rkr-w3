@@ -28,6 +28,7 @@ Below is a list of all available utilities:
 - `formatFeaturedContent`
 - `formatKeyToWord`
 - `formatTournamentPlayers`
+- `getBreakdownEntries`
 - `hexToRgba`
 - `formatGameAwards`
 

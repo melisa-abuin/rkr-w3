@@ -1,5 +1,7 @@
 'use client'
 
+import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
+import Image from 'next/image'
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
@@ -11,6 +13,7 @@ type CommonProps = {
   children: ReactNode
   disabled?: boolean
   small?: boolean
+  loading?: boolean
   colorName?: 'primary' | 'secondary' | 'tertiary'
   variant?: 'outline' | 'solid' | 'ghost'
 }
@@ -32,6 +35,7 @@ export default function Button({
   children,
   colorName = 'primary',
   disabled = false,
+  loading = false,
   small = false,
   variant = 'solid',
   ...props
@@ -55,12 +59,25 @@ export default function Button({
     variantClass || styles.solid
   } ${sizeClass}`
 
+  const prefersDarkMode = usePrefersDarkMode()
+
+  const content = loading ? (
+    <Image
+      alt="loading"
+      height={16}
+      src={prefersDarkMode ? '/loading-dark.gif' : '/loading-light.gif'}
+      width={16}
+    />
+  ) : (
+    children
+  )
+
   if (as === 'a') {
     const anchorProps = props as Omit<ButtonAsAnchorProps, keyof CommonProps>
 
     return (
       <a className={className} {...anchorProps}>
-        {children}
+        {content}
       </a>
     )
   }
@@ -69,7 +86,7 @@ export default function Button({
 
   return (
     <button className={className} disabled={disabled} {...buttonProps}>
-      {children}
+      {content}
     </button>
   )
 }

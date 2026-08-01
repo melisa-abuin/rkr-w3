@@ -1,5 +1,5 @@
 .podium {
-  --podium-base-height: 270px;
+  --podium-base-height: 290px;
   align-items: flex-end;
   display: flex;
   flex-direction: row;
@@ -17,7 +17,7 @@
 
 @media (max-width: 480px) {
   .podium {
-    --podium-base-height: 180px;
+    --podium-base-height: 200px;
   }
 
   .slot {

@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 600px;
+  max-width: 600px;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.label {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-xs);
+  min-width: 150px;
+  text-align: left;
+}
+
+.track {
+  background: var(--background-highlight-tertiary);
+  border-radius: 4px;
+  flex: 1;
+  height: 8px;
+  max-width: 400px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.fill {
+  background: var(--color-primary);
+  border-radius: 4px;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.value {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-xs);
+  min-width: 60px;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
+}
