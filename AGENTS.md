@@ -1,6 +1,6 @@
 ## Project Knowledge
 
-- Tech stack: Next.js, React 18, TypeScript, Jest.
+- Tech stack: Next.js, React 18, TypeScript, Vitest.
 - Package manager: Yarn (classic).
 - App routing: uses App Router under app.
 - API routes: uses Pages Router API handlers under pages/api.
