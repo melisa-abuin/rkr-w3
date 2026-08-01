@@ -17,11 +17,23 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 8px;
   padding: 32px 16px 16px 16px;
   text-align: center;
   min-width: 180px;
   width: 100%;
+}
+
+.cardContent {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+  width: 100%;
+}
+
+.labelMobile {
+  display: none;
 }
 
 @media (max-width: 480px) {
@@ -36,9 +48,17 @@
     display: none;
   }
 
-  .card :global(img) {
-    width: 40px !important;
-    height: 40px !important;
+  .labelDesktop {
+    display: none;
+  }
+
+  .labelMobile {
+    display: inline;
+  }
+  /* TODO: fix */
+  .card img {
+    width: 40px;
+    height: 40px;
   }
 
   .name {

@@ -1,7 +1,7 @@
 import { FeaturedApiResponse, FeaturedContent } from '@/interfaces/featured'
 import { formatSecondsAsTime } from '../formatSecondsAsTime'
 
-const skinToImagePath = (skin: string): string =>
+export const skinToImagePath = (skin: string): string =>
   `/awards/${skin[0].toLowerCase()}${skin.slice(1)}.png`
 
 const awardNameToImagePath = (name: string): string => {
