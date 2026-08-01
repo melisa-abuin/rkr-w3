@@ -21,7 +21,9 @@
       "@/hooks/*": ["./src/hooks/*"],
       "@/interfaces/*": ["./src/interfaces/*"],
       "@/utils": ["./src/utils/index.ts"],
-      "@/utils/*": ["./src/utils/*"]
+      "@/utils/*": ["./src/utils/*"],
+      "@/mocks": ["./src/mocks"],
+      "@/mocks/*": ["./src/mocks/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "vitest.setup.ts"],
