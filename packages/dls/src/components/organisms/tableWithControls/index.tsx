@@ -29,6 +29,7 @@ interface TableProps<T> {
   handleSortChange: (columnKey: keyof T) => void
   handleSeasonChange?: (option: { label: string; value: string }) => void
   seasonOptions?: DropdownOption[]
+  defaultSeasonValue?: string
   headerLink?: ReactNode
   player?: string
   queryString: string | null
@@ -49,6 +50,7 @@ export default function TableWithControls<T>({
   handleSortChange,
   handleSeasonChange,
   seasonOptions,
+  defaultSeasonValue,
   headerLink,
   player,
   queryString,
@@ -96,7 +98,11 @@ export default function TableWithControls<T>({
               />
               {handleSeasonChange && seasonOptions && (
                 <Dropdown
-                  defaultOption={{ label: 'All Seasons', value: '' }}
+                  defaultOption={
+                    seasonOptions.find(
+                      (o) => o.value === defaultSeasonValue,
+                    ) ?? { label: 'All Seasons', value: '' }
+                  }
                   options={[
                     { label: 'All Seasons', value: '' },
                     ...seasonOptions,
