@@ -14,6 +14,7 @@ interface ColumnCardsProps {
   hoverable?: boolean
   loading?: boolean
   filter: 'stats' | 'times'
+  seasonId?: string
   selectedPlayer?: string
   withViewAll?: boolean
   sortOrder?: 'asc' | 'desc'
@@ -25,13 +26,15 @@ export default function ColumnCards({
   hoverable = false,
   loading,
   filter,
+  seasonId,
   selectedPlayer,
   withViewAll = true,
   sortOrder = 'desc',
 }: ColumnCardsProps) {
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
-    return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=${sortOrder}${difficultyUrlParam}`
+    const seasonUrlParam = seasonId ? `&season=${seasonId}` : ''
+    return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=${sortOrder}${difficultyUrlParam}${seasonUrlParam}`
   }
 
   if (loading && data.length === 0) {

@@ -68,6 +68,7 @@ export default function SeasonsTemplate({
           filter="times"
           filteredData={timesFilteredData?.times}
           isFetching={isTimesFilterFetching}
+          seasonId={seasonData.id.toString()}
           title="Best times"
           onFilterClick={onFilterClick}
         />

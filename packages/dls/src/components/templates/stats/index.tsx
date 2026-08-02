@@ -226,6 +226,9 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
                   pages: data.pages,
                   stats: data.stats as Player[] | undefined,
                 }}
+                defaultSeasonValue={
+                  apiBaseUrl === 'times' ? currentSeason : undefined
+                }
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}
                 handleSeasonChange={
