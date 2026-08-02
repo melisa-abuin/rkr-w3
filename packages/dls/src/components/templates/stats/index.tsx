@@ -12,21 +12,16 @@ import {
   statsColumnsWithRender,
   timeAllDiffColumnsWithRender,
 } from '@/constants/tableColumns'
-import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { useStatsFilters } from '@/hooks/useStatsFilters'
 import { Difficulty } from '@/interfaces/difficulty'
 import { KibbleStats } from '@/interfaces/leaderboard'
 import { Player } from '@/interfaces/player'
-import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface AllStatsData {
   data: { pages: number; stats?: Player[] | KibbleStats[] }
   filter: string
-}
-
-interface SortingKey {
-  key: string
-  asc: boolean
+  seasonOptions?: { label: string; value: string }[]
 }
 
 const getSortValue = (
@@ -42,23 +37,27 @@ type VariantKey = keyof typeof statsPageVariants
 const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
-export default function Stats({ data, filter }: AllStatsData) {
+export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
   const columnsByVariant = {
     stats: statsColumnsWithRender,
     times: timeAllDiffColumnsWithRender,
     kibble: kibbleColumnsWithRender,
   }
-
-  const searchParams = useSearchParams()
-  const initialPage = parseInt(searchParams?.get('page') || '1', 10)
-  const initialApi = searchParams?.get('filter') || 'stats'
-
-  const initialFilter = searchParams?.get('difficulty') as
-    | Difficulty
-    | undefined
-  const initialSortKey = searchParams?.get('sortKey') || ''
-  const initialSortOrder = searchParams?.get('sortOrder') === 'asc'
-  const initialPlayer = searchParams?.get('battleTag') || ''
+  const {
+    currentApiUrl,
+    setCurrentApiUrl,
+    currentPage,
+    setCurrentPage,
+    currentSeason,
+    setCurrentSeason,
+    difficultyFilter,
+    setDifficultyFilter,
+    sortKey,
+    setSortKey,
+    player,
+    setPlayer,
+    debouncedQuery,
+  } = useStatsFilters()
 
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
@@ -67,21 +66,9 @@ export default function Stats({ data, filter }: AllStatsData) {
     ({ apiBaseUrl }) => apiBaseUrl === filter,
   )
   const [hasInteracted, setHasInteracted] = useState(false)
-  const [currentApiUrl, setCurrentApiUrl] = useState<string>(initialApi)
   const [currentColumns, setCurrentColumns] = useState(
     variantValues[defaultTabIndex]?.columns || null,
   )
-
-  const [currentPage, setCurrentPage] = useState(initialPage)
-  const [difficultyFilter, setDifficultyFilter] = useState<
-    Difficulty | undefined
-  >(initialFilter)
-  const [sortKey, setSortKey] = useState<SortingKey>({
-    key: initialSortKey,
-    asc: initialSortOrder,
-  })
-  const [player, setPlayer] = useState<string>(initialPlayer)
-  const debouncedQuery = useDebouncedValue(player, 300)
 
   const onTabChange = (index: number) => {
     const selectedVariantKey = variantKeys[index]
@@ -103,12 +90,14 @@ export default function Stats({ data, filter }: AllStatsData) {
       asc: newPageVariant.defaultSortOrder === 'asc',
     })
     setCurrentPage(1)
+    setCurrentSeason('')
   }
 
   const queryString = useMemo(() => {
     const params = new URLSearchParams()
     params.set('page', currentPage.toString())
     if (difficultyFilter) params.set('difficulty', difficultyFilter)
+    if (currentSeason) params.set('season', currentSeason)
 
     const sortValue = getSortValue(currentColumns, sortKey.key)
 
@@ -125,6 +114,7 @@ export default function Stats({ data, filter }: AllStatsData) {
     sortKey.asc,
     currentApiUrl,
     currentColumns,
+    currentSeason,
     debouncedQuery,
   ])
 
@@ -137,15 +127,21 @@ export default function Stats({ data, filter }: AllStatsData) {
     syncURL()
   }, [syncURL])
 
-  const handlePlayerChange = useCallback((player: string) => {
-    setHasInteracted(true)
-    setPlayer(player)
-  }, [])
+  const handlePlayerChange = useCallback(
+    (player: string) => {
+      setHasInteracted(true)
+      setPlayer(player)
+    },
+    [setPlayer],
+  )
 
-  const handlePageChange = useCallback((page: number) => {
-    setHasInteracted(true)
-    setCurrentPage(page)
-  }, [])
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setHasInteracted(true)
+      setCurrentPage(page)
+    },
+    [setCurrentPage],
+  )
 
   const handleSortChange = useCallback(
     (newSortKey: string) => {
@@ -158,14 +154,17 @@ export default function Stats({ data, filter }: AllStatsData) {
         asc: prev.key === newSortKey ? !prev.asc : isAscending,
       }))
     },
-    [currentApiUrl],
+    [currentApiUrl, setSortKey],
   )
 
-  const handleFilterChange = useCallback((difficulty?: Difficulty) => {
-    setHasInteracted(true)
-    setDifficultyFilter(difficulty)
-    setCurrentPage(1)
-  }, [])
+  const handleFilterChange = useCallback(
+    (difficulty?: Difficulty) => {
+      setHasInteracted(true)
+      setDifficultyFilter(difficulty)
+      setCurrentPage(1)
+    },
+    [setDifficultyFilter, setCurrentPage],
+  )
 
   return (
     <>
@@ -190,7 +189,7 @@ export default function Stats({ data, filter }: AllStatsData) {
               handlePageChange,
               handlePlayerChange,
               handleSortChange,
-              player: initialPlayer,
+              player: player,
               queryString,
               shouldRefetch: hasInteracted,
             }
@@ -229,6 +228,17 @@ export default function Stats({ data, filter }: AllStatsData) {
                 }}
                 difficulty={difficultyFilter}
                 handleDifficultyChange={handleFilterChange}
+                handleSeasonChange={
+                  apiBaseUrl === 'times'
+                    ? ({ value }) => {
+                        setHasInteracted(true)
+                        setCurrentSeason(value)
+                      }
+                    : undefined
+                }
+                seasonOptions={
+                  apiBaseUrl === 'times' ? seasonOptions : undefined
+                }
                 sortKey={
                   (getSortValue(columns, sortKey.key) ||
                     defaultSortKey) as keyof Player

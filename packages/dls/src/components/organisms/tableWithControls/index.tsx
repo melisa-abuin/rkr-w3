@@ -1,5 +1,6 @@
 'use client'
 
+import Dropdown, { DropdownOption } from '@/components/atoms/dropdown'
 import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
 import PlayerFinder from '@/components/molecules/playerFinder'
@@ -26,6 +27,8 @@ interface TableProps<T> {
   handlePageChange: (page: number) => void
   handlePlayerChange: (player: string) => void
   handleSortChange: (columnKey: keyof T) => void
+  handleSeasonChange?: (option: { label: string; value: string }) => void
+  seasonOptions?: DropdownOption[]
   headerLink?: ReactNode
   player?: string
   queryString: string | null
@@ -44,6 +47,8 @@ export default function TableWithControls<T>({
   handlePageChange,
   handlePlayerChange,
   handleSortChange,
+  handleSeasonChange,
+  seasonOptions,
   headerLink,
   player,
   queryString,
@@ -89,12 +94,25 @@ export default function TableWithControls<T>({
                 selected={difficulty}
                 onClick={handleDifficultyChange}
               />
-              <PlayerFinder
-                defaultValue={player || ''}
-                onChange={handlePlayerChange}
-                onClear={() => handlePlayerChange('')}
-                onPlayerSelect={() => {}}
-              />
+              {handleSeasonChange && seasonOptions && (
+                <Dropdown
+                  defaultOption={{ label: 'All Seasons', value: '' }}
+                  options={[
+                    { label: 'All Seasons', value: '' },
+                    ...seasonOptions,
+                  ]}
+                  onSelect={handleSeasonChange}
+                />
+              )}
+
+              <div className={styles.playerFinder}>
+                <PlayerFinder
+                  defaultValue={player || ''}
+                  onChange={handlePlayerChange}
+                  onClear={() => handlePlayerChange('')}
+                  onPlayerSelect={() => {}}
+                />
+              </div>
             </div>
           )
         }

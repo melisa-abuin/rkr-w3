@@ -21,6 +21,8 @@
   border: none;
   color: var(--text-color-primary);
   flex: 1;
+  padding: 0;
+  padding-left: 4px;
 }
 
 .input:focus {

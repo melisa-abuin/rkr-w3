@@ -1,6 +1,11 @@
 import Error from '@rkr/dls/components/molecules/error'
 import Stats from '@rkr/dls/components/templates/stats'
-import { defaultScoreboardFilter, playerStatsApi } from '@rkr/dls/constants'
+import {
+  defaultScoreboardFilter,
+  playerStatsApi,
+  seasonsApi,
+} from '@rkr/dls/constants'
+import { LeagueSeasonsApiResponse } from '@rkr/dls/interfaces/league'
 import { Player } from '@rkr/dls/interfaces/player'
 import { buildSearchQuery } from '@rkr/dls/utils'
 
@@ -10,6 +15,20 @@ interface PlayerStatsData {
 }
 
 type SearchParams = Record<string, string | string[] | undefined>
+
+async function fetchSeasons() {
+  try {
+    const response = await fetch(seasonsApi, { next: { revalidate: 480 } })
+    if (!response.ok) return []
+    const seasons = (await response.json()) as LeagueSeasonsApiResponse
+    return seasons.map(({ id, leagueId }) => ({
+      label: leagueId,
+      value: id.toString(),
+    }))
+  } catch {
+    return []
+  }
+}
 
 async function fetchData(
   filter: string | undefined,
@@ -46,7 +65,10 @@ export default async function StatsPage({ searchParams }: PageProps) {
   const filterParam = params.filter
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
 
-  const { data, error } = await fetchData(filter, params)
+  const [{ data, error }, seasonOptions] = await Promise.all([
+    fetchData(filter, params),
+    fetchSeasons(),
+  ])
 
   return (
     <main>
@@ -56,6 +78,7 @@ export default async function StatsPage({ searchParams }: PageProps) {
         <Stats
           data={data}
           filter={filter?.toString() || defaultScoreboardFilter}
+          seasonOptions={seasonOptions}
         />
       )}
     </main>
