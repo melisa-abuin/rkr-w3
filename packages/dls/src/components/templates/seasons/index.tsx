@@ -3,9 +3,11 @@
 import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import ColumnCards from '@/components/molecules/columnCards'
+import Table from '@/components/molecules/table'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
 import Podium from '@/components/organisms/podium'
 import { seasonsApi } from '@/constants'
+import { leagueScoreboardBreakdownColumns } from '@/constants/tableColumns'
 import { useDifficultyFilter } from '@/hooks/useDifficultyFilter'
 import {
   LeagueLeaderboardApiResponse,
@@ -18,12 +20,14 @@ interface SeasonsTemplateProps {
   seasonData: LeagueSeason
   leaderboard: LeagueLeaderboardApiResponse
   podium: LeagueScoreboardEntry[]
+  scoreboard: LeagueScoreboardEntry[]
 }
 
 export default function SeasonsTemplate({
   leaderboard,
   podium,
   seasonData,
+  scoreboard,
 }: SeasonsTemplateProps) {
   const {
     difficultyFilter,
@@ -67,6 +71,16 @@ export default function SeasonsTemplate({
           title="Best times"
           onFilterClick={onFilterClick}
         />
+        <PageContainer marginTop={32} withPadding={false}>
+          <Table
+            columns={leagueScoreboardBreakdownColumns}
+            data={scoreboard.map((entry) => ({
+              ...entry.breakdown,
+              battleTag: entry.player,
+            }))}
+            title="Season breakdown"
+          />
+        </PageContainer>
       </PageContainer>
     </PageContainer>
   )

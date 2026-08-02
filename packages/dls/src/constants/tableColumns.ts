@@ -12,8 +12,13 @@ import {
 } from '@/components/molecules/table/components/tableData'
 import { Difficulty } from '@/interfaces/difficulty'
 import { BestGameTimeFormatted } from '@/interfaces/game'
+import { LeagueScoreboardBreakdown } from '@/interfaces/league'
 import { BattleTag, Kibbles, Player } from '@/interfaces/player'
 import { ReactNode } from 'react'
+
+type LeagueScoreboardBreakdownRow = LeagueScoreboardBreakdown & {
+  battleTag: BattleTag
+}
 
 type Column<T> = {
   title: string
@@ -142,3 +147,22 @@ export const playerFinderColumns = [
   { title: 'Win Rate', key: 'winRate' },
   { title: 'Highest Win Streak', key: 'highestWinStreak' },
 ] as const
+
+export const leagueScoreboardBreakdownColumns: Column<LeagueScoreboardBreakdownRow>[] =
+  [
+    {
+      title: 'Player',
+      key: 'battleTag',
+      render: (row) => renderBattleTag(row.battleTag),
+    },
+    { title: 'Wins', key: 'weightedWins' },
+    { title: 'Losses', key: 'weightedLosses' },
+    { title: 'Save Ratio', key: 'saveRatio' },
+    { title: 'Nitro Score', key: 'nitroScore' },
+    { title: 'Streak Bonus', key: 'streakBonus' },
+    { title: 'Deathless Bonus', key: 'deathlessBonus' },
+    { title: 'Kibble Bonus', key: 'kibbleBonus' },
+    { title: 'Game Speed Bonus', key: 'gameSpeedBonus' },
+    { title: 'Round Speed Bonus', key: 'roundSpeedBonus' },
+    { title: 'Total Score', key: 'totalScore' },
+  ]
