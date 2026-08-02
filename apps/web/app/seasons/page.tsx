@@ -17,6 +17,7 @@ interface SeasonsData {
       seasonData: LeagueSeason
       leaderboard: LeagueLeaderboardApiResponse
       podium: LeagueScoreboardEntry[]
+      scoreboard: LeagueScoreboardApiResponse
     }
   }
 }
@@ -46,6 +47,7 @@ async function fetchData(): Promise<SeasonsData> {
             seasonData: {} as LeagueSeason,
             leaderboard: { stats: [], times: [] },
             podium: [],
+            scoreboard: [],
           },
         },
         error: 'Something went wrong',
@@ -78,6 +80,7 @@ async function fetchData(): Promise<SeasonsData> {
           seasonData: currentSeason,
           leaderboard,
           podium,
+          scoreboard: scoreboard.slice(0, 5),
         },
       },
       error: null,
@@ -90,6 +93,7 @@ async function fetchData(): Promise<SeasonsData> {
         seasonData: {} as LeagueSeason,
         leaderboard: { stats: [], times: [] },
         podium: [],
+        scoreboard: [],
       },
     },
     error: 'Something went wrong',
@@ -107,6 +111,7 @@ export default async function SeasonsPage() {
         <SeasonsTemplate
           leaderboard={data.currentSeason.leaderboard}
           podium={data.currentSeason.podium}
+          scoreboard={data.currentSeason.scoreboard}
           seasonData={data.currentSeason.seasonData}
         />
       )}
