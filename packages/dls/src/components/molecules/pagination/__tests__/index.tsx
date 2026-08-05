@@ -119,7 +119,7 @@ describe('Pagination Component', () => {
     expect(onPageChangeMock).toHaveBeenCalledWith(5)
   })
 
-  it.skip('should highlight the current page button', () => {
+  it('should highlight the current page button', () => {
     render(
       <Pagination
         currentPage={2}
@@ -129,6 +129,6 @@ describe('Pagination Component', () => {
     )
 
     const activeButton = screen.getByText('2')
-    expect(activeButton).toHaveStyle('background-color: rgb(213, 91, 91)')
+    expect(activeButton).toHaveClass('solid')
   })
 })
