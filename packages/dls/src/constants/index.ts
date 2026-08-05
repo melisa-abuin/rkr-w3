@@ -18,8 +18,8 @@ export const playersTimeLeaderboardApi = `${apiUrl}/api/players/timeLeaderboard`
 export const seasonsApi = `${apiUrl}/api/league/seasons`
 export const seasonPlayerApi = (seasonId: number, playerId: string) =>
   `${apiUrl}/api/League/seasons/${seasonId}/players/${playerId}`
-export const seasonScoreboardApi = (seasonId: number) =>
-  `${apiUrl}/api/league/seasons/${seasonId}/scoreboard`
+export const seasonScoreboardApi = (seasonId: number, page?: number) =>
+  `${apiUrl}/api/league/seasons/${seasonId}/scoreboard${page !== undefined ? `?page=${page}` : ''}`
 export const tournamentsBaseApi = `${apiUrl}/api/tournaments`
 export const tournamentsFullApi = `${apiUrl}/api/tournaments/full`
 
@@ -317,6 +317,14 @@ export const statsPageVariants = {
     columns: kibbleColumns,
     defaultSortKey: 'singleGame',
     apiBaseUrl: 'kibble',
+    defaultSortOrder: 'desc',
+  },
+  breakdown: {
+    title: 'Season breakdown',
+    description: 'Check the season breakdown for all players',
+    columns: kibbleColumns,
+    defaultSortKey: '',
+    apiBaseUrl: 'breakdown',
     defaultSortOrder: 'desc',
   },
 } as const

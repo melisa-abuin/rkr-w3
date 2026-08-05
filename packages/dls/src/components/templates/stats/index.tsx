@@ -9,19 +9,28 @@ import { statsPageVariants } from '@/constants'
 import {
   kibbleColumnsWithRender,
   KibbleRow,
+  leagueScoreboardBreakdownColumns,
   statsColumnsWithRender,
   timeAllDiffColumnsWithRender,
 } from '@/constants/tableColumns'
 import { useStatsFilters } from '@/hooks/useStatsFilters'
 import { Difficulty } from '@/interfaces/difficulty'
 import { KibbleStats } from '@/interfaces/leaderboard'
-import { Player } from '@/interfaces/player'
+import { LeagueScoreboardBreakdown } from '@/interfaces/league'
+import { BattleTag, Player } from '@/interfaces/player'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 interface AllStatsData {
-  data: { pages: number; stats?: Player[] | KibbleStats[] }
+  data: {
+    pages: number
+    stats?: Player[] | KibbleStats[] | LeagueScoreboardBreakdown[]
+  }
   filter: string
   seasonOptions?: { label: string; value: string }[]
+}
+
+type LeagueScoreboardBreakdownRow = LeagueScoreboardBreakdown & {
+  battleTag: BattleTag
 }
 
 const getSortValue = (
@@ -38,11 +47,14 @@ const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
 export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
+  console.log('Stats data:', data)
   const columnsByVariant = {
     stats: statsColumnsWithRender,
     times: timeAllDiffColumnsWithRender,
     kibble: kibbleColumnsWithRender,
+    breakdown: leagueScoreboardBreakdownColumns,
   }
+
   const {
     currentApiUrl,
     setCurrentApiUrl,
@@ -192,6 +204,24 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
               player: player,
               queryString,
               shouldRefetch: hasInteracted,
+            }
+
+            if (apiBaseUrl === 'breakdown') {
+              return (
+                <TableWithControls<LeagueScoreboardBreakdownRow>
+                  {...commonProps}
+                  key={apiBaseUrl}
+                  columns={columnsByVariant.breakdown}
+                  data={{
+                    pages: data.pages,
+                    stats: data.stats,
+                  }}
+                  sortKey={
+                    (getSortValue(columns, sortKey.key) ||
+                      defaultSortKey) as keyof LeagueScoreboardBreakdown
+                  }
+                />
+              )
             }
 
             if (apiBaseUrl === 'kibble') {
