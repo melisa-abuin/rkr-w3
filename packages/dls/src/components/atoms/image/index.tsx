@@ -22,6 +22,7 @@ interface CustomImageProps extends ImageProps {
   circular?: boolean
   colorName?: ColorName
   fallbackSrc: string
+  bordered?: boolean
 }
 
 export default function Image({
@@ -31,12 +32,14 @@ export default function Image({
   colorName = 'primary',
   fallbackSrc,
   src,
+  bordered = true,
   ...rest
 }: CustomImageProps) {
   const [imgSrc, setImgSrc] = useState(src)
   const circularClass = circular ? styles.circular : styles.notCircular
   const coloredClass = colored ? styles.colored : styles.grayscale
-  const className = `${styles.image} ${circularClass} ${coloredClass} ${styles[colorName]}`
+  const borderClass = bordered ? styles.bordered : styles.notBordered
+  const className = `${styles.image} ${circularClass} ${coloredClass} ${borderClass} ${styles[colorName]}`
 
   return (
     <NextImage

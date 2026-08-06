@@ -54,6 +54,24 @@
   width: 100%;
 }
 
+.discordLink {
+  color: var(--discord-brand);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semi-bold);
+  display: inline-flex;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+  padding: 8px 0 16px 0;
+}
+
+.discordLink:hover {
+  color: var(--discord-brand-hover);
+}
+
 .discordDetail {
   color: var(--text-color-primary);
   display: inline;

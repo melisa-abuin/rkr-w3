@@ -1,4 +1,5 @@
 import Image from '@/components/atoms/image'
+import type { ReactNode } from 'react'
 import LoaderCard from './components/loaderCard'
 import styles from './index.module.css'
 
@@ -9,19 +10,28 @@ type VerticalCardProps =
       imageSrc: string
       imageFallbackSrc: string
       label: string
-      subLabel?: string
+      children?: ReactNode
+      circularImage?: boolean
     }
 
 export default function VerticalCard(props: VerticalCardProps) {
   if (props.loading) return <LoaderCard />
 
-  const { imageSrc, imageFallbackSrc, label, subLabel } = props
+  const {
+    imageSrc,
+    imageFallbackSrc,
+    label,
+    children,
+    circularImage = true,
+  } = props
+
   return (
     <div className={styles.card}>
       <Image
-        circular
         colored
         alt={label}
+        bordered={circularImage}
+        circular={circularImage}
         fallbackSrc={imageFallbackSrc}
         height={52}
         src={imageSrc}
@@ -29,7 +39,7 @@ export default function VerticalCard(props: VerticalCardProps) {
       />
       <hr className={styles.divider} />
       <p className={styles.label}>{label}</p>
-      {subLabel && <p className={styles.subLabel}>{subLabel}</p>}
+      {children}
     </div>
   )
 }

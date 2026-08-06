@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react'
+
 export interface FeaturedItem {
   imageSrc: string
   imageFallbackSrc: string
   label: string
-  subLabel?: string
+  children?: ReactNode
 }
 
 export interface FeaturedContent {
