@@ -15,7 +15,12 @@ export default function AdminPage() {
           imageSrc="/rkr-icon-primary-x64.png"
           label="RKR Admin"
         >
-          <Button colorName="discord" href="/api/auth/discord" variant="solid">
+          <Button
+            as="a"
+            colorName="discord"
+            href="/api/auth/discord"
+            variant="solid"
+          >
             Login with <Discord />
           </Button>
         </VerticalCard>
