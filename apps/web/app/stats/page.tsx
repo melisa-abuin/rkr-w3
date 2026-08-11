@@ -58,13 +58,19 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
         next: { revalidate: 480 },
       },
     )
-    const seasonScoreboard = scoreboardRes.ok
-      ? ((await scoreboardRes.json()) as LeagueScoreboardApiResponse).map(
-          ({ player, breakdown }) => ({ ...breakdown, battleTag: player }),
-        )
-      : []
 
-    return { seasonOptions, seasonScoreboard }
+    const scoreboardJson = scoreboardRes.ok
+      ? ((await scoreboardRes.json()) as {
+          pages: number
+          stats: LeagueScoreboardApiResponse
+        })
+      : null
+
+    return {
+      seasonOptions,
+      seasonScoreboard: scoreboardJson?.stats ?? [],
+      pages: scoreboardJson?.pages ?? 1,
+    }
   }
 
   async function getPlayerStats() {
@@ -86,9 +92,9 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
 
   try {
     if (isBreakdown) {
-      const { seasonOptions, seasonScoreboard } = await getSeasons()
+      const { seasonOptions, seasonScoreboard, pages } = await getSeasons()
       return {
-        data: { pages: 1, stats: seasonScoreboard },
+        data: { pages: pages ?? 1, stats: seasonScoreboard },
         seasonOptions,
         error: null,
       }
@@ -114,7 +120,7 @@ export default async function StatsPage({ searchParams }: PageProps) {
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
 
   const { data, error, seasonOptions } = await fetchPageData(filter, params)
-
+  console.log(error)
   return (
     <main>
       {error ? (

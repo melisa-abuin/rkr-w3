@@ -4,33 +4,35 @@ import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Tabs from '@/components/atoms/tabs'
 import HelpInfo from '@/components/molecules/helpInfo'
-import TableWithControls from '@/components/organisms/tableWithControls'
-import { statsPageVariants } from '@/constants'
 import {
-  kibbleColumnsWithRender,
-  KibbleRow,
-  leagueScoreboardBreakdownColumns,
-  statsColumnsWithRender,
-  timeAllDiffColumnsWithRender,
-} from '@/constants/tableColumns'
+  playerStatsApi,
+  seasonScoreboardApi,
+  statsPageVariants,
+} from '@/constants'
+import { useApiQuery } from '@/hooks/useApiQuery'
+import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { useStatsFilters } from '@/hooks/useStatsFilters'
 import { Difficulty } from '@/interfaces/difficulty'
 import { KibbleStats } from '@/interfaces/leaderboard'
 import { LeagueScoreboardBreakdown } from '@/interfaces/league'
 import { BattleTag, Player } from '@/interfaces/player'
+import { BreakdownApiEntry } from '@/utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import BreakdownTable from './components/breakdownTable'
+import KibbleTable from './components/kibbleTable'
+import StatsTable from './components/statsTable'
+import TimesTable from './components/timesTable'
 
 interface AllStatsData {
   data: {
     pages: number
-    stats?: Player[] | KibbleStats[] | LeagueScoreboardBreakdown[]
+    stats?:
+      | Player[]
+      | KibbleStats[]
+      | Array<{ player: BattleTag; breakdown: LeagueScoreboardBreakdown }>
   }
   filter: string
   seasonOptions?: { label: string; value: string }[]
-}
-
-type LeagueScoreboardBreakdownRow = LeagueScoreboardBreakdown & {
-  battleTag: BattleTag
 }
 
 const getSortValue = (
@@ -46,15 +48,11 @@ type VariantKey = keyof typeof statsPageVariants
 const isValidVariant = (slug: string): slug is VariantKey =>
   slug in statsPageVariants
 
-export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
-  console.log('Stats data:', data)
-  const columnsByVariant = {
-    stats: statsColumnsWithRender,
-    times: timeAllDiffColumnsWithRender,
-    kibble: kibbleColumnsWithRender,
-    breakdown: leagueScoreboardBreakdownColumns,
-  }
-
+export default function Stats({
+  data: initialData,
+  filter,
+  seasonOptions,
+}: AllStatsData) {
   const {
     currentApiUrl,
     setCurrentApiUrl,
@@ -74,13 +72,7 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
 
-  const defaultTabIndex = variantValues.findIndex(
-    ({ apiBaseUrl }) => apiBaseUrl === filter,
-  )
   const [hasInteracted, setHasInteracted] = useState(false)
-  const [currentColumns, setCurrentColumns] = useState(
-    variantValues[defaultTabIndex]?.columns || null,
-  )
 
   const onTabChange = (index: number) => {
     const selectedVariantKey = variantKeys[index]
@@ -93,9 +85,7 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
 
     setHasInteracted(true)
     setCurrentApiUrl(newPageVariant.apiBaseUrl)
-    setCurrentColumns(variantValues[index].columns)
 
-    // Reset filters and sorting when changing tabs
     setDifficultyFilter(undefined)
     setSortKey({
       key: newPageVariant.defaultSortKey,
@@ -111,9 +101,14 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
     if (difficultyFilter) params.set('difficulty', difficultyFilter)
     if (currentSeason) params.set('season', currentSeason)
 
-    const sortValue = getSortValue(currentColumns, sortKey.key)
+    const variant =
+      statsPageVariants[currentApiUrl as VariantKey] ?? statsPageVariants.stats
+    const validSortKey = getSortValue(
+      variant.columns as { title: string; key: string }[],
+      sortKey.key,
+    )
 
-    params.set('sortKey', sortValue)
+    params.set('sortKey', validSortKey)
     params.set('sortOrder', sortKey.asc ? 'asc' : 'desc')
     params.set('filter', currentApiUrl)
     params.set('battleTag', debouncedQuery)
@@ -125,10 +120,32 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
     sortKey.key,
     sortKey.asc,
     currentApiUrl,
-    currentColumns,
     currentSeason,
     debouncedQuery,
   ])
+
+  const activeApiUrl = useMemo(() => {
+    if (currentApiUrl === 'breakdown') {
+      return `${seasonScoreboardApi(Number(currentSeason) || 1)}?${queryString}`
+    }
+    return `${playerStatsApi}/${currentApiUrl}?${queryString}`
+  }, [currentApiUrl, currentSeason, queryString])
+
+  const {
+    data: queryData,
+    isFetching,
+    error,
+  } = useApiQuery<{ pages: number; stats?: unknown[] }>(
+    activeApiUrl,
+    undefined,
+    {
+      enabled: hasInteracted,
+    },
+  )
+
+  useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
+
+  const activeData = hasInteracted ? queryData : initialData
 
   const syncURL = useCallback(() => {
     window.history.pushState(null, '', `?${queryString}`)
@@ -178,6 +195,16 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
     [setDifficultyFilter, setCurrentPage],
   )
 
+  const commonTableProps = {
+    currentPage,
+    handlePageChange,
+    handlePlayerChange,
+    handleSortChange,
+    isFetching,
+    player,
+    sortKey: sortKey.key,
+  }
+
   return (
     <>
       <PageContainer>
@@ -194,91 +221,44 @@ export default function Stats({ data, filter, seasonOptions }: AllStatsData) {
           titles={variantValues.map(({ title }) => title)}
           onTabChange={onTabChange}
         >
-          {variantValues.map(({ columns, defaultSortKey, apiBaseUrl }) => {
-            const commonProps = {
-              apiBaseUrl,
-              currentPage,
-              handlePageChange,
-              handlePlayerChange,
-              handleSortChange,
-              player: player,
-              queryString,
-              shouldRefetch: hasInteracted,
+          <StatsTable
+            {...commonTableProps}
+            data={activeData as { pages: number; stats?: Player[] } | undefined}
+            difficulty={difficultyFilter}
+            handleDifficultyChange={handleFilterChange}
+          />
+          <TimesTable
+            {...commonTableProps}
+            data={activeData as { pages: number; stats?: Player[] } | undefined}
+            defaultSeasonValue={currentSeason}
+            difficulty={difficultyFilter}
+            handleDifficultyChange={handleFilterChange}
+            handleSeasonChange={({ value }) => {
+              setHasInteracted(true)
+              setCurrentSeason(value)
+            }}
+            seasonOptions={seasonOptions}
+          />
+          <KibbleTable
+            {...commonTableProps}
+            data={
+              activeData as { pages: number; stats?: KibbleStats[] } | undefined
             }
-
-            if (apiBaseUrl === 'breakdown') {
-              return (
-                <TableWithControls<LeagueScoreboardBreakdownRow>
-                  {...commonProps}
-                  key={apiBaseUrl}
-                  columns={columnsByVariant.breakdown}
-                  data={{
-                    pages: data.pages,
-                    stats: data.stats,
-                  }}
-                  sortKey={
-                    (getSortValue(columns, sortKey.key) ||
-                      defaultSortKey) as keyof LeagueScoreboardBreakdown
-                  }
-                />
-              )
+          />
+          <BreakdownTable
+            {...commonTableProps}
+            data={
+              activeData as
+                | { pages: number; stats?: BreakdownApiEntry[] }
+                | undefined
             }
-
-            if (apiBaseUrl === 'kibble') {
-              return (
-                <TableWithControls<KibbleRow>
-                  {...commonProps}
-                  key={apiBaseUrl}
-                  columns={columnsByVariant.kibble}
-                  data={{
-                    ...data,
-                    stats: (data as { stats?: KibbleStats[] }).stats?.map(
-                      (elem) => ({
-                        battleTag: elem.battleTag,
-                        ...elem.kibbles,
-                      }),
-                    ),
-                  }}
-                  sortKey={
-                    (getSortValue(columns, sortKey.key) ||
-                      defaultSortKey) as keyof KibbleRow
-                  }
-                />
-              )
-            }
-
-            return (
-              <TableWithControls<Player>
-                {...commonProps}
-                key={apiBaseUrl}
-                columns={columnsByVariant[apiBaseUrl]}
-                data={{
-                  pages: data.pages,
-                  stats: data.stats as Player[] | undefined,
-                }}
-                defaultSeasonValue={
-                  apiBaseUrl === 'times' ? currentSeason : undefined
-                }
-                difficulty={difficultyFilter}
-                handleDifficultyChange={handleFilterChange}
-                handleSeasonChange={
-                  apiBaseUrl === 'times'
-                    ? ({ value }) => {
-                        setHasInteracted(true)
-                        setCurrentSeason(value)
-                      }
-                    : undefined
-                }
-                seasonOptions={
-                  apiBaseUrl === 'times' ? seasonOptions : undefined
-                }
-                sortKey={
-                  (getSortValue(columns, sortKey.key) ||
-                    defaultSortKey) as keyof Player
-                }
-              />
-            )
-          })}
+            defaultSeasonValue={currentSeason}
+            handleSeasonChange={({ value }) => {
+              setHasInteracted(true)
+              setCurrentSeason(value)
+            }}
+            seasonOptions={seasonOptions}
+          />
         </Tabs>
       </PageContainer>
       <HelpInfo />
