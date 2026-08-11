@@ -68,8 +68,12 @@ async function fetchData(): Promise<SeasonsData> {
         ? await leaderboardResponse.json()
         : { stats: [], times: [] }
 
-    const scoreboard: LeagueScoreboardApiResponse =
+    const rawScoreboard =
       scoreboardResponse.status === 200 ? await scoreboardResponse.json() : []
+
+    const scoreboard: LeagueScoreboardApiResponse = Array.isArray(rawScoreboard)
+      ? rawScoreboard
+      : (rawScoreboard.stats ?? [])
 
     const podium = scoreboard.slice(0, 3)
 
