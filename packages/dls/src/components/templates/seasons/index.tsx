@@ -1,5 +1,6 @@
 'use client'
 
+import Button from '@/components/atoms/button'
 import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import ColumnCards from '@/components/molecules/columnCards'
@@ -81,6 +82,21 @@ export default function SeasonsTemplate({
             }))}
             title="Season breakdown"
           />
+        </PageContainer>
+        <PageContainer
+          as="div"
+          marginBottom={24}
+          marginTop={24}
+          withPadding={false}
+        >
+          <Button
+            as="a"
+            colorName="primary"
+            href={`stats?page=1&season=${seasonData.id}&sortKey=weightedWins&sortOrder=desc&filter=breakdown`}
+            variant="outline"
+          >
+            View all stats
+          </Button>
         </PageContainer>
       </PageContainer>
     </PageContainer>
