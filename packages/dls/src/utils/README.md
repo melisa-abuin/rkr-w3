@@ -23,6 +23,8 @@ Below is a list of all available utilities:
 ### 🧩 Data Formatting
 
 - `formatComparePlayer`
+- `formatBreakdownRows`
+- `formatKibbleRows`
 - `formatSaveDataFile`
 - `formatDateToLocale`
 - `formatFeaturedContent`

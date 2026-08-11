@@ -1,6 +1,7 @@
 import { Difficulty } from '@/interfaces/difficulty'
 import { BestGameTimeFormatted } from '@/interfaces/game'
 import { FastestBestiesData, Kibbles, Player, Tops } from '@/interfaces/player'
+import { leagueScoreboardBreakdownColumns } from './tableColumns'
 
 export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
@@ -322,8 +323,8 @@ export const statsPageVariants = {
   breakdown: {
     title: 'Season breakdown',
     description: 'Check the season breakdown for all players',
-    columns: kibbleColumns,
-    defaultSortKey: '',
+    columns: leagueScoreboardBreakdownColumns,
+    defaultSortKey: 'weightedWins',
     apiBaseUrl: 'breakdown',
     defaultSortOrder: 'desc',
   },

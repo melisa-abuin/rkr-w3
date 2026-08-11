@@ -22,6 +22,8 @@
 - Molecules should be built from atoms and local logic.
 - Organisms compose molecules and atoms for larger sections.
 - Templates compose full page-level sections.
+- Each component lives in its own camelCase folder with an `index.tsx` inside (e.g. `breakdownTable/index.tsx`).
+- Sub-components specific to a template go in `<templateName>/components/<subComponentName>/index.tsx`, not in a shared layer.
 
 ## Coding Guidelines
 
