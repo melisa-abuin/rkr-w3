@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import styles from './index.module.css'
 
 // Change this key to update the announcement
-const announcementKey = 'announcement-2025-08-09'
-const isActiveAnnouncement = false
+const announcementKey = 'announcement-2026-08-11'
+const isActiveAnnouncement = true
 
 export default function Announcement() {
   const [visible, setVisible] = useState(false)
@@ -28,15 +28,10 @@ export default function Announcement() {
       <div className={styles.spacer} />
       <div className={styles.container}>
         <div className={styles.content}>
-          Save the date! <strong>Summer Team Tournament </strong>on Saturday,
-          August 9th, 2025
+          Season 1 starting on August 22nd, 2026!
           <br />
           <small>
-            <i>
-              {' '}
-              20:00 CEST on European servers and 8:00pm Eastern on US East
-              servers
-            </i>
+            <i>Keep an eye out for updates!</i>
           </small>
         </div>
         <button
