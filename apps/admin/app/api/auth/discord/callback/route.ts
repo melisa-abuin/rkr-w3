@@ -1,13 +1,6 @@
 import { createSession } from '@/lib/session'
 import { NextRequest, NextResponse } from 'next/server'
 
-<<<<<<< Updated upstream
-=======
-const DISCORD_GUILD_ID = process.env.DISCORD_GUILD_ID!
-const DISCORD_ADMIN_ROLE_IDS =
-  process.env.DISCORD_ADMIN_ROLE_IDS?.split(',') ?? []
-
->>>>>>> Stashed changes
 export async function GET(request: NextRequest) {
   const guildId = process.env.DISCORD_GUILD_ID!
   const adminRoleIds = process.env.DISCORD_ADMIN_ROLE_IDS!.split(',')
