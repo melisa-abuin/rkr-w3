@@ -10,19 +10,19 @@ describe('formatFeaturedContent', () => {
         imageSrc: '/awards/undeadKitty.png',
         imageFallbackSrc: '/awards/fallback.png',
         label: 'Computer',
-        subLabel: '02:10',
+        children: '02:10',
       },
       {
         imageSrc: '/awards/highelfKitty.png',
         imageFallbackSrc: '/awards/fallback.png',
         label: 'Gam3rX',
-        subLabel: '01:52',
+        children: '01:52',
       },
       {
         imageSrc: '/awards/huntressKitty.png',
         imageFallbackSrc: '/awards/fallback.png',
         label: 'MrGheed',
-        subLabel: '01:58',
+        children: '01:58',
       },
     ])
   })
@@ -35,19 +35,19 @@ describe('formatFeaturedContent', () => {
         imageSrc: '/awards/wWDivine.png',
         imageFallbackSrc: '/awards/fallback.png',
         label: 'Divine Windwalk',
-        subLabel: '8.97%',
+        children: '8.97%',
       },
       {
         imageSrc: '/awards/ancientKitty.png',
         imageFallbackSrc: '/awards/fallback.png',
         label: 'Ancient Kitty',
-        subLabel: '7.69%',
+        children: '7.69%',
       },
       {
         imageSrc: '/awards/normalDeathless1.png',
         imageFallbackSrc: '/awards/fallback.png',
         label: 'Deathless Fire I',
-        subLabel: '23.08%',
+        children: '23.08%',
       },
     ])
   })

@@ -14,7 +14,7 @@ type CommonProps = {
   disabled?: boolean
   small?: boolean
   loading?: boolean
-  colorName?: 'primary' | 'secondary' | 'tertiary'
+  colorName?: 'primary' | 'secondary' | 'tertiary' | 'discord'
   variant?: 'outline' | 'solid' | 'ghost'
 }
 
@@ -44,6 +44,7 @@ export default function Button({
     primary: styles.primary,
     secondary: styles.secondary,
     tertiary: styles.tertiary,
+    discord: styles.discord,
   }
 
   const buttonVariants: Record<NonNullable<CommonProps['variant']>, string> = {

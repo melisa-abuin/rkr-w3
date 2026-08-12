@@ -12,11 +12,13 @@
   "dependencies": {
     "@rkr/dls": "*",
     "next": "16.2.11",
+    "pg": "^8.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",
+    "@types/pg": "^8.21.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "^10.5.0",

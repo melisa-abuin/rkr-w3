@@ -8,6 +8,10 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .primary {
@@ -77,4 +81,11 @@
 .button:disabled {
   cursor: not-allowed;
   opacity: 0.9;
+}
+
+.discord {
+  --button-background: var(--discord-brand);
+  --button-color: var(--discord-brand-text);
+  --button-hover-background: var(--discord-brand-hover);
+  --button-hover-color: var(--discord-brand-text);
 }

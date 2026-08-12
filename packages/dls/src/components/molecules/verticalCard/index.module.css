@@ -33,17 +33,6 @@
   width: 100%;
 }
 
-.subLabel {
-  color: var(--color-primary);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-regular);
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-}
-
 @media (max-width: 600px) {
   .label,
   .divider {

@@ -1,12 +1,13 @@
 import Link from '@/components/atoms/link'
 import VerticalCard from '@/components/molecules/verticalCard'
+import type { ReactNode } from 'react'
 import styles from './index.module.css'
 
 export interface FeatureCardItem {
   imageSrc: string
   imageFallbackSrc: string
   label: string
-  subLabel?: string
+  children?: ReactNode
 }
 
 interface FeatureCardProps {
@@ -30,7 +31,11 @@ export default function FeatureCard({
       <div className={styles.body}>
         {loading
           ? [...Array(3)].map((_, i) => <VerticalCard key={i} loading />)
-          : items.map((item) => <VerticalCard key={item.label} {...item} />)}
+          : items.map((item) => (
+              <VerticalCard key={item.label} {...item}>
+                <p className={styles.subLabel}>{item.children}</p>
+              </VerticalCard>
+            ))}
       </div>
       <Link href={linkHref}>{linkLabel}</Link>
     </div>

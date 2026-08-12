@@ -59,7 +59,7 @@ export default function MobileNavbar() {
                 {route.label}
               </Link>
               {route.isNew && (
-                <ColorBadge colorName="primary" small>
+                <ColorBadge small colorName="primary">
                   New
                 </ColorBadge>
               )}

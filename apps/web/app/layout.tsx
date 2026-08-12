@@ -1,12 +1,12 @@
-import type { Metadata } from 'next'
 import Footer from '@rkr/dls/components/molecules/footer'
 import Navbar from '@rkr/dls/components/molecules/navbar'
-import './globals.css'
-import '../theme/light.css'
-import '../theme/dark.css'
-import { Inter } from 'next/font/google'
 import { QueryProvider } from '@rkr/dls/hooks/useQuery'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import '../theme/dark.css'
+import '../theme/light.css'
+import './globals.css'
 
 const inter = Inter({
   subsets: ['latin'],

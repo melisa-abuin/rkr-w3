@@ -24,14 +24,14 @@ export const formatFeaturedContent = (
     imageSrc: skinToImagePath(selectedSkin),
     imageFallbackSrc: '/awards/fallback.png',
     label: battleTag,
-    subLabel: formatSecondsAsTime(fastestTime),
+    children: formatSecondsAsTime(fastestTime),
   })),
   challenges: data.challenges.map(
     ({ awardName, awardKey, completionPercentage }) => ({
       imageSrc: awardNameToImagePath(awardKey),
       imageFallbackSrc: '/awards/fallback.png',
       label: awardName,
-      subLabel: `${completionPercentage}%`,
+      children: `${completionPercentage}%`,
     }),
   ),
 })

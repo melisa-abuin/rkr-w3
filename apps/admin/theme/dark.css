@@ -2,25 +2,25 @@
   :root {
     --theme-name: dark;
 
-    --button-primary-background: #cc5b5b;
-    --button-primary-color: #130f0f;
-    --button-primary-hover-background: #902c2c;
+    --button-primary-background: #41b2b2;
+    --button-primary-color: #080d10;
+    --button-primary-hover-background: #027f7f;
     --button-primary-hover-color: #e6edf3;
 
-    --button-secondary-background: #41b2b2;
+    --button-secondary-background: #cc5b5b;
     --button-secondary-color: #130f0f;
-    --button-secondary-hover-background: #027f7f;
+    --button-secondary-hover-background: #902c2c;
     --button-secondary-hover-color: #e6edf3;
 
-    --button-tertiary-background: #3f3030;
+    --button-tertiary-background: #1a3333;
     --button-tertiary-color: #e6edf3;
-    --button-tertiary-hover-background: #604747;
+    --button-tertiary-hover-background: #2a4f4f;
     --button-tertiary-hover-color: #e6edf3;
 
-    --badge-primary-background: #b24141;
-    --badge-primary-color: #0f0f0f;
-    --badge-tertiary-background: #3f3030;
-    --badge-tertiary-color: #fff5f5;
+    --badge-primary-background: #41b2b2;
+    --badge-primary-color: #080d10;
+    --badge-tertiary-background: #1a3333;
+    --badge-tertiary-color: #d0f0f0;
     --badge-red-background: #ac0606;
     --badge-red-color: #fff5f5;
     --badge-blue-background: #0030b9;
@@ -82,22 +82,22 @@
     --discord-brand-hover: #4752c4;
     --discord-brand-text: #ffffff;
 
-    --color-primary: #b24141;
+    --color-primary: #41b2b2;
     --color-red-lightning-external: #f77b6d;
     --color-red-lightning-internal: #c22513;
-    --color-secondary: #41b2b2;
+    --color-secondary: #b24141;
     --color-teal: #16b7c9;
-    --color-tertiary: #441111;
+    --color-tertiary: #0a2222;
     --color-yellow: #cfd324;
 
     --background-error: #ba3232;
-    --background-highlight-primary: #3f3030;
-    --background-highlight-secondary: #2d1c1c;
-    --background-highlight-tertiary: #4d3232;
-    --background-primary: #0a0808;
-    --background-quaternary: #2b2222;
-    --background-secondary: #2b1a1a;
-    --background-tertiary: #391313;
+    --background-highlight-primary: #1a3333;
+    --background-highlight-secondary: #0f2222;
+    --background-highlight-tertiary: #1f3f3f;
+    --background-primary: #080d0d;
+    --background-quaternary: #162e2e;
+    --background-secondary: #0f1e1e;
+    --background-tertiary: #0a1e1e;
     --background-warning: #ba6d32;
     --background-purple: #6832ab;
 
@@ -105,22 +105,22 @@
     --text-color-brand-primary: #b24141;
     --text-color-brand-secondary: #41b2b2;
     --text-color-green: #2abf59;
-    --text-color-highlight: #7cd9d9;
-    --text-color-primary: #fff5f5;
-    --text-color-secondary: #9c9a9a;
+    --text-color-highlight: #cc5b5b;
+    --text-color-primary: #f0fafa;
+    --text-color-secondary: #9a9c9c;
     --text-color-teal: #16b7c9;
-    --text-color-tertiary: #d36e6e;
-    --text-color-white: #fff5f5;
+    --text-color-tertiary: #5ecece;
+    --text-color-white: #f0fafa;
     --text-color-yellow: #cfd324;
 
     --text-hover-black: #000000;
     --text-hover-brand-primary: #b24141;
     --text-hover-brand-secondary: #51ebeb;
-    --text-hover-highlight: #7cd9d9;
-    --text-hover-primary: #ffacac;
-    --text-hover-secondary: #fff5f5;
-    --text-hover-tertiary: #ffacac;
-    --text-hover-white: #ffacac;
+    --text-hover-highlight: #cc5b5b;
+    --text-hover-primary: #a0f0f0;
+    --text-hover-secondary: #f0fafa;
+    --text-hover-tertiary: #a0f0f0;
+    --text-hover-white: #a0f0f0;
 
     --shadow-primary: rgba(255, 255, 255, 0.2);
     --shadow-secondary: rgba(255, 255, 255, 0.1);

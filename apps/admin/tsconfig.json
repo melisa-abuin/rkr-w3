@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,15 +17,21 @@
         "name": "next"
       }
     ],
-    "target": "ES2017",
     "paths": {
-      "@/components/*": [
-        "../../packages/dls/src/components/*"
-      ],
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@rkr/dls/*": ["../../packages/dls/src/*"],
+      "@/assets/*": ["../../packages/dls/src/assets/*"],
+      "@/components/*": ["../../packages/dls/src/components/*"],
+      "@/constants": ["../../packages/dls/src/constants/index.ts"],
+      "@/constants/*": ["../../packages/dls/src/constants/*"],
+      "@/hooks/*": ["../../packages/dls/src/hooks/*"],
+      "@/interfaces/*": ["../../packages/dls/src/interfaces/*"],
+      "@/mocks/*": ["../../packages/dls/src/mocks/*"],
+      "@/utils": ["../../packages/dls/src/utils/index.ts"],
+      "@/utils/*": ["../../packages/dls/src/utils/*"],
+      "@/*": ["./*"]
+    },
+    "types": ["node", "vitest/globals"],
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",
@@ -38,7 +40,5 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
