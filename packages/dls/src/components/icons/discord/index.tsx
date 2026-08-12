@@ -6,6 +6,7 @@ interface DiscordProps {
 export const Discord = ({ height = 24, width = 123 }: DiscordProps) => {
   return (
     <svg
+      aria-label="discord invitation"
       fill="none"
       height={height}
       role="img"

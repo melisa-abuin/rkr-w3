@@ -45,7 +45,7 @@ describe('VerticalCard', () => {
   })
 
   it('renders the subLabel when provided', () => {
-    render(<VerticalCard {...defaultProps} children="1:23:45" />)
+    render(<VerticalCard {...defaultProps}>1:23:45</VerticalCard>)
     expect(screen.getByText('1:23:45')).toBeInTheDocument()
   })
 

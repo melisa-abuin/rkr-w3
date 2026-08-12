@@ -31,7 +31,7 @@ describe('Home', () => {
   it('renders the Discord invitation image', () => {
     renderWithClient(<Home discordData={discordDataMock} />)
 
-    const discordImage = screen.getByAltText('discord invitation')
+    const discordImage = screen.getByRole('img', { name: 'discord invitation' })
     expect(discordImage).toBeInTheDocument()
     expect(discordImage.closest('a')).toHaveAttribute('href', discordJoinLink)
   })
