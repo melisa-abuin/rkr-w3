@@ -1,10 +1,10 @@
 import { createSession } from '@/lib/session'
 import { NextRequest, NextResponse } from 'next/server'
 
-const DISCORD_GUILD_ID = process.env.DISCORD_GUILD_ID!
-const DISCORD_ADMIN_ROLE_IDS = process.env.DISCORD_ADMIN_ROLE_IDS!.split(',')
-
 export async function GET(request: NextRequest) {
+  const guildId = process.env.DISCORD_GUILD_ID!
+  const adminRoleIds = process.env.DISCORD_ADMIN_ROLE_IDS!.split(',')
+
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
   const state = searchParams.get('state')
@@ -36,10 +36,9 @@ export async function GET(request: NextRequest) {
     fetch('https://discord.com/api/users/@me', {
       headers: { Authorization: `Bearer ${access_token}` },
     }),
-    fetch(
-      `https://discord.com/api/users/@me/guilds/${DISCORD_GUILD_ID}/member`,
-      { headers: { Authorization: `Bearer ${access_token}` } },
-    ),
+    fetch(`https://discord.com/api/users/@me/guilds/${guildId}/member`, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    }),
   ])
 
   if (!userResponse.ok || !memberResponse.ok) {
@@ -50,7 +49,7 @@ export async function GET(request: NextRequest) {
   const member = await memberResponse.json()
 
   const hasAdminRole = (member.roles as string[]).some((role) =>
-    DISCORD_ADMIN_ROLE_IDS.includes(role.trim()),
+    adminRoleIds.includes(role.trim()),
   )
 
   if (!hasAdminRole) {
