@@ -5,6 +5,7 @@ import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { routes } from '../constants'
+import { getAnnouncement } from '../lib/announcement'
 import '../theme/dark.css'
 import '../theme/light.css'
 import './globals.css'
@@ -76,17 +77,19 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const announcement = await getAnnouncement()
+
   return (
     <html dir="ltr" lang="en">
       <body className={inter.variable}>
         <QueryProvider>
           <ToastProvider>
-            <Navbar routes={routes} />
+            <Navbar announcement={announcement} routes={routes} />
             {children}
             <Footer />
           </ToastProvider>

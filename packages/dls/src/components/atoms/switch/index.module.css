@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs-sm);
+}
+
+.switch {
+  appearance: none;
+  background: var(--background-tertiary);
+  border: 2px solid var(--color-primary);
+  border-radius: 24px;
+  cursor: pointer;
+  height: 32px;
+  position: relative;
+  transition: background 0.2s;
+  width: 56px;
+}
+
+.switch::before {
+  background: var(--text-color-primary);
+  border-radius: 50%;
+  content: '';
+  height: 22px;
+  left: 2px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s;
+  width: 22px;
+}
+
+.switch:checked {
+  background: var(--color-primary);
+}
+
+.switch:checked::before {
+  transform: translate(24px, -50%);
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

@@ -1,18 +1,10 @@
 'use client'
 
 import ColorBadge from '@/components/atoms/colorBadge'
+import type { NavRoute } from '@/interfaces/navbar'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styles from './index.module.css'
-
-interface NavRoute {
-  label: string
-  pathname: string
-  url: string
-  target: '_self' | '_blank'
-  isNew: boolean
-  method?: 'get' | 'post'
-}
 
 interface DesktopNavbarProps {
   routes: Record<string, NavRoute>

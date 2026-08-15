@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto'
+import { createHash, randomBytes } from 'crypto'
 import pool from './db'
 
 export interface SessionUser {
@@ -9,12 +9,22 @@ export interface SessionUser {
 
 const SESSION_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000
 
+function hashToken(token: string): string {
+  return createHash('sha256').update(token).digest('hex')
+}
+
 export async function createSession(user: SessionUser): Promise<string> {
   const token = randomBytes(32).toString('hex')
   const expiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS)
   await pool.query(
     'INSERT INTO admin_sessions (token, user_id, username, avatar, expires_at) VALUES ($1, $2, $3, $4, $5)',
-    [token, user.userId, user.username, user.avatar ?? null, expiresAt],
+    [
+      hashToken(token),
+      user.userId,
+      user.username,
+      user.avatar ?? null,
+      expiresAt,
+    ],
   )
   return token
 }
@@ -22,7 +32,7 @@ export async function createSession(user: SessionUser): Promise<string> {
 export async function getSession(token: string): Promise<SessionUser | null> {
   const { rows } = await pool.query(
     'SELECT user_id, username, avatar FROM admin_sessions WHERE token = $1 AND expires_at > NOW()',
-    [token],
+    [hashToken(token)],
   )
   if (!rows[0]) return null
   return {
@@ -33,5 +43,7 @@ export async function getSession(token: string): Promise<SessionUser | null> {
 }
 
 export async function deleteSession(token: string): Promise<void> {
-  await pool.query('DELETE FROM admin_sessions WHERE token = $1', [token])
+  await pool.query('DELETE FROM admin_sessions WHERE token = $1', [
+    hashToken(token),
+  ])
 }

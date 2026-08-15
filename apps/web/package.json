@@ -18,6 +18,7 @@
     "lottie-react": "^2.4.1",
     "next": "16.2.9",
     "next-sitemap": "^4.2.3",
+    "pg": "^8.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
@@ -29,6 +30,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^26.0.0",
+    "@types/pg": "^8.21.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",

@@ -41,6 +41,10 @@
   background-color: var(--background-warning);
 }
 
+.success {
+  background-color: var(--background-green);
+}
+
 .message {
   margin: 0;
   padding-right: 5px;

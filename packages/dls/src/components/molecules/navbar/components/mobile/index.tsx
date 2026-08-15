@@ -2,19 +2,11 @@
 import ColorBadge from '@/components/atoms/colorBadge'
 import Link from '@/components/atoms/link'
 import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
+import type { NavRoute } from '@/interfaces/navbar'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import styles from './index.module.css'
-
-interface NavRoute {
-  label: string
-  pathname: string
-  url: string
-  target: '_self' | '_blank'
-  isNew: boolean
-  method?: 'get' | 'post'
-}
 
 interface MobileNavbarProps {
   routes: Record<string, NavRoute>

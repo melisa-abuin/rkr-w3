@@ -6,6 +6,7 @@ import styles from './index.module.css'
 
 type InputProps = {
   id: string
+  label?: string
   leftIcon?: ReactNode
   name: string
   onChange: ChangeEventHandler<HTMLInputElement>
@@ -17,6 +18,7 @@ type InputProps = {
 
 export default function Input({
   id,
+  label,
   leftIcon,
   name,
   onChange,
@@ -26,28 +28,35 @@ export default function Input({
   value,
 }: InputProps) {
   return (
-    <div className={styles.wrapper}>
-      {leftIcon}
-      <input
-        autoComplete="off"
-        className={styles.input}
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        onFocus={onFocus}
-      />
-      {value.length > 0 && onCrossClick && (
-        <button
-          aria-label="Clear input"
-          className={styles.clearIconContainer}
-          type="button"
-          onClick={onCrossClick}
-        >
-          <Cross fill="currentColor" height={16} width={16} />
-        </button>
+    <div className={label ? styles.container : undefined}>
+      {label && (
+        <label className={styles.label} htmlFor={id}>
+          {label}
+        </label>
       )}
+      <div className={styles.wrapper}>
+        {leftIcon}
+        <input
+          autoComplete="off"
+          className={styles.input}
+          id={id}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onFocus={onFocus}
+        />
+        {value.length > 0 && onCrossClick && (
+          <button
+            aria-label="Clear input"
+            className={styles.clearIconContainer}
+            type="button"
+            onClick={onCrossClick}
+          >
+            <Cross fill="currentColor" height={16} width={16} />
+          </button>
+        )}
+      </div>
     </div>
   )
 }
