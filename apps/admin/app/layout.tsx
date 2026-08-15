@@ -1,5 +1,6 @@
 import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
+import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
 import { routes } from '../constants'
@@ -28,9 +29,11 @@ export default async function RootLayout({
   return (
     <html dir="ltr" lang="en">
       <body className={inter.variable}>
-        {isLoggedIn && <Navbar routes={routes} />}
-        {children}
-        <Footer />
+        <ToastProvider>
+          {isLoggedIn && <Navbar routes={routes} />}
+          {children}
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   )

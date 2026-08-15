@@ -5,7 +5,7 @@ import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { routes } from '../constants'
-import pool from '../lib/db'
+import { getAnnouncement } from '../lib/announcement'
 import '../theme/dark.css'
 import '../theme/light.css'
 import './globals.css'
@@ -77,29 +77,6 @@ export const metadata: Metadata = {
   },
 }
 
-interface AnnouncementData {
-  title: string
-  subtitle: string
-  isActive: boolean
-}
-
-async function getAnnouncement(): Promise<AnnouncementData | undefined> {
-  try {
-    const { rows } = await pool.query(
-      'SELECT title, subtitle, is_active FROM announcement WHERE id = 1',
-    )
-    if (!rows[0]) return undefined
-    return {
-      title: rows[0].title,
-      subtitle: rows[0].subtitle,
-      isActive: rows[0].is_active,
-    }
-  } catch (e) {
-    console.error(e)
-    return undefined
-  }
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -112,7 +89,7 @@ export default async function RootLayout({
       <body className={inter.variable}>
         <QueryProvider>
           <ToastProvider>
-            <Navbar routes={routes} announcement={announcement} />
+            <Navbar announcement={announcement} routes={routes} />
             {children}
             <Footer />
           </ToastProvider>

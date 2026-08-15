@@ -1,6 +1,10 @@
 'use client'
 
+import Button from '@rkr/dls/components/atoms/button'
+import Input from '@rkr/dls/components/atoms/input'
+import { useToast } from '@rkr/dls/hooks/useToast'
 import { useState } from 'react'
+import { useUpdateAnnouncement } from '../../../hooks/useUpdateAnnouncement'
 import styles from './index.module.css'
 
 interface AnnouncementFormProps {
@@ -17,60 +21,45 @@ export default function AnnouncementForm({
   const [title, setTitle] = useState(initialTitle)
   const [subtitle, setSubtitle] = useState(initialSubtitle)
   const [isActive, setIsActive] = useState(initialIsActive)
-  const [status, setStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>(
-    'idle',
-  )
+  const { mutate, isPending } = useUpdateAnnouncement()
+  const { showToast } = useToast()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setStatus('saving')
-    try {
-      const res = await fetch('/api/announcement', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, subtitle, isActive }),
-      })
-      setStatus(res.ok ? 'saved' : 'error')
-    } catch {
-      setStatus('error')
-    }
+    mutate(
+      { title, subtitle, isActive },
+      {
+        onSuccess: () => showToast('Announcement saved.', 'success'),
+        onError: () => showToast('Error saving, please try again.'),
+      },
+    )
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="title">
-          title
-        </label>
-        <input
-          className={styles.input}
-          id="title"
-          name="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
+      <Input
+        id="title"
+        label="title"
+        name="title"
+        placeholder="Announcement title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
 
-      <div className={styles.field}>
-        <label className={styles.label} htmlFor="subtitle">
-          subtitle
-        </label>
-        <input
-          className={styles.input}
-          id="subtitle"
-          name="subtitle"
-          type="text"
-          value={subtitle}
-          onChange={(e) => setSubtitle(e.target.value)}
-        />
-      </div>
+      <Input
+        id="subtitle"
+        label="subtitle"
+        name="subtitle"
+        placeholder="Some description about the announcement"
+        value={subtitle}
+        onChange={(e) => setSubtitle(e.target.value)}
+      />
 
       <div className={styles.field}>
         <label className={styles.label} htmlFor="isActive">
           is active
         </label>
-        <button
+        <Button
           aria-checked={isActive}
           className={`${styles.toggle} ${isActive ? styles.toggleOn : ''}`}
           id="isActive"
@@ -79,23 +68,13 @@ export default function AnnouncementForm({
           onClick={() => setIsActive((v) => !v)}
         >
           <span className={styles.toggleThumb} />
-        </button>
+        </Button>
       </div>
 
       <div className={styles.actions}>
-        <button
-          className={styles.saveButton}
-          disabled={status === 'saving'}
-          type="submit"
-        >
-          {status === 'saving' ? 'Saving...' : 'Save'}
-        </button>
-        {status === 'saved' && (
-          <span className={styles.statusSaved}>Saved!</span>
-        )}
-        {status === 'error' && (
-          <span className={styles.statusError}>Error saving.</span>
-        )}
+        <Button disabled={isPending} loading={isPending} type="submit">
+          Save
+        </Button>
       </div>
     </form>
   )
