@@ -19,9 +19,6 @@ export default async function AdminPage() {
           description={`Logged in as ${user.username}`}
           title="RKR Admin"
         />
-        <form action="/api/auth/logout" method="POST">
-          <button type="submit">Logout</button>
-        </form>
       </PageContainer>
     </main>
   )
