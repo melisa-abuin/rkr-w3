@@ -6,7 +6,20 @@ import DesktopNavbar from './components/desktop'
 import MobileNavbar from './components/mobile'
 import styles from './index.module.css'
 
-export default function Navbar() {
+export interface NavRoute {
+  label: string
+  pathname: string
+  url: string
+  target: '_self' | '_blank'
+  isNew: boolean
+  method?: 'get' | 'post'
+}
+
+interface NavbarProps {
+  routes: Record<string, NavRoute>
+}
+
+export default function Navbar({ routes }: NavbarProps) {
   return (
     <>
       <nav className={styles.styledNav}>
@@ -20,8 +33,8 @@ export default function Navbar() {
               width={54}
             />
           </Link>
-          <DesktopNavbar />
-          <MobileNavbar />
+          <DesktopNavbar routes={routes} />
+          <MobileNavbar routes={routes} />
         </div>
       </nav>
 

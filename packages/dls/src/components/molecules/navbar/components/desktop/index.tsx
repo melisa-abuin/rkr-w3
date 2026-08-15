@@ -1,12 +1,24 @@
 'use client'
 
 import ColorBadge from '@/components/atoms/colorBadge'
-import { routes } from '@/constants'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styles from './index.module.css'
 
-export default function DesktopNavbar() {
+interface NavRoute {
+  label: string
+  pathname: string
+  url: string
+  target: '_self' | '_blank'
+  isNew: boolean
+  method?: 'get' | 'post'
+}
+
+interface DesktopNavbarProps {
+  routes: Record<string, NavRoute>
+}
+
+export default function DesktopNavbar({ routes }: DesktopNavbarProps) {
   const pathname = usePathname()
   const basePath = pathname?.split('/').slice(0, 2).join('/')
 
@@ -19,20 +31,35 @@ export default function DesktopNavbar() {
             basePath === route.pathname ? styles.selected : ''
           }`}
         >
-          <Link
-            className={styles.navLinkAnchor}
-            href={route.url}
-            target={route.target}
-          >
-            {route.label}
-            {route.isNew && (
-              <span className={styles.newBadge}>
-                <ColorBadge small colorName="red">
-                  New
-                </ColorBadge>
-              </span>
-            )}
-          </Link>
+          {route.method === 'post' ? (
+            <form action={route.url} method="post">
+              <button className={styles.navLinkAnchor} type="submit">
+                {route.label}
+                {route.isNew && (
+                  <span className={styles.newBadge}>
+                    <ColorBadge small colorName="red">
+                      New
+                    </ColorBadge>
+                  </span>
+                )}
+              </button>
+            </form>
+          ) : (
+            <Link
+              className={styles.navLinkAnchor}
+              href={route.url}
+              target={route.target}
+            >
+              {route.label}
+              {route.isNew && (
+                <span className={styles.newBadge}>
+                  <ColorBadge small colorName="red">
+                    New
+                  </ColorBadge>
+                </span>
+              )}
+            </Link>
+          )}
         </li>
       ))}
     </ul>

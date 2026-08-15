@@ -9,6 +9,8 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Protect all routes except /login, /api/*, and Next.js internals
-  matcher: ['/((?!login|api|_next|favicon\\.ico).*)'],
+  // Protect all routes except /login, /api/*, Next.js internals, and static assets
+  matcher: [
+    '/((?!login|api|_next|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico)).*)',
+  ],
 }

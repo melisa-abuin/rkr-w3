@@ -1,14 +1,26 @@
 'use client'
 import ColorBadge from '@/components/atoms/colorBadge'
 import Link from '@/components/atoms/link'
-import { routes } from '@/constants'
 import { usePrefersDarkMode } from '@/hooks/usePrefersDarkMode'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import styles from './index.module.css'
 
-export default function MobileNavbar() {
+interface NavRoute {
+  label: string
+  pathname: string
+  url: string
+  target: '_self' | '_blank'
+  isNew: boolean
+  method?: 'get' | 'post'
+}
+
+interface MobileNavbarProps {
+  routes: Record<string, NavRoute>
+}
+
+export default function MobileNavbar({ routes }: MobileNavbarProps) {
   const pathname = usePathname()
   const prefersDarkMode = usePrefersDarkMode()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -51,13 +63,25 @@ export default function MobileNavbar() {
                 pathname === route.pathname ? styles.selected : ''
               }`}
             >
-              <Link
-                href={route.url}
-                target={route.target}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {route.label}
-              </Link>
+              {route.method === 'post' ? (
+                <form action={route.url} method="post">
+                  <button
+                    className={styles.navLinkButton}
+                    type="submit"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {route.label}
+                  </button>
+                </form>
+              ) : (
+                <Link
+                  href={route.url}
+                  target={route.target}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {route.label}
+                </Link>
+              )}
               {route.isNew && (
                 <ColorBadge small colorName="primary">
                   New

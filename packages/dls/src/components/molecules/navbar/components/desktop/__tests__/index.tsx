@@ -8,6 +8,25 @@ vi.mock('next/navigation', () => ({
 
 const mockUsePathname = vi.mocked(usePathname)
 
+const mockRoutes = {
+  home: {
+    label: 'Home',
+    pathname: '/',
+    url: '/',
+    target: '_self' as const,
+    isNew: false,
+    method: 'get' as const,
+  },
+  leaderboard: {
+    label: 'Leaderboard',
+    pathname: '/leaderboard',
+    url: '/leaderboard',
+    target: '_self' as const,
+    isNew: false,
+    method: 'get' as const,
+  },
+}
+
 describe('DesktopNavbar', () => {
   beforeEach(() => {
     mockUsePathname.mockReturnValue('/')
@@ -18,7 +37,7 @@ describe('DesktopNavbar', () => {
   })
 
   it('renders all navigation links', () => {
-    render(<DesktopNavbar />)
+    render(<DesktopNavbar routes={mockRoutes} />)
 
     expect(screen.getByText('Home')).toBeInTheDocument()
     expect(screen.getByText('Leaderboard')).toBeInTheDocument()
@@ -27,7 +46,7 @@ describe('DesktopNavbar', () => {
   it('applies the selected style to the current page link', () => {
     mockUsePathname.mockReturnValue('/leaderboard')
 
-    render(<DesktopNavbar />)
+    render(<DesktopNavbar routes={mockRoutes} />)
 
     const challengesLink = screen.getByText('Leaderboard')
 
@@ -35,13 +54,13 @@ describe('DesktopNavbar', () => {
   })
 
   it.skip('renders a "New" badge for routes marked as isNew', () => {
-    render(<DesktopNavbar />)
+    render(<DesktopNavbar routes={mockRoutes} />)
 
     expect(screen.getByText('New')).toBeInTheDocument()
   })
 
   it('does not render a "New" badge for routes not marked as isNew', () => {
-    render(<DesktopNavbar />)
+    render(<DesktopNavbar routes={mockRoutes} />)
 
     const homeLink = screen.getByText('Home')
 

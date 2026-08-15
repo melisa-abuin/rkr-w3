@@ -13,6 +13,25 @@ vi.mock('@/hooks/useIsScrollAtTop', () => ({
 
 const mockUseIsScrollAtTop = vi.mocked(useIsScrollAtTop)
 
+const mockRoutes = {
+  home: {
+    label: 'Home',
+    pathname: '/',
+    url: '/',
+    target: '_self' as const,
+    isNew: false,
+    method: 'get' as const,
+  },
+  leaderboard: {
+    label: 'Leaderboard',
+    pathname: '/leaderboard',
+    url: '/leaderboard',
+    target: '_self' as const,
+    isNew: false,
+    method: 'get' as const,
+  },
+}
+
 describe('MobileNavbar', () => {
   beforeEach(() => {
     mockUseIsScrollAtTop.mockReturnValue([true, vi.fn()])
@@ -23,7 +42,7 @@ describe('MobileNavbar', () => {
   })
 
   it('renders the hamburger menu icon and opens the menu', async () => {
-    render(<MobileNavbar />)
+    render(<MobileNavbar routes={mockRoutes} />)
 
     const menuIcon = screen.getByAltText('hamburger menu')
     expect(menuIcon).toBeInTheDocument()
@@ -38,7 +57,7 @@ describe('MobileNavbar', () => {
   })
 
   it.skip('renders a "New" badge for routes marked as isNew after opening menu', async () => {
-    render(<MobileNavbar />)
+    render(<MobileNavbar routes={mockRoutes} />)
 
     await userEvent.click(screen.getByAltText('hamburger menu'))
 

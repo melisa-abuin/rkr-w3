@@ -4,6 +4,7 @@ import { QueryProvider } from '@rkr/dls/hooks/useQuery'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { routes } from '../constants'
 import '../theme/dark.css'
 import '../theme/light.css'
 import './globals.css'
@@ -85,7 +86,7 @@ export default function RootLayout({
       <body className={inter.variable}>
         <QueryProvider>
           <ToastProvider>
-            <Navbar />
+            <Navbar routes={routes} />
             {children}
             <Footer />
           </ToastProvider>
