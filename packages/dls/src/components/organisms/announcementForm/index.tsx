@@ -4,7 +4,7 @@ import Button from '@/components/atoms/button'
 import Input from '@/components/atoms/input'
 import Switch from '@/components/atoms/switch'
 import type { AnnouncementData } from '@/interfaces/announcement'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.css'
 
 interface AnnouncementFormProps {
@@ -26,7 +26,7 @@ export default function AnnouncementForm({
   const [subtitle, setSubtitle] = useState(initialSubtitle)
   const [isActive, setIsActive] = useState(initialIsActive)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault()
     onSubmit({ title, subtitle, isActive })
   }
