@@ -30,7 +30,7 @@ export default async function RootLayout({
     <html dir="ltr" lang="en">
       <body className={inter.variable}>
         <ToastProvider>
-          {isLoggedIn && <Navbar routes={routes} />}
+          {isLoggedIn && <Navbar routes={routes} withAnnouncement={false} />}
           {children}
           <Footer />
         </ToastProvider>

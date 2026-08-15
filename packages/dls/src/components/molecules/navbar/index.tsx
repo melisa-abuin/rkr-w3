@@ -11,9 +11,14 @@ import styles from './index.module.css'
 interface NavbarProps {
   routes: Record<string, NavRoute>
   announcement?: AnnouncementData
+  withAnnouncement?: boolean
 }
 
-export default function Navbar({ routes, announcement }: NavbarProps) {
+export default function Navbar({
+  routes,
+  announcement,
+  withAnnouncement = true,
+}: NavbarProps) {
   return (
     <>
       <nav className={styles.styledNav}>
@@ -32,7 +37,7 @@ export default function Navbar({ routes, announcement }: NavbarProps) {
         </div>
       </nav>
 
-      {announcement && announcement.isActive && (
+      {withAnnouncement && announcement && announcement.isActive && (
         <Announcement
           subtitle={announcement.subtitle}
           title={announcement.title}

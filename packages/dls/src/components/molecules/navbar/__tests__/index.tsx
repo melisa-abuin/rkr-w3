@@ -84,4 +84,20 @@ describe('Navbar', () => {
 
     expect(screen.getByText('Active Announcement')).toBeInTheDocument()
   })
+
+  it('does not render the announcement when withAnnouncement is false', () => {
+    render(
+      <Navbar
+        announcement={{
+          isActive: true,
+          subtitle: 'Sub',
+          title: 'Active Announcement',
+        }}
+        routes={mockRoutes}
+        withAnnouncement={false}
+      />,
+    )
+
+    expect(screen.queryByText('Active Announcement')).not.toBeInTheDocument()
+  })
 })
