@@ -15,11 +15,18 @@ export interface NavRoute {
   method?: 'get' | 'post'
 }
 
-interface NavbarProps {
-  routes: Record<string, NavRoute>
+interface AnnouncementData {
+  title: string
+  subtitle: string
+  isActive: boolean
 }
 
-export default function Navbar({ routes }: NavbarProps) {
+interface NavbarProps {
+  routes: Record<string, NavRoute>
+  announcement?: AnnouncementData
+}
+
+export default function Navbar({ routes, announcement }: NavbarProps) {
   return (
     <>
       <nav className={styles.styledNav}>
@@ -38,7 +45,13 @@ export default function Navbar({ routes }: NavbarProps) {
         </div>
       </nav>
 
-      <Announcement />
+      {announcement && (
+        <Announcement
+          isActive={announcement.isActive}
+          subtitle={announcement.subtitle}
+          title={announcement.title}
+        />
+      )}
     </>
   )
 }
