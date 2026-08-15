@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const hits = new Map<string, number>()
 const LIMIT = 60
+const WINDOW_MS = 60_000
+
+const hits = new Map<string, { count: number; resetAt: number }>()
 
 const BOT_UA_REGEX =
   /(bot|crawler|spider|crawling|scrapy|curl|wget|python|httpclient|headless)/i
@@ -28,10 +30,15 @@ export function middleware(req: NextRequest) {
   }
 
   if (req.nextUrl.pathname.startsWith('/api')) {
-    const count = (hits.get(ip) ?? 0) + 1
-    hits.set(ip, count)
-    if (count > LIMIT) {
-      return new NextResponse(null, { status: 429 })
+    const now = Date.now()
+    const entry = hits.get(ip)
+    if (!entry || now > entry.resetAt) {
+      hits.set(ip, { count: 1, resetAt: now + WINDOW_MS })
+    } else {
+      entry.count += 1
+      if (entry.count > LIMIT) {
+        return new NextResponse(null, { status: 429 })
+      }
     }
   }
 
