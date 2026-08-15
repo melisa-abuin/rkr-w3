@@ -18,7 +18,7 @@ const securityHeaders = [
       "script-src 'self' 'unsafe-inline'",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: https://cdn.discordapp.com",
-      "connect-src 'self'",
+      "connect-src 'self' https://rkrapi-801419031002.us-east1.run.app",
       "font-src 'self'",
       "frame-ancestors 'self'",
     ].join('; '),
