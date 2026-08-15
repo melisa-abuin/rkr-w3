@@ -7,14 +7,9 @@ import styles from './index.module.css'
 interface AnnouncementProps {
   title: string
   subtitle: string
-  isActive: boolean
 }
 
-export default function Announcement({
-  title,
-  subtitle,
-  isActive,
-}: AnnouncementProps) {
+export default function Announcement({ title, subtitle }: AnnouncementProps) {
   const storageKey = `announcement-${title.substring(0, 40)}`
   const [visible, setVisible] = useState(false)
 
@@ -28,7 +23,7 @@ export default function Announcement({
     setVisible(false)
   }
 
-  if (!visible || !isActive || !title) return null
+  if (!visible || !title) return null
 
   return (
     <>

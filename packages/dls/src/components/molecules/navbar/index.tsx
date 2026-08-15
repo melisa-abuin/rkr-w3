@@ -1,25 +1,12 @@
 'use client'
 import Link from '@/components/atoms/link'
+import type { AnnouncementData } from '@/interfaces/announcement'
+import type { NavRoute } from '@/interfaces/navbar'
 import Image from 'next/image'
 import Announcement from './components/announcement'
 import DesktopNavbar from './components/desktop'
 import MobileNavbar from './components/mobile'
 import styles from './index.module.css'
-
-export interface NavRoute {
-  label: string
-  pathname: string
-  url: string
-  target: '_self' | '_blank'
-  isNew: boolean
-  method?: 'get' | 'post'
-}
-
-interface AnnouncementData {
-  title: string
-  subtitle: string
-  isActive: boolean
-}
 
 interface NavbarProps {
   routes: Record<string, NavRoute>
@@ -45,9 +32,8 @@ export default function Navbar({ routes, announcement }: NavbarProps) {
         </div>
       </nav>
 
-      {announcement && (
+      {announcement && announcement.isActive && (
         <Announcement
-          isActive={announcement.isActive}
           subtitle={announcement.subtitle}
           title={announcement.title}
         />
