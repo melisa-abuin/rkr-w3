@@ -1,5 +1,5 @@
-import styles from './index.module.css'
 import Paws from '@/components/atoms/paws'
+import styles from './index.module.css'
 
 interface DifficultyDataProps {
   data: string
