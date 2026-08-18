@@ -9,18 +9,19 @@
   width: 100%;
 }
 
-@media (max-width: 600px) {
-  .wrapper {
-    padding-top: 108px;
-  }
-}
-
 .content {
   align-items: center;
   display: flex;
   flex-direction: column;
   max-width: 1000px;
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .content {
+    justify-content: center;
+    min-height: calc(100vh - 314px);
+  }
 }
 
 .title {
@@ -47,7 +48,6 @@
 .playerFinderWrapper {
   align-items: center;
   display: flex;
-  flex: 1;
   flex-direction: column;
   justify-content: center;
   padding-bottom: 16px;

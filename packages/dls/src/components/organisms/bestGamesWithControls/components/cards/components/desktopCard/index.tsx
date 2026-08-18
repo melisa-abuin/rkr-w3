@@ -67,15 +67,18 @@ export default function DesktopCard({
                   </button>
                 )}
               </div>
-
               {showRoundTimes && roundOneTime && (
                 <div className={styles.wrapper}>
                   <small>Round times:</small>
                   <small>{formatSecondsAsTime(roundOneTime)}</small>
                   <small>{formatSecondsAsTime(roundTwoTime)}</small>
                   <small>{formatSecondsAsTime(roundThreeTime)}</small>
-                  <small>{formatSecondsAsTime(roundFourTime)}</small>
-                  <small>{formatSecondsAsTime(roundFiveTime)}</small>
+                  {!!roundFourTime && (
+                    <small>{formatSecondsAsTime(roundFourTime)}</small>
+                  )}
+                  {!!roundFiveTime && (
+                    <small>{formatSecondsAsTime(roundFiveTime)}</small>
+                  )}
                 </div>
               )}
               {showDifficulty && (

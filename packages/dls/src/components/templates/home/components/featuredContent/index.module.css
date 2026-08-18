@@ -19,5 +19,7 @@
 @media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
+    padding-bottom: 24px;
+    padding-top: 24px;
   }
 }

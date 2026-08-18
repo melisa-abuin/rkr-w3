@@ -50,6 +50,10 @@ export default function Tooltip({
     return <>{dataToRender[difficulty]}</>
   }
 
+  if (!best && !children) {
+    return <>--</>
+  }
+
   return (
     <TooltipComponent
       ariaLabel="Extended stats"
