@@ -1,10 +1,10 @@
 'use client'
 
+import NameTag from '@/components/atoms/nameTag'
 import PlayerTag from '@/components/molecules/playerTag'
 import RowCard from '@/components/molecules/rowCard'
-import TeamTag from '@/components/templates/tournaments/components/teamTag'
 import { TournamentFormatted } from '@/interfaces/tournament'
-import { formatSecondsAsTime } from '@/utils'
+import { formatSecondsAsTime, formatTeamMembers } from '@/utils'
 import Column from './components/column'
 import styles from './index.module.css'
 
@@ -61,7 +61,9 @@ export default function TournamentSummary({ item }: TournamentSummaryProps) {
               ariaLabel={`Player card for ${team.color} team`}
               position={teamIndex + 1}
             >
-              <TeamTag members={team.members} name={`${team.color} team`} />
+              <NameTag subtitle={formatTeamMembers(team.members)}>
+                {`${team.color} team`}
+              </NameTag>
 
               <div className={styles.columnsContainer}>
                 <Column

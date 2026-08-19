@@ -1,5 +1,6 @@
 import Image from '@/components/atoms/image'
 import Link from '@/components/atoms/link'
+import NameTag from '@/components/atoms/nameTag'
 import { BattleTag as BattleTagI, Skins } from '@/interfaces/player'
 import styles from './index.module.css'
 
@@ -26,15 +27,14 @@ export default function PlayerTag({ battleTag, skins = null }: PlayerTagProps) {
           />
         </div>
       )}
-      <div className={styles.textContainer}>
+      <NameTag subtitle={battleTag.tag} textAlign="left">
         <Link
           color="brandSecondary"
           href={`/player/${encodeURIComponent(battleTag.tag)}`}
         >
           {battleTag.name}
         </Link>
-        <p className={styles.subTitle}>{battleTag.tag}</p>
-      </div>
+      </NameTag>
     </div>
   )
 }
