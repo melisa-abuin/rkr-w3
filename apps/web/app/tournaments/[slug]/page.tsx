@@ -1,10 +1,10 @@
 import Error from '@rkr/dls/components/molecules/error'
 import TournamentDetail from '@rkr/dls/components/templates/tournamentDetail'
-import { tournamentsBaseApi } from '@rkr/dls/constants'
+import { tournamentsFullApi } from '@rkr/dls/constants'
 import { formatTournamentPlayers } from '@rkr/dls/utils'
 
 async function fetchData(id: string) {
-  const response = await fetch(`${tournamentsBaseApi}/${id}/full`, {
+  const response = await fetch(`${tournamentsFullApi}?id=${id}`, {
     next: { revalidate: 480 },
   })
 
@@ -28,7 +28,7 @@ export default async function TournamentsPage({
   const { slug } = await params
   const { data, error } = await fetchData(slug)
 
-  const tournament = data ? formatTournamentPlayers(data) : null
+  const tournament = data ? formatTournamentPlayers(data.tournaments) : null
 
   return (
     <main>

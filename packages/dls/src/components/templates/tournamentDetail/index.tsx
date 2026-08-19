@@ -48,28 +48,28 @@ export default function Tournaments({ data }: TournamentsProps) {
               columns: [
                 {
                   description: 'Round 1',
-                  value: formatSecondsAsTime(fastestRounds.roundOne.time),
-                  additionalInfo: `by ${fastestRounds.roundOne.player.name}`,
+                  value: formatSecondsAsTime(fastestRounds?.roundOne.time),
+                  additionalInfo: `by ${fastestRounds?.roundOne.player.name}`,
                 },
                 {
                   description: 'Round 2',
-                  value: formatSecondsAsTime(fastestRounds.roundTwo.time),
-                  additionalInfo: `by ${fastestRounds.roundTwo.player.name}`,
+                  value: formatSecondsAsTime(fastestRounds?.roundTwo.time),
+                  additionalInfo: `by ${fastestRounds?.roundTwo.player.name}`,
                 },
                 {
                   description: 'Round 3',
-                  value: formatSecondsAsTime(fastestRounds.roundThree.time),
-                  additionalInfo: `by ${fastestRounds.roundThree.player.name}`,
+                  value: formatSecondsAsTime(fastestRounds?.roundThree.time),
+                  additionalInfo: `by ${fastestRounds?.roundThree.player.name}`,
                 },
                 {
                   description: 'Round 4',
-                  value: formatSecondsAsTime(fastestRounds.roundFour.time),
-                  additionalInfo: `by ${fastestRounds.roundFour.player.name}`,
+                  value: formatSecondsAsTime(fastestRounds?.roundFour.time),
+                  additionalInfo: `by ${fastestRounds?.roundFour.player.name}`,
                 },
                 {
                   description: 'Round 5',
-                  value: formatSecondsAsTime(fastestRounds.roundFive.time),
-                  additionalInfo: `by ${fastestRounds.roundFive.player.name}`,
+                  value: formatSecondsAsTime(fastestRounds?.roundFive.time),
+                  additionalInfo: `by ${fastestRounds?.roundFive.player.name}`,
                 },
               ],
             },

@@ -3,18 +3,18 @@
 import Button from '@/components/atoms/button'
 import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import { Tournament } from '@/interfaces/tournament'
+import { TournamentApi } from '@/interfaces/tournament'
 import { formatDateToLocale, groupTournamentsByGroupId } from '@/utils'
 import { Fragment } from 'react/jsx-runtime'
 import TournamentSummary from './components/tournamentSummary'
 import styles from './index.module.css'
 
 interface TournamentsProps {
-  data: Tournament[]
+  data: TournamentApi
 }
 
 export default function Tournaments({ data }: TournamentsProps) {
-  const groups = groupTournamentsByGroupId(data)
+  const groups = groupTournamentsByGroupId(data.tournaments)
   return (
     <>
       <PageContainer>

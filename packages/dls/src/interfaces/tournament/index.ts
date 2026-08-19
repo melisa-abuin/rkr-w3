@@ -1,4 +1,4 @@
-import { BattleTag } from '../player'
+import { BattleTag, PlayerColor } from '../player'
 
 interface FastestRound {
   player: BattleTag
@@ -6,17 +6,23 @@ interface FastestRound {
 }
 
 export interface Tournament {
-  tournament: {
-    id: number
-    tournament_id: string
-    region: string
-    gamemode: string
-    game_type: string
-    datetime: string
-    admin_approved: number
-    tournament_group_id: number | null
-  }
-  players: TournamentPlayer[]
+  id: number
+  tournament_id: string
+  region: string
+  gamemode: string
+  game_type: string
+  datetime: string
+  admin_approved: number
+  tournament_group_id: number | null
+}
+
+export interface TournamentApi {
+  tournaments: TournamentFull[]
+}
+
+export interface TournamentFull {
+  tournament: Tournament
+  teams: TournamentTeam[]
 }
 
 export type Tournaments = Array<Tournament>
@@ -53,29 +59,60 @@ export interface TournamentRound {
   saves: number
 }
 
-export interface TournamentFormatted {
-  tournament: {
-    id: number
-    region: string
-    gamemode: string
-    gameType: string
-    datetime: string
-    groupId: number | null
-  }
-  fastestRounds: {
-    roundOne: FastestRound
-    roundTwo: FastestRound
-    roundThree: FastestRound
-    roundFour: FastestRound
-    roundFive: FastestRound
-  }
-  players: TournamentPlayerFormatted[]
-}
-
 export interface TournamentPlayerFormatted extends Omit<
   TournamentPlayer,
   'games' | 'battleTag'
 > {
   battleTag: BattleTag | string
   games: TournamentGame[]
+}
+
+export interface TournamentTeamGame {
+  game_number: number
+  game_uid: string
+  totalTime: number
+}
+
+export interface TournamentTeamMemberGame {
+  game_number: number
+  total_deaths: number
+  total_saves: number
+  total_progress: number
+  totalTime?: number
+  rounds: Omit<TournamentRound, 'id' | 'game_id'>[]
+}
+
+export interface TournamentTeamMember {
+  battleTag: BattleTag
+  totalTime?: number
+  games: TournamentTeamMemberGame[]
+}
+
+export interface TournamentFormatted {
+  tournament: {
+    id: number
+    tournamentId: string
+    region: string
+    gamemode: string
+    gameType: string
+    datetime: string
+    adminApproved: number
+    groupId: number | null
+  }
+  fastestRounds?: {
+    roundOne: FastestRound
+    roundTwo: FastestRound
+    roundThree: FastestRound
+    roundFour: FastestRound
+    roundFive: FastestRound
+  }
+  teams: TournamentTeam[]
+}
+
+export interface TournamentTeam {
+  id: NonNullable<PlayerColor>
+  color: NonNullable<PlayerColor>
+  totalTime: number
+  games: TournamentTeamGame[]
+  members: TournamentTeamMember[]
 }

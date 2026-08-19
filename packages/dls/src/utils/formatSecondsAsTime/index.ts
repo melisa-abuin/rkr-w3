@@ -6,10 +6,10 @@
  * @returns formatted time
  */
 export const formatSecondsAsTime = (
-  seconds: number,
+  seconds: number | undefined,
   withMilliseconds: boolean = false,
 ) => {
-  if (seconds === 0) {
+  if (seconds === undefined || seconds === 0) {
     return 'DNF'
   }
 
