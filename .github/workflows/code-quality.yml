@@ -16,8 +16,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: yarn
+          cache-dependency-path: yarn.lock
 
-      - run: yarn install
+      - run: yarn install --immutable
       - run: yarn build
       - run: yarn lint
       - run: yarn tsc
