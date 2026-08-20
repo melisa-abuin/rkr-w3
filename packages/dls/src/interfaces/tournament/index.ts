@@ -9,7 +9,7 @@ export interface Tournament {
   id: number
   tournament_id: string
   region: string
-  gamemode: string
+  gamemode: 'Solo' | 'Team'
   game_type: string
   datetime: string
   admin_approved: number
@@ -93,7 +93,7 @@ export interface TournamentFormatted {
     id: number
     tournamentId: string
     region: string
-    gamemode: string
+    gamemode: 'Solo' | 'Team'
     gameType: string
     datetime: string
     adminApproved: number

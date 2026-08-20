@@ -5,7 +5,7 @@ describe('formatTournamentPlayers', () => {
   it('maps tournament fields and converts game_type / tournament_group_id', () => {
     const result = formatTournamentPlayers([makeTournament()])
 
-    expect(result.tournament).toMatchObject({
+    expect(result?.tournament).toMatchObject({
       id: 1,
       region: 'EU',
       gameType: 'ranked',
@@ -18,7 +18,7 @@ describe('formatTournamentPlayers', () => {
 
     const result = formatTournamentPlayers([item])
 
-    expect(result.teams[0].members).toEqual([])
+    expect(result?.teams[0].members).toEqual([])
   })
 
   it('preserves battleTag object shape', () => {
@@ -30,7 +30,7 @@ describe('formatTournamentPlayers', () => {
 
     const result = formatTournamentPlayers([item])
 
-    expect(result.teams[0].members[0].battleTag).toEqual({
+    expect(result?.teams[0].members[0].battleTag).toEqual({
       name: 'Alpha',
       tag: 'Alpha#1234',
     })
@@ -46,7 +46,7 @@ describe('formatTournamentPlayers', () => {
     })
 
     const result = formatTournamentPlayers([item])
-    const names = result.teams[0].members.map((m) => m.battleTag.name)
+    const names = result?.teams[0].members.map((m) => m.battleTag.name)
 
     expect(names).toEqual(['Fast', 'Mid', 'Slow'])
   })
@@ -61,7 +61,7 @@ describe('formatTournamentPlayers', () => {
 
     const result = formatTournamentPlayers([item])
 
-    expect(result.fastestRounds?.roundOne).toMatchObject({
+    expect(result?.fastestRounds?.roundOne).toMatchObject({
       time: 60,
       player: { name: 'Beta', tag: 'Beta#5678' },
     })
@@ -83,8 +83,8 @@ describe('formatTournamentPlayers', () => {
 
     const result = formatTournamentPlayers([item])
 
-    expect(result.fastestRounds?.roundOne.player.name).toBe('Alpha')
-    expect(result.fastestRounds?.roundTwo.player.name).toBe('Beta')
+    expect(result?.fastestRounds?.roundOne.player.name).toBe('Alpha')
+    expect(result?.fastestRounds?.roundTwo.player.name).toBe('Beta')
   })
 
   it('ignores round times of 0', () => {
@@ -97,7 +97,7 @@ describe('formatTournamentPlayers', () => {
 
     const result = formatTournamentPlayers([item])
 
-    expect(result.fastestRounds?.roundOne).toMatchObject({
+    expect(result?.fastestRounds?.roundOne).toMatchObject({
       time: 120,
       player: { name: 'Beta' },
     })
@@ -110,7 +110,7 @@ describe('formatTournamentPlayers', () => {
 
     const result = formatTournamentPlayers([item])
 
-    expect(result.fastestRounds?.roundTwo.time).toBe(Number.POSITIVE_INFINITY)
+    expect(result?.fastestRounds?.roundTwo.time).toBe(Number.POSITIVE_INFINITY)
   })
 
   it('handles a member with no games gracefully', () => {
@@ -125,6 +125,6 @@ describe('formatTournamentPlayers', () => {
     })
 
     expect(() => formatTournamentPlayers([item])).not.toThrow()
-    expect(formatTournamentPlayers([item]).teams[0].members).toHaveLength(1)
+    expect(formatTournamentPlayers([item])?.teams[0].members).toHaveLength(1)
   })
 })

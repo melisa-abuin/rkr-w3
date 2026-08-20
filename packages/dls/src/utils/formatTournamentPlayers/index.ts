@@ -19,9 +19,13 @@ const getDefaultFastestRounds = (): FastestRounds =>
 
 export const formatTournamentPlayers = (
   item: TournamentFull[],
-): TournamentFormatted => {
-  const fastestRounds = getDefaultFastestRounds()
+): TournamentFormatted | null => {
+  if (!item || item.length === 0) {
+    return null
+  }
+
   const members = item[0].teams[0]?.members ?? []
+  const fastestRounds = getDefaultFastestRounds()
 
   members.forEach((member) => {
     member.games.forEach((game) => {

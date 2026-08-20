@@ -9,7 +9,7 @@ export const makeTournament = (
     id: 1,
     tournament_id: 'T1',
     region: 'EU',
-    gamemode: 'standard',
+    gamemode: 'Solo',
     game_type: 'ranked',
     datetime: '2025-01-01 00:00:00',
     admin_approved: 1,

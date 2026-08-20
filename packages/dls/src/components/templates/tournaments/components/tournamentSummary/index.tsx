@@ -74,9 +74,10 @@ export default function TournamentSummary({ item }: TournamentSummaryProps) {
                 <div className={styles.columnsContainer}>
                   <Column
                     description="Total Time"
-                    value={formatSecondsAsTime(team.members[0].totalTime)}
+                    value={formatSecondsAsTime(team.totalTime)}
                   />
                   {teamIndex === 0 &&
+                    team.members &&
                     team.members[0].games.map((game, gameIndex) => (
                       <Column
                         key={gameIndex}
