@@ -1,19 +1,19 @@
 import styles from './index.module.css'
 
-interface ColumnProps {
-  value: number
+interface ValueWithDescriptionProps {
+  value: number | string
   description: string
   hideOnMobile?: boolean
 }
 
-export default function Column({
+export default function ValueWithDescription({
   value,
   description,
   hideOnMobile = false,
-}: ColumnProps) {
-  const className = `${styles.container} ${
-    hideOnMobile ? styles.containerHiddenOnMobile : ''
-  }`
+}: ValueWithDescriptionProps) {
+  const className = hideOnMobile
+    ? `${styles.container} ${styles.containerHiddenOnMobile}`
+    : styles.container
 
   return (
     <div className={className}>

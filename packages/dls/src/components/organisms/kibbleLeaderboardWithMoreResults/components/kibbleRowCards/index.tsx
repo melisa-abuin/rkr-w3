@@ -1,10 +1,10 @@
+import ValueWithDescription from '@/components/atoms/valueWithDescription'
 import PlayerTag from '@/components/molecules/playerTag'
 import RowCard from '@/components/molecules/rowCard'
 import rowCardStyles from '@/components/molecules/rowCard/index.module.css'
 import { kibbleLeaderboardColumns } from '@/constants'
 import { KibbleLeaderboard } from '@/interfaces/leaderboard'
 import { Kibbles } from '@/interfaces/player'
-import Column from './components/column'
 import LoadingCards from './components/loadingCards'
 
 interface KibbleRowCardsProps {
@@ -31,7 +31,7 @@ export default function KibbleRowCards({
           <PlayerTag battleTag={item.battleTag} skins={item.skins} />
           <div className={rowCardStyles.columnsContainer}>
             {kibbleLeaderboardColumns.map(({ title, key }) => (
-              <Column
+              <ValueWithDescription
                 key={key}
                 description={title}
                 hideOnMobile={key !== 'singleGame'}

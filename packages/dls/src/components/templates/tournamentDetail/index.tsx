@@ -3,9 +3,10 @@
 import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
 import Columns from '@/components/molecules/columns'
+import TournamentSummaryCard from '@/components/organisms/tournamentSummaryCard'
 import { TournamentFormatted as TournamentInterface } from '@/interfaces/tournament'
 import { formatDateToLocale, formatSecondsAsTime } from '@/utils'
-import TournamentSummary from './components/tournamentSummary'
+import styles from './index.module.css'
 
 interface TournamentsProps {
   data: TournamentInterface
@@ -13,6 +14,7 @@ interface TournamentsProps {
 
 export default function Tournaments({ data }: TournamentsProps) {
   const { tournament, fastestRounds } = data
+  const { gamemode } = tournament
 
   return (
     <>
@@ -39,7 +41,37 @@ export default function Tournaments({ data }: TournamentsProps) {
         />
       </PageContainer>
       <PageContainer marginBottom={16}>
-        <TournamentSummary item={data} />
+        {gamemode === 'Solo' && (
+          <div className={styles.container}>
+            {(data.teams[0]?.members ?? []).map((player, index) => (
+              <TournamentSummaryCard
+                key={player.battleTag.tag}
+                ariaLabel={`Player card for ${player.battleTag.tag}`}
+                battleTag={player.battleTag}
+                gamemode="Solo"
+                games={player.games}
+                position={index + 1}
+                totalTime={player.totalTime}
+              />
+            ))}
+          </div>
+        )}
+        {gamemode === 'Team' && (
+          <div className={styles.container}>
+            {data.teams.map((team, index) => (
+              <TournamentSummaryCard
+                key={team.color}
+                ariaLabel={`Player card for ${team.color} team`}
+                color={team.color}
+                gamemode="Team"
+                games={team.games}
+                members={team.members}
+                position={index + 1}
+                totalTime={team.totalTime}
+              />
+            ))}
+          </div>
+        )}
       </PageContainer>
       <PageContainer marginBottom={16} title="Fastest rounds">
         <Columns
