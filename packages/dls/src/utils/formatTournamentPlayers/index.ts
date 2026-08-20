@@ -1,8 +1,9 @@
-import { TournamentFormatted, Tournaments } from '@/interfaces/tournament'
+import { TournamentFormatted, TournamentFull } from '@/interfaces/tournament'
+import { formatTournamentTeams } from '../formatTournamentTeams'
 
 export const roundNames = ['One', 'Two', 'Three', 'Four', 'Five'] as const
 
-type FastestRounds = TournamentFormatted['fastestRounds']
+type FastestRounds = NonNullable<TournamentFormatted['fastestRounds']>
 
 const getDefaultFastestRound = (): FastestRounds['roundOne'] => ({
   player: { name: '', tag: '' },
@@ -16,56 +17,47 @@ const getDefaultFastestRounds = (): FastestRounds =>
     return accumulator
   }, {} as FastestRounds)
 
-/**
- * Normalizes tournament players for UI/API consumption.
- *
- * - Computes `fastestRounds` across all players and games
- * - Splits `battleTag` string into `battleTag.name` and `battleTag.tag`
- * - Sorts players by lowest total time (ascending)
- */
 export const formatTournamentPlayers = (
-  item: Tournaments[number],
-): TournamentFormatted => {
+  item: TournamentFull[],
+): TournamentFormatted | null => {
+  if (!item || item.length === 0) {
+    return null
+  }
+
+  const members = item[0].teams[0]?.members ?? []
   const fastestRounds = getDefaultFastestRounds()
-  const players = Array.isArray(item?.players) ? item.players : []
-  const playersWithTotalTime = players.map((player) => {
-    player?.games?.forEach((game) => {
+
+  members.forEach((member) => {
+    member.games.forEach((game) => {
       game.rounds.forEach((round) => {
-        const roundTime = round.round_time
-        const roundNumber = round.round_number
+        const { round_time: roundTime, round_number: roundNumber } = round
         const roundKey =
-          `round${roundNames[roundNumber - 1]}` as keyof typeof fastestRounds
-        if (roundTime < fastestRounds[roundKey]?.time && roundTime > 0) {
+          `round${roundNames[roundNumber - 1]}` as keyof FastestRounds
+        if (roundTime > 0 && roundTime < fastestRounds[roundKey].time) {
           fastestRounds[roundKey] = {
-            player: {
-              name: player.battleTag?.split('#')[0] || '',
-              tag: player.battleTag || '',
-            },
+            player: member.battleTag,
             time: roundTime,
           }
         }
       })
     })
-
-    return {
-      ...player,
-      battleTag: {
-        name: player.battleTag?.split('#')[0] || '',
-        tag: player.battleTag || '',
-      },
-    }
   })
 
+  const teams = formatTournamentTeams(item[0].teams)
+  teams[0]?.members.sort((a, b) => (a.totalTime ?? 0) - (b.totalTime ?? 0))
+
   return {
-    ...item,
     tournament: {
-      ...item.tournament,
-      gameType: item.tournament.game_type,
-      groupId: item.tournament.tournament_group_id,
+      id: item[0].tournament.id,
+      tournamentId: item[0].tournament.tournament_id,
+      region: item[0].tournament.region,
+      gamemode: item[0].tournament.gamemode,
+      gameType: item[0].tournament.game_type,
+      datetime: item[0].tournament.datetime,
+      adminApproved: item[0].tournament.admin_approved,
+      groupId: item[0].tournament.tournament_group_id,
     },
     fastestRounds,
-    players: playersWithTotalTime.sort(
-      (first, second) => first.totalTime - second.totalTime,
-    ),
+    teams,
   }
 }

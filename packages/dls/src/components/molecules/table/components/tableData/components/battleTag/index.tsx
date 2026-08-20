@@ -1,6 +1,6 @@
 import Link from '@/components/atoms/link'
+import NameTag from '@/components/atoms/nameTag'
 import { BattleTag as BattleTagI } from '@/interfaces/player'
-import styles from './index.module.css'
 
 /*
  * using this in each of the children of the tdata I can make it generic
@@ -17,11 +17,10 @@ export default function BattleTag({ data }: BattleTagProps) {
   const { name, tag } = data
 
   return (
-    <div className={styles.container}>
+    <NameTag subtitle={tag} textAlign="center">
       <Link color="brandSecondary" href={`/player/${encodeURIComponent(tag)}`}>
         {name}
       </Link>
-      <p className={styles.subtitle}>{tag}</p>
-    </div>
+    </NameTag>
   )
 }

@@ -67,5 +67,7 @@ Below is a list of all available utilities:
 
 ### 🏁 Tournament Helpers
 
+- `formatTeamMembers`
 - `formatTournamentPlayers`
+- `formatTournamentTeams`
 - `groupTournamentsById`

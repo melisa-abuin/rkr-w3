@@ -1,16 +1,32 @@
-import { Tournament, Tournaments } from '@/interfaces/tournament'
+import { TournamentFormatted, TournamentFull } from '@/interfaces/tournament'
+import { formatTournamentTeams } from '../formatTournamentTeams'
+
+const formatTournament = (item: TournamentFull): TournamentFormatted => ({
+  tournament: {
+    id: item.tournament.id,
+    tournamentId: item.tournament.tournament_id,
+    region: item.tournament.region,
+    gamemode: item.tournament.gamemode,
+    gameType: item.tournament.game_type,
+    datetime: item.tournament.datetime,
+    adminApproved: item.tournament.admin_approved,
+    groupId: item.tournament.tournament_group_id,
+  },
+  teams: formatTournamentTeams(item.teams),
+})
 
 export const groupTournamentsByGroupId = (
-  tournaments: Tournament[],
-): Tournaments[] => {
-  const grouped: Record<number, Tournaments> = {}
-  const result: Tournaments[] = []
+  data: TournamentFull[],
+): TournamentFormatted[][] => {
+  const grouped: Record<number, TournamentFormatted[]> = {}
+  const result: TournamentFormatted[][] = []
 
-  tournaments.forEach((item) => {
+  data.forEach((item) => {
     const groupId = item.tournament.tournament_group_id
+    const formatted = formatTournament(item)
 
     if (groupId === null || groupId === undefined) {
-      result.push([item])
+      result.push([formatted])
       return
     }
 
@@ -19,7 +35,7 @@ export const groupTournamentsByGroupId = (
       result.push(grouped[groupId])
     }
 
-    grouped[groupId].push(item)
+    grouped[groupId].push(formatted)
   })
 
   return result
