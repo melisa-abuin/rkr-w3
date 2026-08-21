@@ -22,4 +22,13 @@ export async function register() {
       updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `)
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS page_views (
+      id BIGSERIAL PRIMARY KEY,
+      route TEXT NOT NULL,
+      ip TEXT NOT NULL,
+      visited_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
 }

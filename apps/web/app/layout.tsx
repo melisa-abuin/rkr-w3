@@ -4,8 +4,10 @@ import { QueryProvider } from '@rkr/dls/hooks/useQuery'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
 import { routes } from '../constants'
 import { getAnnouncement } from '../lib/announcement'
+import { postPageView } from '../lib/pageView'
 import '../theme/dark.css'
 import '../theme/light.css'
 import './globals.css'
@@ -82,6 +84,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') ?? '/'
+  // x-real-ip is set by Vercel infrastructure and cannot be spoofed; x-forwarded-for[0] can.
+  const ip =
+    headersList.get('x-real-ip') ??
+    headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    'unknown'
+  postPageView(pathname, ip)
+
   const announcement = await getAnnouncement()
 
   return (
