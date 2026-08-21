@@ -8,3 +8,16 @@ export const routes = {
     method: 'post',
   },
 } as const
+
+export const pageViewPageSize = 10
+
+export const pageViewYearMs = 365 * 24 * 60 * 60 * 1000
+
+export const pageViewColumns: Array<{
+  title: string
+  key: 'route' | 'views' | 'uniqueViews'
+}> = [
+  { title: 'Route', key: 'route' },
+  { title: 'Views', key: 'views' },
+  { title: 'Unique Views', key: 'uniqueViews' },
+]

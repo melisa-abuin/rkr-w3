@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.label {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs-sm);
+}
+
+.wrapper {
+  align-items: center;
+  background-color: var(--background-quaternary);
+  border: 1px solid var(--background-highlight-tertiary);
+  border-radius: 5px;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  justify-content: space-between;
+  padding: 8px;
+  width: 100%;
+}
+
+.wrapper:focus-within {
+  outline: 1px solid var(--color-primary);
+}
+
+.textarea {
+  background-color: var(--background-quaternary);
+  border: none;
+  color: var(--text-color-primary);
+  flex: 1;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  min-height: 88px;
+  font-size: var(--font-size-xs);
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+}

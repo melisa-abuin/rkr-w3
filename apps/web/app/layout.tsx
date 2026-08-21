@@ -4,8 +4,10 @@ import { QueryProvider } from '@rkr/dls/hooks/useQuery'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
 import { routes } from '../constants'
 import { getAnnouncement } from '../lib/announcement'
+import { postPageView } from '../lib/pageView'
 import '../theme/dark.css'
 import '../theme/light.css'
 import './globals.css'
@@ -82,6 +84,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersList = await headers()
+  const realIp = headersList.get('x-real-ip')
+  const pathname = headersList.get('x-pathname') ?? '/'
+  const ip = realIp ?? headersList.get('x-forwarded-for')?.split(',')[0]?.trim()
+
+  await postPageView(pathname, ip ?? 'unknown')
   const announcement = await getAnnouncement()
 
   return (

@@ -22,7 +22,7 @@
 }
 
 .switch::before {
-  background: var(--text-color-primary);
+  background: var(--text-color-white);
   border-radius: 50%;
   content: '';
   height: 22px;

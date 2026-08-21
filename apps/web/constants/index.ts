@@ -49,3 +49,5 @@ export const routes = {
     method: 'get',
   },
 } as const
+
+export const maxRouteLength = 255

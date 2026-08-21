@@ -1,26 +1,23 @@
 import AnnouncementForm from '@/app/components/announcementForm'
-import pool from '@/lib/db'
+import { getAnnouncement } from '@/lib/announcement'
+import { getPageViews } from '@/lib/pageView'
 import { getSession } from '@/lib/session'
 import PageContainer from '@rkr/dls/components/atoms/pageContainer'
 import PageHeader from '@rkr/dls/components/atoms/pageHeader'
+import Table from '@rkr/dls/components/molecules/table'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { pageViewColumns, pageViewPageSize, pageViewYearMs } from '../constants'
 
-async function getAnnouncement() {
-  try {
-    const { rows } = await pool.query(
-      'SELECT title, subtitle, is_active FROM announcement WHERE id = 1',
-    )
-    if (!rows[0]) return { title: '', subtitle: '', isActive: false }
-    return {
-      title: rows[0].title as string,
-      subtitle: rows[0].subtitle as string,
-      isActive: rows[0].is_active as boolean,
-    }
-  } catch (e) {
-    console.error(e)
-    return { title: '', subtitle: '', isActive: false }
-  }
+interface PageViewStat {
+  route: string
+  views: number
+  uniqueViews: number
+}
+
+async function getPageViewStats(): Promise<PageViewStat[]> {
+  const since = new Date(Date.now() - pageViewYearMs)
+  return getPageViews(since)
 }
 
 export default async function AdminPage() {
@@ -32,6 +29,7 @@ export default async function AdminPage() {
   }
 
   const announcement = await getAnnouncement()
+  const pageViewStats = await getPageViewStats()
 
   return (
     <main>
@@ -40,12 +38,21 @@ export default async function AdminPage() {
           description={`Logged in as ${user.username}`}
           title="RKR Admin"
         />
-
-        <AnnouncementForm
-          initialIsActive={announcement.isActive}
-          initialSubtitle={announcement.subtitle}
-          initialTitle={announcement.title}
-        />
+        <PageContainer title="Announcement" withPadding={false}>
+          <AnnouncementForm
+            initialIsActive={announcement.isActive}
+            initialSubtitle={announcement.subtitle}
+            initialTitle={announcement.title}
+          />
+        </PageContainer>
+        <PageContainer marginBottom={24} withPadding={false}>
+          <Table<PageViewStat>
+            columns={pageViewColumns}
+            data={pageViewStats.slice(0, pageViewPageSize)}
+            pageSize={pageViewPageSize}
+            title="Main Website Page Views (Last 12 Months)"
+          />
+        </PageContainer>
       </PageContainer>
     </main>
   )

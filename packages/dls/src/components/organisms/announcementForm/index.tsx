@@ -3,6 +3,7 @@
 import Button from '@/components/atoms/button'
 import Input from '@/components/atoms/input'
 import Switch from '@/components/atoms/switch'
+import Textarea from '@/components/atoms/textarea'
 import type { AnnouncementData } from '@/interfaces/announcement'
 import React, { useState } from 'react'
 import styles from './index.module.css'
@@ -42,7 +43,7 @@ export default function AnnouncementForm({
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      <Input
+      <Textarea
         id="subtitle"
         label="Subtitle"
         name="subtitle"
