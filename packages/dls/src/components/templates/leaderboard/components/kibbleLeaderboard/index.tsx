@@ -1,19 +1,17 @@
 'use client'
 
 import Table from '@/components/molecules/table'
-import { playerStatsKibbleLeaderboardApi } from '@/constants'
+import RowCardsWithImage from '@/components/organisms/rowCardsWithImage'
+import {
+  kibbleLeaderboardColumns,
+  playerStatsKibbleLeaderboardApi,
+} from '@/constants'
 import { kibbleColumnsWithRender, KibbleRow } from '@/constants/tableColumns'
 import { useApiQuery } from '@/hooks/useApiQuery'
 import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
-import { KibbleLeaderboard } from '@/interfaces/leaderboard'
-import dynamic from 'next/dynamic'
-import KibbleRowCards from './components/kibbleRowCards'
+import type { KibbleLeaderboard } from '@/interfaces/leaderboard'
 
-const FloatingKibble = dynamic(() => import('./components/floatingKibble'), {
-  ssr: false,
-})
-
-export default function KibbleLeaderboardWithMoreResults() {
+export default function KibbleLeaderboard() {
   const { data, isFetching, error } = useApiQuery<KibbleLeaderboard[]>(
     playerStatsKibbleLeaderboardApi,
     undefined,
@@ -29,15 +27,21 @@ export default function KibbleLeaderboardWithMoreResults() {
 
   return (
     <>
-      <FloatingKibble />
-      <KibbleRowCards data={data?.slice(0, 5)} loading={isFetching} />
+      <RowCardsWithImage
+        columns={kibbleLeaderboardColumns}
+        data={data?.slice(0, 5).map((item) => ({
+          ...item,
+          ...item.kibbles,
+        }))}
+        loading={isFetching}
+      />
       <Table<KibbleRow>
         columns={kibbleColumnsWithRender}
         data={
           data
-            ?.map((elem) => ({
-              battleTag: elem.battleTag,
-              ...elem.kibbles,
+            ?.map((item) => ({
+              battleTag: item.battleTag,
+              ...item.kibbles,
             }))
             .slice(5, 20) || []
         }

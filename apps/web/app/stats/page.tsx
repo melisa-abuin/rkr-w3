@@ -11,7 +11,7 @@ import {
   LeagueSeasonsApiResponse,
 } from '@rkr/dls/interfaces/league'
 import { Player } from '@rkr/dls/interfaces/player'
-import { buildSearchQuery } from '@rkr/dls/utils'
+import { buildSearchQuery, getCurrentSeason } from '@rkr/dls/utils'
 
 type SearchParams = Record<string, string | string[] | undefined>
 
@@ -28,18 +28,15 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
     if (!res.ok) return { seasonOptions: [], seasonScoreboard: [] }
 
     const seasons = (await res.json()) as LeagueSeasonsApiResponse
-    const now = Date.now()
     const seasonParam = Array.isArray(params.season)
       ? params.season[0]
       : params.season
 
     const selected = seasonParam
       ? (seasons.find((s) => s.id.toString() === seasonParam) ?? seasons[0])
-      : (seasons.find(
-          (s) =>
-            now >= new Date(s.startDate).getTime() &&
-            now <= new Date(s.endDate).getTime(),
-        ) ?? seasons[0])
+      : getCurrentSeason(seasons)
+
+    if (!selected) return { seasonOptions: [], seasonScoreboard: [] }
 
     const seasonOptions = seasons.map(({ id, leagueId }) => ({
       label: leagueId,

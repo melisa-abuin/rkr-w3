@@ -1,4 +1,5 @@
 .wrapper {
+  background-color: var(--background-highlight-tertiary);
   display: flex;
   justify-content: center;
   padding: 0 24px;
