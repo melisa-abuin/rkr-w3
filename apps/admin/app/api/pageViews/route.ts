@@ -10,7 +10,8 @@ const PERIOD_MS = {
 
 type Period = keyof typeof PERIOD_MS
 
-const isValidPeriod = (value: string): value is Period => value in PERIOD_MS
+const isValidPeriod = (value: string): value is Period =>
+  Object.hasOwn(PERIOD_MS, value)
 
 export async function GET(request: NextRequest) {
   const token = request.cookies.get('admin_session')?.value

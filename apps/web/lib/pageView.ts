@@ -12,6 +12,9 @@ const MAX_ROUTE_LENGTH = 255
 
 export async function postPageView(route: string, ip: string): Promise<void> {
   try {
+    const normalizedIp = ip.trim().toLowerCase()
+    if (!normalizedIp || normalizedIp === 'unknown') return
+
     const visitorId = hashIp(ip)
     const safeRoute = route.slice(0, MAX_ROUTE_LENGTH)
     await pool.query(

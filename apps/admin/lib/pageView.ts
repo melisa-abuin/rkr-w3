@@ -8,7 +8,7 @@ export interface PageView {
 export async function getPageViews(since: Date): Promise<PageView[]> {
   try {
     const { rows } = await pool.query(
-      `SELECT route, visitor_id FROM page_views WHERE visited_at > $1`,
+      `SELECT route, visitor_id FROM page_views WHERE visited_at > $1 AND visitor_id IS NOT NULL`,
       [since],
     )
     return rows.map((row) => ({

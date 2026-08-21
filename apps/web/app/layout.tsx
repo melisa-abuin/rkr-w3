@@ -89,9 +89,10 @@ export default async function RootLayout({
   // x-real-ip is set by Vercel infrastructure and cannot be spoofed; x-forwarded-for[0] can.
   const ip =
     headersList.get('x-real-ip') ??
-    headersList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-    'unknown'
-  postPageView(pathname, ip)
+    headersList.get('x-forwarded-for')?.split(',')[0]?.trim()
+  if (ip) {
+    void postPageView(pathname, ip)
+  }
 
   const announcement = await getAnnouncement()
 
