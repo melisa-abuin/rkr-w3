@@ -1,22 +1,20 @@
 import { createHmac } from 'crypto'
+import { maxRouteLength } from './../constants'
 import pool from './db'
 
-// Consistent per-IP for dedup queries; secret prevents brute-force reversal.
 const hashIp = (ip: string): string => {
   const secret = process.env.IP_HMAC_SECRET
   if (!secret) throw new Error('IP_HMAC_SECRET is not set')
   return createHmac('sha256', secret).update(ip).digest('hex')
 }
 
-const MAX_ROUTE_LENGTH = 255
-
 export async function postPageView(route: string, ip: string): Promise<void> {
   try {
-    const normalizedIp = ip.trim().toLowerCase()
+    const normalizedIp = ip.toLowerCase()
     if (!normalizedIp || normalizedIp === 'unknown') return
 
     const visitorId = hashIp(ip)
-    const safeRoute = route.slice(0, MAX_ROUTE_LENGTH)
+    const safeRoute = route.slice(0, maxRouteLength)
     await pool.query(
       `
       INSERT INTO page_views (route, visitor_id)
@@ -29,7 +27,9 @@ export async function postPageView(route: string, ip: string): Promise<void> {
     `,
       [safeRoute, visitorId],
     )
-  } catch {
-    // non-critical, do not block the request
+  } catch (err) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Failed to post page view:', err)
+    }
   }
 }

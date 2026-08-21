@@ -85,15 +85,11 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const headersList = await headers()
+  const realIp = headersList.get('x-real-ip')
   const pathname = headersList.get('x-pathname') ?? '/'
-  // x-real-ip is set by Vercel infrastructure and cannot be spoofed; x-forwarded-for[0] can.
-  const ip =
-    headersList.get('x-real-ip') ??
-    headersList.get('x-forwarded-for')?.split(',')[0]?.trim()
-  if (ip) {
-    void postPageView(pathname, ip)
-  }
+  const ip = realIp ?? headersList.get('x-forwarded-for')?.split(',')[0]?.trim()
 
+  await postPageView(pathname, ip ?? 'unknown')
   const announcement = await getAnnouncement()
 
   return (
