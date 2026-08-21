@@ -68,13 +68,13 @@ export default async function AdminPage() {
           description={`Logged in as ${user.username}`}
           title="RKR Admin"
         />
-
-        <AnnouncementForm
-          initialIsActive={announcement.isActive}
-          initialSubtitle={announcement.subtitle}
-          initialTitle={announcement.title}
-        />
-
+        <PageContainer title="Announcement" withPadding={false}>
+          <AnnouncementForm
+            initialIsActive={announcement.isActive}
+            initialSubtitle={announcement.subtitle}
+            initialTitle={announcement.title}
+          />
+        </PageContainer>
         <Table<PageViewStat>
           columns={PAGE_VIEW_COLUMNS}
           data={pageViewStats.slice(0, PAGE_SIZE)}

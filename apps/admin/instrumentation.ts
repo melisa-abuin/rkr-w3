@@ -27,7 +27,7 @@ export async function register() {
     CREATE TABLE IF NOT EXISTS page_views (
       id BIGSERIAL PRIMARY KEY,
       route TEXT NOT NULL,
-      ip TEXT NOT NULL,
+      visitor_id TEXT,
       visited_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `)
