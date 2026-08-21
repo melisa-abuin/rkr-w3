@@ -12,6 +12,7 @@ import { pageViewColumns, pageViewPageSize, pageViewYearMs } from '../constants'
 interface PageViewStat {
   route: string
   views: number
+  uniqueViews: number
 }
 
 async function getPageViewStats(): Promise<PageViewStat[]> {
@@ -44,12 +45,14 @@ export default async function AdminPage() {
             initialTitle={announcement.title}
           />
         </PageContainer>
-        <Table<PageViewStat>
-          columns={pageViewColumns}
-          data={pageViewStats.slice(0, pageViewPageSize)}
-          pageSize={pageViewPageSize}
-          title="Page Views"
-        />
+        <PageContainer marginBottom={24} withPadding={false}>
+          <Table<PageViewStat>
+            columns={pageViewColumns}
+            data={pageViewStats.slice(0, pageViewPageSize)}
+            pageSize={pageViewPageSize}
+            title="Main Website Page Views (Last 12 Months)"
+          />
+        </PageContainer>
       </PageContainer>
     </main>
   )
