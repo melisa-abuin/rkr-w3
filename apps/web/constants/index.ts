@@ -15,6 +15,14 @@ export const routes = {
     isNew: false,
     method: 'get',
   },
+  seasons: {
+    label: 'Seasons',
+    pathname: '/seasons',
+    url: '/seasons',
+    target: '_self',
+    isNew: true,
+    method: 'get',
+  },
   tournaments: {
     label: 'Tournaments',
     pathname: '/tournaments',
