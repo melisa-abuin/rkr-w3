@@ -19,10 +19,10 @@ export default function HeroBanner({ discordData }: HeroBannerProps) {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <h1 className={styles.title} id="home-title">
-          Run Kitty Run
+          RKR Statistics
         </h1>
         <p className={styles.info}>
-          The statistics for the custom map from Warcraft 3
+          The statistics for the custom map from Warcraft 3 Run Kitty Run
         </p>
         <div className={styles.playerFinderWrapper}>
           <PlayerFinderWithResult placeholder={placeholder} />
