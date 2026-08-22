@@ -252,7 +252,11 @@ export default function Stats({
           />
           <BreakdownTable
             {...commonTableProps}
-            data={activeData as BreakdownApiEntry[] | undefined}
+            data={
+              activeData as
+                | { pages: number; stats?: BreakdownApiEntry[] }
+                | undefined
+            }
             defaultSeasonValue={currentSeason || urlSeason}
             handleSeasonChange={({ value }) => {
               setHasInteracted(true)
