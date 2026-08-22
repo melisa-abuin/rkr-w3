@@ -16,7 +16,7 @@ import { Difficulty } from '@/interfaces/difficulty'
 import { KibbleStats } from '@/interfaces/leaderboard'
 import { LeagueScoreboardBreakdown } from '@/interfaces/league'
 import { BattleTag, Player } from '@/interfaces/player'
-import { BreakdownApiEntry } from '@/utils'
+import { BreakdownApiEntry } from '@/utils/formatBreakdownRows'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import BreakdownTable from './components/breakdownTable'
 import KibbleTable from './components/kibbleTable'
@@ -33,6 +33,7 @@ interface AllStatsData {
   }
   filter: string
   seasonOptions?: { label: string; value: string }[]
+  currentSeason?: string
 }
 
 const getSortValue = (
@@ -52,6 +53,7 @@ export default function Stats({
   data: initialData,
   filter,
   seasonOptions,
+  currentSeason: serverSeason,
 }: AllStatsData) {
   const {
     currentApiUrl,
@@ -67,7 +69,7 @@ export default function Stats({
     player,
     setPlayer,
     debouncedQuery,
-  } = useStatsFilters()
+  } = useStatsFilters(serverSeason)
 
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
@@ -92,7 +94,7 @@ export default function Stats({
       asc: newPageVariant.defaultSortOrder === 'asc',
     })
     setCurrentPage(1)
-    setCurrentSeason('')
+    setCurrentSeason(serverSeason || '')
   }
 
   const queryString = useMemo(() => {
@@ -135,13 +137,9 @@ export default function Stats({
     data: queryData,
     isFetching,
     error,
-  } = useApiQuery<{ pages: number; stats?: unknown[] }>(
-    activeApiUrl,
-    undefined,
-    {
-      enabled: hasInteracted,
-    },
-  )
+  } = useApiQuery(activeApiUrl, undefined, {
+    enabled: hasInteracted,
+  })
 
   useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
 
@@ -247,11 +245,7 @@ export default function Stats({
           />
           <BreakdownTable
             {...commonTableProps}
-            data={
-              activeData as
-                | { pages: number; stats?: BreakdownApiEntry[] }
-                | undefined
-            }
+            data={activeData as BreakdownApiEntry[] | undefined}
             defaultSeasonValue={currentSeason}
             handleSeasonChange={({ value }) => {
               setHasInteracted(true)

@@ -6,10 +6,7 @@ import {
   seasonsApi,
   seasonScoreboardApi,
 } from '@rkr/dls/constants'
-import {
-  LeagueScoreboardApiResponse,
-  LeagueSeasonsApiResponse,
-} from '@rkr/dls/interfaces/league'
+import { LeagueSeasonsApiResponse } from '@rkr/dls/interfaces/league'
 import { Player } from '@rkr/dls/interfaces/player'
 import { buildSearchQuery } from '@rkr/dls/utils'
 
@@ -25,7 +22,7 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
 
   async function getSeasons() {
     const res = await fetch(seasonsApi, { next: { revalidate: 480 } })
-    if (!res.ok) return { seasonOptions: [], seasonScoreboard: [] }
+    if (!res.ok) return { seasonOptions: [], seasonScoreboard: [], selectedSeasonId: '' }
 
     const seasons = (await res.json()) as LeagueSeasonsApiResponse
     const now = Date.now()
@@ -46,7 +43,7 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
       value: id.toString(),
     }))
 
-    if (!isBreakdown) return { seasonOptions, seasonScoreboard: [] }
+    if (!isBreakdown) return { seasonOptions, seasonScoreboard: [], selectedSeasonId: selected?.id.toString() ?? '' }
 
     const pageParam = Array.isArray(params.page) ? params.page[0] : params.page
     const scoreboardRes = await fetch(
@@ -59,16 +56,12 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
       },
     )
 
-    const scoreboardJson = scoreboardRes.ok
-      ? ((await scoreboardRes.json()) as {
-          pages: number
-          stats: LeagueScoreboardApiResponse
-        })
-      : null
+    const scoreboardJson = scoreboardRes.ok ? await scoreboardRes.json() : null
 
     return {
       seasonOptions,
-      seasonScoreboard: scoreboardJson?.stats ?? [],
+      seasonScoreboard: scoreboardJson ?? [],
+      selectedSeasonId: selected?.id.toString() ?? '',
       pages: scoreboardJson?.pages ?? 1,
     }
   }
@@ -92,23 +85,24 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
 
   try {
     if (isBreakdown) {
-      const { seasonOptions, seasonScoreboard, pages } = await getSeasons()
+      const { seasonOptions, seasonScoreboard, selectedSeasonId } =
+        await getSeasons()
       return {
-        data: { pages: pages ?? 1, stats: seasonScoreboard },
+        data: seasonScoreboard,
         seasonOptions,
+        currentSeason: selectedSeasonId,
         error: null,
       }
     }
 
-    const [{ data, error }, { seasonOptions }] = await Promise.all([
-      getPlayerStats(),
-      getSeasons(),
-    ])
-    return { data, seasonOptions, error }
+    const [{ data, error }, { seasonOptions, selectedSeasonId }] =
+      await Promise.all([getPlayerStats(), getSeasons()])
+    return { data, seasonOptions, currentSeason: selectedSeasonId, error }
   } catch {
     return {
       data: { pages: 1, stats: [] },
       seasonOptions: [],
+      currentSeason: '',
       error: 'Something went wrong',
     }
   }
@@ -119,8 +113,11 @@ export default async function StatsPage({ searchParams }: PageProps) {
   const filterParam = params.filter
   const filter = Array.isArray(filterParam) ? filterParam[0] : filterParam
 
-  const { data, error, seasonOptions } = await fetchPageData(filter, params)
-  console.log(error)
+  const { data, error, seasonOptions, currentSeason } = await fetchPageData(
+    filter,
+    params,
+  )
+
   return (
     <main>
       {error ? (
@@ -130,6 +127,7 @@ export default async function StatsPage({ searchParams }: PageProps) {
           data={data}
           filter={filter?.toString() || defaultScoreboardFilter}
           seasonOptions={seasonOptions}
+          currentSeason={currentSeason}
         />
       )}
     </main>
