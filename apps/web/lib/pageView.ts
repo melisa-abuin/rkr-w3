@@ -12,6 +12,8 @@ export async function postPageView(route: string, ip: string): Promise<void> {
   try {
     const normalizedIp = ip.toLowerCase()
     if (!normalizedIp || normalizedIp === 'unknown') return
+    if (route.includes('.png')) return
+    if (process.env.NODE_ENV !== 'production') return
 
     const visitorId = hashIp(ip)
     const safeRoute = route.slice(0, maxRouteLength)
