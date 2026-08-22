@@ -24,7 +24,7 @@ export interface StatsFilters {
   debouncedQuery: string
 }
 
-export const useStatsFilters = (defaultSeason?: string): StatsFilters => {
+export const useStatsFilters = (): StatsFilters => {
   const {
     initialApi,
     initialPage,
@@ -37,9 +37,7 @@ export const useStatsFilters = (defaultSeason?: string): StatsFilters => {
 
   const [currentApiUrl, setCurrentApiUrl] = useState<string>(initialApi)
   const [currentPage, setCurrentPage] = useState(initialPage)
-  const [currentSeason, setCurrentSeason] = useState(
-    initialSeason || defaultSeason || '',
-  )
+  const [currentSeason, setCurrentSeason] = useState(initialSeason || '')
   const [difficultyFilter, setDifficultyFilter] = useState<
     Difficulty | undefined
   >(initialFilter)

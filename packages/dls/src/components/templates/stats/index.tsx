@@ -34,6 +34,7 @@ interface AllStatsData {
   filter: string
   seasonOptions?: { label: string; value: string }[]
   currentSeason?: string
+  urlSeason?: string
 }
 
 const getSortValue = (
@@ -54,6 +55,7 @@ export default function Stats({
   filter,
   seasonOptions,
   currentSeason: serverSeason,
+  urlSeason,
 }: AllStatsData) {
   const {
     currentApiUrl,
@@ -69,7 +71,7 @@ export default function Stats({
     player,
     setPlayer,
     debouncedQuery,
-  } = useStatsFilters(serverSeason)
+  } = useStatsFilters()
 
   const variantValues = Object.values(statsPageVariants)
   const variantKeys = Object.keys(statsPageVariants)
@@ -94,7 +96,12 @@ export default function Stats({
       asc: newPageVariant.defaultSortOrder === 'asc',
     })
     setCurrentPage(1)
-    setCurrentSeason(serverSeason || '')
+
+    if (newPageVariant.apiBaseUrl === 'breakdown') {
+      setCurrentSeason(serverSeason || urlSeason || '')
+    } else {
+      setCurrentSeason('')
+    }
   }
 
   const queryString = useMemo(() => {
@@ -228,7 +235,7 @@ export default function Stats({
           <TimesTable
             {...commonTableProps}
             data={activeData as { pages: number; stats?: Player[] } | undefined}
-            defaultSeasonValue={currentSeason}
+            defaultSeasonValue={hasInteracted ? currentSeason : urlSeason}
             difficulty={difficultyFilter}
             handleDifficultyChange={handleFilterChange}
             handleSeasonChange={({ value }) => {
@@ -246,7 +253,7 @@ export default function Stats({
           <BreakdownTable
             {...commonTableProps}
             data={activeData as BreakdownApiEntry[] | undefined}
-            defaultSeasonValue={currentSeason}
+            defaultSeasonValue={currentSeason || urlSeason}
             handleSeasonChange={({ value }) => {
               setHasInteracted(true)
               setCurrentSeason(value)

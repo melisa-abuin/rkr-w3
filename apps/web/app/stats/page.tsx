@@ -22,7 +22,8 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
 
   async function getSeasons() {
     const res = await fetch(seasonsApi, { next: { revalidate: 480 } })
-    if (!res.ok) return { seasonOptions: [], seasonScoreboard: [], selectedSeasonId: '' }
+    if (!res.ok)
+      return { seasonOptions: [], seasonScoreboard: [], selectedSeasonId: '' }
 
     const seasons = (await res.json()) as LeagueSeasonsApiResponse
     const now = Date.now()
@@ -43,7 +44,12 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
       value: id.toString(),
     }))
 
-    if (!isBreakdown) return { seasonOptions, seasonScoreboard: [], selectedSeasonId: selected?.id.toString() ?? '' }
+    if (!isBreakdown)
+      return {
+        seasonOptions,
+        seasonScoreboard: [],
+        selectedSeasonId: selected?.id.toString() ?? '',
+      }
 
     const pageParam = Array.isArray(params.page) ? params.page[0] : params.page
     const scoreboardRes = await fetch(
@@ -124,10 +130,11 @@ export default async function StatsPage({ searchParams }: PageProps) {
         <Error />
       ) : (
         <Stats
+          currentSeason={currentSeason}
           data={data}
           filter={filter?.toString() || defaultScoreboardFilter}
           seasonOptions={seasonOptions}
-          currentSeason={currentSeason}
+          urlSeason={params.seasonId ? params.seasonId.toString() : undefined}
         />
       )}
     </main>
