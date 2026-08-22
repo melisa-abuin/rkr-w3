@@ -27,7 +27,7 @@ const mockRoutes = {
     pathname: '/leaderboard',
     url: '/leaderboard',
     target: '_self' as const,
-    isNew: false,
+    isNew: true,
     method: 'get' as const,
   },
 }
