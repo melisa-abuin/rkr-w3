@@ -33,7 +33,7 @@ export default function ColumnCards({
 }: ColumnCardsProps) {
   const getViewAllHref = (key: string) => {
     const difficultyUrlParam = difficulty ? `&difficulty=${difficulty}` : ''
-    const seasonUrlParam = seasonId ? `&season=${seasonId}` : ''
+    const seasonUrlParam = seasonId ? `&seasonId=${seasonId}` : ''
     return `/stats?filter=${filter}&page=1&sortKey=${key}&sortOrder=${sortOrder}${difficultyUrlParam}${seasonUrlParam}`
   }
 

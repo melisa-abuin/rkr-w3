@@ -92,7 +92,7 @@ export default function SeasonsTemplate({
           <Button
             as="a"
             colorName="primary"
-            href={`stats?page=1&season=${seasonData.id}&sortKey=weightedWins&sortOrder=desc&filter=breakdown`}
+            href={`stats?page=1&seasonId=${seasonData.id}&sortKey=weightedWins&sortOrder=desc&filter=breakdown`}
             variant="outline"
           >
             View all stats
