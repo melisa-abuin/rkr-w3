@@ -27,7 +27,7 @@ const mockRoutes = {
     pathname: '/leaderboard',
     url: '/leaderboard',
     target: '_self' as const,
-    isNew: false,
+    isNew: true,
     method: 'get' as const,
   },
 }
@@ -56,7 +56,7 @@ describe('MobileNavbar', () => {
     expect(screen.queryByText('Home')).not.toBeInTheDocument()
   })
 
-  it.skip('renders a "New" badge for routes marked as isNew after opening menu', async () => {
+  it('renders a "New" badge for routes marked as isNew after opening menu', async () => {
     render(<MobileNavbar routes={mockRoutes} />)
 
     await userEvent.click(screen.getByAltText('hamburger menu'))

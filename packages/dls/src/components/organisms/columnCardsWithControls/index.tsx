@@ -19,6 +19,7 @@ interface ColumnCardsWithControlsProps {
   isFetching: boolean
   difficultyFilter: Difficulty | undefined
   onFilterClick: (difficulty: Difficulty | undefined) => void
+  seasonId?: string
 }
 
 export default function ColumnCardsWithControls({
@@ -30,6 +31,7 @@ export default function ColumnCardsWithControls({
   isFetching,
   difficultyFilter,
   onFilterClick,
+  seasonId,
 }: ColumnCardsWithControlsProps) {
   return (
     <PageContainer
@@ -51,6 +53,7 @@ export default function ColumnCardsWithControls({
         filter={filter}
         hoverable={difficultyFilter === undefined}
         loading={isFetching}
+        seasonId={seasonId}
         selectedPlayer={selectedPlayer}
         sortOrder="asc"
       />

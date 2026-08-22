@@ -1,7 +1,7 @@
+import { difficultyNames } from '@/constants'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Badges from '..'
-import { difficultyNames } from '@/constants'
 
 describe('Badges', () => {
   const mockOnClick = vi.fn()
@@ -37,7 +37,7 @@ describe('Badges', () => {
     expect(mockOnClick).toHaveBeenCalledWith('normal')
   })
 
-  it.skip('selects all option when none is selected', () => {
+  it('selects all option when none is selected', () => {
     render(
       <Badges
         options={difficultyNames}

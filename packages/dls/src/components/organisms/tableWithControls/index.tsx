@@ -1,94 +1,79 @@
 'use client'
 
+import Dropdown, { DropdownOption } from '@/components/atoms/dropdown'
 import Badges from '@/components/molecules/badges'
 import Pagination from '@/components/molecules/pagination'
 import PlayerFinder from '@/components/molecules/playerFinder'
 import Table from '@/components/molecules/table'
-import { difficultyNames, playerStatsApi } from '@/constants'
-import { useApiQuery } from '@/hooks/useApiQuery'
-import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
+import { difficultyNames } from '@/constants'
 import { Difficulty } from '@/interfaces/difficulty'
-import { BattleTag, Kibbles } from '@/interfaces/player'
 import { ReactNode } from 'react'
 import styles from './index.module.css'
 
-interface TableProps<T> {
-  apiBaseUrl: 'times' | 'stats' | 'kibble'
+interface TableWithControlsProps<T> {
   columns: Array<{
     title: string
     key: keyof T
     render?: (data: T, difficultyFilter?: Difficulty) => ReactNode
   }>
   currentPage: number
-  data: { pages: number; stats?: T[] }
-  difficulty?: Difficulty | undefined
-  handleDifficultyChange?: () => void
+  data?: { pages: number; stats?: T[] }
+  defaultSeasonOption?: DropdownOption
+  difficulty?: Difficulty
+  handleDifficultyChange?: (difficulty?: Difficulty) => void
   handlePageChange: (page: number) => void
   handlePlayerChange: (player: string) => void
+  handleSeasonChange?: (option: DropdownOption) => void
   handleSortChange: (columnKey: keyof T) => void
   headerLink?: ReactNode
+  isFetching: boolean
   player?: string
-  queryString: string | null
-  shouldRefetch: boolean
+  seasonOptions?: DropdownOption[]
   sortKey: keyof T
   title?: string
 }
 
 export default function TableWithControls<T>({
-  apiBaseUrl,
   columns,
   currentPage,
   data,
+  defaultSeasonOption,
   difficulty,
   handleDifficultyChange,
   handlePageChange,
   handlePlayerChange,
+  handleSeasonChange,
   handleSortChange,
   headerLink,
+  isFetching,
   player,
-  queryString,
-  shouldRefetch = false,
+  seasonOptions,
   sortKey,
   title,
-}: TableProps<T>) {
-  const {
-    data: filteredData,
-    isFetching,
-    error,
-  } = useApiQuery<{ pages: number; stats?: T[] }>(
-    `${playerStatsApi}/${apiBaseUrl}?${queryString}`,
-    undefined,
-    { enabled: shouldRefetch },
-  )
-
-  let formattedData = filteredData ?? data
-  // TODO: fix me
-  if (apiBaseUrl === 'kibble' && filteredData?.stats) {
-    formattedData = {
-      ...filteredData,
-      stats: filteredData?.stats?.map((elem) => {
-        const e = elem as unknown as { battleTag: BattleTag; kibbles: Kibbles }
-        return { battleTag: e.battleTag, ...e.kibbles }
-      }) as unknown as T[],
-    }
-  }
-
-  useQueryErrorToast(error, `Couldn't fetch the stats, please try again later.`)
-
+}: TableWithControlsProps<T>) {
   return (
     <>
       <Table
         columns={columns}
-        data={formattedData?.stats}
+        data={data?.stats}
         difficultyFilter={difficulty}
         filters={
-          !!handleDifficultyChange && (
-            <div className={styles.filtersRow}>
+          <div className={styles.filtersRow}>
+            {handleDifficultyChange && (
               <Badges
                 options={difficultyNames}
                 selected={difficulty}
                 onClick={handleDifficultyChange}
               />
+            )}
+            {handleSeasonChange && seasonOptions && (
+              <Dropdown
+                defaultOption={defaultSeasonOption}
+                options={seasonOptions}
+                onSelect={handleSeasonChange}
+              />
+            )}
+            <div className={styles.playerFinder}>
               <PlayerFinder
                 defaultValue={player || ''}
                 onChange={handlePlayerChange}
@@ -96,7 +81,7 @@ export default function TableWithControls<T>({
                 onPlayerSelect={() => {}}
               />
             </div>
-          )
+          </div>
         }
         headerLink={headerLink}
         highlightedColumn={sortKey}
@@ -107,7 +92,7 @@ export default function TableWithControls<T>({
       />
       <Pagination
         currentPage={currentPage}
-        totalPages={filteredData?.pages ?? data.pages}
+        totalPages={data?.pages ?? 0}
         onPageChange={handlePageChange}
       />
     </>

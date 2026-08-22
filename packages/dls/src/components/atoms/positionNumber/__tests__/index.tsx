@@ -27,11 +27,9 @@ describe('PositionNumber', () => {
     expect(container.firstChild).toHaveClass('colorPrimary')
   })
 
-  it.skip('applies small styles when isSmall is true', () => {
+  it('applies small styles when isSmall is true', () => {
     const { container } = render(<PositionNumber isSmall pos={1} />)
-    expect(container.firstChild).toHaveStyle(
-      'font-size: var(--font-size-xs-sm)',
-    )
+    expect(container.firstChild).toHaveClass('small')
   })
 
   it('falls back to position 1 color for undefined positions', () => {
