@@ -101,7 +101,7 @@ export default function Stats({
     const params = new URLSearchParams()
     params.set('page', currentPage.toString())
     if (difficultyFilter) params.set('difficulty', difficultyFilter)
-    if (currentSeason) params.set('season', currentSeason)
+    if (currentSeason) params.set('seasonId', currentSeason)
 
     const variant =
       statsPageVariants[currentApiUrl as VariantKey] ?? statsPageVariants.stats
