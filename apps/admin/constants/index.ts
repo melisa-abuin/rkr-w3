@@ -1,4 +1,12 @@
 export const routes = {
+  stats: {
+    label: 'Stats',
+    pathname: '/stats',
+    url: '/stats',
+    target: '_self',
+    isNew: false,
+    method: 'get',
+  },
   logout: {
     label: 'Logout',
     pathname: '/api/auth/logout',
