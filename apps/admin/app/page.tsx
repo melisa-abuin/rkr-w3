@@ -2,8 +2,8 @@ import { getAnnouncement } from '@/lib/announcement'
 import { getSession } from '@/lib/session'
 import PageContainer from '@rkr/dls/components/atoms/pageContainer'
 import PageHeader from '@rkr/dls/components/atoms/pageHeader'
-import RichTextEditor from '@rkr/dls/components/atoms/richTextEditor'
 import AnnouncementForm from '@rkr/dls/components/organisms/announcementForm'
+import LeagueForm from '@rkr/dls/components/organisms/leagueForm'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -32,7 +32,11 @@ export default async function AdminPage() {
           />
         </PageContainer>
         <PageContainer title="League Calculations" withPadding={false}>
-          <RichTextEditor />
+          <LeagueForm
+            initialContent=""
+            initialIsActive={false}
+            initialTitle=""
+          />
         </PageContainer>
       </PageContainer>
     </main>
