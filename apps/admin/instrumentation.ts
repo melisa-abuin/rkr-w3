@@ -24,6 +24,16 @@ export async function register() {
   `)
 
   await pool.query(`
+    CREATE TABLE IF NOT EXISTS league (
+      id INT PRIMARY KEY DEFAULT 1 CHECK (id = 1),
+      title TEXT NOT NULL DEFAULT '',
+      content TEXT NOT NULL DEFAULT '',
+      is_active BOOLEAN NOT NULL DEFAULT FALSE,
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
+
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS page_views (
       id BIGSERIAL PRIMARY KEY,
       route TEXT NOT NULL,
