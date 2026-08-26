@@ -1,9 +1,9 @@
-import AnnouncementForm from '@/app/components/announcementForm'
 import { getAnnouncement } from '@/lib/announcement'
 import { getSession } from '@/lib/session'
 import PageContainer from '@rkr/dls/components/atoms/pageContainer'
 import PageHeader from '@rkr/dls/components/atoms/pageHeader'
 import RichTextEditor from '@rkr/dls/components/atoms/richTextEditor'
+import AnnouncementForm from '@rkr/dls/components/organisms/announcementForm'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 

@@ -4,7 +4,8 @@ import Button from '@/components/atoms/button'
 import Input from '@/components/atoms/input'
 import Switch from '@/components/atoms/switch'
 import Textarea from '@/components/atoms/textarea'
-import type { AnnouncementData } from '@/interfaces/announcement'
+import { useToast } from '@/hooks/useToast'
+import { useUpdateAnnouncement } from '@/hooks/useUpdateAnnouncement'
 import React, { useState } from 'react'
 import styles from './index.module.css'
 
@@ -12,24 +13,28 @@ interface AnnouncementFormProps {
   initialTitle: string
   initialSubtitle: string
   initialIsActive: boolean
-  isPending: boolean
-  onSubmit: (data: AnnouncementData) => void
 }
 
 export default function AnnouncementForm({
   initialTitle,
   initialSubtitle,
   initialIsActive,
-  isPending,
-  onSubmit,
 }: AnnouncementFormProps) {
   const [title, setTitle] = useState(initialTitle)
   const [subtitle, setSubtitle] = useState(initialSubtitle)
   const [isActive, setIsActive] = useState(initialIsActive)
+  const { mutate, isPending } = useUpdateAnnouncement()
+  const { showToast } = useToast()
 
-  const handleSubmit = (e: React.SubmitEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit({ title, subtitle, isActive })
+    mutate(
+      { title, subtitle, isActive },
+      {
+        onSuccess: () => showToast('Announcement saved.', 'success'),
+        onError: () => showToast('Error saving, please try again.'),
+      },
+    )
   }
 
   return (

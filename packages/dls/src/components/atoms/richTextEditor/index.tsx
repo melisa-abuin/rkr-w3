@@ -12,7 +12,21 @@ type RichTextEditorProps = {
   value: string
 }
 
-export default function RichTextEditor({ id, label, onChange, value }: RichTextEditorProps) {
+type ToolbarButton = {
+  label: string
+  mark: string
+  children: React.ReactNode
+  onClick: () => void
+}
+
+type ToolbarItem = ToolbarButton | { type: 'divider' }
+
+export default function RichTextEditor({
+  id,
+  label,
+  onChange,
+  value,
+}: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [StarterKit],
     content: value,
@@ -32,6 +46,40 @@ export default function RichTextEditor({ id, label, onChange, value }: RichTextE
     editor.commands.setContent(value)
   }, [editor, value])
 
+  const toolbarItems: ToolbarItem[] = [
+    {
+      label: 'Bold',
+      mark: 'bold',
+      children: <strong>B</strong>,
+      onClick: () => editor?.chain().focus().toggleBold().run(),
+    },
+    {
+      label: 'Italic',
+      mark: 'italic',
+      children: <em>I</em>,
+      onClick: () => editor?.chain().focus().toggleItalic().run(),
+    },
+    {
+      label: 'Strikethrough',
+      mark: 'strike',
+      children: <s>S</s>,
+      onClick: () => editor?.chain().focus().toggleStrike().run(),
+    },
+    { type: 'divider' },
+    {
+      label: 'Bullet list',
+      mark: 'bulletList',
+      children: <>•≡</>,
+      onClick: () => editor?.chain().focus().toggleBulletList().run(),
+    },
+    {
+      label: 'Ordered list',
+      mark: 'orderedList',
+      children: <>1.</>,
+      onClick: () => editor?.chain().focus().toggleOrderedList().run(),
+    },
+  ]
+
   return (
     <div className={styles.container}>
       {label && (
@@ -40,53 +88,27 @@ export default function RichTextEditor({ id, label, onChange, value }: RichTextE
         </label>
       )}
       <div className={styles.wrapper}>
-        <div aria-label="Text formatting" className={styles.toolbar} role="toolbar">
-          <button
-            aria-label="Bold"
-            aria-pressed={editor?.isActive('bold') ?? false}
-            className={`${styles.toolbarButton}${editor?.isActive('bold') ? ` ${styles.active}` : ''}`}
-            type="button"
-            onClick={() => editor?.chain().focus().toggleBold().run()}
-          >
-            <strong>B</strong>
-          </button>
-          <button
-            aria-label="Italic"
-            aria-pressed={editor?.isActive('italic') ?? false}
-            className={`${styles.toolbarButton}${editor?.isActive('italic') ? ` ${styles.active}` : ''}`}
-            type="button"
-            onClick={() => editor?.chain().focus().toggleItalic().run()}
-          >
-            <em>I</em>
-          </button>
-          <button
-            aria-label="Strikethrough"
-            aria-pressed={editor?.isActive('strike') ?? false}
-            className={`${styles.toolbarButton}${editor?.isActive('strike') ? ` ${styles.active}` : ''}`}
-            type="button"
-            onClick={() => editor?.chain().focus().toggleStrike().run()}
-          >
-            <s>S</s>
-          </button>
-          <span aria-hidden="true" className={styles.divider} />
-          <button
-            aria-label="Bullet list"
-            aria-pressed={editor?.isActive('bulletList') ?? false}
-            className={`${styles.toolbarButton}${editor?.isActive('bulletList') ? ` ${styles.active}` : ''}`}
-            type="button"
-            onClick={() => editor?.chain().focus().toggleBulletList().run()}
-          >
-            •≡
-          </button>
-          <button
-            aria-label="Ordered list"
-            aria-pressed={editor?.isActive('orderedList') ?? false}
-            className={`${styles.toolbarButton}${editor?.isActive('orderedList') ? ` ${styles.active}` : ''}`}
-            type="button"
-            onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-          >
-            1.
-          </button>
+        <div
+          aria-label="Text formatting"
+          className={styles.toolbar}
+          role="toolbar"
+        >
+          {toolbarItems.map((item, index) =>
+            'type' in item ? (
+              <span key={index} aria-hidden="true" className={styles.divider} />
+            ) : (
+              <button
+                key={item.label}
+                aria-label={item.label}
+                aria-pressed={editor?.isActive(item.mark) ?? false}
+                className={`${styles.toolbarButton}${editor?.isActive(item.mark) ? ` ${styles.active}` : ''}`}
+                type="button"
+                onClick={item.onClick}
+              >
+                {item.children}
+              </button>
+            ),
+          )}
         </div>
         <EditorContent className={styles.editorArea} editor={editor} />
       </div>
