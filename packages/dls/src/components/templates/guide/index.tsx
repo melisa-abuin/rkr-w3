@@ -15,7 +15,7 @@ export default function GuideTemplate({ league }: GuideTemplateProps) {
   return (
     <main>
       <PageContainer>
-        <PageHeader description="" title="Guides" />
+        <PageHeader description="" title="Frequently Asked Questions" />
         {league?.isActive && (
           <Collapsible title={league.title}>
             <div className={styles.content}>
@@ -24,7 +24,7 @@ export default function GuideTemplate({ league }: GuideTemplateProps) {
           </Collapsible>
         )}
         <PageContainer marginTop={16} withPadding={false}>
-          <Collapsible title="How to upload stats">
+          <Collapsible title="How do I upload my stats?">
             <div className={styles.content}>
               {discordGuideSteps.map(
                 ({ imageSrcSet, stepTitle, text }, index) => (

@@ -39,10 +39,10 @@ export const routes = {
     isNew: false,
     method: 'get',
   },
-  guide: {
-    label: 'Guide',
-    pathname: '/guide',
-    url: '/guide',
+  faq: {
+    label: 'FAQ',
+    pathname: '/faq',
+    url: '/faq',
     target: '_self',
     isNew: false,
     method: 'get',

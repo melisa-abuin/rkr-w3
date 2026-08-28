@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Run Kitty Run - How to upload my stats',
+  title: 'RKR Statistics - Frequently Asked Questions',
   description:
-    'Learn how to upload your stats through the Discord server and view them on the website',
+    'Find answers to frequently asked questions about RKR Statistics',
 }
 
 export default function RootLayout({
