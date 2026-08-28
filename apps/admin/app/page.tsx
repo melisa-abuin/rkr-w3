@@ -1,4 +1,5 @@
 import { getAnnouncement } from '@/lib/announcement'
+import { getLeague } from '@/lib/league'
 import { getSession } from '@/lib/session'
 import PageContainer from '@rkr/dls/components/atoms/pageContainer'
 import PageHeader from '@rkr/dls/components/atoms/pageHeader'
@@ -16,6 +17,7 @@ export default async function AdminPage() {
   }
 
   const announcement = await getAnnouncement()
+  const league = await getLeague()
 
   return (
     <main>
@@ -33,9 +35,9 @@ export default async function AdminPage() {
         </PageContainer>
         <PageContainer title="League Calculations" withPadding={false}>
           <LeagueForm
-            initialContent=""
-            initialIsActive={false}
-            initialTitle=""
+            initialContent={league.content}
+            initialIsActive={league.isActive}
+            initialTitle={league.title}
           />
         </PageContainer>
       </PageContainer>
