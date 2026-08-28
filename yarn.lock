@@ -1128,6 +1128,11 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-code/-/extension-code-3.30.3.tgz#aa478c7d56e02288c347daf3b4dff469d95078aa"
   integrity sha512-mOV4Fg+ji6uXmFxTMuug9WK6zk0ksNQepnuvoDR4g4d+tnz2y9iEbgOXFohVxhOXOLDLdNeKdwHxbHQdi5Ivbw==
 
+"@tiptap/extension-color@^3.30.5":
+  version "3.30.5"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-color/-/extension-color-3.30.5.tgz#60847227a7da64bb96487edf1998341751ca7c6c"
+  integrity sha512-ahX/JecK/xugiTQgkG+w5yF34vWBpTsvWQ3zvAZF6HIDT/+hdVTRITXHLJSqJWIQ8M3vT184kzSdGDLejG8zxA==
+
 "@tiptap/extension-document@3.30.3":
   version "3.30.3"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-document/-/extension-document-3.30.3.tgz#2c6089aa50a0a4dffaf0ffd567d5dcef10b468ca"
@@ -1204,6 +1209,11 @@
   version "3.30.3"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-strike/-/extension-strike-3.30.3.tgz#c7f93b27f529831f9489bf36ef2905e56df8772f"
   integrity sha512-e9BI8Hzei23GjmYysXxL+CHq3fIgOm29BbSUMbYXxT2cJ+TkkgJp7EvHf74gSABNME0gUN+mG0pRR5wTFoOCcg==
+
+"@tiptap/extension-text-style@^3.30.5":
+  version "3.30.5"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-3.30.5.tgz#1e63616211a4ed4272e42fc2c728bdfdb8718f2a"
+  integrity sha512-libXk+nSBOQmUiKneMegnipSVz7n/YfCuSVUxXn4LjAdD9zdpWgH2uBXbxo2q211dA7KxJyUhkPGoCpG0RmPQA==
 
 "@tiptap/extension-text@3.30.3":
   version "3.30.3"
@@ -3327,9 +3337,9 @@ js-base64@^3.7.8:
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
 js-yaml@^3.13.1, js-yaml@^4.1.0:
-  version "3.15.1"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.15.1.tgz#24bc95028f361cdaaa84745b06a109c4486773c0"
-  integrity sha512-S99WuO3HlhO3XN41EtYUNl9zzXjoJx7QvmipxsJVxtCBT0YHEFy+iOJhjSvrmV12nYhWpZaM8lPHkJm0yUMbag==
+  version "3.15.2"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.15.2.tgz#3f83823ac6be17f570f23b2ecdef3777ff5ea364"
+  integrity sha512-6EuL879VkRA+1Cz578mKMiKvjPNEuk6+r1JaFzoSWejZmtf7xWbIyw1e3KkxlkzTIt9Taw6JBhEppG7utc1P+w==
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"

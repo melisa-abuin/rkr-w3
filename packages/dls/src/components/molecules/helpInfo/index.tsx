@@ -9,7 +9,7 @@ export default function HelpInfo() {
     <Info as="ul">
       <li className={styles.item}>
         <strong>Can&apos;t find your stats?</strong>{' '}
-        <Link aria-label="Go to guide" color="tertiary" href="/guide">
+        <Link aria-label="Go to guide" color="tertiary" href="/faq">
           Click here
         </Link>{' '}
         to learn how to upload your game progress and get featured on the
