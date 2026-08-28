@@ -1,4 +1,12 @@
 export const routes = {
+  home: {
+    label: 'Home',
+    pathname: '/',
+    url: '/',
+    target: '_self',
+    isNew: false,
+    method: 'get',
+  },
   stats: {
     label: 'Stats',
     pathname: '/stats',
