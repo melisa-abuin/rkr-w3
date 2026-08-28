@@ -10,6 +10,12 @@ export interface LeagueSeason {
   endDate: string
 }
 
+export interface LeagueGuide {
+  title: string
+  content: string
+  isActive: boolean
+}
+
 export type LeagueSeasonsApiResponse = LeagueSeason[]
 
 interface LeagueStatEntry {
