@@ -1,8 +1,6 @@
 import type { AnnouncementData } from '@rkr/dls/interfaces/announcement'
 import pool from './db'
 
-export type { AnnouncementData }
-
 export async function getAnnouncement(): Promise<AnnouncementData | undefined> {
   try {
     const { rows } = await pool.query(

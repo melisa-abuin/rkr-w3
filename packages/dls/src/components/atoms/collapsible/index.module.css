@@ -49,7 +49,7 @@
 }
 
 .bodyOpen {
-  max-height: 800px;
+  max-height: max-content;
   opacity: 1;
   padding-top: 8px;
 }

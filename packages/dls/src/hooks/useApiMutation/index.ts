@@ -1,26 +1,20 @@
 import { useState } from 'react'
 
-interface AnnouncementPayload {
-  title: string
-  subtitle: string
-  isActive: boolean
-}
-
 interface MutateOptions {
   onSuccess?: () => void
   onError?: () => void
 }
 
-export const useUpdateAnnouncement = () => {
+export const useApiMutation = <T extends object>(endpoint: string) => {
   const [isPending, setIsPending] = useState(false)
 
   const mutate = async (
-    payload: AnnouncementPayload,
+    payload: T,
     { onSuccess, onError }: MutateOptions = {},
   ) => {
     setIsPending(true)
     try {
-      const res = await fetch('/api/announcement', {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

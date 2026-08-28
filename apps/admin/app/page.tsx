@@ -1,24 +1,12 @@
-import AnnouncementForm from '@/app/components/announcementForm'
 import { getAnnouncement } from '@/lib/announcement'
-import { getPageViews } from '@/lib/pageView'
+import { getLeague } from '@/lib/league'
 import { getSession } from '@/lib/session'
 import PageContainer from '@rkr/dls/components/atoms/pageContainer'
 import PageHeader from '@rkr/dls/components/atoms/pageHeader'
-import Table from '@rkr/dls/components/molecules/table'
+import AnnouncementForm from '@rkr/dls/components/organisms/announcementForm'
+import LeagueForm from '@rkr/dls/components/organisms/leagueForm'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { pageViewColumns, pageViewPageSize, pageViewYearMs } from '../constants'
-
-interface PageViewStat {
-  route: string
-  views: number
-  uniqueViews: number
-}
-
-async function getPageViewStats(): Promise<PageViewStat[]> {
-  const since = new Date(Date.now() - pageViewYearMs)
-  return getPageViews(since)
-}
 
 export default async function AdminPage() {
   const token = (await cookies()).get('admin_session')?.value
@@ -29,7 +17,7 @@ export default async function AdminPage() {
   }
 
   const announcement = await getAnnouncement()
-  const pageViewStats = await getPageViewStats()
+  const league = await getLeague()
 
   return (
     <main>
@@ -45,12 +33,11 @@ export default async function AdminPage() {
             initialTitle={announcement.title}
           />
         </PageContainer>
-        <PageContainer marginBottom={24} withPadding={false}>
-          <Table<PageViewStat>
-            columns={pageViewColumns}
-            data={pageViewStats.slice(0, pageViewPageSize)}
-            pageSize={pageViewPageSize}
-            title="Main Website Page Views (Last 12 Months)"
+        <PageContainer title="League Calculations" withPadding={false}>
+          <LeagueForm
+            initialContent={league.content}
+            initialIsActive={league.isActive}
+            initialTitle={league.title}
           />
         </PageContainer>
       </PageContainer>

@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.label {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs-sm);
+}
+
+.wrapper {
+  background-color: var(--background-quaternary);
+  border: 1px solid var(--background-highlight-tertiary);
+  border-radius: 5px;
+  color: var(--text-color-primary);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wrapper:focus-within {
+  outline: 1px solid var(--color-primary);
+}
+
+.toolbar {
+  align-items: center;
+  border-bottom: 1px solid var(--background-highlight-tertiary);
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  padding: 4px 8px;
+}
+
+.toolbarButton {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  color: var(--text-color-primary);
+  cursor: pointer;
+  display: flex;
+  font-size: var(--font-size-xs);
+  height: 24px;
+  justify-content: center;
+  min-width: 24px;
+  padding: 2px 4px;
+}
+
+.toolbarButton:hover {
+  background-color: var(--background-highlight-tertiary);
+}
+
+.active {
+  background-color: var(--background-highlight-primary);
+}
+
+.divider {
+  background-color: var(--background-highlight-tertiary);
+  height: 16px;
+  margin: 0 4px;
+  width: 1px;
+}
+
+.editorArea {
+  padding: 8px;
+}
+
+/* Tiptap renders .ProseMirror as the contenteditable root */
+.editorArea :global(.ProseMirror) {
+  color: var(--text-color-primary);
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  min-height: 88px;
+  outline: none;
+}
+
+.editorArea :global(.ProseMirror) > * + * {
+  margin-top: 4px;
+}
+
+.editorArea :global(.ProseMirror) ul,
+.editorArea :global(.ProseMirror) ol {
+  padding-left: 20px;
+}

@@ -2,40 +2,40 @@
 
 import Button from '@/components/atoms/button'
 import Input from '@/components/atoms/input'
+import RichTextEditor from '@/components/atoms/richTextEditor'
 import Switch from '@/components/atoms/switch'
-import Textarea from '@/components/atoms/textarea'
 import { useApiMutation } from '@/hooks/useApiMutation'
 import { useToast } from '@/hooks/useToast'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './index.module.css'
 
-interface AnnouncementFormProps {
+interface LeagueFormProps {
   initialTitle: string
-  initialSubtitle: string
+  initialContent: string
   initialIsActive: boolean
 }
 
-export default function AnnouncementForm({
+export default function LeagueForm({
   initialTitle,
-  initialSubtitle,
+  initialContent,
   initialIsActive,
-}: AnnouncementFormProps) {
+}: LeagueFormProps) {
   const [title, setTitle] = useState(initialTitle)
-  const [subtitle, setSubtitle] = useState(initialSubtitle)
+  const [content, setContent] = useState(initialContent)
   const [isActive, setIsActive] = useState(initialIsActive)
   const { mutate, isPending } = useApiMutation<{
     title: string
-    subtitle: string
+    content: string
     isActive: boolean
-  }>('/api/announcement')
+  }>('/api/league')
   const { showToast } = useToast()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     mutate(
-      { title, subtitle, isActive },
+      { title, content, isActive },
       {
-        onSuccess: () => showToast('Announcement saved.', 'success'),
+        onSuccess: () => showToast('League info saved.', 'success'),
         onError: () => showToast('Error saving, please try again.'),
       },
     )
@@ -44,28 +44,26 @@ export default function AnnouncementForm({
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <Input
-        id="title"
+        id="leagueTitle"
         label="Title"
-        name="title"
-        placeholder="Announcement title"
+        name="leagueTitle"
+        placeholder="League title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      <Textarea
-        id="subtitle"
-        label="Subtitle"
-        name="subtitle"
-        placeholder="Some description about the announcement"
-        value={subtitle}
-        onChange={(e) => setSubtitle(e.target.value)}
+      <RichTextEditor
+        id="leagueContent"
+        label="Content"
+        value={content}
+        onChange={setContent}
       />
 
       <Switch
         checked={isActive}
-        id="isActive"
+        id="leagueIsActive"
         label="Is active"
-        name="isActive"
+        name="leagueIsActive"
         onChange={(e) => setIsActive(e.target.checked)}
       />
 
