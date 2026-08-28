@@ -7,6 +7,13 @@ module.exports = [
   ...nextCoreWebVitals,
   ...nextTypescript,
   {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+      },
+    },
+  },
+  {
     settings: {
       react: {
         version: '19',
