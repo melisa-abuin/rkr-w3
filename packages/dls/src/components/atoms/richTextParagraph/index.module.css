@@ -1,0 +1,36 @@
+.container {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  width: 100%;
+}
+
+.container p {
+  margin: 0 0 0.75em;
+}
+
+.container p:last-child {
+  margin-bottom: 0;
+}
+
+.container strong {
+  font-weight: 700;
+}
+
+.container em {
+  font-style: italic;
+}
+
+.container ul,
+.container ol {
+  margin: 0 0 0.75em;
+  padding-left: 1.5em;
+}
+
+.container li {
+  margin-bottom: 0.25em;
+}
+
+.container a {
+  color: var(--color-primary);
+}
