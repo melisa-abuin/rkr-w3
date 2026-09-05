@@ -52,6 +52,18 @@
   background-color: var(--background-highlight-tertiary);
 }
 
+.toolbarButtonDanger {
+  color: var(--color-danger, #e53e3e);
+}
+
+.toolbarButtonDanger:hover {
+  background-color: color-mix(
+    in srgb,
+    var(--color-danger, #e53e3e) 15%,
+    transparent
+  );
+}
+
 .active {
   background-color: var(--background-highlight-primary);
 }
@@ -112,7 +124,188 @@
   margin-top: 4px;
 }
 
+.editorArea :global(.ProseMirror) table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.editorArea :global(.ProseMirror) th,
+.editorArea :global(.ProseMirror) td {
+  border: 1px solid var(--background-highlight-tertiary);
+  box-sizing: border-box;
+  min-width: 1em;
+  padding: 4px 6px;
+  position: relative;
+  vertical-align: top;
+}
+
+.editorArea :global(.ProseMirror) th {
+  background-color: var(--background-highlight-primary);
+  font-weight: 600;
+  text-align: left;
+}
+
+.editorArea :global(.ProseMirror) :global(.selectedCell)::after {
+  background: var(--color-primary);
+  content: '';
+  inset: 0;
+  opacity: 0.15;
+  pointer-events: none;
+  position: absolute;
+}
+
 .editorArea :global(.ProseMirror) ul,
 .editorArea :global(.ProseMirror) ol {
   padding-left: 20px;
+}
+
+/* ── Fraction toolbar preview ── */
+
+.fractionPreview {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 9px;
+  line-height: 1.2;
+}
+
+.fractionPreview span:first-child {
+  border-bottom: 1px solid currentColor;
+  padding: 0 2px;
+}
+
+/* ── Sqrt toolbar preview ── */
+
+.sqrtPreview {
+  display: inline-flex;
+  align-items: stretch;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.sqrtPreview span:first-child {
+  align-self: flex-end;
+  font-size: 1.1em;
+}
+
+.sqrtPreview span:last-child {
+  border-top: 1px solid currentColor;
+  padding: 0 1px;
+}
+
+/* ── Math nodes (editor view) ── */
+
+.mathNodeSelected {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.mathFraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-size: 0.9em;
+  line-height: 1.2;
+  margin: 0 2px;
+  vertical-align: middle;
+}
+
+.mathFractionContent {
+  display: contents;
+}
+
+.mathNumerator {
+  border-bottom: 1px solid currentColor;
+  padding: 0 3px;
+  text-align: center;
+}
+
+.mathDenominator {
+  padding: 0 3px;
+  text-align: center;
+}
+
+.mathSqrt {
+  align-items: stretch;
+  display: inline-flex;
+  font-size: 0.9em;
+  margin: 0 2px;
+  vertical-align: middle;
+}
+
+.mathSqrtSymbol {
+  align-self: stretch;
+  display: flex;
+}
+
+.mathSqrtSvg {
+  display: block;
+  height: 100%;
+  min-height: 1em;
+  width: 12px;
+}
+
+.mathSqrtContent {
+  align-items: center;
+  border-top: 1.5px solid currentColor;
+  display: inline-flex;
+  padding: 0 3px;
+}
+
+/* ── Table insert dialog ── */
+
+.tableDialog {
+  align-items: center;
+  background-color: var(--background-quaternary);
+  border-bottom: 1px solid var(--background-highlight-tertiary);
+  display: flex;
+  gap: 10px;
+  padding: 6px 8px;
+}
+
+.tableDialogLabel {
+  align-items: center;
+  color: var(--text-color-primary);
+  display: flex;
+  font-size: var(--font-size-xs);
+  gap: 4px;
+}
+
+.tableDialogInput {
+  background-color: var(--background-primary);
+  border: 1px solid var(--background-highlight-tertiary);
+  border-radius: 3px;
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs);
+  padding: 3px 6px;
+  width: 48px;
+}
+
+.tableDialogInput:focus {
+  outline: 1px solid var(--color-primary);
+}
+
+.tableDialogConfirm {
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  margin-left: auto;
+  padding: 3px 10px;
+}
+
+.tableDialogCancel {
+  background-color: var(--background-highlight-tertiary);
+  border: none;
+  border-radius: 3px;
+  color: var(--text-color-primary);
+  cursor: pointer;
+  font-size: var(--font-size-xs);
+  padding: 3px 10px;
 }

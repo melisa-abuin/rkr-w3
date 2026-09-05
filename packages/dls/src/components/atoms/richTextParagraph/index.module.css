@@ -34,3 +34,29 @@
 .container a {
   color: var(--color-primary);
 }
+
+.container table {
+  background-color: var(--background-quaternary);
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 16px;
+}
+
+.container table tr:nth-child(even) {
+  background-color: var(--background-highlight-primary);
+}
+
+.container table th {
+  background-color: var(--background-quaternary);
+  font-weight: var(--font-weight-bold);
+  padding: 10px;
+  text-align: center;
+}
+
+.container table td {
+  color: var(--text-color-primary);
+  padding: 10px;
+  text-align: center;
+}
