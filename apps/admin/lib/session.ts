@@ -1,4 +1,5 @@
 import { createHash, randomBytes } from 'crypto'
+import { NextRequest, NextResponse } from 'next/server'
 import pool from './db'
 
 export interface SessionUser {
@@ -40,6 +41,19 @@ export async function getSession(token: string): Promise<SessionUser | null> {
     username: rows[0].username,
     avatar: rows[0].avatar,
   }
+}
+
+export async function requireAdminSession(
+  request: NextRequest,
+): Promise<NextResponse | null> {
+  const token = request.cookies.get('admin_session')?.value
+  const user = token ? await getSession(token) : null
+
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
+  return null
 }
 
 export async function deleteSession(token: string): Promise<void> {
