@@ -1,0 +1,48 @@
+.container {
+  background-color: var(--background-quaternary);
+  border-radius: 5px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 180px;
+  overflow: hidden;
+  padding: 4px 16px;
+  text-align: center;
+  box-shadow: -8px 8px 4px var(--shadow-primary);
+}
+
+.title {
+  background-color: var(--text-color-tertiary);
+  height: 15px;
+  width: 80%;
+  border-radius: 30px;
+}
+
+.titleContainer {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 90px;
+  padding: 20px;
+  display: flex;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 40px;
+}
+
+.row {
+  background-color: var(--background-highlight-primary);
+  height: 34px;
+  width: 100%;
+}
+
+.secondCard {
+  position: absolute;
+  left: 44px;
+  top: 52px;
+}

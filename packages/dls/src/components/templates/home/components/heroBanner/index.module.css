@@ -5,14 +5,15 @@
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  padding: 48px 24px 40px;
+  padding: 240px 24px 120px;
   width: 100%;
 }
 
 .content {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   max-width: 1000px;
   width: 100%;
 }
@@ -36,7 +37,6 @@
   flex-direction: column;
   font-size: var(--font-size-xs-sm);
   margin-bottom: 2rem;
-  text-align: center;
 }
 
 .subtitle {
@@ -89,4 +89,56 @@
   .discordDetail {
     display: none;
   }
+}
+
+.titleSection {
+  text-align: left;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconSection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.minColumnCardContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-right: 44px;
+  padding-bottom: 52px;
+}
+
+.minRowCardContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.square {
+  border: 12px solid var(--color-primary);
+  border-radius: 4px;
+  height: 60px;
+  position: absolute;
+  width: 60px;
+  z-index: 0;
+}
+
+.bottomSquare {
+  bottom: -24px;
+  left: 24px;
+}
+.rightSquare {
+  right: -24px;
+  top: -24px;
 }
