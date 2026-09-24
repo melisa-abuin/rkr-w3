@@ -3,8 +3,9 @@
 import { Discord } from '@/components/icons/discord'
 import { discordJoinLink } from '@/constants'
 import { DiscordData } from '@/interfaces/discord'
-import MinColumnCard from './components/minColumnCard'
-import MinRowCard from './components/minRowCard'
+import IconSectionDesktop from './components/iconSectionDesktop'
+import IconSectionMobile from './components/iconSectionMobile'
+import IconSectionTablet from './components/iconSectionTablet'
 import styles from './index.module.css'
 
 interface HeroBannerProps {
@@ -49,17 +50,9 @@ export default function HeroBanner({ discordData }: HeroBannerProps) {
           </div>
         </div>
         <div className={styles.iconSection}>
-          <div className={styles.minColumnCardContainer}>
-            <MinColumnCard />
-            <div className={`${styles.square} ${styles.bottomSquare}`} />
-            <MinColumnCard secondCard />
-          </div>
-          <div className={styles.minRowCardContainer}>
-            <div className={`${styles.square} ${styles.rightSquare}`} />
-            <MinRowCard position={1} />
-            <MinRowCard position={2} />
-            <MinRowCard position={3} />
-          </div>
+          <IconSectionDesktop />
+          <IconSectionTablet />
+          <IconSectionMobile />
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@
   padding: 4px 16px;
   text-align: center;
   box-shadow: -8px 8px 4px var(--shadow-primary);
+  z-index: 1;
 }
 
 .title {
@@ -45,4 +46,8 @@
   position: absolute;
   left: 44px;
   top: 52px;
+}
+
+.absolute {
+  position: absolute;
 }

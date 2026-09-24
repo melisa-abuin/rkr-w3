@@ -16,6 +16,7 @@
   justify-content: space-between;
   max-width: 1000px;
   width: 100%;
+  gap: 16px;
 }
 
 @media (max-width: 600px) {
@@ -85,8 +86,14 @@
 }
 
 @media (max-width: 480px) {
-  .info,
-  .discordDetail {
+  .info {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .discordDetail,
+  .info .colored {
     display: none;
   }
 }
@@ -107,38 +114,11 @@
   justify-content: center;
   align-items: flex-end;
   gap: 8px;
-}
-
-.minColumnCardContainer {
   position: relative;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  padding-right: 44px;
-  padding-bottom: 52px;
 }
 
-.minRowCardContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.square {
-  border: 12px solid var(--color-primary);
-  border-radius: 4px;
-  height: 60px;
-  position: absolute;
-  width: 60px;
-  z-index: 0;
-}
-
-.bottomSquare {
-  bottom: -24px;
-  left: 24px;
-}
-.rightSquare {
-  right: -24px;
-  top: -24px;
+@media (max-width: 900px) and (min-width: 601px) {
+  .iconSection {
+    padding-right: 24px;
+  }
 }
