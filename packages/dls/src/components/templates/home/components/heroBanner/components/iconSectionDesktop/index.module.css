@@ -1,0 +1,114 @@
+.wrapper {
+  display: contents;
+}
+
+@media (max-width: 900px) {
+  .wrapper {
+    display: none;
+  }
+}
+
+.minColumnCardContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  padding-right: 44px;
+  padding-bottom: 52px;
+}
+
+.minRowCardContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.catIcon {
+  position: absolute;
+  top: -24px;
+  left: 16px;
+  animation: slideInCatIcon 1s ease-out 1s forwards;
+  opacity: 0;
+}
+
+@keyframes slideInCatIcon {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: -24px;
+    opacity: 1;
+  }
+}
+
+.square {
+  border: 12px solid var(--color-primary);
+  border-radius: 4px;
+  height: 60px;
+  opacity: 0;
+  position: absolute;
+  width: 60px;
+  z-index: 0;
+}
+
+@keyframes slideInBottomSquare {
+  from {
+    bottom: 0;
+    left: 48px;
+    opacity: 0;
+  }
+  to {
+    bottom: -24px;
+    left: 24px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRightSquare {
+  from {
+    right: 0;
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    right: -24px;
+    top: -24px;
+    opacity: 1;
+  }
+}
+
+.bottomSquare {
+  animation: slideInBottomSquare 1s ease-out forwards;
+  bottom: -24px;
+  left: 24px;
+}
+.rightSquare {
+  animation: slideInRightSquare 1s ease-out forwards;
+  right: -24px;
+  top: -24px;
+}
+
+.verticalLine {
+  width: 36px;
+  position: absolute;
+  background-color: var(--color-primary);
+  height: 100%;
+  opacity: 0;
+  right: -12px;
+  top: calc(-50% - 68px);
+  border-radius: 30px;
+  animation: slideInVerticalLine 1s ease-out forwards;
+}
+
+@keyframes slideInVerticalLine {
+  from {
+    top: calc(-100% - 68px);
+    opacity: 0;
+  }
+  to {
+    top: calc(-50% - 68px);
+    opacity: 1;
+  }
+}
