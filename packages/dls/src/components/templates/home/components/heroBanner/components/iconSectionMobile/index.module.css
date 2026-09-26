@@ -1,10 +1,13 @@
 .wrapper {
   display: none;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 600px) {
   .wrapper {
-    display: contents;
+    display: flex;
   }
 }
 
@@ -18,7 +21,8 @@
 .catIcon {
   position: absolute;
   top: -24px;
-  left: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   animation: slideInCatIcon 1s ease-out 1s forwards;
   opacity: 0;
 }
@@ -51,21 +55,21 @@
     opacity: 0;
   }
   to {
-    bottom: -24px;
-    left: 24px;
+    bottom: -68px;
+    left: -12px;
     opacity: 1;
   }
 }
 
 @keyframes slideInRightSquare {
   from {
-    right: 0;
-    top: 0;
+    right: -60px;
+    top: -72px;
     opacity: 0;
   }
   to {
-    right: -24px;
-    top: -24px;
+    right: -15px;
+    top: -72px;
     opacity: 1;
   }
 }
@@ -77,29 +81,29 @@
 }
 .rightSquare {
   animation: slideInRightSquare 1s ease-out forwards;
-  right: -24px;
+  right: 0;
   top: -24px;
 }
 
-.verticalLine {
-  width: 36px;
+.horizontalLine {
+  width: 100vw;
   position: absolute;
   background-color: var(--color-primary);
-  height: 100%;
+  height: 36px;
   opacity: 0;
   right: -12px;
-  top: calc(-50% - 68px);
+  bottom: -56px;
   border-radius: 30px;
-  animation: slideInVerticalLine 1s ease-out forwards;
+  animation: slideInHorizontalLine 1s ease-out forwards;
 }
 
-@keyframes slideInVerticalLine {
+@keyframes slideInHorizontalLine {
   from {
-    top: calc(-100% - 68px);
+    left: 100%;
     opacity: 0;
   }
   to {
-    top: calc(-50% - 68px);
+    left: 60px;
     opacity: 1;
   }
 }
