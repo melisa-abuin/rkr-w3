@@ -14,11 +14,11 @@ export default function IconSectionMobile() {
           width={73}
         />
         <div className={`${styles.square} ${styles.bottomSquare}`} />
-        <div className={`${styles.square} ${styles.rightSquare}`} />
         <MinRowCard position={1} />
-        <MinRowCard position={2} />
+        <MinRowCard secondCard position={2} />
+        <div className={styles.horizontalLine} />
       </div>
-      <div className={styles.verticalLine} />
+      <div className={`${styles.square} ${styles.rightSquare}`} />
     </div>
   )
 }

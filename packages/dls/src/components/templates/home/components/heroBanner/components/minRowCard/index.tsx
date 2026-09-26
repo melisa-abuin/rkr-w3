@@ -8,11 +8,20 @@ const positionColorMap: Record<1 | 2 | 3, PositionColor> = {
   3: 'yellow',
 }
 
-export default function MinRowCard({ position }: { position: 1 | 2 | 3 }) {
+export default function MinRowCard({
+  position,
+  secondCard,
+}: {
+  position: 1 | 2 | 3
+  secondCard?: boolean
+}) {
   const color = positionColorMap[position]
 
   return (
-    <div aria-hidden="true" className={styles.container}>
+    <div
+      aria-hidden="true"
+      className={`${styles.container} ${secondCard ? styles.secondCard : ''}`}
+    >
       <div className={`${styles.positionContainer} ${styles[color]}`}>
         {position}
         <div className={styles.divider} />
