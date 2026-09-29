@@ -44,6 +44,7 @@ Below is a list of all available utilities:
 ### 📅 Time Helpers
 
 - `getCurrentSeason`
+- `getPreviousSeason`
 - `getDaysUntil`
 - `getTimeAgoFromToday`
 

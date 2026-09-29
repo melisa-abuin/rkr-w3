@@ -1,18 +1,37 @@
 import { LeagueSeason, LeagueSeasonsApiResponse } from '@/interfaces/league'
 
 /**
- * Returns the season active at the given time, falling back to the first season.
+ * Returns the season active on the given date, falling back to the first season.
  *
  * @param seasons - Seasons to search for an active date range.
- * @param now - Time used to determine the active season. Defaults to the current time.
+ * @param date - Date used to determine the active season. Defaults to the current date.
  * @returns The active season, the first season when none is active, or undefined when no seasons exist.
  */
 export const getCurrentSeason = (
   seasons: LeagueSeasonsApiResponse,
-  now = Date.now(),
+  date = new Date(),
 ): LeagueSeason | undefined =>
   seasons.find(
     (season) =>
-      now >= new Date(season.startDate).getTime() &&
-      now <= new Date(season.endDate).getTime(),
+      date.getTime() >= new Date(season.startDate).getTime() &&
+      date.getTime() <= new Date(season.endDate).getTime(),
   ) ?? seasons[0]
+
+/**
+ * Returns the most recently completed season before the given date.
+ *
+ * @param seasons - Seasons to search for a completed date range.
+ * @param date - Date used to determine which seasons are complete. Defaults to the current date.
+ * @returns The most recently completed season, or undefined when none has completed.
+ */
+export const getPreviousSeason = (
+  seasons: LeagueSeasonsApiResponse,
+  date = new Date(),
+): LeagueSeason | undefined =>
+  seasons
+    .filter((season) => new Date(season.endDate).getTime() < date.getTime())
+    .sort(
+      (firstSeason, secondSeason) =>
+        new Date(secondSeason.endDate).getTime() -
+        new Date(firstSeason.endDate).getTime(),
+    )[0]

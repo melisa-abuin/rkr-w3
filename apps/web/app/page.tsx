@@ -8,14 +8,12 @@ import { DiscordData as DiscordType } from '@rkr/dls/interfaces/discord'
 import {
   LeagueScoreboardApiResponse,
   LeagueScoreboardEntry,
-  LeagueSeason,
   LeagueSeasonsApiResponse,
 } from '@rkr/dls/interfaces/league'
-import { getCurrentSeason } from '@rkr/dls/utils'
+import { getPreviousSeason } from '@rkr/dls/utils'
 
-interface CurrentSeasonData {
+interface HallOfFameData {
   hallOfFamePlayers: LeagueScoreboardEntry[]
-  season?: LeagueSeason
 }
 
 async function getDiscordData(): Promise<DiscordType> {
@@ -44,7 +42,7 @@ async function getDiscordData(): Promise<DiscordType> {
   }
 }
 
-async function getCurrentSeasonData(): Promise<CurrentSeasonData> {
+async function getHallOfFameData(): Promise<HallOfFameData> {
   try {
     const response = await fetch(seasonsApi, {
       next: { revalidate: 480 },
@@ -52,13 +50,14 @@ async function getCurrentSeasonData(): Promise<CurrentSeasonData> {
     if (!response.ok) return { hallOfFamePlayers: [] }
 
     const seasons = (await response.json()) as LeagueSeasonsApiResponse
-    const season = getCurrentSeason(seasons)
-    if (!season) return { hallOfFamePlayers: [] }
+    const previousSeason = getPreviousSeason(seasons)
+    if (!previousSeason) return { hallOfFamePlayers: [] }
 
-    const scoreboardResponse = await fetch(seasonScoreboardApi(season.id), {
-      next: { revalidate: 480 },
-    })
-    if (!scoreboardResponse.ok) return { hallOfFamePlayers: [], season }
+    const scoreboardResponse = await fetch(
+      seasonScoreboardApi(previousSeason.id),
+      { next: { revalidate: 480 } },
+    )
+    if (!scoreboardResponse.ok) return { hallOfFamePlayers: [] }
 
     const rawScoreboard = await scoreboardResponse.json()
     const scoreboard: LeagueScoreboardApiResponse = Array.isArray(rawScoreboard)
@@ -67,7 +66,6 @@ async function getCurrentSeasonData(): Promise<CurrentSeasonData> {
 
     return {
       hallOfFamePlayers: scoreboard.slice(0, 3),
-      season,
     }
   } catch {
     return { hallOfFamePlayers: [] }
@@ -75,16 +73,16 @@ async function getCurrentSeasonData(): Promise<CurrentSeasonData> {
 }
 
 export default async function HomePage() {
-  const [discordData, currentSeasonData] = await Promise.all([
+  const [discordData, hallOfFameData] = await Promise.all([
     getDiscordData(),
-    getCurrentSeasonData(),
+    getHallOfFameData(),
   ])
 
   return (
     <main>
       <Home
         discordData={discordData}
-        hallOfFamePlayers={currentSeasonData.hallOfFamePlayers}
+        hallOfFamePlayers={hallOfFameData.hallOfFamePlayers}
       />
     </main>
   )
