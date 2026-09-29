@@ -1,0 +1,112 @@
+.container {
+  background-color: var(--background-quaternary);
+  border-radius: 5px;
+  display: flex;
+  flex: 1;
+  gap: 16px;
+  flex-direction: row;
+  min-width: 180px;
+  overflow: hidden;
+  padding: 18px 24px;
+  text-align: center;
+  box-shadow: -8px 8px 4px var(--shadow-primary);
+  z-index: 1;
+}
+
+.title {
+  background-color: var(--text-color-primary);
+  height: 8px;
+  width: 48px;
+  border-radius: 30px;
+}
+
+.subtitle {
+  background-color: var(--text-color-secondary);
+  height: 4px;
+  width: 48px;
+  border-radius: 30px;
+}
+
+.titleContainer {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 90px;
+  padding: 20px;
+  display: flex;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 40px;
+}
+
+.row {
+  background-color: var(--background-highlight-primary);
+  height: 34px;
+  width: 100%;
+}
+
+.secondCard {
+  position: absolute;
+  left: 32px;
+  top: 32px;
+}
+
+.teal {
+  color: var(--color-teal);
+}
+
+.teal .divider,
+.teal .square {
+  background-color: var(--color-teal);
+}
+
+.green {
+  color: var(--color-green);
+}
+
+.green .divider,
+.green .square {
+  background-color: var(--color-green);
+}
+
+.yellow {
+  color: var(--color-yellow);
+}
+
+.yellow .divider,
+.yellow .square {
+  background-color: var(--color-yellow);
+}
+
+.divider {
+  background-color: var(--background-highlight-primary);
+  height: 24px;
+  width: 4px;
+  border-radius: 3px;
+}
+
+.square {
+  background-color: var(--background-highlight-primary);
+  height: 24px;
+  width: 24px;
+  border-radius: 3px;
+}
+
+.positionContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

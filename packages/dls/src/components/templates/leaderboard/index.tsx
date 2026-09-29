@@ -9,7 +9,6 @@ import HelpInfo from '@/components/molecules/helpInfo'
 import Table from '@/components/molecules/table'
 import BestGamesWithControls from '@/components/organisms/bestGamesWithControls'
 import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
-import KibbleLeaderboardWithMoreResults from '@/components/organisms/kibbleLeaderboardWithMoreResults'
 import PlayerFinderWithResult from '@/components/organisms/playerFinderWithResult'
 import { playerStatsDefaultApi, playersTimeLeaderboardApi } from '@/constants'
 import { statsColumnsWithRender } from '@/constants/tableColumns'
@@ -19,6 +18,7 @@ import { useQueryErrorToast } from '@/hooks/useQueryErrorToast'
 import { LeaderboardCategories } from '@/interfaces/leaderboard'
 import { Player } from '@/interfaces/player'
 import { useState } from 'react'
+import KibbleLeaderboard from './components/kibbleLeaderboard'
 
 interface PlayerStatsData {
   stats: Array<LeaderboardCategories>
@@ -129,7 +129,7 @@ export default function Leaderboard({ data }: { data: PlayerStatsData }) {
             title="Kibbles collected in a single game"
             withPadding={false}
           >
-            <KibbleLeaderboardWithMoreResults />
+            <KibbleLeaderboard />
           </PageContainer>
         </Tabs>
       </PageContainer>

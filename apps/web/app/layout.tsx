@@ -19,7 +19,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Run Kitty Run - Warcraft 3 Custom Map',
+  title: 'RKR Stats - Warcraft 3 Custom Map Statistics',
   description:
     'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
   keywords: [
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   ],
   authors: { name: 'Warcraft 3 Custom Maps Community' },
   openGraph: {
-    title: 'Run Kitty Run - Warcraft 3 Custom Map',
+    title: 'RKR Stats - Warcraft 3 Custom Map Statistics',
     description:
       'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
     type: 'website',

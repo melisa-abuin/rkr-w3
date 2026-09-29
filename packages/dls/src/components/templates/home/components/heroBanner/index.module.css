@@ -5,22 +5,32 @@
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  padding: 48px 24px 40px;
+  padding: 240px 24px 120px;
   width: 100%;
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    padding: 0;
+  }
 }
 
 .content {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   max-width: 1000px;
   width: 100%;
+  gap: 16px;
 }
 
 @media (max-width: 600px) {
   .content {
+    flex-direction: column;
     justify-content: center;
-    min-height: calc(100vh - 314px);
+    min-height: 600px;
+    gap: 48px;
   }
 }
 
@@ -36,7 +46,6 @@
   flex-direction: column;
   font-size: var(--font-size-xs-sm);
   margin-bottom: 2rem;
-  text-align: center;
 }
 
 .subtitle {
@@ -85,8 +94,48 @@
 }
 
 @media (max-width: 480px) {
-  .info,
-  .discordDetail {
+  .info {
     display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .discordDetail,
+  .info .colored {
+    display: none;
+  }
+}
+
+.titleSection {
+  text-align: left;
+}
+
+@media (max-width: 600px) {
+  .titleSection {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconSection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+  position: relative;
+}
+
+@media (max-width: 900px) and (min-width: 601px) {
+  .iconSection {
+    padding-right: 24px;
   }
 }

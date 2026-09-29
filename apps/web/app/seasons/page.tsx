@@ -8,6 +8,7 @@ import {
   LeagueSeason,
   LeagueSeasonsApiResponse,
 } from '@rkr/dls/interfaces/league'
+import { getCurrentSeason } from '@rkr/dls/utils'
 
 interface SeasonsData {
   error: string | null
@@ -27,17 +28,10 @@ async function fetchData(): Promise<SeasonsData> {
     next: { revalidate: 480 },
   })
 
-  const now = Date.now()
-
   if (response.status === 200) {
     const seasons: LeagueSeasonsApiResponse = await response.json()
 
-    const currentSeason =
-      seasons.find(
-        (season) =>
-          now >= new Date(season.startDate).getTime() &&
-          now <= new Date(season.endDate).getTime(),
-      ) ?? seasons[0]
+    const currentSeason = getCurrentSeason(seasons)
 
     if (!currentSeason) {
       return {
