@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Run Kitty Run - Leaderboard',
+  title: 'RKR Stats - Leaderboard',
   description: 'View the run kitty run statistics for all players.',
   openGraph: {
-    title: 'Run Kitty Run - Leaderboard',
+    title: 'RKR Stats - Leaderboard',
     description: 'View the run kitty run statistics for all players.',
     type: 'website',
     images: [

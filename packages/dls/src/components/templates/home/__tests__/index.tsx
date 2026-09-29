@@ -22,7 +22,7 @@ describe('Home', () => {
   it('renders the title and description', () => {
     renderWithClient(<Home discordData={discordDataMock} />)
 
-    expect(screen.getByText('Run Kitty Run')).toBeInTheDocument()
+    expect(screen.getByText('RKR Stats')).toBeInTheDocument()
     expect(
       screen.getByText(/The statistics for the custom map from Warcraft 3/i),
     ).toBeInTheDocument()

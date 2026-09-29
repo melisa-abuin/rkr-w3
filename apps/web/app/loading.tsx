@@ -13,7 +13,7 @@ export default function Loading() {
         src="/rkr-icon-gray-x120.png"
         width={96}
       />
-      Run Kitty Run
+      RKR Stats
       <br />
       <div className={styles.progressContainer}>
         <Image
