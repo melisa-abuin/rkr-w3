@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Run Kitty Run - Challenges',
+  title: 'RKR Stats - Challenges',
   description: 'View the run kitty run challenges',
 }
 
