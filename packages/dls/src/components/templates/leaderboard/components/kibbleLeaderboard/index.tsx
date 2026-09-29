@@ -1,6 +1,7 @@
 'use client'
 
 import Table from '@/components/molecules/table'
+import FloatingKibble from '@/components/organisms/floatingKibble'
 import RowCardsWithImage from '@/components/organisms/rowCardsWithImage'
 import {
   kibbleLeaderboardColumns,
@@ -27,6 +28,7 @@ export default function KibbleLeaderboard() {
 
   return (
     <>
+      <FloatingKibble />
       <RowCardsWithImage
         columns={kibbleLeaderboardColumns}
         data={data?.slice(0, 5).map((item) => ({

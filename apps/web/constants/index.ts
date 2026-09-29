@@ -20,7 +20,7 @@ export const routes = {
     pathname: '/seasons',
     url: '/seasons',
     target: '_self',
-    isNew: true,
+    isNew: false,
     method: 'get',
   },
   tournaments: {
