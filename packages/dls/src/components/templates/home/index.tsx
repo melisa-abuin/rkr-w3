@@ -12,8 +12,6 @@ interface HomeProps {
   hallOfFamePlayers?: LeagueScoreboardEntry[]
 }
 
-const shouldShowHallOfFame = false
-
 export default function Home({
   discordData,
   hallOfFamePlayers = [],
@@ -21,7 +19,7 @@ export default function Home({
   return (
     <div className={styles.bannerContainer}>
       <HeroBanner discordData={discordData} />
-      {shouldShowHallOfFame && <HallOfFame players={hallOfFamePlayers} />}
+      <HallOfFame players={hallOfFamePlayers} />
       <FeaturedContent />
     </div>
   )
