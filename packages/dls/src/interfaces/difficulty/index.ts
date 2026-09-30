@@ -1,7 +1,2 @@
 export type Difficulty =
-  | 'normal'
-  | 'hard'
-  | 'impossible'
-  | 'solo'
-  | 'nightmare'
-  | 'progressive'
+  'normal' | 'hard' | 'impossible' | 'solo' | 'nightmare' | 'progressive'

@@ -14,12 +14,17 @@ import sys
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WEB_APP   = os.path.join(REPO_ROOT, "apps", "web")
+ADMIN_APP = os.path.join(REPO_ROOT, "apps", "admin")
 DLS_SRC   = os.path.join(REPO_ROOT, "packages", "dls", "src")
 
 # Absolute paths of all source directories to scan across workspaces
 SEARCH_DIRS = [
     os.path.join(WEB_APP, "app"),
+    os.path.join(WEB_APP, "lib"),
     os.path.join(WEB_APP, "pages"),
+    os.path.join(ADMIN_APP, "app"),
+    os.path.join(ADMIN_APP, "lib"),
+    os.path.join(ADMIN_APP, "hooks"),
     os.path.join(DLS_SRC, "components"),
     os.path.join(DLS_SRC, "hooks"),
     os.path.join(DLS_SRC, "constants"),

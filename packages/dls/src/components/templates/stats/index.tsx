@@ -254,8 +254,7 @@ export default function Stats({
             {...commonTableProps}
             data={
               activeData as
-                | { pages: number; stats?: BreakdownApiEntry[] }
-                | undefined
+                { pages: number; stats?: BreakdownApiEntry[] } | undefined
             }
             defaultSeasonValue={currentSeason || urlSeason}
             handleSeasonChange={({ value }) => {
