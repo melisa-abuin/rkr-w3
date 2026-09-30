@@ -89,7 +89,7 @@ export default async function RootLayout({
   const pathname = headersList.get('x-pathname') ?? '/'
   const ip = realIp ?? headersList.get('x-forwarded-for')?.split(',')[0]?.trim()
 
-  await postPageView(pathname, ip ?? 'unknown')
+  await postPageView(pathname, ip ?? 'unknown', headersList.get('user-agent'))
   const announcement = await getAnnouncement()
 
   return (

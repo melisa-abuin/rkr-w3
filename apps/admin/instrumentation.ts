@@ -31,4 +31,12 @@ export async function register() {
       visited_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `)
+
+  await pool.query(
+    'ALTER TABLE page_views ADD COLUMN IF NOT EXISTS is_bot BOOLEAN NOT NULL DEFAULT FALSE',
+  )
+
+  await pool.query(
+    'CREATE INDEX IF NOT EXISTS page_views_visited_at_idx ON page_views (visited_at)',
+  )
 }
