@@ -1,0 +1,10 @@
+.container {
+  align-items: center;
+  color: var(--text-color-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 4rem 2rem;
+  height: calc(100vh - 550px);
+}

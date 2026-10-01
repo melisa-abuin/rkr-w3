@@ -8,14 +8,14 @@ import {
   LeagueSeason,
   LeagueSeasonsApiResponse,
 } from '@rkr/dls/interfaces/league'
-import { getCurrentSeason } from '@rkr/dls/utils'
+import { getActiveSeason } from '@rkr/dls/utils'
 
 interface SeasonsData {
   error: string | null
   data: {
     seasons: LeagueSeasonsApiResponse
     currentSeason: {
-      seasonData: LeagueSeason
+      seasonData?: LeagueSeason
       leaderboard: LeagueLeaderboardApiResponse
       podium: LeagueScoreboardEntry[]
       scoreboard: LeagueScoreboardApiResponse
@@ -31,20 +31,19 @@ async function fetchData(): Promise<SeasonsData> {
   if (response.status === 200) {
     const seasons: LeagueSeasonsApiResponse = await response.json()
 
-    const currentSeason = getCurrentSeason(seasons)
+    const currentSeason = getActiveSeason(seasons)
 
     if (!currentSeason) {
       return {
         data: {
-          seasons: [],
+          seasons,
           currentSeason: {
-            seasonData: {} as LeagueSeason,
             leaderboard: { stats: [], times: [] },
             podium: [],
             scoreboard: [],
           },
         },
-        error: 'Something went wrong',
+        error: null,
       }
     }
 
@@ -88,7 +87,6 @@ async function fetchData(): Promise<SeasonsData> {
     data: {
       seasons: [],
       currentSeason: {
-        seasonData: {} as LeagueSeason,
         leaderboard: { stats: [], times: [] },
         podium: [],
         scoreboard: [],
