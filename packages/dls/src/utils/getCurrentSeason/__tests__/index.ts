@@ -1,5 +1,5 @@
 import { LeagueSeason } from '@/interfaces/league'
-import { getCurrentSeason, getPreviousSeason } from '..'
+import { getActiveSeason, getCurrentSeason, getPreviousSeason } from '..'
 
 const seasons: LeagueSeason[] = [
   {
@@ -17,6 +17,20 @@ const seasons: LeagueSeason[] = [
     startDate: '2026-08-11T00:00:00.000Z',
   },
 ]
+
+describe('getActiveSeason', () => {
+  it('returns the season active at the supplied time', () => {
+    expect(getActiveSeason(seasons, new Date('2026-08-21T00:00:00.000Z'))).toBe(
+      seasons[1],
+    )
+  })
+
+  it('returns undefined when none is active', () => {
+    expect(
+      getActiveSeason(seasons, new Date('2026-09-01T00:00:00.000Z')),
+    ).toBeUndefined()
+  })
+})
 
 describe('getCurrentSeason', () => {
   it('returns the season active at the supplied time', () => {

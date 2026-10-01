@@ -1,6 +1,23 @@
 import { LeagueSeason, LeagueSeasonsApiResponse } from '@/interfaces/league'
 
 /**
+ * Returns the season whose date range contains the given date.
+ *
+ * @param seasons - Seasons to search for an active date range.
+ * @param date - Date used to determine the active season. Defaults to the current date.
+ * @returns The active season, or undefined when none is active.
+ */
+export const getActiveSeason = (
+  seasons: LeagueSeasonsApiResponse,
+  date = new Date(),
+): LeagueSeason | undefined =>
+  seasons.find(
+    (season) =>
+      date.getTime() >= new Date(season.startDate).getTime() &&
+      date.getTime() <= new Date(season.endDate).getTime(),
+  )
+
+/**
  * Returns the season active on the given date, falling back to the first season.
  *
  * @param seasons - Seasons to search for an active date range.
@@ -10,12 +27,7 @@ import { LeagueSeason, LeagueSeasonsApiResponse } from '@/interfaces/league'
 export const getCurrentSeason = (
   seasons: LeagueSeasonsApiResponse,
   date = new Date(),
-): LeagueSeason | undefined =>
-  seasons.find(
-    (season) =>
-      date.getTime() >= new Date(season.startDate).getTime() &&
-      date.getTime() <= new Date(season.endDate).getTime(),
-  ) ?? seasons[0]
+): LeagueSeason | undefined => getActiveSeason(seasons, date) ?? seasons[0]
 
 /**
  * Returns the most recently completed season before the given date.

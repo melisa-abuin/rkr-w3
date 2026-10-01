@@ -16,9 +16,10 @@ import {
   LeagueSeason,
 } from '@/interfaces/league'
 import { getDaysUntil } from '@/utils'
+import NoActiveSeason from './components/noActiveSeason'
 
 interface SeasonsTemplateProps {
-  seasonData: LeagueSeason
+  seasonData?: LeagueSeason
   leaderboard: LeagueLeaderboardApiResponse
   podium: LeagueScoreboardEntry[]
   scoreboard: LeagueScoreboardEntry[]
@@ -36,15 +37,27 @@ export default function SeasonsTemplate({
     isFetching: isTimesFilterFetching,
     onFilterClick,
   } = useDifficultyFilter<LeagueLeaderboardApiResponse>(
-    `${seasonsApi}/${seasonData.id}/leaderboard`,
+    `${seasonsApi}/${seasonData?.id}/leaderboard`,
   )
+
+  const header = (
+    <PageHeader
+      description="Seasons are time-limited competitive periods where players earn league points and climb the rankings. Top players will appear on the podium."
+      title="Seasons"
+    />
+  )
+
+  if (!seasonData)
+    return (
+      <PageContainer marginBottom={24}>
+        {header}
+        <NoActiveSeason />
+      </PageContainer>
+    )
 
   return (
     <PageContainer marginBottom={24}>
-      <PageHeader
-        description="Seasons are time-limited competitive periods where players earn league points and climb the rankings. Top players will appear on the podium."
-        title="Seasons"
-      />
+      {header}
       <PageContainer
         subtitle={`Ends in ${getDaysUntil(seasonData.endDate)} days`}
         title={seasonData.leagueId}
