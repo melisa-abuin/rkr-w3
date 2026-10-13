@@ -40,6 +40,7 @@ Below is a list of all available utilities:
 - `filterByBattleTag`
 - `buildSearchQuery`
 - `formatDataByQueryParams`
+- `parsePageViewFilters`
 
 ### 📅 Time Helpers
 
@@ -48,6 +49,8 @@ Below is a list of all available utilities:
 - `getPreviousSeason`
 - `getDaysUntil`
 - `getTimeAgoFromToday`
+- `getMonthRange`
+- `getMonthOptions`
 
 ### 🧠 Type Guards
 
@@ -55,6 +58,7 @@ Below is a list of all available utilities:
 - `isRoundDifficultyAvailable`
 - `isRoundKey`
 - `isTimeKey`
+- `isBotUserAgent`
 
 ### 🧾 Messaging Helpers
 

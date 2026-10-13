@@ -24,13 +24,7 @@ interface TextWithIconProps {
   children: ReactNode
   colorName?: ColorName
   iconName?:
-    | 'clock'
-    | 'crown'
-    | 'flame'
-    | 'paw'
-    | 'winner'
-    | 'information'
-    | undefined
+    'clock' | 'crown' | 'flame' | 'paw' | 'winner' | 'information' | undefined
   iconSize?: number
   large?: boolean
 }
