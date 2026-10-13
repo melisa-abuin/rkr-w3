@@ -1,8 +1,8 @@
 'use client'
 
-import type { DropdownOption } from '@rkr/dls/components/atoms/dropdown'
-import PageViewFilters from '@rkr/dls/components/organisms/pageViewFilters'
-import { usePageViewFilters } from '../../../../hooks/usePageViewFilters'
+import type { DropdownOption } from '@/components/atoms/dropdown'
+import PageViewFilters from '@/components/organisms/pageViewFilters'
+import { usePageViewFilters } from '@/hooks/usePageViewFilters'
 
 interface PageViewFiltersContainerProps {
   monthOptions: DropdownOption[]

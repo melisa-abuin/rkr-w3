@@ -1,7 +1,7 @@
 'use client'
 
-import Pagination from '@rkr/dls/components/molecules/pagination'
-import { usePageViewFilters } from '../../../../hooks/usePageViewFilters'
+import Pagination from '@/components/molecules/pagination'
+import { usePageViewFilters } from '@/hooks/usePageViewFilters'
 
 interface PageViewPaginationProps {
   currentPage: number
