@@ -51,6 +51,7 @@ Below is a list of all available utilities:
 - `getTimeAgoFromToday`
 - `getMonthRange`
 - `getMonthOptions`
+- `isHalloweenSeason`
 
 ### 🧠 Type Guards
 

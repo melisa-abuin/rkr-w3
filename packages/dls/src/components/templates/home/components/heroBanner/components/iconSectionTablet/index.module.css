@@ -2,6 +2,14 @@
   display: none;
 }
 
+.halloween {
+  --icon-section-accent: var(--color-orange);
+}
+
+.halloween .catIcon {
+  margin-top: -23px;
+}
+
 @media (max-width: 900px) and (min-width: 601px) {
   .wrapper {
     display: contents;
@@ -47,7 +55,7 @@
 }
 
 .square {
-  border: 12px solid var(--color-primary);
+  border: 12px solid var(--icon-section-accent, var(--color-primary));
   border-radius: 4px;
   height: 60px;
   opacity: 0;
@@ -96,7 +104,7 @@
 .verticalLine {
   width: 36px;
   position: absolute;
-  background-color: var(--color-primary);
+  background-color: var(--icon-section-accent, var(--color-primary));
   height: 100%;
   opacity: 0;
   right: -12px;
