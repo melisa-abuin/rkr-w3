@@ -81,6 +81,7 @@
     --color-impossible: #d10a0a;
     --color-nightmare: #9343c4;
     --color-normal: #cfd324;
+    --color-orange: #f08c23;
     --color-patriotic-tendrils-external: #c22513;
     --color-patriotic-tendrils-internal: #3f4fe0;
     --color-primary: #41b2b2;
@@ -92,9 +93,9 @@
     --color-teal: #16b7c9;
     --color-tertiary: #0a2222;
     --color-yellow: #cfd324;
+    --discord-brand: #5865f2;
     --discord-brand-hover: #4752c4;
     --discord-brand-text: #ffffff;
-    --discord-brand: #5865f2;
     --shadow-primary: rgba(255, 255, 255, 0.2);
     --shadow-secondary: rgba(255, 255, 255, 0.1);
     --text-color-black: #000000;
