@@ -27,7 +27,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "eslint": "^10.5.0",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "16.4.3",
     "jsdom": "^29.1.1",
     "lottie-react": "^2.4.1",
     "msw": "^2.14.6",
