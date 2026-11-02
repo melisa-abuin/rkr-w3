@@ -1,117 +1,44 @@
 'use client'
 
-import Button from '@/components/atoms/button'
 import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import ColumnCards from '@/components/molecules/columnCards'
-import Table from '@/components/molecules/table'
-import ColumnCardsWithControls from '@/components/organisms/columnCardsWithControls'
-import Podium from '@/components/organisms/podium'
-import { seasonsApi } from '@/constants'
-import { leagueScoreboardBreakdownColumns } from '@/constants/tableColumns'
-import { useDifficultyFilter } from '@/hooks/useDifficultyFilter'
-import {
-  LeagueLeaderboardApiResponse,
-  LeagueScoreboardEntry,
-  LeagueSeason,
-} from '@/interfaces/league'
-import { getDaysUntil } from '@/utils'
+import Tabs from '@/components/atoms/tabs'
+import { LeagueSeasonData } from '@/interfaces/league'
+import { getActiveSeason } from '@/utils'
+import { useMemo } from 'react'
 import NoActiveSeason from './components/noActiveSeason'
+import SeasonContent from './components/seasonContent'
 
 interface SeasonsTemplateProps {
-  seasonData?: LeagueSeason
-  leaderboard: LeagueLeaderboardApiResponse
-  podium: LeagueScoreboardEntry[]
-  scoreboard: LeagueScoreboardEntry[]
+  seasons: LeagueSeasonData[]
 }
 
-export default function SeasonsTemplate({
-  leaderboard,
-  podium,
-  seasonData,
-  scoreboard,
-}: SeasonsTemplateProps) {
-  const {
-    difficultyFilter,
-    filteredData: timesFilteredData,
-    isFetching: isTimesFilterFetching,
-    onFilterClick,
-  } = useDifficultyFilter<LeagueLeaderboardApiResponse>(
-    `${seasonsApi}/${seasonData?.id}/leaderboard`,
-  )
-
-  const header = (
-    <PageHeader
-      description="Seasons are time-limited competitive periods where players earn league points and climb the rankings. Top players will appear on the podium."
-      title="Seasons"
-    />
-  )
-
-  if (!seasonData)
-    return (
-      <PageContainer marginBottom={24}>
-        {header}
-        <NoActiveSeason />
-      </PageContainer>
-    )
+export default function SeasonsTemplate({ seasons }: SeasonsTemplateProps) {
+  const currentSeason = useMemo(() => {
+    const activeSeason = getActiveSeason(seasons.map(({ season }) => season))
+    return seasons.find(({ season }) => season.id === activeSeason?.id)
+  }, [seasons])
 
   return (
     <PageContainer marginBottom={24}>
-      {header}
-      <PageContainer
-        subtitle={`Ends in ${getDaysUntil(seasonData.endDate)} days`}
-        title={seasonData.leagueId}
-        withPadding={false}
+      <PageHeader
+        description="Seasons are time-limited competitive periods where players earn league points and climb the rankings. Top players will appear on the podium."
+        title="Seasons"
+      />
+      <Tabs
+        titles={['Current', ...seasons.map(({ season }) => season.leagueId)]}
       >
-        <Podium podium={podium} />
-        <PageContainer
-          ariaLabelledby="columns-score-title"
-          title="Best Scores"
-          withPadding={false}
-        >
-          <ColumnCards
-            data={leaderboard.stats}
-            filter="stats"
-            withViewAll={false}
-          />
-        </PageContainer>
-
-        <ColumnCardsWithControls
-          data={leaderboard.times}
-          difficultyFilter={difficultyFilter}
-          filter="times"
-          filteredData={timesFilteredData?.times}
-          isFetching={isTimesFilterFetching}
-          seasonId={seasonData.id.toString()}
-          title="Best times"
-          onFilterClick={onFilterClick}
-        />
-        <PageContainer marginTop={32} withPadding={false}>
-          <Table
-            columns={leagueScoreboardBreakdownColumns}
-            data={scoreboard.map((entry) => ({
-              ...entry.breakdown,
-              battleTag: entry.player,
-            }))}
-            title="Season breakdown"
-          />
-        </PageContainer>
-        <PageContainer
-          as="div"
-          marginBottom={24}
-          marginTop={24}
-          withPadding={false}
-        >
-          <Button
-            as="a"
-            colorName="primary"
-            href={`stats?page=1&seasonId=${seasonData.id}&sortKey=weightedWins&sortOrder=desc&filter=breakdown`}
-            variant="outline"
-          >
-            View all stats
-          </Button>
-        </PageContainer>
-      </PageContainer>
+        {[
+          currentSeason ? (
+            <SeasonContent key="current" seasonData={currentSeason} />
+          ) : (
+            <NoActiveSeason key="current" />
+          ),
+          ...seasons.map((seasonData) => (
+            <SeasonContent key={seasonData.season.id} seasonData={seasonData} />
+          )),
+        ]}
+      </Tabs>
     </PageContainer>
   )
 }
