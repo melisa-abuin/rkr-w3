@@ -4,22 +4,45 @@ import { seasonScoreboardApi, seasonsApi } from '@rkr/dls/constants'
 import {
   LeagueLeaderboardApiResponse,
   LeagueScoreboardApiResponse,
-  LeagueScoreboardEntry,
   LeagueSeason,
+  LeagueSeasonData,
   LeagueSeasonsApiResponse,
 } from '@rkr/dls/interfaces/league'
-import { getActiveSeason } from '@rkr/dls/utils'
 
 interface SeasonsData {
   error: string | null
-  data: {
-    seasons: LeagueSeasonsApiResponse
-    currentSeason: {
-      seasonData?: LeagueSeason
-      leaderboard: LeagueLeaderboardApiResponse
-      podium: LeagueScoreboardEntry[]
-      scoreboard: LeagueScoreboardApiResponse
-    }
+  data: LeagueSeasonData[]
+}
+
+async function fetchSeasonData(
+  season: LeagueSeason,
+): Promise<LeagueSeasonData> {
+  const [leaderboardResponse, scoreboardResponse] = await Promise.all([
+    fetch(`${seasonsApi}/${season.id}/leaderboard`, {
+      next: { revalidate: 480 },
+    }),
+    fetch(seasonScoreboardApi(season.id), {
+      next: { revalidate: 480 },
+    }),
+  ])
+
+  const leaderboard: LeagueLeaderboardApiResponse =
+    leaderboardResponse.status === 200
+      ? await leaderboardResponse.json()
+      : { stats: [], times: [] }
+
+  const rawScoreboard =
+    scoreboardResponse.status === 200 ? await scoreboardResponse.json() : []
+
+  const scoreboard: LeagueScoreboardApiResponse = Array.isArray(rawScoreboard)
+    ? rawScoreboard
+    : (rawScoreboard.stats ?? [])
+
+  return {
+    season,
+    leaderboard,
+    podium: scoreboard.slice(0, 3),
+    scoreboard: scoreboard.slice(0, 5),
   }
 }
 
@@ -28,89 +51,20 @@ async function fetchData(): Promise<SeasonsData> {
     next: { revalidate: 480 },
   })
 
-  if (response.status === 200) {
-    const seasons: LeagueSeasonsApiResponse = await response.json()
-
-    const currentSeason = getActiveSeason(seasons)
-
-    if (!currentSeason) {
-      return {
-        data: {
-          seasons,
-          currentSeason: {
-            leaderboard: { stats: [], times: [] },
-            podium: [],
-            scoreboard: [],
-          },
-        },
-        error: null,
-      }
-    }
-
-    const [leaderboardResponse, scoreboardResponse] = await Promise.all([
-      fetch(`${seasonsApi}/${currentSeason.id}/leaderboard`, {
-        next: { revalidate: 480 },
-      }),
-      fetch(seasonScoreboardApi(currentSeason.id), {
-        next: { revalidate: 480 },
-      }),
-    ])
-
-    const leaderboard: LeagueLeaderboardApiResponse =
-      leaderboardResponse.status === 200
-        ? await leaderboardResponse.json()
-        : { stats: [], times: [] }
-
-    const rawScoreboard =
-      scoreboardResponse.status === 200 ? await scoreboardResponse.json() : []
-
-    const scoreboard: LeagueScoreboardApiResponse = Array.isArray(rawScoreboard)
-      ? rawScoreboard
-      : (rawScoreboard.stats ?? [])
-
-    const podium = scoreboard.slice(0, 3)
-
-    return {
-      data: {
-        seasons,
-        currentSeason: {
-          seasonData: currentSeason,
-          leaderboard,
-          podium,
-          scoreboard: scoreboard.slice(0, 5),
-        },
-      },
-      error: null,
-    }
+  if (response.status !== 200) {
+    return { data: [], error: 'Something went wrong' }
   }
+
+  const seasons: LeagueSeasonsApiResponse = await response.json()
+
   return {
-    data: {
-      seasons: [],
-      currentSeason: {
-        leaderboard: { stats: [], times: [] },
-        podium: [],
-        scoreboard: [],
-      },
-    },
-    error: 'Something went wrong',
+    data: await Promise.all(seasons.map(fetchSeasonData)),
+    error: null,
   }
 }
 
 export default async function SeasonsPage() {
   const { data, error } = await fetchData()
 
-  return (
-    <main>
-      {error ? (
-        <Error />
-      ) : (
-        <SeasonsTemplate
-          leaderboard={data.currentSeason.leaderboard}
-          podium={data.currentSeason.podium}
-          scoreboard={data.currentSeason.scoreboard}
-          seasonData={data.currentSeason.seasonData}
-        />
-      )}
-    </main>
-  )
+  return <main>{error ? <Error /> : <SeasonsTemplate seasons={data} />}</main>
 }

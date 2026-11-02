@@ -73,3 +73,10 @@ export interface LeagueScoreboardEntry {
 }
 
 export type LeagueScoreboardApiResponse = LeagueScoreboardEntry[]
+
+export interface LeagueSeasonData {
+  season: LeagueSeason
+  leaderboard: LeagueLeaderboardApiResponse
+  podium: LeagueScoreboardEntry[]
+  scoreboard: LeagueScoreboardEntry[]
+}
