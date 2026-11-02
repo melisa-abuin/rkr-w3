@@ -1,7 +1,7 @@
 .button {
   background-color: var(--button-background);
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   color: var(--button-color);
   cursor: pointer;
   text-decoration: none;
@@ -9,6 +9,7 @@
     background-color 0.2s ease,
     color 0.2s ease;
   display: inline-flex;
+  line-height: normal;
   align-items: center;
   justify-content: center;
   gap: 4px;
@@ -69,7 +70,7 @@
 .regular {
   font-size: var(--font-size-xs-sm);
   font-weight: var(--font-weight-semi-bold);
-  padding: 8px 12px;
+  padding: 8px 16px;
 }
 
 .small {
