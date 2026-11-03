@@ -1,29 +1,5 @@
-import Image from 'next/image'
+import Loading from '@rkr/dls/components/molecules/loading'
 
-import styles from './loading.module.css'
-
-export default function Loading() {
-  return (
-    <div className={styles.wrapper}>
-      <Image
-        priority
-        alt="loading-icon"
-        height={96}
-        sizes="96px"
-        src="/rkr-icon-gray-x120.png"
-        width={96}
-      />
-      RKR Stats
-      <br />
-      <div className={styles.progressContainer}>
-        <Image
-          priority
-          alt="loading-progress"
-          height={60}
-          src="/screen-loading.gif"
-          width={200}
-        />
-      </div>
-    </div>
-  )
+export default function Page() {
+  return <Loading title="RKR Stats" />
 }
