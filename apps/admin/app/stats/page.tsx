@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
 import { pageViewColumns, pageViewPageSize } from '../../constants'
 
 export const metadata: Metadata = {
-  title: 'Admin - Stats',
+  title: 'Stats',
 }
 
 interface StatsPageProps {

@@ -18,11 +18,13 @@ const inter = Inter({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
 })
 
+const description =
+  'Player stats, leaderboards, seasons, tournaments and challenges for Run Kitty Run, the Warcraft 3 custom map.'
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://rkr-w3.vercel.app'),
   title: 'RKR Stats - Warcraft 3 Custom Map Statistics',
-  description:
-    'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
+  description,
   keywords: [
     'Warcraft 3',
     'custom map',
@@ -40,8 +42,7 @@ export const metadata: Metadata = {
   authors: { name: 'Warcraft 3 Custom Maps Community' },
   openGraph: {
     title: 'RKR Stats - Warcraft 3 Custom Map Statistics',
-    description:
-      'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
+    description,
     type: 'website',
     images: [{ url: '/rkr-icon-primary-x64.png' }],
     url: '/',
@@ -52,8 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    description:
-      'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
+    description,
     images: ['/rkr-icon-primary-x64.png'],
   },
   verification: {

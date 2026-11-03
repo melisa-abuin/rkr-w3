@@ -1,6 +1,7 @@
 import Footer from '@/components/molecules/footer'
 import Navbar from '@/components/molecules/navbar'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
+import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { cookies } from 'next/headers'
 import { routes } from '../constants'
@@ -8,8 +9,10 @@ import '../theme/dark.css'
 import '../theme/light.css'
 import './globals.css'
 
-export const metadata = {
-  title: 'Admin',
+export const metadata: Metadata = {
+  title: { default: 'RKR Admin', template: '%s | RKR Admin' },
+  description: 'Administration panel for RKR Stats.',
+  robots: { index: false, follow: false },
 }
 
 const inter = Inter({
