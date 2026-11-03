@@ -27,6 +27,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 12px;
   flex: 1;
   gap: 8px;
   width: 100%;
@@ -55,6 +57,11 @@
   .labelMobile {
     display: inline;
   }
+  .card > svg {
+    width: 35px;
+    height: 26px;
+  }
+
   /* TODO: fix */
   .card img {
     width: 40px;
@@ -66,6 +73,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .cardContent {
+    padding-bottom: 0;
   }
 }
 

@@ -2,6 +2,7 @@ import Bars from '@/components/atoms/bars'
 import Button from '@/components/atoms/button'
 import Image from '@/components/atoms/image'
 import Modal from '@/components/atoms/modal'
+import { Crown } from '@/components/icons/crown'
 import { LeagueScoreboardEntry } from '@/interfaces/league'
 import { getBreakdownEntries, skinToImagePath } from '@/utils'
 import { useState } from 'react'
@@ -33,6 +34,7 @@ export default function PodiumCard({ entry, position }: PodiumCardProps) {
         </div>
 
         <div className={styles.card}>
+          {position === 1 && <Crown height={48} width={48} />}
           <div className={styles.cardContent}>
             <Image
               circular
@@ -47,7 +49,6 @@ export default function PodiumCard({ entry, position }: PodiumCardProps) {
               }
             />
             <p className={styles.name}>{entry.player.name}</p>
-            <p className={styles.tag}>{entry.player.tag}</p>
             <p className={styles.score}>{entry.leagueScore} pts</p>
           </div>
           <Button
