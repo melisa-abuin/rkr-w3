@@ -19,6 +19,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://rkr-w3.vercel.app'),
   title: 'RKR Stats - Warcraft 3 Custom Map Statistics',
   description:
     'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
@@ -42,12 +43,8 @@ export const metadata: Metadata = {
     description:
       'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
     type: 'website',
-    images: [
-      {
-        url: 'https://rkr-w3.vercel.app/favicon.ico',
-      },
-    ],
-    url: 'https://rkr-w3.vercel.app',
+    images: [{ url: '/rkr-icon-primary-x64.png' }],
+    url: '/',
   },
   robots: {
     index: true,
@@ -57,7 +54,7 @@ export const metadata: Metadata = {
     card: 'summary',
     description:
       'The famous Warcraft 3 custom map where teamwork and agility guide your kitties through deadly obstacles.',
-    images: ['https://rkr-w3.vercel.app/favicon.ico'],
+    images: ['/rkr-icon-primary-x64.png'],
   },
   verification: {
     google: '4BStbCZAJGxWyjIjzPF8D807sohjzI8OtB7UwrDIz-o',
@@ -66,7 +63,6 @@ export const metadata: Metadata = {
     'page-topic': 'Game',
     'page-type': 'Software Download',
     audience: 'All',
-    sitemap: '/sitemap.xml',
   },
   icons: {
     icon: [
@@ -75,7 +71,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: 'https://rkr-w3.vercel.app',
+    canonical: './',
   },
 }
 

@@ -7,16 +7,14 @@ export const metadata: Metadata = {
     title: 'RKR Stats - Leaderboard',
     description: 'View the run kitty run statistics for all players.',
     type: 'website',
-    images: [
-      {
-        url: 'https://rkr-w3.vercel.app/favicon.ico',
-      },
-    ],
-    url: 'https://rkr-w3.vercel.app/leaderboard',
+    images: [{ url: '/rkr-icon-primary-x64.png' }],
+    url: '/leaderboard',
   },
   twitter: {
     card: 'summary',
+    title: 'RKR Stats - Leaderboard',
     description: 'View the run kitty run statistics for all players.',
+    images: ['/rkr-icon-primary-x64.png'],
   },
 }
 
