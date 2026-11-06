@@ -1,0 +1,13 @@
+.tab {
+  min-width: 80px;
+}
+
+.vertical {
+  min-width: 230px;
+}
+
+@media (max-width: 480px) {
+  .vertical {
+    min-width: 0;
+  }
+}

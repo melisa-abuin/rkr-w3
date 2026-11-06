@@ -24,6 +24,7 @@
 
   .podium:not(.compact) .slot {
     flex: 0 1 auto;
+    min-width: 180px;
     width: auto;
   }
 }

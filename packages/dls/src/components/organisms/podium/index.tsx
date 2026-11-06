@@ -1,19 +1,23 @@
 import PodiumCard from '@/components/molecules/podiumCard'
 import { LeaguePodiumEntry } from '@/interfaces/league'
+import LoaderPodium from './components/loader'
 import styles from './index.module.css'
 
-interface PodiumProps {
+type PodiumProps = {
   compact?: boolean
-  podium: LeaguePodiumEntry[]
   withBase?: boolean
-}
+} & (
+  | { loading: true; podium?: never }
+  | { loading?: false; podium: LeaguePodiumEntry[] }
+)
 
-export default function Podium({
-  compact = false,
-  podium,
-  withBase = false,
-}: PodiumProps) {
-  const [first, second, third] = podium
+export default function Podium(props: PodiumProps) {
+  const { compact = false, withBase = false } = props
+
+  if (props.loading)
+    return <LoaderPodium compact={compact} withBase={withBase} />
+
+  const [first, second, third] = props.podium
 
   return (
     <>
