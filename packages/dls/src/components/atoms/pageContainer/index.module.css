@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.backgroundTransparent {
+  background-color: transparent;
+}
+
 .innerContainer {
   align-items: center;
   display: flex;

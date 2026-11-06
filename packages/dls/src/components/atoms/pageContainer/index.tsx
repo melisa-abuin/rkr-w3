@@ -7,6 +7,7 @@ interface PageContainerProps {
   align?: 'center' | 'left'
   ariaLabelledby?: string
   as?: 'section' | 'div'
+  background?: 'primary' | 'transparent'
   children: ReactNode
   marginBottom?: number
   marginTop?: number
@@ -19,6 +20,7 @@ export default function PageContainer({
   align = 'left',
   ariaLabelledby,
   as = 'section',
+  background = 'primary',
   children,
   marginBottom = 0,
   marginTop = 0,
@@ -33,7 +35,9 @@ export default function PageContainer({
   return (
     <OuterElement
       aria-labelledby={ariaLabelledby}
-      className={styles.outerContainer}
+      className={`${styles.outerContainer} ${
+        background === 'transparent' ? styles.backgroundTransparent : ''
+      }`}
       style={{
         marginBottom: `${marginBottom}px`,
         marginTop: `${marginTop}px`,

@@ -1,44 +1,37 @@
 'use client'
 
 import PageContainer from '@/components/atoms/pageContainer'
-import RowCardsWithImage from '@/components/organisms/rowCardsWithImage'
-import {
-  LeagueScoreboardBreakdown,
-  LeagueScoreboardEntry,
-} from '@/interfaces/league'
-import { BattleTag, Skins } from '@/interfaces/player'
+import Tabs from '@/components/atoms/tabs'
+import Podium from '@/components/organisms/podium'
+import { useHallOfFame } from '@/hooks/useHallOfFame'
+import styles from './index.module.css'
 
-const hallOfFameColumns = [
-  { title: 'League score', key: 'leagueScore' },
-  { title: 'Wins', key: 'weightedWins', hideOnMobile: true },
-  { title: 'Save ratio', key: 'saveRatio', hideOnMobile: true },
-] as const
+export default function HallOfFame() {
+  const { seasons } = useHallOfFame()
 
-interface HallOfFameRow extends LeagueScoreboardBreakdown {
-  battleTag: BattleTag
-  leagueScore: number
-  skins: Skins
-}
-
-interface HallOfFameProps {
-  players: LeagueScoreboardEntry[]
-}
-
-export default function HallOfFame({ players }: HallOfFameProps) {
-  const data: HallOfFameRow[] = players.slice(0, 3).map((player) => ({
-    ...player.breakdown,
-    battleTag: player.player,
-    leagueScore: player.leagueScore,
-    skins: player.selectedData,
-  }))
+  if (!seasons.length) {
+    return null
+  }
 
   return (
-    <PageContainer title="Hall of Fame">
-      <RowCardsWithImage
-        columns={hallOfFameColumns}
-        data={data}
-        loading={false}
-      />
-    </PageContainer>
+    <div className={styles.wrapper}>
+      <PageContainer
+        align="center"
+        background="transparent"
+        title="Hall of Fame"
+      >
+        <Tabs
+          vertical
+          description="Winners of each season. The greatest players are listed here."
+          titles={seasons.map(({ seasonName }) => seasonName)}
+        >
+          {seasons.map(({ seasonId, rankings }) => (
+            <div key={seasonId} className={styles.season}>
+              <Podium compact withBase podium={rankings} />
+            </div>
+          ))}
+        </Tabs>
+      </PageContainer>
+    </div>
   )
 }

@@ -17,6 +17,7 @@ export const playerStatsFastestBestiesApi = `${apiUrl}/api/playerStats/fastestBe
 export const playerStatsKibbleLeaderboardApi = `${apiUrl}/api/playerStats/kibbleLeaderboard`
 export const playersTimeLeaderboardApi = `${apiUrl}/api/players/timeLeaderboard`
 export const seasonsApi = `${apiUrl}/api/league/seasons`
+export const seasonsPodiumApi = `${apiUrl}/api/League/seasons/podium`
 export const seasonPlayerApi = (seasonId: number, playerId: string) =>
   `${apiUrl}/api/League/seasons/${seasonId}/players/${playerId}`
 export const seasonScoreboardApi = (seasonId: number, page?: number) =>
