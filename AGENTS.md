@@ -31,6 +31,7 @@
 - Keep utilities pure and testable.
 - Reuse existing helpers from utils before creating new ones.
 - Keep styling co-located with component CSS modules.
+- Avoid defining JSX in variables inside a component (e.g. `const header = (<div/>)`); inline it in the return, or extract a separate component when it needs reuse.
 - Follow existing naming and folder patterns.
 
 ## API And Data Rules

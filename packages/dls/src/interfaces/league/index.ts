@@ -74,9 +74,31 @@ export interface LeagueScoreboardEntry {
 
 export type LeagueScoreboardApiResponse = LeagueScoreboardEntry[]
 
+export type LeaguePodiumEntry = Pick<
+  LeagueScoreboardEntry,
+  'leagueScore' | 'player'
+> &
+  Partial<Pick<LeagueScoreboardEntry, 'breakdown' | 'selectedData'>>
+
 export interface LeagueSeasonData {
   season: LeagueSeason
   leaderboard: LeagueLeaderboardApiResponse
   podium: LeagueScoreboardEntry[]
   scoreboard: LeagueScoreboardEntry[]
+}
+
+export interface LeagueSeasonPodiumRanking {
+  rank: number
+  player: BattleTag
+  leagueScore: number
+}
+
+export interface LeagueSeasonPodium {
+  seasonId: number
+  seasonName: string
+  rankings: LeagueSeasonPodiumRanking[]
+}
+
+export interface LeagueSeasonsPodiumApiResponse {
+  seasons: LeagueSeasonPodium[]
 }

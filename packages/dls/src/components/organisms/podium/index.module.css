@@ -1,5 +1,5 @@
 .podium {
-  --podium-base-height: 290px;
+  --podium-base-height: 200px;
   align-items: flex-end;
   display: flex;
   flex-direction: row;
@@ -13,16 +13,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 0 0 30%;
+  width: 30%;
 }
 
-@media (max-width: 480px) {
-  .podium {
-    --podium-base-height: 200px;
+@media (min-width: 481px) {
+  .podium:not(.compact) {
+    --podium-base-height: 290px;
   }
 
-  .slot {
-    flex: 0 0 30%;
-    width: 30%;
+  .podium:not(.compact) .slot {
+    flex: 0 1 auto;
+    min-width: 180px;
+    width: auto;
   }
 }
 
@@ -39,4 +42,35 @@
 .third {
   order: 3;
   height: calc(var(--podium-base-height) * 0.8);
+}
+
+.base {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.baseSquare {
+  height: 24px;
+  border-radius: 8px;
+}
+
+.topBaseSquare {
+  background: var(--color-primary);
+  width: 100%;
+}
+
+.bottomBaseSquare {
+  margin-top: -12px;
+  background: var(--background-tertiary);
+  width: 105%;
+}
+
+@media (max-width: 480px) {
+  .topBaseSquare,
+  .bottomBaseSquare {
+    width: 100vw;
+    border-radius: 0;
+  }
 }

@@ -17,55 +17,73 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 32px 16px 16px 16px;
+  gap: 4px;
+  padding: 28px 8px 12px 8px;
   text-align: center;
-  min-width: 180px;
   width: 100%;
+}
+
+.squareBottom {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .cardContent {
   align-items: center;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   flex: 1;
   gap: 8px;
   width: 100%;
 }
 
-.labelMobile {
+.labelDesktop {
   display: none;
 }
 
-@media (max-width: 480px) {
-  .card {
-    min-width: 0;
-    padding: 28px 8px 12px 8px;
-    gap: 4px;
+.card > svg {
+  width: 35px;
+  height: 26px;
+}
+
+/* TODO: fix */
+.card img {
+  width: 40px;
+  height: 40px;
+}
+
+@media (min-width: 481px) {
+  .container:not(.compact) .card {
+    gap: 0;
+    min-width: 180px;
+    padding: 32px 16px 16px 16px;
   }
 
-  .tag,
-  .score {
-    display: none;
+  .container:not(.compact) .cardContent {
+    padding-bottom: 12px;
   }
 
-  .labelDesktop {
-    display: none;
+  .container:not(.compact) .score {
+    display: block;
   }
 
-  .labelMobile {
+  .container:not(.compact) .labelDesktop {
     display: inline;
   }
-  /* TODO: fix */
-  .card img {
-    width: 40px;
-    height: 40px;
+
+  .container:not(.compact) .labelMobile {
+    display: none;
   }
 
-  .name {
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .container:not(.compact) .card > svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .container:not(.compact) .card img {
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -106,19 +124,9 @@
   width: 100%;
 }
 
-.tag {
-  color: var(--color-primary);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-regular);
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100%;
-}
-
 .score {
   color: var(--text-color-secondary);
+  display: none;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semi-bold);
   margin: 0;
