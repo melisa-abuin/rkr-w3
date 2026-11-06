@@ -7,11 +7,15 @@ interface TabsProps {
   children: React.ReactNode[]
   defaultIndex?: number | null
   titles: string[]
+  vertical?: boolean
+  description?: string
   onTabChange?: (newIndex: number) => void
 }
 
 export default function Tabs({
+  vertical = false,
   titles,
+  description,
   children,
   defaultIndex = null,
   onTabChange,
@@ -26,21 +30,29 @@ export default function Tabs({
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${vertical ? styles.vertical : ''}`}>
       <div className={styles.header}>
-        {titles.map((title, index) => (
-          <button
-            key={title}
-            className={`${styles.button} ${
-              index === activeIndex ? styles.buttonActive : ''
-            }`}
-            onClick={() => handleTabClick(index)}
-          >
-            {title}
-          </button>
-        ))}
+        {description && <p className={styles.description}>{description}</p>}
+
+        <div className={styles.tabList} role="tablist">
+          {titles.map((title, index) => (
+            <button
+              key={title}
+              aria-selected={index === activeIndex}
+              className={`${styles.button} ${
+                index === activeIndex ? styles.buttonActive : ''
+              }`}
+              role="tab"
+              onClick={() => handleTabClick(index)}
+            >
+              {title}
+            </button>
+          ))}
+        </div>
       </div>
-      <div className={styles.content}>{children[activeIndex]}</div>
+      <div className={styles.content} role="tabpanel">
+        {children[activeIndex]}
+      </div>
     </div>
   )
 }
