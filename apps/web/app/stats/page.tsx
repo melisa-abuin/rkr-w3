@@ -63,7 +63,7 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
 
     return {
       seasonOptions,
-      seasonScoreboard: scoreboardJson?.stats ?? [],
+      seasonScoreboard: scoreboardJson ?? [],
       selectedSeasonId: selected?.id.toString() ?? '',
       pages: scoreboardJson?.pages ?? 1,
     }

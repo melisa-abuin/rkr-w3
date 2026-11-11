@@ -9,9 +9,12 @@ import {
   LeagueScoreboardBreakdownRow,
 } from '@/utils'
 
-interface BreakdownTableProps {
+export interface BreakdownTableProps {
   currentPage: number
-  data: { pages: number; stats?: BreakdownApiEntry[] } | undefined
+  data:
+    | { pages: number; stats?: BreakdownApiEntry[] }
+    | BreakdownApiEntry[]
+    | undefined
   defaultSeasonValue?: string
   handlePageChange: (page: number) => void
   handlePlayerChange: (player: string) => void
@@ -38,8 +41,9 @@ export default function BreakdownTable({
   seasonOptions,
   sortKey,
 }: BreakdownTableProps) {
-  const formattedStats = data?.stats
-    ? formatBreakdownRows(data.stats)
+  const normalizedData = Array.isArray(data) ? { pages: 1, stats: data } : data
+  const formattedStats = normalizedData?.stats
+    ? formatBreakdownRows(normalizedData.stats)
     : undefined
   const validSortKey = (
     leagueScoreboardBreakdownColumns.some((c) => c.key === sortKey)
@@ -54,7 +58,7 @@ export default function BreakdownTable({
     <TableWithControls<LeagueScoreboardBreakdownRow>
       columns={leagueScoreboardBreakdownColumns}
       currentPage={currentPage}
-      data={{ pages: data?.pages ?? 1, stats: formattedStats }}
+      data={{ pages: normalizedData?.pages ?? 1, stats: formattedStats }}
       defaultSeasonOption={defaultSeasonOption}
       handlePageChange={handlePageChange}
       handlePlayerChange={handlePlayerChange}

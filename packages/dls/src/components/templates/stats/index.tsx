@@ -16,9 +16,10 @@ import { Difficulty } from '@/interfaces/difficulty'
 import { KibbleStats } from '@/interfaces/leaderboard'
 import { LeagueScoreboardBreakdown } from '@/interfaces/league'
 import { BattleTag, Player } from '@/interfaces/player'
-import { BreakdownApiEntry } from '@/utils/formatBreakdownRows'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import BreakdownTable from './components/breakdownTable'
+import BreakdownTable, {
+  BreakdownTableProps,
+} from './components/breakdownTable'
 import KibbleTable from './components/kibbleTable'
 import StatsTable from './components/statsTable'
 import TimesTable from './components/timesTable'
@@ -209,7 +210,7 @@ export default function Stats({
     player,
     sortKey: sortKey.key,
   }
-
+  console.log(activeData)
   return (
     <>
       <PageContainer>
@@ -252,10 +253,7 @@ export default function Stats({
           />
           <BreakdownTable
             {...commonTableProps}
-            data={
-              activeData as
-                { pages: number; stats?: BreakdownApiEntry[] } | undefined
-            }
+            data={activeData as BreakdownTableProps['data']}
             defaultSeasonValue={currentSeason || urlSeason}
             handleSeasonChange={({ value }) => {
               setHasInteracted(true)
