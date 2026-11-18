@@ -1,4 +1,5 @@
-.hideOnMobile {
+.hideOnMobile,
+.visible {
   display: contents;
 }
 

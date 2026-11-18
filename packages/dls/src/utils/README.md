@@ -27,6 +27,7 @@ Below is a list of all available utilities:
 - `formatKibbleRows`
 - `formatSaveDataFile`
 - `formatDateToLocale`
+- `formatFeaturedChallenges`
 - `formatKeyToWord`
 - `formatTournamentPlayers`
 - `getBreakdownEntries`

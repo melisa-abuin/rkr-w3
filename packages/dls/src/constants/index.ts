@@ -7,6 +7,7 @@ export const apiUrl = 'https://rkrapi-801419031002.us-east1.run.app'
 
 export const awardsStatsApi = `${apiUrl}/api/awards/stats`
 export const bestGameTimesTopApi = `${apiUrl}/api/bestGameTimes/top?count=20`
+export const featuredApi = `${apiUrl}/api/Players/featured`
 export const playersApi = `${apiUrl}/api/players`
 export const playersLeaderboardApi = `${apiUrl}/api/players/leaderboard`
 export const playersSummaryApi = `${apiUrl}/api/players/summary`

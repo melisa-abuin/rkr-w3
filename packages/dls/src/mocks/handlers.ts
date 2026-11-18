@@ -1,6 +1,7 @@
 import {
   awardsStatsApi,
   bestGameTimesTopApi,
+  featuredApi,
   playersApi,
   playersLeaderboardApi,
   playersSummaryApi,
@@ -14,6 +15,7 @@ import {
 import { http, HttpResponse } from 'msw'
 import { mockAwardsStats } from './data/awards'
 import { mockBestGameTimes } from './data/bestGameTimes'
+import { mockFeaturedApiResponse } from './data/featured'
 import { mockLeaderboard } from './data/leaderboard'
 import { mockApiData } from './data/players'
 import {
@@ -58,4 +60,7 @@ export const handlers = [
 
   // Player tops (used by playerDashboard Header)
   http.get(`${playersApi}/:battleTag/tops`, () => HttpResponse.json(mockTops)),
+
+  // Featured challenges
+  http.get(featuredApi, () => HttpResponse.json(mockFeaturedApiResponse)),
 ]
