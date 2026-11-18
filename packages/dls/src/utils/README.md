@@ -27,12 +27,12 @@ Below is a list of all available utilities:
 - `formatKibbleRows`
 - `formatSaveDataFile`
 - `formatDateToLocale`
-- `formatFeaturedContent`
 - `formatKeyToWord`
 - `formatTournamentPlayers`
 - `getBreakdownEntries`
 - `hexToRgba`
 - `formatGameAwards`
+- `skinToImagePath`
 
 ### 🔢 Sorting & Filtering
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { DiscordData } from '@/interfaces/discord'
-import FeaturedContent from './components/featuredContent'
 import HallOfFame from './components/hallOfFame'
 import HeroBanner from './components/heroBanner'
 import styles from './index.module.css'
@@ -15,7 +14,6 @@ export default function Home({ discordData }: HomeProps) {
     <div className={styles.bannerContainer}>
       <HeroBanner discordData={discordData} />
       <HallOfFame />
-      <FeaturedContent />
     </div>
   )
 }
