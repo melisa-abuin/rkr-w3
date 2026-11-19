@@ -52,7 +52,7 @@
 .linkButton {
   background: none;
   border: none;
-  color: var(--text-color-primary);
+  color: var(--text-color-white);
   cursor: pointer;
   font: inherit;
   padding: 0;
@@ -61,7 +61,7 @@
 }
 
 .linkButton:hover {
-  color: var(--text-hover-primary);
+  color: var(--text-hover-white);
 }
 
 .divider {

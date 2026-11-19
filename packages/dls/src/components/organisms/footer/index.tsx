@@ -30,7 +30,7 @@ export default function Footer() {
                   <li key={label}>
                     {href ? (
                       <Link
-                        color="primary"
+                        color="white"
                         href={href}
                         rel={external ? 'noopener noreferrer' : undefined}
                         target={external ? '_blank' : '_self'}
@@ -60,7 +60,7 @@ export default function Footer() {
         <p className={styles.legal}>
           Warcraft is ©2025 by{' '}
           <Link
-            color="primary"
+            color="white"
             href={blizzardLink}
             rel="noopener noreferrer"
             target="_blank"
@@ -71,7 +71,7 @@ export default function Footer() {
         <p className={styles.legal}>
           Uicons by{' '}
           <Link
-            color="primary"
+            color="white"
             href="https://www.flaticon.com/uicons"
             rel="noopener noreferrer"
             target="_blank"
