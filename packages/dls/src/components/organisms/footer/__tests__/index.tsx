@@ -1,10 +1,21 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import Footer from '..'
 import { blizzardLink, githubReadMeLink } from '@/constants'
+import { QueryProvider } from '@/hooks/useQuery'
+import { ToastProvider } from '@/hooks/useToast'
+
+const renderFooter = () =>
+  render(
+    <QueryProvider>
+      <ToastProvider>
+        <Footer />
+      </ToastProvider>
+    </QueryProvider>,
+  )
 
 describe('Footer', () => {
   it('renders the column titles', () => {
-    render(<Footer />)
+    renderFooter()
 
     ;['Community', 'Open source'].forEach((title) => {
       expect(screen.getByRole('heading', { name: title })).toBeInTheDocument()
@@ -12,7 +23,7 @@ describe('Footer', () => {
   })
 
   it('contains correct Blizzard link', () => {
-    render(<Footer />)
+    renderFooter()
 
     const blizzardAnchor = screen.getByText('Blizzard Entertainment')
     expect(blizzardAnchor).toBeInTheDocument()
@@ -20,7 +31,7 @@ describe('Footer', () => {
   })
 
   it('opens and closes the feedback modal', () => {
-    render(<Footer />)
+    renderFooter()
 
     expect(screen.queryByText('Leave us a review')).not.toBeInTheDocument()
 
@@ -32,7 +43,7 @@ describe('Footer', () => {
   })
 
   it('contains correct GitHub link', () => {
-    render(<Footer />)
+    renderFooter()
 
     const githubAnchor = screen.getByText('Contribute to the website')
     expect(githubAnchor).toBeInTheDocument()

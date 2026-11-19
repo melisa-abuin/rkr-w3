@@ -39,4 +39,22 @@ export async function register() {
   await pool.query(
     'CREATE INDEX IF NOT EXISTS page_views_visited_at_idx ON page_views (visited_at)',
   )
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS feedbacks (
+      id BIGSERIAL PRIMARY KEY,
+      type TEXT NOT NULL CHECK (type IN ('feedback', 'bug-report', 'feature-request')),
+      title TEXT NOT NULL,
+      description TEXT NOT NULL,
+      name TEXT NOT NULL DEFAULT 'Anonymous',
+      status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'resolved')),
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `)
+
+  await pool.query('ALTER TABLE feedbacks DROP COLUMN IF EXISTS visitor_id')
+
+  await pool.query(
+    'CREATE INDEX IF NOT EXISTS feedbacks_created_at_idx ON feedbacks (created_at)',
+  )
 }

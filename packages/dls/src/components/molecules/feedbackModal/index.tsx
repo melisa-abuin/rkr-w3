@@ -1,6 +1,8 @@
 'use client'
 
 import Modal from '@/components/atoms/modal'
+import { useSubmitFeedback } from '@/hooks/useSubmitFeedback'
+import { useToast } from '@/hooks/useToast'
 import FeedbackForm, { type FeedbackData } from './components/feedbackForm'
 
 interface FeedbackModalProps {
@@ -9,14 +11,28 @@ interface FeedbackModalProps {
 }
 
 export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
+  const { showToast } = useToast()
+  const { mutate, isPending } = useSubmitFeedback()
+
   const handleSubmit = (data: FeedbackData) => {
-    console.log(data)
-    onClose()
+    mutate(data, {
+      onSuccess: () => {
+        showToast('Thanks for your feedback!', 'success')
+        onClose()
+      },
+      onError: () => {
+        showToast('Could not send your feedback, please try again later.')
+      },
+    })
   }
 
   return (
     <Modal isOpen={isOpen} title="Leave us a review" onClose={onClose}>
-      <FeedbackForm onCancel={onClose} onSubmit={handleSubmit} />
+      <FeedbackForm
+        isSubmitting={isPending}
+        onCancel={onClose}
+        onSubmit={handleSubmit}
+      />
     </Modal>
   )
 }
