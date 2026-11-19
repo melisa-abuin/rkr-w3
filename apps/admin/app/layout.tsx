@@ -1,5 +1,6 @@
 import Footer from '@/components/organisms/footer'
 import Navbar from '@/components/molecules/navbar'
+import { QueryProvider } from '@rkr/dls/hooks/useQuery'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -32,11 +33,13 @@ export default async function RootLayout({
   return (
     <html dir="ltr" lang="en">
       <body className={inter.variable}>
-        <ToastProvider>
-          {isLoggedIn && <Navbar routes={routes} withAnnouncement={false} />}
-          {children}
-          <Footer />
-        </ToastProvider>
+        <QueryProvider>
+          <ToastProvider>
+            {isLoggedIn && <Navbar routes={routes} withAnnouncement={false} />}
+            {children}
+            <Footer />
+          </ToastProvider>
+        </QueryProvider>
       </body>
     </html>
   )

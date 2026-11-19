@@ -25,7 +25,7 @@ export async function postFeedback(
   }
 
   await pool.query(
-    'INSERT INTO feedbacks (type, title, description, name) VALUES ($1, $2, $3, $4)',
+    'INSERT INTO feedback (type, title, description, name) VALUES ($1, $2, $3, $4)',
     [
       type,
       title.slice(0, maxFeedbackTitleLength),
