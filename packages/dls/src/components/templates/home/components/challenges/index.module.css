@@ -1,10 +1,10 @@
 .wrapper {
-  padding: 24px 0 64px;
+  padding: 24px 0;
   width: 100%;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 601px) {
   .wrapper {
-    padding-bottom: 24px;
+    padding: 48px;
   }
 }

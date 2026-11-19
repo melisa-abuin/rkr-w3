@@ -3,14 +3,12 @@ import Footer from '..'
 import { blizzardLink, githubReadMeLink } from '@/constants'
 
 describe('Footer', () => {
-  it('renders footer text correctly', () => {
+  it('renders the column titles', () => {
     render(<Footer />)
 
-    expect(
-      screen.getByText(
-        'This is a non-profit project developed and maintained by Aches',
-      ),
-    ).toBeInTheDocument()
+    ;['Community', 'Open source'].forEach((title) => {
+      expect(screen.getByRole('heading', { name: title })).toBeInTheDocument()
+    })
   })
 
   it('contains correct Blizzard link', () => {
@@ -24,7 +22,7 @@ describe('Footer', () => {
   it('contains correct GitHub link', () => {
     render(<Footer />)
 
-    const githubAnchor = screen.getByText('how to contribute')
+    const githubAnchor = screen.getByText('Contribute to the website')
     expect(githubAnchor).toBeInTheDocument()
     expect(githubAnchor).toHaveAttribute('href', githubReadMeLink)
   })

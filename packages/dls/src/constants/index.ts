@@ -26,6 +26,9 @@ export const tournamentsBaseApi = `${apiUrl}/api/tournaments`
 export const tournamentsFullApi = `${apiUrl}/api/tournaments/full`
 
 export const blizzardLink = 'https://www.blizzard.com/'
+export const wc3MapsLink = 'https://wc3maps.com/maps?query=run%20kitty%20run'
+export const gameRepositoryLink =
+  'https://github.com/Chasinggoodgrades/RunKittyRun'
 
 export const defaultScoreboardFilter = 'stats'
 
