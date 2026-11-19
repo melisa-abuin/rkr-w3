@@ -9,7 +9,7 @@ export interface Feedback {
 }
 
 export interface FeedbackPage {
-  feedbacks: Feedback[]
+  feedback: Feedback[]
   page: number
   totalPages: number
 }

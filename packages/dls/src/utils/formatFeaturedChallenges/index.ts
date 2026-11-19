@@ -1,7 +1,5 @@
 import { FeaturedApiResponse, FeaturedItem } from '@/interfaces/featured'
-
-const awardKeyToImagePath = (awardKey: string): string =>
-  `/awards/${awardKey[0].toLowerCase()}${awardKey.slice(1)}.png`
+import { skinToImagePath } from '../skinToImagePath'
 
 /**
  * Maps the featured endpoint challenges into items ready to be displayed.
@@ -13,7 +11,7 @@ export const formatFeaturedChallenges = (
 ): FeaturedItem[] =>
   data.challenges.map(({ awardName, awardKey, completionPercentage }) => ({
     imageFallbackSrc: '/awards/fallback.png',
-    imageSrc: awardKeyToImagePath(awardKey),
+    imageSrc: skinToImagePath(awardKey),
     subtitle: `${completionPercentage}% of players`,
     title: awardName,
   }))

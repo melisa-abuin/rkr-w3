@@ -28,7 +28,7 @@
   justify-content: space-between;
   padding: 8px;
   width: 100%;
-  font-size: 13.3333px; /* matches the native input font size */
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
   min-width: 150px;
   position: relative;
@@ -67,7 +67,7 @@
 .option {
   color: var(--text-color-primary);
   cursor: pointer;
-  font-size: 13.3333px;
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
   padding: 8px;
 }

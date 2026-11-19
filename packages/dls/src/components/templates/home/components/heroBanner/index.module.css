@@ -135,7 +135,7 @@
   position: relative;
 }
 
-@media (max-width: 900px) and (min-width: 601px) {
+@media (max-width: 900px) and (min-width: 600px) {
   .iconSection {
     padding-right: 24px;
   }

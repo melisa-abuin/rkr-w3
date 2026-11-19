@@ -64,4 +64,4 @@ export const feedbackTypes = ['feedback', 'bug-report', 'feature-request']
 export const maxFeedbackTitleLength = 100
 export const maxFeedbackDescriptionLength = 2000
 export const maxFeedbackNameLength = 50
-export const maxFeedbacksPerDay = 3
+export const maxFeedbackPerDay = 3

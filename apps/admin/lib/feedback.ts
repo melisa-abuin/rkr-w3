@@ -34,7 +34,7 @@ export async function getFeedbackPage(
       [feedbackPageSize, (page - 1) * feedbackPageSize],
     )
 
-    const feedbacks: Feedback[] = rows.map((row) => ({
+    const feedback: Feedback[] = rows.map((row) => ({
       id: Number(row.id),
       type: row.type,
       title: row.title,
@@ -44,9 +44,9 @@ export async function getFeedbackPage(
       createdAt: formatDate(row.created_at),
     }))
 
-    return { feedbacks, page, totalPages }
+    return { feedback, page, totalPages }
   } catch (e) {
     logError(e)
-    return { feedbacks: [], page: 1, totalPages: 1 }
+    return { feedback: [], page: 1, totalPages: 1 }
   }
 }

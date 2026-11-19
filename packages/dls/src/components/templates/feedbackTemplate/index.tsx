@@ -1,24 +1,32 @@
+'use client'
+
 import PageContainer from '@/components/atoms/pageContainer'
 import PageHeader from '@/components/atoms/pageHeader'
-import Table from '@/components/molecules/table'
+import TableWithControls from '@/components/organisms/tableWithControls'
 import type { Feedback } from '@/interfaces/feedback'
-import FeedbackPagination from './components/feedbackPagination'
+import { usePathname, useRouter } from 'next/navigation'
 
 interface FeedbackTemplateProps {
   columns: Array<{ title: string; key: keyof Feedback }>
-  feedbacks: Feedback[]
+  feedback: Feedback[]
   page: number
-  pageSize: number
   totalPages: number
 }
 
 export default function FeedbackTemplate({
   columns,
-  feedbacks,
+  feedback,
   page,
-  pageSize,
   totalPages,
 }: FeedbackTemplateProps) {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handlePageChange = (nextPage: number) =>
+    router.replace(nextPage === 1 ? pathname : `${pathname}?page=${nextPage}`, {
+      scroll: false,
+    })
+
   return (
     <PageContainer>
       <PageHeader
@@ -26,13 +34,13 @@ export default function FeedbackTemplate({
         title="Feedback"
       />
       <PageContainer marginBottom={24} withPadding={false}>
-        <Table<Feedback>
+        <TableWithControls<Feedback>
           columns={columns}
-          data={feedbacks}
-          pageSize={pageSize}
+          currentPage={page}
+          data={{ pages: totalPages, stats: feedback }}
+          handlePageChange={handlePageChange}
           title="Latest feedback"
         />
-        <FeedbackPagination currentPage={page} totalPages={totalPages} />
       </PageContainer>
     </PageContainer>
   )

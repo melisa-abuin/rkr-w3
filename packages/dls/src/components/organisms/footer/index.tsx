@@ -2,53 +2,13 @@
 
 import Link from '@/components/atoms/link'
 import FeedbackModal from '@/components/molecules/feedbackModal'
-import {
-  blizzardLink,
-  discordJoinLink,
-  gameRepositoryLink,
-  githubReadMeLink,
-  wc3MapsLink,
-} from '@/constants'
+import { blizzardLink, footerColumns } from '@/constants'
 import Image from 'next/image'
 import { useState } from 'react'
 import styles from './index.module.css'
 
-interface FooterLink {
-  external?: boolean
-  href?: string
-  label: string
-  onClick?: () => void
-}
-
-interface FooterColumn {
-  links: FooterLink[]
-  title: string
-}
-
 export default function Footer() {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
-
-  const columns: FooterColumn[] = [
-    {
-      title: 'Community',
-      links: [
-        { external: true, href: discordJoinLink, label: 'Join our Discord' },
-        { external: true, href: wc3MapsLink, label: 'Find the map on WC3Maps' },
-        { label: 'Feedback', onClick: () => setIsFeedbackOpen(true) },
-      ],
-    },
-    {
-      title: 'Open source',
-      links: [
-        { external: true, href: gameRepositoryLink, label: 'Game repository' },
-        {
-          external: true,
-          href: githubReadMeLink,
-          label: 'Contribute to the website',
-        },
-      ],
-    },
-  ]
 
   return (
     <footer className={styles.footerContainer}>
@@ -62,11 +22,11 @@ export default function Footer() {
           width={48}
         />
         <div className={styles.columns}>
-          {columns.map(({ links, title }) => (
+          {footerColumns.map(({ links, title }) => (
             <nav key={title} aria-label={title} className={styles.column}>
               <h3 className={styles.columnTitle}>{title}</h3>
               <ul className={styles.list}>
-                {links.map(({ external, href, label, onClick }) => (
+                {links.map(({ action, external, href, label }) => (
                   <li key={label}>
                     {href ? (
                       <Link
@@ -81,7 +41,11 @@ export default function Footer() {
                       <button
                         className={styles.linkButton}
                         type="button"
-                        onClick={onClick}
+                        onClick={
+                          action === 'openFeedback'
+                            ? () => setIsFeedbackOpen(true)
+                            : undefined
+                        }
                       >
                         {label}
                       </button>

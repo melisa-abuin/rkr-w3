@@ -2,7 +2,7 @@ import { requireUser } from '@/lib/auth'
 import { getFeedbackPage } from '@/lib/feedback'
 import FeedbackTemplate from '@rkr/dls/components/templates/feedbackTemplate'
 import type { Metadata } from 'next'
-import { feedbackColumns, feedbackPageSize } from '../../constants'
+import { feedbackColumns } from '../../constants'
 
 export const metadata: Metadata = {
   title: 'Feedback',
@@ -23,15 +23,14 @@ export default async function FeedbackPage({
     Math.floor(Number(Array.isArray(pageParam) ? pageParam[0] : pageParam)) ||
       1,
   )
-  const { feedbacks, page, totalPages } = await getFeedbackPage(requestedPage)
+  const { feedback, page, totalPages } = await getFeedbackPage(requestedPage)
 
   return (
     <main>
       <FeedbackTemplate
         columns={feedbackColumns}
-        feedbacks={feedbacks}
+        feedback={feedback}
         page={page}
-        pageSize={feedbackPageSize}
         totalPages={totalPages}
       />
     </main>

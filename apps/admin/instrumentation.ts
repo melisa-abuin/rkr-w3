@@ -41,16 +41,6 @@ export async function register() {
   )
 
   await pool.query(`
-    DO $$
-    BEGIN
-      IF to_regclass('feedbacks') IS NOT NULL AND to_regclass('feedback') IS NULL THEN
-        ALTER TABLE feedbacks RENAME TO feedback;
-        ALTER INDEX IF EXISTS feedbacks_created_at_idx RENAME TO feedback_created_at_idx;
-      END IF;
-    END $$
-  `)
-
-  await pool.query(`
     CREATE TABLE IF NOT EXISTS feedback (
       id BIGSERIAL PRIMARY KEY,
       type TEXT NOT NULL CHECK (type IN ('feedback', 'bug-report', 'feature-request')),

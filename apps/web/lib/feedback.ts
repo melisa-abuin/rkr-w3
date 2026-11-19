@@ -1,7 +1,7 @@
 import {
   maxFeedbackDescriptionLength,
   maxFeedbackNameLength,
-  maxFeedbacksPerDay,
+  maxFeedbackPerDay,
   maxFeedbackTitleLength,
 } from '../constants'
 import pool from './db'
@@ -20,7 +20,7 @@ export async function postFeedback(
   { description, name, title, type }: FeedbackInput,
   ip: string,
 ): Promise<boolean> {
-  if (!consumeRateLimit(hashIp(ip.toLowerCase()), maxFeedbacksPerDay)) {
+  if (!consumeRateLimit(hashIp(ip.toLowerCase()), maxFeedbackPerDay)) {
     return false
   }
 

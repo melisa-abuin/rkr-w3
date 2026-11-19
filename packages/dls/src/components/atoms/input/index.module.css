@@ -33,6 +33,7 @@
   border: none;
   color: var(--text-color-primary);
   flex: 1;
+  font-size: var(--font-size-xs);
   padding: 0;
   padding-left: 4px;
 }

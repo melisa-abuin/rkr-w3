@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-@media (min-width: 601px) {
+@media (min-width: 600px) {
   .wrapper {
     padding: 48px;
   }

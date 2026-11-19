@@ -210,7 +210,7 @@ export default function Stats({
     player,
     sortKey: sortKey.key,
   }
-  console.log(activeData)
+
   return (
     <>
       <PageContainer>

@@ -9,16 +9,18 @@ interface VerticalCardDisplayProps {
   withDivider?: boolean
 }
 
+interface VerticalCardContentProps {
+  loading?: false
+  imageSrc: string
+  imageFallbackSrc: string
+  label: string
+  children?: ReactNode
+  circularImage?: boolean
+}
+
 type VerticalCardProps =
   | ({ loading: true } & VerticalCardDisplayProps)
-  | ({
-      loading?: false
-      imageSrc: string
-      imageFallbackSrc: string
-      label: string
-      children?: ReactNode
-      circularImage?: boolean
-    } & VerticalCardDisplayProps)
+  | (VerticalCardContentProps & VerticalCardDisplayProps)
 
 export default function VerticalCard(props: VerticalCardProps) {
   if (props.loading) {
