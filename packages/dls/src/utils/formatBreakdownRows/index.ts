@@ -14,9 +14,15 @@ export type LeagueScoreboardBreakdownRow = LeagueScoreboardBreakdown & {
  * Flattens league scoreboard API entries into table-ready row objects.
  *
  * @param stats - Raw API entries with nested player and breakdown fields.
- * @returns Flat rows with battleTag and all breakdown fields at the top level.
+ * @returns Flat rows with battleTag and all breakdown fields at the top level,
+ * or an empty array when stats is not an array.
  */
 export const formatBreakdownRows = (
   stats: BreakdownApiEntry[],
 ): LeagueScoreboardBreakdownRow[] =>
-  stats.map(({ player, breakdown }) => ({ battleTag: player, ...breakdown }))
+  Array.isArray(stats)
+    ? stats.map(({ player, breakdown }) => ({
+        battleTag: player,
+        ...breakdown,
+      }))
+    : []

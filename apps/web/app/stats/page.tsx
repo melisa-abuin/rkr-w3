@@ -26,9 +26,9 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
       return { seasonOptions: [], seasonScoreboard: [], selectedSeasonId: '' }
 
     const seasons = (await res.json()) as LeagueSeasonsApiResponse
-    const seasonParam = Array.isArray(params.season)
-      ? params.season[0]
-      : params.season
+    const seasonParam = Array.isArray(params.seasonId)
+      ? params.seasonId[0]
+      : params.seasonId
 
     const selected = seasonParam
       ? (seasons.find((s) => s.id.toString() === seasonParam) ?? seasons[0])
@@ -63,7 +63,7 @@ async function fetchPageData(filter: string | undefined, params: SearchParams) {
 
     return {
       seasonOptions,
-      seasonScoreboard: scoreboardJson ?? [],
+      seasonScoreboard: scoreboardJson?.stats ?? [],
       selectedSeasonId: selected?.id.toString() ?? '',
       pages: scoreboardJson?.pages ?? 1,
     }

@@ -15,7 +15,7 @@ export const useStatsSearchParams = (): StatsSearchParams => {
   const searchParams = useSearchParams()
 
   return {
-    initialSeason: searchParams?.get('season') || '',
+    initialSeason: searchParams?.get('seasonId') || '',
     initialPage: parseInt(searchParams?.get('page') || '1', 10),
     initialApi: searchParams?.get('filter') || 'stats',
     initialFilter: (searchParams?.get('difficulty') as Difficulty) || undefined,
