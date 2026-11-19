@@ -1,4 +1,4 @@
-import Footer from '@/components/molecules/footer'
+import Footer from '@/components/organisms/footer'
 import Navbar from '@/components/molecules/navbar'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'
 import type { Metadata } from 'next'

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from '@/components/atoms/link'
+import FeedbackModal from '@/components/molecules/feedbackModal'
 import {
   blizzardLink,
   discordJoinLink,
@@ -9,12 +10,14 @@ import {
   wc3MapsLink,
 } from '@/constants'
 import Image from 'next/image'
+import { useState } from 'react'
 import styles from './index.module.css'
 
 interface FooterLink {
   external?: boolean
-  href: string
+  href?: string
   label: string
+  onClick?: () => void
 }
 
 interface FooterColumn {
@@ -22,29 +25,31 @@ interface FooterColumn {
   title: string
 }
 
-const columns: FooterColumn[] = [
-  {
-    title: 'Community',
-    links: [
-      { external: true, href: discordJoinLink, label: 'Join our Discord' },
-      { external: true, href: wc3MapsLink, label: 'Find the map on WC3Maps' },
-      { href: '#', label: 'Feedback' },
-    ],
-  },
-  {
-    title: 'Open source',
-    links: [
-      { external: true, href: gameRepositoryLink, label: 'Game repository' },
-      {
-        external: true,
-        href: githubReadMeLink,
-        label: 'Contribute to the website',
-      },
-    ],
-  },
-]
-
 export default function Footer() {
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
+
+  const columns: FooterColumn[] = [
+    {
+      title: 'Community',
+      links: [
+        { external: true, href: discordJoinLink, label: 'Join our Discord' },
+        { external: true, href: wc3MapsLink, label: 'Find the map on WC3Maps' },
+        { label: 'Feedback', onClick: () => setIsFeedbackOpen(true) },
+      ],
+    },
+    {
+      title: 'Open source',
+      links: [
+        { external: true, href: gameRepositoryLink, label: 'Game repository' },
+        {
+          external: true,
+          href: githubReadMeLink,
+          label: 'Contribute to the website',
+        },
+      ],
+    },
+  ]
+
   return (
     <footer className={styles.footerContainer}>
       <div className={styles.content}>
@@ -61,16 +66,26 @@ export default function Footer() {
             <nav key={title} aria-label={title} className={styles.column}>
               <h3 className={styles.columnTitle}>{title}</h3>
               <ul className={styles.list}>
-                {links.map(({ external, href, label }) => (
+                {links.map(({ external, href, label, onClick }) => (
                   <li key={label}>
-                    <Link
-                      color="primary"
-                      href={href}
-                      rel={external ? 'noopener noreferrer' : undefined}
-                      target={external ? '_blank' : '_self'}
-                    >
-                      {label}
-                    </Link>
+                    {href ? (
+                      <Link
+                        color="primary"
+                        href={href}
+                        rel={external ? 'noopener noreferrer' : undefined}
+                        target={external ? '_blank' : '_self'}
+                      >
+                        {label}
+                      </Link>
+                    ) : (
+                      <button
+                        className={styles.linkButton}
+                        type="button"
+                        onClick={onClick}
+                      >
+                        {label}
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -101,6 +116,10 @@ export default function Footer() {
           </Link>
         </p>
       </div>
+      <FeedbackModal
+        isOpen={isFeedbackOpen}
+        onClose={() => setIsFeedbackOpen(false)}
+      />
     </footer>
   )
 }

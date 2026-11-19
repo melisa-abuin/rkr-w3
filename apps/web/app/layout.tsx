@@ -1,4 +1,4 @@
-import Footer from '@rkr/dls/components/molecules/footer'
+import Footer from '@rkr/dls/components/organisms/footer'
 import Navbar from '@rkr/dls/components/molecules/navbar'
 import { QueryProvider } from '@rkr/dls/hooks/useQuery'
 import { ToastProvider } from '@rkr/dls/hooks/useToast'

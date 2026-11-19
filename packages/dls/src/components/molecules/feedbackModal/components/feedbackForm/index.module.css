@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 320px;
+  width: 100%;
+}
+
+.label {
+  color: var(--text-color-primary);
+  font-size: var(--font-size-xs-sm);
+}
+
+.buttonGroup {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+  max-width: 300px;
+  width: 100%;
+}
+
+.buttonGroup > button {
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .form {
+    min-width: 0;
+  }
+
+  .buttonGroup {
+    max-width: unset;
+  }
+}
