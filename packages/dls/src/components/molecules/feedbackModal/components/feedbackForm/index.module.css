@@ -11,6 +11,29 @@
   font-size: var(--font-size-xs-sm);
 }
 
+.nameField {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.disclaimer {
+  align-items: center;
+  color: var(--text-color-secondary);
+  display: flex;
+  font-size: var(--font-size-xs);
+  gap: 8px;
+  max-width: 600px;
+}
+
+.disclaimer svg {
+  flex-shrink: 0;
+}
+
+.disclaimer p {
+  margin: 0;
+}
+
 .buttonGroup {
   align-self: flex-end;
   display: flex;

@@ -4,6 +4,7 @@ import Button from '@/components/atoms/button'
 import Dropdown, { type DropdownOption } from '@/components/atoms/dropdown'
 import Input from '@/components/atoms/input'
 import Textarea from '@/components/atoms/textarea'
+import { Information } from '@/components/icons/information'
 import React, { useState } from 'react'
 import styles from './index.module.css'
 
@@ -80,15 +81,25 @@ export default function FeedbackForm({
         onChange={(e) => setDescription(e.target.value)}
       />
 
-      <Input
-        id="feedback-name"
-        label="Your name"
-        maxLength={50}
-        name="name"
-        placeholder="Anonymous"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+      <div className={styles.nameField}>
+        <Input
+          id="feedback-name"
+          label="Your name"
+          maxLength={50}
+          name="name"
+          placeholder="Anonymous"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <div className={styles.disclaimer}>
+          <Information fill="currentColor" height={16} width={16} />
+          <p>
+            Feedback is submitted anonymously unless you voluntarily provide
+            your name. In that case, the only personal data we retain is the
+            name you enter
+          </p>
+        </div>
+      </div>
 
       <div className={styles.buttonGroup}>
         <Button type="button" variant="outline" onClick={onCancel}>
