@@ -1,4 +1,5 @@
 import { Difficulty } from '@/interfaces/difficulty'
+import { FooterColumn } from '@/interfaces/footer'
 import { BestGameTimeFormatted } from '@/interfaces/game'
 import { FastestBestiesData, Kibbles, Player, Tops } from '@/interfaces/player'
 import { leagueScoreboardBreakdownColumns } from './tableColumns'
@@ -26,6 +27,9 @@ export const tournamentsBaseApi = `${apiUrl}/api/tournaments`
 export const tournamentsFullApi = `${apiUrl}/api/tournaments/full`
 
 export const blizzardLink = 'https://www.blizzard.com/'
+export const wc3MapsLink = 'https://wc3maps.com/maps?query=run%20kitty%20run'
+export const gameRepositoryLink =
+  'https://github.com/Chasinggoodgrades/RunKittyRun'
 
 export const defaultScoreboardFilter = 'stats'
 
@@ -107,6 +111,28 @@ export const discordJoinLink = 'https://discord.com/invite/GSu6zkNvx5'
 
 export const githubReadMeLink =
   'https://github.com/melisa-abuin/rkr-w3/blob/main/README.md'
+
+export const footerColumns: FooterColumn[] = [
+  {
+    title: 'Community',
+    links: [
+      { external: true, href: discordJoinLink, label: 'Join our Discord' },
+      { external: true, href: wc3MapsLink, label: 'Find the map on WC3Maps' },
+      { action: 'openFeedback', label: 'Feedback' },
+    ],
+  },
+  {
+    title: 'Open source',
+    links: [
+      { external: true, href: gameRepositoryLink, label: 'Game repository' },
+      {
+        external: true,
+        href: githubReadMeLink,
+        label: 'Contribute to the website',
+      },
+    ],
+  },
+]
 
 export const kibbleLeaderboardColumns = [
   {

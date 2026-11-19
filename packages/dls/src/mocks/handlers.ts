@@ -61,6 +61,6 @@ export const handlers = [
   // Player tops (used by playerDashboard Header)
   http.get(`${playersApi}/:battleTag/tops`, () => HttpResponse.json(mockTops)),
 
-  // Featured content
+  // Featured challenges
   http.get(featuredApi, () => HttpResponse.json(mockFeaturedApiResponse)),
 ]

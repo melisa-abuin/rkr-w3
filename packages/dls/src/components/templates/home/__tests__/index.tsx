@@ -43,6 +43,16 @@ describe('Home', () => {
     expect(screen.getByText('5')).toBeInTheDocument()
   })
 
+  it('renders the featured challenges once fetched', async () => {
+    renderWithClient(<Home discordData={discordDataMock} />)
+
+    expect(
+      await screen.findByRole('heading', { name: 'Challenges' }),
+    ).toBeInTheDocument()
+    expect(await screen.findByText('Divine Windwalk')).toBeInTheDocument()
+    expect(screen.getByText('8.97% of players')).toBeInTheDocument()
+  })
+
   it('handles API errors gracefully', () => {
     const discordDataMockError = {
       data: null,

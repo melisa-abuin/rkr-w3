@@ -11,12 +11,14 @@ export interface DropdownOption {
 }
 
 interface DropdownProps {
+  label?: string
   options: DropdownOption[]
   defaultOption?: DropdownOption | null
   onSelect?: (option: DropdownOption) => void
 }
 
 export default function Dropdown({
+  label,
   options,
   defaultOption = null,
   onSelect,
@@ -40,37 +42,44 @@ export default function Dropdown({
   }
 
   return (
-    <div ref={ref} className={styles.wrapper} onBlur={handleBlur}>
-      <button
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        className={styles.trigger}
-        type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
-      >
-        <span>{selected?.label ?? 'Select…'}</span>
-        <span className={isOpen ? styles.chevronUp : styles.chevronDown}>
-          <Chevron fill="currentColor" height={12} width={12} />
-        </span>
-      </button>
-      {isOpen && (
-        <ul className={styles.list} role="listbox">
-          {options.map((option) => (
-            <li
-              key={option.value}
-              aria-selected={option.value === selected?.value}
-              className={`${styles.option} ${
-                option.value === selected?.value ? styles.optionSelected : ''
-              }`}
-              role="option"
-              tabIndex={-1}
-              onClick={() => handleSelect(option)}
-            >
-              {option.label}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div
+      ref={ref}
+      className={label ? styles.container : undefined}
+      onBlur={handleBlur}
+    >
+      {label && <label className={styles.label}>{label}</label>}
+      <div className={styles.wrapper}>
+        <button
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          className={styles.trigger}
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+        >
+          <span>{selected?.label ?? 'Select…'}</span>
+          <span className={isOpen ? styles.chevronUp : styles.chevronDown}>
+            <Chevron fill="currentColor" height={12} width={12} />
+          </span>
+        </button>
+        {isOpen && (
+          <ul className={styles.list} role="listbox">
+            {options.map((option) => (
+              <li
+                key={option.value}
+                aria-selected={option.value === selected?.value}
+                className={`${styles.option} ${
+                  option.value === selected?.value ? styles.optionSelected : ''
+                }`}
+                role="option"
+                tabIndex={-1}
+                onClick={() => handleSelect(option)}
+              >
+                {option.label}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }

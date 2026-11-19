@@ -59,3 +59,9 @@ export const routes = {
 } as const
 
 export const maxRouteLength = 255
+
+export const feedbackTypes = ['feedback', 'bug-report', 'feature-request']
+export const maxFeedbackTitleLength = 100
+export const maxFeedbackDescriptionLength = 2000
+export const maxFeedbackNameLength = 50
+export const maxFeedbackPerDay = 3

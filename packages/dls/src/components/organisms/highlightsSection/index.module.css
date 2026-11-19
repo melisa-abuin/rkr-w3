@@ -1,0 +1,19 @@
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 24px;
+  width: 100%;
+}
+
+.subtitle {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-xs);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

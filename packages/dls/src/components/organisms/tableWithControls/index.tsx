@@ -22,14 +22,14 @@ interface TableWithControlsProps<T> {
   difficulty?: Difficulty
   handleDifficultyChange?: (difficulty?: Difficulty) => void
   handlePageChange: (page: number) => void
-  handlePlayerChange: (player: string) => void
+  handlePlayerChange?: (player: string) => void
   handleSeasonChange?: (option: DropdownOption) => void
-  handleSortChange: (columnKey: keyof T) => void
+  handleSortChange?: (columnKey: keyof T) => void
   headerLink?: ReactNode
-  isFetching: boolean
+  isFetching?: boolean
   player?: string
   seasonOptions?: DropdownOption[]
-  sortKey: keyof T
+  sortKey?: keyof T
   title?: string
 }
 
@@ -45,12 +45,16 @@ export default function TableWithControls<T>({
   handleSeasonChange,
   handleSortChange,
   headerLink,
-  isFetching,
+  isFetching = false,
   player,
   seasonOptions,
   sortKey,
   title,
 }: TableWithControlsProps<T>) {
+  const hasSeasonFilter = !!handleSeasonChange && !!seasonOptions
+  const hasFilters =
+    !!handleDifficultyChange || hasSeasonFilter || !!handlePlayerChange
+
   return (
     <>
       <Table
@@ -58,30 +62,34 @@ export default function TableWithControls<T>({
         data={data?.stats}
         difficultyFilter={difficulty}
         filters={
-          <div className={styles.filtersRow}>
-            {handleDifficultyChange && (
-              <Badges
-                options={difficultyNames}
-                selected={difficulty}
-                onClick={handleDifficultyChange}
-              />
-            )}
-            {handleSeasonChange && seasonOptions && (
-              <Dropdown
-                defaultOption={defaultSeasonOption}
-                options={seasonOptions}
-                onSelect={handleSeasonChange}
-              />
-            )}
-            <div className={styles.playerFinder}>
-              <PlayerFinder
-                defaultValue={player || ''}
-                onChange={handlePlayerChange}
-                onClear={() => handlePlayerChange('')}
-                onPlayerSelect={() => {}}
-              />
+          hasFilters && (
+            <div className={styles.filtersRow}>
+              {handleDifficultyChange && (
+                <Badges
+                  options={difficultyNames}
+                  selected={difficulty}
+                  onClick={handleDifficultyChange}
+                />
+              )}
+              {handleSeasonChange && seasonOptions && (
+                <Dropdown
+                  defaultOption={defaultSeasonOption}
+                  options={seasonOptions}
+                  onSelect={handleSeasonChange}
+                />
+              )}
+              {handlePlayerChange && (
+                <div className={styles.playerFinder}>
+                  <PlayerFinder
+                    defaultValue={player || ''}
+                    onChange={handlePlayerChange}
+                    onClear={() => handlePlayerChange('')}
+                    onPlayerSelect={() => {}}
+                  />
+                </div>
+              )}
             </div>
-          </div>
+          )
         }
         headerLink={headerLink}
         highlightedColumn={sortKey}

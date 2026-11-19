@@ -1,21 +1,8 @@
-import type { ReactNode } from 'react'
-
 export interface FeaturedItem {
-  imageSrc: string
   imageFallbackSrc: string
-  label: string
-  children?: ReactNode
-}
-
-export interface FeaturedContent {
-  players: FeaturedItem[]
-  challenges: FeaturedItem[]
-}
-
-export interface FeaturedApiPlayer {
-  battleTag: string
-  selectedSkin: string
-  fastestTime: number
+  imageSrc: string
+  subtitle: string
+  title: string
 }
 
 export interface FeaturedApiChallenge {
@@ -25,6 +12,5 @@ export interface FeaturedApiChallenge {
 }
 
 export interface FeaturedApiResponse {
-  players: FeaturedApiPlayer[]
   challenges: FeaturedApiChallenge[]
 }

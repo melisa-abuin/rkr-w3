@@ -3,19 +3,35 @@ import type { ReactNode } from 'react'
 import LoaderCard from './components/loaderCard'
 import styles from './index.module.css'
 
+interface VerticalCardDisplayProps {
+  showLabelOnMobile?: boolean
+  transparent?: boolean
+  withDivider?: boolean
+}
+
+interface VerticalCardContentProps {
+  loading?: false
+  imageSrc: string
+  imageFallbackSrc: string
+  label: string
+  children?: ReactNode
+  circularImage?: boolean
+}
+
 type VerticalCardProps =
-  | { loading: true }
-  | {
-      loading?: false
-      imageSrc: string
-      imageFallbackSrc: string
-      label: string
-      children?: ReactNode
-      circularImage?: boolean
-    }
+  | ({ loading: true } & VerticalCardDisplayProps)
+  | (VerticalCardContentProps & VerticalCardDisplayProps)
 
 export default function VerticalCard(props: VerticalCardProps) {
-  if (props.loading) return <LoaderCard />
+  if (props.loading) {
+    return (
+      <LoaderCard
+        showLabelOnMobile={props.showLabelOnMobile}
+        transparent={props.transparent}
+        withDivider={props.withDivider}
+      />
+    )
+  }
 
   const {
     imageSrc,
@@ -23,10 +39,21 @@ export default function VerticalCard(props: VerticalCardProps) {
     label,
     children,
     circularImage = true,
+    showLabelOnMobile = false,
+    transparent = false,
+    withDivider = true,
   } = props
 
+  const className = [
+    styles.card,
+    showLabelOnMobile && styles.showLabelOnMobile,
+    transparent && styles.transparent,
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <div className={styles.card}>
+    <div className={className}>
       <Image
         colored
         alt={label}
@@ -37,7 +64,7 @@ export default function VerticalCard(props: VerticalCardProps) {
         src={imageSrc}
         width={52}
       />
-      <hr className={styles.divider} />
+      {withDivider && <hr className={styles.divider} />}
       <p className={styles.label}>{label}</p>
       {children}
     </div>

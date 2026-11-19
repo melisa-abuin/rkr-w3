@@ -6,6 +6,7 @@ import styles from './index.module.css'
 type TextareaProps = {
   id: string
   label?: string
+  maxLength?: number
   name: string
   onChange: ChangeEventHandler<HTMLTextAreaElement>
   onFocus?: FocusEventHandler<HTMLTextAreaElement>
@@ -17,6 +18,7 @@ type TextareaProps = {
 export default function Textarea({
   id,
   label,
+  maxLength,
   name,
   onChange,
   onFocus,
@@ -35,6 +37,7 @@ export default function Textarea({
         <textarea
           className={styles.textarea}
           id={id}
+          maxLength={maxLength}
           name={name}
           placeholder={placeholder}
           rows={rows}

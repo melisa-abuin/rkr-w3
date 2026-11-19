@@ -8,6 +8,7 @@ type InputProps = {
   id: string
   label?: string
   leftIcon?: ReactNode
+  maxLength?: number
   name: string
   onChange: ChangeEventHandler<HTMLInputElement>
   onCrossClick?: () => void
@@ -20,6 +21,7 @@ export default function Input({
   id,
   label,
   leftIcon,
+  maxLength,
   name,
   onChange,
   onCrossClick,
@@ -40,6 +42,7 @@ export default function Input({
           autoComplete="off"
           className={styles.input}
           id={id}
+          maxLength={maxLength}
           name={name}
           placeholder={placeholder}
           value={value}

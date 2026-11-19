@@ -54,6 +54,35 @@ describe('VerticalCard', () => {
     expect(container.querySelectorAll('p')).toHaveLength(1)
   })
 
+  it('marks the card to keep the label visible on mobile when requested', () => {
+    const { container } = render(
+      <VerticalCard {...defaultProps} showLabelOnMobile />,
+    )
+    expect(container.firstChild).toHaveClass('showLabelOnMobile')
+  })
+
+  it('does not render the divider when withDivider is false', () => {
+    const { container } = render(
+      <VerticalCard {...defaultProps} withDivider={false} />,
+    )
+    expect(container.querySelector('hr')).not.toBeInTheDocument()
+  })
+
+  it('applies the transparent background when requested', () => {
+    const { container } = render(<VerticalCard {...defaultProps} transparent />)
+    expect(container.firstChild).toHaveClass('transparent')
+  })
+
+  it('applies the transparent background to the loading card', () => {
+    const { container } = render(<VerticalCard loading transparent />)
+    expect(container.firstChild).toHaveClass('transparent')
+  })
+
+  it('does not render the divider on the loading card when withDivider is false', () => {
+    const { container } = render(<VerticalCard loading withDivider={false} />)
+    expect(container.querySelector('hr')).not.toBeInTheDocument()
+  })
+
   it('renders a divider between the image and the label', () => {
     const { container } = render(<VerticalCard {...defaultProps} />)
     expect(container.querySelector('hr')).toBeInTheDocument()
