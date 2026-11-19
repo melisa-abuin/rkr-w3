@@ -105,11 +105,14 @@ export default function Stats({
     }
   }
 
+  const effectiveSeason =
+    currentSeason || (currentApiUrl === 'breakdown' ? serverSeason : '') || ''
+
   const queryString = useMemo(() => {
     const params = new URLSearchParams()
     params.set('page', currentPage.toString())
     if (difficultyFilter) params.set('difficulty', difficultyFilter)
-    if (currentSeason) params.set('seasonId', currentSeason)
+    if (effectiveSeason) params.set('seasonId', effectiveSeason)
 
     const variant =
       statsPageVariants[currentApiUrl as VariantKey] ?? statsPageVariants.stats
@@ -130,16 +133,16 @@ export default function Stats({
     sortKey.key,
     sortKey.asc,
     currentApiUrl,
-    currentSeason,
+    effectiveSeason,
     debouncedQuery,
   ])
 
   const activeApiUrl = useMemo(() => {
     if (currentApiUrl === 'breakdown') {
-      return `${seasonScoreboardApi(Number(currentSeason) || 1)}?${queryString}`
+      return `${seasonScoreboardApi(Number(effectiveSeason) || 1)}?${queryString}`
     }
     return `${playerStatsApi}/${currentApiUrl}?${queryString}`
-  }, [currentApiUrl, currentSeason, queryString])
+  }, [currentApiUrl, effectiveSeason, queryString])
 
   const {
     data: queryData,
@@ -254,7 +257,7 @@ export default function Stats({
           <BreakdownTable
             {...commonTableProps}
             data={activeData as BreakdownTableProps['data']}
-            defaultSeasonValue={currentSeason || urlSeason}
+            defaultSeasonValue={effectiveSeason || urlSeason}
             handleSeasonChange={({ value }) => {
               setHasInteracted(true)
               setCurrentSeason(value)
